@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31605.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LRRando", "LRRando\LRRando.csproj", "{91BBD37E-CD3B-4730-BED6-6980518CFFAE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF270A9B-836B-4A20-AEEB-75FB22B51FF6} = {DF270A9B-836B-4A20-AEEB-75FB22B51FF6}
+		{E3C9BBB8-533F-4182-A442-CDB6C5EFAD08} = {E3C9BBB8-533F-4182-A442-CDB6C5EFAD08}
+		{0D428FC4-083F-485F-9B20-8F585E33F0C2} = {0D428FC4-083F-485F-9B20-8F585E33F0C2}
+		{CA351BEE-9851-47DA-9020-628D3CBDB764} = {CA351BEE-9851-47DA-9020-628D3CBDB764}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bartz24.RandoWPF", "RandoWPF\Bartz24.RandoWPF.csproj", "{CA351BEE-9851-47DA-9020-628D3CBDB764}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bartz24.Data", "Bartz24.Data\Bartz24.Data.csproj", "{DF270A9B-836B-4A20-AEEB-75FB22B51FF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bartz24.Docs", "Bartz24.Docs\Bartz24.Docs.csproj", "{0D428FC4-083F-485F-9B20-8F585E33F0C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bartz24.FF13_2_LR", "Bartz24.FF13_2_LR\Bartz24.FF13_2_LR.csproj", "{E3C9BBB8-533F-4182-A442-CDB6C5EFAD08}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF270A9B-836B-4A20-AEEB-75FB22B51FF6} = {DF270A9B-836B-4A20-AEEB-75FB22B51FF6}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91BBD37E-CD3B-4730-BED6-6980518CFFAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91BBD37E-CD3B-4730-BED6-6980518CFFAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91BBD37E-CD3B-4730-BED6-6980518CFFAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91BBD37E-CD3B-4730-BED6-6980518CFFAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA351BEE-9851-47DA-9020-628D3CBDB764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA351BEE-9851-47DA-9020-628D3CBDB764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA351BEE-9851-47DA-9020-628D3CBDB764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA351BEE-9851-47DA-9020-628D3CBDB764}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF270A9B-836B-4A20-AEEB-75FB22B51FF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF270A9B-836B-4A20-AEEB-75FB22B51FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF270A9B-836B-4A20-AEEB-75FB22B51FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF270A9B-836B-4A20-AEEB-75FB22B51FF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D428FC4-083F-485F-9B20-8F585E33F0C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D428FC4-083F-485F-9B20-8F585E33F0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D428FC4-083F-485F-9B20-8F585E33F0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D428FC4-083F-485F-9B20-8F585E33F0C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3C9BBB8-533F-4182-A442-CDB6C5EFAD08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3C9BBB8-533F-4182-A442-CDB6C5EFAD08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3C9BBB8-533F-4182-A442-CDB6C5EFAD08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3C9BBB8-533F-4182-A442-CDB6C5EFAD08}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {73AAF011-48A7-4604-8F52-05DA6110837F}
+	EndGlobalSection
+EndGlobal
