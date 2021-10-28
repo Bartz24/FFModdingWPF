@@ -41,28 +41,71 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            LRFlags.Other.Enemies.SetRand();
-            btScenes.Values.Where(b => b.name != "btsc05600").ForEach(b =>
+            if (LRFlags.Other.Enemies.FlagEnabled)
             {
-                List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Select(s => enemyData[s]).ToList();
-                if (oldEnemies.Count > 0)
+                LRFlags.Other.Enemies.SetRand();
+                btScenes.Values.Where(b => !IgnoredBtScenes.Contains(b.name)).ForEach(b =>
                 {
-                    List<EnemyData> newEnemies = new List<EnemyData>();
-                    foreach (EnemyData oldEnemy in oldEnemies)
+                    List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Select(s => enemyData[s]).ToList();
+                    int count = oldEnemies.Count;
+                    if (LRFlags.Other.EncounterSize.FlagEnabled && count > 0)
                     {
-                        EnemyData next = enemyData.Values.Where(e => e.Class == oldEnemy.Class).ToList().Shuffle().First();
-                        newEnemies.Add(next);
+                        count = RandomNum.RandInt(Math.Max(1, count - 2), Math.Min(10, count + 2));
+                        if (count > oldEnemies.Count)
+                        {
+                            for (int i = oldEnemies.Count; i < count; i++)
+                            {
+                                oldEnemies.Add(oldEnemies[RandomNum.RandInt(0, oldEnemies.Count - 1)]);
+                            }
+                        }
+                        if (count < oldEnemies.Count)
+                        {
+                            for (int i = oldEnemies.Count; i > count; i--)
+                            {
+                                oldEnemies.RemoveAt(RandomNum.RandInt(0, oldEnemies.Count - 1));
+                            }
+                        }
                     }
-                    List<string> charSpecs = newEnemies.Select(e => e.ID).ToList();
-                    newEnemies.Where(e => e.Parts.Count > 0).ForEach(e => charSpecs.AddRange(e.Parts));
-                    if (charSpecs.Count > newEnemies.Count)
-                        b.u4BtChInitSetNum = newEnemies.Count;
-                    else
-                        b.u4BtChInitSetNum = 0;
-                    b.SetCharSpecs(charSpecs);
-                }
-            });
-            RandomNum.ClearRand();
+                    if (count > 0)
+                    {
+                        List<EnemyData> newEnemies = new List<EnemyData>();
+                        List<string> charSpecs = new List<string>();
+                        while (charSpecs.Count == 0 || charSpecs.Count > 10)
+                        {
+                            newEnemies.Clear();
+                            foreach (EnemyData oldEnemy in oldEnemies)
+                            {
+                                EnemyData next = enemyData.Values.Where(e => LRFlags.Other.EnemiesSize.FlagEnabled && e.Class != "Omega" || e.Class == oldEnemy.Class).ToList().Shuffle().First();
+                                newEnemies.Add(next);
+                            }
+                            charSpecs = newEnemies.Select(e => e.ID).ToList();
+                            newEnemies.Where(e => e.Parts.Count > 0).ForEach(e => charSpecs.AddRange(e.Parts));
+                        }
+                        if (charSpecs.Count > newEnemies.Count)
+                            b.u4BtChInitSetNum = newEnemies.Count;
+                        else
+                            b.u4BtChInitSetNum = 0;
+                        b.SetCharSpecs(charSpecs);
+                    }
+                });
+                RandomNum.ClearRand();
+            }
+        }
+
+        private List<string> IgnoredBtScenes
+        {
+            get
+            {
+                List<string> list = new List<string>();
+
+                list.Add("btsc05600");
+                list.Add("btsc04901");
+                list.Add("btsc01960");
+                list.Add("btsc08600");
+                list.Add("btsc01040");
+
+                return list;
+            }
         }
 
         public override void Save()
@@ -82,7 +125,7 @@ namespace LRRando
                 ID = row[0];
                 Name = row[1];
                 Class = row[2];
-                Parts = row.Skip(3).ToList();
+                Parts = row.Skip(3).Where(s => !String.IsNullOrEmpty(s)).ToList();
             }
         }
     }

@@ -21,10 +21,10 @@ namespace Bartz24.RandoWPF
         }
 
         public void Randomize(int[] actual)
-        {            
-            while (Values.Vals.Min() == 0 && Values.Vals.Max() == 0 || Values.Vals.Max() < 0)
+        {
+            Tuple<int, int>[] modBounds = null;
+            while (modBounds == null || Enumerable.Range(0, Bounds.Length).Where(i => modBounds[i].Item1 != modBounds[i].Item2).Select(i => Values[i]).Max() < 0)
             {
-                Tuple<int, int>[] modBounds = null;
                 while (modBounds == null || (modBounds.Length > 1 && modBounds.Distinct().Count() == 1 && modBounds.First().Item1 == 0 && modBounds.First().Item2 == 0))
                 {
                     modBounds = Enumerable.Range(0, Bounds.Length).Select(i =>

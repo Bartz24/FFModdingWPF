@@ -34,8 +34,7 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            newSoundFiles.AddRange(soundFiles);
-            if (true/*Flags.Other.Music*/)
+            if (LRFlags.Other.Music.FlagEnabled)
             {
                 LRFlags.Other.Music.SetRand();
                 newSoundFiles = soundFiles.Shuffle().ToList();
@@ -51,7 +50,7 @@ namespace LRRando
         }*/
 
         public override void Save()
-        {
+        {            
             for (int i = 0; i < Math.Min(soundFiles.Count, newSoundFiles.Count); i++)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName($"{SetupData.OutputFolder}\\{newSoundFiles[i]}"));

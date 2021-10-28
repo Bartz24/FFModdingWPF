@@ -7,6 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <StackPanel Margin="40,10" VerticalAlignment="Center">
-    </StackPanel>
+    <ScrollViewer>
+        <StackPanel Margin="5,10">
+            <ListBox Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" PreviewMouseWheel="ListBox_PreviewMouseWheel" ItemsSource="{Binding FlagsList}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:FlagControl}">
+                        <local:FlagControl Flag="{Binding}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

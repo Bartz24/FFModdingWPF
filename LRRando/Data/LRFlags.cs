@@ -16,63 +16,122 @@ namespace LRRando
         }
         public class Other
         {
-            public static Flag Abilities;
-            public static Flag Enemies;
-            public static Flag Equip;
+            public static Flag EPAbilities, EPAbilitiesEscape;
+            public static Flag Enemies, EnemiesSize, EncounterSize;
+            public static Flag EquipStats, GarbAbilities, EquipPassives;
             public static Flag Music;
-            public static Flag Treasures;
+            public static Flag Treasures, Pilgrims, EPLearns;
             public static Flag Shops;
             public static Flag Quests;
 
             internal static void Init()
             {
-                Abilities = new Flag()
+                EquipStats = new Flag()
                 {
-                    Text = "Abilities",
-                    FlagID = "Abilities",
-                    DescriptionFormat = ""
+                    Text = "Randomize Equipment Stats",
+                    FlagID = "RandEqStat",
+                    DescriptionFormat = "Randomize Garb, Weapon, and Shield stats."
                 }.Register(FlagType.Other);
 
-                Enemies = new Flag()
+                GarbAbilities = new Flag()
                 {
-                    Text = "Enemies",
-                    FlagID = "Enemies",
-                    DescriptionFormat = ""
+                    Text = "Randomize Garb Abilities",
+                    FlagID = "RandGarbAbi",
+                    DescriptionFormat = "Randomize abilities locked to garbs."
                 }.Register(FlagType.Other);
 
-                Equip = new Flag()
+                EquipPassives = new Flag()
                 {
-                    Text = "Equip",
-                    FlagID = "Equip",
-                    DescriptionFormat = ""
+                    Text = "Randomize Equipment Passive Abilities",
+                    FlagID = "RandPassive",
+                    DescriptionFormat = "Randomize passive abilities on garbs, garb abilities, weapons, shields, and accessories."
                 }.Register(FlagType.Other);
 
-                Music = new Flag()
+                EPAbilities = new Flag()
                 {
-                    Text = "Music",
-                    FlagID = "Music",
-                    DescriptionFormat = ""
+                    Text = "Shuffle EP Abilities",
+                    FlagID = "EPAbi",
+                    DescriptionFormat = "Shuffles all EP abilities between each other except for Overclock and Escape (Escape requires the below flag)."
+                }.Register(FlagType.Other);
+
+                EPAbilitiesEscape = new Flag()
+                {
+                    Text = "Shuffle EP Abilities - Include Escape",
+                    FlagID = "EPAbiEsc",
+                    DescriptionFormat = "Requires 'Shuffle EP Abilities'\n" +
+                    "Escape will be included in randomization."
                 }.Register(FlagType.Other);
 
                 Treasures = new Flag()
                 {
-                    Text = "Treasures",
+                    Text = "Randomize Treasures, Quest Rewards, and Other Rewards",
                     FlagID = "Treasures",
-                    DescriptionFormat = ""
+                    DescriptionFormat = "Randomize Treasures, Quest Rewards, Non-repeatable Pickups, Soul seed rewards, Non-repeatable Item Appraisal rewards\n" +
+                    "Does not include key items"
+                }.Register(FlagType.Other);
+
+                Pilgrims = new Flag()
+                {
+                    Text = "Randomize Treasures, Quest Rewards, and Other Rewards - Include Pilgrim's Cruxes",
+                    FlagID = "Pilgrims",
+                    DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
+                    "Pilgrim's Cruxes will be included in the pool with treasures, quests, etc."
+                }.Register(FlagType.Other);
+
+                EPLearns = new Flag()
+                {
+                    Text = "Randomize Treasures, Quest Rewards, and Other Rewards - Include Learned EP Abilities",
+                    FlagID = "Pilgrims",
+                    DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
+                    "EP Abilities learned at the start of the game will be included in the pool with treasures, quests, etc.\n" +
+                    "This includes when Curaga, Escape, Chronostasis, and Teleport are normally learned."
                 }.Register(FlagType.Other);
 
                 Shops = new Flag()
                 {
-                    Text = "Shops",
+                    Text = "Randomize Shops",
                     FlagID = "Shops",
-                    DescriptionFormat = ""
+                    DescriptionFormat = "Randomize Shop contents.\n" +
+                    "Hard mode items are included."
                 }.Register(FlagType.Other);
 
                 Quests = new Flag()
                 {
-                    Text = "Quests",
+                    Text = "Randomize Quest Stat Rewards",
                     FlagID = "Quests",
-                    DescriptionFormat = ""
+                    DescriptionFormat = "Randomize stats rewarded by quests. Includes Strength, Magic, Max HP, Max EP, Max ATB, and Recovery Item Slots."
+                }.Register(FlagType.Other);
+
+                Enemies = new Flag()
+                {
+                    Text = "Randomize Enemy Locations",
+                    FlagID = "RandEne",
+                    DescriptionFormat = "Randomize normal enemies between each other."
+                }.Register(FlagType.Other);
+
+                EnemiesSize = new Flag()
+                {
+                    Text = "Randomize Enemy Locations - Between Any Size",
+                    FlagID = "RandEneSize",
+                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
+                    "If turned on, enemies of any size can replace another.\n" +
+                    "If turned off, enemies will be randomized with enemies of the same size. Humans are considered mid."
+                }.Register(FlagType.Other);
+
+                EncounterSize = new Flag()
+                {
+                    Text = "Randomize Encounter Size",
+                    FlagID = "RandEncCount",
+                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
+                    "If turned on, encounters with randomized enemies will be random in size up to +/- 2. A random enemy size will be selected from those already in the encounter.\n" +
+                    "If turned off, encounters will remain the same size."
+                }.Register(FlagType.Other);
+
+                Music = new Flag()
+                {
+                    Text = "Shuffle Music",
+                    FlagID = "Music",
+                    DescriptionFormat = "Shuffle music around."
                 }.Register(FlagType.Other);
             }
         }

@@ -12,7 +12,7 @@ namespace LRRando
 {
     public static class LRRandoExtensions
     {
-        public static void LoadDB3<T>(this DataStoreDB3<T> dataStoreDB3, string game, string relativePath, bool fromNova = true) where T : DataStoreDB3SubEntry
+        public static void LoadDB3<T>(this DataStoreDB3<T> dataStoreDB3, string game, string relativePath, bool fromNova = true) where T : DataStoreDB3SubEntry, new()
         {
             string outPath = SetupData.OutputFolder + relativePath;
             if (fromNova)
@@ -23,12 +23,12 @@ namespace LRRando
 
             dataStoreDB3.Load(game, outPath, SetupData.Paths["Nova"]);
         }
-        public static void SaveDB3<T>(this DataStoreDB3<T> dataStoreDB3, string relativePath) where T : DataStoreDB3SubEntry
+        public static void SaveDB3<T>(this DataStoreDB3<T> dataStoreDB3, string relativePath) where T : DataStoreDB3SubEntry, new()
         {
             string outPath = SetupData.OutputFolder + relativePath;
             dataStoreDB3.Save(outPath, SetupData.Paths["Nova"]);
         }
-        public static void DeleteDB3<T>(this DataStoreDB3<T> dataStoreDB3, string relativePath) where T : DataStoreDB3SubEntry
+        public static void DeleteDB3<T>(this DataStoreDB3<T> dataStoreDB3, string relativePath) where T : DataStoreDB3SubEntry, new()
         {
             string outPath = SetupData.OutputFolder + relativePath;
             File.Delete(outPath);

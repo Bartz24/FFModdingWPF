@@ -59,10 +59,11 @@ namespace LRRando
 
         public MainWindow()
         {
+            LRFlags.Init();
+            Flags.FlagsList.ForEach(f => f.FlagEnabled = true);
             InitializeComponent();
             this.DataContext = this;
             HideProgressBar();
-            LRFlags.Init();
             DataExtensions.Mode = ByteMode.BigEndian;
         }
 

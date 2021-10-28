@@ -16,9 +16,30 @@
     <materialDesign:DialogHost x:Name="RootDialog" DialogTheme="Inherit">
         <DockPanel>
             <DockPanel DockPanel.Dock="Bottom" Margin="10">
-                <TextBlock Margin="10" DockPanel.Dock="Right" Text="Version: 0.0.1"/>
+                <Button DockPanel.Dock="Right"
+                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                Style="{DynamicResource MaterialDesignOutlinedDarkButton}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="TextBoxOutline"/>
+                            <TextBlock>Changelog</TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.CommandParameter>
+                        <StackPanel Margin="16">
+                            <TextBlock>Lots of stuff. Except for how to easily make a changelog here.</TextBlock>
+                            <Button
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        IsCancel="True" 
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        HorizontalAlignment="Center"
+                        Content="Ok"/>
+                        </StackPanel>
+                    </Button.CommandParameter>
+                </Button>
+                <TextBlock Margin="10" DockPanel.Dock="Right" Text="Version: 0.0.2"/>
                 <StackPanel Visibility="{Binding ProgressBarVisible,Mode=TwoWay}">
-                    <TextBlock Text="{Binding ProgressBarText}"></TextBlock>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ProgressBarText}"></TextBlock>
                     <ProgressBar x:Name="progressBar" Value="{Binding ProgressBarValue}" IsIndeterminate="{Binding ProgressBarIndeterminate}"/>
                 </StackPanel>
             </DockPanel>
@@ -30,9 +51,7 @@
                     </rando:SetupPage>
                 </TabItem>
                 <TabItem Header="2. Flags">
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Label FontSize="18">WIP: UI is difficult to do so no options yet. Everything is randomized for now.</Label>                        
-                    </StackPanel>
+                    <rando:FlagsPage/>
                 </TabItem>
                 <TabItem Header="3. Finish">
                     <rando:FinishPage>

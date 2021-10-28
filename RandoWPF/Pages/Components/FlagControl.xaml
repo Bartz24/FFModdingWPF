@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Bartz24.RandoWPF.FlagControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bartz24.RandoWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <CheckBox x:Name="flagCheckbox" Grid.Row="0" Grid.Column="0" DataContext="{Binding Flag, RelativeSource={RelativeSource AncestorType=UserControl}}" IsChecked="{Binding FlagEnabled}"></CheckBox>
+            <TextBlock FontSize="15" VerticalAlignment="Center" Margin="5, 0, 50, 0" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" DataContext="{Binding Flag, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Text}"></TextBlock>
+            <TextBlock FontSize="12" TextWrapping="Wrap" Grid.Row="0" Grid.Column="2" DataContext="{Binding Flag, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Description}"></TextBlock>
+            <StackPanel Grid.Row="1" Grid.Column="2">
+            </StackPanel>
+        </Grid>
+        <Separator Margin="12" Grid.ColumnSpan="3" Grid.Row="2" Grid.Column="0"/>
+    </StackPanel>
+</UserControl>
+    

@@ -44,7 +44,8 @@ namespace Bartz24.RandoWPF.Data
 
         public string Text { get; set; }
 
-        public bool FlagEnabled { get; set; }
+        public bool FlagEnabled { get; 
+            set; }
         public string FlagID { get; set; }
 
         public string GetFlagString()

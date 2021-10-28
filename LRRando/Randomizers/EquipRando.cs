@@ -20,6 +20,8 @@ namespace LRRando
         public DataStoreDB3<DataStoreBtAutoAbility> autoAbilities = new DataStoreDB3<DataStoreBtAutoAbility>();
         public DataStoreDB3<DataStoreRItemAbi> itemAbilities = new DataStoreDB3<DataStoreRItemAbi>();
 
+        List<string> passives = new List<string>();
+
         public EquipRando(RandomizerManager randomizers) : base(randomizers) {  }
 
         public override string GetProgressMessage()
@@ -37,16 +39,32 @@ namespace LRRando
             items.LoadDB3("LR", @"\db\resident\item.wdb");
             autoAbilities.LoadDB3("LR", @"\db\resident\bt_auto_ability.wdb");
             itemAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
+            passives = File.ReadAllLines(@"data\passives.csv").ToList();
         }
         public override void Randomize(Action<int> progressSetter)
         {
             itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
-            LRFlags.Other.Equip.SetRand();
+            if (LRFlags.Other.EquipStats.FlagEnabled)
+            {
+                LRFlags.Other.EquipStats.SetRand();
+                RandomizeStats();
+                RandomNum.ClearRand();
+            }
 
-            RandomizeStats();
-            RandomizeAbilities();
+            if (LRFlags.Other.GarbAbilities.FlagEnabled)
+            {
+                LRFlags.Other.GarbAbilities.SetRand();
+                RandomizeAbilities();
+                RandomNum.ClearRand();
+            }
 
-            RandomNum.ClearRand();
+            if (LRFlags.Other.EquipPassives.FlagEnabled)
+            {
+                LRFlags.Other.EquipPassives.SetRand();
+                RandomizePassives();
+                RandomNum.ClearRand();
+            }
+
         }
 
         private void RandomizeAbilities()
@@ -82,13 +100,6 @@ namespace LRRando
                     items[name].sHelpStringId_string = "";
                     items[name].sScriptId_string = "";
                     items[name].u8MenuIcon = random.u8MenuIcon;
-                    if (RandomNum.RandInt(0, 99) < 15)
-                    {
-                        List<DataStoreBtAutoAbility> filteredAbilities = GetFilteredAbilities();
-                        itemAbilities[name].sPasvAbility_string = filteredAbilities.ElementAt(RandomNum.RandInt(0, filteredAbilities.Count - 1)).name;
-                    }
-                    else
-                        itemAbilities[name].sPasvAbility_string = "";
                 }
                 else
                 {
@@ -148,7 +159,7 @@ namespace LRRando
                         new Tuple<int, int>(-25, 50),
                         new Tuple<int, int>(-90, 100)
                     };
-                    float[] weights = new float[] { 2, 2, 3, 4, 4 };
+                    float[] weights = new float[] { 2, 2, 3, 6, 4 };
                     int[] zeros = new int[] { 10, 10, 85, 60, 80 };
                     statPoints = new StatPoints(bounds, weights, zeros);
                     statPoints.Randomize(new int[] { weapon.i16AttackModVal, weapon.i16MagicModVal, weapon.i16HpModVal, weapon.i16AtbSpeedModVal, weapon.iBreakBonus });
@@ -175,9 +186,9 @@ namespace LRRando
                     new Tuple<int, int>(-2000, 5000),
                     new Tuple<int, int>(-5000, 20000),
                     new Tuple<int, int>(-25, 50),
-                    new Tuple<int, int>(-100, 500)
+                    new Tuple<int, int>(0, 800)
                 };
-                float[] weights = new float[] { 6, 6, 2, 3, 4 };
+                float[] weights = new float[] { 6, 6, 2, 4, 4 };
                 int[] zeros = new int[] { 90, 90, 40, 30, 20 };
                 StatPoints statPoints = new StatPoints(bounds, weights, zeros);
                 statPoints.Randomize(new int[] { shield.i16AttackModVal, shield.i16MagicModVal, shield.i16HpModVal, shield.i16AtbSpeedModVal, shield.iGuardModVal });
@@ -191,6 +202,10 @@ namespace LRRando
                 shield.iGuardModVal = 300;
                 */
             }
+        }
+
+        private void RandomizePassives()
+        {
             List<DataStoreBtAutoAbility> filteredAbilities = GetFilteredAbilities();
             foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility_string != ""))
             {
@@ -206,11 +221,33 @@ namespace LRRando
                 IEnumerable<DataStoreBtAutoAbility> enumerable = filteredAbilities.Where(a => a.name != equip.sAbility_string && a.name != equip.sAbility2_string);
                 equip.sAbility3_string = enumerable.ElementAt(RandomNum.RandInt(0, enumerable.Count() - 1)).name;
             }
+
+            foreach (DataStoreItemWeapon garb in itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Costume))
+            {
+                RandomizeGarbPassive(garb.sCosAbilityCir_string);
+                RandomizeGarbPassive(garb.sCosAbilityCro_string);
+                RandomizeGarbPassive(garb.sCosAbilityTri_string);
+                RandomizeGarbPassive(garb.sCosAbilitySqu_string);
+            }
+        }
+
+        private void RandomizeGarbPassive(string name)
+        {
+            if (name.StartsWith("abi_"))
+            {
+                if (RandomNum.RandInt(0, 99) < 15)
+                {
+                    List<DataStoreBtAutoAbility> filteredAbilities = GetFilteredAbilities();
+                    itemAbilities[name].sPasvAbility_string = filteredAbilities.ElementAt(RandomNum.RandInt(0, filteredAbilities.Count - 1)).name;
+                }
+                else
+                    itemAbilities[name].sPasvAbility_string = "";
+            }
         }
 
         private List<DataStoreBtAutoAbility> GetFilteredAbilities()
         {
-            return autoAbilities.Values.Where(a => !a.name.StartsWith("shi_ba")).ToList();
+            return autoAbilities.Values.Where(a => passives.Contains(a.name)).ToList();
         }
 
         public override void Save()
