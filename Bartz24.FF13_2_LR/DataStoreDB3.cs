@@ -51,8 +51,8 @@ namespace Bartz24.FF13_2_LR
         }
         public T InsertCopy(string original, string newName, string after)
         {
-            Data.Values.Where(d => d.main_id > Data[after].main_id).ForEach(d => d.main_id++);
-            int entryId = EntryInfoList.Values.First(kp => kp.name == after).main_id;
+            int entryId = after == null ? Data.Values.Select(d => d.main_id).Min() - 1 : Data[after].main_id;
+            Data.Values.Where(d => d.main_id > entryId).ForEach(d => d.main_id++);
             EntryInfoList = EntryInfoList.ToDictionary(
                 kp => kp.Key <= entryId ? kp.Key : (kp.Key + 1),
                 kp =>
@@ -64,7 +64,7 @@ namespace Bartz24.FF13_2_LR
             T newData = new T();
             Data[original].CopyPropertiesTo(newData);
             newData.name = newName;
-            newData.main_id = Data[after].main_id + 1;
+            newData.main_id = entryId + 1;
             Add(newName, newData);
             DataStoreDB3EntryInfo entry = new DataStoreDB3EntryInfo();
             EntryInfoList[EntryInfoList.Keys.Max()].CopyPropertiesTo(entry);
@@ -73,6 +73,13 @@ namespace Bartz24.FF13_2_LR
             EntryInfoList.Add(entry.main_id, entry);
 
             return newData;
+        }
+        public T InsertCopyAlphabetical(string original, string newName)
+        {
+            List<string> names = Keys.ToList();
+            names.Add(newName);
+            names = names.OrderBy(s => s).ToList();
+            return InsertCopy(original, newName, names.IndexOf(newName) > 0 ? Data[names[names.IndexOf(newName) - 1]].name : null);
         }
 
 

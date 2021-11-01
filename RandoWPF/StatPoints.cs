@@ -23,9 +23,9 @@ namespace Bartz24.RandoWPF
         public void Randomize(int[] actual)
         {
             Tuple<int, int>[] modBounds = null;
-            while (modBounds == null || Enumerable.Range(0, Bounds.Length).Where(i => modBounds[i].Item1 != modBounds[i].Item2).Select(i => Values[i]).Max() < 0)
+            do
             {
-                while (modBounds == null || (modBounds.Length > 1 && modBounds.Distinct().Count() == 1 && modBounds.First().Item1 == 0 && modBounds.First().Item2 == 0))
+                do
                 {
                     modBounds = Enumerable.Range(0, Bounds.Length).Select(i =>
                     {
@@ -34,12 +34,12 @@ namespace Bartz24.RandoWPF
                         else
                             return new Tuple<int, int>((int)(Bounds[i].Item1 * Weights[i]), (int)(Bounds[i].Item2 * Weights[i]));
                     }).ToArray();
-                }
+                } while (modBounds.Length > 1 && modBounds.Distinct().Count() == 1 && modBounds.First().Item1 == 0 && modBounds.First().Item2 == 0);
 
                 int total = Enumerable.Range(0, Bounds.Length).Select(i =>
                 {
                     int val = (int)((actual[i] - Bounds[i].Item1) * Weights[i]);
-                    if (modBounds[i].Item1 == 0 && modBounds[i].Item1 == 0)
+                    if (modBounds[i].Item1 == 0 && modBounds[i].Item2 == 0)
                         val += (int)(Bounds[i].Item1 * Weights[i]);
                     return val;
                 }).Sum();
@@ -58,7 +58,7 @@ namespace Bartz24.RandoWPF
                 {
                     Values[i] = Math.Max(Math.Min(Values[i], Bounds[i].Item2), Bounds[i].Item1);
                 });
-            }
+            } while (Enumerable.Range(0, Bounds.Length).Where(i => modBounds[i].Item1 != modBounds[i].Item2).Select(i => Values[i]).Max() <= 0);
         }
         public int this[int i]
         {

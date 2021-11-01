@@ -255,6 +255,7 @@ namespace LRRando
             itemWeapons.SaveDB3(@"\db\resident\item_weapon.wdb");
             items.SaveDB3(@"\db\resident\item.wdb");
             itemAbilities.SaveDB3(@"\db\resident\_wdbpack.bin\r_item_abi.wdb");
+            SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_item_abi.wdb");
             autoAbilities.DeleteDB3(@"\db\resident\bt_auto_ability.db3");
         }
     }

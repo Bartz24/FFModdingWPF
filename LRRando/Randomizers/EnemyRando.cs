@@ -15,7 +15,7 @@ namespace LRRando
 {
     public class EnemyRando : Randomizer
     {
-        DataStoreDB3<DataStoreBtCharaSpec> enemies = new DataStoreDB3<DataStoreBtCharaSpec>();
+        public DataStoreDB3<DataStoreBtCharaSpec> enemies = new DataStoreDB3<DataStoreBtCharaSpec>();
 
         public EnemyRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -38,18 +38,13 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            LRFlags.Other.Enemies.SetRand();
-            enemies["pc000"].u24MaxHp = 9999;
-            enemies["pc000"].u12MaxAtb = 500;
-            enemies["pc000"].u16StatusStr = 500;
-            enemies["pc000"].u16StatusMgk = 500;
-            RandomNum.ClearRand();
         }
 
         public override void Save()
         {
-            string outPath = SetupData.OutputFolder + @"\db\resident\bt_chara_spec.wdb";
-            enemies.Save(outPath, SetupData.Paths["Nova"]);
+            //string outPath = SetupData.OutputFolder + @"\db\resident\bt_chara_spec.wdb";
+            //enemies.Save(outPath, SetupData.Paths["Nova"]);
+            enemies.DeleteDB3(@"\db\resident\bt_chara_spec.db3");
         }
     }
 }

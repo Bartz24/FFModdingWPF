@@ -31,6 +31,9 @@ namespace LRRando
         public override void Load()
         {
             //abilities.LoadDB3("LR", @"\db\resident\bt_ability.wdb");
+            TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
+            treasureRando.AddTreasure("ini_ba_abi", "", 1, "");
+            treasureRando.AddTreasure("ini_ca_abi", "", 1, "");
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -40,7 +43,7 @@ namespace LRRando
             {
                 LRFlags.Other.EPAbilities.SetRand();
 
-                IEnumerable<DataStoreRTreasurebox> keys = treasureRando.treasures.Values.Where(t => t.s11ItemResourceId_string.StartsWith("ti"));
+                IEnumerable<DataStoreRTreasurebox> keys = treasureRando.treasures.Values.Where(t => t.s11ItemResourceId_string.StartsWith("ti") || t.s11ItemResourceId_string == "at900_00");
                 if (!LRFlags.Other.EPAbilitiesEscape.FlagEnabled)
                     keys = keys.Where(t => t.s11ItemResourceId_string != "ti830_00");
 
@@ -52,6 +55,21 @@ namespace LRRando
 
                 RandomNum.ClearRand();
             }
+
+            LRFlags.Other.EPAbilities.SetRand();
+            RandomizeInitAbility("ini_ba_abi");
+            RandomizeInitAbility("ini_ca_abi");
+            RandomNum.ClearRand();
+        }
+
+        private void RandomizeInitAbility(string name)
+        {
+            TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
+            EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
+            IEnumerable<DataStoreItem> enumerable = equipRando.GetAbilities(name, -1).Where(a => a.name.EndsWith("_00"));
+            DataStoreItem random = enumerable.ElementAt(RandomNum.RandInt(0, enumerable.Count() - 1));
+
+            treasureRando.treasures[name].s11ItemResourceId_string = random.name;
         }
 
         public override void Save()

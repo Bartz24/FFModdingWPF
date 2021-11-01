@@ -17,7 +17,7 @@ namespace LRRando
         public class Other
         {
             public static Flag EPAbilities, EPAbilitiesEscape;
-            public static Flag Enemies, EnemiesSize, EncounterSize;
+            public static Flag Enemies, EnemiesSize, EncounterSize, Bosses, Ereshkigal, Prologue;
             public static Flag EquipStats, GarbAbilities, EquipPassives;
             public static Flag Music;
             public static Flag Treasures, Pilgrims, EPLearns;
@@ -116,6 +116,35 @@ namespace LRRando
                     DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
                     "If turned on, enemies of any size can replace another.\n" +
                     "If turned off, enemies will be randomized with enemies of the same size. Humans are considered mid."
+                }.Register(FlagType.Other);
+
+                Prologue = new Flag()
+                {
+                    Text = "Randomize Enemy Locations - Include Prologue Tutorial",
+                    FlagID = "RandProlo",
+                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
+                    "Prologue tutorial enemies will be included and randomized.\n" +
+                    "VERY HARD or IMPOSSIBLE.",
+                    Experimental = true
+                }.Register(FlagType.Other);
+
+                Bosses = new Flag()
+                {
+                    Text = "Shuffle Bosses",
+                    FlagID = "RandBoss",
+                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" + 
+                    "Shuffle the following bosses between each other:\n" +
+                    "Noel Kreiss, Snow Villiers, Caius Ballad, and Grendel.\n" +
+                    "Bosses that have + versions will be based on their new random boss of the old boss has + versions."
+                }.Register(FlagType.Other);
+
+                Ereshkigal = new Flag()
+                {
+                    Text = "Shuffle Bosses - Include Ereshkigal",
+                    FlagID = "RandEresh",
+                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
+                    "Requires 'Shuffle Bosses'\n" + 
+                    "Includes Ereshkigal in the pool. This boss will not scale (yet)."
                 }.Register(FlagType.Other);
 
                 EncounterSize = new Flag()

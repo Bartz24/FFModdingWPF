@@ -45,7 +45,9 @@ namespace LRRando
                 Dictionary<string, List<string>> shopsDict = new Dictionary<string, List<string>>();
                 shopsOrig.Values.ForEach(s => shopsDict.Add(s.name, s.GetItems().Where(i => s.u3Category == (int)ShopCategory.Inn || s.u3Category == (int)ShopCategory.Libra || i.StartsWith("e") && i.Length == 4).ToList()));
                 Dictionary<string, int> maxSizes = shopsDict.Keys.ToDictionary(k => k, k =>
-                    shopsDict[k].Count + RandomNum.RandInt(3, (shopsOrig[k].u3Category == (int)ShopCategory.Ark || shopsOrig[k].u3Category == (int)ShopCategory.Items ? 12 : 18) - shopsDict[k].Count)
+                    shopsDict[k].Count + RandomNum.RandInt(
+                        shopsOrig[k].u3Category == (int)ShopCategory.Ark || shopsOrig[k].u3Category == (int)ShopCategory.Items ? 1 : 3, 
+                        (shopsOrig[k].u3Category == (int)ShopCategory.Ark || shopsOrig[k].u3Category == (int)ShopCategory.Items ? 6 : 18) - shopsDict[k].Count)
                 );
 
                 foreach (string equip in treasureRando.RemainingEquip)
@@ -54,7 +56,7 @@ namespace LRRando
                     shopsDict[next].Add(equip);
                 }
                 List<string> possibleItems = new List<string>();
-                possibleItems.AddRange(treasureRando.RandomEquip.Where(i => !treasureRando.RemainingEquip.Contains(i)));
+                possibleItems.AddRange(treasureRando.RemainingEquip);
                 possibleItems.AddRange(GetItems());
                 foreach (string shop in shopsDict.Keys)
                 {

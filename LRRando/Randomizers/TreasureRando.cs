@@ -39,22 +39,21 @@ namespace LRRando
             treasures.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
             treasureData = File.ReadAllLines(@"data\treasures.csv").Select(s => s.Split(",")).ToDictionary(a => a[0], a => a[1].Split("|").ToList());
 
-            AddTreasure(treasuresOrig, "tre_ti000", "ti000_00", 1, "");
-            AddTreasure(treasuresOrig, "tre_ti810", "ti810_00", 1, "");
-            AddTreasure(treasuresOrig, "tre_ti830", "ti830_00", 1, "");
-            AddTreasure(treasuresOrig, "tre_ti840", "ti840_00", 1, "");
-            AddTreasure(treasures, "tre_ti000", "ti000_00", 1, "");
-            AddTreasure(treasures, "tre_ti810", "ti810_00", 1, "");
-            AddTreasure(treasures, "tre_ti830", "ti830_00", 1, "");
-            AddTreasure(treasures, "tre_ti840", "ti840_00", 1, "");
+            AddTreasure("tre_ti000", "ti000_00", 1, "");
+            AddTreasure("tre_ti810", "ti810_00", 1, "");
+            AddTreasure("tre_ti830", "ti830_00", 1, "");
+            AddTreasure("tre_ti840", "ti840_00", 1, "");
+        }
+
+        public void AddTreasure(string newName, string item, int count, string next)
+        {
+            AddTreasure(treasuresOrig, newName, item, count, next);
+            AddTreasure(treasures, newName, item, count, next);
         }
 
         private void AddTreasure(DataStoreDB3<DataStoreRTreasurebox> database, string newName, string item, int count, string next)
         {
-            List<string> names = database.Keys.ToList();
-            names.Add(newName);
-            names = names.OrderBy(s => s).ToList();
-            database.InsertCopy(database.Keys[0], newName, database[names[names.IndexOf(newName) - 1]].name);
+            database.InsertCopyAlphabetical(database.Keys[0], newName);
             database[newName].s11ItemResourceId_string = item;
             database[newName].s10NextTreasureBoxResourceId_string = next;
             database[newName].iItemCount = count;
@@ -64,6 +63,7 @@ namespace LRRando
         {
             EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
             ShopRando shopRando = randomizers.Get<ShopRando>("Shops");
+
             if (LRFlags.Other.Treasures.FlagEnabled)
             {
                 LRFlags.Other.Treasures.SetRand();
@@ -90,7 +90,7 @@ namespace LRRando
                 {
                     int val = isRequired(treasuresOrig[k].s11ItemResourceId_string) ? 2 : 0;
                     if (treasuresOrig[k].s11ItemResourceId_string.StartsWith("it") || treasuresOrig[k].s11ItemResourceId_string.StartsWith("ti"))
-                        val += 1;
+                        val += RandomNum.RandInt(0, 1);
                     return val;
                 }).ToList();
 
@@ -158,6 +158,7 @@ namespace LRRando
         public override void Save()
         {
             treasures.SaveDB3(@"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
+            SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_treasurebox.wdb");
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace Bartz24.Data
 {
@@ -92,6 +94,17 @@ namespace Bartz24.Data
         public static void UnpackWPD(string path, string novaPath)
         {
             RunCommand(novaPath, $"unpackwpd \"{Path.GetFullPath(path)}\"", false);
+        }
+
+        public static void CleanWPD(string path, List<string> allowed)
+        {
+            string folder = Path.GetDirectoryName(Path.GetFullPath(path)) + "\\_" + Path.GetFileName(Path.GetFullPath(path));
+            foreach (string f in Directory.GetFiles(folder))
+            {
+                if (allowed.Where(p => f.EndsWith(p)).Count() == 0)
+                    File.Delete(f);
+            }
+            File.Delete(Path.GetFullPath(path));
         }
 
         public static void RepackWPD(string path, string novaPath)

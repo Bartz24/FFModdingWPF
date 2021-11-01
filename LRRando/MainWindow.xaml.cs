@@ -60,7 +60,7 @@ namespace LRRando
         public MainWindow()
         {
             LRFlags.Init();
-            Flags.FlagsList.ForEach(f => f.FlagEnabled = true);
+            Flags.FlagsList.Where(f => !f.Experimental).ForEach(f => f.FlagEnabled = true);
             InitializeComponent();
             this.DataContext = this;
             HideProgressBar();
@@ -70,13 +70,13 @@ namespace LRRando
         private async void generateButton_Click(object sender, RoutedEventArgs e)
         {
             RandomizerManager randomizers = new RandomizerManager();
-            randomizers.Add(new EquipRando(randomizers));
             randomizers.Add(new TreasureRando(randomizers));
+            randomizers.Add(new EquipRando(randomizers));
             randomizers.Add(new ShopRando(randomizers));
             randomizers.Add(new AbilityRando(randomizers));
+            randomizers.Add(new EnemyRando(randomizers));
             randomizers.Add(new BattleRando(randomizers));
             randomizers.Add(new QuestRando(randomizers));
-            //randomizers.Add(new EnemyRando(randomizers));
             randomizers.Add(new MusicRando(randomizers));
 
             if (String.IsNullOrEmpty(SetupData.Paths["Nova"]) || !File.Exists(SetupData.Paths["Nova"]))
@@ -118,6 +118,8 @@ namespace LRRando
                     string wdbpackPath = Nova.GetNovaFile("LR", @"db\resident\wdbpack.bin", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
                     string wdbpackOutPath = SetupData.OutputFolder + @"\db\resident\wdbpack.bin";
                     FileExtensions.CopyFile(wdbpackPath, wdbpackOutPath);
+                    SetupData.WPDTracking.Clear();
+                    SetupData.WPDTracking.Add(wdbpackOutPath, new List<string>());
                     Nova.UnpackWPD(wdbpackOutPath, SetupData.Paths["Nova"]);
 
                     randomizers.ForEach(r => r.Load());
@@ -129,7 +131,7 @@ namespace LRRando
                     SetProgressBar("Saving Data...", -1);
                     randomizers.ForEach(r => r.Save());
 
-                    Nova.RepackWPD(wdbpackOutPath, SetupData.Paths["Nova"]);
+                    Nova.CleanWPD(wdbpackOutPath, SetupData.WPDTracking[wdbpackOutPath]);
 
                     SetProgressBar("Generating ModPack...", -1);
                     string zipName = $"packs\\LRRando_{seed}.ncmp";

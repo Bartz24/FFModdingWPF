@@ -105,6 +105,7 @@ namespace LRRando
         public override void Save()
         {
             questRewards.SaveDB3(@"\db\resident\_wdbpack.bin\r_quest.wdb");
+            SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_quest.wdb");
             TempSaveFix();
         }
 

@@ -13,6 +13,7 @@ namespace Bartz24.RandoWPF.Data
     {
         public static Dictionary<string, string> Paths = new Dictionary<string, string>();
         public static Dictionary<string, string> PathRegistrySearch = new Dictionary<string, string>();
+        public static Dictionary<string, List<string>> WPDTracking = new Dictionary<string, List<string>>();
 
         public static string PathFileName;
         public static string OutputFolder;
