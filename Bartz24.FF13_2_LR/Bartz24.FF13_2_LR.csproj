@@ -10,8 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.90" />
+    <PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.115" />
-    <PackageReference Include="Z.Dapper.Plus" Version="4.0.16" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,9 +3,9 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
+using System.Reflection;
 using Dapper;
 using System.Collections.Generic;
-using Z.Dapper.Plus;
 
 namespace Bartz24.FF13_2_LR
 {
@@ -21,16 +21,32 @@ namespace Bartz24.FF13_2_LR
 
         public static void Save<T>(string path, string tableName, Dictionary<int, T> data) where T : DataStoreDB3Entry
         {
-            DapperPlusManager.Entity<T>().Table(tableName).Key(t => t.main_id);
             using (IDbConnection con = CreateConnection(path))
             {
                 int maxId = con.Query<int>($"select max(main_id) from \"{tableName}\"").First();
                 List<T> insert = data.Where(p => p.Key > maxId).Select(p => p.Value).ToList();
                 List<T> update = data.Where(p => p.Key <= maxId).Select(p => p.Value).ToList();
-                con.BulkUpdate(update);
+                con.Execute(GetUpdateQuery<T>(tableName), update);
                 if (insert.Count > 0)
-                    con.BulkInsert(insert);
+                    con.Execute(GetInsertQuery<T>(tableName), insert);
             }
+        }
+
+        private static string GetUpdateQuery<T>(string tableName) where T : DataStoreDB3Entry
+        {
+            SqlBuilder builder = new SqlBuilder()
+                .Where("main_id = @main_id");
+            typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).ForEach(p =>
+            {
+                builder = builder.Set($"{p.Name} = @{p.Name}");
+            });
+            return builder.AddTemplate($"update \"{tableName}\" /**set**/ /**where**/").RawSql;
+        }
+
+        private static string GetInsertQuery<T>(string tableName) where T : DataStoreDB3Entry
+        {
+            List<string> names = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Select(p => p.Name).ToList();
+            return $"insert into \"{tableName}\"({string.Join(",", names)}) values ({string.Join(",", names.Select(s => "@" + s))})";
         }
 
         public static int GetStringArraySize(string path)
