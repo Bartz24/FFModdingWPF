@@ -135,7 +135,7 @@ namespace LRRando
                     DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" + 
                     "Shuffle the following bosses between each other:\n" +
                     "Noel Kreiss, Snow Villiers, Caius Ballad, and Grendel.\n" +
-                    "Bosses that have + versions will be based on their new random boss of the old boss has + versions."
+                    "Bosses that have + versions will be based on their new random boss of the old boss has + versions.\n"
                 }.Register(FlagType.Other);
 
                 Ereshkigal = new Flag()
@@ -144,7 +144,8 @@ namespace LRRando
                     FlagID = "RandEresh",
                     DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
                     "Requires 'Shuffle Bosses'\n" + 
-                    "Includes Ereshkigal in the pool. This boss will not scale (yet)."
+                    "Includes Ereshkigal in the pool. This boss scales down if randomized to a story boss.\n" +
+                    "Story bosses will scale up if replacing Ereshkigal."
                 }.Register(FlagType.Other);
 
                 EncounterSize = new Flag()
@@ -160,7 +161,8 @@ namespace LRRando
                 {
                     Text = "Shuffle Music",
                     FlagID = "Music",
-                    DescriptionFormat = "Shuffle music around."
+                    DescriptionFormat = "Shuffle music around.",
+                    Aesthetic = true
                 }.Register(FlagType.Other);
             }
         }

@@ -79,9 +79,9 @@ namespace LRRando
                     if (treasureData[k].Contains("Same"))
                         val = 0;
                     if (!treasureData[k].Contains("Missable"))
-                        val = 2;
+                        val = 1;
                     if (treasureData[k].Contains("Quest"))
-                        val += 1;
+                        val += 2;
                     return val;
                 }).ToList();
 

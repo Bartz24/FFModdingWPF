@@ -140,7 +140,12 @@ namespace LRRando
                 garb.i16AtbModVal = statPoints[0];
                 garb.i16AtbStartModVal = statPoints[1];
 
-                if(items.Keys.Contains(garb.name) && items[garb.name].uPurchasePrice == 0)
+                /*
+                garb.i16AtbModVal = 100;
+                garb.i16AtbStartModVal = 100;
+                */
+
+                if (items.Keys.Contains(garb.name) && items[garb.name].uPurchasePrice == 0)
                 {
                     items[garb.name].uPurchasePrice = 50000;
                 }
@@ -198,8 +203,9 @@ namespace LRRando
                 shield.i16HpModVal = statPoints[2];
                 shield.i16AtbSpeedModVal = statPoints[3];
                 shield.iGuardModVal = statPoints[4];
+
                 /*
-                shield.iGuardModVal = 300;
+                shield.iGuardModVal = 3000;
                 */
             }
         }

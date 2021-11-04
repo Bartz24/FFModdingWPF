@@ -78,6 +78,7 @@ namespace LRRando
             randomizers.Add(new BattleRando(randomizers));
             randomizers.Add(new QuestRando(randomizers));
             randomizers.Add(new MusicRando(randomizers));
+            randomizers.Add(new TextRando(randomizers));
 
             if (String.IsNullOrEmpty(SetupData.Paths["Nova"]) || !File.Exists(SetupData.Paths["Nova"]))
             {

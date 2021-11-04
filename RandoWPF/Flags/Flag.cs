@@ -25,7 +25,7 @@ namespace Bartz24.RandoWPF.Data
         public int FlagType { get; set; }
 
         public bool Experimental { get; set; }
-
+        public bool Aesthetic { get; set; }
         public string DescriptionFormat { get; set; } = "";
         public string Description
         {

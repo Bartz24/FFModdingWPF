@@ -18,7 +18,7 @@ namespace LRRando
         DataStoreDB3<DataStoreBtScene> btScenes = new DataStoreDB3<DataStoreBtScene>();
         DataStoreDB3<DataStoreRCharaSet> charaSets = new DataStoreDB3<DataStoreRCharaSet>();
         Dictionary<string, EnemyData> enemyData = new Dictionary<string, EnemyData>();
-        List<List<string>> bossData = new List<List<string>>();
+        Dictionary<string, Dictionary<int, BossData>> bossData = new Dictionary<string, Dictionary<int, BossData>>();
 
         public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
 
@@ -41,7 +41,7 @@ namespace LRRando
             charaSets.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
             enemyData = File.ReadAllLines(@"data\enemies.csv").Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);
-            bossData = File.ReadAllLines(@"data\bosses.csv").Select(s => s.Split(",").Where(s2 => !string.IsNullOrEmpty(s2)).ToList()).ToList();
+            bossData = File.ReadAllLines(@"data\bosses.csv").Select(s => new BossData(s.Split(","))).GroupBy(b => b.Group).ToDictionary(p => p.Key, p => p.ToDictionary(b => b.Tier, b => b));
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -49,12 +49,12 @@ namespace LRRando
             if (LRFlags.Other.Enemies.FlagEnabled)
             {
                 LRFlags.Other.Enemies.SetRand();
-                Dictionary<int, int> shuffledBosses = new Dictionary<int, int>();
+                Dictionary<string, string> shuffledBosses = new Dictionary<string, string>();
                 if (LRFlags.Other.Bosses.FlagEnabled)
                 {
-                    List<int> list = Enumerable.Range(0, bossData.Count).Where(i => bossData[i][0] != "m370" || LRFlags.Other.Ereshkigal.FlagEnabled).ToList();
-                    List<int> shuffled = list.Shuffle().ToList();
-                    shuffledBosses = Enumerable.Range(0, bossData.Count).ToDictionary(i => i, i => list.Contains(i) ? shuffled[list.IndexOf(i)] : i);
+                    List<string> list = bossData.Keys.Where(k => k != "Ereshkigal" || LRFlags.Other.Ereshkigal.FlagEnabled).ToList();
+                    List<string> shuffled = list.Shuffle().ToList();
+                    shuffledBosses = Enumerable.Range(0, list.Count).ToDictionary(i => list[i], i => shuffled[i]);
                 }
                 btScenes.Values.Where(b => !IgnoredBtScenes.Contains(b.name)).ForEach(b =>
                 {
@@ -85,20 +85,27 @@ namespace LRRando
                         {
                             List<EnemyData> newEnemies = new List<EnemyData>();
                             List<string> charSpecs = new List<string>();
-                            GetEnemiesList(oldEnemies, newEnemies, charSpecs, shuffledBosses);
-                            if (charSpecs.Count > newEnemies.Count)
-                                b.u4BtChInitSetNum = newEnemies.Count;
+                            if (b.name == "btsc02902")
+                                UpdateEnemyLists(oldEnemies, newEnemies, charSpecs, shuffledBosses, enemyData.Values.Where(e => e.Parts.Count == 0 && e.Class == "Small").ToList());
                             else
-                                b.u4BtChInitSetNum = 0;
-                            b.SetCharSpecs(charSpecs);
-                            if (CharaSetMapping.ContainsKey(b.name))
+                                UpdateEnemyLists(oldEnemies, newEnemies, charSpecs, shuffledBosses, enemyData.Values.ToList());
+
+                            if (newEnemies.Count > 0)
                             {
-                                CharaSetMapping[b.name].ForEach(m =>
+                                if (charSpecs.Count > newEnemies.Sum(e => e.Size))
+                                    b.u4BtChInitSetNum = newEnemies.Sum(e => e.Size);
+                                else
+                                    b.u4BtChInitSetNum = 0;
+                                b.SetCharSpecs(charSpecs);
+                                if (CharaSetMapping.ContainsKey(b.name))
                                 {
-                                    List<string> specs = charaSets[m].GetCharaSpecs();
-                                    specs.AddRange(charSpecs.Where(s => !specs.Contains(s)).Select(s => enemyRando.enemies[s].sCharaSpec_string));
-                                    charaSets[m].SetCharaSpecs(specs);
-                                });
+                                    CharaSetMapping[b.name].ForEach(m =>
+                                    {
+                                        List<string> specs = charaSets[m].GetCharaSpecs();
+                                        specs.AddRange(charSpecs.Where(s => !specs.Contains(s)).Select(s => enemyRando.enemies[s].sCharaSpec_string));
+                                        charaSets[m].SetCharaSpecs(specs);
+                                    });
+                                }
                             }
                         }
                     }
@@ -107,30 +114,52 @@ namespace LRRando
             }
         }
 
-        private void GetEnemiesList(List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, Dictionary<int, int> shuffledBosses)
+        private void UpdateEnemyLists(List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, Dictionary<string, string> shuffledBosses, List<EnemyData> allowed)
         {
+            TextRando textRando = randomizers.Get<TextRando>("Text");
             newEnemies.Clear();
             charSpecs.Clear();
             if (oldEnemies[0].Class == "Boss")
             {
-                int typeIndex = Enumerable.Range(0, bossData.Count).Where(i => bossData[i].Contains(oldEnemies[0].ID)).First();
-                int tierIndex = bossData[typeIndex].IndexOf(oldEnemies[0].ID);
+                BossData oldBoss = bossData.Values.SelectMany(d => d.Values).First(b => b.ID == oldEnemies[0].ID && b.ScoreID != "");
+                string group = oldBoss.Group;
+                if (!shuffledBosses.ContainsKey(group))
+                    return;
 
-                int newTypeIndex = shuffledBosses[typeIndex];
-                if (tierIndex == bossData[typeIndex].Count - 1)
+                int tierIndex = oldBoss.Tier;
+                string newGroup = shuffledBosses[group];
+
+                BossData newBoss;
+                if (tierIndex >= 3)
                 {
-                    newEnemies.Add(enemyData[bossData[newTypeIndex][bossData[newTypeIndex].Count - 1]]);
+                    newBoss = bossData[newGroup][tierIndex];
                 }
-                else if (tierIndex == 0)
+                else if (tierIndex == 1)
                 {
-                    newEnemies.Add(enemyData[bossData[newTypeIndex][0]]);
+                    newBoss = bossData[newGroup][bossData[newGroup].Keys.Min()];
                 }
                 else
                 {
-                    int fromTop = bossData[typeIndex].Count - tierIndex - 1;
-                    newEnemies.Add(enemyData[bossData[newTypeIndex][Math.Max(Math.Min(bossData[newTypeIndex].Count - 1, 1), bossData[newTypeIndex].Count - 1 - fromTop)]]);
+                    List<int> tiers = bossData[newGroup].Keys.Where(i => i <= 3).ToList();
+                    int fromTop = tiers.Max() - tiers.IndexOf(tierIndex) - 1;
+                    int newTier = tiers[Math.Max(Math.Min(tiers.Count - fromTop, 1), tiers.Count - 1)];
+                    newBoss = bossData[newGroup][newTier];
                 }
+                textRando.sysUS[oldBoss.ScoreID] = newBoss.Name;
+                textRando.sysUS[newBoss.NameID] = newBoss.Name;
+                newEnemies.Add(enemyData[newBoss.ID]);
                 charSpecs.AddRange(newEnemies.Select(e => e.ID));
+                // No Score ID means new stats
+                if (newBoss.ScoreID == "")
+                {
+                    charSpecs.ForEach(s =>
+                    {
+                        Directory.GetFiles(@"data\bosses").Where(f => Path.GetFileName(f).StartsWith(s)).ForEach(f =>
+                        {
+                            FileExtensions.CopyFile(f, SetupData.OutputFolder + @"\db\resident\_bt_chara_spec.wdb\" + Path.GetFileName(f), true);
+                        });
+                    });
+                }
             }
             else
             {
@@ -140,13 +169,14 @@ namespace LRRando
                     newEnemies.Clear();
                     foreach (EnemyData oldEnemy in oldEnemies)
                     {
-                        EnemyData next = enemyData.Values.Where(e => LRFlags.Other.EnemiesSize.FlagEnabled
+                        EnemyData next = allowed.Where(e => LRFlags.Other.EnemiesSize.FlagEnabled
                             && oldEnemy.Class != "Omega"
                             && oldEnemy.Class != "Boss"
                             && e.Class != "Omega"
                             && e.Class != "Boss"
-                            || e.Class == oldEnemy.Class).Where(e =>
-                            !e.ID.EndsWith("tuto") || LRFlags.Other.Prologue.FlagEnabled).ToList().Shuffle().First();
+                            || e.Class == oldEnemy.Class)
+                            .Where(e => !e.ID.EndsWith("tuto") || LRFlags.Other.Prologue.FlagEnabled)
+                            .ToList().Shuffle().First();
                         newEnemies.Add(next);
                     }
                     charSpecs.AddRange(newEnemies.Select(e => e.ID));
@@ -167,6 +197,7 @@ namespace LRRando
                 //list.Add("btsc08600");
                 //list.Add("btsc08601");
                 list.Add("btsc02953");
+                list.Add("btsc02902");
                 //list.Add("btsc01040");
 
                 return list;
@@ -225,13 +256,33 @@ namespace LRRando
             public string ID { get; set; }
             public string Name { get; set; }
             public string Class { get; set; }
+            public int Size { get; set; }
             public List<string> Parts { get; set; }
             public EnemyData(string[] row)
             {
                 ID = row[0];
                 Name = row[1];
                 Class = row[2];
-                Parts = row.Skip(3).Where(s => !String.IsNullOrEmpty(s)).ToList();
+                Size = int.Parse(row[3]);
+                Parts = row.Skip(4).Where(s => !String.IsNullOrEmpty(s)).ToList();
+            }
+        }
+        public class BossData
+        {
+            public string Group { get; set; }
+            public int Tier { get; set; }
+            public string ID { get; set; }
+            public string NameID { get; set; }
+            public string ScoreID { get; set; }
+            public string Name { get; set; }
+            public BossData(string[] row)
+            {
+                Group = row[0];
+                Tier = int.Parse(row[1]);
+                ID = row[2];
+                NameID = row[3];
+                ScoreID = row[4];
+                Name = row[5];
             }
         }
     }

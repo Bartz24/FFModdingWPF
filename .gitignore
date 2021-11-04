@@ -27,7 +27,9 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-[Bb]in/
+[Bb]in/Debug
+[Bb]in/publish
+[Bb]in/Release
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
@@ -386,3 +388,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+!bin/Debug/*/data/

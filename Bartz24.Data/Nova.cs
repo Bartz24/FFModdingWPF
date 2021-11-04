@@ -113,6 +113,19 @@ namespace Bartz24.Data
             Directory.Delete($"{Path.GetDirectoryName(Path.GetFullPath(path))}\\_{Path.GetFileName(Path.GetFullPath(path))}", true);
         }
 
+        public static void UnpackZTR(string path, string novaPath)
+        {
+            RunCommand(novaPath, $"unpackztr \"{Path.GetFullPath(path)}\"", false);
+        }
+
+        public static void InjectZTR(string game, string path, string novaPath)
+        {
+            string gameIndex = GetGameIndex(game);
+            string pathTxt = Path.GetDirectoryName(Path.GetFullPath(path)) + "\\" + Path.GetFileNameWithoutExtension(path) + ".txt";
+            RunCommand(novaPath, $"injectztr \"{Path.GetFullPath(path)}\" \"{pathTxt}\" {gameIndex}", false);
+            File.Delete(pathTxt);
+        }
+
         private static string GetGameIndex(string game)
         {
             switch (game)

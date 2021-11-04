@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bartz24.RandoWPF.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -100,6 +101,27 @@ namespace Bartz24.RandoWPF
                 byte[] bytes = Encoding.UTF8.GetBytes(seed.Trim());
                 return (int)bytes.Sum(b => (int)Math.Pow(b + bytes[b % bytes.Length], 2.4)) * (int)bytes.Length - (int)bytes.Length;
             }
+        }
+
+        public static string GetHash(int length)
+        {
+            int sum = 0;
+            foreach (Flag flag in Flags.FlagsList)
+            {
+                if (!flag.Aesthetic)
+                {
+                    flag.SetRand();
+                    sum = (sum + RandomNum.RandInt(0, 1000000)) % 10000000;
+                    ClearRand();
+                }
+            }
+            Random random = new Random(sum);
+            string s = "";
+            for (int i = 0; i < length; i++)
+            {
+                s += random.Next(0, 9).ToString();
+            }
+            return s;
         }
     }
 }
