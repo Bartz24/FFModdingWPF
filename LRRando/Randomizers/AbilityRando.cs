@@ -15,7 +15,7 @@ namespace LRRando
 {
     public class AbilityRando : Randomizer
     {
-        DataStoreDB3<DataStoreBtAbility> abilities = new DataStoreDB3<DataStoreBtAbility>();
+        public DataStoreDB3<DataStoreBtAbility> abilities = new DataStoreDB3<DataStoreBtAbility>();
 
         public AbilityRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -30,7 +30,7 @@ namespace LRRando
 
         public override void Load()
         {
-            //abilities.LoadDB3("LR", @"\db\resident\bt_ability.wdb");
+            abilities.LoadDB3("LR", @"\db\resident\bt_ability.wdb");
             TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
             treasureRando.AddTreasure("ini_ba_abi", "", 1, "");
             treasureRando.AddTreasure("ini_ca_abi", "", 1, "");
@@ -75,6 +75,7 @@ namespace LRRando
         public override void Save()
         {
             //abilities.SaveDB3(@"\db\resident\bt_ability.wdb");
+            abilities.DeleteDB3(@"\db\resident\bt_ability.db3");
         }
     }
 }

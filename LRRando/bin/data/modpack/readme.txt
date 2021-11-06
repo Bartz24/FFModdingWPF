@@ -3,7 +3,7 @@ Lightning Returns Randomizer
 Mod Created By:	Bartz24
 Special Thanks:	Krisan Thyme (Nova and tools making this possible), FF13 Modding and Speedrunning communities for testing, D_Winds for detailed setup instructions
 =================================================================
-Version: 0.0.4
+Version: 0.1.0
 =================================================================
 
 Description:
@@ -12,6 +12,7 @@ This mod overhauls the game with randomly generated data.
 =================================================================
 
 Changelog:
+0.1.0		- The start of key item rando.
 0.0.4		- Fix Caius, boss scaling, text changes.
 0.0.3		- Fix dapper plus, boss rando, fixes.
 0.0.2		- Fixes, flags, and new settings.

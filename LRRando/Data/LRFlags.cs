@@ -20,7 +20,7 @@ namespace LRRando
             public static Flag Enemies, EnemiesSize, EncounterSize, Bosses, Ereshkigal, Prologue;
             public static Flag EquipStats, GarbAbilities, EquipPassives;
             public static Flag Music;
-            public static Flag Treasures, Pilgrims, EPLearns;
+            public static Flag Treasures, Pilgrims, EPLearns, Key;
             public static Flag Shops;
             public static Flag Quests;
 
@@ -75,7 +75,19 @@ namespace LRRando
                     Text = "Randomize Treasures, Quest Rewards, and Other Rewards - Include Pilgrim's Cruxes",
                     FlagID = "Pilgrims",
                     DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
-                    "Pilgrim's Cruxes will be included in the pool with treasures, quests, etc."
+                    "Pilgrim's Cruxes will be included in the pool with treasures, quests, etc.\n" +
+                    "Pilgrim's Cruxes will not appear in missable locations or from Day 10 and later."
+                }.Register(FlagType.Other);
+
+                Key = new Flag()
+                {
+                    Text = "Randomize Treasures, Quest Rewards, and Other Rewards - Include Key Items",
+                    FlagID = "Key",
+                    DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
+                    "Key items will not appear in missable locations or from Day 10 and later.\n" +
+                    "The following key items will be included in the pool:\n" +
+                    "Fragment of Mischief, Fragment of Smiles, Moogle Fragment, ID Card, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Crest of Etro, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe",
+                    Experimental = true
                 }.Register(FlagType.Other);
 
                 EPLearns = new Flag()

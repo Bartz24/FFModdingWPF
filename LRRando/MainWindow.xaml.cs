@@ -1,4 +1,5 @@
 ﻿using Bartz24.Data;
+using Bartz24.Docs;
 using Bartz24.RandoWPF;
 using Bartz24.RandoWPF.Data;
 using System;
@@ -134,17 +135,42 @@ namespace LRRando
 
                     Nova.CleanWPD(wdbpackOutPath, SetupData.WPDTracking[wdbpackOutPath]);
 
-                    SetProgressBar("Generating ModPack...", -1);
-                    string zipName = $"packs\\LRRando_{seed}.ncmp";
-                    if (File.Exists(zipName))
-                        File.Delete(zipName);
-                    if (!Directory.Exists("packs"))
-                        Directory.CreateDirectory("packs");
-                    ZipFile.CreateFromDirectory(outFolder, zipName);
+                    SetProgressBar("Generating ModPack and documentation...", -1);
+                    Task taskModpack = new Task(() => {
+                        string zipName = $"packs\\LRRando_{seed}.ncmp";
+                        if (File.Exists(zipName))
+                            File.Delete(zipName);
+                        if (!Directory.Exists("packs"))
+                            Directory.CreateDirectory("packs");
+                        ZipFile.CreateFromDirectory(outFolder, zipName);
 
-                    Directory.Delete(outFolder, true);
+                        Directory.Delete(outFolder, true);
+                    });
+                    Task taskDocs = new Task(() => {
+                        Docs docs = new Docs();
+                        docs.Settings.Name = "LR FF13 Randomizer";
+                        for (int i = 0; i < randomizers.Count; i++)
+                        {
+                            HTMLPage page = randomizers[i].GetDocumentation();
+                            if (page != null)
+                            {
+                                docs.AddPage(randomizers[i].GetID().ToLower(), page);
+                            }
+                        }
 
-                    SetProgressBar($"Complete! Ready to install in Nova Chrysalia! The modpack 'LRRando_{seed}.ncmp' has been generated in the packs folder of this application.", 100);
+                        docs.Generate(@"packs\docs_latest", @"data\docs\template");
+                        string zipDocsName = $"packs\\LRRando_{seed}_Docs.zip";
+                        if (File.Exists(zipDocsName))
+                            File.Delete(zipDocsName);
+                        ZipFile.CreateFromDirectory(@"packs\docs_latest", zipDocsName);
+                    });
+                    taskModpack.Start();
+                    taskDocs.Start();
+                    Task.WaitAll(taskModpack, taskDocs);
+
+                    SetProgressBar("Generating Documentation...", -1);
+
+                    SetProgressBar($"Complete! Ready to install in Nova Chrysalia! The modpack 'LRRando_{seed}.ncmp' and documentation have been generated in the packs folder of this application.", 100);
                 });
                 this.IsEnabled = true;
             }
