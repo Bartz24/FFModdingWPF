@@ -8,14 +8,14 @@ namespace Bartz24.Data
 {
     public class Nova
     {
-        public static string GetNovaFile(string game, string path, string novaPath, string gamePath)
+        public static string GetNovaFile(string game, string path, string novaPath, string gamePath, bool allowNull = false)
         {
             string filePath = GetFromBackup(game, path, novaPath);
             if (filePath != null)
                 return filePath;
 
             filePath = GetFromUnpacked(game, path, gamePath);
-            if (filePath == null)
+            if (filePath == null && !allowNull)
             {
                 throw new FileNotFoundException("Game file missing: " + path + "\nYou may need to Delete Unpacked Game Data and then Unpack Game Data in Nova again.");
             }

@@ -15,7 +15,7 @@ namespace LRRando
         public static void LoadDB3<T>(this DataStoreDB3<T> dataStoreDB3, string game, string relativePath, bool fromNovaOnly = true) where T : DataStoreDB3SubEntry, new()
         {
             string outPath = SetupData.OutputFolder + relativePath;
-            string path = Nova.GetNovaFile(game, relativePath, SetupData.Paths["Nova"], SetupData.Paths[game]);
+            string path = Nova.GetNovaFile(game, relativePath, SetupData.Paths["Nova"], SetupData.Paths[game], !fromNovaOnly);
             if (fromNovaOnly || File.Exists(path))
             {
                 FileExtensions.CopyFile(path, outPath, true);

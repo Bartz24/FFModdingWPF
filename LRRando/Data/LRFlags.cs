@@ -95,7 +95,7 @@ namespace LRRando
                     Text = "Randomize Treasures, Quest Rewards, and Other Rewards - Allow Key Items in CoP and Grindy Locations",
                     FlagID = "CoP",
                     DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
-                    "Key items will not appear in NON-GLOBAL Canvas of Prayers or 40+ Soul Seeds rewards.\n" +
+                    "Key items will be allowed to appear in NON-GLOBAL Canvas of Prayers and 40+ Soul Seeds rewards.\n" +
                     "Works for all key items including Pilgrim's Cruxes and all the key items in the above flag.",
                     Experimental = true
                 }.Register(FlagType.Other);
