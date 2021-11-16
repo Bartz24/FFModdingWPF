@@ -36,7 +36,38 @@ namespace LRRando
             shops.LoadDB3("LR", @"\db\resident\shop.wdb");
 
             EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
-            equipRando.items.Values.Where(i => i.name.StartsWith("mat_z")).ForEach(i => i.uPurchasePrice = 100000);
+            equipRando.items["mat_z_000"].uPurchasePrice = 1100;
+            equipRando.items["mat_z_001"].uPurchasePrice = 2700;
+            equipRando.items["mat_z_002"].uPurchasePrice = 1100;
+            equipRando.items["mat_z_003"].uPurchasePrice = 1200;
+            equipRando.items["mat_z_004"].uPurchasePrice = 3000;
+            equipRando.items["mat_z_007"].uPurchasePrice = 2200;
+            equipRando.items["mat_z_008"].uPurchasePrice = 3600;
+            equipRando.items["mat_z_009"].uPurchasePrice = 1900;
+            equipRando.items["mat_z_010"].uPurchasePrice = 4200;
+            equipRando.items["mat_z_011"].uPurchasePrice = 3800;
+            equipRando.items["mat_z_012"].uPurchasePrice = 3000;
+            equipRando.items["mat_z_013"].uPurchasePrice = 3800;
+            equipRando.items["mat_z_014"].uPurchasePrice = 9400;
+            equipRando.items["mat_z_015"].uPurchasePrice = 3000;
+            equipRando.items["mat_z_016"].uPurchasePrice = 5000;
+            equipRando.items["mat_z_017"].uPurchasePrice = 2300;
+            equipRando.items["mat_z_018"].uPurchasePrice = 5800;
+            equipRando.items["mat_z_019"].uPurchasePrice = 3800;
+            equipRando.items["mat_z_020"].uPurchasePrice = 3800;
+            equipRando.items["mat_z_021"].uPurchasePrice = 4200;
+            equipRando.items["mat_z_022"].uPurchasePrice = 5800;
+            equipRando.items["mat_z_024"].uPurchasePrice = 12500;
+            equipRando.items["mat_z_028"].uPurchasePrice = 12500;
+            equipRando.items["mat_z_029"].uPurchasePrice = 12500;
+            equipRando.items["mat_z_030"].uPurchasePrice = 12500;
+            equipRando.items["mat_z_031"].uPurchasePrice = 8300;
+            equipRando.items["mat_z_032"].uPurchasePrice = 7500;
+            equipRando.items["mat_z_033"].uPurchasePrice = 6800;
+            equipRando.items["mat_z_035"].uPurchasePrice = 12500;
+            equipRando.items["mat_z_036"].uPurchasePrice = 12500;
+            equipRando.items["mat_z_044"].uPurchasePrice = 12500;
+            equipRando.items["mat_z_045"].uPurchasePrice = 5800;
 
         }
         public override void Randomize(Action<int> progressSetter)
@@ -181,16 +212,16 @@ namespace LRRando
             shops.Values.Where(s => s.u3Category == (int)ShopCategory.Ark || s.u3Category == (int)ShopCategory.Forge || s.u3Category == (int)ShopCategory.Items || s.u3Category == (int)ShopCategory.Libra || s.u3Category == (int)ShopCategory.Outfitters).ForEach(shop =>
              {
 
-                 page.HTMLElements.Add(new Table($"{textRando.sysUS[shop.sShopNameLabel_string]} - Day {shop.u4Day} - ?", new string[] { "New Contents" }.ToList(), new int[] { 100 }.ToList(), shop.GetItems().Select(itemID =>
+                 page.HTMLElements.Add(new Table($"{textRando.mainSysUS[shop.sShopNameLabel_string]} - Day {shop.u4Day} - ?", new string[] { "New Contents" }.ToList(), new int[] { 100 }.ToList(), shop.GetItems().Select(itemID =>
                  {
                      string name;
                      if (itemID == "")
                          name = "Gil";
                      else if (abilityRando.abilities.Keys.Contains(itemID))
-                         name = textRando.sysUS[abilityRando.abilities[itemID].sStringResId_string];
+                         name = textRando.mainSysUS[abilityRando.abilities[itemID].sStringResId_string];
                      else
                      {
-                         name = textRando.sysUS[equipRando.items[itemID].sItemNameStringId_string].Replace("{Var83 182}", "Omega");
+                         name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId_string].Replace("{Var83 182}", "Omega");
                          if (name.Contains("{End}"))
                              name = name.Substring(0, name.IndexOf("{End}"));
                      }

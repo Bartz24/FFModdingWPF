@@ -1,14 +1,22 @@
-﻿Noel,1,m380,$m_380w,$btscore001,Noel Kreiss
+﻿Noel,0,m380,$m_380w,,Noel Kreiss-
+Noel,1,m380,$m_380w,$btscore001,Noel Kreiss
 Noel,3,m384,$m_384w,$btscore002,Noel Kreiss+
 Noel,4,m384,$m_384w,,Noel Kreiss++
+Snow,0,m381,$m_381w,,Snow Villiers-
 Snow,1,m381,$m_381w,$btscore003,Snow Villiers
 Snow,2,m382,$m_382w,$btscore004,Snow Villiers+
 Snow,3,m383,$m_383w,$btscore005,Snow Villiers++
 Snow,4,m383,$m_383w,,Snow Villiers+++
+Grendel,0,m770,$m_770,,Grendel-
 Grendel,1,m770,$m_770,$btscore007,Grendel
 Grendel,3,m386,$m_386w,$btscore008,Parandus
 Grendel,4,m386,$m_386w,,Parandus+
+Caius,0,m745,$m_745,,Caius Ballad-
 Caius,3,m745,$m_745,$btscore006,Caius Ballad
 Caius,4,m745,$m_745,,Caius Ballad+
+Ereshkigal,0,m370,$m_370w,,Ereshkigal--
 Ereshkigal,3,m370,$m_370w,,Ereshkigal-
 Ereshkigal,4,m370,$m_370w,$btscore051,Ereshkigal
+Zaltys,0,m352_tuto,,$btscore000,Zaltys
+Zaltys,3,m352_tuto,,,Zaltys+
+Zaltys,4,m352_tuto,,,Zaltys++

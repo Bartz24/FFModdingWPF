@@ -36,7 +36,7 @@ namespace LRRando
 
             SetupData.OutputFolder = @"outdata\Data";
 
-            SetupData.PathFileName = "RandoPaths.csv";
+            SetupData.PathFileName = @"data\RandoPaths.csv";
             SetupData.PathRegistrySearch.Add("13", @"\white_data\prog\win\bin\ffxiiiimg.exe");
             SetupData.PathRegistrySearch.Add("13-2", @"\alba_data\prog\win\bin\ffxiii2img.exe");
             SetupData.PathRegistrySearch.Add("LR", @"\LRFF13.exe");

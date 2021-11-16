@@ -377,5 +377,44 @@ namespace Bartz24.FF13_2_LR
 		public int u4BrkExecAttr4 { get; set; }
 		public int u4BrkAccIdx4 { get; set; }
 		public int u10BrkChrProp4 { get; set; }
+		public override Dictionary<string, int> GetStringArrayMapping()
+		{
+			Dictionary<string, int> mapping = new Dictionary<string, int>();
+			mapping.Add(nameof(s8Ability16_pointer), 0);
+			mapping.Add(nameof(s12Ability8_pointer), 1);
+			mapping.Add(nameof(s12Ability9_pointer), 2);
+			mapping.Add(nameof(s12Ability10_pointer), 3);
+			mapping.Add(nameof(s8Ability17_pointer), 4);
+			mapping.Add(nameof(s12Ability11_pointer), 5);
+			mapping.Add(nameof(s12Ability12_pointer), 6);
+			mapping.Add(nameof(s8Ability18_pointer), 7);
+			mapping.Add(nameof(s12Ability13_pointer), 8);
+			mapping.Add(nameof(s12Ability14_pointer), 9);
+			mapping.Add(nameof(s8Ability19_pointer), 10);
+			mapping.Add(nameof(s12Ability15_pointer), 11);
+			mapping.Add(nameof(s8Ability20_pointer), 12);
+			mapping.Add(nameof(s8Ability21_pointer), 13);
+			mapping.Add(nameof(s8Ability22_pointer), 14);
+			mapping.Add(nameof(s8Ability23_pointer), 15);
+			mapping.Add(nameof(s8Ability24_pointer), 16);
+			mapping.Add(nameof(s8Ability25_pointer), 17);
+			mapping.Add(nameof(s8Ability26_pointer), 18);
+			mapping.Add(nameof(s8Ability27_pointer), 19);
+			mapping.Add(nameof(s8Ability28_pointer), 20);
+			mapping.Add(nameof(s8Ability29_pointer), 21);
+			mapping.Add(nameof(s8Ability30_pointer), 22);
+			mapping.Add(nameof(s8Ability31_pointer), 23);
+			mapping.Add(nameof(s8PartCharSpec2_pointer), 24);
+			mapping.Add(nameof(s16PartCharSpec0_pointer), 25);
+			mapping.Add(nameof(s16PartCharSpec1_pointer), 26);
+			mapping.Add(nameof(s8PartCharSpec3_pointer), 27);
+			mapping.Add(nameof(s8PartCharSpec4_pointer), 28);
+			mapping.Add(nameof(s8PartCharSpec5_pointer), 29);
+			mapping.Add(nameof(s8PartCharSpec6_pointer), 30);
+			mapping.Add(nameof(s8PartCharSpec7_pointer), 31);
+			mapping.Add(nameof(s10DropItem0_pointer), 32);
+			mapping.Add(nameof(s10DropItem1_pointer), 33);
+			return mapping;
+		}
 	}
 }

@@ -58,7 +58,7 @@ namespace Bartz24.RandoWPF
                 {
                     Values[i] = Math.Max(Math.Min(Values[i], Bounds[i].Item2), Bounds[i].Item1);
                 });
-            } while (Enumerable.Range(0, Bounds.Length).Select(i => Values[i]).Max() <= 0);
+            } while (Values.Vals.Max() <= 0);
         }
         public int this[int i]
         {

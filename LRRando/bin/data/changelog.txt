@@ -1,0 +1,30 @@
+WARNING: If you have previously played rando on an older version of rando (0.1.0 or lower), you will need to first update Nova to 1.0.1 and do the following!!!
+-Make sure Nova is on 1.0.1. Download links for Nova are on the rando github download page.
+-Uninstall any mods if any have been installed on Nova 1.0.1.
+-Delete Unpacked Game Data for LR (from the first tab of Nova).
+-Unpack the data again.
+
+(Ereshkigal shuffling corrupted unpacked data on old versions causing Bhuni to loop. So if you continue getting issues with Bhuni and have NOT done the above this could be the cause)
+
+If you need to view these instructions again, click the Changelog button in the bottom right of rando.
+
+
+0.1.1 Changelog:
+-Fixed Boss Shuffling breaking Bhuni
+-Added the following flags:
+    Allow Key Items in CoP and Soul Seeds 40+
+    Shuffle Bosses - Include Prologue Zaltys
+-Added NG+ exclusive stat ups to NG (affected by rando)
+    Max EP+1 to "The Fighting Actress"
+    Item Slots+1 to "Adonis's Audition"
+    Item Slots+1 to "Saving an Angel"
+-Fixed ID Card progression
+    Warehouse now always required (up until after cyclops at least)
+    Can open Warehouse gate for the cost of all EP
+    Exiting the above method will not allow you to buy the ID card. I'm not sure on the spawn conditions of him yet (or if teleport will work)
+-Reduced monster drop purchase prices significantly to be based on need for Canvas of Prayers
+-Removed Crest of Etro from key item rando
+-Removed Chaos Bahamut from indoor locations (until I figure out what's breaking it)
+-Removed broken Tithed Bravery passives
+-Lowered Ereshigal- HP and tweaked scaled boss physical/magic resistances if not Normal
+-Changelog in the rando does something now

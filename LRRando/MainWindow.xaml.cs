@@ -2,6 +2,7 @@
 using Bartz24.Docs;
 using Bartz24.RandoWPF;
 using Bartz24.RandoWPF.Data;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -58,6 +59,14 @@ namespace LRRando
             set { SetValue(ProgressBarTextProperty, value); }
         }
 
+        public static readonly DependencyProperty ChangelogTextProperty =
+        DependencyProperty.Register(nameof(ChangelogText), typeof(string), typeof(MainWindow));
+        public string ChangelogText
+        {
+            get { return (string)GetValue(ChangelogTextProperty); }
+            set { SetValue(ChangelogTextProperty, value); }
+        }
+
         public MainWindow()
         {
             LRFlags.Init();
@@ -66,6 +75,12 @@ namespace LRRando
             this.DataContext = this;
             HideProgressBar();
             DataExtensions.Mode = ByteMode.BigEndian;
+
+            if (string.IsNullOrEmpty(SetupData.Paths["Nova"]))
+            {
+                RootDialog.ShowDialog(RootDialog.DialogContent);
+            }
+            ChangelogText = File.ReadAllText(@"data\changelog.txt");
         }
 
         private async void generateButton_Click(object sender, RoutedEventArgs e)

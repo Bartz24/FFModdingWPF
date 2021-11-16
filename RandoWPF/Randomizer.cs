@@ -31,11 +31,11 @@ namespace Bartz24.RandoWPF
         {
 
         }
-        /*
+        
         public virtual HTMLPage GetDocumentation()
         {
             return null;
-        }*/
+        }
 
         public virtual string GetProgressMessage()
         {

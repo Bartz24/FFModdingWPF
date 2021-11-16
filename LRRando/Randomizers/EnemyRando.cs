@@ -42,9 +42,8 @@ namespace LRRando
 
         public override void Save()
         {
-            //string outPath = SetupData.OutputFolder + @"\db\resident\bt_chara_spec.wdb";
-            //enemies.Save(outPath, SetupData.Paths["Nova"]);
-            enemies.DeleteDB3(@"\db\resident\bt_chara_spec.db3");
+            string outPath = SetupData.OutputFolder + @"\db\resident\bt_chara_spec.wdb";
+            enemies.Save(outPath, SetupData.Paths["Nova"]);
         }
     }
 }

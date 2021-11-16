@@ -13,7 +13,13 @@ namespace Bartz24.Data
             string filePath = GetFromBackup(game, path, novaPath);
             if (filePath != null)
                 return filePath;
-            return GetFromUnpacked(game, path, gamePath);
+
+            filePath = GetFromUnpacked(game, path, gamePath);
+            if (filePath == null)
+            {
+                throw new FileNotFoundException("Game file missing: " + path + "\nYou may need to Delete Unpacked Game Data and then Unpack Game Data in Nova again.");
+            }
+            return filePath;
         }
 
         private static string GetFromBackup(string game, string path, string novaPath)

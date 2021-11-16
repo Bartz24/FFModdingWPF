@@ -32,6 +32,10 @@ namespace LRRando
         {
             questRewards.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_quest.wdb", false);
             FileExtensions.CopyFile(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb", SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
+
+            questRewards["qst_062"].iMaxGp = 2000;
+            questRewards["qst_046"].iItemBagSize = 1;
+            questRewards["qst_028"].iItemBagSize = 1;
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -47,7 +51,7 @@ namespace LRRando
                 {
                     int count = q.iMaxGp / 2000 + q.iMaxAtb / 10 + q.iItemBagSize;
                     q.iMaxGp = q.iMaxAtb = q.iItemBagSize = 0;
-                    for (int i = 0; i < count; i++)
+                    for (int n = 0; n < count; n++)
                     {
                         int next = RandomNum.SelectRandomWeighted(new int[] { 0, 1, 2 }.ToList(), i =>
                         {

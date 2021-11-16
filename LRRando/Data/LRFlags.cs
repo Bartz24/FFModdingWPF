@@ -17,10 +17,10 @@ namespace LRRando
         public class Other
         {
             public static Flag EPAbilities, EPAbilitiesEscape;
-            public static Flag Enemies, EnemiesSize, EncounterSize, Bosses, Ereshkigal, Prologue;
+            public static Flag Enemies, EnemiesSize, EncounterSize, Bosses, Zaltys, Ereshkigal, Prologue;
             public static Flag EquipStats, GarbAbilities, EquipPassives;
             public static Flag Music;
-            public static Flag Treasures, Pilgrims, EPLearns, Key;
+            public static Flag Treasures, Pilgrims, EPLearns, Key, CoP;
             public static Flag Shops;
             public static Flag Quests;
 
@@ -86,7 +86,17 @@ namespace LRRando
                     DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
                     "Key items will not appear in missable locations or from Day 10 and later.\n" +
                     "The following key items will be included in the pool:\n" +
-                    "Fragment of Mischief, Fragment of Smiles, Moogle Fragment, ID Card, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Crest of Etro, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe",
+                    "Fragment of Mischief, Fragment of Smiles, Moogle Fragment, ID Card, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe",
+                    Experimental = true
+                }.Register(FlagType.Other);
+
+                CoP = new Flag()
+                {
+                    Text = "Randomize Treasures, Quest Rewards, and Other Rewards - Allow Key Items in CoP and Grindy Locations",
+                    FlagID = "CoP",
+                    DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
+                    "Key items will not appear in NON-GLOBAL Canvas of Prayers or 40+ Soul Seeds rewards.\n" +
+                    "Works for all key items including Pilgrim's Cruxes and all the key items in the above flag.",
                     Experimental = true
                 }.Register(FlagType.Other);
 
@@ -148,6 +158,16 @@ namespace LRRando
                     "Shuffle the following bosses between each other:\n" +
                     "Noel Kreiss, Snow Villiers, Caius Ballad, and Grendel.\n" +
                     "Bosses that have + versions will be based on their new random boss of the old boss has + versions.\n"
+                }.Register(FlagType.Other);
+
+                Zaltys = new Flag()
+                {
+                    Text = "Shuffle Bosses - Include Prologue Zaltys",
+                    FlagID = "RandZaltys",
+                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
+                    "Requires 'Shuffle Bosses'\n" +
+                    "Includes Prologue Zaltys in the pool. This boss scales up if randomized to a later boss.\n" +
+                    "Later bosses will scale down if replacing Prologue Zaltys."
                 }.Register(FlagType.Other);
 
                 Ereshkigal = new Flag()

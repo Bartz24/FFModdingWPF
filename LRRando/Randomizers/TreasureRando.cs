@@ -193,6 +193,16 @@ namespace LRRando
                 if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("key"))
                     return false;
             }
+            if (treasureData[old].Traits.Contains("CoP") && LRFlags.Other.CoP.FlagEnabled)
+            {
+                if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("key"))
+                    return false;
+            }
+            if (treasureData[old].Traits.Contains("Grindy") && LRFlags.Other.CoP.FlagEnabled)
+            {
+                if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("key"))
+                    return false;
+            }
             if (treasureData[old].Traits.Contains("Quest"))
             {
                 if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("ti") || treasuresOrig[rep].s11ItemResourceId_string == "at900_00")
@@ -248,10 +258,10 @@ namespace LRRando
                 if (itemID == "")
                     name = "Gil";
                 else if (abilityRando.abilities.Keys.Contains(itemID))
-                    name = textRando.sysUS[abilityRando.abilities[itemID].sStringResId_string];
+                    name = textRando.mainSysUS[abilityRando.abilities[itemID].sStringResId_string];
                 else
                 {
-                    name = textRando.sysUS[equipRando.items[itemID].sItemNameStringId_string];
+                    name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId_string];
                     if (name.Contains("{End}"))
                         name = name.Substring(0, name.IndexOf("{End}"));
                 }
