@@ -38,6 +38,10 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
+
+            if (LRFlags.Other.BhuniPlus.FlagEnabled)
+                treasureRando.treasures["ran_bhuni_p"].s11ItemResourceId_string = "true";
         }
 
         public override void Save()

@@ -26,13 +26,19 @@ namespace Bartz24.RandoWPF
 
         public Flag Flag
         {
-            get { return (Flag)GetValue(PresetProperty); }
-            set { SetValue(PresetProperty, value); }
+            get => (Flag)GetValue(PresetProperty);
+            set => SetValue(PresetProperty, value);
         }
+        public string Description { get => Flag.Description; }
 
         public FlagControl()
         {
             InitializeComponent();
+        }
+
+        private void Flag_OnFlagUpdated(object sender, EventArgs e)
+        {
+            SetValue(PresetProperty, Flag);
         }
     }
 }

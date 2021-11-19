@@ -23,12 +23,15 @@ namespace Bartz24.RandoWPF
     /// </summary>
     public partial class FlagsPage : UserControl
     {
+
+        public ObservableCollection<Preset> PresetsList { get; set; } = new ObservableCollection<Preset>();
         public ObservableCollection<Flag> FlagsList { get; set; } = new ObservableCollection<Flag>();
         public FlagsPage()
         {
             InitializeComponent();
             this.DataContext = this;
             FlagsList = new ObservableCollection<Flag>(Flags.FlagsList);
+            PresetsList = new ObservableCollection<Preset>(Presets.PresetsList);
         }
 
         private void ListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)

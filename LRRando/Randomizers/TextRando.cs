@@ -146,6 +146,10 @@ namespace LRRando
                 "{Text NewLine}" +
                 "Game difficulty cannot be changed once the game has started.{Text NewLine}" +
                 "{Many}Do you want to continue?|Yes|No";
+
+            TempTextCleanup(zone100SysUS);
+            TempTextCleanup(mainSysUS);
+
             {
                 string outPath = SetupData.OutputFolder + @"\txtres\zone\z0100\txtres_us.ztr";
                 zone100SysUS.Save("LR", outPath, SetupData.Paths["Nova"]);
@@ -154,6 +158,17 @@ namespace LRRando
                 string outPath = SetupData.OutputFolder + @"\txtres\resident\system\txtres_us.ztr";
                 mainSysUS.Save("LR", outPath, SetupData.Paths["Nova"]);
             }
+        }
+
+        private void TempTextCleanup(DataStoreZTRText text)
+        {
+            text.Keys.ForEach(k =>
+            {
+                text[k] = text[k].Replace("Ⅷ", "");
+                text[k] = text[k].Replace("×", "x");
+                text[k] = text[k].Replace("{VarF5 SkyBlue}", "Soul Seeds");
+                text[k] = text[k].Replace("{VarF2 PurpleDark}", "  ");
+            });
         }
     }
 }

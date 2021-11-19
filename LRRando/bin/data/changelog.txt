@@ -1,4 +1,4 @@
-WARNING: If you have previously played rando on an older version of rando (0.1.0 or lower), you will need to first update Nova to 1.0.1 and do the following!!!
+WARNING: If the LAST previously played rando version was 0.1.0 or lower, you will need to first update Nova to 1.0.1 and do the following!!!
 -Make sure Nova is on 1.0.1. Download links for Nova are on the rando github download page.
 -Uninstall any mods if any have been installed on Nova 1.0.1.
 -Delete Unpacked Game Data for LR (from the first tab of Nova).
@@ -9,22 +9,15 @@ WARNING: If you have previously played rando on an older version of rando (0.1.0
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.1.1 Changelog:
--Fixed Boss Shuffling breaking Bhuni
--Added the following flags:
-    Allow Key Items in CoP and Soul Seeds 40+
-    Shuffle Bosses - Include Prologue Zaltys
--Added NG+ exclusive stat ups to NG (affected by rando)
-    Max EP+1 to "The Fighting Actress"
-    Item Slots+1 to "Adonis's Audition"
-    Item Slots+1 to "Saving an Angel"
--Fixed ID Card progression
-    Warehouse now always required (up until after cyclops at least)
-    Can open Warehouse gate for the cost of all EP
-    Exiting the above method will not allow you to buy the ID card. I'm not sure on the spawn conditions of him yet (or if teleport will work)
--Reduced monster drop purchase prices significantly to be based on need for Canvas of Prayers
--Removed Crest of Etro from key item rando
--Removed Chaos Bahamut from indoor locations (until I figure out what's breaking it)
--Removed broken Tithed Bravery passives
--Lowered Ereshigal- HP and tweaked scaled boss physical/magic resistances if not Normal
--Changelog in the rando does something now
+0.1.2 Changelog:
+-Added Force Bhunivelze+ on NG flag
+-Added the Musical Sphere Treasure Key and Supply Sphere Password key items to the pool
+-Added 4 presets ranging from simple to all flags on
+-Updated UI to help make things clearer
+-Fixed Canvas of Prayers and Slaughterhouse allowing EP abilities
+-Fixed the CoP and Grindy flag being inverted
+-Buffed HP for Zaltys+ and all scaled bosses placed in Ultimate Lair
+-Reverted Parandus+ resistances back to 15%
+-Cleaned up broken text symbols. Not fixed yet though
+-Study of the Depths treasure is finally rando
+-Added 10+ unappraised items to grindy flag

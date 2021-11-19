@@ -104,7 +104,7 @@ namespace LRRando
                                     CharaSetMapping[b.name].ForEach(m =>
                                     {
                                         List<string> specs = charaSets[m].GetCharaSpecs();
-                                        specs.AddRange(charSpecs.Where(s => !specs.Contains(s)).Select(s => enemyRando.enemies[s].sCharaSpec_string));
+                                        specs.AddRange(charSpecs.Where(s => !specs.Contains(s)).Select(s => enemyRando.enemies[s].sCharaSpec_string).Distinct());
                                         charaSets[m].SetCharaSpecs(specs);
                                     });
                                 }

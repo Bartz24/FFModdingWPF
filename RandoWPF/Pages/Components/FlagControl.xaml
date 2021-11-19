@@ -18,9 +18,9 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <CheckBox x:Name="flagCheckbox" Grid.Row="0" Grid.Column="0" DataContext="{Binding Flag, RelativeSource={RelativeSource AncestorType=UserControl}}" IsChecked="{Binding FlagEnabled}"></CheckBox>
-            <TextBlock FontSize="15" VerticalAlignment="Center" Margin="5, 0, 50, 0" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" DataContext="{Binding Flag, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Text}"></TextBlock>
-            <TextBlock FontSize="12" TextWrapping="Wrap" Grid.Row="0" Grid.Column="2" DataContext="{Binding Flag, RelativeSource={RelativeSource AncestorType=UserControl}}" Text="{Binding Description}"></TextBlock>
+            <ToggleButton x:Name="flagCheckbox" Grid.Row="0" Grid.Column="0" Margin="5" IsChecked="{Binding FlagEnabled}"></ToggleButton>
+            <TextBlock FontSize="15" VerticalAlignment="Center" Margin="5, 0, 50, 0" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Text="{Binding Text}"></TextBlock>
+            <TextBlock FontSize="12" TextWrapping="Wrap" Grid.Row="0" Grid.Column="2" Text="{Binding Description}"></TextBlock>
             <StackPanel Grid.Row="1" Grid.Column="2">
             </StackPanel>
         </Grid>

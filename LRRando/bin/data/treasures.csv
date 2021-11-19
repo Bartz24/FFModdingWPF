@@ -45,6 +45,7 @@ tre_box_b_011,Dead Dunes Shrine at Grave of the Colossi Bandit's Bloodseal,,
 tre_box_b_012,Yusnaan Tunnel Oath of the Merchants Guild,,
 tre_box_b_013,Yusnaan Industrial Area Jade Hair Comb,,
 tre_box_b_014,Yusnaan Industrial Area Bronze Pocket Watch,,
+tre_box_d_001,Dead Dunes Giant's Sandbox,,
 tre_box_d_002,Dead Dunes Temple Ruins Golden Chamber Lower,,
 tre_box_d_003,Dead Dunes Giant's Sandbox,,
 tre_box_d_004,Dead Dunes Giant's Sandbox,,
@@ -90,13 +91,13 @@ tre_box_l_003,Luxerion 2nd Ave,,
 tre_box_l_004,Luxerion Pilgrim's Passage Grass Area,,
 tre_box_l_005,Luxerion Old Theater Platform,,
 tre_box_l_006,Luxerion Forsaken Graveyard,,
-tre_box_l_009,Luxerion South Station,,
-tre_box_l_010,Luxerion Warehouse District,,
-tre_box_l_011,Luxerion Residences,,
+tre_box_l_009,Luxerion South Station (Supply Sphere),,I(key_kyu_pass|1)
+tre_box_l_010,Luxerion Warehouse District (Supply Sphere),,I(key_kyu_pass|1)
+tre_box_l_011,Luxerion Residences (Supply Sphere),,I(key_kyu_pass|1)
 tre_box_l_012,Luxerion Forsaken Graveyard,,
-tre_box_l_013,Luxerion Den of Shadows,,I(key_bajji|1)
+tre_box_l_013,Luxerion Den of Shadows,,
 tre_box_l_014,Luxerion Near Phone,,
-tre_box_l_015,Luxerion Den of Shadows,,I(key_bajji|1)
+tre_box_l_015,Luxerion Den of Shadows,,
 tre_box_l_016,Luxerion Near Phone,,
 tre_box_l_017,Luxerion Near Phone,,
 tre_box_l_019,Luxerion Marketplace,,
@@ -127,10 +128,10 @@ tre_box_p_107,Ark Day 9,,
 tre_box_p_108,Ark Day 10,Missable,
 tre_box_p_109,Ark Day 11,Missable,
 tre_box_p_110,Ark Day 12,Missable,
-tre_box_p_111,Ark Day 13,Missable,
-tre_box_p_111_2,Ark Day 13,Missable,
-tre_box_p_111_3,Ark Day 13,Missable,
-tre_box_p_112,Ark Day 14,Missable,
+tre_box_p_111,Ark Day Final Day,Missable,
+tre_box_p_111_2,Ark Day Final Day,Missable,
+tre_box_p_111_3,Ark Day Final Day,Missable,
+tre_box_p_112,Ark Day Extra Day,Missable,
 tre_box_w_000,Wildlands Jagd Woods,,
 tre_box_w_001,Wildlands Grasslands,,
 tre_box_w_002,Wildlands Poltae,,
@@ -162,9 +163,9 @@ tre_box_y_001,Yusnaan Aromatic Market,,
 tre_box_y_002,Yusnaan Central Ave,,
 tre_box_y_003,Yusnaan Coliseum Square,,
 tre_box_y_004,Yusnaan Warehouse District ID Card,,
-tre_box_y_005,Yusnaan Coliseum Square Musical,,
-tre_box_y_006,Yusnaan East from Cactuar Statue Musical,,
-tre_box_y_007,Yusnaan West of Station Musical,,
+tre_box_y_005,Yusnaan Coliseum Square Musical,,I(key_y_kagi1|1)
+tre_box_y_006,Yusnaan East from Cactuar Statue Musical,,I(key_y_kagi1|1)
+tre_box_y_007,Yusnaan West of Station Musical,,I(key_y_kagi1|1)
 tre_box_y_008,Yusnaan Near Cactuar Statue,,
 tre_box_y_009,Yusnaan Reveler's Quarter,,
 tre_box_y_010,Yusnaan Augur's Quarter,,I(key_y_id|1)
@@ -182,16 +183,16 @@ tre_box_y_051,Yusnaan Patron's Palace,,I(key_y_id|1)
 tre_box_y_052,Yusnaan Patron's Palace,,I(key_y_id|1)
 tre_box_y_055,Yusnaan Patron's Palace,,I(key_y_id|1)
 tre_box_y_056,Yusnaan Patron's Palace,,I(key_y_id|1)
-tre_col_y_004,Yusnaan Slaughterhouse,Missable,
-tre_col_y_005,Yusnaan Slaughterhouse,Missable,
-tre_col_y_006,Yusnaan Slaughterhouse,Missable,
-tre_col_y_007,Yusnaan Slaughterhouse,Missable,
-tre_col_y_008,Yusnaan Slaughterhouse,Missable,
-tre_col_y_009,Yusnaan Slaughterhouse,Missable,
-tre_col_y_010,Yusnaan Slaughterhouse,Missable,
-tre_col_y_012,Yusnaan Slaughterhouse,Missable,
-tre_col_y_013,Yusnaan Slaughterhouse,Missable,
-tre_col_y_014,Yusnaan Slaughterhouse,Missable,
+tre_col_y_004,Yusnaan Slaughterhouse,Missable|Quest,
+tre_col_y_005,Yusnaan Slaughterhouse,Missable|Quest,
+tre_col_y_006,Yusnaan Slaughterhouse,Missable|Quest,
+tre_col_y_007,Yusnaan Slaughterhouse,Missable|Quest,
+tre_col_y_008,Yusnaan Slaughterhouse,Missable|Quest,
+tre_col_y_009,Yusnaan Slaughterhouse,Missable|Quest,
+tre_col_y_010,Yusnaan Slaughterhouse,Missable|Quest,
+tre_col_y_012,Yusnaan Slaughterhouse,Missable|Quest,
+tre_col_y_013,Yusnaan Slaughterhouse,Missable|Quest,
+tre_col_y_014,Yusnaan Slaughterhouse,Missable|Quest,
 tre_col_y_016,Yusnaan Slaughterhouse - Fighting Actress,,I(key_y_id|1)
 tre_col_y_017,Yusnaan Slaughterhouse - Fighting Actress,,I(key_y_id|1)
 tre_col_y_018,Yusnaan Slaughterhouse - Fighting Actress,,I(key_y_id|1)
@@ -199,9 +200,9 @@ tre_col_y_019,Yusnaan Slaughterhouse - Tanbam's Taboo,,I(key_y_id|1)
 tre_key_d_bakt,Dead Dunes Temple Ruins Sacred Grove Bhakti,,
 tre_key_d_kant1,Dead Dunes Unappraised 1,Quest,I(key_d_lupe|1)
 tre_key_d_kant2,Dead Dunes Unappraised 5,Quest,I(key_d_lupe|1)
-tre_key_d_kant3,Dead Dunes Unappraised 10,Quest,I(key_d_lupe|1)
-tre_key_d_kant4,Dead Dunes Unappraised 20,Quest,I(key_d_lupe|1)
-tre_key_d_kant5,Dead Dunes Unappraised 50,Quest,I(key_d_lupe|1)
+tre_key_d_kant3,Dead Dunes Unappraised 10,Grindy|Quest,I(key_d_lupe|1)
+tre_key_d_kant4,Dead Dunes Unappraised 20,Grindy|Quest,I(key_d_lupe|1)
+tre_key_d_kant5,Dead Dunes Unappraised 50,Grindy|Quest,I(key_d_lupe|1)
 tre_key_dkye1,Dead Dunes Pilgrim's Crux,Pilgrim,
 tre_key_dkye10,Dead Dunes Pilgrim's Crux,Pilgrim,
 tre_key_dkye11,Dead Dunes Pilgrim's Crux,Pilgrim,
@@ -216,12 +217,13 @@ tre_key_dkye6,Dead Dunes Pilgrim's Crux,Pilgrim,
 tre_key_dkye7,Dead Dunes Pilgrim's Crux,Pilgrim,
 tre_key_dkye8,Dead Dunes Pilgrim's Crux,Pilgrim,
 tre_key_dkye9,Dead Dunes Pilgrim's Crux,Pilgrim,
-tre_key_l_ball,Luxerion 1st Ave Rubber Ball,,I(key_bajji|1)
+tre_key_l_ball,Luxerion 1st Ave Rubber Ball,,
 tre_key_l_kino,Luxerion Warehouse District Thunderclap Cap,,
 tre_key_l_pen,Luxerion Marketplace Pen,,
 tre_key_l_q006,Quest Born from chaos,Quest,
 tre_key_lupe,Dead Dunes Loupe,,
 tre_key_s_okuri,Wildlands Aryas Village Beloved's Gift,,
+tre_kyu_pass,Virgil Supply Sphere Password,,
 tre_qst_001,Quest The things she lost,Missable|Quest,
 tre_qst_001_2,Quest The things she lost,Missable|Quest,
 tre_qst_002,"Quest Where are you, Holmes?",Missable|Quest,
@@ -231,39 +233,39 @@ tre_qst_003,Quest Like clockwork,Quest,
 tre_qst_003_2,Quest Like clockwork,Quest,
 tre_qst_004,Quest Dying wish,Quest,I(key_j_kino|1)
 tre_qst_004_2,Quest Dying wish,Quest,I(key_j_kino|1)
-tre_qst_005,Quest Suspicious supply device,Quest,
-tre_qst_005_2,Quest Suspicious supply device,Quest,
+tre_qst_005,Quest Suspicious supply device,Quest,I(key_kyu_pass|1)
+tre_qst_005_2,Quest Suspicious supply device,Quest,I(key_kyu_pass|1)
 tre_qst_006_2,Quest Born from chaos,Quest,
 tre_qst_006_3,Quest Born from chaos,Quest,
 tre_qst_007,Quest Soul Seeds,Quest,
 tre_qst_007_2,Quest Soul Seeds,Quest,
 tre_qst_008,Quest Faster than Lightning,Quest,
 tre_qst_008_2,Quest Faster than Lightning,Quest,
-tre_qst_009,Quest Treasured ball,Quest,AND(I(key_bajji|1)|I(key_ball|1))
-tre_qst_009_2,Quest Treasured ball,Quest,AND(I(key_bajji|1)|I(key_ball|1))
+tre_qst_009,Quest Treasured ball,Quest,I(key_ball|1)
+tre_qst_009_2,Quest Treasured ball,Quest,I(key_ball|1)
 tre_qst_010,Quest The angel's tears,Quest,
 tre_qst_010_2,Quest The angel's tears,Quest,
-tre_qst_011,Quest The saint's stone,Quest,I(key_bajji|1)
-tre_qst_011_2,Quest The saint's stone,Quest,I(key_bajji|1)
-tre_qst_011_3,Quest The saint's stone,Quest,I(key_bajji|1)
+tre_qst_011,Quest The saint's stone,Quest,
+tre_qst_011_2,Quest The saint's stone,Quest,
+tre_qst_011_3,Quest The saint's stone,Quest,
 tre_qst_012,Quest Whither faith,Missable|Quest,
 tre_qst_012_2,Quest Whither faith,Missable|Quest,
 tre_qst_013,Quest The avid reader,Missable|Quest,
 tre_qst_013_2,Quest The avid reader,Missable|Quest,
-tre_qst_014,Quest Buried passion,Quest,AND(I(key_bajji|1)|I(key_l_pen|1))
-tre_qst_014_2,Quest Buried passion,Quest,AND(I(key_bajji|1)|I(key_l_pen|1))
+tre_qst_014,Quest Buried passion,Quest,I(key_l_pen|1)
+tre_qst_014_2,Quest Buried passion,Quest,I(key_l_pen|1)
 tre_qst_015,Quest The girl who cried wolf,Missable|Quest,
 tre_qst_015_2,Quest The girl who cried wolf,Missable|Quest,
 tre_qst_016,Quest Stuck in a gem,Quest,
 tre_qst_016_2,Quest Stuck in a gem,Quest,
-tre_qst_017,Quest Get the girl,Quest,I(key_bajji|1)
-tre_qst_017_2,Quest Get the girl,Quest,I(key_bajji|1)
-tre_qst_019,Quest A rose by any other name,Quest,I(key_bajji|1)
-tre_qst_019_2,Quest A rose by any other name,Quest,I(key_bajji|1)
-tre_qst_019_3,Quest A rose by any other name,Quest,I(key_bajji|1)
-tre_qst_019_4,Quest A rose by any other name,Quest,I(key_bajji|1)
-tre_qst_020,Quest Voices from the grave,Quest,I(key_bajji|1)
-tre_qst_020_2,Quest Voices from the grave,Quest,I(key_bajji|1)
+tre_qst_017,Quest Get the girl,Quest,
+tre_qst_017_2,Quest Get the girl,Quest,
+tre_qst_019,Quest A rose by any other name,Quest,
+tre_qst_019_2,Quest A rose by any other name,Quest,
+tre_qst_019_3,Quest A rose by any other name,Quest,
+tre_qst_019_4,Quest A rose by any other name,Quest,
+tre_qst_020,Quest Voices from the grave,Quest,
+tre_qst_020_2,Quest Voices from the grave,Quest,
 tre_qst_021,Quest A father's request,Quest,
 tre_qst_021_2,Quest A father's request,Quest,
 tre_qst_022,Quest The hunter's challenge,Quest,
@@ -622,3 +624,4 @@ tre_wea_oa02,Caius Drop,Missable,
 tre_wea_oa05,Cyclops Omega Drop,Missable,
 tre_wea_oa07,Reaver Omega Drop,Missable,
 tre_wea_oa13,Skeleton Omega Drop,Missable,
+tre_y_kagi1,Morris Musical Treasure Sphere Key,,

@@ -56,6 +56,10 @@ namespace LRRando
             AddTreasure("tre_ti810", "ti810_00", 1, "");
             AddTreasure("tre_ti830", "ti830_00", 1, "");
             AddTreasure("tre_ti840", "ti840_00", 1, "");
+            AddTreasure("tre_y_kagi1", "key_y_kagi1", 1, "");
+            AddTreasure("tre_kyu_pass", "key_kyu_pass", 1, "");
+
+            AddTreasure("ran_bhuni_p", "false", 1, "");
         }
 
         public void AddTreasure(string newName, string item, int count, string next)
@@ -186,21 +190,23 @@ namespace LRRando
         {
             if (treasureData[old].Traits.Contains("Same"))
             {
-                    return old == rep;
+                return old == rep;
             }
             if (treasureData[old].Traits.Contains("Missable"))
             {
                 if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("key"))
                     return false;
             }
-            if (treasureData[old].Traits.Contains("CoP") && LRFlags.Other.CoP.FlagEnabled)
+            if (treasureData[old].Traits.Contains("CoP"))
             {
-                if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("key"))
+                if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("ti") || treasuresOrig[rep].s11ItemResourceId_string == "at900_00")
+                    return false;
+                if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("key") && !LRFlags.Other.CoP.FlagEnabled)
                     return false;
             }
-            if (treasureData[old].Traits.Contains("Grindy") && LRFlags.Other.CoP.FlagEnabled)
+            if (treasureData[old].Traits.Contains("Grindy"))
             {
-                if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("key"))
+                if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("key") && !LRFlags.Other.CoP.FlagEnabled)
                     return false;
             }
             if (treasureData[old].Traits.Contains("Quest"))

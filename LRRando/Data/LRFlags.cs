@@ -17,7 +17,7 @@ namespace LRRando
         public class Other
         {
             public static Flag EPAbilities, EPAbilitiesEscape;
-            public static Flag Enemies, EnemiesSize, EncounterSize, Bosses, Zaltys, Ereshkigal, Prologue;
+            public static Flag Enemies, EnemiesSize, EncounterSize, Bosses, Zaltys, Ereshkigal, Prologue, BhuniPlus;
             public static Flag EquipStats, GarbAbilities, EquipPassives;
             public static Flag Music;
             public static Flag Treasures, Pilgrims, EPLearns, Key, CoP;
@@ -86,7 +86,7 @@ namespace LRRando
                     DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
                     "Key items will not appear in missable locations or from Day 10 and later.\n" +
                     "The following key items will be included in the pool:\n" +
-                    "Fragment of Mischief, Fragment of Smiles, Moogle Fragment, ID Card, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe",
+                    "Fragment of Mischief, Fragment of Smiles, Moogle Fragment, ID Card, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password",
                     Experimental = true
                 }.Register(FlagType.Other);
 
@@ -95,7 +95,7 @@ namespace LRRando
                     Text = "Randomize Treasures, Quest Rewards, and Other Rewards - Allow Key Items in CoP and Grindy Locations",
                     FlagID = "CoP",
                     DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
-                    "Key items will be allowed to appear in NON-GLOBAL Canvas of Prayers and 40+ Soul Seeds rewards.\n" +
+                    "Key items will be allowed to appear in NON-GLOBAL Canvas of Prayers, 40+ Soul Seeds rewards, and 10+ Unappraised Items.\n" +
                     "Works for all key items including Pilgrim's Cruxes and all the key items in the above flag.",
                     Experimental = true
                 }.Register(FlagType.Other);
@@ -140,6 +140,15 @@ namespace LRRando
                     "If turned off, enemies will be randomized with enemies of the same size. Humans are considered mid."
                 }.Register(FlagType.Other);
 
+                EncounterSize = new Flag()
+                {
+                    Text = "Randomize Encounter Size",
+                    FlagID = "RandEncCount",
+                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
+                    "If turned on, encounters with randomized enemies will be random in size up to +/- 2. A random enemy size will be selected from those already in the encounter.\n" +
+                    "If turned off, encounters will remain the same size."
+                }.Register(FlagType.Other);
+
                 Prologue = new Flag()
                 {
                     Text = "Randomize Enemy Locations - Include Prologue Tutorial",
@@ -180,13 +189,11 @@ namespace LRRando
                     "Story bosses will scale up if replacing Ereshkigal."
                 }.Register(FlagType.Other);
 
-                EncounterSize = new Flag()
+                BhuniPlus = new Flag()
                 {
-                    Text = "Randomize Encounter Size",
-                    FlagID = "RandEncCount",
-                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
-                    "If turned on, encounters with randomized enemies will be random in size up to +/- 2. A random enemy size will be selected from those already in the encounter.\n" +
-                    "If turned off, encounters will remain the same size."
+                    Text = "Force Bhunivelze+ on NG",
+                    FlagID = "BhuniPlus",
+                    DescriptionFormat = "The final boss even on New Game will be Bhunivelze+."
                 }.Register(FlagType.Other);
 
                 Music = new Flag()

@@ -70,7 +70,7 @@ namespace LRRando
         public MainWindow()
         {
             LRFlags.Init();
-            Flags.FlagsList.Where(f => !f.Experimental).ForEach(f => f.FlagEnabled = true);
+            LRPresets.Init();
             InitializeComponent();
             this.DataContext = this;
             HideProgressBar();
@@ -248,6 +248,16 @@ namespace LRRando
                 MessageBox.Show("No modpacks seem to be generated. Generate one first.", "No modpacks generated.");
             else
             Process.Start("explorer.exe", dir);
+        }
+
+        private void NextStepButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowTabs.SelectedIndex++;
+        }
+
+        private void PrevStepButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowTabs.SelectedIndex--;
         }
     }
 }

@@ -49,35 +49,101 @@
                         </StackPanel>
                     </Button.CommandParameter>
                 </Button>
-                <TextBlock Margin="10" DockPanel.Dock="Right" Text="Version: 0.1.1.1"/>
+                <TextBlock Margin="10" DockPanel.Dock="Right" Text="Version: 0.1.2"/>
                 <StackPanel Visibility="{Binding ProgressBarVisible,Mode=TwoWay}">
                     <TextBlock TextWrapping="Wrap" Text="{Binding ProgressBarText}"></TextBlock>
                     <ProgressBar x:Name="progressBar" Value="{Binding ProgressBarValue}" IsIndeterminate="{Binding ProgressBarIndeterminate}"/>
                 </StackPanel>
             </DockPanel>
             <Separator DockPanel.Dock="Bottom"/>
-            <TabControl TabStripPlacement="Left" Style="{DynamicResource MaterialDesignNavigatilRailTabControl}">
-                <TabItem Header="1. Setup">
-                    <rando:SetupPage>
-                        <local:SetupPaths/>
-                    </rando:SetupPage>
+            <TabControl x:Name="WindowTabs" TabStripPlacement="Left" Style="{DynamicResource MaterialDesignNavigatilRailTabControl}">
+                <TabItem Width="100" Height="50">
+                    <TabItem.Header>
+                        <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="1. Setup"/>                            
+                        </Button>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Bottom">
+                            <Button DockPanel.Dock="Right" Click="NextStepButton_Click"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Continue to 2. Flags</TextBlock>
+                                        <materialDesign:PackIcon Kind="ArrowRight"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <TextBlock Margin="5"/>
+                        </DockPanel>
+                        <rando:SetupPage>
+                            <local:SetupPaths/>
+                        </rando:SetupPage>                        
+                    </DockPanel>
                 </TabItem>
-                <TabItem Header="2. Flags">
-                    <rando:FlagsPage/>
+                <TabItem Width="100" Height="50">
+                    <TabItem.Header>
+                        <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="2. Flags"/>
+                        </Button>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Bottom">
+                            <Button DockPanel.Dock="Left" Click="PrevStepButton_Click"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ArrowLeft"/>
+                                        <TextBlock>Back to 1. Setup</TextBlock>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button DockPanel.Dock="Right" Click="NextStepButton_Click"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Continue to 3. Finish</TextBlock>
+                                        <materialDesign:PackIcon Kind="ArrowRight"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <TextBlock Margin="5"/>
+                        </DockPanel>
+                        <rando:FlagsPage/>
+                    </DockPanel>
                 </TabItem>
-                <TabItem Header="3. Finish">
-                    <rando:FinishPage>
-                        <Button Click="generateButton_Click">Generate Modpack</Button>
-                        <Label Margin="2"/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Click="openNovaButton_Click">Open Nova Program</Button>
-                            <Button Grid.Column="1" Click="openModpackFolder_Click">Open Modpack Folder</Button>
-                        </Grid>
-                    </rando:FinishPage>
+                <TabItem Width="100" Height="50">
+                    <TabItem.Header>
+                        <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="3. Finish"/>
+                        </Button>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Bottom">
+                            <Button DockPanel.Dock="Left" Click="PrevStepButton_Click"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ArrowLeft"/>
+                                        <TextBlock>Back to 2. Flags</TextBlock>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <TextBlock Margin="5"/>
+                        </DockPanel>
+                        <rando:FinishPage>
+                            <Button Click="generateButton_Click">Generate Modpack</Button>
+                            <Label Margin="2"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Click="openNovaButton_Click">Open Nova Program</Button>
+                                <Button Grid.Column="1" Click="openModpackFolder_Click">Open Modpack Folder</Button>
+                            </Grid>
+                        </rando:FinishPage>
+                    </DockPanel>
                 </TabItem>
             </TabControl>
         </DockPanel>

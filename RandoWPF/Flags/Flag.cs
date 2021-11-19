@@ -1,15 +1,16 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Bartz24.RandoWPF.Data
+namespace Bartz24.RandoWPF
 {
-    public class Flag
+    public class Flag : INotifyPropertyChanged
     {
         public Flag()
         {
@@ -19,9 +20,20 @@ namespace Bartz24.RandoWPF.Data
         {
             Flags.FlagsList.Add(this);
             FlagType = (int)type;
+            PropertyChanged += Flag_PropertyChanged;
             return this;
 
         }
+
+        private void Flag_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Preset custom = Presets.PresetsList.First(p => p.Custom);
+            if (!Presets.ApplyingPreset && Presets.Selected != custom)
+                Presets.Selected = custom;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public int FlagType { get; set; }
 
         public bool Experimental { get; set; }
@@ -44,8 +56,16 @@ namespace Bartz24.RandoWPF.Data
 
         public string Text { get; set; }
 
-        public bool FlagEnabled { get; 
-            set; }
+        public bool FlagEnabled
+        {
+            get => flagEnabled;
+            set
+            {
+                flagEnabled = value;
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(FlagEnabled)));
+            }
+        }
         public string FlagID { get; set; }
 
         public string GetFlagString()
@@ -84,6 +104,7 @@ namespace Bartz24.RandoWPF.Data
         }
 
         public static readonly Flag Empty = EmptyFlag();
+        private bool flagEnabled;
 
         private static Flag EmptyFlag()
         {
