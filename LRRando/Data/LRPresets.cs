@@ -53,6 +53,11 @@ namespace LRRando
                     LRFlags.Other.Shops.FlagEnabled = true;
                     LRFlags.Other.Quests.FlagEnabled = true;
                     LRFlags.Other.BhuniPlus.FlagEnabled = false;
+                    LRFlags.Other.MatDrops.FlagEnabled = false;
+                    LRFlags.Other.AbiDrops.FlagEnabled = false;
+                    LRFlags.Other.HintsMain.FlagEnabled = true;
+                    LRFlags.Other.HintsNotes.FlagEnabled = true;
+                    LRFlags.Other.HintsEP.FlagEnabled = true;
                 }
             }.Register();
 
@@ -83,6 +88,11 @@ namespace LRRando
                     LRFlags.Other.Shops.FlagEnabled = true;
                     LRFlags.Other.Quests.FlagEnabled = true;
                     LRFlags.Other.BhuniPlus.FlagEnabled = false;
+                    LRFlags.Other.MatDrops.FlagEnabled = false;
+                    LRFlags.Other.AbiDrops.FlagEnabled = true;
+                    LRFlags.Other.HintsMain.FlagEnabled = true;
+                    LRFlags.Other.HintsNotes.FlagEnabled = true;
+                    LRFlags.Other.HintsEP.FlagEnabled = true;
                 }
             }.Register();
 
@@ -112,6 +122,11 @@ namespace LRRando
                     LRFlags.Other.Shops.FlagEnabled = true;
                     LRFlags.Other.Quests.FlagEnabled = true;
                     LRFlags.Other.BhuniPlus.FlagEnabled = true;
+                    LRFlags.Other.MatDrops.FlagEnabled = true;
+                    LRFlags.Other.AbiDrops.FlagEnabled = true;
+                    LRFlags.Other.HintsMain.FlagEnabled = true;
+                    LRFlags.Other.HintsNotes.FlagEnabled = true;
+                    LRFlags.Other.HintsEP.FlagEnabled = true;
                 }
             }.Register();
 
@@ -141,6 +156,11 @@ namespace LRRando
                     LRFlags.Other.Shops.FlagEnabled = true;
                     LRFlags.Other.Quests.FlagEnabled = true;
                     LRFlags.Other.BhuniPlus.FlagEnabled = true;
+                    LRFlags.Other.MatDrops.FlagEnabled = true;
+                    LRFlags.Other.AbiDrops.FlagEnabled = true;
+                    LRFlags.Other.HintsMain.FlagEnabled = false;
+                    LRFlags.Other.HintsNotes.FlagEnabled = false;
+                    LRFlags.Other.HintsEP.FlagEnabled = false;
                 }
             }.Register();
 

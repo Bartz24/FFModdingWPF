@@ -49,7 +49,7 @@
                         </StackPanel>
                     </Button.CommandParameter>
                 </Button>
-                <TextBlock Margin="10" DockPanel.Dock="Right" Text="Version: 0.1.2"/>
+                <TextBlock Margin="10" DockPanel.Dock="Right" Text="Version: 0.2.0"/>
                 <StackPanel Visibility="{Binding ProgressBarVisible,Mode=TwoWay}">
                     <TextBlock TextWrapping="Wrap" Text="{Binding ProgressBarText}"></TextBlock>
                     <ProgressBar x:Name="progressBar" Value="{Binding ProgressBarValue}" IsIndeterminate="{Binding ProgressBarIndeterminate}"/>

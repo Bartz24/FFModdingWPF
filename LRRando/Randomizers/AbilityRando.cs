@@ -16,6 +16,7 @@ namespace LRRando
     public class AbilityRando : Randomizer
     {
         public DataStoreDB3<DataStoreBtAbility> abilities = new DataStoreDB3<DataStoreBtAbility>();
+        public DataStoreDB3<DataStoreRBtAbiGrow> abilityGrowths = new DataStoreDB3<DataStoreRBtAbiGrow>();
 
         public AbilityRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -31,6 +32,7 @@ namespace LRRando
         public override void Load()
         {
             abilities.LoadDB3("LR", @"\db\resident\bt_ability.wdb");
+            abilityGrowths.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb", false);
             TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
             treasureRando.AddTreasure("ini_ba_abi", "", 1, "");
             treasureRando.AddTreasure("ini_ca_abi", "", 1, "");
@@ -66,7 +68,7 @@ namespace LRRando
         {
             TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
             EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
-            IEnumerable<DataStoreItem> enumerable = equipRando.GetAbilities(name, -1).Where(a => a.name.EndsWith("_00"));
+            List<DataStoreItem> enumerable = equipRando.GetAbilities(-1).Where(a => a.name.EndsWith("_00")).ToList();
             DataStoreItem random = enumerable.ElementAt(RandomNum.RandInt(0, enumerable.Count() - 1));
 
             treasureRando.treasures[name].s11ItemResourceId_string = random.name;
@@ -76,6 +78,7 @@ namespace LRRando
         {
             //abilities.SaveDB3(@"\db\resident\bt_ability.wdb");
             abilities.DeleteDB3(@"\db\resident\bt_ability.db3");
+            abilityGrowths.DeleteDB3(@"\db\resident\_wdbpack.bin\r_bt_abi_grow.db3");
         }
     }
 }

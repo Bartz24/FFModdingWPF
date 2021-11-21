@@ -17,12 +17,13 @@ namespace LRRando
         public class Other
         {
             public static Flag EPAbilities, EPAbilitiesEscape;
-            public static Flag Enemies, EnemiesSize, EncounterSize, Bosses, Zaltys, Ereshkigal, Prologue, BhuniPlus;
+            public static Flag Enemies, EnemiesSize, EncounterSize, Bosses, Zaltys, Ereshkigal, Prologue, BhuniPlus, MatDrops, AbiDrops;
             public static Flag EquipStats, GarbAbilities, EquipPassives;
             public static Flag Music;
             public static Flag Treasures, Pilgrims, EPLearns, Key, CoP;
             public static Flag Shops;
             public static Flag Quests;
+            public static Flag HintsMain, HintsNotes, HintsEP;
 
             internal static void Init()
             {
@@ -86,7 +87,7 @@ namespace LRRando
                     DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
                     "Key items will not appear in missable locations or from Day 10 and later.\n" +
                     "The following key items will be included in the pool:\n" +
-                    "Fragment of Mischief, Fragment of Smiles, Moogle Fragment, ID Card, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password",
+                    "Fragment of Mischief, Fragment of Smiles, Moogle Fragment, ID Card, Dead Dunes Tablets, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password",
                     Experimental = true
                 }.Register(FlagType.Other);
 
@@ -149,6 +150,20 @@ namespace LRRando
                     "If turned off, encounters will remain the same size."
                 }.Register(FlagType.Other);
 
+                MatDrops = new Flag()
+                {
+                    Text = "Randomize Enemy Material Drops",
+                    FlagID = "RandMatDrops",
+                    DescriptionFormat = "Randomize Enemy material drops"
+                }.Register(FlagType.Other);
+
+                AbiDrops = new Flag()
+                {
+                    Text = "Randomize Enemy Ability Drops",
+                    FlagID = "RandAbiDrops",
+                    DescriptionFormat = "Randomize Enemy ability drops"
+                }.Register(FlagType.Other);
+
                 Prologue = new Flag()
                 {
                     Text = "Randomize Enemy Locations - Include Prologue Tutorial",
@@ -201,6 +216,30 @@ namespace LRRando
                     Text = "Shuffle Music",
                     FlagID = "Music",
                     DescriptionFormat = "Shuffle music around.",
+                    Aesthetic = true
+                }.Register(FlagType.Other);
+
+                HintsMain = new Flag()
+                {
+                    Text = "Hints by Specific Item",
+                    FlagID = "HintsMain",
+                    DescriptionFormat = "Each part of a main quest completed could reveal exact locations of some randomized important key items in the Quests menu.",
+                    Aesthetic = true
+                }.Register(FlagType.Other);
+
+                HintsNotes = new Flag()
+                {
+                    Text = "Hints by Area",
+                    FlagID = "HintsArea",
+                    DescriptionFormat = "Each randomized Enemy Libra Notes item will hint towards the number of randomized important key items by area.",
+                    Aesthetic = true
+                }.Register(FlagType.Other);
+
+                HintsEP = new Flag()
+                {
+                    Text = "Hint EP Abilities",
+                    FlagID = "HintsEP",
+                    DescriptionFormat = "Randomized EP abilities will be included in hints.",
                     Aesthetic = true
                 }.Register(FlagType.Other);
             }

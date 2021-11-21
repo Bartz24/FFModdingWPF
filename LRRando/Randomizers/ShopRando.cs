@@ -91,8 +91,11 @@ namespace LRRando
                 shops.Values.Where(s => s.u3Category == (int)ShopCategory.Forge).ToList().Shuffle().Take(3).ForEach(s => uniqueShops.Add(s.name, new List<string>()));
 
                 Dictionary<string, List<string>> shopsDict = new Dictionary<string, List<string>>();
-                
-                shopsOrig.Values.ForEach(s => shopsDict.Add(s.name, s.GetItems().Where(i => s.u3Category == (int)ShopCategory.Inn || s.u3Category == (int)ShopCategory.Libra || i.StartsWith("e") && i.Length == 4).ToList()));
+
+                shopsOrig.Values.ForEach(s => shopsDict.Add(s.name, s.GetItems().Where(i => 
+                s.u3Category == (int)ShopCategory.Inn || 
+                (s.u3Category == (int)ShopCategory.Libra && (!i.StartsWith("libra") || treasureRando.treasures.Values.Where(t => t.s11ItemResourceId_string == i).Count() == 0)) || 
+                i.StartsWith("e") && i.Length == 4).ToList()));
                 Dictionary<string, int> maxSizes = shopsDict.Keys.ToDictionary(k => k, k =>
                     shopsDict[k].Count + RandomNum.RandInt(
                         shopsOrig[k].u3Category == (int)ShopCategory.Ark || shopsOrig[k].u3Category == (int)ShopCategory.Items ? 1 : 3, 

@@ -17,8 +17,11 @@ namespace LRRando
     {
         public DataStoreDB3<DataStoreItemWeapon> itemWeapons = new DataStoreDB3<DataStoreItemWeapon>();
         public DataStoreDB3<DataStoreItem> items = new DataStoreDB3<DataStoreItem>();
+        public DataStoreDB3<DataStoreItem> itemsOrig = new DataStoreDB3<DataStoreItem>();
         public DataStoreDB3<DataStoreBtAutoAbility> autoAbilities = new DataStoreDB3<DataStoreBtAutoAbility>();
         public DataStoreDB3<DataStoreRItemAbi> itemAbilities = new DataStoreDB3<DataStoreRItemAbi>();
+        public DataStoreDB3<DataStoreRItemAbi> itemAbilitiesOrig = new DataStoreDB3<DataStoreRItemAbi>();
+        Dictionary<string, AbilityData> abilityData = new Dictionary<string, AbilityData>();
 
         List<string> passives = new List<string>();
 
@@ -37,13 +40,17 @@ namespace LRRando
         {
             itemWeapons.LoadDB3("LR", @"\db\resident\item_weapon.wdb");
             items.LoadDB3("LR", @"\db\resident\item.wdb");
+            itemsOrig.LoadDB3("LR", @"\db\resident\item.wdb");
             autoAbilities.LoadDB3("LR", @"\db\resident\bt_auto_ability.wdb");
             itemAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
+            itemAbilitiesOrig.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
             passives = File.ReadAllLines(@"data\passives.csv").ToList();
+            abilityData = File.ReadAllLines(@"data\abilities.csv").Select(s => new AbilityData(s.Split(","))).ToDictionary(a => a.ID, e => e);
         }
         public override void Randomize(Action<int> progressSetter)
         {
             itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
+            itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
             if (LRFlags.Other.EquipStats.FlagEnabled)
             {
                 LRFlags.Other.EquipStats.SetRand();
@@ -65,6 +72,8 @@ namespace LRRando
                 RandomNum.ClearRand();
             }
 
+            itemWeapons.Values.Where(w => w.i16AtbSpeedModVal < 0).ForEach(w => w.i16AtbSpeedModVal += 65536);
+            itemWeapons.Values.Where(w => w.i16MagicModVal < 0).ForEach(w => w.i16MagicModVal += 65536);
         }
 
         private void RandomizeAbilities()
@@ -89,34 +98,56 @@ namespace LRRando
 
         private string RandomizeAbility(string name, int forceType)
         {
+            AbilityRando abilityRando = randomizers.Get<AbilityRando>("Abilities");
             if (name != "")
             {
-                IEnumerable<DataStoreItem> enumerable = GetAbilities(name, forceType);
-                DataStoreItem random = enumerable.ElementAt(RandomNum.RandInt(0, enumerable.Count() - 1));
-                if (name.StartsWith("abi_"))
+                List<string> possible = GetGarbAbilities(forceType);
+                string newAbility = possible.ElementAt(RandomNum.RandInt(0, possible.Count() - 1));
+                if (name.StartsWith("abi_") && !name.EndsWith("zz99"))
                 {
-                    itemAbilities[name].sAbilityId_string = random.sScriptId_string;
+                    string origAbility = itemAbilities[name].sAbilityId_string;
+                    itemAbilities[name].sAbilityId_string = newAbility;
                     items[name].sItemNameStringId_string = "";
                     items[name].sHelpStringId_string = "";
                     items[name].sScriptId_string = "";
-                    items[name].u8MenuIcon = random.u8MenuIcon;
+                    items[name].u8MenuIcon = abilityData[newAbility].MenuIcon;
+
+                    if (itemAbilities[name].u4Lv < 1)
+                        itemAbilities[name].u4Lv = 1;
+
+                    int origATB = abilityData[origAbility].ATBCost;
+                    float origATBMult = (abilityData[origAbility].ATBCost - itemAbilities[name].i8AtbDec) / (float)origATB;
+                    int newATB = abilityData[newAbility].ATBCost;
+                    itemAbilities[name].i8AtbDec = -(int)((newATB * origATBMult) - abilityData[newAbility].ATBCost);
+
+                    int origExpectedPower = abilityData[origAbility].BasePower + (abilityRando.abilityGrowths[origAbility].GetPowMin(itemAbilities[name].u4Lv, abilityData[origAbility].HitMultiplier) + abilityRando.abilityGrowths[origAbility].GetPowMax(itemAbilities[name].u4Lv, abilityData[origAbility].HitMultiplier)) / 2;
+                    float origMult = (abilityData[origAbility].BasePower + itemAbilities[name].iPower * abilityData[origAbility].HitMultiplier) / (float)origExpectedPower;
+                    int newExpectedPower = abilityData[newAbility].BasePower + (abilityRando.abilityGrowths[newAbility].GetPowMin(itemAbilities[name].u4Lv, abilityData[newAbility].HitMultiplier) + abilityRando.abilityGrowths[newAbility].GetPowMax(itemAbilities[name].u4Lv, abilityData[newAbility].HitMultiplier)) / 2;
+                    itemAbilities[name].iPower = (int)((newExpectedPower * origMult) - abilityData[newAbility].BasePower) / abilityData[newAbility].HitMultiplier;
                 }
                 else
                 {
-                    return random.sScriptId_string;
-                }
-                if (itemAbilities[name].u4Lv < 1)
-                {
-                    itemAbilities[name].u4Lv = 1;
-                    itemAbilities[name].iPower = 15;
+                    return newAbility;
                 }
             }
             return name;
         }
 
-        public IEnumerable<DataStoreItem> GetAbilities(string name, int forceType)
+        public List<string> GetGarbAbilities(int forceType)
         {
-            return items.Values.Where(i => IsAbility(i) && (forceType == -1 || i.u8MenuIcon == forceType));
+            return abilityData.Keys.Where(s => forceType == -1 || abilityData[s].MenuIcon == forceType).ToList();
+        }
+
+        public List<DataStoreItem> GetAbilities(int forceType)
+        {
+            List<string> list = itemsOrig.Values.Where(i => IsAbility(i) && (forceType == -1 || i.u8MenuIcon == forceType)).Select(i => i.name).ToList();
+
+            return list.Select(s => itemsOrig[s]).GroupBy(i => i.sScriptId_string).Select(g => g.First()).ToList();
+        }
+
+        public bool IsAbility(string item)
+        {
+            return items.Keys.Contains(item) && IsAbility(items[item]);
         }
 
         public bool IsAbility(DataStoreItem item)
@@ -263,6 +294,23 @@ namespace LRRando
             itemAbilities.SaveDB3(@"\db\resident\_wdbpack.bin\r_item_abi.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_item_abi.wdb");
             autoAbilities.DeleteDB3(@"\db\resident\bt_auto_ability.db3");
+        }
+
+        public class AbilityData
+        {
+            public string ID { get; set; }
+            public int BasePower { get; set; }
+            public int HitMultiplier { get; set; }
+            public int ATBCost { get; set; }
+            public int MenuIcon { get; set; }
+            public AbilityData(string[] row)
+            {
+                ID = row[0];
+                BasePower = int.Parse(row[1]);
+                HitMultiplier = int.Parse(row[2]);
+                ATBCost = int.Parse(row[3]);
+                MenuIcon = int.Parse(row[4]);
+            }
         }
     }
 }
