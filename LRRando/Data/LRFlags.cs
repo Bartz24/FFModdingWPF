@@ -170,7 +170,7 @@ namespace LRRando
                     FlagID = "RandProlo",
                     DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
                     "Prologue tutorial enemies will be included and randomized.\n" +
-                    "VERY HARD or IMPOSSIBLE.",
+                    "Enemies replacing prologue enemies are limited to selection of smaller enemies.",
                     Experimental = true
                 }.Register(FlagType.Other);
 

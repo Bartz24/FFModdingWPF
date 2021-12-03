@@ -9,18 +9,12 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.2.0 Changelog:
--Added the following flags
-    Randomize Enemy Material Drops
-    Randomize Enemy Ability Drops
-    Hints by Specific Item (hints will be given for completed Main Quest parts. Ex: 1-3 will tell the location of a few key items)
-    Hints by Area (Enemy Libra notes not found in shops will tell how many important items are in a location)
-        List of the 13 Hint Locations: Drops, Luxerion, Wildlands, Dead Dunes, Yusnaan, Ultimate Lair & Final Day, Ark,
-                                       CoP Luxerion, CoP Yusnaan, CoP Wildlands, CoP Dead Dunes, CoP Global, Soul Seeds
-    Hint EP Abilities
-
--Added the 3 Tablets to the pool for the Key Items rando flag
--Readded 250 missing passives that were accidentally removed a while ago
--Fixed 0 ATB Cost and negative or very high power multipliers
--Fixed all negative stats on weapons and shields
--Fixed some missing logic allowing key items in a few softlock locations
+0.2.1 Changelog:
+-Increased gil purchase prices for Reraise and Hero's Potions
+-Limited Prologue enemy rando to easier enemies
+-Limited variety of forced fights to avoid loading issues
+-Starting shields no longer have negative strength or magic
+-Removed unused shops from rando
+-Fixed errors when certain flags are disabled
+-Improved shop documentation names
+-Reordered lists of treasures/shops in documentation files

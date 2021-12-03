@@ -217,17 +217,24 @@ namespace LRRando
             }
             foreach (DataStoreItemWeapon shield in itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Shield))
             {
-                Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                    new Tuple<int, int>(-2000, 5000),
-                    new Tuple<int, int>(-2000, 5000),
-                    new Tuple<int, int>(-5000, 20000),
-                    new Tuple<int, int>(-25, 50),
-                    new Tuple<int, int>(0, 800)
-                };
-                float[] weights = new float[] { 6, 6, 2, 4, 4 };
-                int[] zeros = new int[] { 90, 90, 40, 30, 20 };
-                StatPoints statPoints = new StatPoints(bounds, weights, zeros);
-                statPoints.Randomize(new int[] { shield.i16AttackModVal, shield.i16MagicModVal, shield.i16HpModVal, shield.i16AtbSpeedModVal, shield.iGuardModVal });
+                bool starting = shield.name == "shi_ea08" || shield.name == "shi_ca00";
+
+                StatPoints statPoints;
+                do
+                {
+                    Tuple<int, int>[] bounds = new Tuple<int, int>[] {
+                        new Tuple<int, int>(-2000, 5000),
+                        new Tuple<int, int>(-2000, 5000),
+                        new Tuple<int, int>(-5000, 20000),
+                        new Tuple<int, int>(-25, 50),
+                        new Tuple<int, int>(0, 800)
+                    };
+                    float[] weights = new float[] { 6, 6, 2, 4, 4 };
+                    int[] zeros = new int[] { 90, 90, 40, 30, 20 };
+                    statPoints = new StatPoints(bounds, weights, zeros);
+                    statPoints.Randomize(new int[] { shield.i16AttackModVal, shield.i16MagicModVal, shield.i16HpModVal, shield.i16AtbSpeedModVal, shield.iGuardModVal });
+                }
+                while (starting && (statPoints[0] < 0 || statPoints[1] < 0));
 
                 shield.i16AttackModVal = statPoints[0];
                 shield.i16MagicModVal = statPoints[1];

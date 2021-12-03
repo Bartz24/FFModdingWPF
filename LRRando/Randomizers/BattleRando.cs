@@ -87,10 +87,22 @@ namespace LRRando
                         {
                             List<EnemyData> newEnemies = new List<EnemyData>();
                             List<string> charSpecs = new List<string>();
-                            if (b.name == "btsc02902")
-                                UpdateEnemyLists(oldEnemies, newEnemies, charSpecs, shuffledBosses, enemyData.Values.Where(e => e.Parts.Count == 0 && e.Class == "Small").ToList());
-                            else
-                                UpdateEnemyLists(oldEnemies, newEnemies, charSpecs, shuffledBosses, enemyData.Values.ToList());
+
+                            List<EnemyData> validEnemies = enemyData.Values.ToList();
+                            int variety = -1;
+                            if (CharaSetMapping.ContainsKey(b.name))
+                            {
+                                // Limit forced fights to a max variety of 3 enemies with no parts to avoid memory? issues
+                                validEnemies = validEnemies.Where(e => e.Parts.Count == 0).ToList();
+                                variety = 3;
+                            }
+                            if (oldEnemies[0].ID.EndsWith("tuto") && oldEnemies[0].Class != "Boss")
+                            {
+                                validEnemies = validEnemies.Where(e => e.Traits.Contains("Tuto")).ToList();
+                                variety = 2;
+                            }
+
+                            UpdateEnemyLists(oldEnemies, newEnemies, charSpecs, shuffledBosses, validEnemies, variety);
 
                             if (newEnemies.Count > 0)
                             {
@@ -116,7 +128,7 @@ namespace LRRando
             }
         }
 
-        private void UpdateEnemyLists(List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, Dictionary<string, string> shuffledBosses, List<EnemyData> allowed)
+        private void UpdateEnemyLists(List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, Dictionary<string, string> shuffledBosses, List<EnemyData> allowed, int maxVariety)
         {
             TextRando textRando = randomizers.Get<TextRando>("Text");
             EnemyRando enemyRando = randomizers.Get<EnemyRando>("Enemies");
@@ -188,7 +200,13 @@ namespace LRRando
                     newEnemies.Clear();
                     foreach (EnemyData oldEnemy in oldEnemies)
                     {
-                        EnemyData next = allowed.Where(e => LRFlags.Other.EnemiesSize.FlagEnabled
+                        if (maxVariety > 0 && newEnemies.Distinct().Count() >= maxVariety)
+                        {
+                            newEnemies.Add(newEnemies[RandomNum.RandInt(0, newEnemies.Count - 1)]);
+                        }
+                        else
+                        {
+                            EnemyData next = allowed.Where(e => LRFlags.Other.EnemiesSize.FlagEnabled
                             && oldEnemy.Class != "Omega"
                             && oldEnemy.Class != "Boss"
                             && e.Class != "Omega"
@@ -196,7 +214,9 @@ namespace LRRando
                             || e.Class == oldEnemy.Class)
                             .Where(e => !e.ID.EndsWith("tuto") || LRFlags.Other.Prologue.FlagEnabled)
                             .ToList().Shuffle().First();
-                        newEnemies.Add(next);
+                            newEnemies.Add(next);
+                        }
+
                     }
                     charSpecs.AddRange(newEnemies.Select(e => e.ID));
                 }
@@ -274,6 +294,7 @@ namespace LRRando
         {
             public string ID { get; set; }
             public string Name { get; set; }
+            public List<string> Traits { get; set; }
             public string Class { get; set; }
             public int Size { get; set; }
             public List<string> Parts { get; set; }
@@ -281,9 +302,10 @@ namespace LRRando
             {
                 ID = row[0];
                 Name = row[1];
-                Class = row[2];
-                Size = int.Parse(row[3]);
-                Parts = row.Skip(4).Where(s => !String.IsNullOrEmpty(s)).ToList();
+                Traits = row[2].Split("|").ToList();
+                Class = row[3];
+                Size = int.Parse(row[4]);
+                Parts = row.Skip(5).Where(s => !String.IsNullOrEmpty(s)).ToList();
             }
         }
         public class BossData

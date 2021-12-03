@@ -1,0 +1,112 @@
+shop_cus_dd00,Dead Dunes,Ruffian,,1,7
+shop_cus_dd00_2,Dead Dunes,Ruffian,,8,9
+shop_cus_dd00_3,Dead Dunes,Ruffian,,10,
+shop_cus_lx00,Luxerion,Old Town,,1,5
+shop_cus_lx00_2,Luxerion,Old Town,,6,9
+shop_cus_lx00_3,Luxerion,Old Town,,10,
+shop_cus_lx50,Luxerion,Final Day,,,
+shop_cus_wl00,Wildlands,Jagd Village,,1,5
+shop_cus_wl00_2,Wildlands,Jagd Village,,6,9
+shop_cus_wl00_3,Wildlands,Jagd Village,,10,
+shop_cus_wl01,Wildlands,Research Camp,,1,5
+shop_cus_wl01_2,Wildlands,Research Camp,,6,9
+shop_cus_wl01_3,Wildlands,Research Camp,,10,
+shop_cus_ys00,Yusnaan,Champion's Quarter,,1,5
+shop_cus_ys00_2,Yusnaan,Champion's Quarter,,6,9
+shop_cus_ys00_3,Yusnaan,Champion's Quarter,,10,
+shop_equ_dd00,Dead Dunes,Ruffian,,1,7
+shop_equ_dd00_2,Dead Dunes,Ruffian,,8,
+shop_equ_dd02,Dead Dunes,Station,,1,7
+shop_equ_dd02_2,Dead Dunes,Station,,8,
+shop_equ_lx00,Luxerion,North Plaza,,1,7
+shop_equ_lx00_2,Luxerion,North Plaza,,8,
+shop_equ_lx01,Luxerion,2nd Ave,,,
+shop_equ_lx02,Luxerion,Pilgrim's Passage,,1,7
+shop_equ_lx02_2,Luxerion,Pilgrim's Passage,,8,
+shop_equ_lx03_3,Luxerion,Pilgrim's Passage,After Roadworks I,8,
+shop_equ_lx50,Luxerion,Final Day,,,
+shop_equ_wd00,Anywhere,Forge (Rare),,3,5
+shop_equ_wd00_2,Anywhere,Forge (Rare),,6,8
+shop_equ_wd00_3,Anywhere,Forge (Rare),,9,
+shop_equ_wl00,Wildlands,Canopus Farms,,1,7
+shop_equ_wl00_2,Wildlands,Canopus Farms,,8,
+shop_equ_wl04_3,Wildlands,Canopus Farms,After Roadworks II,8,
+shop_equ_wl01,Wildlands,Aryas Village,,,
+shop_equ_wl02,Wildlands,Jagd Village,,,
+shop_equ_wl03,Wildlands,Moogle Village,,,
+shop_equ_ys00,Yusnaan,Hawker's Row,,1,7
+shop_equ_ys00_2,Yusnaan,Hawker's Row,,8,
+shop_equ_ys03_3,Yusnaan,Hawker's Row,After Roadworks III,8,
+shop_equ_ys01,Yusnaan,Champion's Quarter,,1,7
+shop_equ_ys01_2,Yusnaan,Champion's Quarter,,8,
+shop_equ_ys02,Yusnaan,Augur's Quarter,,1,7
+shop_equ_ys02_2,Yusnaan,Augur's Quarter,,8,
+shop_etc_dd00,Dead Dunes,Giant's Sandbox,After His Wife's Dream,,
+shop_etc_lx00,Luxerion,North Plaza,,,
+shop_etc_lx01,Luxerion,Warren,,,
+shop_etc_lx50,Luxerion,Final Day,,,
+shop_etc_wl00,Wildlands,Jagd Village,,,
+shop_etc_wl01,Wildlands,Poltae,,,
+shop_etc_wl02,Wildlands,Canopus Farms/Research Camp,,,
+shop_etc_ys00,Yusnaan,Hawker's Row,,,
+shop_etc_ys01,Yusnaan,Pleasure Alley,,,
+shop_itm_dd00,Dead Dunes,Ruffian,,1,5
+shop_itm_dd00_2,Dead Dunes,Ruffian,,6,
+shop_itm_dd03_2,Dead Dunes,Ruffian,After Old Rivals,1,5
+shop_itm_dd03_3,Dead Dunes,Ruffian,After Old Rivals,6,10
+shop_itm_dd03_4,Dead Dunes,Ruffian,After Old Rivals,11,
+shop_itm_dd01,Dead Dunes,Outside Ruffian,,1,5
+shop_itm_dd01_2,Dead Dunes,Outside Ruffian,,6,10
+shop_itm_dd01_3,Dead Dunes,Outside Ruffian,,11,
+shop_itm_dd02,Dead Dunes,Outside Ruffian,After Old Rivals,1,5
+shop_itm_dd02_2,Dead Dunes,Outside Ruffian,After Old Rivals,6,10
+shop_itm_dd02_3,Dead Dunes,Outside Ruffian,After Old Rivals,11,
+shop_itm_dd04,Dead Dunes,Station,,1,5
+shop_itm_dd04_2,Dead Dunes,Station,,6,10
+shop_itm_dd04_3,Dead Dunes,Station,,11,
+shop_itm_lx00,Luxerion,North Station,,1,5
+shop_itm_lx00_2,Luxerion,North Station,,6,10
+shop_itm_lx00_3,Luxerion,North Station,,11,
+shop_itm_lx01,Luxerion,2nd Ave,,1,5
+shop_itm_lx01_2,Luxerion,2nd Ave,,6,10
+shop_itm_lx01_3,Luxerion,2nd Ave,,11,
+shop_itm_lx02,Luxerion,Warren,,1,5
+shop_itm_lx02_2,Luxerion,Warren,,6,10
+shop_itm_lx02_3,Luxerion,Warren,,11,
+shop_itm_lx50,Luxerion,Final Day,,,
+shop_itm_lx51,Luxerion,Final Day,,,
+shop_itm_wl00,Wildlands,Canopus Farms,,1,5
+shop_itm_wl00_2,Wildlands,Canopus Farms,,6,10
+shop_itm_wl00_3,Wildlands,Canopus Farms,,11,
+shop_itm_wl01,Wildlands,Poltae,,1,5
+shop_itm_wl01_2,Wildlands,Poltae,,6,10
+shop_itm_wl01_3,Wildlands,Poltae,,11,
+shop_itm_wl02,Wildlands,Canopus Farms/Aryas Village,,1,5
+shop_itm_wl02_2,Wildlands,Canopus Farms/Aryas Village,,6,10
+shop_itm_wl02_3,Wildlands,Canopus Farms/Aryas Village,,11,
+shop_itm_wl03,Wildlands,Canopus Farms/Jagd Village,,1,5
+shop_itm_wl03_2,Wildlands,Canopus Farms/Jagd Village,,6,10
+shop_itm_wl03_3,Wildlands,Canopus Farms/Jagd Village,,11,
+shop_itm_ys00,Yusnaan,Glutton's Quarter,,1,5
+shop_itm_ys00_2,Yusnaan,Glutton's Quarter,,6,10
+shop_itm_ys00_3,Yusnaan,Glutton's Quarter,,11,
+shop_itm_ys01,Yusnaan,Slaughterhouse,,1,5
+shop_itm_ys01_2,Yusnaan,Slaughterhouse,,6,10
+shop_itm_ys01_3,Yusnaan,Slaughterhouse,,11,
+shop_itm_ys06_2,Yusnaan,Slaughterhouse,After A Testing Proposition,1,5
+shop_itm_ys06_3,Yusnaan,Slaughterhouse,After A Testing Proposition,6,10
+shop_itm_ys06_4,Yusnaan,Slaughterhouse,After A Testing Proposition,11,
+shop_itm_ys02,Yusnaan,Augur's Quarter,,1,5
+shop_itm_ys02_2,Yusnaan,Augur's Quarter,,6,10
+shop_itm_ys02_3,Yusnaan,Augur's Quarter,,11,
+shop_itm_ys03,Yusnaan,Cargo Station,,1,5
+shop_itm_ys03_2,Yusnaan,Cargo Station,,6,10
+shop_itm_ys03_3,Yusnaan,Cargo Station,,11,
+shop_itm_ys04,Yusnaan,Patron's Palace,,1,5
+shop_itm_ys04_2,Yusnaan,Patron's Palace,,6,10
+shop_itm_ys04_3,Yusnaan,Patron's Palace,,11,
+shop_itm_ys05,Yusnaan,Prologue,,,
+shop_ptl_pt00,The Ark,Hope,,1,5
+shop_ptl_pt00_2,The Ark,Hope,,6,10
+shop_ptl_pt00_3,The Ark,Hope,,11,
+shop_ptl_pt01,The Ark,Final Day,,,

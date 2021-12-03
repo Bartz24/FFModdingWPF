@@ -18,6 +18,7 @@ namespace LRRando
     {
         DataStoreDB3<DataStoreShop> shopsOrig = new DataStoreDB3<DataStoreShop>();
         DataStoreDB3<DataStoreShop> shops = new DataStoreDB3<DataStoreShop>();
+        Dictionary<string, ShopData> shopData = new Dictionary<string, ShopData>();
 
         public ShopRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -34,6 +35,8 @@ namespace LRRando
         {
             shopsOrig.LoadDB3("LR", @"\db\resident\shop.wdb");
             shops.LoadDB3("LR", @"\db\resident\shop.wdb");
+
+            shopData = File.ReadAllLines(@"data\shops.csv").Select(s => new ShopData(s.Split(","))).ToDictionary(s => s.ID, s => s);
 
             EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
             equipRando.items["mat_z_000"].uPurchasePrice = 1100;
@@ -69,6 +72,9 @@ namespace LRRando
             equipRando.items["mat_z_044"].uPurchasePrice = 12500;
             equipRando.items["mat_z_045"].uPurchasePrice = 5800;
 
+            equipRando.items["it_reraise"].uPurchasePrice = 2520;
+            equipRando.items["it_hero"].uPurchasePrice = 4340;
+
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -92,10 +98,12 @@ namespace LRRando
 
                 Dictionary<string, List<string>> shopsDict = new Dictionary<string, List<string>>();
 
-                shopsOrig.Values.ForEach(s => shopsDict.Add(s.name, s.GetItems().Where(i => 
-                s.u3Category == (int)ShopCategory.Inn || 
-                (s.u3Category == (int)ShopCategory.Libra && (!i.StartsWith("libra") || treasureRando.treasures.Values.Where(t => t.s11ItemResourceId_string == i).Count() == 0)) || 
-                i.StartsWith("e") && i.Length == 4).ToList()));
+                shopData.Keys.Select(s => shopsOrig[s]).ForEach(s => shopsDict.Add(s.name, s.GetItems().Where(i =>
+                      s.u3Category == (int)ShopCategory.Inn ||
+                      (s.u3Category == (int)ShopCategory.Libra && (!i.StartsWith("libra") || treasureRando.treasures.Values.Where(t => t.s11ItemResourceId_string == i).Count() == 0)) ||
+                      i.StartsWith("e") && i.Length == 4).ToList())
+                );
+
                 Dictionary<string, int> maxSizes = shopsDict.Keys.ToDictionary(k => k, k =>
                     shopsDict[k].Count + RandomNum.RandInt(
                         shopsOrig[k].u3Category == (int)ShopCategory.Ark || shopsOrig[k].u3Category == (int)ShopCategory.Items ? 1 : 3, 
@@ -212,26 +220,58 @@ namespace LRRando
             TextRando textRando = randomizers.Get<TextRando>("Text");
             HTMLPage page = new HTMLPage("Shops", "template/documentation.html");
 
-            shops.Values.Where(s => s.u3Category == (int)ShopCategory.Ark || s.u3Category == (int)ShopCategory.Forge || s.u3Category == (int)ShopCategory.Items || s.u3Category == (int)ShopCategory.Libra || s.u3Category == (int)ShopCategory.Outfitters).ForEach(shop =>
-             {
+            shopData.Keys.Select(s => shops[s]).Where(s => s.u3Category == (int)ShopCategory.Ark || s.u3Category == (int)ShopCategory.Forge || s.u3Category == (int)ShopCategory.Items || s.u3Category == (int)ShopCategory.Libra || s.u3Category == (int)ShopCategory.Outfitters).ForEach(shop =>
+               {
+                   ShopData shopInfo = shopData[shop.name];
+                   string name = $"{shopInfo.Area} {shopInfo.SubArea} - {textRando.mainSysUS[shop.sShopNameLabel_string]}";
+                   if (shopInfo.DayStart != -1)
+                   {
+                       name += $" - Day {shopInfo.DayStart}";
+                       if (shopInfo.DayEnd != -1)
+                           name += $" - {shopInfo.DayEnd}";
+                       else
+                           name += "+";
+                   }
 
-                 page.HTMLElements.Add(new Table($"{textRando.mainSysUS[shop.sShopNameLabel_string]} - Day {shop.u4Day} - ?", new string[] { "New Contents" }.ToList(), new int[] { 100 }.ToList(), shop.GetItems().Select(itemID =>
-                 {
-                     string name;
-                     if (itemID == "")
-                         name = "Gil";
-                     else if (abilityRando.abilities.Keys.Contains(itemID))
-                         name = textRando.mainSysUS[abilityRando.abilities[itemID].sStringResId_string];
-                     else
-                     {
-                         name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId_string].Replace("{Var83 182}", "Omega");
-                         if (name.Contains("{End}"))
-                             name = name.Substring(0, name.IndexOf("{End}"));
-                     }
-                     return new string[] { name }.ToList();
-                 }).ToList()));
-             });
+                   if (!string.IsNullOrEmpty(shopInfo.AdditionalInfo))
+                       name += $" ({shopInfo.AdditionalInfo})";
+
+                   page.HTMLElements.Add(new Table(name, (new string[] { "New Contents" }).ToList(), (new int[] { 100 }).ToList(), shop.GetItems().Select(itemID =>
+                   {
+                       string name;
+                       if (itemID == "")
+                           name = "Gil";
+                       else if (abilityRando.abilities.Keys.Contains(itemID))
+                           name = textRando.mainSysUS[abilityRando.abilities[itemID].sStringResId_string];
+                       else
+                       {
+                           name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId_string].Replace("{Var83 182}", "Omega");
+                           if (name.Contains("{End}"))
+                               name = name.Substring(0, name.IndexOf("{End}"));
+                       }
+                       return (new string[] { name }).ToList();
+                   }).ToList()));
+               });
             return page;
+        }
+
+        public class ShopData
+        {
+            public string ID { get; set; }
+            public string Area { get; set; }
+            public string SubArea { get; set; }
+            public string AdditionalInfo { get; set; }
+            public int DayStart { get; set; }
+            public int DayEnd { get; set; }
+            public ShopData(string[] row)
+            {
+                ID = row[0];
+                Area = row[1];
+                SubArea = row[2];
+                AdditionalInfo = row[3];
+                DayStart = string.IsNullOrEmpty(row[4]) ? -1 : int.Parse(row[4]);
+                DayEnd = string.IsNullOrEmpty(row[5]) ? -1 : int.Parse(row[5]);
+            }
         }
     }
 }

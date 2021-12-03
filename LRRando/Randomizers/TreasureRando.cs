@@ -124,6 +124,8 @@ namespace LRRando
                 if (!LRFlags.Other.EPLearns.FlagEnabled)
                     keys = keys.Where(k => !treasureData[k].Traits.Contains("EP")).ToList();
 
+                keys = keys.OrderByDescending(k => treasureData[k].Traits.Contains("Same")).ToList();
+
                 Dictionary<string, string> placement = GetImportantPlacement(new Dictionary<string, string>(), keys, keys.Where(t => IsImportant(t)).ToList()).Item2;
 
                 List<string> newKeys = keys.Where(k => !placement.ContainsValue(k)).ToList().Shuffle().ToList();
@@ -334,7 +336,7 @@ namespace LRRando
             AbilityRando abilityRando = randomizers.Get<AbilityRando>("Abilities");
             TextRando textRando = randomizers.Get<TextRando>("Text");
 
-            if (LRFlags.Other.HintsMain.FlagEnabled)
+            if (LRFlags.Other.Treasures.FlagEnabled && LRFlags.Other.HintsMain.FlagEnabled)
             {
                 hintsMain.Keys.ForEach(h =>
                 {
@@ -342,7 +344,7 @@ namespace LRRando
                 });
             }
 
-            if (LRFlags.Other.HintsNotes.FlagEnabled)
+            if (LRFlags.Other.Treasures.FlagEnabled && LRFlags.Other.HintsNotes.FlagEnabled)
             {
                 hintsNotesLocations.Keys.ForEach(i =>
                 {
