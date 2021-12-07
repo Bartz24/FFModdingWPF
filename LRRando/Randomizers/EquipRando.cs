@@ -46,28 +46,34 @@ namespace LRRando
             itemAbilitiesOrig.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
             passives = File.ReadAllLines(@"data\passives.csv").ToList();
             abilityData = File.ReadAllLines(@"data\abilities.csv").Select(s => new AbilityData(s.Split(","))).ToDictionary(a => a.ID, e => e);
+
+            items.InsertCopyAlphabetical("key_b_20", "key_r_kanki");
+            items["key_r_kanki"].sItemNameStringId_string = "$m_001";
+            items["key_r_kanki"].sHelpStringId_string = "$m_001_ac000";
+            items["key_r_kanki"].u16SortAllByKCategory = 100;
+            items["key_r_kanki"].u16SortCategoryByCategory = 150;
         }
         public override void Randomize(Action<int> progressSetter)
         {
             itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
             itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
-            if (LRFlags.Other.EquipStats.FlagEnabled)
+            if (LRFlags.StatsAbilities.EquipStats.FlagEnabled)
             {
-                LRFlags.Other.EquipStats.SetRand();
+                LRFlags.StatsAbilities.EquipStats.SetRand();
                 RandomizeStats();
                 RandomNum.ClearRand();
             }
 
-            if (LRFlags.Other.GarbAbilities.FlagEnabled)
+            if (LRFlags.StatsAbilities.GarbAbilities.FlagEnabled)
             {
-                LRFlags.Other.GarbAbilities.SetRand();
+                LRFlags.StatsAbilities.GarbAbilities.SetRand();
                 RandomizeAbilities();
                 RandomNum.ClearRand();
             }
 
-            if (LRFlags.Other.EquipPassives.FlagEnabled)
+            if (LRFlags.StatsAbilities.EquipPassives.FlagEnabled)
             {
-                LRFlags.Other.EquipPassives.SetRand();
+                LRFlags.StatsAbilities.EquipPassives.SetRand();
                 RandomizePassives();
                 RandomNum.ClearRand();
             }

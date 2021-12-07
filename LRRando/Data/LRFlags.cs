@@ -1,10 +1,7 @@
 ﻿using Bartz24.RandoWPF;
-using Bartz24.RandoWPF.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace LRRando
 {
@@ -12,18 +9,19 @@ namespace LRRando
     {
         public enum FlagType
         {
+            All = -1,
+            StatsAbilities,
+            Enemies,
+            Items,
             Other
         }
-        public class Other
+        public class StatsAbilities
         {
-            public static Flag EPAbilities, EPAbilitiesEscape;
-            public static Flag Enemies, EnemiesSize, EncounterSize, Bosses, Zaltys, Ereshkigal, Prologue, BhuniPlus, MatDrops, AbiDrops;
+            public static Flag EPAbilities, NerfOC, EPCosts;
+            public static ToggleFlagProperty EPAbilitiesEscape, EPCostsZero;
+            public static NumberFlagProperty EPCostsRange;
             public static Flag EquipStats, GarbAbilities, EquipPassives;
-            public static Flag Music;
-            public static Flag Treasures, Pilgrims, EPLearns, Key, CoP;
-            public static Flag Shops;
             public static Flag Quests;
-            public static Flag HintsMain, HintsNotes, HintsEP;
 
             internal static void Init()
             {
@@ -32,36 +30,176 @@ namespace LRRando
                     Text = "Randomize Equipment Stats",
                     FlagID = "RandEqStat",
                     DescriptionFormat = "Randomize Garb, Weapon, and Shield stats."
-                }.Register(FlagType.Other);
+                }.Register(FlagType.StatsAbilities);
 
                 GarbAbilities = new Flag()
                 {
                     Text = "Randomize Garb Abilities",
                     FlagID = "RandGarbAbi",
                     DescriptionFormat = "Randomize abilities locked to garbs."
-                }.Register(FlagType.Other);
+                }.Register(FlagType.StatsAbilities);
 
                 EquipPassives = new Flag()
                 {
                     Text = "Randomize Equipment Passive Abilities",
                     FlagID = "RandPassive",
                     DescriptionFormat = "Randomize passive abilities on garbs, garb abilities, weapons, shields, and accessories."
-                }.Register(FlagType.Other);
+                }.Register(FlagType.StatsAbilities);
 
                 EPAbilities = new Flag()
                 {
                     Text = "Shuffle EP Abilities",
                     FlagID = "EPAbi",
                     DescriptionFormat = "Shuffles all EP abilities between each other except for Overclock and Escape (Escape requires the below flag)."
-                }.Register(FlagType.Other);
+                }.Register(FlagType.StatsAbilities);
 
-                EPAbilitiesEscape = new Flag()
+                EPAbilitiesEscape = (ToggleFlagProperty)new ToggleFlagProperty()
                 {
-                    Text = "Shuffle EP Abilities - Include Escape",
-                    FlagID = "EPAbiEsc",
-                    DescriptionFormat = "Requires 'Shuffle EP Abilities'\n" +
-                    "Escape will be included in randomization."
-                }.Register(FlagType.Other);
+                    Text = "Include Escape",
+                    ID = "EPAbiEsc",
+                    Description = "Escape will be included in randomization."
+                }.Register(EPAbilities);
+
+                Quests = new Flag()
+                {
+                    Text = "Randomize Quest Stat Rewards",
+                    FlagID = "Quests",
+                    DescriptionFormat = "Randomize stats rewarded by quests. Includes Strength, Magic, Max HP, Max EP, Max ATB, and Recovery Item Slots."
+                }.Register(FlagType.StatsAbilities);
+
+                EPCosts = new Flag()
+                {
+                    Text = "Randomize EP Costs",
+                    FlagID = "RandEPCost",
+                    DescriptionFormat = "Randomize the EP costs of EP Abilities.\n" +
+                    "Min of 0 on Normal for Escape.\n" +
+                    "Min of 1 on Normal for Esunada, Decoy, Army of One, Chronostasis.\n" +
+                    "Min of 2 on Normal for Curaga, Arise, Quake, Overclock, Teleport.\n" +
+                    "Max of 5 on Normal for all."
+                }.Register(FlagType.StatsAbilities);
+
+                EPCostsZero = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Lower Min EP Cost",
+                    ID = "EPZero",
+                    Description = "Lowers the minimum EP costs to the following on Normal\n." +
+                    "Allows for EP costs of 0 on Easy or Normal for some abilities aside from Escape:\n" +
+                    "Min of 0 on Normal for Esunada, Decoy, Army of One, Chronostasis.\n" +
+                    "Min of 1 on Normal for Curaga, Arise, Quake, Overclock, Teleport.\n"
+                }.Register(EPCosts);
+
+                EPCostsRange = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "EP Cost Range",
+                    ID = "EPRange",
+                    Description = "EP Costs can go up or down from their vanilla value by the specified value.",
+                    ValueText = "EP Cost +/-",
+                    MinValue = 1,
+                    MaxValue = 5
+                }.Register(EPCosts);
+
+                NerfOC = new Flag()
+                {
+                    Text = "Increase Overclock EP Cost",
+                    FlagID = "NerfOC",
+                    DescriptionFormat = "Increases the EP cost of Overclock to 5 EP (or 4 EP on Easy). Takes effect before randomization."
+                }.Register(FlagType.StatsAbilities);
+            }
+        }
+        public class Enemies
+        {
+            public static Flag EnemyLocations, BhuniPlus, MatDrops, AbiDrops;
+            public static ToggleFlagProperty EnemiesSize, EncounterSize, Bosses, Zaltys, Ereshkigal, Prologue;
+
+            internal static void Init()
+            {
+                EnemyLocations = new Flag()
+                {
+                    Text = "Randomize Enemy Locations",
+                    FlagID = "RandEne",
+                    DescriptionFormat = "Randomize normal enemies between each other."
+                }.Register(FlagType.Enemies);
+
+                EnemiesSize = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Between Any Size",
+                    ID = "RandEneSize",
+                    Description = "If turned on, enemies of any size can replace another.\n" +
+                    "If turned off, enemies will be randomized with enemies of the same size. Humans are considered mid."
+                }.Register(EnemyLocations);
+
+                EncounterSize = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Randomize Encounter Size",
+                    ID = "RandEncCount",
+                    Description = "If turned on, encounters with randomized enemies will be random in size up to +/- 2. A random enemy size will be selected from those already in the encounter.\n" +
+                    "If turned off, encounters will remain the same size."
+                }.Register(EnemyLocations);
+
+                Prologue = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Prologue Tutorial",
+                    ID = "RandProlo",
+                    Description = "Prologue tutorial enemies will be included and randomized.\n" +
+                    "Enemies replacing prologue enemies are limited to selection of smaller enemies."
+                }.Register(EnemyLocations);
+
+                Bosses = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Shuffle Bosses",
+                    ID = "RandBoss",
+                    Description = "Shuffle the following bosses between each other:\n" +
+                    "Noel Kreiss, Snow Villiers, Caius Ballad, and Grendel.\n" +
+                    "Bosses that have + versions will be based on their new random boss if the old boss has + versions.\n"
+                }.Register(EnemyLocations);
+
+                Zaltys = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Prologue Zaltys",
+                    ID = "RandZaltys",
+                    Description = "Includes Prologue Zaltys in the pool. This boss scales up if randomized to a later boss.\n" +
+                    "Later bosses will scale down if replacing Prologue Zaltys."
+                }.Register(EnemyLocations);
+
+                Ereshkigal = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Ereshkigal",
+                    ID = "RandEresh",
+                    Description = "Includes Ereshkigal in the pool. This boss scales down if randomized to a story boss.\n" +
+                    "Story bosses will scale up if replacing Ereshkigal."
+                }.Register(EnemyLocations);
+
+                MatDrops = new Flag()
+                {
+                    Text = "Randomize Enemy Material Drops",
+                    FlagID = "RandMatDrops",
+                    DescriptionFormat = "Enemy material drops will be spread evenly between enemies."
+                }.Register(FlagType.Enemies);
+
+                AbiDrops = new Flag()
+                {
+                    Text = "Randomize Enemy Ability Drops",
+                    FlagID = "RandAbiDrops",
+                    DescriptionFormat = "Ability drops will be spread evenly between enemies."
+                }.Register(FlagType.Enemies);
+
+                BhuniPlus = new Flag()
+                {
+                    Text = "Force Bhunivelze+ on NG",
+                    FlagID = "BhuniPlus",
+                    DescriptionFormat = "The final boss even on New Game will be Bhunivelze+."
+                }.Register(FlagType.Enemies);
+            }
+        }
+        public class Items
+        {
+            public static Flag Treasures;
+            public static ToggleFlagProperty Pilgrims, EPLearns;
+            public static ComboBoxFlagProperty Key, KeyDepth;
+            public static Flag Shops;
+
+            internal static void Init()
+            {
 
                 Treasures = new Flag()
                 {
@@ -69,46 +207,54 @@ namespace LRRando
                     FlagID = "Treasures",
                     DescriptionFormat = "Randomize Treasures, Quest Rewards, Non-repeatable Pickups, Soul seed rewards, Non-repeatable Item Appraisal rewards\n" +
                     "Does not include key items"
-                }.Register(FlagType.Other);
+                }.Register(FlagType.Items);
 
-                Pilgrims = new Flag()
+                Pilgrims = (ToggleFlagProperty)new ToggleFlagProperty()
                 {
-                    Text = "Randomize Treasures, Quest Rewards, and Other Rewards - Include Pilgrim's Cruxes",
-                    FlagID = "Pilgrims",
-                    DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
-                    "Pilgrim's Cruxes will be included in the pool with treasures, quests, etc.\n" +
+                    Text = "Include Pilgrim's Cruxes",
+                    ID = "Pilgrims",
+                    Description = "Pilgrim's Cruxes will be included in the pool with treasures, quests, etc.\n" +
                     "Pilgrim's Cruxes will not appear in missable locations or from Day 10 and later."
-                }.Register(FlagType.Other);
+                }.Register(Treasures);
 
-                Key = new Flag()
+                EPLearns = (ToggleFlagProperty)new ToggleFlagProperty()
                 {
-                    Text = "Randomize Treasures, Quest Rewards, and Other Rewards - Include Key Items",
-                    FlagID = "Key",
-                    DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
-                    "Key items will not appear in missable locations or from Day 10 and later.\n" +
-                    "The following key items will be included in the pool:\n" +
-                    "Fragment of Mischief, Fragment of Smiles, Moogle Fragment, ID Card, Dead Dunes Tablets, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password",
-                    Experimental = true
-                }.Register(FlagType.Other);
-
-                CoP = new Flag()
-                {
-                    Text = "Randomize Treasures, Quest Rewards, and Other Rewards - Allow Key Items in CoP and Grindy Locations",
-                    FlagID = "CoP",
-                    DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
-                    "Key items will be allowed to appear in NON-GLOBAL Canvas of Prayers, 40+ Soul Seeds rewards, and 10+ Unappraised Items.\n" +
-                    "Works for all key items including Pilgrim's Cruxes and all the key items in the above flag.",
-                    Experimental = true
-                }.Register(FlagType.Other);
-
-                EPLearns = new Flag()
-                {
-                    Text = "Randomize Treasures, Quest Rewards, and Other Rewards - Include Learned EP Abilities",
-                    FlagID = "Pilgrims",
-                    DescriptionFormat = "Requires 'Randomize Treasures, Quest Item Rewards, and Other Rewards'\n" +
-                    "EP Abilities learned at the start of the game will be included in the pool with treasures, quests, etc.\n" +
+                    Text = "Include Learned EP Abilities",
+                    ID = "LearnEP",
+                    Description = "EP Abilities learned at the start of the game will be included in the pool with treasures, quests, etc.\n" +
                     "This includes when Curaga, Escape, Chronostasis, and Teleport are normally learned."
-                }.Register(FlagType.Other);
+                }.Register(Treasures);
+
+                Key = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                {
+                    Text = "Randomize Key Items",
+                    ID = "Key",
+                    Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
+                    "The following key items will be included in the pool based on the set level:\n" +
+                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Moogle Fragment, ID Card, Midnight Mauve, Dead Dunes Tablets, Dr. Ghysahl's Ghysahl Greens, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Chocobo Girl's Phone No.\n\n" +
+                    "Levels:\n" +
+                    "    None - Key items are not randomized.\n" +
+                    "    Key Items Only - Key items are shuffled between themselves.\n" +
+                    "    Treasures - Key items are also allowed in treasures/Learned EP ability spots.\n" +
+                    "    Quests - Key items are also allowed in side quests and Non-Global Canvas of Prayers.\n" +
+                    "    CoP - Key items are also allowed in all Canvas of Prayers.\n" +
+                    "    Grindy - Key items are also allowed in 40+ Soul Seed rewards and 10+ Unappraised Items.\n",
+                    Values = new string[] { "None", "Key Items Only", "Treasures", "Quests", "CoP", "Grindy" }.ToList()
+                }.Register(Treasures);
+
+                KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                {
+                    Text = "Key Item Difficulty Depth",
+                    ID = "KeyDepth",
+                    Description = "Key items will be more likely to appear in longer chains of key items and more difficult/time-consuming locations.\n\n" +
+                    "Depths:\n" +
+                    "    Normal - Each location is equally likely.\n" +
+                    "    Hard - Each level of depth/difficulty increases likelyhood of that location by 1.5x.\n" +
+                    "    Hard+ - Each level of depth/difficulty increases likelyhood of that location by 2x.\n" +
+                    "    Hard++ - Each level of depth/difficulty increases likelyhood of that location by 3x.\n" +
+                    "    Hard+++ - Locations of the highest depth/difficulty will tend to be preferred.",
+                    Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
+                }.Register(Treasures);
 
                 Shops = new Flag()
                 {
@@ -116,101 +262,16 @@ namespace LRRando
                     FlagID = "Shops",
                     DescriptionFormat = "Randomize Shop contents.\n" +
                     "Hard mode items are included."
-                }.Register(FlagType.Other);
+                }.Register(FlagType.Items);
+            }
+        }
+        public class Other
+        {
+            public static Flag Music;
+            public static Flag HintsMain, HintsNotes, HintsEP;
 
-                Quests = new Flag()
-                {
-                    Text = "Randomize Quest Stat Rewards",
-                    FlagID = "Quests",
-                    DescriptionFormat = "Randomize stats rewarded by quests. Includes Strength, Magic, Max HP, Max EP, Max ATB, and Recovery Item Slots."
-                }.Register(FlagType.Other);
-
-                Enemies = new Flag()
-                {
-                    Text = "Randomize Enemy Locations",
-                    FlagID = "RandEne",
-                    DescriptionFormat = "Randomize normal enemies between each other."
-                }.Register(FlagType.Other);
-
-                EnemiesSize = new Flag()
-                {
-                    Text = "Randomize Enemy Locations - Between Any Size",
-                    FlagID = "RandEneSize",
-                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
-                    "If turned on, enemies of any size can replace another.\n" +
-                    "If turned off, enemies will be randomized with enemies of the same size. Humans are considered mid."
-                }.Register(FlagType.Other);
-
-                EncounterSize = new Flag()
-                {
-                    Text = "Randomize Encounter Size",
-                    FlagID = "RandEncCount",
-                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
-                    "If turned on, encounters with randomized enemies will be random in size up to +/- 2. A random enemy size will be selected from those already in the encounter.\n" +
-                    "If turned off, encounters will remain the same size."
-                }.Register(FlagType.Other);
-
-                MatDrops = new Flag()
-                {
-                    Text = "Randomize Enemy Material Drops",
-                    FlagID = "RandMatDrops",
-                    DescriptionFormat = "Randomize Enemy material drops"
-                }.Register(FlagType.Other);
-
-                AbiDrops = new Flag()
-                {
-                    Text = "Randomize Enemy Ability Drops",
-                    FlagID = "RandAbiDrops",
-                    DescriptionFormat = "Randomize Enemy ability drops"
-                }.Register(FlagType.Other);
-
-                Prologue = new Flag()
-                {
-                    Text = "Randomize Enemy Locations - Include Prologue Tutorial",
-                    FlagID = "RandProlo",
-                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
-                    "Prologue tutorial enemies will be included and randomized.\n" +
-                    "Enemies replacing prologue enemies are limited to selection of smaller enemies.",
-                    Experimental = true
-                }.Register(FlagType.Other);
-
-                Bosses = new Flag()
-                {
-                    Text = "Shuffle Bosses",
-                    FlagID = "RandBoss",
-                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" + 
-                    "Shuffle the following bosses between each other:\n" +
-                    "Noel Kreiss, Snow Villiers, Caius Ballad, and Grendel.\n" +
-                    "Bosses that have + versions will be based on their new random boss of the old boss has + versions.\n"
-                }.Register(FlagType.Other);
-
-                Zaltys = new Flag()
-                {
-                    Text = "Shuffle Bosses - Include Prologue Zaltys",
-                    FlagID = "RandZaltys",
-                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
-                    "Requires 'Shuffle Bosses'\n" +
-                    "Includes Prologue Zaltys in the pool. This boss scales up if randomized to a later boss.\n" +
-                    "Later bosses will scale down if replacing Prologue Zaltys."
-                }.Register(FlagType.Other);
-
-                Ereshkigal = new Flag()
-                {
-                    Text = "Shuffle Bosses - Include Ereshkigal",
-                    FlagID = "RandEresh",
-                    DescriptionFormat = "Requires 'Randomize Enemy Locations'\n" +
-                    "Requires 'Shuffle Bosses'\n" + 
-                    "Includes Ereshkigal in the pool. This boss scales down if randomized to a story boss.\n" +
-                    "Story bosses will scale up if replacing Ereshkigal."
-                }.Register(FlagType.Other);
-
-                BhuniPlus = new Flag()
-                {
-                    Text = "Force Bhunivelze+ on NG",
-                    FlagID = "BhuniPlus",
-                    DescriptionFormat = "The final boss even on New Game will be Bhunivelze+."
-                }.Register(FlagType.Other);
-
+            internal static void Init()
+            {
                 Music = new Flag()
                 {
                     Text = "Shuffle Music",
@@ -248,7 +309,12 @@ namespace LRRando
         public static void Init()
         {
             Flags.FlagsList.Clear();
+            StatsAbilities.Init();
+            Enemies.Init();
+            Items.Init();
             Other.Init();
+            Flags.CategoryMap = ((FlagType[])Enum.GetValues(typeof(FlagType))).ToDictionary(f => (int)f, f => string.Join("/", Regex.Split(f.ToString(), @"(?<!^)(?=[A-Z])")));
+            Flags.SelectedCategory = "All";
         }
     }
 }

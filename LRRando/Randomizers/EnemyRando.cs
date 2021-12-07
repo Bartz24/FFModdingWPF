@@ -41,7 +41,7 @@ namespace LRRando
             EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
             TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
 
-            if (LRFlags.Other.BhuniPlus.FlagEnabled)
+            if (LRFlags.Enemies.BhuniPlus.FlagEnabled)
                 treasureRando.treasures["ran_bhuni_p"].s11ItemResourceId_string = "true";
 
 
@@ -56,12 +56,12 @@ namespace LRRando
                 {
                     string baseItem = GetDrop(baseE, type);
                     string newBaseItem = null;
-                    if (LRFlags.Other.MatDrops.FlagEnabled && baseItem.StartsWith("mat_z"))
+                    if (LRFlags.Enemies.MatDrops.FlagEnabled && baseItem.StartsWith("mat_z"))
                     {
                         newBaseItem = matDrops.First();
                         RemoveMatDrop(equipRando, matDrops);
                     }
-                    if (LRFlags.Other.AbiDrops.FlagEnabled && equipRando.IsAbility(baseItem))
+                    if (LRFlags.Enemies.AbiDrops.FlagEnabled && equipRando.IsAbility(baseItem))
                     {
                         string lv = baseItem.Substring(baseItem.Length - 3);
                         string next = equipRando.items[abiDrops.First()].sScriptId_string;
@@ -76,12 +76,12 @@ namespace LRRando
                         string newItem = null;
                         if (item == baseItem)
                             newItem = newBaseItem;
-                        else if (LRFlags.Other.MatDrops.FlagEnabled && baseItem.StartsWith("mat_z"))
+                        else if (LRFlags.Enemies.MatDrops.FlagEnabled && baseItem.StartsWith("mat_z"))
                         {
                             newItem = matDrops.First();
                             RemoveMatDrop(equipRando, matDrops);
                         }
-                        else if (LRFlags.Other.AbiDrops.FlagEnabled && equipRando.IsAbility(item))
+                        else if (LRFlags.Enemies.AbiDrops.FlagEnabled && equipRando.IsAbility(item))
                         {
                             string lv = item.Substring(item.Length - 3);
                             string next = abiDrops.First();
@@ -98,7 +98,7 @@ namespace LRRando
 
         private static void RemoveMatDrop(EquipRando equipRando, List<string> list)
         {
-            LRFlags.Other.MatDrops.SetRand();
+            LRFlags.Enemies.MatDrops.SetRand();
             if (list.Count > 0)
                 list.RemoveAt(0);
             if (list.Count == 0)
@@ -108,7 +108,7 @@ namespace LRRando
 
         private static void RemoveAbiDrop(EquipRando equipRando, List<string> list)
         {
-            LRFlags.Other.AbiDrops.SetRand();
+            LRFlags.Enemies.AbiDrops.SetRand();
             if (list.Count > 0)
                 list.RemoveAt(0);
             if (list.Count == 0)

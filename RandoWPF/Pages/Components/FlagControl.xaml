@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Bartz24.RandoWPF"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
@@ -20,8 +21,38 @@
             </Grid.RowDefinitions>
             <ToggleButton x:Name="flagCheckbox" Grid.Row="0" Grid.Column="0" Margin="5" IsChecked="{Binding FlagEnabled}"></ToggleButton>
             <TextBlock FontSize="15" VerticalAlignment="Center" Margin="5, 0, 50, 0" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Text="{Binding Text}"></TextBlock>
-            <TextBlock FontSize="12" TextWrapping="Wrap" Grid.Row="0" Grid.Column="2" Text="{Binding Description}"></TextBlock>
-            <StackPanel Grid.Row="1" Grid.Column="2">
+            <TextBlock FontSize="12" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="2" Text="{Binding Description}"></TextBlock>
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Margin="50,0,0,0" IsEnabled="{Binding FlagEnabled}">
+                <ListBox Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource="{Binding FlagProperties, UpdateSourceTrigger=PropertyChanged}" AlternationCount="2">
+                    <ListBox.Resources>
+                        <DataTemplate DataType="{x:Type local:ToggleFlagProperty}">
+                            <local:ToggleFlagControl FlagProperty="{Binding}" Margin="0,10"/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type local:ComboBoxFlagProperty}">
+                            <local:ComboBoxFlagControl FlagProperty="{Binding}" Margin="0,10"/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type local:NumberFlagProperty}">
+                            <local:NumberFlagControl FlagProperty="{Binding}" Margin="0,10"/>
+                        </DataTemplate>
+                    </ListBox.Resources>
+                    <ListBox.ItemContainerStyle>
+                        <Style
+                            TargetType="ListBoxItem"
+                            BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                            <Setter Property="Focusable" Value="False"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="materialDesign:ListBoxItemAssist.ShowSelection" Value="False" />
+                            <Style.Triggers>
+                                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                    <Setter Property="Background" Value="#2A2A2A"></Setter>
+                                </Trigger>
+                                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                    <Setter Property="Background" Value="#222222"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
             </StackPanel>
         </Grid>
         <Separator Margin="12" Grid.ColumnSpan="3" Grid.Row="2" Grid.Column="0"/>

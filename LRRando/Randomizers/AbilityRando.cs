@@ -41,12 +41,12 @@ namespace LRRando
         {
             TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
 
-            if (LRFlags.Other.EPAbilities.FlagEnabled)
+            if (LRFlags.StatsAbilities.EPAbilities.FlagEnabled)
             {
-                LRFlags.Other.EPAbilities.SetRand();
+                LRFlags.StatsAbilities.EPAbilities.SetRand();
 
                 IEnumerable<DataStoreRTreasurebox> keys = treasureRando.treasures.Values.Where(t => t.s11ItemResourceId_string.StartsWith("ti") || t.s11ItemResourceId_string == "at900_00");
-                if (!LRFlags.Other.EPAbilitiesEscape.FlagEnabled)
+                if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled)
                     keys = keys.Where(t => t.s11ItemResourceId_string != "ti830_00");
 
                 keys.ToList().Shuffle((t1, t2) => {
@@ -55,13 +55,45 @@ namespace LRRando
                     t2.s11ItemResourceId_string = value;
                 });
 
+                if (LRFlags.StatsAbilities.NerfOC.FlagEnabled)
+                {
+                    abilities["ti900_00"].i17AtbCount = 5 * 2000;
+                }
+
                 RandomNum.ClearRand();
             }
 
-            LRFlags.Other.EPAbilities.SetRand();
+            if (LRFlags.StatsAbilities.EPCosts.FlagEnabled)
+            {
+                LRFlags.StatsAbilities.EPCosts.SetRand();
+
+                int min0 = 0;
+                int min1 = LRFlags.StatsAbilities.EPCostsZero.Enabled ? 0 : 1;
+                int min2 = LRFlags.StatsAbilities.EPCostsZero.Enabled ? 1 : 2;
+
+                abilities["ti000_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti000_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti020_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti020_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti030_00"].i17AtbCount = RandomEPCost(min1, 5, abilities["ti030_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti500_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti500_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti600_00"].i17AtbCount = RandomEPCost(min1, 5, abilities["ti600_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti810_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti810_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti830_00"].i17AtbCount = RandomEPCost(min0, 5, abilities["ti830_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti840_00"].i17AtbCount = RandomEPCost(min1, 5, abilities["ti840_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti900_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti900_00"].i17AtbCount / 2000) * 2000;
+                abilities["at900_00"].i17AtbCount = RandomEPCost(min1, 5, abilities["at900_00"].i17AtbCount / 2000) * 2000;
+
+                RandomNum.ClearRand();
+            }
+
+            LRFlags.StatsAbilities.EPAbilities.SetRand();
             RandomizeInitAbility("ini_ba_abi");
             RandomizeInitAbility("ini_ca_abi");
             RandomNum.ClearRand();
+        }
+
+        private int RandomEPCost(int absMin, int absMax, int val)
+        {
+            return RandomNum.RandInt(Math.Max(absMin, val - LRFlags.StatsAbilities.EPCostsRange.Value), Math.Min(val + LRFlags.StatsAbilities.EPCostsRange.Value, absMax));
         }
 
         private void RandomizeInitAbility(string name)
@@ -76,8 +108,8 @@ namespace LRRando
 
         public override void Save()
         {
-            //abilities.SaveDB3(@"\db\resident\bt_ability.wdb");
-            abilities.DeleteDB3(@"\db\resident\bt_ability.db3");
+            abilities.SaveDB3(@"\db\resident\bt_ability.wdb");
+            //abilities.DeleteDB3(@"\db\resident\bt_ability.db3");
             abilityGrowths.DeleteDB3(@"\db\resident\_wdbpack.bin\r_bt_abi_grow.db3");
         }
     }

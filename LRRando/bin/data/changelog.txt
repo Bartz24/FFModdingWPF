@@ -9,12 +9,19 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.2.1 Changelog:
--Increased gil purchase prices for Reraise and Hero's Potions
--Limited Prologue enemy rando to easier enemies
--Limited variety of forced fights to avoid loading issues
--Starting shields no longer have negative strength or magic
--Removed unused shops from rando
--Fixed errors when certain flags are disabled
--Improved shop documentation names
--Reordered lists of treasures/shops in documentation files
+0.3.0 Changelog:
+
+-Rearranged flags and added the following flags:
+    -Randomize EP Costs
+    -Increase OC Cost
+    -Key Item Diffculty Depth (Harder key item placement option)
+
+-Key item rando changes:
+    -New options for possible locations: Key Items Only, Treasures, Quests, CoP, Grindy (The harder ones include the easier options)
+    -Redid placement logic to improve hints and more spread between each area instead of concentrating everything in larger areas (Ex: More in Luxerion on average)
+    -New key items included in the pool: Fragment of Courage, Midnight Mauve, Dr. Ghysahl's Ghysahl Greens (this is a unique item), and Chocobo Girl's Phone No.
+
+-Added the following other items to the pool: Miqo'te Dress, Femme Fatale
+-Adjusted presets based on new flags
+-Lowered monster material prices by about 30%
+-New dummy item used for tracking the Fragment of Courage slaughterhouse check: 'Rando Proof of Slaughterhouse Fragment' (ID: key_r_kanki)

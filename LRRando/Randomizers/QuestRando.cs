@@ -39,9 +39,9 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            if (LRFlags.Other.Quests.FlagEnabled)
+            if (LRFlags.StatsAbilities.Quests.FlagEnabled)
             {
-                LRFlags.Other.Quests.SetRand();
+                LRFlags.StatsAbilities.Quests.SetRand();
 
                 List<DataStoreRQuest> mainQuests = questRewards.Values.Where(q => q.iMaxGp > 0 || q.iMaxAtb > 0 || q.iItemBagSize > 0).ToList().Shuffle().ToList();
                 int ep = mainQuests.Select(q => q.iMaxGp).Sum();

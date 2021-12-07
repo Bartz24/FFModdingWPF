@@ -19,8 +19,6 @@ namespace Bartz24.RandoWPF
         {
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public virtual Preset Register()
         {
             Presets.PresetsList.Add(this);

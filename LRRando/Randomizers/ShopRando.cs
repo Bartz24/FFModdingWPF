@@ -39,38 +39,38 @@ namespace LRRando
             shopData = File.ReadAllLines(@"data\shops.csv").Select(s => new ShopData(s.Split(","))).ToDictionary(s => s.ID, s => s);
 
             EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
-            equipRando.items["mat_z_000"].uPurchasePrice = 1100;
-            equipRando.items["mat_z_001"].uPurchasePrice = 2700;
-            equipRando.items["mat_z_002"].uPurchasePrice = 1100;
-            equipRando.items["mat_z_003"].uPurchasePrice = 1200;
-            equipRando.items["mat_z_004"].uPurchasePrice = 3000;
-            equipRando.items["mat_z_007"].uPurchasePrice = 2200;
-            equipRando.items["mat_z_008"].uPurchasePrice = 3600;
-            equipRando.items["mat_z_009"].uPurchasePrice = 1900;
-            equipRando.items["mat_z_010"].uPurchasePrice = 4200;
-            equipRando.items["mat_z_011"].uPurchasePrice = 3800;
-            equipRando.items["mat_z_012"].uPurchasePrice = 3000;
-            equipRando.items["mat_z_013"].uPurchasePrice = 3800;
-            equipRando.items["mat_z_014"].uPurchasePrice = 9400;
-            equipRando.items["mat_z_015"].uPurchasePrice = 3000;
-            equipRando.items["mat_z_016"].uPurchasePrice = 5000;
-            equipRando.items["mat_z_017"].uPurchasePrice = 2300;
-            equipRando.items["mat_z_018"].uPurchasePrice = 5800;
-            equipRando.items["mat_z_019"].uPurchasePrice = 3800;
-            equipRando.items["mat_z_020"].uPurchasePrice = 3800;
-            equipRando.items["mat_z_021"].uPurchasePrice = 4200;
-            equipRando.items["mat_z_022"].uPurchasePrice = 5800;
-            equipRando.items["mat_z_024"].uPurchasePrice = 12500;
-            equipRando.items["mat_z_028"].uPurchasePrice = 12500;
-            equipRando.items["mat_z_029"].uPurchasePrice = 12500;
-            equipRando.items["mat_z_030"].uPurchasePrice = 12500;
-            equipRando.items["mat_z_031"].uPurchasePrice = 8300;
-            equipRando.items["mat_z_032"].uPurchasePrice = 7500;
-            equipRando.items["mat_z_033"].uPurchasePrice = 6800;
-            equipRando.items["mat_z_035"].uPurchasePrice = 12500;
-            equipRando.items["mat_z_036"].uPurchasePrice = 12500;
-            equipRando.items["mat_z_044"].uPurchasePrice = 12500;
-            equipRando.items["mat_z_045"].uPurchasePrice = 5800;
+            equipRando.items["mat_z_000"].uPurchasePrice = 770;
+            equipRando.items["mat_z_001"].uPurchasePrice = 1900;
+            equipRando.items["mat_z_002"].uPurchasePrice = 770;
+            equipRando.items["mat_z_003"].uPurchasePrice = 840;
+            equipRando.items["mat_z_004"].uPurchasePrice = 2100;
+            equipRando.items["mat_z_007"].uPurchasePrice = 1500;
+            equipRando.items["mat_z_008"].uPurchasePrice = 2500;
+            equipRando.items["mat_z_009"].uPurchasePrice = 1300;
+            equipRando.items["mat_z_010"].uPurchasePrice = 2900;
+            equipRando.items["mat_z_011"].uPurchasePrice = 2700;
+            equipRando.items["mat_z_012"].uPurchasePrice = 2100;
+            equipRando.items["mat_z_013"].uPurchasePrice = 2700;
+            equipRando.items["mat_z_014"].uPurchasePrice = 6600;
+            equipRando.items["mat_z_015"].uPurchasePrice = 2100;
+            equipRando.items["mat_z_016"].uPurchasePrice = 3500;
+            equipRando.items["mat_z_017"].uPurchasePrice = 1600;
+            equipRando.items["mat_z_018"].uPurchasePrice = 4100;
+            equipRando.items["mat_z_019"].uPurchasePrice = 2700;
+            equipRando.items["mat_z_020"].uPurchasePrice = 2700;
+            equipRando.items["mat_z_021"].uPurchasePrice = 2900;
+            equipRando.items["mat_z_022"].uPurchasePrice = 4100;
+            equipRando.items["mat_z_024"].uPurchasePrice = 8800;
+            equipRando.items["mat_z_028"].uPurchasePrice = 8800;
+            equipRando.items["mat_z_029"].uPurchasePrice = 8800;
+            equipRando.items["mat_z_030"].uPurchasePrice = 8800;
+            equipRando.items["mat_z_031"].uPurchasePrice = 5800;
+            equipRando.items["mat_z_032"].uPurchasePrice = 5300;
+            equipRando.items["mat_z_033"].uPurchasePrice = 4800;
+            equipRando.items["mat_z_035"].uPurchasePrice = 8800;
+            equipRando.items["mat_z_036"].uPurchasePrice = 8800;
+            equipRando.items["mat_z_044"].uPurchasePrice = 8800;
+            equipRando.items["mat_z_045"].uPurchasePrice = 4100;
 
             equipRando.items["it_reraise"].uPurchasePrice = 2520;
             equipRando.items["it_hero"].uPurchasePrice = 4340;
@@ -87,9 +87,9 @@ namespace LRRando
                 equipRando.items[i.name].uSellPrice = equipRando.items[i.name].uSellPrice.RoundToSignificantDigits((int)Math.Max(2, Math.Ceiling(Math.Log10(equipRando.items[i.name].uSellPrice) - 2)));
             });
 
-            if (LRFlags.Other.Shops.FlagEnabled)
+            if (LRFlags.Items.Shops.FlagEnabled)
             {
-                LRFlags.Other.Shops.SetRand();
+                LRFlags.Items.Shops.SetRand();
 
                 Dictionary<string, List<string>> uniqueShops = new Dictionary<string, List<string>>();
                 uniqueShops.Add("shop_ptl", new List<string>());
@@ -168,7 +168,7 @@ namespace LRRando
         }
         public List<string> GetRandomizableEquip()
         {
-            if (!LRFlags.Other.Shops.FlagEnabled)
+            if (!LRFlags.Items.Shops.FlagEnabled)
                 return new List<string>();
             Func<string, bool> isEquip = s => s.StartsWith("cos") || s.StartsWith("wea") || s.StartsWith("shi");
             List<string> list = new List<string>();
@@ -178,7 +178,7 @@ namespace LRRando
         }
         public List<string> GetAdornments()
         {
-            if (!LRFlags.Other.Shops.FlagEnabled)
+            if (!LRFlags.Items.Shops.FlagEnabled)
                 return new List<string>();
             Func<string, bool> isAdorn = s => s.StartsWith("e") && s.Length == 4;
             List<string> list = new List<string>();
@@ -188,7 +188,7 @@ namespace LRRando
         }
         public List<string> GetItems()
         {
-            if (!LRFlags.Other.Shops.FlagEnabled)
+            if (!LRFlags.Items.Shops.FlagEnabled)
                 return new List<string>();
             Func<string, bool> isItem = s => s.StartsWith("it");
             List<string> list = new List<string>();

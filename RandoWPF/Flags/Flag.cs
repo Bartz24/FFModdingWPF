@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Bartz24.RandoWPF
 {
@@ -25,8 +26,10 @@ namespace Bartz24.RandoWPF
 
         }
 
-        private void Flag_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void Flag_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (e.PropertyName == nameof(Visibility))
+                return;
             Preset custom = Presets.PresetsList.First(p => p.Custom);
             if (!Presets.ApplyingPreset && Presets.Selected != custom)
                 Presets.Selected = custom;
@@ -68,6 +71,7 @@ namespace Bartz24.RandoWPF
         }
         public string FlagID { get; set; }
 
+
         public string GetFlagString()
         {
             if (!this.FlagEnabled)
@@ -105,6 +109,7 @@ namespace Bartz24.RandoWPF
 
         public static readonly Flag Empty = EmptyFlag();
         private bool flagEnabled;
+        private Visibility visibility;
 
         private static Flag EmptyFlag()
         {
@@ -124,5 +129,6 @@ namespace Bartz24.RandoWPF
         {
             RandomNum.SetRand(Random);
         }
+        public List<FlagProperty> FlagProperties { get; set; } = new List<FlagProperty>();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Bartz24.RandoWPF.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,24 +23,27 @@ namespace Bartz24.RandoWPF
     /// </summary>
     public partial class FlagControl : UserControl
     {
-        public static readonly DependencyProperty PresetProperty =
-        DependencyProperty.Register(nameof(Flag), typeof(Flag), typeof(FlagControl));
+        public ObservableCollection<FlagProperty> PropertyList { get; set; } = new ObservableCollection<FlagProperty>();
+
+        public static readonly DependencyProperty FlagProperty =
+        DependencyProperty.Register(nameof(Flag), typeof(Flag), typeof(FlagControl), new PropertyMetadata(PropChanged));
 
         public Flag Flag
         {
-            get => (Flag)GetValue(PresetProperty);
-            set => SetValue(PresetProperty, value);
+            get => (Flag)GetValue(FlagProperty);
+            set => SetValue(FlagProperty, value);
         }
         public string Description { get => Flag.Description; }
 
         public FlagControl()
         {
-            InitializeComponent();
+            InitializeComponent();                   
         }
 
-        private void Flag_OnFlagUpdated(object sender, EventArgs e)
+        public static void PropChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            SetValue(PresetProperty, Flag);
+            FlagControl control = (FlagControl) sender;
+            control.PropertyList = new ObservableCollection<FlagProperty>(control.Flag.FlagProperties);
         }
     }
 }

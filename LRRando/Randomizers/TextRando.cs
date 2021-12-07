@@ -49,10 +49,13 @@ namespace LRRando
 
                 mainSysUS.Load(outPath, SetupData.Paths["Nova"]);
             }
+
+            mainSysUS["$m_001"] = "Rando Proof of Slaughterhouse Fragment";
+            mainSysUS["$m_001_ac000"] = "Used for tracking in the randomizer. You have checked the Fragment of Courage location in Yusnaan.";
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            if (LRFlags.Other.Enemies.FlagEnabled)
+            if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
             {
                 mainSysUS["$m_355"] += " (I may crash with {Key R2})";
                 mainSysUS["$m_455"] += " (I may crash with {Key R2})";
@@ -61,7 +64,7 @@ namespace LRRando
                 mainSysUS["$m_821w"] += " (I may crash with {Key R2})";
                 mainSysUS["$m_896w"] += " (I may crash with {Key R2})";
 
-                if (LRFlags.Other.Bosses.FlagEnabled)
+                if (LRFlags.Enemies.Bosses.Enabled)
                 {
                 }
             }

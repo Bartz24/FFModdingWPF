@@ -48,22 +48,22 @@ namespace LRRando
         public override void Randomize(Action<int> progressSetter)
         {
             EnemyRando enemyRando = randomizers.Get<EnemyRando>("Enemies");
-            if (LRFlags.Other.Enemies.FlagEnabled)
+            if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
             {
-                LRFlags.Other.Enemies.SetRand();
+                LRFlags.Enemies.EnemyLocations.SetRand();
                 Dictionary<string, string> shuffledBosses = new Dictionary<string, string>();
-                if (LRFlags.Other.Bosses.FlagEnabled)
+                if (LRFlags.Enemies.Bosses.Enabled)
                 {
-                    List<string> list = bossData.Keys.Where(k => (k != "Ereshkigal" || LRFlags.Other.Ereshkigal.FlagEnabled) && (k != "Zaltys" || LRFlags.Other.Zaltys.FlagEnabled)).ToList();
+                    List<string> list = bossData.Keys.Where(k => (k != "Ereshkigal" || LRFlags.Enemies.Ereshkigal.Enabled) && (k != "Zaltys" || LRFlags.Enemies.Zaltys.Enabled)).ToList();
                     List<string> shuffled = list.Shuffle().ToList();
                     shuffledBosses = Enumerable.Range(0, list.Count).ToDictionary(i => list[i], i => shuffled[i]);
                 }
                 btScenes.Values.Where(b => !IgnoredBtScenes.Contains(b.name)).ForEach(b =>
                 {
                     List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Where(s =>
-                            !s.EndsWith("tuto") || s == "m352_tuto" || s == "m390_tuto" || LRFlags.Other.Prologue.FlagEnabled).Select(s => enemyData[s]).ToList();
+                            !s.EndsWith("tuto") || s == "m352_tuto" || s == "m390_tuto" || LRFlags.Enemies.Prologue.Enabled).Select(s => enemyData[s]).ToList();
                     int count = oldEnemies.Count;
-                    if (LRFlags.Other.EncounterSize.FlagEnabled && count > 0 && oldEnemies[0].Class != "Boss")
+                    if (LRFlags.Enemies.EncounterSize.Enabled && count > 0 && oldEnemies[0].Class != "Boss")
                     {
                         count = RandomNum.RandInt(Math.Max(1, count - 2), Math.Min(10, count + 2));
                         if (count > oldEnemies.Count)
@@ -83,7 +83,7 @@ namespace LRRando
                     }
                     if (count > 0)
                     {
-                        if (oldEnemies[0].Class != "Boss" || LRFlags.Other.Bosses.FlagEnabled && (oldEnemies[0].ID != "m370" || LRFlags.Other.Ereshkigal.FlagEnabled) && (oldEnemies[0].ID != "m352_tuto" || LRFlags.Other.Zaltys.FlagEnabled))
+                        if (oldEnemies[0].Class != "Boss" || LRFlags.Enemies.Bosses.Enabled && (oldEnemies[0].ID != "m370" || LRFlags.Enemies.Ereshkigal.Enabled) && (oldEnemies[0].ID != "m352_tuto" || LRFlags.Enemies.Zaltys.Enabled))
                         {
                             List<EnemyData> newEnemies = new List<EnemyData>();
                             List<string> charSpecs = new List<string>();
@@ -206,13 +206,13 @@ namespace LRRando
                         }
                         else
                         {
-                            EnemyData next = allowed.Where(e => LRFlags.Other.EnemiesSize.FlagEnabled
+                            EnemyData next = allowed.Where(e => LRFlags.Enemies.EnemiesSize.Enabled
                             && oldEnemy.Class != "Omega"
                             && oldEnemy.Class != "Boss"
                             && e.Class != "Omega"
                             && e.Class != "Boss"
                             || e.Class == oldEnemy.Class)
-                            .Where(e => !e.ID.EndsWith("tuto") || LRFlags.Other.Prologue.FlagEnabled)
+                            .Where(e => !e.ID.EndsWith("tuto") || LRFlags.Enemies.Prologue.Enabled)
                             .ToList().Shuffle().First();
                             newEnemies.Add(next);
                         }
