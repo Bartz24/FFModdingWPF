@@ -9,19 +9,12 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.3.0 Changelog:
+0.3.1 Changelog:
 
--Rearranged flags and added the following flags:
-    -Randomize EP Costs
-    -Increase OC Cost
-    -Key Item Diffculty Depth (Harder key item placement option)
+-Lowered Key Item Difficulty Depth options
+    -Hard     1.5 -> 1.05
+    -Hard+    2.0 -> 1.10
+    -Hard++   3.0 -> 1.25
 
--Key item rando changes:
-    -New options for possible locations: Key Items Only, Treasures, Quests, CoP, Grindy (The harder ones include the easier options)
-    -Redid placement logic to improve hints and more spread between each area instead of concentrating everything in larger areas (Ex: More in Luxerion on average)
-    -New key items included in the pool: Fragment of Courage, Midnight Mauve, Dr. Ghysahl's Ghysahl Greens (this is a unique item), and Chocobo Girl's Phone No.
-
--Added the following other items to the pool: Miqo'te Dress, Femme Fatale
--Adjusted presets based on new flags
--Lowered monster material prices by about 30%
--New dummy item used for tracking the Fragment of Courage slaughterhouse check: 'Rando Proof of Slaughterhouse Fragment' (ID: key_r_kanki)
+-Fixed Tour Guide disappearing after checking ID card location
+-Fixed Gysahl typos in UI

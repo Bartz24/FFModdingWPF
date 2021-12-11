@@ -3,7 +3,7 @@ Lightning Returns Randomizer
 Mod Created By:	Bartz24
 Special Thanks:	Krisan Thyme (Nova and tools making this possible), FF13 Modding and Speedrunning communities for testing, D_Winds for detailed setup instructions
 =================================================================
-Version: 0.3.0
+Version: 0.3.1
 =================================================================
 
 Description:
@@ -12,7 +12,8 @@ This mod overhauls the game with randomly generated data.
 =================================================================
 
 Changelog:
-0.3.0		- 
+0.3.1           - Improve key item depth, fix tour guide disappearing
+0.3.0		- More key items, new options
 0.2.1		- Bug fixes
 0.2.0		- Hints, improved abilities, fixes.
 0.1.2		- New UI, presets, bhuni+, more key items.

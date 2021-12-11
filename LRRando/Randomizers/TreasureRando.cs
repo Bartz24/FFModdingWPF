@@ -297,11 +297,11 @@ namespace LRRando
                 if (index == 0)
                     expBase = 1;
                 if (index == 1)
-                    expBase = 1.5f;
+                    expBase = 1.05f;
                 if (index == 2)
-                    expBase = 2;
+                    expBase = 1.1f;
                 if (index == 3)
-                    expBase = 3;
+                    expBase = 1.25f;
                 Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, soFar, depths, s));
                 string next = RandomNum.SelectRandomWeighted(possible, s => (long)Math.Pow(expBase, possDepths[s]));
                 return new Tuple<string, int>(next, possDepths[next]);

@@ -231,7 +231,7 @@ namespace LRRando
                     ID = "Key",
                     Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
                     "The following key items will be included in the pool based on the set level:\n" +
-                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Moogle Fragment, ID Card, Midnight Mauve, Dead Dunes Tablets, Dr. Ghysahl's Ghysahl Greens, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Chocobo Girl's Phone No.\n\n" +
+                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Moogle Fragment, ID Card, Midnight Mauve, Dead Dunes Tablets, Dr. Gysahl's Gysahl Greens, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Chocobo Girl's Phone No.\n\n" +
                     "Levels:\n" +
                     "    None - Key items are not randomized.\n" +
                     "    Key Items Only - Key items are shuffled between themselves.\n" +
@@ -249,9 +249,9 @@ namespace LRRando
                     Description = "Key items will be more likely to appear in longer chains of key items and more difficult/time-consuming locations.\n\n" +
                     "Depths:\n" +
                     "    Normal - Each location is equally likely.\n" +
-                    "    Hard - Each level of depth/difficulty increases likelyhood of that location by 1.5x.\n" +
-                    "    Hard+ - Each level of depth/difficulty increases likelyhood of that location by 2x.\n" +
-                    "    Hard++ - Each level of depth/difficulty increases likelyhood of that location by 3x.\n" +
+                    "    Hard - Each level of depth/difficulty increases likelyhood of that location by 1.05x.\n" +
+                    "    Hard+ - Each level of depth/difficulty increases likelyhood of that location by 1.10x.\n" +
+                    "    Hard++ - Each level of depth/difficulty increases likelyhood of that location by 1.25x.\n" +
                     "    Hard+++ - Locations of the highest depth/difficulty will tend to be preferred.",
                     Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
                 }.Register(Treasures);
