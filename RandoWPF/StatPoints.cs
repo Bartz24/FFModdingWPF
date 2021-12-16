@@ -23,26 +23,30 @@ namespace Bartz24.RandoWPF
         public void Randomize(int[] actual)
         {
             Tuple<int, int>[] modBounds = null;
+            int total = -1;
             do
             {
                 do
                 {
-                    modBounds = Enumerable.Range(0, Bounds.Length).Select(i =>
+                    do
                     {
-                        if (RandomNum.RandInt(0, 99) < ZeroChances[i])
-                            return new Tuple<int, int>(0, 0);
-                        else
-                            return new Tuple<int, int>((int)(Bounds[i].Item1 * Weights[i]), (int)(Bounds[i].Item2 * Weights[i]));
-                    }).ToArray();
-                } while (modBounds.Length > 1 && modBounds.Distinct().Count() == 1 && modBounds.First().Item1 == 0 && modBounds.First().Item2 == 0);
+                        modBounds = Enumerable.Range(0, Bounds.Length).Select(i =>
+                        {
+                            if (RandomNum.RandInt(0, 99) < ZeroChances[i])
+                                return new Tuple<int, int>(0, 0);
+                            else
+                                return new Tuple<int, int>((int)(Bounds[i].Item1 * Weights[i]), (int)(Bounds[i].Item2 * Weights[i]));
+                        }).ToArray();
+                    } while (modBounds.Length > 1 && modBounds.Distinct().Count() == 1 && modBounds.First().Item1 == 0 && modBounds.First().Item2 == 0);
 
-                int total = Enumerable.Range(0, Bounds.Length).Select(i =>
-                {
-                    int val = (int)((actual[i] - Bounds[i].Item1) * Weights[i]);
-                    if (modBounds[i].Item1 == 0 && modBounds[i].Item2 == 0)
-                        val += (int)(Bounds[i].Item1 * Weights[i]);
-                    return val;
-                }).Sum();
+                    total = Enumerable.Range(0, Bounds.Length).Select(i =>
+                    {
+                        int val = (int)((actual[i] - Bounds[i].Item1) * Weights[i]);
+                        if (modBounds[i].Item1 == 0 && modBounds[i].Item2 == 0)
+                            val += (int)(Bounds[i].Item1 * Weights[i]);
+                        return val;
+                    }).Sum();
+                } while (StatValues.GetBoundsSum(modBounds) < total);
 
                 Values.Randomize(modBounds, total);
 

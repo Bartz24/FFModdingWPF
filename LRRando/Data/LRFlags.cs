@@ -194,7 +194,7 @@ namespace LRRando
         public class Items
         {
             public static Flag Treasures;
-            public static ToggleFlagProperty Pilgrims, EPLearns;
+            public static ToggleFlagProperty Pilgrims, EPLearns, EPMissable;
             public static ComboBoxFlagProperty Key, KeyDepth;
             public static Flag Shops;
 
@@ -213,7 +213,7 @@ namespace LRRando
                 {
                     Text = "Include Pilgrim's Cruxes",
                     ID = "Pilgrims",
-                    Description = "Pilgrim's Cruxes will be included in the pool with treasures, quests, etc.\n" +
+                    Description = "Pilgrim's Cruxes (not including the Loupe Pilgrim's Crux) will be included in the pool with treasures, quests, etc.\n" +
                     "Pilgrim's Cruxes will not appear in missable locations or from Day 10 and later."
                 }.Register(Treasures);
 
@@ -225,13 +225,20 @@ namespace LRRando
                     "This includes when Curaga, Escape, Chronostasis, and Teleport are normally learned."
                 }.Register(Treasures);
 
+                EPMissable = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Allow EP Abilities in Missable Locations",
+                    ID = "EPMiss",
+                    Description = "EP Abilities will be allowed to appear in missable or late game locations Day 10 or later."
+                }.Register(Treasures);
+
                 Key = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
                 {
                     Text = "Randomize Key Items",
                     ID = "Key",
                     Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
                     "The following key items will be included in the pool based on the set level:\n" +
-                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Moogle Fragment, ID Card, Midnight Mauve, Dead Dunes Tablets, Dr. Gysahl's Gysahl Greens, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Chocobo Girl's Phone No.\n\n" +
+                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Moogle Fragment, ID Card, Midnight Mauve, Dead Dunes Tablets, Dr. Gysahl's Gysahl Greens, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Chocobo Girl's Phone No., Loupe Pilgrim's Crux\n\n" +
                     "Levels:\n" +
                     "    None - Key items are not randomized.\n" +
                     "    Key Items Only - Key items are shuffled between themselves.\n" +
@@ -268,7 +275,8 @@ namespace LRRando
         public class Other
         {
             public static Flag Music;
-            public static Flag HintsMain, HintsNotes, HintsEP;
+            public static Flag HintsMain, HintsNotes, HintsEP, HintsPilgrim;
+            public static ComboBoxFlagProperty HintsSpecific;
 
             internal static void Init()
             {
@@ -282,11 +290,26 @@ namespace LRRando
 
                 HintsMain = new Flag()
                 {
-                    Text = "Hints by Specific Item",
+                    Text = "Hints by Item",
                     FlagID = "HintsMain",
                     DescriptionFormat = "Each part of a main quest completed could reveal exact locations of some randomized important key items in the Quests menu.",
                     Aesthetic = true
                 }.Register(FlagType.Other);
+
+                HintsSpecific = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                {
+                    Text = "Specificity",
+                    ID = "HintsSpecific",
+                    Description = "Set the specificity for the hints from main quests.\n\n" +
+                    "Options:\n" +
+                    "    Exact - Hints give the exact item in the exact location.\n" +
+                    "    Vague Type - Hints give the type ('Key Item'/'EP Ability'/'Other') in the exact location.\n" +
+                    "    Vague Area - Hints give the exact item in the area.\n" +
+                    "    Vague Type & Area - Hints give the type ('Key Item'/'EP Ability'/'Other') in the area.\n" +
+                    "    Unknown but Exact Location - Hints will hint that something ('?????') is in the exact location.\n" +
+                    "    Random - Each hint will use one of the above rules.",
+                    Values = new string[] { "Exact", "Vague Type", "Vague Area", "Vague Type & Area", "Unknown but Exact Location", "Random" }.ToList()
+                }.Register(HintsMain);
 
                 HintsNotes = new Flag()
                 {
@@ -301,6 +324,14 @@ namespace LRRando
                     Text = "Hint EP Abilities",
                     FlagID = "HintsEP",
                     DescriptionFormat = "Randomized EP abilities will be included in hints.",
+                    Aesthetic = true
+                }.Register(FlagType.Other);
+
+                HintsPilgrim = new Flag()
+                {
+                    Text = "Hint Pilgrim's Cruxes",
+                    FlagID = "HintsPilgrim",
+                    DescriptionFormat = "Randomized Pilgrim's Cruxes will be included in hints.",
                     Aesthetic = true
                 }.Register(FlagType.Other);
             }

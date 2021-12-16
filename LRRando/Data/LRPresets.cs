@@ -48,6 +48,7 @@ namespace LRRando
                     LRFlags.Items.Treasures.FlagEnabled = true;
                     LRFlags.Items.Pilgrims.Enabled = false;
                     LRFlags.Items.EPLearns.Enabled = false;
+                    LRFlags.Items.EPMissable.Enabled = false;
                     LRFlags.Items.Key.SelectedValue = "None";
                     LRFlags.Items.KeyDepth.SelectedValue = "Normal";
                     LRFlags.Items.Shops.FlagEnabled = true;
@@ -56,8 +57,10 @@ namespace LRRando
                     LRFlags.Enemies.MatDrops.FlagEnabled = false;
                     LRFlags.Enemies.AbiDrops.FlagEnabled = false;
                     LRFlags.Other.HintsMain.FlagEnabled = true;
+                    LRFlags.Other.HintsSpecific.SelectedValue = "Exact";
                     LRFlags.Other.HintsNotes.FlagEnabled = true;
                     LRFlags.Other.HintsEP.FlagEnabled = true;
+                    LRFlags.Other.HintsPilgrim.FlagEnabled = false;
                     LRFlags.StatsAbilities.EPCosts.FlagEnabled = false;
                     LRFlags.StatsAbilities.EPCostsZero.Enabled = false;
                     LRFlags.StatsAbilities.EPCostsRange.Value = 1;
@@ -87,6 +90,7 @@ namespace LRRando
                     LRFlags.Items.Treasures.FlagEnabled = true;
                     LRFlags.Items.Pilgrims.Enabled = true;
                     LRFlags.Items.EPLearns.Enabled = true;
+                    LRFlags.Items.EPMissable.Enabled = false;
                     LRFlags.Items.Key.SelectedValue = "None";
                     LRFlags.Items.KeyDepth.SelectedValue = "Normal";
                     LRFlags.Items.Shops.FlagEnabled = true;
@@ -95,8 +99,10 @@ namespace LRRando
                     LRFlags.Enemies.MatDrops.FlagEnabled = false;
                     LRFlags.Enemies.AbiDrops.FlagEnabled = true;
                     LRFlags.Other.HintsMain.FlagEnabled = true;
+                    LRFlags.Other.HintsSpecific.SelectedValue = "Exact";
                     LRFlags.Other.HintsNotes.FlagEnabled = true;
                     LRFlags.Other.HintsEP.FlagEnabled = true;
+                    LRFlags.Other.HintsPilgrim.FlagEnabled = false;
                     LRFlags.StatsAbilities.EPCosts.FlagEnabled = true;
                     LRFlags.StatsAbilities.EPCostsZero.Enabled = false;
                     LRFlags.StatsAbilities.EPCostsRange.Value = 1;
@@ -125,6 +131,7 @@ namespace LRRando
                     LRFlags.Items.Treasures.FlagEnabled = true;
                     LRFlags.Items.Pilgrims.Enabled = true;
                     LRFlags.Items.EPLearns.Enabled = true;
+                    LRFlags.Items.EPMissable.Enabled = false;
                     LRFlags.Items.Key.SelectedValue = "Quests";
                     LRFlags.Items.KeyDepth.SelectedValue = "Hard";
                     LRFlags.Items.Shops.FlagEnabled = true;
@@ -133,8 +140,10 @@ namespace LRRando
                     LRFlags.Enemies.MatDrops.FlagEnabled = true;
                     LRFlags.Enemies.AbiDrops.FlagEnabled = true;
                     LRFlags.Other.HintsMain.FlagEnabled = true;
+                    LRFlags.Other.HintsSpecific.SelectedValue = "Vague Type";
                     LRFlags.Other.HintsNotes.FlagEnabled = true;
                     LRFlags.Other.HintsEP.FlagEnabled = true;
+                    LRFlags.Other.HintsPilgrim.FlagEnabled = false;
                     LRFlags.StatsAbilities.EPCosts.FlagEnabled = true;
                     LRFlags.StatsAbilities.EPCostsZero.Enabled = true;
                     LRFlags.StatsAbilities.EPCostsRange.Value = 3;
@@ -163,6 +172,7 @@ namespace LRRando
                     LRFlags.Items.Treasures.FlagEnabled = true;
                     LRFlags.Items.Pilgrims.Enabled = true;
                     LRFlags.Items.EPLearns.Enabled = true;
+                    LRFlags.Items.EPMissable.Enabled = true;
                     LRFlags.Items.Key.SelectedValue = "Grindy";
                     LRFlags.Items.KeyDepth.SelectedValue = "Hard+++";
                     LRFlags.Items.Shops.FlagEnabled = true;
@@ -171,8 +181,10 @@ namespace LRRando
                     LRFlags.Enemies.MatDrops.FlagEnabled = true;
                     LRFlags.Enemies.AbiDrops.FlagEnabled = true;
                     LRFlags.Other.HintsMain.FlagEnabled = true;
+                    LRFlags.Other.HintsSpecific.SelectedValue = "Random";
                     LRFlags.Other.HintsNotes.FlagEnabled = true;
                     LRFlags.Other.HintsEP.FlagEnabled = true;
+                    LRFlags.Other.HintsPilgrim.FlagEnabled = true;
                     LRFlags.StatsAbilities.EPCosts.FlagEnabled = true;
                     LRFlags.StatsAbilities.EPCostsZero.Enabled = true;
                     LRFlags.StatsAbilities.EPCostsRange.Value = 5;

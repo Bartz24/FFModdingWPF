@@ -1,4 +1,5 @@
 ﻿using Bartz24.Data;
+using Bartz24.Docs;
 using Bartz24.FF13_2_LR;
 using Bartz24.RandoWPF;
 using Bartz24.RandoWPF.Data;
@@ -19,6 +20,7 @@ namespace LRRando
         public DataStoreDB3<DataStoreItem> items = new DataStoreDB3<DataStoreItem>();
         public DataStoreDB3<DataStoreItem> itemsOrig = new DataStoreDB3<DataStoreItem>();
         public DataStoreDB3<DataStoreBtAutoAbility> autoAbilities = new DataStoreDB3<DataStoreBtAutoAbility>();
+        public DataStoreDB3<DataStoreRPassiveAbility> passiveAbilities = new DataStoreDB3<DataStoreRPassiveAbility>();
         public DataStoreDB3<DataStoreRItemAbi> itemAbilities = new DataStoreDB3<DataStoreRItemAbi>();
         public DataStoreDB3<DataStoreRItemAbi> itemAbilitiesOrig = new DataStoreDB3<DataStoreRItemAbi>();
         Dictionary<string, AbilityData> abilityData = new Dictionary<string, AbilityData>();
@@ -44,6 +46,7 @@ namespace LRRando
             autoAbilities.LoadDB3("LR", @"\db\resident\bt_auto_ability.wdb");
             itemAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
             itemAbilitiesOrig.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
+            passiveAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_pasv_ablty.wdb", false);
             passives = File.ReadAllLines(@"data\passives.csv").ToList();
             abilityData = File.ReadAllLines(@"data\abilities.csv").Select(s => new AbilityData(s.Split(","))).ToDictionary(a => a.ID, e => e);
 
@@ -52,11 +55,15 @@ namespace LRRando
             items["key_r_kanki"].sHelpStringId_string = "$m_001_ac000";
             items["key_r_kanki"].u16SortAllByKCategory = 100;
             items["key_r_kanki"].u16SortCategoryByCategory = 150;
+
+            itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
+            itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
+
+            autoAbilities.Values.Where(a => a.i16AutoAblArgInt0 >= 32768).ForEach(a => a.i16AutoAblArgInt0 -= 65536);
+            autoAbilities.Values.Where(a => a.i16AutoAblArgInt1 >= 32768).ForEach(a => a.i16AutoAblArgInt1 -= 65536);
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
-            itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
             if (LRFlags.StatsAbilities.EquipStats.FlagEnabled)
             {
                 LRFlags.StatsAbilities.EquipStats.SetRand();
@@ -77,9 +84,6 @@ namespace LRRando
                 RandomizePassives();
                 RandomNum.ClearRand();
             }
-
-            itemWeapons.Values.Where(w => w.i16AtbSpeedModVal < 0).ForEach(w => w.i16AtbSpeedModVal += 65536);
-            itemWeapons.Values.Where(w => w.i16MagicModVal < 0).ForEach(w => w.i16MagicModVal += 65536);
         }
 
         private void RandomizeAbilities()
@@ -124,7 +128,7 @@ namespace LRRando
                     int origATB = abilityData[origAbility].ATBCost;
                     float origATBMult = (abilityData[origAbility].ATBCost - itemAbilities[name].i8AtbDec) / (float)origATB;
                     int newATB = abilityData[newAbility].ATBCost;
-                    itemAbilities[name].i8AtbDec = -(int)((newATB * origATBMult) - abilityData[newAbility].ATBCost);
+                    itemAbilities[name].i8AtbDec = -(int)(Math.Ceiling(newATB * origATBMult) - abilityData[newAbility].ATBCost);
 
                     int origExpectedPower = abilityData[origAbility].BasePower + (abilityRando.abilityGrowths[origAbility].GetPowMin(itemAbilities[name].u4Lv, abilityData[origAbility].HitMultiplier) + abilityRando.abilityGrowths[origAbility].GetPowMax(itemAbilities[name].u4Lv, abilityData[origAbility].HitMultiplier)) / 2;
                     float origMult = (abilityData[origAbility].BasePower + itemAbilities[name].iPower * abilityData[origAbility].HitMultiplier) / (float)origExpectedPower;
@@ -302,11 +306,136 @@ namespace LRRando
 
         public override void Save()
         {
+            itemWeapons.Values.Where(w => w.i16AtbSpeedModVal < 0).ForEach(w => w.i16AtbSpeedModVal += 65536);
+            itemWeapons.Values.Where(w => w.i16MagicModVal < 0).ForEach(w => w.i16MagicModVal += 65536);
+
             itemWeapons.SaveDB3(@"\db\resident\item_weapon.wdb");
             items.SaveDB3(@"\db\resident\item.wdb");
             itemAbilities.SaveDB3(@"\db\resident\_wdbpack.bin\r_item_abi.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_item_abi.wdb");
             autoAbilities.DeleteDB3(@"\db\resident\bt_auto_ability.db3");
+            passiveAbilities.DeleteDB3(@"\db\resident\_wdbpack.bin\r_pasv_ablty.db3");
+        }
+
+        public override HTMLPage GetDocumentation()
+        {
+            itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
+            itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
+
+            HTMLPage page = new HTMLPage("Equipment", "template/documentation.html");
+
+            page.HTMLElements.Add(new Table("Garbs", (new string[] { "Name", "Maximum ATB", "Default ATB", "Locked Abilities", "Passives" }).ToList(), (new int[] { 15, 10, 10, 30, 35 }).ToList(), itemWeapons.Values.Where(g => g.u4WeaponKind == (int)WeaponKind.Costume && items.Keys.Contains(g.name)).Select(g =>
+            {
+                string name = GetItemName(g.name);
+                List<string> passiveNames = GetEquipPassivesDocs(g);
+                List<string> abilityNames = new List<string>();
+                if (g.sCosAbilityCir_string != "")
+                    abilityNames.Add(GetAbilityName(g.sCosAbilityCir_string));
+                if (g.sCosAbilityCro_string != "")
+                    abilityNames.Add(GetAbilityName(g.sCosAbilityCro_string));
+                if (g.sCosAbilitySqu_string != "")
+                    abilityNames.Add(GetAbilityName(g.sCosAbilitySqu_string));
+                if (g.sCosAbilityTri_string != "")
+                    abilityNames.Add(GetAbilityName(g.sCosAbilityTri_string));
+
+
+                return new string[] { name, g.i16AtbModVal.ToString(), g.i16AtbStartModVal.ToString(), string.Join(", ", abilityNames), string.Join(", ", passiveNames) }.ToList();
+            }).ToList()));
+
+            page.HTMLElements.Add(new Table("Weapons", (new string[] { "Name", "Strength", "Magic", "HP", "ATB Speed", "Stagger Power", "Passives" }).ToList(), (new int[] { 15, 10, 10, 10, 10, 10, 35 }).ToList(), itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Weapon && w.u4AccessoryPos == 0 && items.Keys.Contains(w.name)).Select(w =>
+            {
+                string name = GetItemName(w.name);
+                List<string> passiveNames = GetEquipPassivesDocs(w);
+
+                return new string[] { name, w.i16AttackModVal.ToString(), w.i16MagicModVal.ToString(), w.i16HpModVal.ToString(), w.i16AtbSpeedModVal.ToString(), w.iBreakBonus.ToString(), string.Join(", ", passiveNames) }.ToList();
+            }).ToList()));
+
+            page.HTMLElements.Add(new Table("Shields", (new string[] { "Name", "Strength", "Magic", "HP", "ATB Speed", "Guard Defense", "Passives" }).ToList(), (new int[] { 15, 10, 10, 10, 10, 10, 35 }).ToList(), itemWeapons.Values.Where(s => s.u4WeaponKind == (int)WeaponKind.Shield && items.Keys.Contains(s.name)).Select(s =>
+            {
+                string name = GetItemName(s.name);
+                List<string> passiveNames = GetEquipPassivesDocs(s);
+
+                return new string[] { name, s.i16AttackModVal.ToString(), s.i16MagicModVal.ToString(), s.i16HpModVal.ToString(), s.i16AtbSpeedModVal.ToString(), s.iGuardModVal.ToString(), string.Join(", ", passiveNames) }.ToList();
+            }).ToList()));
+
+            page.HTMLElements.Add(new Table("Accessories", (new string[] { "Name", "Passives" }).ToList(), (new int[] { 15, 85 }).ToList(), itemWeapons.Values.Where(s => s.u4AccessoryPos > 0 && items.Keys.Contains(s.name)).Select(s =>
+            {
+                string name = GetItemName(s.name);
+                List<string> passiveNames = GetEquipPassivesDocs(s);
+
+                return new string[] { name, string.Join(", ", passiveNames) }.ToList();
+            }).ToList()));
+
+            itemWeapons.Values.Where(w => w.i16AtbSpeedModVal < 0).ForEach(w => w.i16AtbSpeedModVal += 65536);
+            itemWeapons.Values.Where(w => w.i16MagicModVal < 0).ForEach(w => w.i16MagicModVal += 65536);
+
+            return page;
+        }
+
+        private List<string> GetEquipPassivesDocs(DataStoreItemWeapon w)
+        {
+            List<string> passiveNames = new List<string>();
+            if (w.sAbility_string != "")
+                passiveNames.Add(GetPassiveName(w.sAbility_string));
+            if (w.sAbility2_string != "")
+                passiveNames.Add(GetPassiveName(w.sAbility2_string));
+            if (w.sAbility3_string != "")
+                passiveNames.Add(GetPassiveName(w.sAbility3_string));
+            if (w.sCosAbilityCir_string != "" && itemAbilities.Keys.Contains(w.sCosAbilityCir_string) && itemAbilities[w.sCosAbilityCir_string].sPasvAbility_string != "")
+                passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilityCir_string].sPasvAbility_string));
+            if (w.sCosAbilityCro_string != "" && itemAbilities.Keys.Contains(w.sCosAbilityCro_string) && itemAbilities[w.sCosAbilityCro_string].sPasvAbility_string != "")
+                passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilityCro_string].sPasvAbility_string));
+            if (w.sCosAbilityTri_string != "" && itemAbilities.Keys.Contains(w.sCosAbilityTri_string) && itemAbilities[w.sCosAbilityTri_string].sPasvAbility_string != "")
+                passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilityTri_string].sPasvAbility_string));
+            if (w.sCosAbilitySqu_string != "" && itemAbilities.Keys.Contains(w.sCosAbilitySqu_string) && itemAbilities[w.sCosAbilitySqu_string].sPasvAbility_string != "")
+                passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilitySqu_string].sPasvAbility_string));
+            return passiveNames;
+        }
+
+        private string GetItemName(string itemID)
+        {
+            TextRando textRando = randomizers.Get<TextRando>("Text");
+            string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
+            if (name.Contains("{End}"))
+                name = name.Substring(0, name.IndexOf("{End}"));
+
+            return name;
+        }
+
+        private string GetPassiveName(string passiveID)
+        {
+            TextRando textRando = randomizers.Get<TextRando>("Text");
+            string name = "";
+            if (autoAbilities[passiveID].sStringResId_string != "" && textRando.mainSysUS.Keys.Contains(autoAbilities[passiveID].sStringResId_string))
+                name = textRando.mainSysUS[autoAbilities[passiveID].sStringResId_string];
+            else if (autoAbilities[passiveID].sAutoAblArgStr0_string != "")
+                name = textRando.mainSysUS[passiveAbilities[autoAbilities[passiveID].sAutoAblArgStr0_string].sStringResId_string];
+            if (name.Contains("{End}"))
+                name = name.Substring(0, name.IndexOf("{End}"));
+            name = name.Replace("{VarF7 64}", autoAbilities[passiveID].i16AutoAblArgInt0.ToString());
+            name = name.Replace("{VarF7 65}", autoAbilities[passiveID].i16AutoAblArgInt1.ToString());
+            name = name.Replace("+-", "-");
+
+            return name;
+        }
+
+        private string GetAbilityName(string abilityID)
+        {
+            TextRando textRando = randomizers.Get<TextRando>("Text");
+            AbilityRando abilityRando = randomizers.Get<AbilityRando>("Abilities");
+            string name = "";
+            if (abilityRando.abilities.Keys.Contains(abilityID))
+            {
+                name = textRando.mainSysUS[abilityRando.abilities[abilityID].sStringResId_string];
+                name += " Lv. " + abilityRando.abilities[abilityID].u4Lv;
+            }
+            else if (itemAbilities[abilityID].sAbilityId_string != "" && abilityRando.abilities.Keys.Contains(itemAbilities[abilityID].sAbilityId_string))
+            {
+                name = textRando.mainSysUS[abilityRando.abilities[itemAbilities[abilityID].sAbilityId_string].sStringResId_string];
+                name += " Lv. " + itemAbilities[abilityID].u4Lv;
+            }
+
+            return name;
         }
 
         public class AbilityData

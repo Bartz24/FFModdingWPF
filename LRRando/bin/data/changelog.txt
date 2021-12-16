@@ -9,12 +9,17 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.3.1 Changelog:
+0.3.2 Changelog:
 
--Lowered Key Item Difficulty Depth options
-    -Hard     1.5 -> 1.05
-    -Hard+    2.0 -> 1.10
-    -Hard++   3.0 -> 1.25
+New flags:
+    -Allow EP Abilities in Missable Locations
+    -Main Quest Hint Specificity
+    -Hint Pilgrim's Cruxes
 
--Fixed Tour Guide disappearing after checking ID card location
--Fixed Gysahl typos in UI
+-Added equipment documentation
+-Moved Loupe Unappraised rewards to same 'location' as Soul Seeds for hints
+-Adjusted some depths/requirements
+-Strong vanilla equipment with stats that hit stat caps but have 'points' remaining is no longer allowed (Ex: ATB Speed 50, Guard Defense 800)
+-Renamed dummy item 'Rando Proof of Slaughterhouse Fragment' to 'Rando: Slaughterhouse Special'
+-Fixed main quest hints hinting required items for that main quest
+

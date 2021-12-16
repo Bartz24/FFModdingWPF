@@ -416,5 +416,142 @@ namespace Bartz24.FF13_2_LR
 			mapping.Add(nameof(s10DropItem1_pointer), 33);
 			return mapping;
 		}
+		public void SetAbilities(List<string> list)
+		{
+			sAbility0_string = "";
+			sAbility1_string = "";
+			sAbility2_string = "";
+			sAbility3_string = "";
+			sAbility4_string = "";
+			sAbility5_string = "";
+			sAbility6_string = "";
+			sAbility7_string = "";
+			s12Ability8_string = "";
+			s12Ability9_string = "";
+			s12Ability10_string = "";
+			s12Ability11_string = "";
+			s12Ability12_string = "";
+			s12Ability13_string = "";
+			s12Ability14_string = "";
+			s12Ability15_string = "";
+			s8Ability16_string = "";
+			s8Ability17_string = "";
+			s8Ability18_string = "";
+			s8Ability19_string = "";
+			s8Ability20_string = "";
+			s8Ability21_string = "";
+			s8Ability22_string = "";
+			s8Ability23_string = "";
+			s8Ability24_string = "";
+			s8Ability25_string = "";
+			s8Ability26_string = "";
+			s8Ability27_string = "";
+			s8Ability28_string = "";
+			s8Ability29_string = "";
+			s8Ability30_string = "";
+			s8Ability31_string = "";
+			if (list.Count > 0)
+				sAbility0_string = list[0];
+			if (list.Count > 1)
+				sAbility1_string = list[1];
+			if (list.Count > 2)
+				sAbility2_string = list[2];
+			if (list.Count > 3)
+				sAbility3_string = list[3];
+			if (list.Count > 4)
+				sAbility4_string = list[4];
+			if (list.Count > 5)
+				sAbility5_string = list[5];
+			if (list.Count > 6)
+				sAbility6_string = list[6];
+			if (list.Count > 7)
+				sAbility7_string = list[7];
+			if (list.Count > 8)
+				s12Ability8_string = list[8];
+			if (list.Count > 9)
+				s12Ability9_string = list[9];
+			if (list.Count > 10)
+				s12Ability10_string = list[10];
+			if (list.Count > 11)
+				s12Ability11_string = list[11];
+			if (list.Count > 12)
+				s12Ability12_string = list[12];
+			if (list.Count > 13)
+				s12Ability13_string = list[13];
+			if (list.Count > 14)
+				s12Ability14_string = list[14];
+			if (list.Count > 15)
+				s12Ability15_string = list[15];
+			if (list.Count > 16)
+				s8Ability16_string = list[16];
+			if (list.Count > 17)
+				s8Ability17_string = list[17];
+			if (list.Count > 18)
+				s8Ability18_string = list[18];
+			if (list.Count > 19)
+				s8Ability19_string = list[19];
+			if (list.Count > 20)
+				s8Ability20_string = list[20];
+			if (list.Count > 21)
+				s8Ability21_string = list[21];
+			if (list.Count > 22)
+				s8Ability22_string = list[22];
+			if (list.Count > 23)
+				s8Ability23_string = list[23];
+			if (list.Count > 24)
+				s8Ability24_string = list[24];
+			if (list.Count > 25)
+				s8Ability25_string = list[25];
+			if (list.Count > 26)
+				s8Ability26_string = list[26];
+			if (list.Count > 27)
+				s8Ability27_string = list[27];
+			if (list.Count > 28)
+				s8Ability28_string = list[28];
+			if (list.Count > 29)
+				s8Ability29_string = list[29];
+			if (list.Count > 30)
+				s8Ability30_string = list[30];
+			if (list.Count > 31)
+				s8Ability31_string = list[31];
+		}
+
+		public List<string> GetAbilities()
+		{
+			List<string> list = new List<string>();
+			list.Add(sAbility0_string);
+			list.Add(sAbility1_string);
+			list.Add(sAbility2_string);
+			list.Add(sAbility3_string);
+			list.Add(sAbility4_string);
+			list.Add(sAbility5_string);
+			list.Add(sAbility6_string);
+			list.Add(sAbility7_string);
+			list.Add(s12Ability8_string);
+			list.Add(s12Ability9_string);
+			list.Add(s12Ability10_string);
+			list.Add(s12Ability11_string);
+			list.Add(s12Ability12_string);
+			list.Add(s12Ability13_string);
+			list.Add(s12Ability14_string);
+			list.Add(s12Ability15_string);
+			list.Add(s8Ability16_string);
+			list.Add(s8Ability17_string);
+			list.Add(s8Ability18_string);
+			list.Add(s8Ability19_string);
+			list.Add(s8Ability20_string);
+			list.Add(s8Ability21_string);
+			list.Add(s8Ability22_string);
+			list.Add(s8Ability23_string);
+			list.Add(s8Ability24_string);
+			list.Add(s8Ability25_string);
+			list.Add(s8Ability26_string);
+			list.Add(s8Ability27_string);
+			list.Add(s8Ability28_string);
+			list.Add(s8Ability29_string);
+			list.Add(s8Ability30_string);
+			list.Add(s8Ability31_string);
+			return list.Where(s => s != "").ToList();
+		}
 	}
 }

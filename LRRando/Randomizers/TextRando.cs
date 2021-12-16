@@ -50,7 +50,7 @@ namespace LRRando
                 mainSysUS.Load(outPath, SetupData.Paths["Nova"]);
             }
 
-            mainSysUS["$m_001"] = "Rando Proof of Slaughterhouse Fragment";
+            mainSysUS["$m_001"] = "Rando: Slaughterhouse Special";
             mainSysUS["$m_001_ac000"] = "Used for tracking in the randomizer. You have checked the Fragment of Courage location in Yusnaan.";
         }
         public override void Randomize(Action<int> progressSetter)

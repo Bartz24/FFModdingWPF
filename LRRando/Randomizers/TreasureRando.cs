@@ -158,7 +158,7 @@ namespace LRRando
                             return 0;
 
                         int max = treasureData.Keys.Where(t => treasureData[t].Location == loc).Count();
-                        return (long)(100 * (1 - (hintsNotesCount[loc] / (float)max)));
+                        return (long)(100 * Math.Pow(1 - (hintsNotesCount[loc] / (float)max), 2));
                     };
                     string next = RandomNum.SelectRandomWeighted(hintsNotesCount.Keys.ToList(), weight);
                     hintsNotesCount[next]++;
@@ -168,7 +168,8 @@ namespace LRRando
                 Dictionary<string, int> hintsRem = hintsNotesCount.ToDictionary(p => p.Key, p => p.Value);
                 Dictionary<string, string> placement = GetImportantPlacement(new Dictionary<string, string>(), depths, hintsRem, keys, keys.Where(t => IsImportant(t, true)).ToList(), 0).Item2;
                 List<string> remainingKeys = keys.Where(k => !placement.ContainsKey(k)).ToList();
-                placement = GetImportantPlacement(placement, depths, hintsRem, remainingKeys, remainingKeys.Where(t => IsImportant(t, false)).ToList(), placement.Count).Item2;
+                List<string> remainingPlacements = keys.Where(k => !placement.ContainsValue(k)).ToList();
+                placement = GetImportantPlacement(placement, depths, hintsRem, remainingKeys, remainingPlacements.Where(t => IsImportant(t, false)).ToList(), placement.Count).Item2;
 
 
                 List<string> newKeys = keys.Where(k => !placement.ContainsValue(k)).ToList().Shuffle().ToList();
@@ -255,13 +256,13 @@ namespace LRRando
                         Tuple<string, int> nextPlacement = SelectNext(soFar, depths, items, possible);
                         string next = nextPlacement.Item1;
                         int depth = nextPlacement.Item2;
-                        soFar.Add(next, rep);
-                        depths.Add(next, depth);
                         string hint = null;
-                        if (IsHintable(rep))
-                            hintsCountRem[loc]--;
                         if (LRFlags.Other.HintsMain.FlagEnabled)
                             hint = AddHint(soFar, next, rep);
+                        soFar.Add(next, rep);
+                        depths.Add(next, depth);
+                        if (IsHintable(rep))
+                            hintsCountRem[loc]--;
                         if (soFar.Count == initialCount + important.Count)
                             return new Tuple<bool, Dictionary<string, string>>(true, soFar);
                         Tuple<bool, Dictionary<string, string>> result = GetImportantPlacement(soFar, depths, hintsCountRem, locations, important, initialCount);
@@ -325,7 +326,7 @@ namespace LRRando
                 return (keysOnly && !treasureData[t].Traits.Contains("Pilgrim")) || (!keysOnly && treasureData[t].Traits.Contains("Pilgrim"));
             if (treasuresOrig[t].s11ItemResourceId_string.StartsWith("libra"))
                 return !keysOnly;
-            if (treasuresOrig[t].s11ItemResourceId_string.StartsWith("ti") || treasuresOrig[t].s11ItemResourceId_string == "at900_00")
+            if (IsEPAbility(t))
                 return !keysOnly;
             if (treasuresOrig[t].s11ItemResourceId_string.StartsWith("it"))
                 return !keysOnly;
@@ -340,10 +341,12 @@ namespace LRRando
                     return false;
                 if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("libra"))
                     return false;
+                if (!LRFlags.Items.EPMissable.Enabled && IsEPAbility(rep))
+                    return false;
             }
             if (treasureData[old].Traits.Contains("CoP"))
             {
-                if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("ti") || treasuresOrig[rep].s11ItemResourceId_string == "at900_00")
+                if (IsEPAbility(rep))
                     return false;
                 if (IsKeyItem(rep) && !IsKeyItem(old) && LRFlags.Items.Key.Values.IndexOf(LRFlags.Items.Key.SelectedValue) < LRFlags.Items.Key.Values.IndexOf("CoP"))
                     return false;
@@ -355,7 +358,7 @@ namespace LRRando
             }
             if (treasureData[old].Traits.Contains("Quest"))
             {
-                if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("ti") || treasuresOrig[rep].s11ItemResourceId_string == "at900_00")
+                if (IsEPAbility(rep))
                     return false;
                 if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("it"))
                     return false;
@@ -371,9 +374,16 @@ namespace LRRando
             return true;
         }
 
-        private bool IsKeyItem(string t)
+        private bool IsEPAbility(string t, bool orig = true)
         {
-            return treasuresOrig[t].s11ItemResourceId_string.StartsWith("key") || treasuresOrig[t].s11ItemResourceId_string == "cos_fa00";
+            DataStoreDB3<DataStoreRTreasurebox> db = orig ? treasuresOrig : treasures;
+            return db[t].s11ItemResourceId_string.StartsWith("ti") || db[t].s11ItemResourceId_string == "at900_00";
+        }
+
+        private bool IsKeyItem(string t, bool orig = true)
+        {
+            DataStoreDB3<DataStoreRTreasurebox> db = orig ? treasuresOrig : treasures;
+            return db[t].s11ItemResourceId_string.StartsWith("key") || db[t].s11ItemResourceId_string == "cos_fa00";
         }
 
         private Dictionary<string, int> GetItemsAvailable(Dictionary<string, string> soFar)
@@ -408,7 +418,9 @@ namespace LRRando
 
         private bool IsHintable(string rep)
         {
-            if (IsKeyItem(rep))
+            if (IsKeyItem(rep) && !treasureData[rep].Traits.Contains("Pilgrim"))
+                return true;
+            if (treasureData[rep].Traits.Contains("Pilgrim") && LRFlags.Other.HintsPilgrim.FlagEnabled)
                 return true;
             if (LRFlags.Other.HintsEP.FlagEnabled && (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("ti") || treasuresOrig[rep].s11ItemResourceId_string == "at900_00"))
                 return true;
@@ -442,7 +454,7 @@ namespace LRRando
             {
                 hintsMain.Keys.ForEach(h =>
                 {
-                    textRando.mainSysUS["$" + h] = string.Join("{Text NewLine}{Text NewLine}", hintsMain[h].Select(t => treasures[t]).Select(t => $"{treasureData[t.name].Name} has {GetItemName(t.s11ItemResourceId_string)} x {t.iItemCount}"));
+                    textRando.mainSysUS["$" + h] = string.Join("{Text NewLine}{Text NewLine}", hintsMain[h].Select(t => treasures[t]).Select(t => GetHintText(t)));
                 });
             }
 
@@ -452,6 +464,43 @@ namespace LRRando
                 {
                     textRando.mainSysUS[equipRando.items[i].sHelpStringId_string] = $"{hintsNotesLocations[i]} has {hintsNotesCount[hintsNotesLocations[i]]} important checks.";
                 });
+            }
+        }
+
+        private string GetHintText(DataStoreRTreasurebox t)
+        {
+            int index = LRFlags.Other.HintsSpecific.Values.IndexOf(LRFlags.Other.HintsSpecific.SelectedValue);
+            if (index == LRFlags.Other.HintsSpecific.Values.Count - 1)
+            {
+                LRFlags.Other.HintsMain.SetRand();
+                index = RandomNum.RandInt(0, LRFlags.Other.HintsSpecific.Values.Count - 2);
+                RandomNum.ClearRand();
+            }
+            switch (index)
+            {
+                case 0:
+                default:
+                    {
+                        return $"{treasureData[t.name].Name} has {GetItemName(t.s11ItemResourceId_string)}";
+                    }
+                case 1:
+                    {
+                        string type = IsKeyItem(t.name, false) ? "a Key Item" : (IsEPAbility(t.name, false) ? "an EP Ability" : "Other");
+                        return $"{treasureData[t.name].Name} has {type}";
+                    }
+                case 2:
+                    {
+                        return $"{treasureData[t.name].Location} has {GetItemName(t.s11ItemResourceId_string)}";
+                    }
+                case 3:
+                    {
+                        string type = IsKeyItem(t.name, false) ? "a Key Item" : (IsEPAbility(t.name, false) ? "an EP Ability" : "Other");
+                        return $"{treasureData[t.name].Location} has {type}";
+                    }
+                case 4:
+                    {
+                        return $"{treasureData[t.name].Name} has ?????";
+                    }
             }
         }
 

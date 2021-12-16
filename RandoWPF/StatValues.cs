@@ -22,17 +22,22 @@ namespace Bartz24.RandoWPF
 
         public void Randomize(Tuple<int, int>[] bounds, long amount, float rate = 0.2f)
         {
-            int randTotal = (int)Math.Min(Math.Min(amount, bounds.Select(t => (long)t.Item2 - (long)t.Item1).Sum()), Int32.MaxValue);
+            int randTotal = (int)Math.Min(Math.Min(amount, GetBoundsSum(bounds)), int.MaxValue);
             while (Vals.Sum() < randTotal)
             {
                 int select = SelectNext();
-                int val = (int)Math.Max((randTotal - Vals.Sum()) * boundMult(bounds, select)  * rate, 1);
+                int val = (int)Math.Max((randTotal - Vals.Sum()) * boundMult(bounds, select) * rate, 1);
                 Vals[select] += Math.Min(bounds[select].Item2 - bounds[select].Item1 - Vals[select], val);
             }
             for (int i = 0; i < Vals.Length; i++)
             {
                 Vals[i] += bounds[i].Item1;
             }
+        }
+
+        public static long GetBoundsSum(Tuple<int, int>[] bounds)
+        {
+            return bounds.Select(t => (long)t.Item2 - (long)t.Item1).Sum();
         }
 
         protected virtual int SelectNext()

@@ -93,7 +93,7 @@ namespace LRRando
                     });
 
                 }
-              });
+            });
         }
 
         private static void RemoveMatDrop(EquipRando equipRando, List<string> list)

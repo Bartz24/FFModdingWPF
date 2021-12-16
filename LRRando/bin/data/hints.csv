@@ -4,7 +4,7 @@ fl_mnlx_003e,
 fl_mnlx_004e,
 fl_mnlx_005e,
 fl_mnyu_001e,
-fl_mnyu_002e,I(key_y_id|1)
+fl_mnyu_002e,AND(I(key_y_id|1)|I(cos_fa00|1))
 fl_mnyu_003e,AND(I(key_y_id|1)|I(cos_fa00|1))
 fl_mnyu_004e,AND(I(key_y_id|1)|I(cos_fa00|1))
 fl_mnwl_001e,I(key_w_yasai_t|1)
