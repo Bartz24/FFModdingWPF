@@ -560,10 +560,10 @@ tre_qst_1305,CoP Global,CoP Quest Global: A Girl's Challenge,Quest,I(key_b_00|1)
 tre_qst_1305_1,CoP Global,CoP Quest Global: A Girl's Challenge,Quest,I(key_b_00|1),2
 tre_qst_1306,CoP Global,CoP Quest Global: What's Left Behind,Quest,I(key_b_01|1),2
 tre_qst_1306_1,CoP Global,CoP Quest Global: What's Left Behind,Quest,I(key_b_01|1),2
-tre_qst_1307,CoP Global,CoP Quest Global: Seeing The Dawn,Quest,AND(I(key_b_02|1)|I(key_y_id|1)),3
-tre_qst_1307_1,CoP Global,CoP Quest Global: Seeing The Dawn,Quest,AND(I(key_b_02|1)|I(key_y_id|1)),3
-tre_qst_1308,CoP Global,CoP Quest Global: Staying Sharp,Quest,AND(I(key_b_03|1)|I(key_y_id|1)),1
-tre_qst_1308_1,CoP Global,CoP Quest Global: Staying Sharp,Quest,AND(I(key_b_03|1)|I(key_y_id|1)),1
+tre_qst_1307,CoP Global,CoP Quest Global: Seeing The Dawn,Quest,AND(I(key_b_02|1)|I(key_y_id|1)|I(cos_fa00|1)),3
+tre_qst_1307_1,CoP Global,CoP Quest Global: Seeing The Dawn,Quest,AND(I(key_b_02|1)|I(key_y_id|1)|I(cos_fa00|1)),3
+tre_qst_1308,CoP Global,CoP Quest Global: Staying Sharp,Quest,AND(I(key_b_03|1)|I(key_y_id|1)|I(cos_fa00|1)),1
+tre_qst_1308_1,CoP Global,CoP Quest Global: Staying Sharp,Quest,AND(I(key_b_03|1)|I(key_y_id|1)|I(cos_fa00|1)),1
 tre_qst_1309,CoP Global,CoP Quest Global: Where Moogles Be,Quest,AND(I(key_b_04|1)|I(key_w_yasai_t|1)),1
 tre_qst_1309_1,CoP Global,CoP Quest Global: Where Moogles Be,Quest,AND(I(key_b_04|1)|I(key_w_yasai_t|1)),1
 tre_qst_1310,CoP Global,CoP Quest Global: Fading Prayer,Quest,AND(I(key_b_05|1)|I(key_w_yasai_t|1)),1
@@ -576,11 +576,11 @@ tre_qst_1312_2,CoP Global,CoP Quest Global: Shoot For The Sky,Quest,I(key_b_07|1
 tre_qst_1313,CoP Global,CoP Quest Global: Digging Mysteries,Quest,AND(I(key_b_08|1)|I(key_d_sekiban|2)),2
 tre_qst_1313_1,CoP Global,CoP Quest Global: Digging Mysteries,Quest,AND(I(key_b_08|1)|I(key_d_sekiban|2)),2
 tre_qst_1313_2,CoP Global,CoP Quest Global: Digging Mysteries,Quest,AND(I(key_b_08|1)|I(key_d_sekiban|2)),2
-tre_seed_1st_00,Soul Seeds/Unappraised,20 Soul Seeds,,,3
-tre_seed_1st_01,Soul Seeds/Unappraised,40 Soul Seeds,Grindy,,5
-tre_seed_1st_02,Soul Seeds/Unappraised,60 Soul Seeds,Grindy,,8
-tre_seed_1st_03,Soul Seeds/Unappraised,80 Soul Seeds,Grindy,,9
-tre_seed_1st_04,Soul Seeds/Unappraised,100 Soul Seeds,Grindy,,10
+tre_seed_1st_00,Soul Seeds/Unappraised,10 Soul Seeds,,,2
+tre_seed_1st_01,Soul Seeds/Unappraised,20 Soul Seeds,Grindy,,4
+tre_seed_1st_02,Soul Seeds/Unappraised,30 Soul Seeds,Grindy,,7
+tre_seed_1st_03,Soul Seeds/Unappraised,40 Soul Seeds,Grindy,,8
+tre_seed_1st_04,Soul Seeds/Unappraised,50 Soul Seeds,Grindy,,9
 tre_key_d_kant1,Soul Seeds/Unappraised,Dead Dunes Unappraised 1,Quest,I(key_d_lupe|1),1
 tre_key_d_kant2,Soul Seeds/Unappraised,Dead Dunes Unappraised 5,Quest,I(key_d_lupe|1),2
 tre_key_d_kant3,Soul Seeds/Unappraised,Dead Dunes Unappraised 10,Grindy|Quest,I(key_d_lupe|1),4

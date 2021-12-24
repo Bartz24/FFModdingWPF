@@ -18,7 +18,7 @@ namespace LRRando
         public class StatsAbilities
         {
             public static Flag EPAbilities, NerfOC, EPCosts;
-            public static ToggleFlagProperty EPAbilitiesEscape, EPCostsZero;
+            public static ToggleFlagProperty EPAbilitiesEscape, EPAbilitiesChrono, EPAbilitiesTp, EPCostsZero;
             public static NumberFlagProperty EPCostsRange;
             public static Flag EquipStats, GarbAbilities, EquipPassives;
             public static Flag Quests;
@@ -50,7 +50,7 @@ namespace LRRando
                 {
                     Text = "Shuffle EP Abilities",
                     FlagID = "EPAbi",
-                    DescriptionFormat = "Shuffles all EP abilities between each other except for Overclock and Escape (Escape requires the below flag)."
+                    DescriptionFormat = "Shuffles all EP abilities between each other except for Overclock and Escape, Chronostasis, and Teleport (last 3 requires the below flags)."
                 }.Register(FlagType.StatsAbilities);
 
                 EPAbilitiesEscape = (ToggleFlagProperty)new ToggleFlagProperty()
@@ -58,6 +58,20 @@ namespace LRRando
                     Text = "Include Escape",
                     ID = "EPAbiEsc",
                     Description = "Escape will be included in randomization."
+                }.Register(EPAbilities);
+
+                EPAbilitiesChrono = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Chronostasis",
+                    ID = "EPAbiChr",
+                    Description = "Chronostasis will be included in randomization."
+                }.Register(EPAbilities);
+
+                EPAbilitiesTp = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Teleport",
+                    ID = "EPAbiTlp",
+                    Description = "Teleport will be included in randomization."
                 }.Register(EPAbilities);
 
                 Quests = new Flag()
@@ -245,7 +259,7 @@ namespace LRRando
                     "    Treasures - Key items are also allowed in treasures/Learned EP ability spots.\n" +
                     "    Quests - Key items are also allowed in side quests and Non-Global Canvas of Prayers.\n" +
                     "    CoP - Key items are also allowed in all Canvas of Prayers.\n" +
-                    "    Grindy - Key items are also allowed in 40+ Soul Seed rewards and 10+ Unappraised Items.\n",
+                    "    Grindy - Key items are also allowed in 20+ Soul Seed rewards and 10+ Unappraised Items.\n",
                     Values = new string[] { "None", "Key Items Only", "Treasures", "Quests", "CoP", "Grindy" }.ToList()
                 }.Register(Treasures);
 
@@ -305,10 +319,9 @@ namespace LRRando
                     "    Exact - Hints give the exact item in the exact location.\n" +
                     "    Vague Type - Hints give the type ('Key Item'/'EP Ability'/'Other') in the exact location.\n" +
                     "    Vague Area - Hints give the exact item in the area.\n" +
-                    "    Vague Type & Area - Hints give the type ('Key Item'/'EP Ability'/'Other') in the area.\n" +
                     "    Unknown but Exact Location - Hints will hint that something ('?????') is in the exact location.\n" +
                     "    Random - Each hint will use one of the above rules.",
-                    Values = new string[] { "Exact", "Vague Type", "Vague Area", "Vague Type & Area", "Unknown but Exact Location", "Random" }.ToList()
+                    Values = new string[] { "Exact", "Vague Type", "Vague Area", "Unknown but Exact Location", "Random" }.ToList()
                 }.Register(HintsMain);
 
                 HintsNotes = new Flag()

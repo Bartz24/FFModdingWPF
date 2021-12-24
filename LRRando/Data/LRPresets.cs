@@ -34,6 +34,8 @@ namespace LRRando
                     baseOnApply();
                     LRFlags.StatsAbilities.EPAbilities.FlagEnabled = true;
                     LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled = false;
+                    LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled = false;
+                    LRFlags.StatsAbilities.EPAbilitiesTp.Enabled = false;
                     LRFlags.Enemies.EnemyLocations.FlagEnabled = true;
                     LRFlags.Enemies.EnemiesSize.Enabled = false;
                     LRFlags.Enemies.EncounterSize.Enabled = false;
@@ -76,6 +78,8 @@ namespace LRRando
                     baseOnApply();
                     LRFlags.StatsAbilities.EPAbilities.FlagEnabled = true;
                     LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled = true;
+                    LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled = true;
+                    LRFlags.StatsAbilities.EPAbilitiesTp.Enabled = true;
                     LRFlags.Enemies.EnemyLocations.FlagEnabled = true;
                     LRFlags.Enemies.EnemiesSize.Enabled = true;
                     LRFlags.Enemies.EncounterSize.Enabled = true;
@@ -117,6 +121,8 @@ namespace LRRando
                     baseOnApply();
                     LRFlags.StatsAbilities.EPAbilities.FlagEnabled = true;
                     LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled = true;
+                    LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled = true;
+                    LRFlags.StatsAbilities.EPAbilitiesTp.Enabled = true;
                     LRFlags.Enemies.EnemyLocations.FlagEnabled = true;
                     LRFlags.Enemies.EnemiesSize.Enabled = true;
                     LRFlags.Enemies.EncounterSize.Enabled = true;
@@ -158,6 +164,8 @@ namespace LRRando
                     baseOnApply();
                     LRFlags.StatsAbilities.EPAbilities.FlagEnabled = true;
                     LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled = true;
+                    LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled = true;
+                    LRFlags.StatsAbilities.EPAbilitiesTp.Enabled = true;
                     LRFlags.Enemies.EnemyLocations.FlagEnabled = true;
                     LRFlags.Enemies.EnemiesSize.Enabled = true;
                     LRFlags.Enemies.EncounterSize.Enabled = true;

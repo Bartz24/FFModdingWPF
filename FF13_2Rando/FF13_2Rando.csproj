@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bartz24.Data\Bartz24.Data.csproj" />
+    <ProjectReference Include="..\Bartz24.Docs\Bartz24.Docs.csproj" />
+    <ProjectReference Include="..\Bartz24.FF13_2\Bartz24.FF13_2.csproj" />
+    <ProjectReference Include="..\Bartz24.FF13_2_LR\Bartz24.FF13_2_LR.csproj" />
+    <ProjectReference Include="..\RandoWPF\Bartz24.RandoWPF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ResourceDict.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Controls\SetupPaths.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

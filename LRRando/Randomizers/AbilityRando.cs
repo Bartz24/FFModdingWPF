@@ -48,6 +48,10 @@ namespace LRRando
                 IEnumerable<DataStoreRTreasurebox> keys = treasureRando.treasures.Values.Where(t => t.s11ItemResourceId_string.StartsWith("ti") || t.s11ItemResourceId_string == "at900_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled)
                     keys = keys.Where(t => t.s11ItemResourceId_string != "ti830_00");
+                if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled)
+                    keys = keys.Where(t => t.s11ItemResourceId_string != "ti840_00");
+                if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled)
+                    keys = keys.Where(t => t.s11ItemResourceId_string != "ti810_00");
 
                 keys.ToList().Shuffle((t1, t2) => {
                     string value = t1.s11ItemResourceId_string;

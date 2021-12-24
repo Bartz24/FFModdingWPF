@@ -128,6 +128,12 @@ namespace LRRando
 
                 if (!LRFlags.Items.EPLearns.Enabled)
                     keys = keys.Where(k => !treasureData[k].Traits.Contains("EP")).ToList();
+                if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled)
+                    keys = keys.Where(t => treasuresOrig[t].s11ItemResourceId_string != "ti830_00").ToList();
+                if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled)
+                    keys = keys.Where(t => treasuresOrig[t].s11ItemResourceId_string != "ti840_00").ToList();
+                if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled)
+                    keys = keys.Where(t => treasuresOrig[t].s11ItemResourceId_string != "ti810_00").ToList();
 
                 List<string> sameKeys = keys.Where(k => treasureData[k].Traits.Contains("Same")).ToList();
                 keys = keys.Where(k => !treasureData[k].Traits.Contains("Same")).ToList();
@@ -166,11 +172,11 @@ namespace LRRando
 
                 Dictionary<string, int> depths = new Dictionary<string, int>();
                 Dictionary<string, int> hintsRem = hintsNotesCount.ToDictionary(p => p.Key, p => p.Value);
-                Dictionary<string, string> placement = GetImportantPlacement(new Dictionary<string, string>(), depths, hintsRem, keys, keys.Where(t => IsImportant(t, true)).ToList(), 0).Item2;
-                List<string> remainingKeys = keys.Where(k => !placement.ContainsKey(k)).ToList();
+                Dictionary<string, string> placement = GetImportantPlacement(new Dictionary<string, string>(), depths, hintsRem, keys, keys.Where(t => IsImportant(t)).ToList(), 0).Item2;
+                /*List<string> remainingKeys = keys.Where(k => !placement.ContainsKey(k)).ToList();
                 List<string> remainingPlacements = keys.Where(k => !placement.ContainsValue(k)).ToList();
                 placement = GetImportantPlacement(placement, depths, hintsRem, remainingKeys, remainingPlacements.Where(t => IsImportant(t, false)).ToList(), placement.Count).Item2;
-
+                */
 
                 List<string> newKeys = keys.Where(k => !placement.ContainsValue(k)).ToList().Shuffle().ToList();
                 foreach (string k in keys.Where(k => !placement.ContainsKey(k)))
@@ -316,6 +322,21 @@ namespace LRRando
                 return soFar.Keys.Where(t => treasuresOrig[soFar[t]].s11ItemResourceId_string == item).Select(t => depths[t]).DefaultIfEmpty(0).Max();
             }).DefaultIfEmpty(0).Max() + 1 + treasureData[location].Difficulty;
             return RandomNum.RandInt(Math.Max(1, val - 2), val + 2);
+        }
+
+        private bool IsImportant(string t)
+        {
+            if (treasureData[t].Traits.Contains("Same"))
+                return false;
+            if (IsKeyItem(t))
+                return !treasureData[t].Traits.Contains("Pilgrim");
+            if (treasuresOrig[t].s11ItemResourceId_string.StartsWith("libra"))
+                return true;
+            if (IsEPAbility(t))
+                return true;
+            if (treasuresOrig[t].s11ItemResourceId_string.StartsWith("it"))
+                return true;
+            return false;
         }
 
         private bool IsImportant(string t, bool keysOnly)
@@ -493,11 +514,6 @@ namespace LRRando
                         return $"{treasureData[t.name].Location} has {GetItemName(t.s11ItemResourceId_string)}";
                     }
                 case 3:
-                    {
-                        string type = IsKeyItem(t.name, false) ? "a Key Item" : (IsEPAbility(t.name, false) ? "an EP Ability" : "Other");
-                        return $"{treasureData[t.name].Location} has {type}";
-                    }
-                case 4:
                     {
                         return $"{treasureData[t.name].Name} has ?????";
                     }

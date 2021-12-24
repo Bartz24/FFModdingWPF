@@ -1,0 +1,303 @@
+﻿using Bartz24.Data;
+using Bartz24.Docs;
+using Bartz24.RandoWPF;
+using Bartz24.RandoWPF.Data;
+using MaterialDesignThemes.Wpf;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace FF13_2Rando
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+
+        public static readonly DependencyProperty ProgressBarValueProperty =
+        DependencyProperty.Register(nameof(ProgressBarValue), typeof(int), typeof(MainWindow));
+        public int ProgressBarValue
+        {
+            get { return (int)GetValue(ProgressBarValueProperty); }
+            set { SetValue(ProgressBarValueProperty, value); }
+        }
+        public static readonly DependencyProperty ProgressBarVisibleProperty =
+        DependencyProperty.Register(nameof(ProgressBarVisible), typeof(Visibility), typeof(MainWindow));
+        public Visibility ProgressBarVisible
+        {
+            get { return (Visibility)GetValue(ProgressBarVisibleProperty); }
+            set { SetValue(ProgressBarVisibleProperty, value); }
+        }
+        public static readonly DependencyProperty ProgressBarIndeterminateProperty =
+        DependencyProperty.Register(nameof(ProgressBarIndeterminate), typeof(bool), typeof(MainWindow));
+        public bool ProgressBarIndeterminate
+        {
+            get { return (bool)GetValue(ProgressBarIndeterminateProperty); }
+            set { SetValue(ProgressBarIndeterminateProperty, value); }
+        }
+
+        public static readonly DependencyProperty ProgressBarTextProperty =
+        DependencyProperty.Register(nameof(ProgressBarText), typeof(string), typeof(MainWindow));
+        public string ProgressBarText
+        {
+            get { return (string)GetValue(ProgressBarTextProperty); }
+            set { SetValue(ProgressBarTextProperty, value); }
+        }
+
+        public static readonly DependencyProperty ChangelogTextProperty =
+        DependencyProperty.Register(nameof(ChangelogText), typeof(string), typeof(MainWindow));
+        public string ChangelogText
+        {
+            get { return (string)GetValue(ChangelogTextProperty); }
+            set { SetValue(ChangelogTextProperty, value); }
+        }
+
+        public MainWindow()
+        {
+            FF13_2Flags.Init();
+            FF13_2Presets.Init();
+            InitializeComponent();
+            this.DataContext = this;
+            HideProgressBar();
+            DataExtensions.Mode = ByteMode.BigEndian;
+
+            if (string.IsNullOrEmpty(SetupData.Paths["Nova"]))
+            {
+                RootDialog.ShowDialog(RootDialog.DialogContent);
+            }
+            ChangelogText = File.ReadAllText(@"data\changelog.txt");
+        }
+
+        private async void generateButton_Click(object sender, RoutedEventArgs e)
+        {
+            RandomizerManager randomizers = new RandomizerManager();
+            randomizers.Add(new HistoriaCruxRando(randomizers));
+            randomizers.Add(new EnemyRando(randomizers));
+
+            if (String.IsNullOrEmpty(SetupData.Paths["Nova"]) || !File.Exists(SetupData.Paths["Nova"]))
+            {
+                MessageBox.Show("NovaChrysalia.exe needs to be selected. Download Nova Chrysalia and setup the path in the '1. Setup' step.", "Nova Chrysalia not found.");
+                return;
+            }
+
+            if (!Nova.IsUnpacked("13-2", @"db\resident\wdbpack.bin", SetupData.GetSteamPath("13-2")))
+            {
+                MessageBox.Show("FF13-2 needs to be unpacked.\nOpen NovaChrysalia and 'Unpack Game Data' for FF13-2.", "FF13-2 is not unpacked");
+                return;
+            }
+
+#if DEBUG
+            bool tests = false;
+            if (MessageBox.Show("Run tests?", "Tests", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                tests = true;
+            }
+
+            for (int i = 0; i < (tests ? 10 : 1); i++)
+            {
+#endif
+                try
+                {
+
+                    this.IsEnabled = false;
+                    await Task.Run(() =>
+                    {
+                        string outFolder = System.IO.Path.GetTempPath() + @"ff13_2_rando_temp";
+                        SetupData.OutputFolder = outFolder + @"\Data";
+
+                        int seed = RandomNum.GetIntSeed(SetupData.Seed);
+#if DEBUG
+                        if (tests)
+                            seed = RandomNum.RandSeed();
+#endif
+
+                        foreach (Flag flag in Flags.FlagsList)
+                        {
+                            flag.ResetRandom(seed);
+                        }
+#if DEBUG
+                        if (tests)
+                        {
+                            RandomNum.SetRand(new Bartz24.RandoWPF.Random());
+                            foreach (Flag flag in Flags.FlagsList)
+                            {
+                                if (RandomNum.RandInt(0, 99) < 50)
+                                    flag.FlagEnabled = true;
+                                else
+                                    flag.FlagEnabled = false;
+                            }
+                        }
+#endif
+
+                        RandomNum.ClearRand();
+
+                        SetProgressBar("Preparing data folder...", -1);
+                        if (Directory.Exists(outFolder))
+                            Directory.Delete(outFolder, true);
+                        Directory.CreateDirectory(outFolder);
+                        CopyFromTemplate(outFolder, "data\\modpack");
+
+                        SetProgressBar("Loading Data...", -1);
+
+                        string wdbpackPath = Nova.GetNovaFile("13-2", @"db\resident\wdbpack.bin", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
+                        string wdbpackOutPath = SetupData.OutputFolder + @"\db\resident\wdbpack.bin";
+                        FileExtensions.CopyFile(wdbpackPath, wdbpackOutPath);
+
+                        string x000Path = Nova.GetNovaFile("13-2", @"btscene\pack\wdb\x000.bin", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
+                        string x000OutPath = SetupData.OutputFolder + @"\btscene\pack\wdb\x000.bin";
+                        FileExtensions.CopyFile(x000Path, x000OutPath);
+
+                        SetupData.WPDTracking.Clear();
+                        SetupData.WPDTracking.Add(wdbpackOutPath, new List<string>());
+                        SetupData.WPDTracking.Add(x000OutPath, new List<string>());
+                        Nova.UnpackWPD(wdbpackOutPath, SetupData.Paths["Nova"]);
+                        Nova.UnpackWPD(x000OutPath, SetupData.Paths["Nova"]);
+
+                        randomizers.ForEach(r => r.Load());
+                        randomizers.ForEach(r =>
+                        {
+                            SetProgressBar(r.GetProgressMessage(), 0);
+                            r.Randomize(v => ProgressBarValue = v);
+                        });
+                        SetProgressBar("Saving Data...", -1);
+                        randomizers.ForEach(r => r.Save());
+
+                        Nova.CleanWPD(wdbpackOutPath, SetupData.WPDTracking[wdbpackOutPath]);
+                        Nova.CleanWPD(x000OutPath, SetupData.WPDTracking[x000OutPath]);
+
+                        SetProgressBar("Generating ModPack and documentation...", -1);
+                        Task taskModpack = new Task(() =>
+                        {
+#if DEBUG
+                            if (!tests)
+#endif
+                            {
+                                string zipName = $"packs\\FF13_2Rando_{seed}.ncmp";
+                                if (File.Exists(zipName))
+                                    File.Delete(zipName);
+                                if (!Directory.Exists("packs"))
+                                    Directory.CreateDirectory("packs");
+                                ZipFile.CreateFromDirectory(outFolder, zipName);
+
+                                Directory.Delete(outFolder, true);
+                            }
+                        });
+                        Task taskDocs = new Task(() =>
+                        {
+                            Docs docs = new Docs();
+                            docs.Settings.Name = "FF13-2 Randomizer";
+                            for (int i = 0; i < randomizers.Count; i++)
+                            {
+                                HTMLPage page = randomizers[i].GetDocumentation();
+                                if (page != null)
+                                {
+                                    docs.AddPage(randomizers[i].GetID().ToLower(), page);
+                                }
+                            }
+
+                            docs.Generate(@"packs\docs_latest", @"data\docs\template");
+                            string zipDocsName = $"packs\\FF13_2Rando_{seed}_Docs.zip";
+                            if (File.Exists(zipDocsName))
+                                File.Delete(zipDocsName);
+                            ZipFile.CreateFromDirectory(@"packs\docs_latest", zipDocsName);
+                        });
+                        taskModpack.Start();
+                        taskDocs.Start();
+                        Task.WaitAll(taskModpack, taskDocs);
+
+                        SetProgressBar("Generating Documentation...", -1);
+
+                        SetProgressBar($"Complete! Ready to install in Nova Chrysalia! The modpack 'FF13_2Rando_{seed}.ncmp' and documentation have been generated in the packs folder of this application.", 100);
+                    });
+                    this.IsEnabled = true;
+                }
+                catch (Exception ex)
+                {
+                    Exception innerMost = ex;
+                    while (innerMost.InnerException != null)
+                    {
+                        innerMost = innerMost.InnerException;
+                    }
+                    MessageBox.Show("Randomizer encountered an error:\n" + innerMost.Message, "Rando failed");
+                }
+#if DEBUG
+            }
+#endif
+        }
+
+        private void CopyFromTemplate(string mainFolder, string templateFolder)
+        {
+            //Now Create all of the directories
+            foreach (string dirPath in Directory.GetDirectories(templateFolder, "*",
+                SearchOption.AllDirectories))
+                Directory.CreateDirectory(dirPath.Replace(templateFolder, mainFolder));
+
+            //Copy all the files & Replaces any files with the same name
+            foreach (string newPath in Directory.GetFiles(templateFolder, "*.*",
+                SearchOption.AllDirectories))
+                File.Copy(newPath, newPath.Replace(templateFolder, mainFolder), true);
+        }
+
+        private void SetProgressBar(string text, int value)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                ProgressBarVisible = Visibility.Visible;
+                ProgressBarText = text;
+                ProgressBarIndeterminate = value < 0;
+                ProgressBarValue = value;
+            });
+        }
+
+        private void HideProgressBar()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                ProgressBarVisible = Visibility.Hidden;
+            });
+        }
+
+        private void openNovaButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(SetupData.GetSteamPath("Nova", false)))
+                Process.Start(SetupData.GetSteamPath("Nova", false));
+            else
+                MessageBox.Show("Cannot open Nova. Select the correct executable first.", "Nova Chrysalia does not exist.");
+
+        }
+
+        private void openModpackFolder_Click(object sender, RoutedEventArgs e)
+        {
+            string dir = Directory.GetCurrentDirectory() + "\\packs";
+            if (!Directory.Exists(dir) || Directory.GetFiles(dir).Length == 0)
+                MessageBox.Show("No modpacks seem to be generated. Generate one first.", "No modpacks generated.");
+            else
+                Process.Start("explorer.exe", dir);
+        }
+
+        private void NextStepButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowTabs.SelectedIndex++;
+        }
+
+        private void PrevStepButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowTabs.SelectedIndex--;
+        }
+    }
+}

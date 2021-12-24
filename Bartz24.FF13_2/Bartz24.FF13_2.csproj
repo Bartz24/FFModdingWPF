@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bartz24.Data\Bartz24.Data.csproj" />
+    <ProjectReference Include="..\Bartz24.FF13_2_LR\Bartz24.FF13_2_LR.csproj" />
+  </ItemGroup>
+
+</Project>
