@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bartz24.Data;
+using Bartz24.FF13_2_LR;
 
 namespace Bartz24.FF13_2_LR
 {
@@ -138,6 +139,8 @@ namespace Bartz24.FF13_2_LR
 
 		public void SetCharaSpecs(List<string> list)
 		{
+			if (list.Count > 58)
+				throw new Exception("Too many Chara Specs being added to " + name);
 			for (int i = 0; i < 58; i++)
 			{
 				if (i < list.Count)

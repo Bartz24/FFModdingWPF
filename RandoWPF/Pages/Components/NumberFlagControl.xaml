@@ -19,7 +19,6 @@
             <StackPanel Orientation="Horizontal">
                 <Slider Minimum="{Binding MinValue}" Maximum="{Binding MaxValue}" Width="200" Value="{Binding Value}"
                         Style="{StaticResource MaterialDesignDiscreteSlider}"
-                          TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
                           TickPlacement="BottomRight" />
                 <Label Content="{Binding ValueText}"/>
                 <Label Content="{Binding Value}"/>

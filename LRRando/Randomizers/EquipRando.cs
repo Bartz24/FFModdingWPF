@@ -1,8 +1,8 @@
 ﻿using Bartz24.Data;
 using Bartz24.Docs;
 using Bartz24.FF13_2_LR;
+using Bartz24.LR;
 using Bartz24.RandoWPF;
-using Bartz24.RandoWPF.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

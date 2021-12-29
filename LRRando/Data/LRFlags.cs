@@ -208,9 +208,10 @@ namespace LRRando
         public class Items
         {
             public static Flag Treasures;
-            public static ToggleFlagProperty Pilgrims, EPLearns, EPMissable;
+            public static ToggleFlagProperty Pilgrims, EPLearns, EPMissable, IDCardBuy;
             public static ComboBoxFlagProperty Key, KeyDepth;
             public static Flag Shops;
+            public static Flag CoPReqs;
 
             internal static void Init()
             {
@@ -227,7 +228,7 @@ namespace LRRando
                 {
                     Text = "Include Pilgrim's Cruxes",
                     ID = "Pilgrims",
-                    Description = "Pilgrim's Cruxes (not including the Loupe Pilgrim's Crux) will be included in the pool with treasures, quests, etc.\n" +
+                    Description = "Pilgrim's Cruxes will be included in the pool with treasures, quests, etc.\n" +
                     "Pilgrim's Cruxes will not appear in missable locations or from Day 10 and later."
                 }.Register(Treasures);
 
@@ -252,7 +253,7 @@ namespace LRRando
                     ID = "Key",
                     Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
                     "The following key items will be included in the pool based on the set level:\n" +
-                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Moogle Fragment, ID Card, Midnight Mauve, Dead Dunes Tablets, Dr. Gysahl's Gysahl Greens, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Chocobo Girl's Phone No., Loupe Pilgrim's Crux\n\n" +
+                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Fragment of Kindness, Moogle Fragment, Sneaking-In Special Ticket, ID Card, Midnight Mauve, Serah's Pendant, Dead Dunes Tablets, Dr. Gysahl's Gysahl Greens, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Chocobo Girl's Phone No., Arithmometer, Red/Green Carbuncle Dolls, Proof of Legendary Title, Phantom Rose, Seedhunter Membership Card, Shaolong Gui Shell, Mandragora Root, Talbot's Gratitude, Service Entrance Key, Music Satchel, Civet Musk\n\n" +
                     "Levels:\n" +
                     "    None - Key items are not randomized.\n" +
                     "    Key Items Only - Key items are shuffled between themselves.\n" +
@@ -265,9 +266,9 @@ namespace LRRando
 
                 KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
                 {
-                    Text = "Key Item Difficulty Depth",
+                    Text = "Item Difficulty Depth",
                     ID = "KeyDepth",
-                    Description = "Key items will be more likely to appear in longer chains of key items and more difficult/time-consuming locations.\n\n" +
+                    Description = "Key items and EP abilities will be more likely to appear in longer chains of key items and more difficult/time-consuming locations.\n\n" +
                     "Depths:\n" +
                     "    Normal - Each location is equally likely.\n" +
                     "    Hard - Each level of depth/difficulty increases likelyhood of that location by 1.05x.\n" +
@@ -277,12 +278,26 @@ namespace LRRando
                     Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
                 }.Register(Treasures);
 
+                IDCardBuy = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Randomize Buyable ID Card",
+                    ID = "BuyID",
+                    Description = "The bought item from the tour guide will be the randomized item assigned in the ID Card location."
+                }.Register(Treasures);
+
                 Shops = new Flag()
                 {
                     Text = "Randomize Shops",
                     FlagID = "Shops",
                     DescriptionFormat = "Randomize Shop contents.\n" +
                     "Hard mode items are included."
+                }.Register(FlagType.Items);
+
+                CoPReqs = new Flag()
+                {
+                    Text = "Reduce Requirements for Canvas of Prayers",
+                    FlagID = "CoPReqs",
+                    DescriptionFormat = "Reduce non-key item requirements for Canvas of Prayers by half (rounds up)."
                 }.Register(FlagType.Items);
             }
         }

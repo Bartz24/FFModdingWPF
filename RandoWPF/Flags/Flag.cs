@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ using System.Windows;
 
 namespace Bartz24.RandoWPF
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class Flag : INotifyPropertyChanged
     {
         public Flag()
@@ -30,7 +32,7 @@ namespace Bartz24.RandoWPF
         {
             if (e.PropertyName == nameof(Visibility))
                 return;
-            Preset custom = Presets.PresetsList.First(p => p.Custom);
+            Preset custom = Presets.PresetsList.First(p => p.CustomModified);
             if (!Presets.ApplyingPreset && Presets.Selected != custom)
                 Presets.Selected = custom;
         }
@@ -59,6 +61,7 @@ namespace Bartz24.RandoWPF
 
         public string Text { get; set; }
 
+        [JsonProperty]
         public bool FlagEnabled
         {
             get => flagEnabled;
@@ -69,6 +72,7 @@ namespace Bartz24.RandoWPF
                     PropertyChanged(this, new PropertyChangedEventArgs(nameof(FlagEnabled)));
             }
         }
+        [JsonProperty]
         public string FlagID { get; set; }
 
 
@@ -129,6 +133,7 @@ namespace Bartz24.RandoWPF
         {
             RandomNum.SetRand(Random);
         }
+        [JsonProperty]
         public List<FlagProperty> FlagProperties { get; set; } = new List<FlagProperty>();
     }
 }

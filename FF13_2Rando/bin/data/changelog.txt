@@ -1,0 +1,10 @@
+0.4.0 Changelog:
+
+Flags:
+-Randomize Historia Crux
+-Force Bodhum 3 AF Start
+-Randomize Enemy Locations
+-Shuffle Music
+
+Some softlocks are expected as some logic for graviton cores and wild artefacts may have been missed.
+

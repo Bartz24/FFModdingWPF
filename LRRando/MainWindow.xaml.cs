@@ -1,8 +1,8 @@
 ﻿using Bartz24.Data;
 using Bartz24.Docs;
 using Bartz24.RandoWPF;
-using Bartz24.RandoWPF.Data;
 using MaterialDesignThemes.Wpf;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -210,6 +210,7 @@ namespace LRRando
                             }
 
                             docs.Generate(@"packs\docs_latest", @"data\docs\template");
+                            SaveSeedJSON(@"packs\docs_latest\LRRando_" + seed + "_Seed.json");
                             string zipDocsName = $"packs\\LRRando_{seed}_Docs.zip";
                             if (File.Exists(zipDocsName))
                                 File.Delete(zipDocsName);
@@ -297,6 +298,34 @@ namespace LRRando
         private void PrevStepButton_Click(object sender, RoutedEventArgs e)
         {
             WindowTabs.SelectedIndex--;
+        }
+
+        private void shareSeedFolder_Click(object sender, RoutedEventArgs e)
+        {
+            int seed = RandomNum.GetIntSeed(SetupData.Seed);
+            
+            VistaSaveFileDialog dialog = new VistaSaveFileDialog();
+            dialog.Filter = "JSON|*.json";
+            dialog.DefaultExt = ".json";
+            dialog.AddExtension = true;
+            dialog.FileName = "LRRando_" + seed + "_Seed";
+            if ((bool)dialog.ShowDialog())
+            {
+                string path = dialog.FileName.Replace("/", "\\");
+                SaveSeedJSON(path);
+            }
+        }
+
+        private void shareSeedModpackFolder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveSeedJSON(string file)
+        {
+            int seed = RandomNum.GetIntSeed(SetupData.Seed);
+            string output = Flags.Serialize(seed.ToString(), SetupData.Version);
+            File.WriteAllText(file, output);
         }
     }
 }

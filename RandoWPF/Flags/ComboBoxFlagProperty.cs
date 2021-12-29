@@ -1,5 +1,6 @@
 ﻿using Bartz24.Data;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class ComboBoxFlagProperty : FlagProperty
     {
         public override FlagProperty Register(Flag parent)
@@ -31,6 +33,7 @@ namespace Bartz24.RandoWPF
         public List<string> Values { get; set; } = new List<string>();
 
         private string selectedValue;
+        [JsonProperty]
         public string SelectedValue
         {
             get => selectedValue;
@@ -40,6 +43,12 @@ namespace Bartz24.RandoWPF
 
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedValue)));
             }
+        }
+
+        public override void Deserialize(dynamic data)
+        {
+            base.Deserialize((object)data);
+            SelectedValue = data["SelectedValue"];
         }
     }
 }

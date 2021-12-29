@@ -1,8 +1,8 @@
 ﻿using Bartz24.Data;
 using Bartz24.Docs;
 using Bartz24.FF13_2_LR;
+using Bartz24.LR;
 using Bartz24.RandoWPF;
-using Bartz24.RandoWPF.Data;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System;
@@ -82,7 +82,21 @@ namespace LRRando
             AddTreasure("tre_wea_da00", "wea_da00", 1, "");
             AddTreasure("tre_key_b_20", "key_b_20", 1, "");
             AddTreasure("tre_key_yasai_t", "key_w_yasai_t", 1, "");
+            AddTreasure("tre_key_l_kimo", "key_kimochi", 1, "");
+            AddTreasure("tre_key_l_kagi", "key_l_kagi", 1, "");
+            AddTreasure("tre_key_l_kish", "key_l_kishin", 1, "");
 
+            AddTreasure("trd_niku", "key_niku", 1, "");
+            AddTreasure("trd_ninjin", "key_ninjin", 1, "");
+            AddTreasure("trd_ticket", "key_y_ticket", 1, "");
+            AddTreasure("trd_soulcd", "key_soulcd", 1, "");
+
+            AddTreasure("tre_drp_hunnu", "key_s_hunnu", 1, "");
+            AddTreasure("tre_drp_keisan", "key_d_keisan", 1, "");
+            AddTreasure("tre_drp_kaban", "key_y_kaban", 1, "");
+            AddTreasure("tre_drp_bashira", "key_y_bashira", 1, "");
+
+            AddTreasure("ran_rando_id", "false", 1, "");
             AddTreasure("ran_bhuni_p", "false", 1, "");
 
             hintsNotesLocations.Clear();
@@ -151,20 +165,21 @@ namespace LRRando
                     hintsNotesCount.Add(l, 0);
                 });
 
+                List<string> randomZeros = new List<string>();
+                for (int j = 0; j < 10; j++)
+                {
+                    if (RandomNum.RandInt(0, 99) < 10)
+                        randomZeros.Add(hintsNotesCount.Keys.Where(l => !randomZeros.Contains(l)).ToList().Shuffle().First());
+                }
+
                 for (int i = 0; i < keys.Where(t => IsHintable(t)).Count(); i++)
                 {
-                    List<string> randomZeros = new List<string>();
-                    for (int j = 0; j < 10; j++)
-                    {
-                        if (RandomNum.RandInt(0, 99) < 10)
-                            randomZeros.Add(hintsNotesCount.Keys.Where(l => !randomZeros.Contains(l)).ToList().Shuffle().First());
-                    }
                     Func<string, long> weight = loc => {
                         if (randomZeros.Contains(loc))
                             return 0;
 
-                        int max = treasureData.Keys.Where(t => treasureData[t].Location == loc).Count();
-                        return (long)(100 * Math.Pow(1 - (hintsNotesCount[loc] / (float)max), 2));
+                        int max = treasureData.Keys.Where(t => treasureData[t].Location == loc && !treasureData[t].Traits.Contains("Missable")).Count();
+                        return (long)(100 * Math.Pow(1 - (hintsNotesCount[loc] / (float)max), 4));
                     };
                     string next = RandomNum.SelectRandomWeighted(hintsNotesCount.Keys.ToList(), weight);
                     hintsNotesCount[next]++;
@@ -172,11 +187,7 @@ namespace LRRando
 
                 Dictionary<string, int> depths = new Dictionary<string, int>();
                 Dictionary<string, int> hintsRem = hintsNotesCount.ToDictionary(p => p.Key, p => p.Value);
-                Dictionary<string, string> placement = GetImportantPlacement(new Dictionary<string, string>(), depths, hintsRem, keys, keys.Where(t => IsImportant(t)).ToList(), 0).Item2;
-                /*List<string> remainingKeys = keys.Where(k => !placement.ContainsKey(k)).ToList();
-                List<string> remainingPlacements = keys.Where(k => !placement.ContainsValue(k)).ToList();
-                placement = GetImportantPlacement(placement, depths, hintsRem, remainingKeys, remainingPlacements.Where(t => IsImportant(t, false)).ToList(), placement.Count).Item2;
-                */
+                Dictionary<string, string> placement = GetImportantPlacement(new Dictionary<string, string>(), depths, hintsRem, keys, keys.Where(t => RequiresLogic(t)).ToList(), 0).Item2;
 
                 List<string> newKeys = keys.Where(k => !placement.ContainsValue(k)).ToList().Shuffle().ToList();
                 foreach (string k in keys.Where(k => !placement.ContainsKey(k)))
@@ -234,6 +245,9 @@ namespace LRRando
                         hintsNotesCount[l] = locationCount;
                     });
                 }
+
+                if (LRFlags.Items.IDCardBuy.Enabled)
+                    treasures["ran_rando_id"].s11ItemResourceId_string = "true";
             }
         }
 
@@ -251,24 +265,54 @@ namespace LRRando
 
             foreach (string rep in remaining)
             {
-                List<string> nextLocations = hintsCountRem.Keys.Where(l => !IsHintable(rep) || (hintsCountRem[l] > 0 && IsHintable(rep))).ToList().Shuffle().ToList();
-                // If there are no more locations with available spots for key items, just add to any location
-                nextLocations.AddRange(hintsCountRem.Keys.Where(l => !nextLocations.Contains(l)).ToList().Shuffle());
-                foreach (string loc in nextLocations)
+                // Only key items and EP abilities are affected by location/depth logic
+                if (IsKeyItem(rep) || IsEPAbility(rep))
                 {
-                    List<string> possible = locations.Where(t => !soFar.ContainsKey(t) && treasureData[t].Requirements.IsValid(items) && treasureData[t].Location == loc && IsAllowed(t, rep)).ToList();
+                    List<string> nextLocations = new List<string>();
+                    nextLocations.AddRange(hintsCountRem.Keys.Where(l => !IsHintable(rep) || (hintsCountRem[l] > 0 && IsHintable(rep))).ToList().Shuffle());
+                    // If there are no more locations with available spots, just add to any location
+                    nextLocations.AddRange(hintsCountRem.Keys.Where(l => !nextLocations.Contains(l)).ToList().Shuffle());
+
+                    foreach (string loc in nextLocations)
+                    {
+                        List<string> possible = locations.Where(t => !soFar.ContainsKey(t) && treasureData[t].Requirements.IsValid(items) && treasureData[t].Location == loc && IsAllowed(t, rep)).ToList();
+                        while (possible.Count > 0)
+                        {
+                            Tuple<string, int> nextPlacement = SelectNext(soFar, depths, items, possible, rep);
+                            string next = nextPlacement.Item1;
+                            int depth = nextPlacement.Item2;
+                            string hint = null;
+                            if (LRFlags.Other.HintsMain.FlagEnabled)
+                                hint = AddHint(items, next, rep);
+                            soFar.Add(next, rep);
+                            depths.Add(next, depth);
+                            if (IsHintable(rep))
+                                hintsCountRem[loc]--;
+                            if (soFar.Count == initialCount + important.Count)
+                                return new Tuple<bool, Dictionary<string, string>>(true, soFar);
+                            Tuple<bool, Dictionary<string, string>> result = GetImportantPlacement(soFar, depths, hintsCountRem, locations, important, initialCount);
+                            if (result.Item1)
+                                return result;
+                            else
+                            {
+                                possible.Remove(next);
+                                soFar.Remove(next);
+                                depths.Remove(next);
+                                if (IsHintable(rep))
+                                    hintsCountRem[loc]++;
+                                if (hint != null)
+                                    hintsMain.Values.ForEach(l => l.Remove(hint));
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    List<string> possible = locations.Where(t => !soFar.ContainsKey(t) && treasureData[t].Requirements.IsValid(items) && IsAllowed(t, rep)).ToList();
                     while (possible.Count > 0)
                     {
-                        Tuple<string, int> nextPlacement = SelectNext(soFar, depths, items, possible);
-                        string next = nextPlacement.Item1;
-                        int depth = nextPlacement.Item2;
-                        string hint = null;
-                        if (LRFlags.Other.HintsMain.FlagEnabled)
-                            hint = AddHint(soFar, next, rep);
+                        string next = possible[RandomNum.RandInt(0, possible.Count - 1)];
                         soFar.Add(next, rep);
-                        depths.Add(next, depth);
-                        if (IsHintable(rep))
-                            hintsCountRem[loc]--;
                         if (soFar.Count == initialCount + important.Count)
                             return new Tuple<bool, Dictionary<string, string>>(true, soFar);
                         Tuple<bool, Dictionary<string, string>> result = GetImportantPlacement(soFar, depths, hintsCountRem, locations, important, initialCount);
@@ -278,19 +322,14 @@ namespace LRRando
                         {
                             possible.Remove(next);
                             soFar.Remove(next);
-                            depths.Remove(next);
-                            if (IsHintable(rep))
-                                hintsCountRem[loc]++;
-                            if (hint != null)
-                                hintsMain.Values.ForEach(l => l.Remove(hint));
                         }
                     }
-                }                
+                }
             }
             return new Tuple<bool, Dictionary<string, string>>(false, soFar);
         }
 
-        private Tuple<string, int> SelectNext(Dictionary<string, string> soFar, Dictionary<string, int> depths, Dictionary<string, int> items, List<string> possible)
+        private Tuple<string, int> SelectNext(Dictionary<string, string> soFar, Dictionary<string, int> depths, Dictionary<string, int> items, List<string> possible, string rep)
         {
             if (LRFlags.Items.KeyDepth.SelectedValue == LRFlags.Items.KeyDepth.Values[LRFlags.Items.KeyDepth.Values.Count - 1])
             {
@@ -324,33 +363,22 @@ namespace LRRando
             return RandomNum.RandInt(Math.Max(1, val - 2), val + 2);
         }
 
-        private bool IsImportant(string t)
+        private bool RequiresLogic(string t)
         {
             if (treasureData[t].Traits.Contains("Same"))
                 return false;
             if (IsKeyItem(t))
-                return !treasureData[t].Traits.Contains("Pilgrim");
+                return true;
             if (treasuresOrig[t].s11ItemResourceId_string.StartsWith("libra"))
                 return true;
             if (IsEPAbility(t))
                 return true;
             if (treasuresOrig[t].s11ItemResourceId_string.StartsWith("it"))
                 return true;
-            return false;
-        }
-
-        private bool IsImportant(string t, bool keysOnly)
-        {
-            if (treasureData[t].Traits.Contains("Same"))
-                return false;
-            if (IsKeyItem(t))
-                return (keysOnly && !treasureData[t].Traits.Contains("Pilgrim")) || (!keysOnly && treasureData[t].Traits.Contains("Pilgrim"));
-            if (treasuresOrig[t].s11ItemResourceId_string.StartsWith("libra"))
-                return !keysOnly;
-            if (IsEPAbility(t))
-                return !keysOnly;
-            if (treasuresOrig[t].s11ItemResourceId_string.StartsWith("it"))
-                return !keysOnly;
+            if (treasuresOrig[t].s11ItemResourceId_string == "")
+                return true;
+            if (treasuresOrig[t].iItemCount > 1)
+                return true;
             return false;
         }
 
@@ -384,6 +412,15 @@ namespace LRRando
                 if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("it"))
                     return false;
                 if (IsKeyItem(rep) && !IsKeyItem(old) && LRFlags.Items.Key.Values.IndexOf(LRFlags.Items.Key.SelectedValue) < LRFlags.Items.Key.Values.IndexOf("Quests"))
+                    return false;
+            }
+            if (treasureData[old].Traits.Contains("Trade") || treasureData[old].Traits.Contains("Battle"))
+            {
+                if (IsEPAbility(rep))
+                    return false;
+                if (treasuresOrig[rep].iItemCount > 1)
+                    return false;
+                if (treasuresOrig[rep].s11ItemResourceId_string == "")
                     return false;
             }
 
@@ -423,11 +460,10 @@ namespace LRRando
 
         }
 
-        private string AddHint(Dictionary<string, string> soFar, string old, string rep)
+        private string AddHint(Dictionary<string, int> items, string old, string rep)
         {
             if (IsHintable(rep))
             {
-                Dictionary<string, int> items = GetItemsAvailable(soFar);
                 List<HintData> possible = hintData.Values.Where(h => h.Requirements.IsValid(items) && !h.Requirements.GetPossibleRequirements().Contains(rep)).ToList().Shuffle().OrderBy(h => hintsMain[h.ID].Count).ToList();
 
                 string next = possible.First().ID;

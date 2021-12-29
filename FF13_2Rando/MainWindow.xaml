@@ -10,7 +10,7 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         Title="Final Fantasy XIII-2 Randomizer" Height="600" Width="960" MinHeight="600" MinWidth="960">
-    <materialDesign:DialogHost x:Name="RootDialog" DialogTheme="Inherit">
+    <materialDesign:DialogHost x:Name="RootDialog" DialogTheme="Inherit" Identifier="Main">
         <materialDesign:DialogHost.DialogContent>
             <StackPanel Margin="16">
                 <ScrollViewer MaxHeight="400" MaxWidth="800">
@@ -49,7 +49,13 @@
                         </StackPanel>
                     </Button.CommandParameter>
                 </Button>
-                <TextBlock Margin="10" DockPanel.Dock="Right" Text="Version: 0.0.1"/>
+                <TextBlock Margin="10" DockPanel.Dock="Right">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat=" Version: {0}">
+                            <Binding Path="(rando:SetupData.Version)"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
                 <StackPanel Visibility="{Binding ProgressBarVisible,Mode=TwoWay}">
                     <TextBlock TextWrapping="Wrap" Text="{Binding ProgressBarText}"></TextBlock>
                     <ProgressBar x:Name="progressBar" Value="{Binding ProgressBarValue}" IsIndeterminate="{Binding ProgressBarIndeterminate}"/>
@@ -132,15 +138,27 @@
                             <TextBlock Margin="5"/>
                         </DockPanel>
                         <rando:FinishPage>
-                            <Button Click="generateButton_Click">Generate Modpack</Button>
+                            <Button Click="generateButton_Click"
+                                    ToolTip="Generate a NCMP modpack to be installed in Nova Chrysalia.">Generate Modpack</Button>
                             <Label Margin="2"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Click="openNovaButton_Click">Open Nova Program</Button>
-                                <Button Grid.Column="1" Click="openModpackFolder_Click">Open Modpack Folder</Button>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Button Margin="2" Grid.Column="0" Grid.Row="0" 
+                                        Click="openNovaButton_Click"
+                                        ToolTip="Open the Nova Chrysalia mod manager.">Open Nova Program</Button>
+                                <Button Margin="2" Grid.Column="1" Grid.Row="0" 
+                                        Click="openModpackFolder_Click"
+                                        ToolTip="Open the folder containing the packs and documentation spoiler logs.">Open Modpack/Docs Folder</Button>
+                                <Button Margin="2" Grid.Column="0" Grid.Row="1" 
+                                        Click="shareSeedFolder_Click"
+                                        ToolTip="Export the current seed and flags to a JSON file to share.">Share Current Seed with Flags (JSON)</Button>
                             </Grid>
                         </rando:FinishPage>
                     </DockPanel>

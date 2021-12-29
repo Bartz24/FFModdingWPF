@@ -1,7 +1,7 @@
 ﻿using Bartz24.Data;
 using Bartz24.FF13_2_LR;
+using Bartz24.FF13_2LR;
 using Bartz24.RandoWPF;
-using Bartz24.RandoWPF.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,6 +41,7 @@ namespace LRRando
 
             zone100SysUS["$inn_no_time"] = "You usually need an {Color Gold}ID card{Color SkyBlue}. Open at the cost of all EP?";
             zone100SysUS["$sys_yu_noopn"] = "You need an {Color Gold}ID card{Color SkyBlue} and have to complete the Warehouse to open the gate.";
+            zone100SysUS["$sys_yu_mq2"] = "You need {Color Gold}Serah's Pendant{Color SkyBlue} and have to check the table.";
 
             {
                 string path = Nova.GetNovaFile("LR", @"txtres\resident\system\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["LR"]);

@@ -1,0 +1,26 @@
+{
+  "name": "1 - Simple",
+  "version": "0.4.0",
+  "flags": [
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandEne"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "BodhumStart"
+        }
+      ],
+      "FlagID": "HistCrux"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Music"
+    }
+  ]
+}

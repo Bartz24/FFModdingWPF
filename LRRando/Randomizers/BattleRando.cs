@@ -1,7 +1,7 @@
 ﻿using Bartz24.Data;
 using Bartz24.FF13_2_LR;
+using Bartz24.LR;
 using Bartz24.RandoWPF;
-using Bartz24.RandoWPF.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,7 +63,7 @@ namespace LRRando
                     List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Where(s =>
                             !s.EndsWith("tuto") || s == "m352_tuto" || s == "m390_tuto" || LRFlags.Enemies.Prologue.Enabled).Select(s => enemyData[s]).ToList();
                     int count = oldEnemies.Count;
-                    if (LRFlags.Enemies.EncounterSize.Enabled && count > 0 && oldEnemies[0].Class != "Boss")
+                    if (LRFlags.Enemies.EncounterSize.Enabled && count > 0 && oldEnemies[0].Class != "Boss" && !oldEnemies[0].ID.EndsWith("tuto"))
                     {
                         count = RandomNum.RandInt(Math.Max(1, count - 2), Math.Min(10, count + 2));
                         if (count > oldEnemies.Count)
@@ -167,7 +167,7 @@ namespace LRRando
 
                 newEnemies.Add(enemyData[newBoss.ID]);
                 charSpecs.AddRange(newEnemies.Select(e => e.ID));
-                if (newGroup != "Caius" || group == "Noel" || group == "Caius")
+                if (newGroup != "Caius" || group == "Caius")
                     newEnemies.Where(e => e.Parts.Count > 0).ForEach(e => charSpecs.AddRange(e.Parts));
                 else if (newGroup == "Caius")
                 {
@@ -284,6 +284,13 @@ namespace LRRando
 
         public override void Save()
         {
+            // Apply rando drops
+            TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
+            btScenes["btsc04902"].sDropItem0_string = treasureRando.treasures["tre_drp_hunnu"].s11ItemResourceId_string;
+            btScenes["btsc04900"].sDropItem0_string = treasureRando.treasures["tre_drp_keisan"].s11ItemResourceId_string;
+            btScenes["btsc02902"].sDropItem0_string = treasureRando.treasures["tre_drp_kaban"].s11ItemResourceId_string;
+            btScenes["btsc02952"].sDropItem0_string = treasureRando.treasures["tre_drp_bashira"].s11ItemResourceId_string;
+
             string outPath = SetupData.OutputFolder + @"\db\resident\bt_scene.wdb";
             btScenes.Save(outPath, SetupData.Paths["Nova"]);
             charaSets.SaveDB3(@"\db\resident\_wdbpack.bin\r_charaset.wdb");

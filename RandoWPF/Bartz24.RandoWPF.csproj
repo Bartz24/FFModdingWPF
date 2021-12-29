@@ -9,7 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
-    <PackageReference Include="ShowMeTheXAML" Version="2.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>

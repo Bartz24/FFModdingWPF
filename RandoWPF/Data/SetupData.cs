@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Bartz24.RandoWPF.Data
+namespace Bartz24.RandoWPF
 {
     public class SetupData
     {
@@ -18,7 +18,8 @@ namespace Bartz24.RandoWPF.Data
         public static string PathFileName;
         public static string OutputFolder;
 
-        public static string Seed;
+        public static string Seed { get; set; }
+        public static string Version { get; set; } = "0.4.0";
 
         public static string SearchSteamRegistry(string path)
         {

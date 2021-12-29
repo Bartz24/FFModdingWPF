@@ -9,7 +9,7 @@ using System.Reflection;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Bartz24.FF13_2_LR
+namespace Bartz24.FF13_2LR
 {
     public class DataStoreZTRText
     {

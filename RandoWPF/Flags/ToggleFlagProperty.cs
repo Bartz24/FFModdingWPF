@@ -1,5 +1,6 @@
 ﻿using Bartz24.Data;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class ToggleFlagProperty : FlagProperty
     {
         public override FlagProperty Register(Flag parent)
@@ -30,6 +32,7 @@ namespace Bartz24.RandoWPF
         }
 
         private bool enabled;
+        [JsonProperty]
         public bool Enabled
         {
             get => enabled;
@@ -43,6 +46,11 @@ namespace Bartz24.RandoWPF
 
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(Enabled)));
             }
+        }
+        public override void Deserialize(dynamic data)
+        {
+            base.Deserialize((object)data);
+            Enabled = data["Enabled"];
         }
     }
 }

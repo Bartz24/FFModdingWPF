@@ -15,14 +15,13 @@
   <ItemGroup>
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
-    <PackageReference Include="Ookii.Dialogs.Wpf" Version="4.0.0" />
-    <PackageReference Include="ShowMeTheXAML" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Bartz24.Data\Bartz24.Data.csproj" />
     <ProjectReference Include="..\Bartz24.Docs\Bartz24.Docs.csproj" />
     <ProjectReference Include="..\Bartz24.FF13_2_LR\Bartz24.FF13_2_LR.csproj" />
+    <ProjectReference Include="..\Bartz24.LR\Bartz24.LR.csproj" />
     <ProjectReference Include="..\RandoWPF\Bartz24.RandoWPF.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -9,17 +9,74 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <DockPanel>
+        <materialDesign:DialogHost x:Name="PresetNameDialog">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="16">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Preset Name"/>
+                        <TextBox x:Name="NewPresetName" Width="150"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        HorizontalAlignment="Center"
+                        Content="Ok">
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        IsCancel="True" 
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        HorizontalAlignment="Center"
+                        Content="Cancel">
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
         <StackPanel DockPanel.Dock="Top">
             <DockPanel>
-                <StackPanel Orientation="Horizontal" Margin="5,20" DockPanel.Dock="Left">
-                    <TextBlock Text="Preset"/>
-                    <ComboBox Margin="5,-3" Width="200" ItemsSource="{Binding Path=PresetsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Right"    
+                <StackPanel DockPanel.Dock="Left" Margin="5,14">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Preset" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="PresetComboBox" VerticalAlignment="Center" Margin="5,-3" Width="200" ItemsSource="{Binding Path=PresetsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Right"    
                 SelectedItem="{Binding Path=(local:Presets.Selected),Mode=TwoWay}"  
                 DisplayMemberPath="Name"/>
+                        <Button x:Name="SaveButton"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                            ToolTip="Save as a custom preset."
+                            Visibility="{Binding SaveVisible}"
+                                Click="SavePreset_Click"
+                                Width="30" Height="30">
+                            <Button.Content>
+                                <materialDesign:PackIcon Kind="ContentSave"/>
+                            </Button.Content>
+                        </Button>
+                        <Button x:Name="DeleteButton"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                            ToolTip="Delete custom preset."
+                            Visibility="{Binding DeleteVisible}"
+                                Click="DeletePreset_Click"
+                                Width="30" Height="30">
+                            <Button.Content>
+                                <materialDesign:PackIcon Kind="Delete"/>
+                            </Button.Content>
+                        </Button>
+                        <Label Width="30" Height="30"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Button Click="LoadPreset_Click">Load Custom Preset (JSON)</Button>
+                    </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5,20" DockPanel.Dock="Right">
-                    <TextBlock Text="Category Filter"/>
-                    <ComboBox Margin="5,-3" Width="200" ItemsSource="{Binding Path=CategoryList, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Right"    
+                    <TextBlock VerticalAlignment="Top" Text="Category Filter"/>
+                    <ComboBox VerticalAlignment="Top" Margin="5,-3" Width="200" ItemsSource="{Binding Path=CategoryList, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Right"    
                 SelectedItem="{Binding Path=(local:Flags.SelectedCategory),Mode=TwoWay}"/>
                 </StackPanel>
                 <Label/>

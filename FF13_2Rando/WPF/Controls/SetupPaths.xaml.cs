@@ -1,4 +1,4 @@
-using Bartz24.RandoWPF.Data;
+using Bartz24.RandoWPF;
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;

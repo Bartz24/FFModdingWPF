@@ -1,6 +1,8 @@
-﻿using Bartz24.RandoWPF.Data;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,5 +32,38 @@ namespace Bartz24.RandoWPF
         private static string selected;
 
         public static event EventHandler SelectedChanged = delegate { };
+
+        public static string Serialize(string seed, string version)
+        {
+            JObject o = JObject.FromObject(new
+            {
+                seed = seed,
+                version = version,
+                flags = FlagsList
+            });
+            return o.ToString();
+        }
+        public static string LoadSeed(string file)
+        {
+            dynamic data = JsonConvert.DeserializeObject(File.ReadAllText(file));
+
+            string seed = data["seed"];
+            string version = data["version"];
+
+            Flags.FlagsList.ForEach(f => f.FlagEnabled = false);
+
+            ((JArray)data["flags"]).Select(o => (dynamic)o).ToList().ForEach(s =>
+            {
+                Flag f = Flags.FlagsList.First(f => f.FlagID == s["FlagID"].Value);
+                f.FlagEnabled = s["FlagEnabled"].Value;
+                ((JArray)s["FlagProperties"]).Select(o => (dynamic)o).ToList().ForEach(p =>
+                {
+                    FlagProperty prop = f.FlagProperties.First(fp => fp.ID == p["ID"].Value);
+                    prop.Deserialize(p);
+                });
+            });
+
+            return seed;
+        }
     }
 }

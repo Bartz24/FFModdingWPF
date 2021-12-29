@@ -51,10 +51,10 @@
                 </Style>
             </StackPanel.Resources>
             <Border>
-                <Button IsEnabled="False"  x:Name="importJSONButton" Content="Load From JSON (WIP)" Click="importJSONButton_Click"/>
+                <Button x:Name="importJSONButton" Content="Load Seed From JSON" Click="importJSONButton_Click"/>
             </Border>
             <Border>
-                <Button IsEnabled="False" x:Name="importHistoryButton" Content="Load From History (WIP)" Click="importHistoryButton_Click"/>
+                <Button x:Name="importHistoryButton" Content="Load Seed From Previous Modpack Docs ZIP" Click="importHistoryButton_Click"/>
             </Border>
         </StackPanel>
     </StackPanel>  

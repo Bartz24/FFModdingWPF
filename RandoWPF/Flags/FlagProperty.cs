@@ -1,5 +1,6 @@
 ﻿using Bartz24.Data;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class FlagProperty : INotifyPropertyChanged
     {
         public EventHandler OnEnable { get; set; }
@@ -30,6 +32,7 @@ namespace Bartz24.RandoWPF
         }
 
         public string Text { get; set; }
+        [JsonProperty]
         public string ID { get; set; }
         public string Description { get; set; }
 
@@ -37,6 +40,11 @@ namespace Bartz24.RandoWPF
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, e);
+        }
+
+        public virtual void Deserialize(dynamic data)
+        {
+
         }
     }
 }

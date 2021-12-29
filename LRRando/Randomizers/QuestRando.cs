@@ -1,7 +1,7 @@
 ﻿using Bartz24.Data;
 using Bartz24.FF13_2_LR;
+using Bartz24.LR;
 using Bartz24.RandoWPF;
-using Bartz24.RandoWPF.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +16,7 @@ namespace LRRando
     public class QuestRando : Randomizer
     {
         public DataStoreDB3<DataStoreRQuest> questRewards = new DataStoreDB3<DataStoreRQuest>();
+        public DataStoreDB3<DataStoreRQuestCtrl> questRequirements = new DataStoreDB3<DataStoreRQuestCtrl>();
 
         public QuestRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -32,6 +33,7 @@ namespace LRRando
         {
             questRewards.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_quest.wdb", false);
             FileExtensions.CopyFile(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb", SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
+            questRequirements.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb", false);
 
             questRewards["qst_062"].iMaxGp = 2000;
             questRewards["qst_046"].iItemBagSize = 1;
@@ -104,12 +106,33 @@ namespace LRRando
 
                 RandomNum.ClearRand();
             }
+
+            if (LRFlags.Items.CoPReqs.FlagEnabled)
+            {
+                questRequirements.Values.Where(q => q.iQuestIndex >= 1000).ForEach(q =>
+                  {
+                      if (!q.s9ClearItem_string.StartsWith("key") && q.u7ClearItemNum > 0)
+                      {
+                          q.u7ClearItemNum = (q.u7ClearItemNum + 2 - 1) / 2;
+                      }
+                      if (!q.s9ClearItem2_string.StartsWith("key") && q.u7ClearItemNum2 > 0)
+                      {
+                          q.u7ClearItemNum2 = (q.u7ClearItemNum2 + 2 - 1) / 2;
+                      }
+                      if (!q.s9ClearItem3_string.StartsWith("key") && q.u7ClearItemNum3 > 0)
+                      {
+                          q.u7ClearItemNum3 = (q.u7ClearItemNum3 + 2 - 1) / 2;
+                      }
+                  });
+            }
         }
 
         public override void Save()
         {
             questRewards.SaveDB3(@"\db\resident\_wdbpack.bin\r_quest.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_quest.wdb");
+            questRequirements.SaveDB3(@"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb");
+            SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_quest_ctrl.wdb");
             TempSaveFix();
         }
 

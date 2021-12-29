@@ -1,0 +1,178 @@
+{
+  "name": "2 - Key Item Shuffle (Race)",
+  "version": "0.4.0",
+  "flags": [
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandEqStat"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandGarbAbi"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandPassive"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": false,
+          "ID": "EPAbiEsc"
+        },
+        {
+          "Enabled": true,
+          "ID": "EPAbiChr"
+        },
+        {
+          "Enabled": false,
+          "ID": "EPAbiTlp"
+        }
+      ],
+      "FlagID": "EPAbi"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Quests"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": false,
+          "ID": "EPZero"
+        },
+        {
+          "Value": 2,
+          "ID": "EPRange"
+        }
+      ],
+      "FlagID": "RandEPCost"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "NerfOC"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "RandEneSize"
+        },
+        {
+          "Enabled": true,
+          "ID": "RandEncCount"
+        },
+        {
+          "Enabled": true,
+          "ID": "RandProlo"
+        },
+        {
+          "Enabled": true,
+          "ID": "RandBoss"
+        },
+        {
+          "Enabled": true,
+          "ID": "RandZaltys"
+        },
+        {
+          "Enabled": false,
+          "ID": "RandEresh"
+        }
+      ],
+      "FlagID": "RandEne"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "RandMatDrops"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandAbiDrops"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "BhuniPlus"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "Pilgrims"
+        },
+        {
+          "Enabled": true,
+          "ID": "LearnEP"
+        },
+        {
+          "Enabled": false,
+          "ID": "EPMiss"
+        },
+        {
+          "SelectedValue": "Key Items Only",
+          "ID": "Key"
+        },
+        {
+          "SelectedValue": "Normal",
+          "ID": "KeyDepth"
+        },
+        {
+          "Enabled": true,
+          "ID": "BuyID"
+        }
+      ],
+      "FlagID": "Treasures"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Shops"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "CoPReqs"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Music"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "SelectedValue": "Vague Area",
+          "ID": "HintsSpecific"
+        }
+      ],
+      "FlagID": "HintsMain"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "HintsArea"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "HintsEP"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "HintsPilgrim"
+    }
+  ]
+}

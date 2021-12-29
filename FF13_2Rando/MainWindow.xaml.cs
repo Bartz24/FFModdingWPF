@@ -1,8 +1,8 @@
 ﻿using Bartz24.Data;
 using Bartz24.Docs;
 using Bartz24.RandoWPF;
-using Bartz24.RandoWPF.Data;
 using MaterialDesignThemes.Wpf;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -87,7 +87,9 @@ namespace FF13_2Rando
         {
             RandomizerManager randomizers = new RandomizerManager();
             randomizers.Add(new HistoriaCruxRando(randomizers));
+            randomizers.Add(new BattleRando(randomizers));
             randomizers.Add(new EnemyRando(randomizers));
+            randomizers.Add(new MusicRando(randomizers));
 
             if (String.IsNullOrEmpty(SetupData.Paths["Nova"]) || !File.Exists(SetupData.Paths["Nova"]))
             {
@@ -211,6 +213,7 @@ namespace FF13_2Rando
                             }
 
                             docs.Generate(@"packs\docs_latest", @"data\docs\template");
+                            SaveSeedJSON(@"packs\docs_latest\FF13_2Rando_" + seed + "_Seed.json");
                             string zipDocsName = $"packs\\FF13_2Rando_{seed}_Docs.zip";
                             if (File.Exists(zipDocsName))
                                 File.Delete(zipDocsName);
@@ -298,6 +301,34 @@ namespace FF13_2Rando
         private void PrevStepButton_Click(object sender, RoutedEventArgs e)
         {
             WindowTabs.SelectedIndex--;
+        }
+
+        private void shareSeedFolder_Click(object sender, RoutedEventArgs e)
+        {
+            int seed = RandomNum.GetIntSeed(SetupData.Seed);
+
+            VistaSaveFileDialog dialog = new VistaSaveFileDialog();
+            dialog.Filter = "JSON|*.json";
+            dialog.DefaultExt = ".json";
+            dialog.AddExtension = true;
+            dialog.FileName = "FF13_2Rando_" + seed + "_Seed";
+            if ((bool)dialog.ShowDialog())
+            {
+                string path = dialog.FileName.Replace("/", "\\");
+                SaveSeedJSON(path);
+            }
+        }
+
+        private void shareSeedModpackFolder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveSeedJSON(string file)
+        {
+            int seed = RandomNum.GetIntSeed(SetupData.Seed);
+            string output = Flags.Serialize(seed.ToString(), SetupData.Version);
+            File.WriteAllText(file, output);
         }
     }
 }

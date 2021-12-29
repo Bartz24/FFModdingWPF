@@ -1,5 +1,6 @@
 ﻿using Bartz24.Data;
 using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,7 +36,11 @@ namespace Bartz24.RandoWPF
         }
 
         public string Name { get; set; }
+        public string Version { get; set; }
         public bool Default { get; set; } = false;
-        public bool Custom { get; set; } = false;
+        public bool CustomModified { get; set; } = false;
+        public bool CustomLoaded { get; set; } = false;
+        public List<dynamic> FlagSettings { get; set; }
+        public string PresetPath { get; set; }
     }
 }

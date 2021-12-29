@@ -30,7 +30,7 @@
                     <TextBlock>-Double-click on the installed modpack and Click 'Install Mod'</TextBlock>
                     <TextBlock xml:space="preserve">      Note that only one randomizer seed should be installed at a time!</TextBlock>
                     <TextBlock>-To play, go back to the 'Game Launcher' tab, change 'Filesystem' to 'Unpacked Mode'</TextBlock>
-                    <TextBlock>-Select Lightning Returns and launch the game from Nova Chrysalia</TextBlock>
+                    <TextBlock>-Ensure the correct game is selected and launch the game from Nova Chrysalia</TextBlock>
                     <Button
                         Style="{StaticResource MaterialDesignFlatButton}"
                         IsCancel="True" 

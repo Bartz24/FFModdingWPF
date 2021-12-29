@@ -1,7 +1,6 @@
 ﻿using Bartz24.FF13_2;
 using Bartz24.FF13_2_LR;
 using Bartz24.RandoWPF;
-using Bartz24.RandoWPF.Data;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System;
@@ -56,6 +55,9 @@ namespace FF13_2Rando
                     .Select(id => gateTable[id].sOpenHistoria1_string)
                     .Select(s => s.Substring(0, s.Length - 2))
                     .Distinct().ToList();
+
+                if (FF13_2Flags.Other.BodhumStart.Enabled)
+                    openings = openings.Where(o => o != "h_hm_AD0003").ToList();
 
                 Dictionary<string, string> placement = GetPlacement(new Dictionary<string, string>(), openings).Item2;
 
@@ -197,6 +199,8 @@ namespace FF13_2Rando
         {
             List<string> list = new List<string>();
             list.Add("start");
+            if (FF13_2Flags.Other.BodhumStart.Enabled)
+                list.Add("h_hm_AD0003");
 
             list.AddRange(soFar.Values);
 

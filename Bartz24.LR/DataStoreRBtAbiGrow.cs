@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bartz24.Data;
+using Bartz24.FF13_2_LR;
 
-namespace Bartz24.FF13_2_LR
+namespace Bartz24.LR
 {
 	public class DataStoreRBtAbiGrow : DataStoreDB3SubEntry
 	{

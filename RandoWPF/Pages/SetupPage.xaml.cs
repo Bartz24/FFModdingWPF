@@ -1,6 +1,8 @@
-using Bartz24.RandoWPF.Data;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,12 +55,66 @@ namespace Bartz24.RandoWPF
 
         private void importJSONButton_Click(object sender, RoutedEventArgs e)
         {
-
+            VistaOpenFileDialog dialog = new VistaOpenFileDialog();
+            dialog.Title = "Please select a JSON seed.";
+            dialog.Multiselect = false;
+            dialog.Filter = "JSON|*.json";
+            if ((bool)dialog.ShowDialog())
+            {
+                string path = dialog.FileName.Replace("/", "\\");
+                if (File.Exists(path))
+                {
+                    try
+                    {
+                        Seed = Flags.LoadSeed(path);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Failed to load the seed file.");
+                    }
+                }
+                else
+                    MessageBox.Show("Make sure the JSON file is a seed for rando.", "The selected file is not valid");
+            }
         }
 
         private void importHistoryButton_Click(object sender, RoutedEventArgs e)
         {
+            VistaOpenFileDialog dialog = new VistaOpenFileDialog();
+            dialog.Title = "Please select a ZIP documentation.";
+            dialog.Multiselect = false;
+            dialog.Filter = "Zip|*.zip";
+            if ((bool)dialog.ShowDialog())
+            {
+                string path = dialog.FileName.Replace("/", "\\");
+                if (File.Exists(path))
+                {
+                    string outFolder = System.IO.Path.GetTempPath() + @"rando_temp";
+                    bool deleteTempFolder = !Directory.Exists(outFolder);
+                    if (!Directory.Exists(outFolder))
+                        Directory.CreateDirectory(outFolder);
+                    try
+                    {
+                        using (ZipArchive archive = ZipFile.OpenRead(path))
+                        {
+                            ZipArchiveEntry entry = archive.Entries.First(e => e.Name.EndsWith("_Seed.json"));
+                            entry.ExtractToFile(outFolder + @"\seed.json");
+                        }
+                        Seed = Flags.LoadSeed(outFolder + @"\seed.json");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Failed to load the seed file.");
+                    }
+                    if (File.Exists(outFolder + @"\seed.json"))
+                        File.Delete(outFolder + @"\seed.json");
+                    if (deleteTempFolder && Directory.Exists(outFolder))
+                        Directory.Delete(outFolder);
 
+                }
+                else
+                    MessageBox.Show("Make sure the ZIP file is a docs folder for rando.", "The selected file is not valid");
+            }
         }
 
         private void seedButton_Click(object sender, RoutedEventArgs e)

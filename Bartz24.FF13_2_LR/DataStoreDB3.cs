@@ -207,7 +207,7 @@ namespace Bartz24.FF13_2_LR
                             {
                                 main_id = maxId + 1,
                                 name = value,
-                                pointer = StringList[maxId].pointer + StringList[maxId].name.Length + 1
+                                pointer = StringList[maxId].pointer + StringList[maxId].GetStringLength() + 1
                             });
                             entry.SetPropValue(p.Key, StringList[maxId + 1].pointer);
                         }
