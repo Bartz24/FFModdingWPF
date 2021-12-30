@@ -57,13 +57,14 @@ namespace Bartz24.RandoWPF
 
         public static void LoadPresets()
         {
-
             Directory.GetFiles(@"data\presets", "*.json").ToList().ForEach(f => {
                 LoadPreset(f, false);
             });
 
             PresetsList = PresetsList.OrderBy(p => p.Name).ToList();
 
+            if (!Directory.Exists("presets"))
+                Directory.CreateDirectory("presets");
             Directory.GetFiles(@"presets", "*.json").ToList().ForEach(f => {
                 LoadPreset(f, true);
             });

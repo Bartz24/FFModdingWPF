@@ -58,9 +58,9 @@ namespace FF13_2Rando
                             int variety = -1;
                             if (CharaSetMapping.ContainsKey(b.name))
                             {
-                                // Limit forced fights to a max variety of 2 enemies with no parts to avoid memory? issues
+                                // Limit forced fights to a max variety of 3 enemies with no parts to avoid memory? issues
                                 validEnemies = validEnemies.Where(e => e.Parts.Count == 0).ToList();
-                                variety = 2;
+                                variety = 3;
                                 CharaSetMapping[b.name].ForEach(m =>
                                 {
                                     List<string> specs = charaSets[m].GetCharaSpecs();
@@ -68,6 +68,8 @@ namespace FF13_2Rando
                                         validEnemies = validEnemies.Where(e => specs.Contains(enemyRando.HasEnemy(e.ID) ? enemyRando.GetEnemy(e.ID).sCharaSpec_string : e.ID)).ToList();
                                     if (specs.Count == 57)
                                         variety = 1;
+                                    if (specs.Count == 56)
+                                        variety = 2;
                                 });
                             }
 
@@ -104,6 +106,7 @@ namespace FF13_2Rando
             newEnemies.Clear();
             charSpecs.Clear();
             {
+                int attempts = 0;
                 while (charSpecs.Count == 0 || charSpecs.Count > 10)
                 {
                     charSpecs.Clear();
@@ -112,7 +115,21 @@ namespace FF13_2Rando
                     {
                         if (maxVariety > 0 && newEnemies.Distinct().Count() >= maxVariety)
                         {
-                            newEnemies.Add(newEnemies[RandomNum.RandInt(0, newEnemies.Count - 1)]);
+                            if (attempts > 20)
+                            {
+                                newEnemies.Add(newEnemies.ToList().Shuffle().First());
+                            }
+                            else if (newEnemies.Where(e => e.Rank >= oldEnemy.Rank - 2 && e.Rank <= oldEnemy.Rank + 2 && !e.Traits.Contains("Boss")).Count() > 0)
+                            {
+                                newEnemies.Add(newEnemies.Where(e => e.Rank >= oldEnemy.Rank - 2 && e.Rank <= oldEnemy.Rank + 2 && !e.Traits.Contains("Boss"))
+                            .ToList().Shuffle().First());
+                            }
+                            else
+                            {
+                                newEnemies.Clear();
+                                attempts++;
+                                break;
+                            }
                         }
                         else
                         {
@@ -144,17 +161,10 @@ namespace FF13_2Rando
             {
                 Dictionary<string, string[]> dict = new Dictionary<string, string[]>();
 
-                dict.Add("btsc01200", new string[] { "chset_hmaa_000", "chset_hmaa_001", "chset_hmaa_001a", "chset_hmaa_e025" });
-                dict.Add("btsc01201", new string[] { "chset_hmaa_000", "chset_hmaa_001", "chset_hmaa_001a", "chset_hmaa_e025" });
-                dict.Add("btsc01202", new string[] { "chset_hmaa_000", "chset_hmaa_001", "chset_hmaa_001a", "chset_hmaa_e025" });
-                dict.Add("btsc01203", new string[] { "chset_hmaa_000", "chset_hmaa_001", "chset_hmaa_001a", "chset_hmaa_e025" });
-                dict.Add("btsc01210", new string[] { "chset_hmaa_000", "chset_hmaa_001", "chset_hmaa_001a", "chset_hmaa_e025" });
-                dict.Add("btsc01211", new string[] { "chset_hmaa_000", "chset_hmaa_001", "chset_hmaa_001a", "chset_hmaa_e025" });
-                dict.Add("btsc01212", new string[] { "chset_hmaa_000", "chset_hmaa_001", "chset_hmaa_001a", "chset_hmaa_e025" });
-                dict.Add("btsc01500", new string[] { "chset_hmaa_000", "chset_hmaa_001", "chset_hmaa_001a", "chset_hmaa_e025" });
-                dict.Add("btsc01501", new string[] { "chset_hmaa_000", "chset_hmaa_001", "chset_hmaa_001a", "chset_hmaa_e025" });
-                dict.Add("btsc01502", new string[] { "chset_hmaa_000", "chset_hmaa_001", "chset_hmaa_001a", "chset_hmaa_e025" });
-                dict.Add("btsc01505", new string[] { "chset_hmaa_000", "chset_hmaa_001", "chset_hmaa_001a", "chset_hmaa_e025" });
+                dict.Add("btsc01110", new string[] { "chset_hmaa_001" });
+                dict.Add("btsc01120", new string[] { "chset_hmaa_001" });
+                dict.Add("btsc01130", new string[] { "chset_hmaa_001" });
+                dict.Add("btsc01140", new string[] { "chset_hmaa_001" });
 
                 dict.Add("btsc02050", new string[] { "chset_bjaa_tuto" });
                 dict.Add("btsc02001", new string[] { "chset_bjaa_tuto" });

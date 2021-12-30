@@ -1,10 +1,5 @@
-0.4.0 Changelog:
+0.4.1 Changelog:
 
-Flags:
--Randomize Historia Crux
--Force Bodhum 3 AF Start
--Randomize Enemy Locations
--Shuffle Music
-
-Some softlocks are expected as some logic for graviton cores and wild artefacts may have been missed.
+Fixed incorrect goblin ID causing crashes
+Fixed New Bodhum tutorial fights missing some enemies
 
