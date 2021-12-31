@@ -1,7 +1,12 @@
 {
   "name": "1 - Simple",
-  "version": "0.4.0",
+  "version": "0.4.2",
   "flags": [
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Treasures"
+    },
     {
       "FlagEnabled": true,
       "FlagProperties": [],

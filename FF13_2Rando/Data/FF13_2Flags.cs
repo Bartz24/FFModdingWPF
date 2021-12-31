@@ -10,8 +10,24 @@ namespace FF13_2Rando
         public enum FlagType
         {
             All = -1,
+            Items,
             Enemies,
             Other
+        }
+        public class Items
+        {
+            public static Flag Treasures;
+
+            internal static void Init()
+            {
+                Treasures = new Flag()
+                {
+                    Text = "Randomize Treasures",
+                    FlagID = "Treasures",
+                    DescriptionFormat = "Randomize Treasures.\n" +
+                    "Does not include key items, fragments, or artefacts, or live rewards."
+                }.Register(FlagType.Items);
+            }
         }
         public class Enemies
         {
@@ -63,6 +79,7 @@ namespace FF13_2Rando
         public static void Init()
         {
             Flags.FlagsList.Clear();
+            Items.Init();
             Enemies.Init();
             Other.Init();
             Flags.CategoryMap = ((FlagType[])Enum.GetValues(typeof(FlagType))).ToDictionary(f => (int)f, f => string.Join("/", Regex.Split(f.ToString(), @"(?<!^)(?=[A-Z])")));

@@ -1,4 +1,5 @@
 ﻿using Bartz24.Data;
+using Bartz24.Docs;
 using Bartz24.FF13_2_LR;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
@@ -20,6 +21,8 @@ namespace LRRando
         Dictionary<string, EnemyData> enemyData = new Dictionary<string, EnemyData>();
         Dictionary<string, Dictionary<int, BossData>> bossData = new Dictionary<string, Dictionary<int, BossData>>();
         Dictionary<string, Dictionary<int, BossStatsData>> bossStatsData = new Dictionary<string, Dictionary<int, BossStatsData>>();
+
+        Dictionary<string, string> shuffledBosses = new Dictionary<string, string>();
 
         public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
 
@@ -44,6 +47,7 @@ namespace LRRando
             enemyData = File.ReadAllLines(@"data\enemies.csv").Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);
             bossData = File.ReadAllLines(@"data\bosses.csv").Select(s => new BossData(s.Split(","))).GroupBy(b => b.Group).ToDictionary(p => p.Key, p => p.ToDictionary(b => b.Tier, b => b));
             bossStatsData = File.ReadAllLines(@"data\bossesStats.csv").Select(s => new BossStatsData(s.Split(","))).GroupBy(b => b.ID).ToDictionary(p => p.Key, p => p.ToDictionary(b => b.Tier, b => b));
+            shuffledBosses.Clear();
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -51,7 +55,6 @@ namespace LRRando
             if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
             {
                 LRFlags.Enemies.EnemyLocations.SetRand();
-                Dictionary<string, string> shuffledBosses = new Dictionary<string, string>();
                 if (LRFlags.Enemies.Bosses.Enabled)
                 {
                     List<string> list = bossData.Keys.Where(k => (k != "Ereshkigal" || LRFlags.Enemies.Ereshkigal.Enabled) && (k != "Zaltys" || LRFlags.Enemies.Zaltys.Enabled)).ToList();
@@ -280,6 +283,16 @@ namespace LRRando
 
                 return dict;
             }
+        }
+        public override HTMLPage GetDocumentation()
+        {
+            HTMLPage page = new HTMLPage("Bosses", "template/documentation.html");
+
+            page.HTMLElements.Add(new Table("", (new string[] { "Original Boss", "New Boss", }).ToList(), (new int[] { 50, 50 }).ToList(), shuffledBosses.Select(p =>
+            {
+                return new string[] { p.Key, p.Value }.ToList();
+            }).ToList()));
+            return page;
         }
 
         public override void Save()

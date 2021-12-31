@@ -96,6 +96,12 @@ namespace LRRando
             randomizers.Add(new MusicRando(randomizers));
             randomizers.Add(new TextRando(randomizers));
 
+            if (String.IsNullOrEmpty(SetupData.Paths["LR"]) || !Directory.Exists(SetupData.Paths["LR"]))
+            {
+                MessageBox.Show("The path for LR is not valid. Setup the path in the '1. Setup' step.", "LR not found.");
+                return;
+            }
+
             if (String.IsNullOrEmpty(SetupData.Paths["Nova"]) || !File.Exists(SetupData.Paths["Nova"]))
             {
                 MessageBox.Show("NovaChrysalia.exe needs to be selected. Download Nova Chrysalia and setup the path in the '1. Setup' step.", "Nova Chrysalia not found.");

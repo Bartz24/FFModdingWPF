@@ -9,26 +9,7 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.4.0 Changelog:
+0.4.2 Changelog:
 
-Added the following key items to the pool:
--Fragment of Kindness
--Seedhunter Membership Card
--Sneaking-In Special Ticket
--Serah's Pendant
--Arithmometer
--Red/Green Carbuncle Doll (both are valid for the quest now)
--Proof of Legendary Title
--Phantom Rose
--Shaolong Gui Shell
--Mandragora Root
--Civet Musk
--Music Satchel
--Talbot's Gratitude
--Service Entrance Key
-
--Added flags for Randomize buyable ID Card, and Reduce CoP requirements by half
--Added options to the program to create custom presets and export seed settings to a file to share
--Caius in Noel's location is also bugged, renamed Megaflare to Megaflare???
--Fixed logic to have a chance of setting a location to 0 important checks
--Important checks now exclusively include key items and EP abilities and are the only items affected by depth
+-Added documentation for boss locations
+-Added check for LR path before generating modpack

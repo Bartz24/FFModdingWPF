@@ -1,5 +1,10 @@
-0.4.1 Changelog:
+0.4.2 Changelog:
 
-Fixed incorrect goblin ID causing crashes
-Fixed New Bodhum tutorial fights missing some enemies
-
+-Added default paradigms
+-Added treasure rando flag (non key/important items)
+-Added barebone treasure and encounter documentation
+-New Bodhum beach battles limited to easy New Bodhum and easy Bresha enemies
+-Fixed first New Bodhum battle missing enemies if cutscene isn't skipped
+-Fixed miniflan battles missing enemies
+-Removed Silver/Golden Chocobo from enemy pool
+-Added check for 13-2 path before generating modpack

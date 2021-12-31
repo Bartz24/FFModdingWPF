@@ -1,4 +1,5 @@
 ﻿using Bartz24.Data;
+using Bartz24.Docs;
 using Bartz24.FF13_2;
 using Bartz24.FF13_2_LR;
 using Bartz24.RandoWPF;
@@ -73,7 +74,7 @@ namespace FF13_2Rando
                                 });
                             }
 
-                            UpdateEnemyLists(oldEnemies, newEnemies, charSpecs, validEnemies, variety);
+                            UpdateEnemyLists(oldEnemies, newEnemies, charSpecs, validEnemies, variety, b.name.StartsWith("btsc011"));
 
                             if (newEnemies.Count > 0)
                             {
@@ -100,7 +101,7 @@ namespace FF13_2Rando
             }
         }
 
-        private void UpdateEnemyLists(List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, List<EnemyData> allowed, int maxVariety)
+        private void UpdateEnemyLists(List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, List<EnemyData> allowed, int maxVariety, bool sameRank)
         {
             EnemyRando enemyRando = randomizers.Get<EnemyRando>("Enemies");
             newEnemies.Clear();
@@ -113,15 +114,17 @@ namespace FF13_2Rando
                     newEnemies.Clear();
                     foreach (EnemyData oldEnemy in oldEnemies)
                     {
+                        Func<EnemyData, bool> pred = e => e.Rank >= oldEnemy.Rank - 2 && e.Rank <= oldEnemy.Rank + 2 && !e.Traits.Contains("Boss");
+                        Func<EnemyData, bool> predSame = e => e.Rank == oldEnemy.Rank && !e.Traits.Contains("Boss");
                         if (maxVariety > 0 && newEnemies.Distinct().Count() >= maxVariety)
                         {
                             if (attempts > 20)
                             {
                                 newEnemies.Add(newEnemies.ToList().Shuffle().First());
                             }
-                            else if (newEnemies.Where(e => e.Rank >= oldEnemy.Rank - 2 && e.Rank <= oldEnemy.Rank + 2 && !e.Traits.Contains("Boss")).Count() > 0)
+                            else if (newEnemies.Where(sameRank ? predSame : pred).Count() > 0)
                             {
-                                newEnemies.Add(newEnemies.Where(e => e.Rank >= oldEnemy.Rank - 2 && e.Rank <= oldEnemy.Rank + 2 && !e.Traits.Contains("Boss"))
+                                newEnemies.Add(newEnemies.Where(sameRank ? predSame : pred)
                             .ToList().Shuffle().First());
                             }
                             else
@@ -133,7 +136,7 @@ namespace FF13_2Rando
                         }
                         else
                         {
-                            EnemyData next = allowed.Where(e => e.Rank >= oldEnemy.Rank - 2 && e.Rank <= oldEnemy.Rank + 2 && !e.Traits.Contains("Boss"))
+                            EnemyData next = allowed.Where(sameRank ? predSame : pred)
                             .ToList().Shuffle().First();
                             newEnemies.Add(next);
                         }
@@ -161,7 +164,7 @@ namespace FF13_2Rando
             {
                 Dictionary<string, string[]> dict = new Dictionary<string, string[]>();
 
-                dict.Add("btsc01110", new string[] { "chset_hmaa_001" });
+                dict.Add("btsc01110", new string[] { "chset_hmaa_001", "chset_hmaa_e025" });
                 dict.Add("btsc01120", new string[] { "chset_hmaa_001" });
                 dict.Add("btsc01130", new string[] { "chset_hmaa_001" });
                 dict.Add("btsc01140", new string[] { "chset_hmaa_001" });
@@ -169,8 +172,8 @@ namespace FF13_2Rando
                 dict.Add("btsc02050", new string[] { "chset_bjaa_tuto" });
                 dict.Add("btsc02001", new string[] { "chset_bjaa_tuto" });
 
-                dict.Add("btsc05950", new string[] { "chset_snda_002", "chset_snda_e050", "chset_snda_e140" });
-                dict.Add("btsc05960", new string[] { "chset_snda_002", "chset_snda_e050", "chset_snda_e140" });
+                dict.Add("btsc05950", new string[] { "chset_snda_npc" });
+                dict.Add("btsc05960", new string[] { "chset_snda_npc" });
 
                 dict.Add("btsc05800", new string[] { "chset_snea_def", "chset_snea_load" });
 
@@ -215,6 +218,18 @@ namespace FF13_2Rando
 
                 return dict;
             }
+        }
+
+        public override HTMLPage GetDocumentation()
+        {
+            HTMLPage page = new HTMLPage("Encounters", "template/documentation.html");
+
+            page.HTMLElements.Add(new Table("", (new string[] { "ID (Actual Location TBD)", "New Enemies" }).ToList(), (new int[] { 60, 40 }).ToList(), btScenes.Values.Where(b => int.Parse(b.name.Substring(4)) >= 1100).Select(b =>
+              {
+                  List<string> names = b.GetCharSpecs().Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : (e + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
+                  return new string[] { b.name, string.Join(",", names) }.ToList();
+              }).ToList()));
+            return page;
         }
 
         public override void Save()

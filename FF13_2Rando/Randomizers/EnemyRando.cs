@@ -63,14 +63,12 @@ namespace FF13_2Rando
 
         public override void Randomize(Action<int> progressSetter)
         {
-            /*enemies.Values.ForEach(db3 => db3.Values.Where(e => e.name.StartsWith("m")).ForEach(e => e.u24MaxHp = 10));
-            GetEnemies(e => e.name.StartsWith("m760c")).ForEach(e => e.u24MaxHp = 10000);
-            GetEnemy("pc008").u24MaxHp = 20000;
+            /*GetEnemy("pc008").u24MaxHp = 20000;
             GetEnemy("pc010").u24MaxHp = 20000;
-            GetEnemy("pc008").u16StatusStr = 500;
-            GetEnemy("pc010").u16StatusStr = 500;
-            GetEnemy("pc008").u16StatusMgk = 500;
-            GetEnemy("pc010").u16StatusMgk = 500;*/
+            GetEnemy("pc008").u16StatusStr = 4000;
+            GetEnemy("pc010").u16StatusStr = 4000;
+            GetEnemy("pc008").u16StatusMgk = 4000;
+            GetEnemy("pc010").u16StatusMgk = 4000;*/
         }
 
         public override void Save()

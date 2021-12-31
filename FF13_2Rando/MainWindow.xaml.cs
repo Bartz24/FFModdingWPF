@@ -86,10 +86,19 @@ namespace FF13_2Rando
         private async void generateButton_Click(object sender, RoutedEventArgs e)
         {
             RandomizerManager randomizers = new RandomizerManager();
+            randomizers.Add(new EquipRando(randomizers));
+            randomizers.Add(new TreasureRando(randomizers));
             randomizers.Add(new HistoriaCruxRando(randomizers));
             randomizers.Add(new BattleRando(randomizers));
             randomizers.Add(new EnemyRando(randomizers));
             randomizers.Add(new MusicRando(randomizers));
+            randomizers.Add(new TextRando(randomizers));
+
+            if (String.IsNullOrEmpty(SetupData.Paths["13-2"]) || !Directory.Exists(SetupData.Paths["13-2"]))
+            {
+                MessageBox.Show("The path for FF13-2 is not valid. Setup the path in the '1. Setup' step.", "FF13-2 not found.");
+                return;
+            }
 
             if (String.IsNullOrEmpty(SetupData.Paths["Nova"]) || !File.Exists(SetupData.Paths["Nova"]))
             {
