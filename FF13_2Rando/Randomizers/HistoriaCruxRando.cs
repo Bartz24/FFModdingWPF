@@ -1,4 +1,5 @@
-﻿using Bartz24.FF13_2;
+﻿using Bartz24.Docs;
+using Bartz24.FF13_2;
 using Bartz24.FF13_2_LR;
 using Bartz24.RandoWPF;
 using CsvHelper;
@@ -17,6 +18,8 @@ namespace FF13_2Rando
         public DataStoreDB3<DataStoreRGateTable> gateTableOrig = new DataStoreDB3<DataStoreRGateTable>();
 
         Dictionary<string, GateData> gateData = new Dictionary<string, GateData>();
+
+        Dictionary<string, string> placement = new Dictionary<string, string>();
 
         public HistoriaCruxRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -56,10 +59,12 @@ namespace FF13_2Rando
                     .Select(s => s.Substring(0, s.Length - 2))
                     .Distinct().ToList();
 
-                if (FF13_2Flags.Other.BodhumStart.Enabled)
+                if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 0)
                     openings = openings.Where(o => o != "h_hm_AD0003").ToList();
+                if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 1)
+                    openings = openings.Where(o => o != "h_bj_AD0005").ToList();
 
-                Dictionary<string, string> placement = GetPlacement(new Dictionary<string, string>(), openings).Item2;
+                placement = GetPlacement(new Dictionary<string, string>(), openings).Item2;
 
                 placement.Keys.ToList().ForEach(open =>
                 {
@@ -199,8 +204,10 @@ namespace FF13_2Rando
         {
             List<string> list = new List<string>();
             list.Add("start");
-            if (FF13_2Flags.Other.BodhumStart.Enabled)
+            if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 0)
                 list.Add("h_hm_AD0003");
+            if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 1)
+                list.Add("h_bj_AD0005");
 
             list.AddRange(soFar.Values);
 
@@ -212,8 +219,25 @@ namespace FF13_2Rando
             if (list.Contains("h_aa_AD0400") && HasGravitonLocations(list))
                 list.Add("h_dd_AD0700");
 
+            // Unlock Serendipity after Yaschas 1X and Sunleth 300
+            if (list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000") && list.Contains("h_gh_AD0010") && list.Contains("h_cl_NA0000"))
+                list.Add("h_cs_NA0000");
+
             return list.Distinct().ToList();
         }
+        /*
+        public override HTMLPage GetDocumentation()
+        {
+            HTMLPage page = new HTMLPage("Historia Crux", "template/documentation.html");
+
+            page.HTMLElements.Add(new Table("", (new string[] { "Original Gate", "New Location" }).ToList(), (new int[] { 60, 40 }).ToList(),
+                gateData.Values.Select(g =>
+            {
+                List<string> names = g.GetCharSpecs().Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : (e + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
+                return new string[] { g.GateOriginal, string.Join(",", names) }.ToList();
+            }).ToList()));
+            return page;
+        }*/
 
         public override void Save()
         {
@@ -227,6 +251,7 @@ namespace FF13_2Rando
             public List<string> Traits { get; set; }
             public List<string> Requirements { get; set; }
             public int MinMogLevel { get; set; }
+            public string GateOriginal { get; set; }
             public GateData(string[] row)
             {
                 Location = row[0];
@@ -234,6 +259,7 @@ namespace FF13_2Rando
                 Traits = row[2].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 Requirements = row[3].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 MinMogLevel = int.Parse(row[4]);
+                GateOriginal = row[5];
             }
         }
     }

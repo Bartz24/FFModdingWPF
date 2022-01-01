@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "flags": [
     {
       "FlagEnabled": true,
@@ -16,8 +16,8 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": true,
-          "ID": "BodhumStart"
+          "SelectedValue": "Bodhum & Bresha",
+          "ID": "ForcedStart"
         }
       ],
       "FlagID": "HistCrux"

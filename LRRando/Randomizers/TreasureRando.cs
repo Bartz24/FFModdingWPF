@@ -356,11 +356,12 @@ namespace LRRando
 
         private int GetNextDepth(Dictionary<string, int> items, Dictionary<string, string> soFar, Dictionary<string, int> depths, string location)
         {
-            int val = treasureData[location].Requirements.GetPossibleRequirements().Select(item =>
-            {
-                return soFar.Keys.Where(t => treasuresOrig[soFar[t]].s11ItemResourceId_string == item).Select(t => depths[t]).DefaultIfEmpty(0).Max();
-            }).DefaultIfEmpty(0).Max() + 1 + treasureData[location].Difficulty;
-            return RandomNum.RandInt(Math.Max(1, val - 2), val + 2);
+            int reqsMax = treasureData[location].Requirements.GetPossibleRequirements().Select(item =>
+                {
+                    return soFar.Keys.Where(t => treasuresOrig[soFar[t]].s11ItemResourceId_string == item).Select(t => depths[t]).DefaultIfEmpty(0).Max();
+                }).DefaultIfEmpty(0).Max();
+            int val = reqsMax + 1 + treasureData[location].Difficulty;
+            return RandomNum.RandInt(Math.Max(reqsMax + 1, val - 2), val + 2);
         }
 
         private bool RequiresLogic(string t)

@@ -1,10 +1,9 @@
-0.4.2 Changelog:
+0.4.3 Changelog:
 
--Added default paradigms
--Added treasure rando flag (non key/important items)
--Added barebone treasure and encounter documentation
--New Bodhum beach battles limited to easy New Bodhum and easy Bresha enemies
--Fixed first New Bodhum battle missing enemies if cutscene isn't skipped
--Fixed miniflan battles missing enemies
--Removed Silver/Golden Chocobo from enemy pool
--Added check for 13-2 path before generating modpack
+-Added option to force Bodhum and Bresha start for branching options
+-Added Yomi to the pool
+-Limited max variety in random encounters to 3
+-Non-random encounters enemies are one to one for the area to save memory
+-Fixed missing/crashing (hopefully) in Academia 400, Augusta 200, Sunleth 300, and Archylte
+-Moved Hoplite up a rank to remove from beach fights
+-Removed Serendipity from the pool to remove hidden/early unlocks

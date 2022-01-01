@@ -8,13 +8,11 @@ h_gy_AD0010,hs_gyaa01_gw,,,0,Yaschas 10 AF -> Oerba 200 AF
 h_gw_AD0200,hs_gwca01_gh,,,1,Oerba 200 AF -> Yaschas 1X AF
 h_gw_AD0200,hs_gwca92_gw,Paradox,,1,Oerba 200 AF -> Paradox
 h_gh_AD0010,hs_ghaa02_gt,Wild,,1,Yaschas 1X AF -> Augusta 300 AF
-h_gh_AD0010,hs_ghaa01_cs,,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,1,Yaschas 1X AF -> Serendipity
 h_sn_AD0300,hs_snda01_cl,,,0,Sunleth 300 AF -> Coliseum
 h_sn_AD0300,hs_snda93_sn,Paradox,,1,Sunleth 300 AF -> Paradox
 h_sn_AD0300,hs_snda02_gd,,h_bj_AD0005,1,Sunleth 300 AF -> Archylte
-h_sn_AD0300,hs_snda03_cs,,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,1,Sunleth 300 AF -> Serendipity
 h_gd_NA0000,hs_gdza01_vp,Wild,h_bj_AD0005,1,Archylte -> Vile 200 AF
-h_sp_NA0001,hs_spza02_ac,,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,0,Void -> Academia 400 AF
+h_sp_NA0001,hs_spza02_ac,,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,0,Void Beyond -> Academia 400 AF
 h_ac_AD0400,hs_acea01_gt,,,0,Academia 400 AF -> Augusta 200 AF
 h_ac_AD0400,hs_acea02_gy,Wild,,0,Academia 400 AF -> Yaschas 100 AF
 h_gy_AD0100,hs_gyba01_sn,Wild,h_bj_AD0005,2,Yaschas 100 AF -> Sunleth 400 AF
@@ -24,5 +22,5 @@ h_gt_AD0200,hs_gtca01_aa,,h_gt_AD0300,0,Augusta 200 AF -> Academia 4XX AF
 h_gw_AD0300,hs_gwda01_gw,Wild,,1,Oerba 300 AF -> Oerba 400 AF
 h_aa_AD0400,hs_aaea01_vp,Wild,,0,Academia 4XX AF -> Vile 10 AF
 h_aa_AD0400,hs_hmha01_ac,Graviton,,1,Academia 4XX AF -> 700 AF -> Academia 500 AF
-h_dd_AD0700,hs_ddha02_bj,Graviton|Wild,,1,Dying World 700 AF -> Bresha 100 AF
+h_dd_AD0700,hs_ddha02_bj,Graviton|Wild,,3,Dying World 700 AF -> Bresha 100 AF
 start,hs_hmaa_def,,,0,Start

@@ -47,7 +47,7 @@ namespace FF13_2Rando
         {
             public static Flag HistoriaCrux;
             public static Flag Music;
-            public static ToggleFlagProperty BodhumStart;
+            public static ComboBoxFlagProperty ForcedStart;
 
             internal static void Init()
             {
@@ -59,11 +59,15 @@ namespace FF13_2Rando
                     Aesthetic = true
                 }.Register(FlagType.Other);
 
-                BodhumStart = (ToggleFlagProperty)new ToggleFlagProperty()
+                ForcedStart = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
                 {
-                    Text = "Force New Bodhum 3 AF Start",
-                    ID = "BodhumStart",
-                    Description = "Force starting in New Bodhum 3 AF. (Recommended to avoid softlocks and resets)."
+                    Text = "Forced Start",
+                    ID = "ForcedStart",
+                    Description = "Options:\n" +
+                    "None - Any valid starting area is possible.\n" +
+                    "Bodhum - Force starting in New Bodhum 3 AF. (Recommended to avoid softlocks and resets).\n" +
+                    "Bodhum & Bresha - Force starting in New Bodhum 3 AF leading to Bresha Ruins 5 AF for branching options.",
+                    Values = new string[] { "None", "Bodhum", "Bodhum & Bresha" }.ToList()
                 }.Register(HistoriaCrux);
 
                 Music = new Flag()

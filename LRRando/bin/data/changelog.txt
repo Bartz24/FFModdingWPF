@@ -9,7 +9,9 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.4.2 Changelog:
+0.4.3 Changelog:
 
--Added documentation for boss locations
--Added check for LR path before generating modpack
+-Item placement chains adjusted to have more weight
+-Removed gyshal green requirement on 3-1 hint
+-Removed 5-6 from hints temporarily
+-Fixed Seedhunter Card location allowing gil and EP abilities

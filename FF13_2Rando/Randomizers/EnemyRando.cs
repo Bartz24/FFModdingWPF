@@ -63,12 +63,14 @@ namespace FF13_2Rando
 
         public override void Randomize(Action<int> progressSetter)
         {
+#if DEBUG
             /*GetEnemy("pc008").u24MaxHp = 20000;
             GetEnemy("pc010").u24MaxHp = 20000;
             GetEnemy("pc008").u16StatusStr = 4000;
             GetEnemy("pc010").u16StatusStr = 4000;
             GetEnemy("pc008").u16StatusMgk = 4000;
             GetEnemy("pc010").u16StatusMgk = 4000;*/
+#endif
         }
 
         public override void Save()

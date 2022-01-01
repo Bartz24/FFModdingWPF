@@ -91,8 +91,11 @@ namespace Bartz24.RandoWPF
                 f.FlagEnabled = s["FlagEnabled"].Value;
                 ((JArray)s["FlagProperties"]).Select(o => (dynamic)o).ToList().ForEach(p =>
                 {
-                    FlagProperty prop = f.FlagProperties.First(fp => fp.ID == p["ID"].Value);
-                    prop.Deserialize(p);
+                    if (f.FlagProperties.Where(fp => fp.ID == p["ID"].Value).Count() > 0)
+                    {
+                        FlagProperty prop = f.FlagProperties.First(fp => fp.ID == p["ID"].Value);
+                        prop.Deserialize(p);
+                    }
                 });
             });
         }
