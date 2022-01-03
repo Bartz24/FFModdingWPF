@@ -12,7 +12,7 @@ If you need to view these instructions again, click the Changelog button in the 
 0.4.4 Changelog:
 
 -Split key item flags into Main Story, Side Quest, and CoP flags and hints
--Added hint flag to place hints for items
+-Added flag to place hints for items at hints of lower depth
 -Fixed Snow++ at Snow+ location
 -Fixed upgrade garb in Day 1 chests
 -Adjusted item placement to be more likely to place some early key items to start chains
