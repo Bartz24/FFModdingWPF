@@ -50,5 +50,15 @@ namespace Bartz24.RandoWPF
             base.Deserialize((object)data);
             SelectedValue = data["SelectedValue"];
         }
+
+        public int IndexOf(string val)
+        {
+            return Values.IndexOf(val);
+        }
+
+        public int IndexOfCurrentValue()
+        {
+            return Values.IndexOf(SelectedValue);
+        }
     }
 }

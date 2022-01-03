@@ -1,5 +1,5 @@
 {
-  "name": "4 - Hopeless",
+  "name": "2 - Main Key Item Shuffle",
   "version": "0.4.4",
   "flags": [
     {
@@ -21,7 +21,7 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "EPAbiEsc"
         },
         {
@@ -29,7 +29,7 @@
           "ID": "EPAbiChr"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "EPAbiTlp"
         }
       ],
@@ -44,18 +44,18 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "EPZero"
         },
         {
-          "Value": 5,
+          "Value": 2,
           "ID": "EPRange"
         }
       ],
       "FlagID": "RandEPCost"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "NerfOC"
     },
@@ -83,14 +83,14 @@
           "ID": "RandZaltys"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "RandEresh"
         }
       ],
       "FlagID": "RandEne"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "RandMatDrops"
     },
@@ -100,7 +100,7 @@
       "FlagID": "RandAbiDrops"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "BhuniPlus"
     },
@@ -116,7 +116,7 @@
           "ID": "LearnEP"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "EPMiss"
         },
         {
@@ -124,19 +124,19 @@
           "ID": "KeyMain"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "KeySide"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "KeyCoP"
         },
         {
-          "SelectedValue": "Grindy",
+          "SelectedValue": "Key Items Only",
           "ID": "KeyPlacement"
         },
         {
-          "SelectedValue": "Hard+++",
+          "SelectedValue": "Normal",
           "ID": "KeyDepth"
         },
         {
@@ -152,7 +152,7 @@
       "FlagID": "Shops"
     },
     {
-      "FlagEnabled": false,
+      "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "CoPReqs"
     },
@@ -165,11 +165,11 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "SelectedValue": "Random",
+          "SelectedValue": "Vague Area",
           "ID": "HintsSpecific"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "HintsDepth"
         }
       ],
@@ -186,7 +186,7 @@
       "FlagID": "HintsEP"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "HintsPilgrim"
     }

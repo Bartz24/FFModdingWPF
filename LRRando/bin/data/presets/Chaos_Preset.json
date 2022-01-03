@@ -1,6 +1,6 @@
 {
   "name": "3 - Chaos",
-  "version": "0.4.0",
+  "version": "0.4.4",
   "flags": [
     {
       "FlagEnabled": true,
@@ -120,8 +120,20 @@
           "ID": "EPMiss"
         },
         {
+          "Enabled": true,
+          "ID": "KeyMain"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeySide"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyCoP"
+        },
+        {
           "SelectedValue": "CoP",
-          "ID": "Key"
+          "ID": "KeyPlacement"
         },
         {
           "SelectedValue": "Hard",
@@ -155,6 +167,10 @@
         {
           "SelectedValue": "Random",
           "ID": "HintsSpecific"
+        },
+        {
+          "Enabled": true,
+          "ID": "HintsDepth"
         }
       ],
       "FlagID": "HintsMain"

@@ -15,6 +15,7 @@ namespace FF13_2Rando
     public class EnemyRando : Randomizer
     {
         public Dictionary<string, DataStoreDB3<DataStoreBtCharaSpec>> enemies = new Dictionary<string, DataStoreDB3<DataStoreBtCharaSpec>>();
+        public Dictionary<string, DataStoreDB3<DataStoreBtCharaSpec>> enemiesOrig = new Dictionary<string, DataStoreDB3<DataStoreBtCharaSpec>>();
 
         string[] x000 = new string[] {
             "bt_chsp_x000_2",
@@ -24,7 +25,9 @@ namespace FF13_2Rando
             "bt_chsp_x000_7",
             "bt_chsp_x000_8",
             "bt_chsp_x000_9",
-            "bt_chsp_x000_11"
+            "bt_chsp_x000_11",
+            "bt_chsp_x000_107",
+            "bt_chsp_x000_108"
         };
 
         public EnemyRando(RandomizerManager randomizers) : base(randomizers) {  }
@@ -45,12 +48,17 @@ namespace FF13_2Rando
                 db3.LoadDB3("13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
                 enemies.Add(s, db3);
             });
-            
+            x000.ForEach(s => {
+                DataStoreDB3<DataStoreBtCharaSpec> db3 = new DataStoreDB3<DataStoreBtCharaSpec>();
+                db3.LoadDB3("13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
+                enemiesOrig.Add(s, db3);
+            });
         }
 
-        public DataStoreBtCharaSpec GetEnemy(string id)
+        public DataStoreBtCharaSpec GetEnemy(string id, bool orig = false)
         {
-            return enemies.Values.SelectMany(db3 => db3.Values.Where(e => e.name == id)).First();
+            Dictionary<string, DataStoreDB3<DataStoreBtCharaSpec>> dbs = orig ? enemiesOrig : enemies;
+            return dbs.Values.SelectMany(db3 => db3.Values.Where(e => e.name == id)).First();
         }
         public bool HasEnemy(string id)
         {

@@ -32,6 +32,7 @@ namespace FF13_2Rando
         public class Enemies
         {
             public static Flag EnemyLocations;
+            public static ToggleFlagProperty Bosses, DLCBosses;
 
             internal static void Init()
             {
@@ -41,6 +42,22 @@ namespace FF13_2Rando
                     FlagID = "RandEne",
                     DescriptionFormat = "Randomize normal enemies between each other."
                 }.Register(FlagType.Enemies);
+
+
+                Bosses = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Shuffle Bosses",
+                    ID = "RandBoss",
+                    Description = "Shuffle the following bosses between each other:\n" +
+                    "Gogmagog (Alpha, Beta and Gamma), Aloedai, Caius (Oerba, Void Beyond, Dying World, Deck, Beach, and Paradoxes)\n"
+                }.Register(EnemyLocations);
+
+                DLCBosses = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include DLC Bosses",
+                    ID = "RandDLCBoss",
+                    Description = "Include the following bosses for boss shuffling:\n" + "Lightning, Amodar, Snow, Gilgamesh (1 and 2)\n"
+                }.Register(EnemyLocations);
             }
         }
         public class Other

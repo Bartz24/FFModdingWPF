@@ -9,9 +9,13 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.4.3 Changelog:
+0.4.4 Changelog:
 
--Item placement chains adjusted to have more weight
--Removed gyshal green requirement on 3-1 hint
--Removed 5-6 from hints temporarily
--Fixed Seedhunter Card location allowing gil and EP abilities
+-Split key item flags into Main Story, Side Quest, and CoP flags and hints
+-Added hint flag to place hints for items
+-Fixed Snow++ at Snow+ location
+-Fixed upgrade garb in Day 1 chests
+-Adjusted item placement to be more likely to place some early key items to start chains
+-Fixed 2-1,3-1, and 5-6 hints
+-Fixed Fresh Fertilizer CoP quest not requiring Gysahl Greens
+-Fixed at least some of random program crashes/errors

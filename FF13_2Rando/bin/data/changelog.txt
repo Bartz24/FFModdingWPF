@@ -1,9 +1,6 @@
-0.4.3 Changelog:
+0.4.4 Changelog:
 
--Added option to force Bodhum and Bresha start for branching options
--Added Yomi to the pool
--Limited max variety in random encounters to 3
--Non-random encounters enemies are one to one for the area to save memory
--Fixed missing/crashing (hopefully) in Academia 400, Augusta 200, Sunleth 300, and Archylte
--Moved Hoplite up a rank to remove from beach fights
--Removed Serendipity from the pool to remove hidden/early unlocks
+-Added boss shuffle for many story, paradox, and DLC bosses
+-Added Clash on the Big Bridge and FF13's opening movie themes to music pool
+-Limited variety in more Academia 400 fights
+-Fixed at least some of random program crashes/errors

@@ -64,7 +64,7 @@ namespace Bartz24.Docs
                 HtmlNode rowNode = HtmlNode.CreateNode("<tr></tr>");
                 foreach (string text in row)
                 {
-                    HtmlNode thNode = HtmlNode.CreateNode($"<td>{(EncodeStrings ? HtmlDocument.HtmlEncode(text) : text)}</td>");
+                    HtmlNode thNode = HtmlNode.CreateNode($"<td style=\"white-space: pre-line\">{(EncodeStrings ? HtmlDocument.HtmlEncode(text) : text)}</td>");
                     rowNode.AppendChild(thNode);
                 }
                 body.AppendChild(rowNode);

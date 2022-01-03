@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.4.0",
+  "version": "0.4.4",
   "flags": [
     {
       "FlagEnabled": true,
@@ -120,8 +120,20 @@
           "ID": "EPMiss"
         },
         {
-          "SelectedValue": "None",
-          "ID": "Key"
+          "Enabled": false,
+          "ID": "KeyMain"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeySide"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyCoP"
+        },
+        {
+          "SelectedValue": "Key Items Only",
+          "ID": "KeyPlacement"
         },
         {
           "SelectedValue": "Normal",
@@ -155,6 +167,10 @@
         {
           "SelectedValue": "Vague Area",
           "ID": "HintsSpecific"
+        },
+        {
+          "Enabled": true,
+          "ID": "HintsDepth"
         }
       ],
       "FlagID": "HintsMain"

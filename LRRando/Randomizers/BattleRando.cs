@@ -141,7 +141,7 @@ namespace LRRando
             {
                 BossData oldBoss = bossData.Values.SelectMany(d => d.Values).First(b => b.ID == oldEnemies[0].ID && b.ScoreID != "");
                 string group = oldBoss.Group;
-                if (!shuffledBosses.ContainsKey(group))
+                if (!shuffledBosses.ContainsKey(group) || shuffledBosses[group] == group)
                     return;
 
                 int oldTierIndex = oldBoss.Tier;
@@ -159,8 +159,8 @@ namespace LRRando
                 else
                 {
                     List<int> tiers = bossData[newGroup].Keys.Where(i => i <= 3).ToList();
-                    int fromTop = tiers.Max() - tiers.IndexOf(oldTierIndex) - 1;
-                    newTierIndex = tiers[Math.Max(Math.Min(tiers.Count - fromTop, 1), tiers.Count - 1)];
+                    int fromTop = tiers.Count - tiers.IndexOf(oldTierIndex) - 1;
+                    newTierIndex = tiers[Math.Min(Math.Max(tiers.Count - fromTop - 1, 1), tiers.Count - 1)];
                 }
                 BossData newBoss = bossData[newGroup][newTierIndex];
 

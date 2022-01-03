@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "flags": [
     {
       "FlagEnabled": true,
@@ -9,7 +9,16 @@
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "RandBoss"
+        },
+        {
+          "Enabled": true,
+          "ID": "RandDLCBoss"
+        }
+      ],
       "FlagID": "RandEne"
     },
     {

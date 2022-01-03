@@ -208,8 +208,8 @@ namespace LRRando
         public class Items
         {
             public static Flag Treasures;
-            public static ToggleFlagProperty Pilgrims, EPLearns, EPMissable, IDCardBuy;
-            public static ComboBoxFlagProperty Key, KeyDepth;
+            public static ToggleFlagProperty Pilgrims, EPLearns, EPMissable, IDCardBuy, KeyMain, KeySide, KeyCoP;
+            public static ComboBoxFlagProperty KeyPlacement, KeyDepth;
             public static Flag Shops;
             public static Flag CoPReqs;
 
@@ -247,28 +247,50 @@ namespace LRRando
                     Description = "EP Abilities will be allowed to appear in missable or late game locations Day 10 or later."
                 }.Register(Treasures);
 
-                Key = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                KeyMain = (ToggleFlagProperty)new ToggleFlagProperty()
                 {
-                    Text = "Randomize Key Items",
-                    ID = "Key",
+                    Text = "Include Main Story Key Items",
+                    ID = "KeyMain",
                     Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
                     "The following key items will be included in the pool based on the set level:\n" +
-                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Fragment of Kindness, Moogle Fragment, Sneaking-In Special Ticket, ID Card, Midnight Mauve, Serah's Pendant, Dead Dunes Tablets, Dr. Gysahl's Gysahl Greens, Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Chocobo Girl's Phone No., Arithmometer, Red/Green Carbuncle Dolls, Proof of Legendary Title, Phantom Rose, Seedhunter Membership Card, Shaolong Gui Shell, Mandragora Root, Talbot's Gratitude, Service Entrance Key, Music Satchel, Civet Musk\n\n" +
+                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Fragment of Kindness, Moogle Fragment, Sneaking-In Special Ticket, ID Card, Midnight Mauve, Serah's Pendant, Dead Dunes Tablets, Dr. Gysahl's Gysahl Greens, Seedhunter Membership Card"
+                }.Register(Treasures);
+                KeySide = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Side Quest Key Items",
+                    ID = "KeySide",
+                    Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
+                    "The following key items will be included in the pool based on the set level:\n" +
+                    "Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Arithmometer, Red/Green Carbuncle Dolls, Phantom Rose, Shaolong Gui Shell, Mandragora Root, Talbot's Gratitude, Service Entrance Key, Music Satchel, Civet Musk"
+                }.Register(Treasures);
+                KeyCoP = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Canvas of Prayers Key Items",
+                    ID = "KeyCoP",
+                    Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
+                    "The following key items will be included in the pool based on the set level:\n" +
+                    "Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Chocobo Girl's Phone No., Proof of Legendary Title"
+                }.Register(Treasures);
+
+                KeyPlacement = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                {
+                    Text = "Key Item Placement",
+                    ID = "KeyPlacement",
+                    Description = "The following determines valid locations for key items" +
                     "Levels:\n" +
-                    "    None - Key items are not randomized.\n" +
                     "    Key Items Only - Key items are shuffled between themselves.\n" +
                     "    Treasures - Key items are also allowed in treasures/Learned EP ability spots.\n" +
                     "    Quests - Key items are also allowed in side quests and Non-Global Canvas of Prayers.\n" +
                     "    CoP - Key items are also allowed in all Canvas of Prayers.\n" +
                     "    Grindy - Key items are also allowed in 20+ Soul Seed rewards and 10+ Unappraised Items.\n",
-                    Values = new string[] { "None", "Key Items Only", "Treasures", "Quests", "CoP", "Grindy" }.ToList()
+                    Values = new string[] { "Key Items Only", "Treasures", "Quests", "CoP", "Grindy" }.ToList()
                 }.Register(Treasures);
 
                 KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
                 {
                     Text = "Item Difficulty Depth",
                     ID = "KeyDepth",
-                    Description = "Key items and EP abilities will be more likely to appear in longer chains of key items and more difficult/time-consuming locations.\n\n" +
+                    Description = "Key items and EP abilities will be more likely to appear in longer chains of key items and more difficult/time-consuming locations. Some items will be placed early on to start chains on earlier days.\n\n" +
                     "Depths:\n" +
                     "    Normal - Each location is equally likely.\n" +
                     "    Hard - Each level of depth/difficulty increases likelyhood of that location by 1.05x.\n" +
@@ -306,6 +328,7 @@ namespace LRRando
             public static Flag Music;
             public static Flag HintsMain, HintsNotes, HintsEP, HintsPilgrim;
             public static ComboBoxFlagProperty HintsSpecific;
+            public static ToggleFlagProperty HintsDepth;
 
             internal static void Init()
             {
@@ -332,11 +355,18 @@ namespace LRRando
                     Description = "Set the specificity for the hints from main quests.\n\n" +
                     "Options:\n" +
                     "    Exact - Hints give the exact item in the exact location.\n" +
-                    "    Vague Type - Hints give the type ('Key Item'/'EP Ability'/'Other') in the exact location.\n" +
+                    "    Vague Type - Hints give the type ('Main Key Item'/'Side Key Item'/'CoP Key Item'/'Pilgrim's Crux'/'EP Ability'/'Other') in the exact location.\n" +
                     "    Vague Area - Hints give the exact item in the area.\n" +
                     "    Unknown but Exact Location - Hints will hint that something ('?????') is in the exact location.\n" +
                     "    Random - Each hint will use one of the above rules.",
                     Values = new string[] { "Exact", "Vague Type", "Vague Area", "Unknown but Exact Location", "Random" }.ToList()
+                }.Register(HintsMain);
+
+                HintsDepth = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Hints at Earlier Locations",
+                    ID = "HintsDepth",
+                    Description = "Hints for items will prioritize locations of lower than or equal to depths of the item itself."
                 }.Register(HintsMain);
 
                 HintsNotes = new Flag()
