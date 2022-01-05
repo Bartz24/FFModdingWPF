@@ -13,22 +13,36 @@ namespace Bartz24.FF13_2_LR
     {
         public static Dictionary<int, T> GetEntries<T>(string path, string tableName) where T : DataStoreDB3Entry
         {
-            using (IDbConnection con = CreateConnection(path))
+            try
             {
-                return con.Query<T>($"select * from \"{tableName}\"").ToDictionary(t => t.main_id, t => t);
+                using (IDbConnection con = CreateConnection(path))
+                {
+                    return con.Query<T>($"select * from \"{tableName}\"").ToDictionary(t => t.main_id, t => t);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Failed to read database file at: " + path, e);
             }
         }
 
         public static void Save<T>(string path, string tableName, Dictionary<int, T> data) where T : DataStoreDB3Entry
         {
-            using (IDbConnection con = CreateConnection(path))
+            try
             {
-                int maxId = con.Query<int>($"select max(main_id) from \"{tableName}\"").First();
-                List<T> insert = data.Where(p => p.Key > maxId).Select(p => p.Value).ToList();
-                List<T> update = data.Where(p => p.Key <= maxId).Select(p => p.Value).ToList();
-                con.Execute(GetUpdateQuery<T>(tableName), update);
-                if (insert.Count > 0)
-                    con.Execute(GetInsertQuery<T>(tableName), insert);
+                using (IDbConnection con = CreateConnection(path))
+                {
+                    int maxId = con.Query<int>($"select max(main_id) from \"{tableName}\"").First();
+                    List<T> insert = data.Where(p => p.Key > maxId).Select(p => p.Value).ToList();
+                    List<T> update = data.Where(p => p.Key <= maxId).Select(p => p.Value).ToList();
+                    con.Execute(GetUpdateQuery<T>(tableName), update);
+                    if (insert.Count > 0)
+                        con.Execute(GetInsertQuery<T>(tableName), insert);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Failed to save database file at: " + path, e);
             }
         }
 
@@ -51,9 +65,16 @@ namespace Bartz24.FF13_2_LR
 
         public static int GetStringArraySize(string path)
         {
-            using (IDbConnection con = CreateConnection(path))
+            try
             {
-                return con.Query<int>($"select sub_entry_size_in_bits from \"{"06 !!strArrayInfo table"}\"").First();
+                using (IDbConnection con = CreateConnection(path))
+                {
+                    return con.Query<int>($"select sub_entry_size_in_bits from \"{"06 !!strArrayInfo table"}\"").First();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Failed to read string array size in file at: " + path, e);
             }
         }
 
