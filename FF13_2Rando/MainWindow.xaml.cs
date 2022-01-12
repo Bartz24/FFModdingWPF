@@ -86,6 +86,7 @@ namespace FF13_2Rando
         private async void generateButton_Click(object sender, RoutedEventArgs e)
         {
             RandomizerManager randomizers = new RandomizerManager();
+            randomizers.Add(new CrystariumRando(randomizers));
             randomizers.Add(new EquipRando(randomizers));
             randomizers.Add(new TreasureRando(randomizers));
             randomizers.Add(new HistoriaCruxRando(randomizers));

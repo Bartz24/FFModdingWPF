@@ -29,7 +29,7 @@ tre_box_d_025,Dead Dunes,Dead Dunes Shrine At Dry Floodlands,,,0
 tre_box_d_026,Dead Dunes,Dead Dunes Temple Ruins Golden Chamber Lower,,,1
 tre_box_d_027,Dead Dunes,Dead Dunes Temple Ruins Golden Chamber Lower,,,1
 tre_box_d_028,Dead Dunes,Dead Dunes Temple Ruins Golden Chamber Lower,,,1
-tre_box_d_029,Dead Dunes,Dead Dunes Temple Ruins Scorched Earth Lower,,,1
+tre_box_d_029,Dead Dunes,Dead Dunes Temple Ruins Scorched Earth Lower,EP,,1
 tre_box_d_030,Dead Dunes,Dead Dunes Temple Ruins Scorched Earth Upper,,,1
 tre_box_d_031,Dead Dunes,Dead Dunes Temple Ruins Scorched Earth Upper,,,1
 tre_box_d_032,Dead Dunes,Dead Dunes Temple Ruins Golden Chamber Upper,,,1
@@ -168,7 +168,7 @@ tre_box_w_007,Wildlands,Wildlands Grasslands,,I(key_w_yasai_t|1),2
 tre_box_w_008,Wildlands,Wildlands Eremite Plains,,I(key_w_yasai_t|1),2
 tre_box_w_009,Wildlands,Wildlands Eremite Plains,,I(key_w_yasai_t|1),2
 tre_box_w_010,Wildlands,Wildlands Moogle Village,,I(key_w_yasai_t|1),2
-tre_box_w_011,Wildlands,Wildlands City Of Ruins,,I(key_w_yasai_t|1),2
+tre_box_w_011,Wildlands,Wildlands City Of Ruins,EP,I(key_w_yasai_t|1),2
 tre_box_w_012,Wildlands,Wildlands Rocky Crag,,I(key_w_yasai_t|1),2
 tre_box_w_013,Wildlands,Wildlands Rocky Crag,,I(key_w_yasai_t|1),2
 tre_box_w_014,Wildlands,Wildlands Aryas Village,,I(key_w_yasai_t|1),2
@@ -267,7 +267,7 @@ tre_box_y_017,Yusnaan,Yusnaan Augur's Quarter,,AND(I(key_y_id|1)|I(key_y_ticket|
 tre_box_y_018,Yusnaan,Yusnaan Supply Line,,I(key_y_ticket|1),1
 tre_box_y_019,Yusnaan,Yusnaan Industrial Area,,I(key_y_ticket|1),0
 tre_box_y_021,Yusnaan,Yusnaan Lower City,,,0
-tre_box_y_022,Yusnaan,Yusnaan Glutton's Quarter,,,0
+tre_box_y_022,Yusnaan,Yusnaan Glutton's Quarter,EP,,0
 tre_box_y_024,Yusnaan,Yusnaan Reveler's Quarter,,,0
 tre_box_y_051,Yusnaan,Yusnaan Patron's Palace,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
 tre_box_y_052,Yusnaan,Yusnaan Patron's Palace,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
@@ -330,7 +330,6 @@ tre_qst_076_5,Yusnaan,Quest Death Safari,Quest,AND(I(key_y_ticket|1)|I(key_y_id|
 tre_qst_077,Yusnaan,Quest Death Game,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),7
 tre_qst_077_2,Yusnaan,Quest Death Game,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),7
 tre_qst_077_3,Yusnaan,Quest Death Game,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),7
-tre_ti000,Yusnaan,Replace EP Ability Curaga,EP,,0
 tre_y_kagi1,Yusnaan,Morris Musical Treasure Sphere Key,SideKey,,0
 tre_key_y_serap,Yusnaan,Patron's Palace Serah's Pendant,MainKey,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),2
 tre_box_p_000,Ark,Ark Day 1,Same,,0
@@ -356,6 +355,7 @@ tre_box_p_111,Ark,Ark Day Final Day,Missable,,10
 tre_box_p_111_2,Ark,Ark Day Final Day,Missable,,10
 tre_box_p_111_3,Ark,Ark Day Final Day,Missable,,10
 tre_box_p_112,Ark,Ark Day Extra Day,Missable,,11
+tre_ti000,Ark,Replace EP Ability Curaga,EP,,0
 tre_ti810,Ark,Replace EP Ability Teleport,EP,,0
 tre_ti830,Ark,Replace EP Ability Escape,EP,,0
 tre_qst_1151,CoP Dead Dunes,CoP Quest Flower In The Sands,CoP,,1
@@ -483,10 +483,10 @@ tre_qst_1114_2,CoP Wildlands,CoP Quest A Secret Wish,CoP,,5
 tre_qst_1115,CoP Wildlands,CoP Quest Moghan's Plea,CoP,,3
 tre_qst_1115_1,CoP Wildlands,CoP Quest Moghan's Plea,CoP,,3
 tre_qst_1115_2,CoP Wildlands,CoP Quest Moghan's Plea,CoP,,3
-tre_qst_1116,CoP Wildlands,CoP Quest What's In A Brew?,CoP,,9
-tre_qst_1116_1,CoP Wildlands,CoP Quest What's In A Brew?,CoP,,9
-tre_qst_1116_2,CoP Wildlands,CoP Quest What's In A Brew?,CoP,,9
-tre_qst_1116_3,CoP Wildlands,CoP Quest What's In A Brew?,CoP,,9
+tre_qst_1116,CoP Wildlands,CoP Quest What's In A Brew?,CoP,I(key_w_yasai_t|1),9
+tre_qst_1116_1,CoP Wildlands,CoP Quest What's In A Brew?,CoP,I(key_w_yasai_t|1),9
+tre_qst_1116_2,CoP Wildlands,CoP Quest What's In A Brew?,CoP,I(key_w_yasai_t|1),9
+tre_qst_1116_3,CoP Wildlands,CoP Quest What's In A Brew?,CoP,I(key_w_yasai_t|1),9
 tre_qst_1117,CoP Wildlands,CoP Quest A Prayer To A Goddess,CoP,,3
 tre_qst_1117_1,CoP Wildlands,CoP Quest A Prayer To A Goddess,CoP,,3
 tre_qst_1117_2,CoP Wildlands,CoP Quest A Prayer To A Goddess,CoP,,3

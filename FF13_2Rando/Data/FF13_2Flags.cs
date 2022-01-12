@@ -32,7 +32,7 @@ namespace FF13_2Rando
         public class Enemies
         {
             public static Flag EnemyLocations;
-            public static ToggleFlagProperty Bosses, DLCBosses;
+            public static ToggleFlagProperty LargeEnc, Bosses, DLCBosses;
 
             internal static void Init()
             {
@@ -42,6 +42,14 @@ namespace FF13_2Rando
                     FlagID = "RandEne",
                     DescriptionFormat = "Randomize normal enemies between each other."
                 }.Register(FlagType.Enemies);
+
+                LargeEnc = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Allow Larger Encounters",
+                    ID = "LargeEnc",
+                    Description = "[EXPERIMENTAL]\n" +
+                    "Allows encounters to have 5 enemies or more. Not recommended as this seems to be cause of some crashes with random enemies."
+                }.Register(EnemyLocations);
 
 
                 Bosses = (ToggleFlagProperty)new ToggleFlagProperty()
@@ -62,12 +70,24 @@ namespace FF13_2Rando
         }
         public class Other
         {
+            public static Flag RandCrystAbi;
             public static Flag HistoriaCrux;
+            public static Flag InitCP;
             public static Flag Music;
             public static ComboBoxFlagProperty ForcedStart;
+            public static NumberFlagProperty InitCPAmount;
 
             internal static void Init()
             {
+                RandCrystAbi = new Flag()
+                {
+                    Text = "Randomize Crystarium Abilities",
+                    FlagID = "RandCrystAbi",
+                    DescriptionFormat = "Randomizes the crystarium abilities.",
+                    Aesthetic = true
+                }.Register(FlagType.Other);
+
+
                 HistoriaCrux = new Flag()
                 {
                     Text = "Randomize Historia Crux",
@@ -94,6 +114,25 @@ namespace FF13_2Rando
                     DescriptionFormat = "Shuffle music around.",
                     Aesthetic = true
                 }.Register(FlagType.Other);
+
+                InitCP = new Flag()
+                {
+                    Text = "Start with CP",
+                    FlagID = "InitCP",
+                    DescriptionFormat = "Start with a specified amount of CP set below.",
+                    Aesthetic = true
+                }.Register(FlagType.Other);
+
+                InitCPAmount = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "",
+                    ID = "InitCPAmt",
+                    Description = "",
+                    ValueText = "CP:",
+                    MinValue = 500,
+                    MaxValue = 10000,
+                    StepSize = 500
+                }.Register(InitCP);
             }
         }
 

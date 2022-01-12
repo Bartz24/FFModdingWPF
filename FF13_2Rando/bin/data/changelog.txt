@@ -1,6 +1,8 @@
-0.4.4 Changelog:
+0.4.5 Changelog:
 
--Added boss shuffle for many story, paradox, and DLC bosses
--Added Clash on the Big Bridge and FF13's opening movie themes to music pool
--Limited variety in more Academia 400 fights
--Fixed at least some of random program crashes/errors
+-Added crystarium ability rando
+-Added flag for initial CP up to 20000
+-Encounters limited to max 4 in size (can be turned off with a flag)
+-Fixed more Academia 400 empty encounters (I know I'm still missing one)
+-Removed Chaos Bahamut and Long Gui from pools
+-Lowered Beach Caius strength and magic from 30% -> 20%

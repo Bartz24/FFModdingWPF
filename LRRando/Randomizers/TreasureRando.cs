@@ -269,7 +269,7 @@ namespace LRRando
 
             foreach (string rep in remaining)
             {
-                List<string> possible = locations.Where(t => !soFar.ContainsKey(t) && treasureData[t].Requirements.IsValid(items) && IsAllowed(t, rep)).ToList().Shuffle().ToList();
+                List<string> possible = locations.Where(t => !soFar.ContainsKey(t) && treasureData[t].IsValid(items, this) && IsAllowed(t, rep)).ToList().Shuffle().ToList();
                 if (possible.Count == 0)
                     return new Tuple<bool, Dictionary<string, string>>(false, soFar);
             }
@@ -286,7 +286,7 @@ namespace LRRando
 
                     foreach (string loc in nextLocations)
                     {
-                        List<string> possible = locations.Where(t => !soFar.ContainsKey(t) && treasureData[t].Requirements.IsValid(items) && treasureData[t].Location == loc && IsAllowed(t, rep)).ToList();
+                        List<string> possible = locations.Where(t => !soFar.ContainsKey(t) && treasureData[t].IsValid(items, this) && treasureData[t].Location == loc && IsAllowed(t, rep)).ToList();
                         while (possible.Count > 0)
                         {
                             Tuple<string, int> nextPlacement = SelectNext(soFar, depths, items, possible, rep);
@@ -319,7 +319,7 @@ namespace LRRando
                 }
                 else
                 {
-                    List<string> possible = locations.Where(t => !soFar.ContainsKey(t) && treasureData[t].Requirements.IsValid(items) && IsAllowed(t, rep)).ToList();
+                    List<string> possible = locations.Where(t => !soFar.ContainsKey(t) && treasureData[t].IsValid(items, this) && IsAllowed(t, rep)).ToList();
                     while (possible.Count > 0)
                     {
                         string next = possible[RandomNum.RandInt(0, possible.Count - 1)];
@@ -369,7 +369,7 @@ namespace LRRando
         {
             int reqsMax = GetReqsMaxDepth(soFar, depths, treasureData[location].Requirements);
 
-            int minItems = 10;
+            int minItems = 8;
             int keyItemsFound = soFar.Where(p => IsKeyItem(p.Value)).Count();
             // Early day/easier checks have higher "depths" as minItems is low to start chains
             float diffModifier = Math.Min(minItems, keyItemsFound) / (float)minItems;
@@ -439,7 +439,18 @@ namespace LRRando
                 if (IsKeyItem(rep) && !IsKeyItem(old) && LRFlags.Items.KeyPlacement.IndexOfCurrentValue() < LRFlags.Items.KeyPlacement.IndexOf("Quests"))
                     return false;
             }
-            if (treasureData[old].Traits.Contains("Trade") || treasureData[old].Traits.Contains("Battle"))
+            if (treasureData[old].Traits.Contains("Battle"))
+            {
+                if (IsEPAbility(rep))
+                    return false;
+                if (treasuresOrig[rep].s11ItemResourceId_string.StartsWith("it"))
+                    return false;
+                if (treasuresOrig[rep].iItemCount > 1)
+                    return false;
+                if (treasuresOrig[rep].s11ItemResourceId_string == "")
+                    return false;
+            }
+            if (treasureData[old].Traits.Contains("Trade"))
             {
                 if (IsEPAbility(rep))
                     return false;
@@ -682,6 +693,46 @@ namespace LRRando
                 Traits = row[3].Split("|").ToList();
                 Requirements = ItemReq.Parse(row[4]);
                 Difficulty = int.Parse(row[5]);
+            }
+
+            public bool IsValid(Dictionary<string, int> items, TreasureRando treasureRando)
+            {
+                if (Traits.Contains("EP") && !HasEP(items, treasureRando))
+                    return false;
+
+                if (!Requirements.IsValid(items))
+                    return false;
+                return true;
+            }
+
+            public bool HasEP(Dictionary<string, int> items, TreasureRando treasureRando)
+            {
+                QuestRando questRando = treasureRando.randomizers.Get<QuestRando>("Quests");
+
+                foreach (DataStoreRQuest quest in questRando.questRewards.Values.Where(q => q.iMaxGp > 0))
+                {
+                    if (quest.name == "qst_027" && treasureRando.treasureData["tre_qst_027"].IsValid(items, treasureRando)) // Peace and Quiet, Kupo
+                        return true;
+                    if (quest.name == "qst_028" && treasureRando.treasureData["tre_qst_028"].IsValid(items, treasureRando)) // Saving an Angel
+                        return true;
+                    if (quest.name == "qst_046" && treasureRando.treasureData["tre_qst_046"].IsValid(items, treasureRando)) // Adonis's Audition
+                        return true;
+                    if (quest.name == "qst_062" && treasureRando.treasureData["tre_qst_062"].IsValid(items, treasureRando)) // Fighting Actress
+                        return true;
+                    if (quest.name == "qst_9000" && treasureRando.hintData["fl_mnlx_005e"].Requirements.IsValid(items)) // 1-5
+                        return true;
+                    if (quest.name == "qst_9010" && treasureRando.hintData["fl_mnyu_004e"].Requirements.IsValid(items)) // 2-3
+                        return true;
+                    if (quest.name == "qst_9020" && treasureRando.hintData["fl_mndd_005e"].Requirements.IsValid(items)) // 4-5
+                        return true;
+                    if (quest.name == "qst_9030" && treasureRando.hintData["fl_mnwl_003e"].Requirements.IsValid(items)) // 3-3
+                        return true;
+                    /*if (quest.name == "qst_9040" && treasureData["tre_qst_027_2"].Requirements.IsValid(items)) // Ereshkigal (Missable)
+                        return true;*/
+                    if (quest.name == "qst_9050" && treasureRando.hintData["fl_mnsz_001e"].Requirements.IsValid(items))
+                        return true;
+                }
+                return false;
             }
         }
 

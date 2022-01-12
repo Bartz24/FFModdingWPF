@@ -63,7 +63,10 @@ namespace Bartz24.RandoWPF
                 case "OR":
                     return Or(args.Select(s => Parse(s)).ToArray());
                 case "I":
-                    return Item(args[0], int.Parse(args[1]));
+                    if (args.Count > 1)
+                        return Item(args[0], int.Parse(args[1]));
+                    else
+                        return Item(args[0], 1);
             }
             throw new Exception("Item Requirement parsed is not supported: " + s);
         }

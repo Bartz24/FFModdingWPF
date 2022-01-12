@@ -18,10 +18,10 @@ namespace Bartz24.RandoWPF
         {
             foreach (ItemReq req in reqs)
             {
-                if (!req.IsValid(itemsAvailable))
-                    return false;
+                if (req.IsValid(itemsAvailable))
+                    return true;
             }
-            return true;
+            return false;
         }
 
         public override List<string> GetPossibleRequirements()

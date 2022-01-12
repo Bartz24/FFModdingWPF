@@ -149,19 +149,6 @@ awp_regen2
 awp_near_b
 awp_bulet2
 awp_bulet1
-auto_p_veil
-auto_p_shel
-spa_6110
-spa_6111
-spa_6112
-auto_p_prot
-spa_6100
-spa_6101
-spa_6102
-auto_p_hast
-auto_p_forc
-auto_p_fait
-auto_p_brav
 awp_wdef201_0
 acc_b_9080
 awp_wdef200_0
@@ -210,7 +197,6 @@ acc_a_7000
 acc_b_6220
 acc_b_6210
 acc_b_6200
-spa_6200
 spa_6210
 spa_6160
 spa_6161

@@ -85,8 +85,7 @@ namespace LRRando
                 {
                     Text = "Randomize EP Costs",
                     FlagID = "RandEPCost",
-                    DescriptionFormat = "Randomize the EP costs of EP Abilities.\n" +
-                    "Min of 0 on Normal for Escape.\n" +
+                    DescriptionFormat = "Randomize the EP costs of EP Abilities except Escape.\n" +
                     "Min of 1 on Normal for Esunada, Decoy, Army of One, Chronostasis.\n" +
                     "Min of 2 on Normal for Curaga, Arise, Quake, Overclock, Teleport.\n" +
                     "Max of 5 on Normal for all."
@@ -97,7 +96,7 @@ namespace LRRando
                     Text = "Lower Min EP Cost",
                     ID = "EPZero",
                     Description = "Lowers the minimum EP costs to the following on Normal\n." +
-                    "Allows for EP costs of 0 on Easy or Normal for some abilities aside from Escape:\n" +
+                    "Allows for EP costs of 0 on Easy or Normal for some abilities:\n" +
                     "Min of 0 on Normal for Esunada, Decoy, Army of One, Chronostasis.\n" +
                     "Min of 1 on Normal for Curaga, Arise, Quake, Overclock, Teleport.\n"
                 }.Register(EPCosts);
@@ -253,7 +252,7 @@ namespace LRRando
                     ID = "KeyMain",
                     Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
                     "The following key items will be included in the pool based on the set level:\n" +
-                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Fragment of Kindness, Moogle Fragment, Sneaking-In Special Ticket, ID Card, Midnight Mauve, Serah's Pendant, Dead Dunes Tablets, Dr. Gysahl's Gysahl Greens, Seedhunter Membership Card"
+                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Fragment of Kindness, Moogle Fragment, Beloved's Gift, Sneaking-In Special Ticket, ID Card, Midnight Mauve, Serah's Pendant, Dead Dunes Tablets, Dr. Gysahl's Gysahl Greens, Seedhunter Membership Card"
                 }.Register(Treasures);
                 KeySide = (ToggleFlagProperty)new ToggleFlagProperty()
                 {

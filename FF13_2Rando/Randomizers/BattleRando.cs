@@ -82,6 +82,22 @@ namespace FF13_2Rando
                 {
                     List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Select(s => enemyData[s]).ToList();
                     int count = oldEnemies.Count;
+                    if (!FF13_2Flags.Enemies.LargeEnc.Enabled)
+                        count = Math.Min(4, count);
+                    if (count > oldEnemies.Count)
+                    {
+                        for (int i = oldEnemies.Count; i < count; i++)
+                        {
+                            oldEnemies.Add(oldEnemies[RandomNum.RandInt(0, oldEnemies.Count - 1)]);
+                        }
+                    }
+                    if (count < oldEnemies.Count)
+                    {
+                        for (int i = oldEnemies.Count; i > count; i--)
+                        {
+                            oldEnemies.RemoveAt(RandomNum.RandInt(0, oldEnemies.Count - 1));
+                        }
+                    }
                     if (count > 0)
                     {
                         if (!oldEnemies[0].Traits.Contains("Boss") || FF13_2Flags.Enemies.Bosses.Enabled)
@@ -312,13 +328,16 @@ namespace FF13_2Rando
                 dict.Add("btsc07820", new string[] { "chset_gdza_p3r" });
                 dict.Add("btsc07830", new string[] { "chset_gdza_p3t" });
 
-                dict.Add("btsc08000", new string[] { "chset_acea_001" });
+                dict.Add("btsc08000", new string[] { "chset_acea_001", "chset_acea_002" });
+                dict.Add("btsc08001", new string[] { "chset_acea_001", "chset_acea_002" });
+                dict.Add("btsc08002", new string[] { "chset_acea_001", "chset_acea_002" });
+                dict.Add("btsc08003", new string[] { "chset_acea_001", "chset_acea_002" });
                 dict.Add("btsc08510", new string[] { "chset_acea_001", "chset_acea_002" });
                 dict.Add("btsc08511", new string[] { "chset_acea_001", "chset_acea_002" });
                 dict.Add("btsc08512", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08020", new string[] { "chset_acea_001" });
-                dict.Add("btsc08021", new string[] { "chset_acea_001" });
-                dict.Add("btsc08022", new string[] { "chset_acea_001" });
+                dict.Add("btsc08020", new string[] { "chset_acea_001", "chset_acea_002" });
+                dict.Add("btsc08021", new string[] { "chset_acea_001", "chset_acea_002" });
+                dict.Add("btsc08022", new string[] { "chset_acea_001", "chset_acea_002" });
                 dict.Add("btsc08023", new string[] { "chset_acea_001" });
                 dict.Add("btsc08032", new string[] { "chset_acea_001" });
                 dict.Add("btsc08040", new string[] { "chset_acea_001", "chset_acea_002" });

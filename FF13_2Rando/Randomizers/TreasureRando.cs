@@ -48,6 +48,8 @@ namespace FF13_2Rando
                     treasureData.Add(t.ID, t);
                 }
             }
+
+            AddTreasure("ran_init_cp", "", 0, "");
         }
 
         public void AddTreasure(string newName, string item, int count, string next)
@@ -90,6 +92,11 @@ namespace FF13_2Rando
 
                 RandomNum.ClearRand();
 
+            }
+
+            if (FF13_2Flags.Other.InitCP.FlagEnabled)
+            {
+                treasures["ran_init_cp"].iItemCount = FF13_2Flags.Other.InitCPAmount.Value;
             }
         }
         /*

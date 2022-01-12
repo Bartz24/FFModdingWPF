@@ -61,6 +61,9 @@ namespace LRRando
 
             autoAbilities.Values.Where(a => a.i16AutoAblArgInt0 >= 32768).ForEach(a => a.i16AutoAblArgInt0 -= 65536);
             autoAbilities.Values.Where(a => a.i16AutoAblArgInt1 >= 32768).ForEach(a => a.i16AutoAblArgInt1 -= 65536);
+
+            itemAbilities.Values.Where(i => i.i8AtbDec >= 128).ForEach(i => i.i8AtbDec -= 256);
+            itemAbilitiesOrig.Values.Where(i => i.i8AtbDec >= 128).ForEach(i => i.i8AtbDec -= 256);
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -308,6 +311,8 @@ namespace LRRando
         {
             itemWeapons.Values.Where(w => w.i16AtbSpeedModVal < 0).ForEach(w => w.i16AtbSpeedModVal += 65536);
             itemWeapons.Values.Where(w => w.i16MagicModVal < 0).ForEach(w => w.i16MagicModVal += 65536);
+
+            itemAbilities.Values.Where(i => i.i8AtbDec < 0).ForEach(i => i.i8AtbDec += 256);
 
             itemWeapons.SaveDB3(@"\db\resident\item_weapon.wdb");
             items.SaveDB3(@"\db\resident\item.wdb");

@@ -33,6 +33,7 @@ namespace Bartz24.RandoWPF
 
         public int MaxValue { get; set; }
         public int MinValue { get; set; }
+        public int StepSize { get; set; } = 1;
 
         public string ValueText { get; set; } = "Value:";
 

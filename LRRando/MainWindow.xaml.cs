@@ -86,13 +86,13 @@ namespace LRRando
         private async void generateButton_Click(object sender, RoutedEventArgs e)
         {
             RandomizerManager randomizers = new RandomizerManager();
+            randomizers.Add(new QuestRando(randomizers));
             randomizers.Add(new TreasureRando(randomizers));
             randomizers.Add(new EquipRando(randomizers));
             randomizers.Add(new ShopRando(randomizers));
             randomizers.Add(new AbilityRando(randomizers));
             randomizers.Add(new EnemyRando(randomizers));
             randomizers.Add(new BattleRando(randomizers));
-            randomizers.Add(new QuestRando(randomizers));
             randomizers.Add(new MusicRando(randomizers));
             randomizers.Add(new TextRando(randomizers));
 

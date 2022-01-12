@@ -66,7 +66,7 @@ namespace LRRando
                     List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Where(s =>
                             !s.EndsWith("tuto") || s == "m352_tuto" || s == "m390_tuto" || LRFlags.Enemies.Prologue.Enabled).Select(s => enemyData[s]).ToList();
                     int count = oldEnemies.Count;
-                    if (LRFlags.Enemies.EncounterSize.Enabled && count > 0 && oldEnemies[0].Class != "Boss" && !oldEnemies[0].ID.EndsWith("tuto"))
+                    if (LRFlags.Enemies.EncounterSize.Enabled && count > 0 && oldEnemies[0].Class != "Boss" && !oldEnemies[0].ID.EndsWith("tuto") && b.name != "btsc08601")
                     {
                         count = RandomNum.RandInt(Math.Max(1, count - 2), Math.Min(10, count + 2));
                         if (count > oldEnemies.Count)

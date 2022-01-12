@@ -71,7 +71,6 @@ namespace LRRando
             {
                 LRFlags.StatsAbilities.EPCosts.SetRand();
 
-                int min0 = 0;
                 int min1 = LRFlags.StatsAbilities.EPCostsZero.Enabled ? 0 : 1;
                 int min2 = LRFlags.StatsAbilities.EPCostsZero.Enabled ? 1 : 2;
 
@@ -81,7 +80,6 @@ namespace LRRando
                 abilities["ti500_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti500_00"].i17AtbCount / 2000) * 2000;
                 abilities["ti600_00"].i17AtbCount = RandomEPCost(min1, 5, abilities["ti600_00"].i17AtbCount / 2000) * 2000;
                 abilities["ti810_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti810_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti830_00"].i17AtbCount = RandomEPCost(min0, 5, abilities["ti830_00"].i17AtbCount / 2000) * 2000;
                 abilities["ti840_00"].i17AtbCount = RandomEPCost(min1, 5, abilities["ti840_00"].i17AtbCount / 2000) * 2000;
                 abilities["ti900_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti900_00"].i17AtbCount / 2000) * 2000;
                 abilities["at900_00"].i17AtbCount = RandomEPCost(min1, 5, abilities["at900_00"].i17AtbCount / 2000) * 2000;
