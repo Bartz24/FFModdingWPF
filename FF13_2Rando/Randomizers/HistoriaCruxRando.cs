@@ -18,6 +18,7 @@ namespace FF13_2Rando
         public DataStoreDB3<DataStoreRGateTable> gateTableOrig = new DataStoreDB3<DataStoreRGateTable>();
 
         Dictionary<string, GateData> gateData = new Dictionary<string, GateData>();
+        Dictionary<string, AreaData> areaData = new Dictionary<string, AreaData>();
 
         Dictionary<string, string> placement = new Dictionary<string, string>();
 
@@ -44,6 +45,15 @@ namespace FF13_2Rando
                 {
                     GateData t = new GateData(csv.Record);
                     gateData.Add(t.ID, t);
+                }
+            }
+            areaData.Clear();
+            using (CsvParser csv = new CsvParser(new StreamReader(@"data\areas.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
+            {
+                while (csv.Read())
+                {
+                    AreaData a = new AreaData(csv.Record);
+                    areaData.Add(a.ID, a);
                 }
             }
         }
@@ -193,9 +203,15 @@ namespace FF13_2Rando
             if (available.Contains("h_sn_AD0300") && available.Contains("h_gd_NA0000") && available.Contains("h_gh_AD0010") && available.Contains("h_cl_NA0000"))
             wilds.Add("h_cs_NA0000"); // Serendipity. requires completing Yaschas 1X and Sunleth 300
 
-            int wildsUsed = soFar.Keys.SelectMany(open => GetIDsForOpening(open)).Distinct().Where(id => gateData[id].Traits.Contains("Wild")).Count();
+            int wildsNeeded = available.SelectMany(l => 
+            gateData.Values.Where(g =>
+              g.Location == l &&
+              g.Traits.Contains("Wild") &&
+              g.Requirements.Intersect(available).Count() == g.Requirements.Count &&
+              GetMogLevel(available) >= g.MinMogLevel)
+            ).Count();
 
-            if (available.Intersect(wilds).Count() < wildsUsed + 1)
+            if (available.Intersect(wilds).Count() < wildsNeeded)
                 return false;
             return true;
         }
@@ -225,19 +241,19 @@ namespace FF13_2Rando
 
             return list.Distinct().ToList();
         }
-        /*
+        
         public override HTMLPage GetDocumentation()
         {
             HTMLPage page = new HTMLPage("Historia Crux", "template/documentation.html");
 
             page.HTMLElements.Add(new Table("", (new string[] { "Original Gate", "New Location" }).ToList(), (new int[] { 60, 40 }).ToList(),
-                gateData.Values.Select(g =>
-            {
-                List<string> names = g.GetCharSpecs().Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : (e + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
-                return new string[] { g.GateOriginal, string.Join(",", names) }.ToList();
-            }).ToList()));
+                gateData.Values.Where(g => !g.Traits.Contains("Paradox")).Select(g =>
+              {
+                  string id = gateTable[g.ID].sOpenHistoria1_string;
+                  return new string[] { g.GateOriginal, areaData[id.Substring(0, id.Length - 2)].Name }.ToList();
+              }).ToList()));
             return page;
-        }*/
+        }
 
         public override void Save()
         {
@@ -260,6 +276,16 @@ namespace FF13_2Rando
                 Requirements = row[3].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 MinMogLevel = int.Parse(row[4]);
                 GateOriginal = row[5];
+            }
+        }
+        public class AreaData
+        {
+            public string ID { get; set; }
+            public string Name { get; set; }
+            public AreaData(string[] row)
+            {
+                ID = row[0];
+                Name = row[1];
             }
         }
     }

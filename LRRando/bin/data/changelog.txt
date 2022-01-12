@@ -11,11 +11,4 @@ If you need to view these instructions again, click the Changelog button in the 
 
 0.4.5 Changelog:
 
--Fixed What's in a Brew requirements
--Fixed 6 EP chests not checking EP requirements
--Fixed 0 ATB costs
--Moved Curaga hint location from Yusnaan to Ark
--Removed Escape from EP cost rando
--Removed recovery items from battle rewards
--Removed broken Critical passives and the Tithed Bravery disguised as Tithed Vigilance
--2 Set fight encounter size forced to 2 enemies
+-Fixed manually setting the LR path not working correctly

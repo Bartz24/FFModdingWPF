@@ -56,8 +56,8 @@ namespace FF13_2Rando
                 string path = dialog.SelectedPath.Replace("/", "\\") + SetupData.PathRegistrySearch["LR"];
                 if (File.Exists(path))
                 {
-                    SetupData.Paths["LR"] = path + SetupData.PathRegistrySearch["LR"];
-                    File.WriteAllLines(SetupData.PathFileName, SetupData.Paths.Select(p => $"{p.Key};{p.Value}"));
+                    SetupData.Paths["LR"] = dialog.SelectedPath.Replace("/", "\\");
+                    SaveRandoPaths();
                     steamPathLRText.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
                 }
                 else
@@ -77,7 +77,7 @@ namespace FF13_2Rando
                 if (File.Exists(path))
                 {
                     SetupData.Paths["Nova"] = path;
-                    File.WriteAllLines(SetupData.PathFileName, SetupData.Paths.Select(p => $"{p.Key};{p.Value + (SetupData.PathRegistrySearch.ContainsKey(p.Key) ? SetupData.PathRegistrySearch[p.Key] : "")}"));
+                    SaveRandoPaths();
                     novaPathText.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
                 }
                 else
@@ -95,8 +95,8 @@ namespace FF13_2Rando
                 string path = dialog.SelectedPath.Replace("/", "\\") + SetupData.PathRegistrySearch["13"];
                 if (File.Exists(path))
                 {
-                    SetupData.Paths["13"] = path + SetupData.PathRegistrySearch["13"];
-                    File.WriteAllLines(SetupData.PathFileName, SetupData.Paths.Select(p => $"{p.Key};{p.Value}"));
+                    SetupData.Paths["13"] = dialog.SelectedPath.Replace("/", "\\");
+                    SaveRandoPaths();
                     steamPath13Text.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
                 }
                 else
@@ -115,13 +115,18 @@ namespace FF13_2Rando
                 string path = dialog.SelectedPath.Replace("/", "\\") + SetupData.PathRegistrySearch["13-2"];
                 if (File.Exists(path))
                 {
-                    SetupData.Paths["13-2"] = path + SetupData.PathRegistrySearch["13-2"];
-                    File.WriteAllLines(SetupData.PathFileName, SetupData.Paths.Select(p => $"{p.Key};{p.Value}"));
+                    SetupData.Paths["13-2"] = dialog.SelectedPath.Replace("/", "\\");
+                    SaveRandoPaths();
                     steamPath13_2Text.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
                 }
                 else
                     MessageBox.Show("Make sure the folder is something like 'FINAL FANTASY XIII-2'.", "The selected folder is not valid");
             }
+        }
+
+        private void SaveRandoPaths()
+        {
+            File.WriteAllLines(SetupData.PathFileName, SetupData.Paths.Select(p => $"{p.Key};{p.Value + (SetupData.PathRegistrySearch.ContainsKey(p.Key) ? SetupData.PathRegistrySearch[p.Key] : "")}"));
         }
     }
 }

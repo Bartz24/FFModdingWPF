@@ -7,10 +7,10 @@ fl_mnyu_001e,2-0,
 fl_mnyu_002e,2-1,AND(I(key_y_ticket|1)|I(key_y_id|1))
 fl_mnyu_003e,2-2,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1))
 fl_mnyu_004e,2-3,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1))
-fl_mnwl_001e,3-1,
+fl_mnwl_001e,3-1,AND(I(key_w_yasai_t|1)|I(key_s_kairaku|1)|I(key_w_mogsoul|1)|I(key_soulcd|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1))
 fl_mnwl_002e,3-2,I(key_w_yasai_t|1)
 fl_mnwl_003e,3-3,I(key_w_yasai_t|1)
-fl_mnsz_001e,5-1,AND(I(key_w_yasai_t|1)|I(key_s_kairaku|1)|I(key_w_mogsoul|1)|I(key_soulcd|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1))
+fl_mnsz_001e,5-1,I(key_w_yasai_t|1)
 fl_mnsz_002e,5-2,I(key_w_yasai_t|1)
 fl_mnsz_003e,5-3,AND(I(key_s_okuri|1)|I(key_w_yasai_t|1))
 fl_mnsz_004e,5-4,AND(I(key_w_mogsoul|1)|I(key_w_yasai_t|1)|I(key_soulcd|1))

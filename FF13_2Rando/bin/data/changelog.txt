@@ -1,8 +1,5 @@
-0.4.5 Changelog:
+0.4.6 Changelog:
 
--Added crystarium ability rando
--Added flag for initial CP up to 20000
--Encounters limited to max 4 in size (can be turned off with a flag)
--Fixed more Academia 400 empty encounters (I know I'm still missing one)
--Removed Chaos Bahamut and Long Gui from pools
--Lowered Beach Caius strength and magic from 30% -> 20%
+-Fixed manually setting the 13-2 path not working correctly
+-Improved and maybe fixed wild artefact logic
+-Added Historia Crux documentation
