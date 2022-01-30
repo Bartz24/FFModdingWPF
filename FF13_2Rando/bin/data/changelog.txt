@@ -1,5 +1,5 @@
-0.4.6 Changelog:
+0.4.7 Changelog:
 
--Fixed manually setting the 13-2 path not working correctly
--Improved and maybe fixed wild artefact logic
--Added Historia Crux documentation
+-Fixed some non-randoed bosses being empty/not working
+-Removed TP passives and added Haste, Water, Watera, Waterga
+-Removed Beach Caius from pool as his location breaks other Caiuses

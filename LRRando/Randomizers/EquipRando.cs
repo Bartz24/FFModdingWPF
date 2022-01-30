@@ -178,7 +178,8 @@ namespace LRRando
                 };
                 float[] weights = new float[] { 3, 1 };
                 int[] zeros = new int[] { 50, 5 };
-                StatPoints statPoints = new StatPoints(bounds, weights, zeros);
+                int[] negs = new int[] { 50, 0 };
+                StatPoints statPoints = new StatPoints(bounds, weights, zeros, negs);
                 statPoints.Randomize(new int[] { garb.i16AtbModVal, garb.i16AtbStartModVal });
 
                 garb.i16AtbModVal = statPoints[0];
@@ -210,7 +211,8 @@ namespace LRRando
                     };
                     float[] weights = new float[] { 2, 2, 3, 6, 4 };
                     int[] zeros = new int[] { 10, 10, 85, 60, 80 };
-                    statPoints = new StatPoints(bounds, weights, zeros);
+                    int[] negs = new int[] { 15, 15, 40, 10, 5 };
+                    statPoints = new StatPoints(bounds, weights, zeros, negs);
                     statPoints.Randomize(new int[] { weapon.i16AttackModVal, weapon.i16MagicModVal, weapon.i16HpModVal, weapon.i16AtbSpeedModVal, weapon.iBreakBonus });
                 }
                 while (starting && statPoints[0] < 50 && statPoints[1] < 50);
@@ -244,7 +246,8 @@ namespace LRRando
                     };
                     float[] weights = new float[] { 6, 6, 2, 4, 4 };
                     int[] zeros = new int[] { 90, 90, 40, 30, 20 };
-                    statPoints = new StatPoints(bounds, weights, zeros);
+                    int[] negs = new int[] { 30, 30, 15, 5, 0 };
+                    statPoints = new StatPoints(bounds, weights, zeros, negs);
                     statPoints.Randomize(new int[] { shield.i16AttackModVal, shield.i16MagicModVal, shield.i16HpModVal, shield.i16AtbSpeedModVal, shield.iGuardModVal });
                 }
                 while (starting && (statPoints[0] < 0 || statPoints[1] < 0));

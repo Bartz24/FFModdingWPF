@@ -9,6 +9,13 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.4.5 Changelog:
+0.4.7 Changelog:
 
--Fixed manually setting the LR path not working correctly
+-Added garb specific fanfares to music pool as separate flag
+-Lowered the chance of negative stats significantly to more closely match vanilla
+-CoP will be randomly be forced to have less items to vary up some seeds
+-Lowered Zaltys+/++ HP and increased Zaltys++ STR/MAG slightly
+-Cleaned up longer item location names
+-Fixed A Rose by Another Name, A Man for a Chocobo Girl requirements
+-Fixed broken 3-1/5-1 hints again
+-Fixed UI typos

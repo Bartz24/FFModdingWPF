@@ -205,17 +205,20 @@ namespace FF13_2Rando
                             noEntry = false;
                     }
                 }
-                if (noEntry)
+                if (newEnemies.Count > 0)
                 {
-                    btScenes[btsceneName].s10BtChEntryId_string = "";
-                    btScenes[btsceneName].s10PartyEntryId_string = "";
+                    if (noEntry)
+                    {
+                        btScenes[btsceneName].s10BtChEntryId_string = "";
+                        btScenes[btsceneName].s10PartyEntryId_string = "";
+                    }
+                    else
+                    {
+                        btScenes[btsceneName].s10BtChEntryId_string = "btsc_def_e00";
+                        btScenes[btsceneName].s10PartyEntryId_string = "btsc_def_p00";
+                    }
+                    charSpecs.AddRange(newEnemies.Select(e => e.ID));
                 }
-                else
-                {
-                    btScenes[btsceneName].s10BtChEntryId_string = "btsc_def_e00";
-                    btScenes[btsceneName].s10PartyEntryId_string = "btsc_def_p00";
-                }
-                charSpecs.AddRange(newEnemies.Select(e => e.ID));
             }
             else
             {

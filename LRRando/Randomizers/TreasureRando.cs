@@ -178,6 +178,8 @@ namespace LRRando
                         randomZeros.Add(hintsNotesCount.Keys.Where(l => !randomZeros.Contains(l)).ToList().Shuffle().First());
                 }
 
+                float copMult = RandomNum.RandInt(12, 100) / 100f;
+
                 for (int i = 0; i < keys.Where(t => IsHintable(t)).Count(); i++)
                 {
                     Func<string, long> weight = loc => {
@@ -185,7 +187,11 @@ namespace LRRando
                             return 0;
 
                         int max = treasureData.Keys.Where(t => treasureData[t].Location == loc && !treasureData[t].Traits.Contains("Missable")).Count();
-                        return (long)(100 * Math.Pow(1 - (hintsNotesCount[loc] / (float)max), 4));
+                        long val = (long)(100 * Math.Pow(1 - (hintsNotesCount[loc] / (float)max), 4));
+
+                        if (loc.Contains("CoP"))
+                            val = (long)(val * copMult);
+                        return val;
                     };
                     string next = RandomNum.SelectRandomWeighted(hintsNotesCount.Keys.ToList(), weight);
                     hintsNotesCount[next]++;
@@ -344,7 +350,8 @@ namespace LRRando
         {
             if (LRFlags.Items.KeyDepth.SelectedValue == LRFlags.Items.KeyDepth.Values[LRFlags.Items.KeyDepth.Values.Count - 1])
             {
-                KeyValuePair<string, int> pair = possible.ToDictionary(s => s, s => GetNextDepth(items, soFar, depths, s)).OrderByDescending(p => p.Value).First();
+                IOrderedEnumerable<KeyValuePair<string, int>> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, soFar, depths, s)).OrderByDescending(p => p.Value);
+                KeyValuePair<string, int> pair = possDepths.First();
                 return new Tuple<string, int>(pair.Key, pair.Value);
             }
             else

@@ -12,12 +12,14 @@ namespace Bartz24.RandoWPF
         private Tuple<int, int>[] Bounds { get; set; }
         private float[] Weights { get; set; }
         private int[] ZeroChances { get; set; }
-        public StatPoints(Tuple<int, int>[] bounds, float[] weights, int[] zeroChances)
+        private int[] NegChances { get; set; }
+        public StatPoints(Tuple<int, int>[] bounds, float[] weights, int[] zeroChances, int[] negChances)
         {
             Values = new StatValues(bounds.Length);
             Bounds = bounds;
             Weights = weights;
             ZeroChances = zeroChances;
+            NegChances = negChances;
         }
 
         public void Randomize(int[] actual)
@@ -34,15 +36,17 @@ namespace Bartz24.RandoWPF
                         {
                             if (RandomNum.RandInt(0, 99) < ZeroChances[i])
                                 return new Tuple<int, int>(0, 0);
+                            else if (RandomNum.RandInt(0, 99) >= NegChances[i])
+                                return new Tuple<int, int>(0, (int)(Bounds[i].Item2 * Weights[i]));
                             else
                                 return new Tuple<int, int>((int)(Bounds[i].Item1 * Weights[i]), (int)(Bounds[i].Item2 * Weights[i]));
                         }).ToArray();
-                    } while (modBounds.Length > 1 && modBounds.Distinct().Count() == 1 && modBounds.First().Item1 == 0 && modBounds.First().Item2 == 0);
+                    } while (modBounds.Where(b => b.Item2 == 0).Count() == Bounds.Count());
 
                     total = Enumerable.Range(0, Bounds.Length).Select(i =>
                     {
                         int val = (int)((actual[i] - Bounds[i].Item1) * Weights[i]);
-                        if (modBounds[i].Item1 == 0 && modBounds[i].Item2 == 0)
+                        if (modBounds[i].Item1 == 0)
                             val += (int)(Bounds[i].Item1 * Weights[i]);
                         return val;
                     }).Sum();

@@ -1,8 +1,11 @@
 ﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
+using CsvHelper;
+using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,6 +18,7 @@ namespace LRRando
         List<string> soundFiles = new List<string>();
         List<string> newSoundFiles = new List<string>();
         Dictionary<string, string> names = new Dictionary<string, string>();
+        Dictionary<string, MusicData> musicData = new Dictionary<string, MusicData>();
 
         public MusicRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -29,13 +33,24 @@ namespace LRRando
 
         public override void Load()
         {
-            soundFiles.AddRange(File.ReadAllLines("data\\musicLR.csv"));
+            musicData.Clear();
+            using (CsvParser csv = new CsvParser(new StreamReader(@"data\musicLR.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
+            {
+                while (csv.Read())
+                {
+                    MusicData m = new MusicData(csv.Record);
+                    musicData.Add(m.Path, m);
+                }
+            }
         }
         public override void Randomize(Action<int> progressSetter)
         {
             if (LRFlags.Other.Music.FlagEnabled)
             {
                 LRFlags.Other.Music.SetRand();
+                soundFiles = musicData.Keys.ToList();
+                if (!LRFlags.Other.FanfareMusic.Enabled)
+                    soundFiles = soundFiles.Where(p => !musicData[p].Traits.Contains("DLC")).ToList();
                 newSoundFiles = soundFiles.Shuffle().ToList();
                 RandomNum.ClearRand();
             }
@@ -54,6 +69,17 @@ namespace LRRando
             {
                 Directory.CreateDirectory(Path.GetDirectoryName($"{SetupData.OutputFolder}\\{newSoundFiles[i]}"));
                 File.Copy($"{Nova.GetNovaFile("LR", soundFiles[i], SetupData.Paths["Nova"], SetupData.Paths["LR"])}", $"{SetupData.OutputFolder}\\{newSoundFiles[i]}", true);
+            }
+        }
+
+        public class MusicData
+        {
+            public string Path { get; set; }
+            public List<string> Traits { get; set; }
+            public MusicData(string[] row)
+            {
+                Path = row[0];
+                Traits = row[1].Split("|").ToList();
             }
         }
     }

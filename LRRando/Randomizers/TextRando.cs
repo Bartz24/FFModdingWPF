@@ -53,6 +53,7 @@ namespace LRRando
 
             mainSysUS["$m_001"] = "Rando: Slaughterhouse Special";
             mainSysUS["$m_001_ac000"] = "Used for tracking in the randomizer. You have checked the Fragment of Courage location in Yusnaan.";
+
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -69,7 +70,132 @@ namespace LRRando
                 {
                 }
             }
+            
+            LRFlags.Other.HintsPilgrim.SetRand();
+
+            //EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
+            //RandomizeWords(equipRando.items.Values.Where(i => i.sItemNameStringId_string != "").Select(i => i.sItemNameStringId_string).ToList());
+
+            RandomNum.ClearRand();
         }
+
+        private void RandomizeWords(List<string> validKeys)
+        {
+            Dictionary<string, int> wordDictionary = GetWords(validKeys);
+            List<DataStoreZTRText> ztrs = new List<DataStoreZTRText>();
+            ztrs.Add(mainSysUS);
+            ztrs.Add(zone100SysUS);
+
+            ztrs.ForEach(ztr =>
+            {
+                ztr.Keys.Where(k => validKeys.Contains(k)).ForEach(k =>
+                {
+                    string[] parts = SplitString(ztr[k]);
+                    for (int i = 0; i < parts.Length; i++)
+                    {
+                        string word = parts[i];
+                        if (!Punctuation.Contains(word.ToLower()) && !string.IsNullOrWhiteSpace(word) && (!word.StartsWith("{") || word.StartsWith("{Key")) && !int.TryParse(word, out int _) && !IgnoredWords.Contains(word.ToLower()))
+                        {
+                            string next = RandomNum.SelectRandomWeighted(wordDictionary.Keys.ToList(), s => wordDictionary[s]);
+                            string modified = next;
+
+                            if (word.ToUpper() == word)
+                                modified = modified.ToUpper();
+                            if (word.Length > 1 && word[0].ToString().ToUpper() == word[0].ToString())
+                                modified = modified[0].ToString().ToUpper() + modified.Substring(1);
+                            parts[i] = modified;
+
+                            wordDictionary[next]--;
+                            if (wordDictionary[next] == 0)
+                                wordDictionary.Remove(next);
+                        }
+                    }
+                    ztr[k] = string.Join("", parts);
+                });
+            });
+        }
+
+        private Dictionary<string, int> GetWords(List<string> validKeys)
+        {
+            Dictionary<string, int> dict = new Dictionary<string, int>();
+            List<DataStoreZTRText> ztrs = new List<DataStoreZTRText>();
+            ztrs.Add(mainSysUS);
+            ztrs.Add(zone100SysUS);
+
+            ztrs.ForEach(ztr =>
+            {
+                ztr.Keys.Where(k => validKeys.Contains(k)).ForEach(k =>
+                {
+                    string[] parts = SplitString(ztr[k]);
+                    foreach (string w in parts.Where(w => !Punctuation.Contains(w.ToLower()) && !string.IsNullOrWhiteSpace(w) && !IgnoredWords.Contains(w.ToLower())))
+                    {
+                        string add = w.ToLower();
+                        if (w.StartsWith("{"))
+                        {
+                            if (!w.StartsWith("{Key"))
+                                continue;
+                            add = w;
+                        }
+
+                        if (int.TryParse(w, out int _))
+                            continue;
+                        if (dict.ContainsKey(add))
+                            dict[add] += 1;
+                        else
+                            dict.Add(add, 1);
+                    }
+                });
+            });
+
+            return dict;
+        }
+
+        private string[] SplitString(string value)
+        {
+            List<string> parts = new List<string>();
+            bool foundPunc = true;
+            while (foundPunc)
+            {
+                foundPunc = false;
+                string leftmostPunc = "";
+                int leftmostPuncIndex = -1;
+                foreach (string p in Punctuation)
+                {
+                    int puncIndex = value.IndexOf(p);
+                    if (puncIndex != -1 && (leftmostPuncIndex == -1 || puncIndex < leftmostPuncIndex))
+                    {
+                        leftmostPunc = p;
+                        leftmostPuncIndex = puncIndex;
+                        foundPunc = true;
+                    }
+                }
+                if (foundPunc)
+                {
+                    if (leftmostPuncIndex > 0)
+                    {
+                        parts.Add(value.Substring(0, leftmostPuncIndex));
+                    }
+                    if (leftmostPunc == "{")
+                    {
+                        parts.Add(value.Substring(leftmostPuncIndex, value.IndexOf("}") - leftmostPuncIndex + 1));
+                        value = value.Substring(value.IndexOf("}") + 1);
+                    }
+                    else
+                    {
+                        parts.Add(leftmostPunc);
+                        value = value.Substring(leftmostPuncIndex + leftmostPunc.Length);
+                    }
+                }
+                else
+                {
+                    parts.Add(value);
+                }
+            }
+            return parts.ToArray();
+        }
+
+        private string[] Punctuation { get; set; } = new string[] { " ", ".", ",", "{Text NewLine}", "!", "{", "(", ")", "?", ":", "-", "+" };
+        private string[] IgnoredWords { get; set; } = new string[] { "of", "the", "at", "a", "in", "on", "its", "an" };
 
         private string GetHash()
         {

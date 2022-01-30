@@ -279,7 +279,7 @@ namespace LRRando
                     "Levels:\n" +
                     "    Key Items Only - Key items are shuffled between themselves.\n" +
                     "    Treasures - Key items are also allowed in treasures/Learned EP ability spots.\n" +
-                    "    Quests - Key items are also allowed in side quests and Non-Global Canvas of Prayers.\n" +
+                    "    Quests - Key items are also allowed in side quests and Global Canvas of Prayers.\n" +
                     "    CoP - Key items are also allowed in all Canvas of Prayers.\n" +
                     "    Grindy - Key items are also allowed in 20+ Soul Seed rewards and 10+ Unappraised Items.\n",
                     Values = new string[] { "Key Items Only", "Treasures", "Quests", "CoP", "Grindy" }.ToList()
@@ -328,6 +328,7 @@ namespace LRRando
             public static Flag HintsMain, HintsNotes, HintsEP, HintsPilgrim;
             public static ComboBoxFlagProperty HintsSpecific;
             public static ToggleFlagProperty HintsDepth;
+            public static ToggleFlagProperty FanfareMusic;
 
             internal static void Init()
             {
@@ -338,6 +339,13 @@ namespace LRRando
                     DescriptionFormat = "Shuffle music around.",
                     Aesthetic = true
                 }.Register(FlagType.Other);
+
+                FanfareMusic = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Additional Fanfares",
+                    ID = "Fanfare",
+                    Description = "Include the additional garb specific fanfares in the pool."
+                }.Register(Music);
 
                 HintsMain = new Flag()
                 {

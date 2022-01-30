@@ -84,7 +84,6 @@ auto_att_8,Strength: +35%,,,
 auto_att_9,Strength: +50%,,,
 auto_b_atb,Kill: ATB Charge,,,
 auto_b_libra,Kill: Libra,,,
-auto_b_tp,Kill: TP Charge,,,
 auto_babl,Auto-Barfrost,,,
 auto_brav,Auto-Bravery,,,
 auto_cp,Bonus CP,,,
@@ -236,7 +235,6 @@ auto_syncdanger,Feral Fatigue,,,
 auto_syncmax,Feral Surge,,,
 auto_syncup,Feral Speed II,,,
 auto_syncups,Feral Speed,,,
-auto_tpbonus,Victory: TP Charge,,,
 auto_triplets,Pack Mentality,,,
 auto_veil,Auto-Veil,,,
 auto_weeks,Weak Spot,,,
@@ -356,3 +354,7 @@ mw100_00,Raise,MED,,OR(I(mw000_00)|I(mw010_00)|I(mw020_00)|I(mw030_00))
 mw200_00,Esuna,MED,,OR(I(mw000_00)|I(mw010_00)|I(mw020_00)|I(mw030_00))
 mw210_00,Esunada,MED,,OR(I(mw000_00)|I(mw010_00)|I(mw020_00)|I(mw030_00))
 mw900_00,Cheer,MED,,OR(I(mw000_00)|I(mw010_00)|I(mw020_00)|I(mw030_00))
+me020_00,Haste,SYN,,
+mb300_00,Water,RAV,,
+mb310_00,Watera,RAV,,
+mb320_00,Waterga,RAV,,

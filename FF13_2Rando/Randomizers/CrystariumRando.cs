@@ -61,7 +61,7 @@ namespace FF13_2Rando
                     List<string> learned = new List<string>();
                     crystSerah.Values.Where(c => c.sAbilityId_string != "").ForEach(c =>
                     {
-                        string next = GetPossiblePc(c.sAbilityId_string, learned, GetPcRole(c.u4Role), c.u7Lv == 1).Shuffle().First();
+                        string next = GetPossiblePc(learned, GetPcRole(c.u4Role), c.u7Lv == 1).Shuffle().First();
                         learned.Add(next);
                         c.sAbilityId_string = next;
                     });
@@ -70,7 +70,7 @@ namespace FF13_2Rando
                     List<string> learned = new List<string>();
                     crystNoel.Values.Where(c => c.sAbilityId_string != "").ForEach(c =>
                     {
-                        string next = GetPossiblePc(c.sAbilityId_string, learned, GetPcRole(c.u4Role), c.u7Lv == 1).Shuffle().First();
+                        string next = GetPossiblePc(learned, GetPcRole(c.u4Role), c.u7Lv == 1).Shuffle().First();
                         learned.Add(next);
                         c.sAbilityId_string = next;
                     });
@@ -83,7 +83,7 @@ namespace FF13_2Rando
                       {
                           if (abilityData.ContainsKey(orig[i]))
                           {
-                              string next = GetPossibleMon(orig[i], learned, GetMonsterRole(m.u5RoleStyle)).Shuffle().First();
+                              string next = GetPossibleMon(learned, GetMonsterRole(m.u5RoleStyle)).Shuffle().First();
                               learned.Add(next);
                           }
                           else
@@ -95,7 +95,7 @@ namespace FF13_2Rando
             }
         }
 
-        private List<string> GetPossiblePc(string original, List<string> learned, string role, bool level1)
+        private List<string> GetPossiblePc(List<string> learned, string role, bool level1)
         {
             List<AbilityData> list = abilityData.Values.Where(a => a.Role == role && !a.Traits.Contains("Mon") && !learned.Contains(a.ID)).ToList();
 
@@ -106,7 +106,7 @@ namespace FF13_2Rando
             return list.Select(a => a.ID).ToList();
         }
 
-        private List<string> GetPossibleMon(string original, List<string> learned, string role)
+        private List<string> GetPossibleMon(List<string> learned, string role)
         {
             List<AbilityData> list = new List<AbilityData>();
             while (list.Count == 0) {

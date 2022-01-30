@@ -1,8 +1,8 @@
-﻿tre_box_b_008,Dead Dunes,Dead Dunes Temple Ruins Golden Scarab,CoPKey,,1
-tre_box_b_009,Dead Dunes,Dead Dunes Oasis Lighthouse Key To The Sand Gate,CoPKey,,1
-tre_box_b_011,Dead Dunes,Dead Dunes Shrine At Grave Of The Colossi Bandit's Bloodseal,CoPKey,,0
+﻿tre_box_b_008,Dead Dunes,Dead Dunes Golden Scarab,CoPKey,,1
+tre_box_b_009,Dead Dunes,Dead Dunes Oasis Lighthouse,CoPKey,,1
+tre_box_b_011,Dead Dunes,Dead Dunes Shrine At Grave Of The Colossi,CoPKey,,0
 tre_box_d_001,Dead Dunes,Dead Dunes Giant's Sandbox,,,0
-tre_box_d_002,Dead Dunes,Dead Dunes Temple Ruins Golden Chamber Lower,,,1
+tre_box_d_002,Dead Dunes,Dead Dunes Golden Chamber Lower,,,1
 tre_box_d_003,Dead Dunes,Dead Dunes Giant's Sandbox,,,0
 tre_box_d_004,Dead Dunes,Dead Dunes Giant's Sandbox,,,0
 tre_box_d_005,Dead Dunes,Dead Dunes Giant's Sandbox,,,0
@@ -16,30 +16,30 @@ tre_box_d_012,Dead Dunes,Dead Dunes Grave Of The Colossi,,,0
 tre_box_d_013,Dead Dunes,Dead Dunes Grave Of The Colossi,,,0
 tre_box_d_014,Dead Dunes,Dead Dunes Atomos's Sand,,,0
 tre_box_d_015,Dead Dunes,Dead Dunes Ruffian 2nd Floor,,,0
-tre_box_d_016,Dead Dunes,Dead Dunes Temple Ruins Chamber Of Dusk Upper,,,1
-tre_box_d_017,Dead Dunes,Dead Dunes Temple Ruins Chamber Of Plenilune Upper,,,1
-tre_box_d_018,Dead Dunes,Dead Dunes Temple Ruins Chamber Of Plenilune Upper,,,1
-tre_box_d_019,Dead Dunes,Dead Dunes Temple Ruins Chamber Of Plenilune Upper,,,1
-tre_box_d_020,Dead Dunes,Dead Dunes Temple Ruins Chamber Of Plenilune Lower,,,1
-tre_box_d_021,Dead Dunes,Dead Dunes Temple Ruins Chamber Of Plenilune Lower,,,1
-tre_box_d_022,Dead Dunes,Dead Dunes Temple Ruins Chamber Of Plenilune Lower,,,1
-tre_box_d_023,Dead Dunes,Dead Dunes Temple Ruins Sacred Grove,,,1
-tre_box_d_024,Dead Dunes,Dead Dunes Temple Ruins Golden Chamber Upper,,,1
+tre_box_d_016,Dead Dunes,Dead Dunes Chamber Of Dusk Upper,,,1
+tre_box_d_017,Dead Dunes,Dead Dunes Chamber Of Plenilune Upper,,,1
+tre_box_d_018,Dead Dunes,Dead Dunes Chamber Of Plenilune Upper,,,1
+tre_box_d_019,Dead Dunes,Dead Dunes Chamber Of Plenilune Upper,,,1
+tre_box_d_020,Dead Dunes,Dead Dunes Chamber Of Plenilune Lower,,,1
+tre_box_d_021,Dead Dunes,Dead Dunes Chamber Of Plenilune Lower,,,1
+tre_box_d_022,Dead Dunes,Dead Dunes Chamber Of Plenilune Lower,,,1
+tre_box_d_023,Dead Dunes,Dead Dunes Sacred Grove,,,1
+tre_box_d_024,Dead Dunes,Dead Dunes Golden Chamber Upper,,,1
 tre_box_d_025,Dead Dunes,Dead Dunes Shrine At Dry Floodlands,,,0
-tre_box_d_026,Dead Dunes,Dead Dunes Temple Ruins Golden Chamber Lower,,,1
-tre_box_d_027,Dead Dunes,Dead Dunes Temple Ruins Golden Chamber Lower,,,1
-tre_box_d_028,Dead Dunes,Dead Dunes Temple Ruins Golden Chamber Lower,,,1
-tre_box_d_029,Dead Dunes,Dead Dunes Temple Ruins Scorched Earth Lower,EP,,1
-tre_box_d_030,Dead Dunes,Dead Dunes Temple Ruins Scorched Earth Upper,,,1
-tre_box_d_031,Dead Dunes,Dead Dunes Temple Ruins Scorched Earth Upper,,,1
-tre_box_d_032,Dead Dunes,Dead Dunes Temple Ruins Golden Chamber Upper,,,1
+tre_box_d_026,Dead Dunes,Dead Dunes Golden Chamber Lower,,,1
+tre_box_d_027,Dead Dunes,Dead Dunes Golden Chamber Lower,,,1
+tre_box_d_028,Dead Dunes,Dead Dunes Golden Chamber Lower,,,1
+tre_box_d_029,Dead Dunes,Dead Dunes Scorched Earth Lower,EP,,1
+tre_box_d_030,Dead Dunes,Dead Dunes Scorched Earth Upper,,,1
+tre_box_d_031,Dead Dunes,Dead Dunes Scorched Earth Upper,,,1
+tre_box_d_032,Dead Dunes,Dead Dunes Golden Chamber Upper,,,1
 tre_box_d_033,Dead Dunes,Dead Dunes Shrine At Atomos's Sands,,,0
 tre_box_d_034,Dead Dunes,Dead Dunes Giant's Sandbox,,,0
 tre_box_d_035,Dead Dunes,Dead Dunes Dry Floodlands,,,0
 tre_d_seki_1,Dead Dunes,Dead Dunes Shrine Tablet,MainKey,,1
 tre_d_seki_2,Dead Dunes,Dead Dunes Shrine Tablet,MainKey,,1
 tre_d_seki_3,Dead Dunes,Dead Dunes Shrine Tablet,MainKey,,1
-tre_key_d_bakt,Dead Dunes,Dead Dunes Temple Ruins Sacred Grove Bhakti,Missable|Quest,,1
+tre_key_d_bakt,Dead Dunes,Dead Dunes Bhakti,Missable|Quest,,1
 tre_key_dkye1,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
 tre_key_dkye10,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
 tre_key_dkye11,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
@@ -113,8 +113,8 @@ tre_qst_003,Luxerion,Quest Like Clockwork,Quest,,1
 tre_qst_003_2,Luxerion,Quest Like Clockwork,Quest,,1
 tre_qst_004,Luxerion,Quest Dying Wish,Quest,AND(I(key_j_kino|1)|I(key_niku|1)|I(key_ninjin|1)),1
 tre_qst_004_2,Luxerion,Quest Dying Wish,Quest,AND(I(key_j_kino|1)|I(key_niku|1)|I(key_ninjin|1)),1
-tre_qst_005,Luxerion,Quest Suspicious Supply Device,Quest,I(key_kyu_pass|1),1
-tre_qst_005_2,Luxerion,Quest Suspicious Supply Device,Quest,I(key_kyu_pass|1),1
+tre_qst_005,Luxerion,Quest Suspicious Spheres,Quest,I(key_kyu_pass|1),1
+tre_qst_005_2,Luxerion,Quest Suspicious Spheres,Quest,I(key_kyu_pass|1),1
 tre_qst_006,Luxerion,Quest Born From Chaos,Quest,,1
 tre_qst_006_2,Luxerion,Quest Born From Chaos,Quest,,1
 tre_qst_006_3,Luxerion,Quest Born From Chaos,Quest,,1
@@ -143,10 +143,10 @@ tre_qst_016,Luxerion,Quest Stuck In A Gem,Quest,,2
 tre_qst_016_2,Luxerion,Quest Stuck In A Gem,Quest,,2
 tre_qst_017,Luxerion,Quest Get The Girl,Quest,,2
 tre_qst_017_2,Luxerion,Quest Get The Girl,Quest,,2
-tre_qst_019,Luxerion,Quest A Rose By Any Other Name,Quest,,4
-tre_qst_019_2,Luxerion,Quest A Rose By Any Other Name,Quest,,4
-tre_qst_019_3,Luxerion,Quest A Rose By Any Other Name,Quest,,4
-tre_qst_019_4,Luxerion,Quest A Rose By Any Other Name,Quest,,4
+tre_qst_019,Luxerion,Quest A Rose By Any Other Name,Quest,I(key_l_hana|1),4
+tre_qst_019_2,Luxerion,Quest A Rose By Any Other Name,Quest,I(key_l_hana|1),4
+tre_qst_019_3,Luxerion,Quest A Rose By Any Other Name,Quest,I(key_l_hana|1),4
+tre_qst_019_4,Luxerion,Quest A Rose By Any Other Name,Quest,I(key_l_hana|1),4
 tre_qst_020,Luxerion,Quest Voices From The Grave,Quest,,3
 tre_qst_020_2,Luxerion,Quest Voices From The Grave,Quest,,3
 tre_qst_091,Luxerion,Quest To Save The Sinless,Missable|Quest,,4
@@ -156,7 +156,7 @@ tre_box_b_004,Wildlands,Wildlands Moogle Village Moogle Dust,CoPKey,,2
 tre_box_b_005,Wildlands,Wildlands Research Camp Photo Frame,CoPKey,,2
 tre_box_b_006,Wildlands,Wildlands Poltae Etro's Forbidden Tome,CoPKey,,2
 tre_box_b_007,Wildlands,Wildlands North Broken Gyroscope,CoPKey,I(key_w_yasai_t|1),2
-tre_box_b_010,Wildlands,Wildlands South Of Aryas Village Key To The Green Gate,CoPKey,,0
+tre_box_b_010,Wildlands,Wildlands South Of Aryas Village,CoPKey,,0
 tre_box_w_000,Wildlands,Wildlands Jagd Woods,,I(key_w_yasai_t|1),2
 tre_box_w_001,Wildlands,Wildlands Grasslands,,I(key_w_yasai_t|1),2
 tre_box_w_002,Wildlands,Wildlands Poltae,,I(key_w_yasai_t|1),2
@@ -351,10 +351,10 @@ tre_box_p_107,Ark,Ark Day 9,,,6
 tre_box_p_108,Ark,Ark Day 10,Missable,,7
 tre_box_p_109,Ark,Ark Day 11,Missable,,8
 tre_box_p_110,Ark,Ark Day 12,Missable,,9
-tre_box_p_111,Ark,Ark Day Final Day,Missable,,10
-tre_box_p_111_2,Ark,Ark Day Final Day,Missable,,10
-tre_box_p_111_3,Ark,Ark Day Final Day,Missable,,10
-tre_box_p_112,Ark,Ark Day Extra Day,Missable,,11
+tre_box_p_111,Ark,Ark Final Day,Missable,,10
+tre_box_p_111_2,Ark,Ark Final Day,Missable,,10
+tre_box_p_111_3,Ark,Ark Final Day,Missable,,10
+tre_box_p_112,Ark,Ark Extra Day,Missable,,11
 tre_ti000,Ark,Replace EP Ability Curaga,EP,,0
 tre_ti810,Ark,Replace EP Ability Teleport,EP,,0
 tre_ti830,Ark,Replace EP Ability Escape,EP,,0
@@ -550,9 +550,9 @@ tre_qst_1071_2,CoP Yusnaan,CoP Quest Unfired Firework,CoP,AND(I(key_y_ticket|1)|
 tre_qst_1072,CoP Yusnaan,CoP Quest Time Doesn't Heal,CoP,AND(I(key_b_16|1)|I(key_b_17|1)),1
 tre_qst_1072_1,CoP Yusnaan,CoP Quest Time Doesn't Heal,CoP,AND(I(key_b_16|1)|I(key_b_17|1)),1
 tre_qst_1072_2,CoP Yusnaan,CoP Quest Time Doesn't Heal,CoP,AND(I(key_b_16|1)|I(key_b_17|1)),1
-tre_qst_1073,CoP Yusnaan,CoP Quest A Man For A Chocobo Girl,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(cos_fa00|1)),3
-tre_qst_1073_1,CoP Yusnaan,CoP Quest A Man For A Chocobo Girl,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(cos_fa00|1)),3
-tre_qst_1073_2,CoP Yusnaan,CoP Quest A Man For A Chocobo Girl,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(cos_fa00|1)),3
+tre_qst_1073,CoP Yusnaan,CoP Quest A Man For A Chocobo Girl,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(key_y_ticket|1)|I(cos_fa00|1)),3
+tre_qst_1073_1,CoP Yusnaan,CoP Quest A Man For A Chocobo Girl,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(key_y_ticket|1)|I(cos_fa00|1)),3
+tre_qst_1073_2,CoP Yusnaan,CoP Quest A Man For A Chocobo Girl,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(key_y_ticket|1)|I(cos_fa00|1)),3
 tre_qst_1074,CoP Yusnaan,CoP Quest Rebuilding,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),1
 tre_qst_1074_1,CoP Yusnaan,CoP Quest Rebuilding,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),1
 tre_qst_1301,CoP Global,CoP Quest Global: Key To Her Heart,Quest,AND(I(key_s_okuri|1)|I(key_w_yasai_t|1)),2
@@ -592,11 +592,11 @@ tre_seed_1st_01,Soul Seeds/Unappraised,20 Soul Seeds,Grindy,I(key_soulcd|1),4
 tre_seed_1st_02,Soul Seeds/Unappraised,30 Soul Seeds,Grindy,I(key_soulcd|1),7
 tre_seed_1st_03,Soul Seeds/Unappraised,40 Soul Seeds,Grindy,I(key_soulcd|1),8
 tre_seed_1st_04,Soul Seeds/Unappraised,50 Soul Seeds,Grindy,I(key_soulcd|1),9
-tre_key_d_kant1,Soul Seeds/Unappraised,Dead Dunes Unappraised 1,Pilgrim|Quest,I(key_d_lupe|1),1
-tre_key_d_kant2,Soul Seeds/Unappraised,Dead Dunes Unappraised 5,Quest,I(key_d_lupe|1),2
-tre_key_d_kant3,Soul Seeds/Unappraised,Dead Dunes Unappraised 10,Grindy|Quest,I(key_d_lupe|1),4
-tre_key_d_kant4,Soul Seeds/Unappraised,Dead Dunes Unappraised 20,Grindy|Quest,I(key_d_lupe|1),6
-tre_key_d_kant5,Soul Seeds/Unappraised,Dead Dunes Unappraised 50,Grindy|Quest,I(key_d_lupe|1),8
+tre_key_d_kant1,Soul Seeds/Unappraised,1 Unappraised,Pilgrim|Quest,I(key_d_lupe|1),1
+tre_key_d_kant2,Soul Seeds/Unappraised,5 Unappraised,Quest,I(key_d_lupe|1),2
+tre_key_d_kant3,Soul Seeds/Unappraised,10 Unappraised,Grindy|Quest,I(key_d_lupe|1),4
+tre_key_d_kant4,Soul Seeds/Unappraised,20 Unappraised,Grindy|Quest,I(key_d_lupe|1),6
+tre_key_d_kant5,Soul Seeds/Unappraised,50 Unappraised,Grindy|Quest,I(key_d_lupe|1),8
 tre_drp_hunnu,Drops,Cactair Fragment of Kindness,Battle|MainKey,,1
 tre_drp_keisan,Drops,Goblots Arithmometer,Battle|SideKey,,1
 tre_drp_kaban,Drops,Gremlins Music Satchel,Battle|SideKey,,0

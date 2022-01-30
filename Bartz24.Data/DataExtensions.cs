@@ -230,5 +230,13 @@ namespace Bartz24.Data
             double scale = Math.Pow(10, Math.Floor(Math.Log10(Math.Abs(i))) + 1);
             return (int)(scale * Math.Round(i / scale, digits));
         }
+
+        public static string ToLowerFirstChar(this string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input;
+
+            return char.ToLower(input[0]) + input.Substring(1);
+        }
     }
 }
