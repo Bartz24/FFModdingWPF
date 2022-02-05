@@ -26,7 +26,7 @@ namespace Bartz24.FF13_2_LR
         public T this[string id]
         {
             get { return Data[id]; }
-        }
+        }        
 
         public List<string> Keys { get => Data.Keys.ToList(); }
         public List<T> Values { get => Data.Values.ToList(); }

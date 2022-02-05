@@ -67,11 +67,15 @@ tre_qst_046,Dead Dunes,Quest Adonis's Audition,Quest,,1
 tre_qst_046_2,Dead Dunes,Quest Adonis's Audition,Quest,,1
 tre_qst_047,Dead Dunes,Quest What Rough Beast Slouches,Quest,,8
 tre_qst_047_2,Dead Dunes,Quest What Rough Beast Slouches,Quest,,8
-tre_qst_048,Dead Dunes,Quest Skeletons In The Closet,Missable|Quest,,7
-tre_qst_048_2,Dead Dunes,Quest Skeletons In The Closet,Missable|Quest,,7
+tre_qst_048,Dead Dunes,Quest Skeletons In The Closet,Quest,I(key_d_sekiban|1),5
+tre_qst_048_2,Dead Dunes,Quest Skeletons In The Closet,Quest,I(key_d_sekiban|1),5
 tre_qst_049,Dead Dunes,Quest Last One Standing,Missable|Quest,,10
 tre_qst_049_2,Dead Dunes,Quest Last One Standing,Missable|Quest,,10
 tre_qst_049_3,Dead Dunes,Quest Last One Standing,Missable|Quest,,10
+tre_drp_hunnu,Dead Dunes,Cactair Fragment of Kindness,Battle|MainKey,,1
+tre_drp_keisan,Dead Dunes,Goblots Arithmometer,Battle|SideKey,,1
+tre_acc_a_9060,Dead Dunes,Grendel/Parandus Drop At Dead Dunes,Battle,I(key_d_sekiban|3),2
+tre_acc_a_9200,Dead Dunes,Aeronite Drop,Missable,,8
 tre_box_b_000,Luxerion,Luxerion Cathedral Proof Of Courage,CoPKey,,0
 tre_box_b_001,Luxerion,Luxerion Pilgrim's Passage Violet Amulet,CoPKey,,0
 tre_box_l_000,Luxerion,Luxerion North Station Plaza Ladder,,,0
@@ -152,6 +156,8 @@ tre_qst_020_2,Luxerion,Quest Voices From The Grave,Quest,,3
 tre_qst_091,Luxerion,Quest To Save The Sinless,Missable|Quest,,4
 tre_qst_091_2,Luxerion,Quest To Save The Sinless,Missable|Quest,,4
 tre_ti840,Luxerion,Replace EP Ability Chronostasis,EP,,0
+tre_wea_oa00,Luxerion,Boss Drop At Luxerion,Battle,,3
+tre_wea_oa01,Luxerion,Boss+ Only Drop At Luxerion,Missable,,6
 tre_box_b_004,Wildlands,Wildlands Moogle Village Moogle Dust,CoPKey,,2
 tre_box_b_005,Wildlands,Wildlands Research Camp Photo Frame,CoPKey,,2
 tre_box_b_006,Wildlands,Wildlands Poltae Etro's Forbidden Tome,CoPKey,,2
@@ -241,6 +247,7 @@ tre_qst_082,Wildlands,Quest Matchmaker,Quest,I(key_w_yasai_t|1),4
 tre_qst_082_2,Wildlands,Quest Matchmaker,Quest,I(key_w_yasai_t|1),4
 tre_qst_083,Wildlands,Quest Mother And Daughter,Quest,I(key_w_yasai_t|1),4
 tre_qst_083_2,Wildlands,Quest Mother And Daughter,Quest,I(key_w_yasai_t|1),4
+tre_wea_oa02,Wildlands,Boss Drop At Wildlands,Battle,I(key_w_yasai_t|1),4
 tre_box_b_002,Yusnaan,Yusnaan Reveler's Quarter Lapis Lazuli,CoPKey,,0
 tre_box_b_003,Yusnaan,Yusnaan Industrial Area Power Booster,CoPKey,AND(I(key_y_id|1)|I(key_y_ticket|1)),2
 tre_box_b_012,Yusnaan,Yusnaan Tunnel Oath Of The Merchants Guild,CoPKey,,0
@@ -305,9 +312,9 @@ tre_qst_066,Yusnaan,Quest A Testing Proposition,Quest,,4
 tre_qst_066_2,Yusnaan,Quest A Testing Proposition,Quest,,4
 tre_qst_067,Yusnaan,Quest Last Date,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
 tre_qst_067_2,Yusnaan,Quest Last Date,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
-tre_qst_068,Yusnaan,Quest Free Will,Missable|Quest,,6
-tre_qst_068_2,Yusnaan,Quest Free Will,Missable|Quest,,6
-tre_qst_068_3,Yusnaan,Quest Free Will,Missable|Quest,,6
+tre_qst_068,Yusnaan,Quest Free Will,Quest,,6
+tre_qst_068_2,Yusnaan,Quest Free Will,Quest,,6
+tre_qst_068_3,Yusnaan,Quest Free Will,Quest,,6
 tre_qst_069,Yusnaan,Quest Friends Forever,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
 tre_qst_069_2,Yusnaan,Quest Friends Forever,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
 tre_qst_069_3,Yusnaan,Quest Friends Forever,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
@@ -332,6 +339,9 @@ tre_qst_077_2,Yusnaan,Quest Death Game,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)
 tre_qst_077_3,Yusnaan,Quest Death Game,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),7
 tre_y_kagi1,Yusnaan,Morris Musical Treasure Sphere Key,SideKey,,0
 tre_key_y_serap,Yusnaan,Patron's Palace Serah's Pendant,MainKey,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),2
+tre_drp_kaban,Yusnaan,Gremlins Music Satchel,Battle|SideKey,,0
+tre_drp_bashira,Yusnaan,Schrodinger Civet Musk,Battle|SideKey,,1
+tre_acc_a_9050,Yusnaan,Boss Drop At Yusnaan,Battle,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),4
 tre_box_p_000,Ark,Ark Day 1,Same,,0
 tre_box_p_001,Ark,Ark Day 1,Same,,0
 tre_box_p_002,Ark,Ark Day 1,Same,,0
@@ -597,57 +607,47 @@ tre_key_d_kant2,Soul Seeds/Unappraised,5 Unappraised,Quest,I(key_d_lupe|1),2
 tre_key_d_kant3,Soul Seeds/Unappraised,10 Unappraised,Grindy|Quest,I(key_d_lupe|1),4
 tre_key_d_kant4,Soul Seeds/Unappraised,20 Unappraised,Grindy|Quest,I(key_d_lupe|1),6
 tre_key_d_kant5,Soul Seeds/Unappraised,50 Unappraised,Grindy|Quest,I(key_d_lupe|1),8
-tre_drp_hunnu,Drops,Cactair Fragment of Kindness,Battle|MainKey,,1
-tre_drp_keisan,Drops,Goblots Arithmometer,Battle|SideKey,,1
-tre_drp_kaban,Drops,Gremlins Music Satchel,Battle|SideKey,,0
-tre_drp_bashira,Drops,Schrodinger Civet Musk,Battle|SideKey,,1
-tre_acc_a_9060,Drops,Grendel/Parandus Drop At Dead Dunes,Missable,,4
-tre_wea_oa00,Drops,Boss Drop At Luxerion,Missable,,3
-tre_wea_oa01,Drops,Boss+ Drop At Luxerion And Noel++ Drop If At Ultimate Lair,Missable,,6
-tre_wea_oa02,Drops,Boss Drop At Wildlands And Caius+ Drop If At Ultimate Lair,Missable,,4
-tre_acc_a_9050,Drops,Boss Drop At Yusnaan And Snow+++ Drop If At Ultimate Lair,Missable,,4
-tre_acc_a_9200,Drops,Aeronite Drop,Missable,,8
-tre_acc_a_9210,Drops,Ereshkigal Drop If At Ultimate Lair,Missable,,10
-tre_acc_a_9000,Drops,Gorgonopsid Omega Drop,Missable,,6
-tre_acc_a_9010,Drops,Zaltys Omega Drop,Missable,,6
-tre_acc_a_9020,Drops,Miniflan Omega Drop,Missable,,6
-tre_acc_a_9030,Drops,Hanuman Omega Drop,Missable,,6
-tre_acc_a_9040,Drops,Zomok Omega Drop,Missable,,6
-tre_acc_a_9070,Drops,Goblin Omega Drop,Missable,,6
-tre_acc_a_9080,Drops,Gremlin Omega Drop,Missable,,6
-tre_acc_a_9090,Drops,Niblet Omega Drop,Missable,,6
-tre_acc_a_9100,Drops,Goblot Omega Drop,Missable,,6
-tre_acc_a_9110,Drops,Triffid Omega Drop,Missable,,6
-tre_acc_a_9120,Drops,Schrodinger Omega Drop,Missable,,6
-tre_acc_a_9130,Drops,Earth Eater Omega Drop,Missable,,6
-tre_acc_a_9140,Drops,Chocobo Eater Omega Drop,Missable,,6
-tre_acc_a_9150,Drops,Desert Sahagin Omega Drop,Missable,,6
-tre_acc_a_9160,Drops,Sugriva Omega Drop,Missable,,6
-tre_acc_a_9170,Drops,Chimera Omega Drop,Missable,,6
-tre_acc_a_9180,Drops,Rafflesia Omega Drop,Missable,,6
-tre_acc_a_9190,Drops,Cactuar Omega Drop,Missable,,6
-tre_acc_a_9220,Drops,Gurangatch Omega Drop,Missable,,6
-tre_acc_b_9000,Drops,Skata'Ne Omega Drop,Missable,,6
-tre_acc_b_9010,Drops,Dryad Omega Drop,Missable,,6
-tre_acc_b_9020,Drops,Dreadnought Omega Drop,Missable,,6
-tre_acc_b_9030,Drops,Hoplite Omega Drop,Missable,,6
-tre_acc_b_9040,Drops,Aster Protoflorian Omega Drop,Missable,,6
-tre_acc_b_9050,Drops,Gaunt Omega Drop,Missable,,6
-tre_acc_b_9070,Drops,Arcangeli Omega Drop,Missable,,6
-tre_acc_b_9080,Drops,Ectopudding Omega Drop,Missable,,6
-tre_acc_b_9090,Drops,Meonekton Omega Drop,Missable,,6
-tre_wea_oa05,Drops,Cyclops Omega Drop,Missable,,6
-tre_wea_oa07,Drops,Reaver Omega Drop,Missable,,6
-tre_wea_oa13,Drops,Skeleton Omega Drop,Missable,,6
-tre_box_e_000,Ultimate Lair/Final Day,Ultimate Lair,Missable,,9
-tre_box_e_001,Ultimate Lair/Final Day,Ultimate Lair,Missable,,9
-tre_box_e_002,Ultimate Lair/Final Day,Ultimate Lair,Missable,,9
-tre_box_e_003,Ultimate Lair/Final Day,Ultimate Lair,Missable,,9
-tre_box_l_026,Ultimate Lair/Final Day,Final Day Altar Of Salvation,Missable,,9
-tre_box_l_027,Ultimate Lair/Final Day,Final Day Altar Of Judgment,Missable,,9
-tre_box_l_028,Ultimate Lair/Final Day,Final Day Altar Of Atonement,Missable,,9
-tre_box_l_029,Ultimate Lair/Final Day,Final Day Altar Of Birth,Missable,,9
-tre_box_l_030,Ultimate Lair/Final Day,Final Day Temple Of Light,Missable,,9
-tre_box_l_031,Ultimate Lair/Final Day,Final Day Temple Of Light,Missable,,9
-tre_box_l_032,Ultimate Lair/Final Day,Final Day Temple Of Light,Missable,,9
-tre_qst_099,Ultimate Lair/Final Day,Ereshkigal,Missable|Quest,,10
+tre_acc_a_9210,Ultimate Lair,Ultimate Lair Boss Drop,Battle,,10
+tre_acc_a_9000,Ultimate Lair,Gorgonopsid Omega Drop,Battle,,6
+tre_acc_a_9010,Ultimate Lair,Zaltys Omega Drop,Battle,,6
+tre_acc_a_9020,Ultimate Lair,Miniflan Omega Drop,Battle,,6
+tre_acc_a_9030,Ultimate Lair,Hanuman Omega Drop,Battle,,6
+tre_acc_a_9040,Ultimate Lair,Zomok Omega Drop,Battle,,6
+tre_acc_a_9070,Ultimate Lair,Goblin Omega Drop,Battle,,6
+tre_acc_a_9080,Ultimate Lair,Gremlin Omega Drop,Battle,,6
+tre_acc_a_9090,Ultimate Lair,Niblet Omega Drop,Battle,,6
+tre_acc_a_9100,Ultimate Lair,Goblot Omega Drop,Battle,,6
+tre_acc_a_9110,Ultimate Lair,Triffid Omega Drop,Battle,,6
+tre_acc_a_9120,Ultimate Lair,Schrodinger Omega Drop,Battle,,6
+tre_acc_a_9130,Ultimate Lair,Earth Eater Omega Drop,Battle,,6
+tre_acc_a_9140,Ultimate Lair,Chocobo Eater Omega Drop,Battle,,6
+tre_acc_a_9150,Ultimate Lair,Desert Sahagin Omega Drop,Battle,,6
+tre_acc_a_9180,Ultimate Lair,Rafflesia Omega Drop,Battle,,6
+tre_acc_a_9190,Ultimate Lair,Cactuar Omega Drop,Battle,,6
+tre_acc_a_9220,Ultimate Lair,Gurangatch Omega Drop,Battle,,6
+tre_acc_b_9000,Ultimate Lair,Skata'ne Omega Drop,Battle,,6
+tre_acc_b_9010,Ultimate Lair,Dryad Omega Drop,Battle,,6
+tre_acc_b_9020,Ultimate Lair,Dreadnought Omega Drop,Battle,,6
+tre_acc_b_9030,Ultimate Lair,Hoplite Omega Drop,Battle,,6
+tre_acc_b_9040,Ultimate Lair,Aster Protoflorian Omega Drop,Battle,,6
+tre_acc_b_9050,Ultimate Lair,Gaunt Omega Drop,Battle,,6
+tre_acc_b_9080,Ultimate Lair,Ectopudding Omega Drop,Battle,,6
+tre_acc_b_9090,Ultimate Lair,Meonekton Omega Drop,Battle,,6
+tre_wea_oa05,Ultimate Lair,Cyclops Omega Drop,Battle,,6
+tre_wea_oa07,Ultimate Lair,Reaver Omega Drop,Battle,,6
+tre_wea_oa13,Ultimate Lair,Skeleton Omega Drop,Battle,,6
+tre_box_e_000,Ultimate Lair,Ultimate Lair,Battle,,9
+tre_box_e_001,Ultimate Lair,Ultimate Lair,Battle,,9
+tre_box_e_002,Ultimate Lair,Ultimate Lair,Battle,,9
+tre_box_e_003,Ultimate Lair,Ultimate Lair,Battle,,9
+tre_qst_099,Ultimate Lair,Ultimate Lair Boss,Quest,,10
+tre_acc_b_9070,Final Day,Arcangeli Omega Drop,Battle|Missable,,6
+tre_acc_a_9160,Final Day,Sugriva Omega Drop,Battle|Missable,,6
+tre_acc_a_9170,Final Day,Chimera Omega Drop,Battle|Missable,,6
+tre_box_l_026,Final Day,Final Day Altar Of Salvation,Missable,,9
+tre_box_l_027,Final Day,Final Day Altar Of Judgment,Missable,,9
+tre_box_l_028,Final Day,Final Day Altar Of Atonement,Missable,,9
+tre_box_l_029,Final Day,Final Day Altar Of Birth,Missable,,9
+tre_box_l_030,Final Day,Final Day Temple Of Light,Missable,,9
+tre_box_l_031,Final Day,Final Day Temple Of Light,Missable,,9
+tre_box_l_032,Final Day,Final Day Temple Of Light,Missable,,9

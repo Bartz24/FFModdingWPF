@@ -146,7 +146,7 @@ namespace LRRando
 #if DEBUG
                         if (tests)
                         {
-                            RandomNum.SetRand(new Bartz24.RandoWPF.Random());
+                            RandomNum.SetRand(new Random());
                             foreach (Flag flag in Flags.FlagsList)
                             {
                                 if (RandomNum.RandInt(0, 99) < 50)

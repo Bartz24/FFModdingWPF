@@ -53,6 +53,8 @@ namespace LRRando
 
             mainSysUS["$m_001"] = "Rando: Slaughterhouse Special";
             mainSysUS["$m_001_ac000"] = "Used for tracking in the randomizer. You have checked the Fragment of Courage location in Yusnaan.";
+            mainSysUS["$m_001_ac100"] = "Rando: Multiworld Dummy";
+            mainSysUS["$m_002"] = "Used to tell the multiworld program that the item has been added.";
 
         }
         public override void Randomize(Action<int> progressSetter)

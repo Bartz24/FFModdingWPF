@@ -29,6 +29,9 @@ namespace LRRando
 
         Dictionary<string, string> finalPlacement = new Dictionary<string, string>();
 
+        public Dictionary<string, string> BattleDrops = new Dictionary<string, string>();
+        public Dictionary<string, string> OrigBattleDrops = new Dictionary<string, string>();
+
         public List<string> RandomEquip = new List<string>();
         public List<string> RemainingEquip = new List<string>();
 
@@ -100,6 +103,7 @@ namespace LRRando
 
             AddTreasure("ran_rando_id", "false", 1, "");
             AddTreasure("ran_bhuni_p", "false", 1, "");
+            AddTreasure("ran_multi", "rando_multi_item", 9999, "");
 
             hintsNotesLocations.Clear();
             hintsNotesCount.Clear();
@@ -569,10 +573,73 @@ namespace LRRando
 
         public override void Save()
         {
+            SaveHints();
+            SetAndClearBattleDrops();
             treasures.SaveDB3(@"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_treasurebox.wdb");
+        }
 
-            SaveHints();
+        private void SetAndClearBattleDrops()
+        {
+            BattleDrops.Clear();
+            OrigBattleDrops.Clear();
+            AddAndClearBattleDrop("btsc04902", "tre_drp_hunnu");
+            AddAndClearBattleDrop("btsc04900", "tre_drp_keisan");
+            AddAndClearBattleDrop("btsc02902", "tre_drp_kaban");
+            AddAndClearBattleDrop("btsc02952", "tre_drp_bashira");
+
+            AddAndClearBattleDrop("btsc07800", "tre_acc_a_9060");
+            AddAndClearBattleDrop("btsc01800", "tre_wea_oa00");
+            AddAndClearBattleDrop("btsc01801", "tre_wea_oa00");
+            AddAndClearBattleDrop("btsc06800", "tre_wea_oa02");
+            AddAndClearBattleDrop("btsc06801", "tre_wea_oa02");
+            AddAndClearBattleDrop("btsc05900", "tre_acc_a_9050");
+            AddAndClearBattleDrop("btsc05901", "tre_acc_a_9050");
+            AddAndClearBattleDrop("btsc05902", "tre_acc_a_9050");
+            AddAndClearBattleDrop("btsc11900", "tre_acc_a_9210");
+
+            AddAndClearBattleDrop("btsc10020", "tre_acc_a_9000");
+            AddAndClearBattleDrop("btsc10002", "tre_acc_a_9010");
+            AddAndClearBattleDrop("btsc10032", "tre_acc_a_9020");
+            AddAndClearBattleDrop("btsc10027", "tre_acc_a_9030");
+            AddAndClearBattleDrop("btsc10003", "tre_acc_a_9040");
+            AddAndClearBattleDrop("btsc10030", "tre_acc_a_9070");
+            AddAndClearBattleDrop("btsc10029", "tre_acc_a_9080");
+            AddAndClearBattleDrop("btsc10025", "tre_acc_a_9090");
+            AddAndClearBattleDrop("btsc10026", "tre_acc_a_9100");
+            AddAndClearBattleDrop("btsc10022", "tre_acc_a_9110");
+            AddAndClearBattleDrop("btsc10019", "tre_acc_a_9120");
+            AddAndClearBattleDrop("btsc10005", "tre_acc_a_9130");
+            AddAndClearBattleDrop("btsc10004", "tre_acc_a_9140");
+            AddAndClearBattleDrop("btsc10021", "tre_acc_a_9150");
+            AddAndClearBattleDrop("btsc10031", "tre_acc_a_9180");
+            AddAndClearBattleDrop("btsc10035", "tre_acc_a_9190");
+            AddAndClearBattleDrop("btsc10009", "tre_acc_a_9220");
+            AddAndClearBattleDrop("btsc10024", "tre_acc_b_9000");
+            AddAndClearBattleDrop("btsc10015", "tre_acc_b_9010");
+            AddAndClearBattleDrop("btsc10007", "tre_acc_b_9020");
+            AddAndClearBattleDrop("btsc10033", "tre_acc_b_9030");
+            AddAndClearBattleDrop("btsc10008", "tre_acc_b_9040");
+            AddAndClearBattleDrop("btsc10014", "tre_acc_b_9050");
+            AddAndClearBattleDrop("btsc10018", "tre_acc_b_9080");
+            AddAndClearBattleDrop("btsc10023", "tre_acc_b_9090");
+            AddAndClearBattleDrop("btsc10001", "tre_wea_oa05");
+            AddAndClearBattleDrop("btsc10006", "tre_wea_oa07");
+            AddAndClearBattleDrop("btsc10017", "tre_wea_oa13");
+            AddAndClearBattleDrop("btsc10016", "tre_acc_b_9070");
+            AddAndClearBattleDrop("btsc10028", "tre_acc_a_9160");
+            AddAndClearBattleDrop("btsc10000", "tre_acc_a_9170");
+        }
+
+        private void AddAndClearBattleDrop(string btsc, string treasure)
+        {
+            BattleDrops.Add(btsc, treasures[treasure].s11ItemResourceId_string);
+            // Save the treasure drop for docs
+            if (!OrigBattleDrops.ContainsKey(treasure))
+                OrigBattleDrops.Add(treasure, treasures[treasure].s11ItemResourceId_string);
+
+            treasures[treasure].s11ItemResourceId_string = "";
+            treasures[treasure].iItemCount = 0;
         }
 
         private void SaveHints()
@@ -643,6 +710,12 @@ namespace LRRando
 
         public override HTMLPage GetDocumentation()
         {
+            OrigBattleDrops.Keys.ForEach(name =>
+            {
+                treasures[name].s11ItemResourceId_string = OrigBattleDrops[name];
+                treasures[name].iItemCount = 1;
+            });
+
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
 
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Location (for Hints)" }).ToList(), (new int[] { 40, 30, 30 }).ToList(), treasureData.Values.Select(t =>

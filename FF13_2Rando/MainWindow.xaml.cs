@@ -88,8 +88,8 @@ namespace FF13_2Rando
             RandomizerManager randomizers = new RandomizerManager();
             randomizers.Add(new CrystariumRando(randomizers));
             randomizers.Add(new EquipRando(randomizers));
-            randomizers.Add(new TreasureRando(randomizers));
             randomizers.Add(new HistoriaCruxRando(randomizers));
+            randomizers.Add(new TreasureRando(randomizers));
             randomizers.Add(new BattleRando(randomizers));
             randomizers.Add(new EnemyRando(randomizers));
             randomizers.Add(new MusicRando(randomizers));
@@ -145,7 +145,7 @@ namespace FF13_2Rando
 #if DEBUG
                         if (tests)
                         {
-                            RandomNum.SetRand(new Bartz24.RandoWPF.Random());
+                            RandomNum.SetRand(new Random());
                             foreach (Flag flag in Flags.FlagsList)
                             {
                                 if (RandomNum.RandInt(0, 99) < 50)

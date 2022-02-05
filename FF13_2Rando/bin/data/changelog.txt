@@ -1,5 +1,6 @@
-0.4.7 Changelog:
+0.5.0 Changelog:
 
--Fixed some non-randoed bosses being empty/not working
--Removed TP passives and added Haste, Water, Watera, Waterga
--Removed Beach Caius from pool as his location breaks other Caiuses
+-Added basic key item, graviton core, some fragments, and wild artefact rando (and gate seals)
+-Added Kalavinka to the boss pool
+-Item location documentation is now named
+-Removed Area Sweep, elemental Blitzes, Waters, and Bar- abilities

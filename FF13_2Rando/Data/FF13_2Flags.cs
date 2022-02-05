@@ -24,8 +24,8 @@ namespace FF13_2Rando
                 {
                     Text = "Randomize Treasures",
                     FlagID = "Treasures",
-                    DescriptionFormat = "Randomize Treasures.\n" +
-                    "Does not include key items, fragments, or artefacts, or live rewards."
+                    DescriptionFormat = "Randomize treasures and many key items, graviton cores, some fragments, and wild artefacts.\n" +
+                    "Does not include normal artefacts and event based items and fragments."
                 }.Register(FlagType.Items);
             }
         }

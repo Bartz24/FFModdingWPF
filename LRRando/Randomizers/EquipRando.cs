@@ -56,6 +56,12 @@ namespace LRRando
             items["key_r_kanki"].u16SortAllByKCategory = 100;
             items["key_r_kanki"].u16SortCategoryByCategory = 150;
 
+            items.InsertCopyAlphabetical("key_b_20", "key_r_multi");
+            items["key_r_multi"].sItemNameStringId_string = "$m_001_ac100";
+            items["key_r_multi"].sHelpStringId_string = "$m_002";
+            items["key_r_multi"].u16SortAllByKCategory = 101;
+            items["key_r_multi"].u16SortCategoryByCategory = 151;
+
             itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
             itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
 

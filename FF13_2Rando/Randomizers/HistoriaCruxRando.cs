@@ -17,10 +17,10 @@ namespace FF13_2Rando
         public DataStoreDB3<DataStoreRGateTable> gateTable = new DataStoreDB3<DataStoreRGateTable>();
         public DataStoreDB3<DataStoreRGateTable> gateTableOrig = new DataStoreDB3<DataStoreRGateTable>();
 
-        Dictionary<string, GateData> gateData = new Dictionary<string, GateData>();
-        Dictionary<string, AreaData> areaData = new Dictionary<string, AreaData>();
+        public Dictionary<string, GateData> gateData = new Dictionary<string, GateData>();
+        public Dictionary<string, AreaData> areaData = new Dictionary<string, AreaData>();
 
-        Dictionary<string, string> placement = new Dictionary<string, string>();
+        public Dictionary<string, string> placement = new Dictionary<string, string>();
 
         public HistoriaCruxRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -124,7 +124,7 @@ namespace FF13_2Rando
             return possible[RandomNum.RandInt(0, possible.Count - 1)];
         }
 
-        private List<string> GetIDsForOpening(string open)
+        public List<string> GetIDsForOpening(string open)
         {
             return gateData.Keys.Where(id => gateTableOrig[id].sOpenHistoria1_string.StartsWith(open)).ToList();
         }
@@ -147,7 +147,7 @@ namespace FF13_2Rando
             return true;
         }
 
-        private int GetMogLevel(List<string> available)
+        public int GetMogLevel(List<string> available)
         {
             if (available.Contains("h_dd_AD0700"))
                 return 3;
@@ -160,60 +160,72 @@ namespace FF13_2Rando
 
         private bool HasGravitonLocations(List<string> available)
         {
-            List<string> gravitons = new List<string>();
-            if (GetMogLevel(available) >= 1)
-                gravitons.Add("h_hm_AD0003"); // Bodhum 3. requires moogle hunt
-            if (GetMogLevel(available) >= 1)
-                gravitons.Add("h_bj_AD0005"); // Bresha 5. requires moogle hunt
-            if (GetMogLevel(available) >= 1)
-                gravitons.Add("h_gw_AD0200"); // Oerba 200. requires moogle hunt
-            if (GetMogLevel(available) >= 1)
-                gravitons.Add("h_ac_AD0400"); // Academia 400. requires moogle hunt
-            if (GetMogLevel(available) >= 1)
-                gravitons.Add("h_gy_AD0100"); // Yaschas 100. requires moogle hunt
-            if (GetMogLevel(available) >= 1)
-                gravitons.Add("h_gw_AD0400"); // Oerba 400. requires moogle hunt
-            if (GetMogLevel(available) >= 1)
-                gravitons.Add("h_sn_AD0400"); // Sunleth 400. requires moogle hunt
-            if (available.Intersect(gravitons).Count() < 5)
-                return false;
+            if (!FF13_2Flags.Items.Treasures.FlagEnabled)
+            {
+                // If graviton cores aren't rando, use normal logic
+                List<string> gravitons = new List<string>();
+                if (GetMogLevel(available) >= 1)
+                    gravitons.Add("h_hm_AD0003"); // Bodhum 3. requires moogle hunt
+                if (GetMogLevel(available) >= 1)
+                    gravitons.Add("h_bj_AD0005"); // Bresha 5. requires moogle hunt
+                if (GetMogLevel(available) >= 1)
+                    gravitons.Add("h_gw_AD0200"); // Oerba 200. requires moogle hunt
+                if (GetMogLevel(available) >= 1)
+                    gravitons.Add("h_ac_AD0400"); // Academia 400. requires moogle hunt
+                if (GetMogLevel(available) >= 1)
+                    gravitons.Add("h_gy_AD0100"); // Yaschas 100. requires moogle hunt
+                if (GetMogLevel(available) >= 1)
+                    gravitons.Add("h_gw_AD0400"); // Oerba 400. requires moogle hunt
+                if (GetMogLevel(available) >= 1)
+                    gravitons.Add("h_sn_AD0400"); // Sunleth 400. requires moogle hunt
+                if (available.Intersect(gravitons).Count() < 5)
+                    return false;
+            }
             return true;
         }
 
         private bool HasWildArtefacts(Dictionary<string, string> soFar, List<string> available)
         {
-            List<string> wilds = new List<string>();
-            if (GetMogLevel(available) >= 1)
-                wilds.Add("h_bj_AD0005"); // Bresha 5. requires moogle hunt
-            if (GetMogLevel(available) >= 1)
-                wilds.Add("h_bj_AD0300"); // Bresha 300. requires moogle hunt
-            if (GetMogLevel(available) >= 2)
-                wilds.Add("h_gw_AD0200"); // Oerba 200. requires moogle throw
-            if (GetMogLevel(available) >= 2)
-                wilds.Add("h_sn_AD0300"); // Sunleth 300. requires moogle throw
-            if (GetMogLevel(available) >= 2)
-                wilds.Add("h_gd_NA0000"); // Archylte. requires moogle throw
-            wilds.Add("h_gt_AD0200"); // Augusta 200
-            if (GetMogLevel(available) >= 1)
-                wilds.Add("h_aa_AD0400"); // Academia 4XX. requires moogle hunt
-            if (GetMogLevel(available) >= 2)
-                wilds.Add("h_gy_AD0100"); // Yaschas 100. requires moogle hunt and throw
-            if (GetMogLevel(available) >= 1)
-                wilds.Add("h_dd_AD0700"); // Dying World 700. requires moogle hunt
-            if (available.Contains("h_sn_AD0300") && available.Contains("h_gd_NA0000") && available.Contains("h_gh_AD0010") && available.Contains("h_cl_NA0000"))
-            wilds.Add("h_cs_NA0000"); // Serendipity. requires completing Yaschas 1X and Sunleth 300
+            if (!FF13_2Flags.Items.Treasures.FlagEnabled)
+            {
+                // If wild artefacts aren't rando, use normal logic
+                List<string> wilds = new List<string>();
+                if (GetMogLevel(available) >= 1)
+                    wilds.Add("h_bj_AD0005"); // Bresha 5. requires moogle hunt
+                if (GetMogLevel(available) >= 1)
+                    wilds.Add("h_bj_AD0300"); // Bresha 300. requires moogle hunt
+                if (GetMogLevel(available) >= 2)
+                    wilds.Add("h_gw_AD0200"); // Oerba 200. requires moogle throw
+                if (GetMogLevel(available) >= 2)
+                    wilds.Add("h_sn_AD0300"); // Sunleth 300. requires moogle throw
+                if (GetMogLevel(available) >= 2)
+                    wilds.Add("h_gd_NA0000"); // Archylte. requires moogle throw
+                wilds.Add("h_gt_AD0200"); // Augusta 200
+                if (GetMogLevel(available) >= 1)
+                    wilds.Add("h_aa_AD0400"); // Academia 4XX. requires moogle hunt
+                if (GetMogLevel(available) >= 2)
+                    wilds.Add("h_gy_AD0100"); // Yaschas 100. requires moogle hunt and throw
+                if (GetMogLevel(available) >= 1)
+                    wilds.Add("h_dd_AD0700"); // Dying World 700. requires moogle hunt
+                if (available.Contains("h_sn_AD0300") && available.Contains("h_gd_NA0000") && available.Contains("h_gh_AD0010") && available.Contains("h_cl_NA0000"))
+                    wilds.Add("h_cs_NA0000"); // Serendipity. requires completing Yaschas 1X and Sunleth 300
+                int wildsNeeded = GetWildsNeeded(available);
 
-            int wildsNeeded = available.SelectMany(l => 
+                if (available.Intersect(wilds).Count() < wildsNeeded)
+                    return false;
+            }
+            return true;
+        }
+
+        public int GetWildsNeeded(List<string> available)
+        {
+            return available.SelectMany(l =>
             gateData.Values.Where(g =>
               g.Location == l &&
               g.Traits.Contains("Wild") &&
               g.Requirements.Intersect(available).Count() == g.Requirements.Count &&
               GetMogLevel(available) >= g.MinMogLevel)
             ).Count();
-
-            if (available.Intersect(wilds).Count() < wildsNeeded)
-                return false;
-            return true;
         }
 
         private List<string> GetAvailableLocations(Dictionary<string, string> soFar)
@@ -231,9 +243,12 @@ namespace FF13_2Rando
             if (list.Contains("h_gh_AD0010") && list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000"))
                 list.Add("h_sp_NA0001");
 
-            // Unlock Void after Academia 4XX and Graviton
+            // Unlock Dying World/Bodhum 700 after Academia 4XX and Graviton
             if (list.Contains("h_aa_AD0400") && HasGravitonLocations(list))
+            {
                 list.Add("h_dd_AD0700");
+                list.Add("h_hm_AD0700");
+            }
 
             // Unlock Serendipity after Yaschas 1X and Sunleth 300
             if (list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000") && list.Contains("h_gh_AD0010") && list.Contains("h_cl_NA0000"))
@@ -268,6 +283,7 @@ namespace FF13_2Rando
             public List<string> Requirements { get; set; }
             public int MinMogLevel { get; set; }
             public string GateOriginal { get; set; }
+            public ItemReq ItemRequirements { get; set; }
             public GateData(string[] row)
             {
                 Location = row[0];
@@ -276,6 +292,7 @@ namespace FF13_2Rando
                 Requirements = row[3].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 MinMogLevel = int.Parse(row[4]);
                 GateOriginal = row[5];
+                ItemRequirements = ItemReq.Parse(row[6]);
             }
         }
         public class AreaData

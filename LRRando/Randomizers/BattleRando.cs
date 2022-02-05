@@ -16,7 +16,7 @@ namespace LRRando
 {
     public class BattleRando : Randomizer
     {
-        DataStoreDB3<DataStoreBtScene> btScenes = new DataStoreDB3<DataStoreBtScene>();
+        public DataStoreDB3<DataStoreBtScene> btScenes = new DataStoreDB3<DataStoreBtScene>();
         DataStoreDB3<DataStoreRCharaSet> charaSets = new DataStoreDB3<DataStoreRCharaSet>();
         Dictionary<string, EnemyData> enemyData = new Dictionary<string, EnemyData>();
         Dictionary<string, Dictionary<int, BossData>> bossData = new Dictionary<string, Dictionary<int, BossData>>();
@@ -93,7 +93,7 @@ namespace LRRando
 
                             List<EnemyData> validEnemies = enemyData.Values.ToList();
                             int variety = -1;
-                            if (CharaSetMapping.ContainsKey(b.name))
+                            if (CharaSetMapping.ContainsKey(b.name) || oldEnemies.Count > 7)
                             {
                                 // Limit forced fights to a max variety of 3 enemies with no parts to avoid memory? issues
                                 validEnemies = validEnemies.Where(e => e.Parts.Count == 0).ToList();
@@ -223,8 +223,8 @@ namespace LRRando
                     }
                     charSpecs.AddRange(newEnemies.Select(e => e.ID));
                 }
-                newEnemies.Where(e => e.Parts.Count > 0).ForEach(e => charSpecs.AddRange(e.Parts));
             }
+            newEnemies.Where(e => e.Parts.Count > 0).Distinct().ForEach(e => charSpecs.AddRange(e.Parts));
         }
 
         private List<string> IgnoredBtScenes
@@ -292,22 +292,37 @@ namespace LRRando
             {
                 return new string[] { p.Key, p.Value }.ToList();
             }).ToList()));
+
+            page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID (Actual Location TBD)", "New Enemies" }).ToList(), (new int[] { 60, 40 }).ToList(), btScenes.Values.Where(b => int.Parse(b.name.Substring(4)) >= 1100).Select(b =>
+            {
+                List<string> names = b.GetCharSpecs().Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : (e + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
+                return new string[] { b.name, string.Join(",", names) }.ToList();
+            }).ToList()));
+
             return page;
         }
 
         public override void Save()
         {
             // Apply rando drops
-            TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
-            btScenes["btsc04902"].sDropItem0_string = treasureRando.treasures["tre_drp_hunnu"].s11ItemResourceId_string;
-            btScenes["btsc04900"].sDropItem0_string = treasureRando.treasures["tre_drp_keisan"].s11ItemResourceId_string;
-            btScenes["btsc02902"].sDropItem0_string = treasureRando.treasures["tre_drp_kaban"].s11ItemResourceId_string;
-            btScenes["btsc02952"].sDropItem0_string = treasureRando.treasures["tre_drp_bashira"].s11ItemResourceId_string;
+            TransferBattleDrops();
 
             string outPath = SetupData.OutputFolder + @"\db\resident\bt_scene.wdb";
             btScenes.Save(outPath, SetupData.Paths["Nova"]);
             charaSets.SaveDB3(@"\db\resident\_wdbpack.bin\r_charaset.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_charaset.wdb");
+        }
+
+        private void TransferBattleDrops()
+        {
+            TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
+            treasureRando.BattleDrops.Keys.ForEach(btscName =>
+            {
+                btScenes[btscName].sDropItem0_string = treasureRando.BattleDrops[btscName];
+                btScenes[btscName].u16DropProb0 = 10000;
+                btScenes[btscName].u8NumDrop0 = 1;
+
+            });
         }
 
         public class EnemyData

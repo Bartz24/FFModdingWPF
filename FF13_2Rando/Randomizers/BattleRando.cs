@@ -307,6 +307,8 @@ namespace FF13_2Rando
                 dict.Add("btsc02050", new string[] { "chset_bjaa_tuto" });
                 dict.Add("btsc02001", new string[] { "chset_bjaa_tuto" });
 
+                dict.Add("btsc02810", new string[] { "chset_bjba_def" });
+
                 dict.Add("btsc03900", new string[] { "chset_gyaa_020" });
 
                 dict.Add("btsc04900", new string[] { "chset_gwca_def" });
