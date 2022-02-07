@@ -1,6 +1,9 @@
-0.5.0 Changelog:
+0.5.1 Changelog:
 
--Added basic key item, graviton core, some fragments, and wild artefact rando (and gate seals)
--Added Kalavinka to the boss pool
--Item location documentation is now named
--Removed Area Sweep, elemental Blitzes, Waters, and Bar- abilities
+-Added hints to gate seals to hint number of important checks in its location
+-Added Ugallu and Gorgyra to boss pool
+-Added Fang's Crown and Vanille's Fruit to the pool
+-Monsters should get more Auto abilities now
+-Removed Heavy debuffs from pool
+-Removed Augusta 200 enemies from pool to help with crashes there?
+-Fixed some item locations missing requirements

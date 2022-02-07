@@ -23,10 +23,13 @@ namespace FF13_2Rando
         public DataStoreDB3<DataStoreRTreasurebox> treasures = new DataStoreDB3<DataStoreRTreasurebox>();
         public DataStoreDB3<DataStoreRFragment> fragments = new DataStoreDB3<DataStoreRFragment>();
         Dictionary<string, TreasureData> treasureData = new Dictionary<string, TreasureData>();
+        Dictionary<string, HintData> hintData = new Dictionary<string, HintData>();
 
         Dictionary<string, List<string>> hintsMain = new Dictionary<string, List<string>>();
-        Dictionary<string, string> hintsNotesLocations = new Dictionary<string, string>();
+        List<string> hintsNotesLocations = new List<string>();
         Dictionary<string, int> hintsNotesCount = new Dictionary<string, int>();
+        Dictionary<string, int> hintsNotesUniqueCount = new Dictionary<string, int>();
+        Dictionary<string, int> hintsNotesSharedCount = new Dictionary<string, int>();
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -58,11 +61,24 @@ namespace FF13_2Rando
                 }
             }
 
+            hintData.Clear();
+            using (CsvParser csv = new CsvParser(new StreamReader(@"data\hints.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
+            {
+                while (csv.Read())
+                {
+                    if (csv.Row > 1)
+                    {
+                        HintData t = new HintData(csv.Record);
+                        hintData.Add(t.ID, t);
+                    }
+                }
+            }
+
             AddTreasure("ran_init_cp", "", 0, "");
 
             hintsNotesLocations.Clear();
             hintsNotesCount.Clear();
-            treasureData.Values.SelectMany(t => t.Locations).Distinct().ForEach(k => hintsNotesLocations.Add(k, null));
+            hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
         }
 
         public void AddTreasure(string newName, string item, int count, string next)
@@ -89,13 +105,8 @@ namespace FF13_2Rando
 
 
                 List<string> locations = treasureData.Values.SelectMany(t => t.Locations).Distinct().ToList().Shuffle().ToList();
-                hintsNotesLocations.Keys.ForEach(h =>
-                {
-                    hintsNotesLocations[h] = locations[0];
-                    locations.RemoveAt(0);
-                });
 
-                hintsNotesLocations.Values.ForEach(l =>
+                hintsNotesLocations.ForEach(l =>
                 {
                     hintsNotesCount.Add(l, 0);
                 });
@@ -142,6 +153,16 @@ namespace FF13_2Rando
                     treasures[key].iItemCount = treasuresOrig[repKey].iItemCount;
                 }
 
+                // Update hints again to reflect actual numbers
+                hintsNotesLocations.ForEach(l =>
+                {
+                    int uniqueCount = treasureData.Keys.Where(t => placement.ContainsKey(t) && treasureData[t].Locations.Count == 1 && treasureData[t].Locations[0] == l && IsHintable(placement[t])).Count();
+                    hintsNotesUniqueCount.Add(l, uniqueCount);
+
+                    int sharedCount = treasureData.Keys.Where(t => placement.ContainsKey(t) && treasureData[t].Locations.Count > 1 && treasureData[t].Locations.Contains(l) && IsHintable(placement[t])).Count();
+                    hintsNotesSharedCount.Add(l, sharedCount);
+                });
+
                 RandomNum.ClearRand();
 
             }
@@ -174,10 +195,9 @@ namespace FF13_2Rando
                     // If there are no more locations with available spots, just add to any location
                     allowedLocations.AddRange(hintsCountRem.Keys.Where(l => !allowedLocations.Contains(l)).ToList().Shuffle());
 
-                    // Remove unaccessible locations
+                    // Remove inaccessible locations
                     allowedLocations = allowedLocations.Intersect(GetLocationsAvailable(items)).ToList();
 
-                    // Remove inaccessible locations
 
 
                     foreach (string loc in allowedLocations)
@@ -384,6 +404,7 @@ namespace FF13_2Rando
             {
                 list.Add("h_dd_AD0700");
                 list.Add("h_hm_AD0700");
+                list.Add("h_zz_NA0950");
             }
 
             // Unlock Serendipity after Yaschas 1X and Sunleth 300
@@ -393,8 +414,35 @@ namespace FF13_2Rando
             return list;
         }
 
+        private void SaveHints()
+        {
+            HistoriaCruxRando cruxRando = randomizers.Get<HistoriaCruxRando>("Historia Crux");
+            EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
+            TextRando textRando = randomizers.Get<TextRando>("Text");
+
+            if (FF13_2Flags.Items.Treasures.FlagEnabled)
+            {
+                hintData.Values.ForEach(h =>
+                {
+                    textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId_string] = "";
+                    h.Areas.ForEach(a =>
+                    {
+                        if (hintsNotesSharedCount[a] > 0)
+                        {
+                            textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId_string] += $"{cruxRando.areaData[a].Name} has {hintsNotesUniqueCount[a]} unique important checks and {hintsNotesSharedCount[a]} shared with other time periods.";
+                        }
+                        else
+                        {
+                            textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId_string] += $"{cruxRando.areaData[a].Name} has {hintsNotesUniqueCount[a]} unique important checks.";
+                        }
+                    });
+                });
+            }
+        }
+
         public override void Save()
         {
+            SaveHints();
             treasures.SaveDB3(@"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_treasurebox.wdb");
         }
@@ -460,6 +508,17 @@ namespace FF13_2Rando
                 if (!Requirements.IsValid(items))
                     return false;
                 return true;
+            }
+        }
+
+        public class HintData
+        {
+            public string ID { get; set; }
+            public List<string> Areas { get; set; }
+            public HintData(string[] row)
+            {
+                ID = row[0];
+                Areas = row[1].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
             }
         }
     }

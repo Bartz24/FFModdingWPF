@@ -93,7 +93,7 @@ namespace LRRando
 
                             List<EnemyData> validEnemies = enemyData.Values.ToList();
                             int variety = -1;
-                            if (CharaSetMapping.ContainsKey(b.name) || oldEnemies.Count > 7)
+                            if (CharaSetMapping.ContainsKey(b.name) || count > 7)
                             {
                                 // Limit forced fights to a max variety of 3 enemies with no parts to avoid memory? issues
                                 validEnemies = validEnemies.Where(e => e.Parts.Count == 0).ToList();
@@ -105,7 +105,7 @@ namespace LRRando
                                 variety = 2;
                             }
 
-                            UpdateEnemyLists(oldEnemies, newEnemies, charSpecs, shuffledBosses, validEnemies, variety);
+                            UpdateEnemyLists(b, oldEnemies, newEnemies, charSpecs, shuffledBosses, validEnemies, variety);
 
                             if (newEnemies.Count > 0)
                             {
@@ -131,7 +131,7 @@ namespace LRRando
             }
         }
 
-        private void UpdateEnemyLists(List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, Dictionary<string, string> shuffledBosses, List<EnemyData> allowed, int maxVariety)
+        private void UpdateEnemyLists(DataStoreBtScene btScene, List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, Dictionary<string, string> shuffledBosses, List<EnemyData> allowed, int maxVariety)
         {
             TextRando textRando = randomizers.Get<TextRando>("Text");
             EnemyRando enemyRando = randomizers.Get<EnemyRando>("Enemies");
@@ -170,13 +170,11 @@ namespace LRRando
 
                 newEnemies.Add(enemyData[newBoss.ID]);
                 charSpecs.AddRange(newEnemies.Select(e => e.ID));
-                if (newGroup != "Caius" || group == "Caius")
-                    newEnemies.Where(e => e.Parts.Count > 0).ForEach(e => charSpecs.AddRange(e.Parts));
-                else if (newGroup == "Caius")
+                if (newGroup == "Caius" && group != "Caius")
                 {
-                    textRando.mainSysUS["$m_740b_ac200"] = "Megaflare???";
-                    textRando.mainSysUS["$m_740opb_ac200"] = "Megaflare???";
-                    textRando.mainSysUS["$m_745w_ac900"] = "Megaflare???";
+                    btScene.s8PartyEntryId_string = "btsc_caius";
+                    btScene.s8BtChEntryId_string = "btsc_caius";
+                    btScene.u1EvenNoShift = 1;
                 }
                 // No Score ID means new stats
                 if (newBoss.ScoreID == "")

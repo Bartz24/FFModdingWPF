@@ -248,6 +248,7 @@ namespace FF13_2Rando
             {
                 list.Add("h_dd_AD0700");
                 list.Add("h_hm_AD0700");
+                list.Add("h_zz_NA0950");
             }
 
             // Unlock Serendipity after Yaschas 1X and Sunleth 300

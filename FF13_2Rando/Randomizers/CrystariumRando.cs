@@ -113,9 +113,11 @@ namespace FF13_2Rando
                 list = abilityData.Values.Where(a => (a.Role == role || a.Role == "") && !learned.Contains(a.ID)).ToList();
 
                 list = list.Where(a => a.Requirements.IsValid(learned.ToDictionary(a => a, _ => 1))).ToList();
-
+                
+                if (learned.Count == 0)
+                    list = list.Where(a => !a.Traits.Contains("Auto")).ToList();
                 if (learned.Count == 0 || RandomNum.RandInt(0, 99) < 50)
-                    list = list.Where(a => !a.Traits.Contains("Auto") && a.Role != "").ToList();
+                    list = list.Where(a => a.Role != "").ToList();
             }
             return list.Select(a => a.ID).ToList();
         }

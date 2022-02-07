@@ -588,14 +588,10 @@ namespace LRRando
             AddAndClearBattleDrop("btsc02902", "tre_drp_kaban");
             AddAndClearBattleDrop("btsc02952", "tre_drp_bashira");
 
-            AddAndClearBattleDrop("btsc07800", "tre_acc_a_9060");
-            AddAndClearBattleDrop("btsc01800", "tre_wea_oa00");
-            AddAndClearBattleDrop("btsc01801", "tre_wea_oa00");
-            AddAndClearBattleDrop("btsc06800", "tre_wea_oa02");
-            AddAndClearBattleDrop("btsc06801", "tre_wea_oa02");
-            AddAndClearBattleDrop("btsc05900", "tre_acc_a_9050");
-            AddAndClearBattleDrop("btsc05901", "tre_acc_a_9050");
-            AddAndClearBattleDrop("btsc05902", "tre_acc_a_9050");
+            AddAndClearBattleDrop(new string[] { "btsc07800", "btsc07801" }, "tre_acc_a_9060");
+            AddAndClearBattleDrop(new string[] { "btsc01800", "btsc01801" }, "tre_wea_oa00");
+            AddAndClearBattleDrop(new string[] { "btsc06800", "btsc06801" }, "tre_wea_oa02");
+            AddAndClearBattleDrop(new string[] { "btsc05900", "btsc05901", "btsc05902" }, "tre_acc_a_9050");
             AddAndClearBattleDrop("btsc11900", "tre_acc_a_9210");
 
             AddAndClearBattleDrop("btsc10020", "tre_acc_a_9000");
@@ -633,10 +629,16 @@ namespace LRRando
 
         private void AddAndClearBattleDrop(string btsc, string treasure)
         {
-            BattleDrops.Add(btsc, treasures[treasure].s11ItemResourceId_string);
-            // Save the treasure drop for docs
-            if (!OrigBattleDrops.ContainsKey(treasure))
-                OrigBattleDrops.Add(treasure, treasures[treasure].s11ItemResourceId_string);
+            AddAndClearBattleDrop(new string[] { btsc }, treasure);
+        }
+
+        private void AddAndClearBattleDrop(string[] btscs, string treasure)
+        {
+            btscs.ForEach(btsc =>
+            {
+                BattleDrops.Add(btsc, treasures[treasure].s11ItemResourceId_string);
+            });
+            OrigBattleDrops.Add(treasure, treasures[treasure].s11ItemResourceId_string);
 
             treasures[treasure].s11ItemResourceId_string = "";
             treasures[treasure].iItemCount = 0;

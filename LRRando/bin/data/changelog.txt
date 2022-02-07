@@ -9,15 +9,8 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.5.0 Changelog:
+0.5.1 Changelog:
 
--Ultimate Lair is now accesible from Day 2 and later (except final day)
--Last Ones (except for final day Last Ones) are now exclusive to Ultimate Lair and normal variants will not go extinct
--Moved most battle shiny drops to the battle itself. These shinies are now 0 gil
--Ultimate Lair can now have key items
--Skeletons in the Closet, Free Will, and bosses can now have key items
--Removed the 'Drops' hint location/category. Moved these to their more accurate location
--Split the Ultimate Lair & Final Day location to 2 new locations: Ultimate Lair, and Final Day
--Added basic encounter documentation
--Maybe fixed Chaos Bahamut?
--Removed multi-part/phase enemies from very large encounters
+-Fixed Chaos Bahamut sticking around at the end of the battle
+-Fixed To Live in Chaos being missable/failable
+-Fixed story boss drops not working for +/++ versions.
