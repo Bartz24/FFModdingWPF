@@ -9,8 +9,9 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.5.1 Changelog:
+0.5.2 Changelog:
 
--Fixed Chaos Bahamut sticking around at the end of the battle
--Fixed To Live in Chaos being missable/failable
--Fixed story boss drops not working for +/++ versions.
+-Readded the missing encounters from the encounter documentation
+-Adjusted Ultimate Lair and Omega related depths
+-Fixed Mangled Hill treasure location name
+-Cleaned up Boss Drop and Ultimate Lair treasure location names

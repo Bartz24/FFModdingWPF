@@ -1,28 +1,28 @@
 {
-  "name": "1 - Simple",
+  "name": "3 - Chaos",
   "version": "0.5.1",
   "flags": [
     {
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeyWild"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeyGrqaviton"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeySide"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeyPlaceTreas"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeyPlaceBrain"
         }
       ],
@@ -55,7 +55,7 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "SelectedValue": "Bodhum & Bresha",
+          "SelectedValue": "None",
           "ID": "ForcedStart"
         }
       ],
@@ -67,10 +67,10 @@
       "FlagID": "Music"
     },
     {
-      "FlagEnabled": false,
+      "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Value": 500,
+          "Value": 4000,
           "ID": "InitCPAmt"
         }
       ],

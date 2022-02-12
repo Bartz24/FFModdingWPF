@@ -143,6 +143,12 @@ namespace FF13_2Rando
                     return false;
                 if (gateData[id].MinMogLevel > GetMogLevel(available))
                     return false;
+                // Hard code for Bresha 5 wild artefact if key items aren't rando
+                if (!FF13_2Flags.Items.Treasures.FlagEnabled || !FF13_2Flags.Items.KeySide.Enabled || TooSmallOfPool())
+                {
+                    if (gateData[id].ItemRequirements.GetPossibleRequirements().Contains("key_lockjail") && 2 > GetMogLevel(available))
+                        return false;
+                }
             }
             return true;
         }
@@ -160,7 +166,7 @@ namespace FF13_2Rando
 
         private bool HasGravitonLocations(List<string> available)
         {
-            if (!FF13_2Flags.Items.Treasures.FlagEnabled)
+            if (!FF13_2Flags.Items.Treasures.FlagEnabled || !FF13_2Flags.Items.KeyGraviton.Enabled || TooSmallOfPool())
             {
                 // If graviton cores aren't rando, use normal logic
                 List<string> gravitons = new List<string>();
@@ -186,7 +192,7 @@ namespace FF13_2Rando
 
         private bool HasWildArtefacts(Dictionary<string, string> soFar, List<string> available)
         {
-            if (!FF13_2Flags.Items.Treasures.FlagEnabled)
+            if (!FF13_2Flags.Items.Treasures.FlagEnabled || !FF13_2Flags.Items.KeyWild.Enabled || TooSmallOfPool())
             {
                 // If wild artefacts aren't rando, use normal logic
                 List<string> wilds = new List<string>();
@@ -243,19 +249,37 @@ namespace FF13_2Rando
             if (list.Contains("h_gh_AD0010") && list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000"))
                 list.Add("h_sp_NA0001");
 
-            // Unlock Dying World/Bodhum 700 after Academia 4XX and Graviton
-            if (list.Contains("h_aa_AD0400") && HasGravitonLocations(list))
+            // Unlock Serendipity after Yaschas 1X and Sunleth 300
+            if (list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000") && list.Contains("h_gh_AD0010") && list.Contains("h_cl_NA0000"))
+                list.Add("h_cs_NA0000");
+
+            // Unlock Dying World/Bodhum 700 after Academia 4XX and Graviton and Mog Level >= 1
+            if (list.Contains("h_aa_AD0400") && HasGravitonLocations(list) && GetMogLevel(list) > 0)
             {
                 list.Add("h_dd_AD0700");
                 list.Add("h_hm_AD0700");
                 list.Add("h_zz_NA0950");
             }
 
-            // Unlock Serendipity after Yaschas 1X and Sunleth 300
-            if (list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000") && list.Contains("h_gh_AD0010") && list.Contains("h_cl_NA0000"))
-                list.Add("h_cs_NA0000");
-
             return list.Distinct().ToList();
+        }
+
+        private bool TooSmallOfPool()
+        {
+            if (FF13_2Flags.Items.KeyPlaceTreasure.Enabled)
+                return false; // There's many treasures
+            int size = 0;
+            if (FF13_2Flags.Items.KeyWild.Enabled)
+                size++;
+            if (FF13_2Flags.Items.KeyGraviton.Enabled)
+                size++;
+            if (FF13_2Flags.Items.KeySide.Enabled)
+                size++;
+            // Academia 4XX can softlock without Brain Blast
+            if (FF13_2Flags.Items.KeyPlaceBrainBlast.Enabled)
+                size++;
+
+            return size < 4;
         }
         
         public override HTMLPage GetDocumentation()

@@ -17,6 +17,8 @@ namespace FF13_2Rando
         public class Items
         {
             public static Flag Treasures;
+            public static ToggleFlagProperty KeyWild, KeyGraviton, KeySide, KeyPlaceTreasure, KeyPlaceBrainBlast;
+            //public static ComboBoxFlagProperty KeyDepth;
 
             internal static void Init()
             {
@@ -24,9 +26,60 @@ namespace FF13_2Rando
                 {
                     Text = "Randomize Treasures",
                     FlagID = "Treasures",
-                    DescriptionFormat = "Randomize treasures and many key items, graviton cores, some fragments, and wild artefacts.\n" +
+                    DescriptionFormat = "Randomize treasure spheres and cubes, gate seals, and non-useful fragments.\n" +
+                    "Any key items in the pool will by default be shuffled between themselves.\n" +
                     "Does not include normal artefacts and event based items and fragments."
                 }.Register(FlagType.Items);
+
+                KeyWild = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Wild Artefacts",
+                    ID = "KeyWild",
+                    Description = "Wild Artefacts will be included in the pool of key items."
+                }.Register(Treasures);
+
+                KeyGraviton = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Graviton Core Fragments",
+                    ID = "KeyGrqaviton",
+                    Description = "The 7 Graviton Core fragments will be included in the pool of key items."
+                }.Register(Treasures);
+
+                KeySide = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Side Key Items",
+                    ID = "KeySide",
+                    Description = "The following key items will be included in the key item pool:\n" +
+                    "Medical Kit, Capsules, Holding Cell Key, Comm Device, Emerald Crystal, Ivory Crystal, Onyx Crystal, Service Manual, Fruit of Fenrir, Tablet of Paddra, Old Battery, Sealed Tablet, Army Comm Device, Recording Device, Picture Frame, Bulb of Hope, Terrorists' Mark, Weapon Material, Outdoor Watch, Personal Notes, Paradox Agent Type A-C, Supply Sphere Access Code"
+                }.Register(Treasures);
+
+                KeyPlaceTreasure = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Key Item Placement - Treasures",
+                    ID = "KeyPlaceTreas",
+                    Description = "Key items are also allowed in treasures and fragment spots."
+                }.Register(Treasures);
+
+                KeyPlaceBrainBlast = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Key Item Placement - Brain Blast",
+                    ID = "KeyPlaceBrain",
+                    Description = "Key items are also allowed in Brain Blast rewards."
+                }.Register(Treasures);
+                /*
+                KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                {
+                    Text = "Item Difficulty Depth",
+                    ID = "KeyDepth",
+                    Description = "Key items will be more likely to appear in longer chains of key items and more difficult/time-consuming and later locations.\n\n" +
+                    "Depths:\n" +
+                    "    Normal - Each location is equally likely.\n" +
+                    "    Hard - Each level of depth/difficulty increases likelyhood of that location by 1.05x.\n" +
+                    "    Hard+ - Each level of depth/difficulty increases likelyhood of that location by 1.10x.\n" +
+                    "    Hard++ - Each level of depth/difficulty increases likelyhood of that location by 1.25x.\n" +
+                    "    Hard+++ - Locations of the highest depth/difficulty will tend to be preferred.",
+                    Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
+                }.Register(Treasures);*/
             }
         }
         public class Enemies

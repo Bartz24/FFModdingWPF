@@ -106,6 +106,10 @@ namespace FF13_2Rando
                             List<string> charSpecs = new List<string>();
 
                             List<EnemyData> validEnemies = enemyData.Values.ToList();
+                            if (CharaSetMapping.ContainsKey(b.name))
+                            {
+                                validEnemies = validEnemies.Where(e => e.Parts.Count() == 0).ToList();
+                            }
 
                             UpdateEnemyLists(oldEnemies, newEnemies, charSpecs, validEnemies, b.name, b.name.StartsWith("btsc011"));
 
@@ -233,7 +237,6 @@ namespace FF13_2Rando
 
                         if (CharaSetMapping.ContainsKey(btsceneName))
                         {
-                            List<EnemyData> validEnemies = enemyData.Values.ToList();
                             string newMapping = CharaSetMapping[btsceneName].Where(c => charaSetEnemyMappings[c].ContainsKey(oldEnemy.ID)).Select(c => charaSetEnemyMappings[c][oldEnemy.ID]).FirstOrDefault();
                             if (newMapping == null)
                             {

@@ -1,9 +1,14 @@
-0.5.1 Changelog:
+0.5.2 Changelog:
 
--Added hints to gate seals to hint number of important checks in its location
--Added Ugallu and Gorgyra to boss pool
--Added Fang's Crown and Vanille's Fruit to the pool
--Monsters should get more Auto abilities now
--Removed Heavy debuffs from pool
--Removed Augusta 200 enemies from pool to help with crashes there?
--Fixed some item locations missing requirements
+-Added the following flags to control key item placement
+    Include Wild Artefacts
+    Include Graviton Cores
+    Include Side Key Items
+    Key Item Placement - Treasures
+    Key Item Placement - Brain Blast
+-Only wild artefacts, graviton cores, and side key items will be hinted now
+-Removed enemies that summon others from fixed fights
+-Fixed rando getting stuck when randomizing item placement
+-Fixed wild artefacts having a high chance of being placed early
+-Fixed softlocks with Yaschas 1X and Academia 4XX (also need moogle hunt to use the vagabond artefact now)
+-Added 2 new default presets

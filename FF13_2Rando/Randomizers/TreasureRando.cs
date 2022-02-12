@@ -137,7 +137,7 @@ namespace FF13_2Rando
 
                 Dictionary<string, int> depths = new Dictionary<string, int>();
                 Dictionary<string, int> hintsRem = hintsNotesCount.ToDictionary(p => p.Key, p => p.Value);
-                Dictionary<string, string> placement = GetImportantPlacement(new Dictionary<string, string>(), depths, hintsRem, keys, keys.Where(t => RequiresLogic(t)).ToList(), 0).Item2;
+                Dictionary<string, string> placement = GetImportantPlacement(new Dictionary<string, string>(), depths, hintsRem, keys, keys.Where(t => RequiresLogic(t)).ToList(), 0, new List<string>()).Item2;
 
                 List<string> newKeys = keys.Where(k => !placement.ContainsValue(k)).ToList().Shuffle().ToList();
                 foreach (string k in keys.Where(k => !placement.ContainsKey(k)))
@@ -172,23 +172,17 @@ namespace FF13_2Rando
                 treasures["ran_init_cp"].iItemCount = FF13_2Flags.Other.InitCPAmount.Value;
             }
         }
-        private Tuple<bool, Dictionary<string, string>> GetImportantPlacement(Dictionary<string, string> soFar, Dictionary<string, int> depths, Dictionary<string, int> hintsCountRem, List<string> locations, List<string> important, int initialCount)
+        private Tuple<bool, Dictionary<string, string>> GetImportantPlacement(Dictionary<string, string> soFar, Dictionary<string, int> depths, Dictionary<string, int> hintsCountRem, List<string> locations, List<string> important, int initialCount, List<string> areasSoFar)
         {
             HistoriaCruxRando cruxRando = randomizers.Get<HistoriaCruxRando>("Historia Crux");
             Dictionary<string, int> items = GetItemsAvailable(soFar);
             List<string> remaining = important.Where(t => !soFar.ContainsValue(t)).ToList().Shuffle().ToList();
 
+            areasSoFar = GetLocationsAvailable(items, areasSoFar);
             foreach (string rep in remaining)
             {
-                List<string> possible = locations.Where(t => !soFar.ContainsKey(t) && treasureData[t].IsValid(items, this) && IsAllowed(t, rep)).ToList().Shuffle().ToList();
-                if (possible.Count == 0)
-                    return new Tuple<bool, Dictionary<string, string>>(false, soFar);
-            }
-
-            foreach (string rep in remaining)
-            {
-                // Only key items are affected by location/depth logic
-                if (IsKeyItem(rep))
+                // Only important key items are affected by location/depth logic
+                if (IsImportantKeyItem(rep))
                 {
                     List<string> allowedLocations = new List<string>();
                     allowedLocations.AddRange(hintsCountRem.Keys.Where(l => !IsHintable(rep) || (hintsCountRem[l] > 0 && IsHintable(rep))).ToList().Shuffle());
@@ -196,7 +190,7 @@ namespace FF13_2Rando
                     allowedLocations.AddRange(hintsCountRem.Keys.Where(l => !allowedLocations.Contains(l)).ToList().Shuffle());
 
                     // Remove inaccessible locations
-                    allowedLocations = allowedLocations.Intersect(GetLocationsAvailable(items)).ToList();
+                    allowedLocations = allowedLocations.Intersect(areasSoFar).ToList();
 
 
 
@@ -223,7 +217,7 @@ namespace FF13_2Rando
                                 treasureData[next].Locations.ForEach(l => hintsCountRem[l]--);
                             if (soFar.Count == initialCount + important.Count)
                                 return new Tuple<bool, Dictionary<string, string>>(true, soFar);
-                            Tuple<bool, Dictionary<string, string>> result = GetImportantPlacement(soFar, depths, hintsCountRem, locations, important, initialCount);
+                            Tuple<bool, Dictionary<string, string>> result = GetImportantPlacement(soFar, depths, hintsCountRem, locations, important, initialCount, areasSoFar);
                             if (result.Item1)
                                 return result;
                             else
@@ -248,7 +242,7 @@ namespace FF13_2Rando
                         soFar.Add(next, rep);
                         if (soFar.Count == initialCount + important.Count)
                             return new Tuple<bool, Dictionary<string, string>>(true, soFar);
-                        Tuple<bool, Dictionary<string, string>> result = GetImportantPlacement(soFar, depths, hintsCountRem, locations, important, initialCount);
+                        Tuple<bool, Dictionary<string, string>> result = GetImportantPlacement(soFar, depths, hintsCountRem, locations, important, initialCount, areasSoFar);
                         if (result.Item1)
                             return result;
                         else
@@ -315,19 +309,54 @@ namespace FF13_2Rando
 
         private bool RequiresLogic(string t)
         {
-            if (IsKeyItem(t))
+            if (IsImportantKeyItem(t))
                 return true;
             return false;
         }
 
         private bool IsAllowed(string old, string rep)
         {
+            if (!FF13_2Flags.Items.KeyWild.Enabled && (IsWildArtefactKeyItem(rep) || IsWildArtefactKeyItem(old)))
+                return old == rep;
+            if (!FF13_2Flags.Items.KeyGraviton.Enabled && (IsGravitonKeyItem(rep) || IsGravitonKeyItem(old)))
+                return old == rep;
+            if (!FF13_2Flags.Items.KeySide.Enabled && (IsSideKeyItem(rep) || IsSideKeyItem(old)))
+                return old == rep;
+            if (treasureData[old].Traits.Contains("Brain"))
+            {
+                if (IsImportantKeyItem(rep) && !IsImportantKeyItem(old) && !FF13_2Flags.Items.KeyPlaceBrainBlast.Enabled)
+                    return false;
+            }
+            else
+            {
+                if (IsImportantKeyItem(rep) && !IsImportantKeyItem(old) && !FF13_2Flags.Items.KeyPlaceTreasure.Enabled)
+                    return false;
+            }
             return true;
         }
         private bool IsKeyItem(string t, bool orig = true)
         {
             DataStoreDB3<DataStoreRTreasurebox> db = orig ? treasuresOrig : treasures;
             return db[t].s11ItemResourceId_string.StartsWith("key") || db[t].s11ItemResourceId_string.StartsWith("opt") || db[t].s11ItemResourceId_string.StartsWith("frg");
+        }
+        private bool IsImportantKeyItem(string t)
+        {
+            return IsWildArtefactKeyItem(t) || IsGravitonKeyItem(t) || IsSideKeyItem(t);
+        }
+
+        private bool IsWildArtefactKeyItem(string t)
+        {
+            return treasureData[t].Traits.Contains("Wild");
+        }
+
+        private bool IsGravitonKeyItem(string t)
+        {
+            return treasureData[t].Traits.Contains("Graviton");
+        }
+
+        private bool IsSideKeyItem(string t)
+        {
+            return treasureData[t].Traits.Contains("SideKey");
         }
 
         private Dictionary<string, int> GetItemsAvailable(Dictionary<string, string> soFar)
@@ -348,12 +377,18 @@ namespace FF13_2Rando
 
         private bool IsHintable(string rep)
         {
-            if (IsKeyItem(rep))
+            if (!FF13_2Flags.Items.KeyWild.Enabled && IsWildArtefactKeyItem(rep))
+                return false;
+            if (!FF13_2Flags.Items.KeyGraviton.Enabled && IsGravitonKeyItem(rep))
+                return false;
+            if (!FF13_2Flags.Items.KeySide.Enabled && IsSideKeyItem(rep))
+                return false;
+            if (IsImportantKeyItem(rep))
                 return true;
             return false;
         }
 
-        private List<string> GetLocationsAvailable(Dictionary<string, int> items)
+        private List<string> GetLocationsAvailable(Dictionary<string, int> items, List<string> soFar)
         {
             HistoriaCruxRando cruxRando = randomizers.Get<HistoriaCruxRando>("Historia Crux");
             List<string> list = new List<string>();
@@ -363,6 +398,8 @@ namespace FF13_2Rando
             if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 1)
                 list.Add("h_bj_AD0005");
             int oldCount = -1;
+            list.AddRange(soFar);
+            list = list.Distinct().ToList();
 
             while (list.Count != oldCount)
             {
@@ -392,24 +429,24 @@ namespace FF13_2Rando
                         list.Add(cruxRando.placement[nextLocation]);
                     }
                 });
+
+                // Unlock Void after Ch 2
+                if (list.Contains("h_gh_AD0010") && list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000") && !list.Contains("h_sp_NA0001"))
+                    list.Add("h_sp_NA0001");
+
+                int gravitons = items.Keys.Where(i => i.StartsWith("frg_cmn_gvtn")).Select(i => items[i]).Sum();
+                // Unlock Dying World/Bodhum 700 after Academia 4XX and Graviton
+                if (list.Contains("h_aa_AD0400") && gravitons >= 5 && !list.Contains("h_dd_AD0700") && !list.Contains("h_hm_AD0700") && !list.Contains("h_zz_NA0950"))
+                {
+                    list.Add("h_dd_AD0700");
+                    list.Add("h_hm_AD0700");
+                    list.Add("h_zz_NA0950");
+                }
+
+                // Unlock Serendipity after Yaschas 1X and Sunleth 300
+                if (list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000") && list.Contains("h_gh_AD0010") && list.Contains("h_cl_NA0000") && !list.Contains("h_cs_NA0000"))
+                    list.Add("h_cs_NA0000");
             }
-
-            // Unlock Void after Ch 2
-            if (list.Contains("h_gh_AD0010") && list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000"))
-                list.Add("h_sp_NA0001");
-
-            int gravitons = items.Keys.Where(i => i.StartsWith("frg_cmn_gvtn")).Select(i => items[i]).Sum();
-            // Unlock Dying World/Bodhum 700 after Academia 4XX and Graviton
-            if (list.Contains("h_aa_AD0400") && gravitons >= 5)
-            {
-                list.Add("h_dd_AD0700");
-                list.Add("h_hm_AD0700");
-                list.Add("h_zz_NA0950");
-            }
-
-            // Unlock Serendipity after Yaschas 1X and Sunleth 300
-            if (list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000") && list.Contains("h_gh_AD0010") && list.Contains("h_cl_NA0000"))
-                list.Add("h_cs_NA0000");
 
             return list;
         }
@@ -493,6 +530,7 @@ namespace FF13_2Rando
             public int MogLevel { get; set; }
             public List<string> RequiredLocations { get; set; }
             public ItemReq Requirements { get; set; }
+            public List<string> Traits { get; set; }
             public TreasureData(string[] row)
             {
                 ID = row[0];
@@ -501,6 +539,7 @@ namespace FF13_2Rando
                 MogLevel = int.Parse(row[3]);
                 RequiredLocations = row[4].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 Requirements = ItemReq.Parse(row[5]);
+                Traits = row[6].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
             }
 
             public bool IsValid(Dictionary<string, int> items, TreasureRando treasureRando)
