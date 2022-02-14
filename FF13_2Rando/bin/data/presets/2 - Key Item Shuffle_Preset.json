@@ -1,6 +1,6 @@
 {
   "name": "2 - Key Item Shuffle",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "flags": [
     {
       "FlagEnabled": true,
@@ -12,6 +12,10 @@
         {
           "Enabled": true,
           "ID": "KeyGrqaviton"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeySeal"
         },
         {
           "Enabled": true,

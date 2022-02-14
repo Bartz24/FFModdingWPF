@@ -17,7 +17,7 @@ namespace FF13_2Rando
         public class Items
         {
             public static Flag Treasures;
-            public static ToggleFlagProperty KeyWild, KeyGraviton, KeySide, KeyPlaceTreasure, KeyPlaceBrainBlast;
+            public static ToggleFlagProperty KeyWild, KeyGraviton, KeyGateSeal, KeySide, KeyPlaceTreasure, KeyPlaceBrainBlast;
             //public static ComboBoxFlagProperty KeyDepth;
 
             internal static void Init()
@@ -26,7 +26,7 @@ namespace FF13_2Rando
                 {
                     Text = "Randomize Treasures",
                     FlagID = "Treasures",
-                    DescriptionFormat = "Randomize treasure spheres and cubes, gate seals, and non-useful fragments.\n" +
+                    DescriptionFormat = "Randomize treasure spheres and cubes, and non-useful fragments.\n" +
                     "Any key items in the pool will by default be shuffled between themselves.\n" +
                     "Does not include normal artefacts and event based items and fragments."
                 }.Register(FlagType.Items);
@@ -43,6 +43,13 @@ namespace FF13_2Rando
                     Text = "Include Graviton Core Fragments",
                     ID = "KeyGrqaviton",
                     Description = "The 7 Graviton Core fragments will be included in the pool of key items."
+                }.Register(Treasures);
+
+                KeyGateSeal = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Gate Seals",
+                    ID = "KeySeal",
+                    Description = "The gate seals will be included in the pool of key items."
                 }.Register(Treasures);
 
                 KeySide = (ToggleFlagProperty)new ToggleFlagProperty()

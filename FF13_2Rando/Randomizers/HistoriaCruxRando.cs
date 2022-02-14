@@ -275,11 +275,13 @@ namespace FF13_2Rando
                 size++;
             if (FF13_2Flags.Items.KeySide.Enabled)
                 size++;
+            if (FF13_2Flags.Items.KeyGateSeal.Enabled)
+                size++;
             // Academia 4XX can softlock without Brain Blast
             if (FF13_2Flags.Items.KeyPlaceBrainBlast.Enabled)
                 size++;
 
-            return size < 4;
+            return size < 5;
         }
         
         public override HTMLPage GetDocumentation()

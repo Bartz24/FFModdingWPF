@@ -2,9 +2,9 @@
 tre_hmaa_001,Winding Way,h_hm_AD0003,0,,,
 tre_hmaa_002,Winding Way,h_hm_AD0003,0,,,
 tre_hmaa_003,Winding Way,h_hm_AD0003,0,,,
+tre_hmaa_map,Winding Way,h_hm_AD0003,0,,,
 tre_hmaa_006,Winding Way,h_hm_AD0003,0,,,
 tre_hmaa_024,Winding Way,h_hm_AD0003,0,,,SideKey
-tre_hmaa_map,Winding Way,h_hm_AD0003,0,,,
 tre_hmaa_004,Tidal Shallows,h_hm_AD0003,0,,,
 tre_hmaa_005,Tidal Shallows,h_hm_AD0003,0,,,
 tre_hmaa_007,Meteorite Impact Site,h_hm_AD0003,0,,,
@@ -12,10 +12,10 @@ tre_gvtn1,Tidal Shallows Fragment,h_hm_AD0003,1,,,Graviton
 tre_hpaa_001,Meteorite Impact Site Fragment,h_zz_NA0950,1,,I(opt_aaea_re|1),
 tre_hpaa_002,Meteorite Impact Site Fragment,h_zz_NA0950,1,,I(opt_aaea_re|1),
 tre_hmaa_015,Beachfront,h_hm_AD0700,1,,,
-tre_hmha_map,Town Square,h_hm_AD0700,0,,,
+tre_hmha_map,Town Square,h_hm_AD0700,3,,,
 tre_hmha_001,Town Square,h_hm_AD0700,3,,,SideKey
-tre_hmha_002,Town Square Fragment,h_hm_AD0700,1,,,
-tre_hmha_003,Town Square Fragment,h_hm_AD0700,1,,,
+tre_hmha_002,Town Square Fragment,h_hm_AD0700,2,,,
+tre_hmha_003,Town Square Fragment,h_hm_AD0700,2,,,
 tre_bjaa_001,Excavation Site,h_bj_AD0005,0,,,
 tre_bjaa_003,Excavation Site,h_bj_AD0005,0,,,
 tre_bjaa_012,Excavation Site,h_bj_AD0005,1,,,
@@ -23,7 +23,7 @@ tre_bjaa_024,Excavation Site,h_bj_AD0005,0,,,
 tre_bjaa_026,Excavation Site,h_bj_AD0005,1,,,SideKey
 tre_bjaa_008,Excavation Site,h_bj_AD0005,2,,,SideKey
 tre_bjaa_014,Excavation Site,h_bj_AD0005,1,,I(key_lockjail|1),
-tre_hmaa_reopt,Excavation Site,h_bj_AD0005,0,,,
+tre_hmaa_reopt,Excavation Site,h_bj_AD0005,0,,,GateSeal
 tre_bjaa_002,Echoes of the Past,h_bj_AD0005|h_bj_AD0300|h_bj_AD0100,0,,,
 tre_bjaa_004,Echoes of the Past,h_bj_AD0005|h_bj_AD0300|h_bj_AD0100,1,,,
 tre_bjaa_005,Echoes of the Past,h_bj_AD0005|h_bj_AD0300,0,,,
@@ -40,11 +40,11 @@ tre_bjaa_021,Echoes of the Past,h_bj_AD0005,0,,I(key_lockjail|1),SideKey
 tre_bjaa_006,Echoes of the Past,h_bj_AD0100,0,,,
 tre_bjaa_016,Echoes of the Past,h_bj_AD0100,0,,,
 tre_bjba_001,Echoes of the Past,h_bj_AD0100,3,,,SideKey
-tre_bjba_reopt,Echoes of the Past,h_bj_AD0100,3,,,
-tre_csza_reopt,Echoes of the Past,h_bj_AD0100,0,,,
+tre_bjba_reopt,Echoes of the Past,h_bj_AD0100,3,,,GateSeal
+tre_csza_reopt,Echoes of the Past,h_bj_AD0100,0,,,GateSeal
 tre_bjaa_025,Echoes of the Past,h_bj_AD0300,0,,,
 tre_bjda_001,Echoes of the Past,h_bj_AD0300,1,,,SideKey
-tre_bjda_reopt,Echoes of the Past,h_bj_AD0300,0,,,
+tre_bjda_reopt,Echoes of the Past,h_bj_AD0300,0,,,GateSeal
 tre_gvtn2,Echoes of the Past Fragment,h_bj_AD0005,1,,,Graviton
 tre_bjaa_opts1,Echoes of the Past Wild Artefact,h_bj_AD0005,1,,,Wild
 tre_bjda_opts1,Lamentable Rest Wild Artefact,h_bj_AD0300,1,,,Wild
@@ -60,11 +60,11 @@ tre_gyaa_030,Pass of Paddra,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,,
 tre_gyaa_032,Pass of Paddra,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,,
 tre_gyaa_012,Pass of Paddra,h_gy_AD0010,0,,,SideKey
 tre_gyaa_025,Pass of Paddra,h_gy_AD0010,0,,,SideKey
-tre_bjaa_reopt,Pass of Paddra,h_gy_AD0010,0,,,
+tre_bjaa_reopt,Pass of Paddra,h_gy_AD0010,0,,,GateSeal
 tre_gyaa_026,Pass of Paddra,h_gh_AD0010,0,,,SideKey
 tre_gyaa_027,Pass of Paddra,h_gh_AD0010,0,,,SideKey
 tre_gyaa_028,Pass of Paddra,h_gh_AD0010,2,,,SideKey
-tre_gwca_reopt,Pass of Paddra,h_gh_AD0010,0,,,
+tre_gwca_reopt,Pass of Paddra,h_gh_AD0010,0,,,GateSeal
 tre_gyaa_010,Pass of Paddra,h_gy_AD0100,0,,,
 tre_gyaa_019,Pass of Paddra,h_gy_AD0100,0,,,SideKey
 tre_gyaa_020,Pass of Paddra,h_gy_AD0100,0,,,SideKey
@@ -79,9 +79,9 @@ tre_gyaa_015,Paddreaean Archaeopolis,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD
 tre_gyaa_031,Paddreaean Archaeopolis,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,1,,,
 tre_gyaa_016,Paddreaean Archaeopolis,h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,1,,,
 tre_gyaa_007,Paddreaean Archaeopolis,h_gh_AD0010,2,,,SideKey
-tre_gyba_reopt,Paddreaean Archaeopolis,h_gy_AD0100,2,,,
+tre_gyba_reopt,Paddreaean Archaeopolis,h_gy_AD0100,2,,,GateSeal
 tre_gyaa_023,Paddreaean Archaeopolis,h_gy_AD0200,1,,,SideKey
-tre_gyca_reopt,Paddreaean Archaeopolis,h_gy_AD0200,0,,,
+tre_gyca_reopt,Paddreaean Archaeopolis,h_gy_AD0200,0,,,GateSeal
 tre_gyaa_013,Paddreaean Archaeopolis Fragment,h_gy_AD0010,0,,,
 tre_gvtn5,Pass of Paddra Fragment,h_gy_AD0100,0,,AND(I(key_osonae|1)|I(key_common_art|1)|I(key_y_diary|1)),Graviton
 tre_gyba_opts1,Paddreaean Archaeopolis Wild Artefact,h_gy_AD0100,0,,AND(I(key_osonae|1)|I(key_common_art|1)|I(key_y_diary|1)|I(key_rem_ring|1)),Wild
@@ -92,10 +92,10 @@ tre_gwca_004,Village Proper,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
 tre_gwca_008,Village Proper,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
 tre_gwca_010,Village Proper,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
 tre_gwca_map,Village Proper,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
-tre_gyaa_reopt,Village Proper,h_gw_AD0200,1,,,
-tre_acea_reopt,Village Proper,h_gw_AD0300,2,,,
-tre_gwda_reopt,Village Proper,h_gw_AD0300,2,,,
-tre_gwea_reopt,Village Proper,h_gw_AD0400,2,,,
+tre_gyaa_reopt,Village Proper,h_gw_AD0200,1,,,GateSeal
+tre_acea_reopt,Village Proper,h_gw_AD0300,2,,,GateSeal
+tre_gwda_reopt,Village Proper,h_gw_AD0300,2,,,GateSeal
+tre_gwea_reopt,Village Proper,h_gw_AD0400,2,,,GateSeal
 tre_gwca_006,Deserted Schoolhouse,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
 tre_gwca_009,Deserted Schoolhouse,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
 tre_gwca_005,The Ashensand,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
@@ -106,20 +106,20 @@ tre_gvtn3,Village Proper Fragment,h_gw_AD0200,1,,,Graviton
 tre_gwca_024,The Ashensand Fragment,h_gw_AD0200,1,,,
 tre_gvtn6,The Ashensand Fragment,h_gw_AD0400,1,,,Graviton
 tre_gwca_opt01,Village Proper Wild Artefact,h_gw_AD0200,2,,,Wild
-tre_snda_010,Base of the Crystal,h_sn_AD0300|h_sn_AD0400,0,,,
+tre_snda_010,Base of the Crystal,h_sn_AD0300|h_sn_AD0400,1,,,
 tre_snda_001,Animal Trail,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_002,Animal Trail,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_017,Animal Trail,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_018,Animal Trail,h_sn_AD0300|h_sn_AD0400,2,,,
-tre_snea_reopt,Animal Trail,h_sn_AD0300,2,,,
+tre_snea_reopt,Animal Trail,h_sn_AD0300,2,,,GateSeal
 tre_snda_019,Warpwood,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_012,Hidden Woodland Area,h_sn_AD0300|h_sn_AD0400,0,,,
 tre_snda_015,Hidden Woodland Area,h_sn_AD0300|h_sn_AD0400,1,,,
 tre_snda_020,Bow Isle,h_sn_AD0300|h_sn_AD0400,0,,,
 tre_snda_011,Isle of Arboreal Embrace,h_sn_AD0300|h_sn_AD0400,2,,,
-tre_snda_013,Lush Woodland Path,h_sn_AD0300|h_sn_AD0400,0,,,
-tre_snda_009,Overgrown Forest,h_sn_AD0300|h_sn_AD0400,0,,,
-tre_gvtn7,Assembly Area Fragment,h_sn_AD0400,0,,,Graviton
+tre_snda_013,Lush Woodland Path,h_sn_AD0300|h_sn_AD0400,1,,,
+tre_snda_009,Overgrown Forest,h_sn_AD0300|h_sn_AD0400,1,,,
+tre_gvtn7,Assembly Area Fragment,h_sn_AD0400,1,,,Graviton
 tre_snda_016,Overgrown Forest Fragment,h_sn_AD0300,2,,,
 tre_snda_opts1,Animal Trail Wild Artefact,h_sn_AD0300,2,,,Wild
 tre_clza_001,Coliseum,h_cl_NA0000,2,,,
@@ -144,7 +144,7 @@ tre_gdza_007,Grave Ridge,h_gd_NA0000,1,,,
 tre_gdza_008,Grave Ridge,h_gd_NA0000,1,,,
 tre_gdza_013,Grave Ridge,h_gd_NA0000,2,,,
 tre_gdza_010,Clearwater Marshes,h_gd_NA0000,1,,,
-tre_gdza_005,Clearwater Marshes,h_gd_NA0000,0,,,
+tre_gdza_005,Clearwater Marshes,h_gd_NA0000,1,,,
 tre_gdza_019,Clearwater Marshes,h_gd_NA0000,1,,,
 tre_gdza_opts1,Clearwater Marshes Wild Artefact,h_gd_NA0000,2,,,Wild
 tre_acea_005,Central Bridge,h_ac_AD0400|h_aa_AD0400,0,,,
@@ -154,7 +154,7 @@ tre_acea_001,Alley,h_ac_AD0400|h_aa_AD0400,0,,,
 tre_acea_002,Alley,h_ac_AD0400|h_aa_AD0400,0,,,
 tre_acea_003,Alley,h_ac_AD0400|h_aa_AD0400,0,,,
 tre_acea_012,Alley,h_ac_AD0400|h_aa_AD0400,0,,,
-tre_snda_reopt,Alley,h_ac_AD0400,0,,,
+tre_snda_reopt,Alley,h_ac_AD0400,0,,,GateSeal
 tre_acea_004,Grand Avenue,h_ac_AD0400|h_aa_AD0400,0,,,
 tre_acea_009,Grand Avenue,h_aa_AD0400,0,,,
 tre_acea_010,Grand Avenue,h_aa_AD0400,0,,,
@@ -164,7 +164,7 @@ tre_acea_007,New Town,h_ac_AD0400|h_aa_AD0400,0,,,
 tre_acea_008,New Town,h_ac_AD0400|h_aa_AD0400,1,,,
 tre_acea_013,New Town,h_ac_AD0400|h_aa_AD0400,0,,,
 tre_acea_014,New Town,h_ac_AD0400|h_aa_AD0400,0,,,
-tre_gtca_reopt,Entrance,h_aa_AD0400,2,,,
+tre_gtca_reopt,Entrance,h_aa_AD0400,2,,,GateSeal
 tre_acea_011,Research Facility,h_aa_AD0400,0,,,
 tre_gvtn4,New Town Fragment,h_ac_AD0400,1,,,Graviton
 tre_aaea_opts1,Alley Wild Artefact,h_aa_AD0400,1,,,Wild
@@ -190,7 +190,7 @@ tre_gtca_006,51st Floor,h_gt_AD0200,0,h_gt_AD0300,,
 tre_gtca_007,51st Floor,h_gt_AD0200,2,h_gt_AD0300,,
 tre_gtca_008,51st Floor,h_gt_AD0200,2,h_gt_AD0300,,
 tre_gtca_009,51st Floor,h_gt_AD0200,0,h_gt_AD0300,,
-tre_gtda_reopt,51st Floor,h_gt_AD0200,2,h_gt_AD0300,,
+tre_gtda_reopt,51st Floor,h_gt_AD0200,2,h_gt_AD0300,,GateSeal
 tre_gtca_010,52nd Floor,h_gt_AD0200,0,h_gt_AD0300,,
 tre_gtca_011,52nd Floor,h_gt_AD0200,0,h_gt_AD0300,,
 tre_gtca_012,52nd Floor,h_gt_AD0200,0,h_gt_AD0300,,
@@ -217,11 +217,11 @@ tre_gtda_011,13th Floor,h_gt_AD0300,1,h_gt_AD0200,AND(I(key_para50f|1)|I(key_par
 tre_spza_001,Throne of the Goddess,h_sp_NA0001,0,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,AND(I(opt_snda_re|1)|I(opt_ghaa_re|1)),
 tre_spza_002,Throne of the Goddess,h_sp_NA0001,0,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,AND(I(opt_snda_re|1)|I(opt_ghaa_re|1)),
 tre_spza_map,Throne of the Goddess,h_sp_NA0001,0,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,AND(I(opt_snda_re|1)|I(opt_ghaa_re|1)),
-tre_clza_reopt,Throne of the Goddess,h_sp_NA0001,2,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,AND(I(opt_snda_re|1)|I(opt_ghaa_re|1)),
-tre_gdza_reopt,Throne of the Goddess,h_sp_NA0001,2,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,AND(I(opt_snda_re|1)|I(opt_ghaa_re|1)),
+tre_clza_reopt,Throne of the Goddess,h_sp_NA0001,2,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,AND(I(opt_snda_re|1)|I(opt_ghaa_re|1)),GateSeal
+tre_gdza_reopt,Throne of the Goddess,h_sp_NA0001,2,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,AND(I(opt_snda_re|1)|I(opt_ghaa_re|1)),GateSeal
 tre_spza_005,Walk of Time,h_sp_NA0001,0,h_dd_AD0700,I(opt_aaea_re|1),
 tre_csza_002,Temptation Plaza,h_cs_NA0000,0,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,,
-tre_ghaa_reopt,Temptation Plaza,h_cs_NA0000,0,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,,
+tre_ghaa_reopt,Temptation Plaza,h_cs_NA0000,0,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,,GateSeal
 tre_csza_opts1,Wild Artefact,h_cs_NA0000,0,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,,Wild
 tre_ddha_008,Abyssal Fissure,h_dd_AD0700,0,,,
 tre_ddha_011,Abyssal Fissure,h_dd_AD0700,1,,,
@@ -236,7 +236,7 @@ tre_ddha_001,The Farseers' Settlement,h_dd_AD0700,2,,,
 tre_ddha_005,The Farseers' Settlement,h_dd_AD0700,0,,,
 tre_ddha_006,The Farseers' Settlement,h_dd_AD0700,0,,,
 tre_ddha_map,The Farseers' Settlement,h_dd_AD0700,1,,,
-tre_aaea_reopt,The Farseers' Settlement,h_dd_AD0700,0,,,
+tre_aaea_reopt,The Farseers' Settlement,h_dd_AD0700,0,,,GateSeal
 tre_ddha_002,The Farseers' Relic,h_dd_AD0700,0,,,
 tre_ddha_009,Abyssal Fissure Fragment,h_dd_AD0700,2,,,
 tre_ddha_012,Abyssal Fissure Fragment,h_dd_AD0700,0,,,
@@ -252,17 +252,17 @@ tre_acfa_007,Academia 500,h_ac_AD0500,2,,,
 tre_acfa_008,Academia 500,h_ac_AD0500,2,,,
 tre_acfa_009,Academia 500,h_ac_AD0500,2,,,
 tre_acfa_map,Academia 500,h_ac_AD0500,0,,,
-tre_ddha_reopt,Academia 500,h_ac_AD0500,0,,,
-tre_acfa_reopt,Academia 500,h_ac_AD0500,0,,,
-tre_spza_reopt,Academia 500,h_ac_AD0500,0,,,
+tre_ddha_reopt,Academia 500,h_ac_AD0500,0,,,GateSeal
+tre_acfa_reopt,Academia 500,h_ac_AD0500,0,,,GateSeal
+tre_spza_reopt,Academia 500,h_ac_AD0500,0,,,GateSeal
 tre_vpba_004,Dismal Dunescape,h_vp_AD0200|h_vp_AD0010,3,,,
 tre_vpba_001,Another Man's Treasure,h_vp_AD0200|h_vp_AD0010,1,,,
 tre_vpba_006,Another Man's Treasure,h_vp_AD0200|h_vp_AD0010,0,,,
 tre_vpba_011,Another Man's Treasure,h_vp_AD0010,1,,,
-tre_vpba_002,Wrack and Ruin,h_vp_AD0010,0,,,
+tre_vpba_002,Wrack and Ruin,h_vp_AD0010,2,,,
 tre_vpba_003,Wrack and Ruin,h_vp_AD0010,0,,,
 tre_vpba_005,Wrack and Ruin,h_vp_AD0010,0,,,
 tre_vpba_007,Wrack and Ruin,h_vp_AD0010,1,,,
 tre_vpba_008,Wrack and Ruin,h_vp_AD0010,0,,,
-tre_vpba_009,Wrack and Ruin,h_vp_AD0010,0,,,
+tre_vpba_009,Wrack and Ruin,h_vp_AD0010,1,,,
 tre_vpba_010,Wrack and Ruin,h_vp_AD0010,0,,,

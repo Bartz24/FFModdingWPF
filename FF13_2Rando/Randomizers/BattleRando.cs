@@ -288,6 +288,27 @@ namespace FF13_2Rando
             get
             {
                 List<string> list = new List<string>();
+                list.Add("btsc08000");
+                list.Add("btsc08001");
+                list.Add("btsc08002");
+                list.Add("btsc08003");
+                list.Add("btsc08010");
+                list.Add("btsc08011");
+                list.Add("btsc08012");
+                list.Add("btsc08013");
+                list.Add("btsc08014");
+                list.Add("btsc08020");
+                list.Add("btsc08021");
+                list.Add("btsc08022");
+                list.Add("btsc08023");
+                list.Add("btsc08510");
+                list.Add("btsc08511");
+                list.Add("btsc08512");
+                list.Add("btsc08513");
+                list.Add("btsc08520");
+                list.Add("btsc08521");
+                list.Add("btsc08522");
+                list.Add("btsc08700");
 
                 return list;
             }

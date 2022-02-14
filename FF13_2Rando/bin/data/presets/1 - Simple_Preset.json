@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "flags": [
     {
       "FlagEnabled": true,
@@ -12,6 +12,10 @@
         {
           "Enabled": false,
           "ID": "KeyGrqaviton"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeySeal"
         },
         {
           "Enabled": false,

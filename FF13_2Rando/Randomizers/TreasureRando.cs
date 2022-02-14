@@ -322,6 +322,8 @@ namespace FF13_2Rando
                 return old == rep;
             if (!FF13_2Flags.Items.KeySide.Enabled && (IsSideKeyItem(rep) || IsSideKeyItem(old)))
                 return old == rep;
+            if (!FF13_2Flags.Items.KeyGateSeal.Enabled && (IsGateSealKeyItem(rep) || IsGateSealKeyItem(old)))
+                return old == rep;
             if (treasureData[old].Traits.Contains("Brain"))
             {
                 if (IsImportantKeyItem(rep) && !IsImportantKeyItem(old) && !FF13_2Flags.Items.KeyPlaceBrainBlast.Enabled)
@@ -341,7 +343,7 @@ namespace FF13_2Rando
         }
         private bool IsImportantKeyItem(string t)
         {
-            return IsWildArtefactKeyItem(t) || IsGravitonKeyItem(t) || IsSideKeyItem(t);
+            return IsWildArtefactKeyItem(t) || IsGravitonKeyItem(t) || IsSideKeyItem(t) || IsGateSealKeyItem(t);
         }
 
         private bool IsWildArtefactKeyItem(string t)
@@ -357,6 +359,11 @@ namespace FF13_2Rando
         private bool IsSideKeyItem(string t)
         {
             return treasureData[t].Traits.Contains("SideKey");
+        }
+
+        private bool IsGateSealKeyItem(string t)
+        {
+            return treasureData[t].Traits.Contains("GateSeal");
         }
 
         private Dictionary<string, int> GetItemsAvailable(Dictionary<string, string> soFar)
@@ -382,6 +389,8 @@ namespace FF13_2Rando
             if (!FF13_2Flags.Items.KeyGraviton.Enabled && IsGravitonKeyItem(rep))
                 return false;
             if (!FF13_2Flags.Items.KeySide.Enabled && IsSideKeyItem(rep))
+                return false;
+            if (!FF13_2Flags.Items.KeyGateSeal.Enabled && IsGateSealKeyItem(rep))
                 return false;
             if (IsImportantKeyItem(rep))
                 return true;

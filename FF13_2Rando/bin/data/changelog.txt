@@ -1,14 +1,7 @@
-0.5.2 Changelog:
+0.5.3 Changelog:
 
--Added the following flags to control key item placement
-    Include Wild Artefacts
-    Include Graviton Cores
-    Include Side Key Items
-    Key Item Placement - Treasures
-    Key Item Placement - Brain Blast
--Only wild artefacts, graviton cores, and side key items will be hinted now
--Removed enemies that summon others from fixed fights
--Fixed rando getting stuck when randomizing item placement
--Fixed wild artefacts having a high chance of being placed early
--Fixed softlocks with Yaschas 1X and Academia 4XX (also need moogle hunt to use the vagabond artefact now)
--Added 2 new default presets
+-Moved gate seals back to key item pool and added option to Include Gate Seals
+-Academia 400 random encounters are now vanilla. The enemies are still in the pool
+-Cura and Curaja now require Cure and Curasa respectively
+-Fixed softlocks due to mog levels in various locations
+-Fixed treasures normally containing Fang's Crown and Vanille's Fruit disappearing if you have the vanilla fragments

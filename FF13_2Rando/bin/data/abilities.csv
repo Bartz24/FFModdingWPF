@@ -329,9 +329,9 @@ mg730_00,Cursega,SAB,,
 mg750_00,Woundga,SAB,,
 mg800_00,Endless Nightmare,SAB,,
 mw000_00,Cure,MED,,
-mw010_00,Cura,MED,,
+mw010_00,Cura,MED,I(mw000_00),
 mw020_00,Curasa,MED,,
-mw030_00,Curaja,MED,,
+mw030_00,Curaja,MED,I(mw020_00),
 mw100_00,Raise,MED,,OR(I(mw000_00)|I(mw010_00)|I(mw020_00)|I(mw030_00))
 mw200_00,Esuna,MED,,OR(I(mw000_00)|I(mw010_00)|I(mw020_00)|I(mw030_00))
 mw210_00,Esunada,MED,,OR(I(mw000_00)|I(mw010_00)|I(mw020_00)|I(mw030_00))
