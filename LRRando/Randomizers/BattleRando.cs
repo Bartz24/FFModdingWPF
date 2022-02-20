@@ -114,6 +114,10 @@ namespace LRRando
                                 else
                                     b.u4BtChInitSetNum = 0;
                                 b.SetCharSpecs(charSpecs);
+                                // Update normal encounter entry IDs to ones supporting 3+ enemies
+                                if (b.s8BtChEntryId_string == "btsc_def_e00" || b.s8BtChEntryId_string == "btsc_def_m03")
+                                    b.s8BtChEntryId_string = "btsc_def_e00";
+
                                 if (CharaSetMapping.ContainsKey(b.name))
                                 {
                                     CharaSetMapping[b.name].ForEach(m =>

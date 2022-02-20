@@ -9,9 +9,8 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.5.2 Changelog:
+0.5.4 Changelog:
 
--Readded the missing encounters from the encounter documentation
--Adjusted Ultimate Lair and Omega related depths
--Fixed Mangled Hill treasure location name
--Cleaned up Boss Drop and Ultimate Lair treasure location names
+-Fixed enemies originally with 1 enemy being capped at 2 enemies, also fixes enemies inside enemies.
+-Fixed Ultimate Lair cactuar statue not appearing.
+-Improved Fang rejoining the party after leaving Ultimate Lair. Should appear after leaving, but will always appear after warping with a normal cactuar statue.

@@ -229,12 +229,13 @@ namespace LRRando
                 weapon.i16AtbSpeedModVal = statPoints[3];
                 weapon.iBreakBonus = statPoints[4];
 
-                /*
-                weapon.i16AttackModVal = 10000;
+#if DEBUG
+                /*weapon.i16AttackModVal = 10000;
                 weapon.i16MagicModVal = 10000;
                 weapon.i16HpModVal = 30000;
-                weapon.i16AtbSpeedModVal = 100;
-                */
+                weapon.i16AtbSpeedModVal = 100;*/
+#endif
+
             }
             foreach (DataStoreItemWeapon shield in itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Shield))
             {
@@ -264,9 +265,10 @@ namespace LRRando
                 shield.i16AtbSpeedModVal = statPoints[3];
                 shield.iGuardModVal = statPoints[4];
 
-                /*
-                shield.iGuardModVal = 3000;
-                */
+#if DEBUG
+                //shield.iGuardModVal = 3000;
+#endif
+
             }
         }
 

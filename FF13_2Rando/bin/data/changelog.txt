@@ -1,7 +1,4 @@
-0.5.3 Changelog:
+0.5.4 Changelog:
 
--Moved gate seals back to key item pool and added option to Include Gate Seals
--Academia 400 random encounters are now vanilla. The enemies are still in the pool
--Cura and Curaja now require Cure and Curasa respectively
--Fixed softlocks due to mog levels in various locations
--Fixed treasures normally containing Fang's Crown and Vanille's Fruit disappearing if you have the vanilla fragments
+-Fixed Serendipity Void Beyond softlock.
+-Fixed Yaschas 100 Wild Artefact not being rando
