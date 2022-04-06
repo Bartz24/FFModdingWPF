@@ -19,17 +19,21 @@ namespace FF13_2Rando
 {
     public class TreasureRando : Randomizer
     {
-        DataStoreDB3<DataStoreRTreasurebox> treasuresOrig = new DataStoreDB3<DataStoreRTreasurebox>();
+        public DataStoreDB3<DataStoreRTreasurebox> treasuresOrig = new DataStoreDB3<DataStoreRTreasurebox>();
         public DataStoreDB3<DataStoreRTreasurebox> treasures = new DataStoreDB3<DataStoreRTreasurebox>();
+        public DataStoreDB3<DataStoreSearchItem> searchOrig = new DataStoreDB3<DataStoreSearchItem>();
+        public DataStoreDB3<DataStoreSearchItem> search = new DataStoreDB3<DataStoreSearchItem>();
+
         public DataStoreDB3<DataStoreRFragment> fragments = new DataStoreDB3<DataStoreRFragment>();
-        Dictionary<string, TreasureData> treasureData = new Dictionary<string, TreasureData>();
         Dictionary<string, HintData> hintData = new Dictionary<string, HintData>();
 
+        Dictionary<string, FF13_2ItemLocation> itemLocations = new Dictionary<string, FF13_2ItemLocation>();
+
         Dictionary<string, List<string>> hintsMain = new Dictionary<string, List<string>>();
-        List<string> hintsNotesLocations = new List<string>();
-        Dictionary<string, int> hintsNotesCount = new Dictionary<string, int>();
         Dictionary<string, int> hintsNotesUniqueCount = new Dictionary<string, int>();
         Dictionary<string, int> hintsNotesSharedCount = new Dictionary<string, int>();
+
+        FF13_2AssumedItemPlacementAlgorithm placementAlgo;
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -46,39 +50,44 @@ namespace FF13_2Rando
         {
             treasuresOrig.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
             treasures.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
+            searchOrig.LoadDB3("13-2", @"\db\resident\searchitem.wdb");
+            search.LoadDB3("13-2", @"\db\resident\searchitem.wdb");
             fragments.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_fragment.wdb", false);
 
-            treasureData.Clear();
-            using (CsvParser csv = new CsvParser(new StreamReader(@"data\treasures.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
+            itemLocations.Clear();
+
+            Dictionary<string, TreasureData> treasureData = new Dictionary<string, TreasureData>();
+            FileExtensions.ReadCSVFile(@"data\treasures.csv", row =>
             {
-                while (csv.Read())
-                {
-                    if (csv.Row > 1)
-                    {
-                        TreasureData t = new TreasureData(csv.Record);
-                        treasureData.Add(t.ID, t);
-                    }
-                }
-            }
+                TreasureData t = new TreasureData(row);
+                treasureData.Add(t.ID, t);
+            }, true);
+            treasureData.ForEach(p => itemLocations.Add(p.Key, p.Value));
+
+            Dictionary<string, SearchItemData> searchData = new Dictionary<string, SearchItemData>();
+            FileExtensions.ReadCSVFile(@"data\searchItems.csv", row =>
+            {
+                SearchItemData s = new SearchItemData(row);
+                searchData.Add(s.ID, s);
+            }, true);
+            searchData.ForEach(p => itemLocations.Add(p.Key, p.Value));
 
             hintData.Clear();
-            using (CsvParser csv = new CsvParser(new StreamReader(@"data\hints.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
+            FileExtensions.ReadCSVFile(@"data\hints.csv", row =>
             {
-                while (csv.Read())
-                {
-                    if (csv.Row > 1)
-                    {
-                        HintData t = new HintData(csv.Record);
-                        hintData.Add(t.ID, t);
-                    }
-                }
-            }
+                HintData h = new HintData(row);
+                hintData.Add(h.ID, h);
+            }, true);
 
             AddTreasure("ran_init_cp", "", 0, "");
+            AddTreasure("frg_cmn_hmaa001", "frg_cmn_hmaa001", 1, "");
+            AddTreasure("frg_cmn_hmaa002", "frg_cmn_hmaa002", 1, "");
+            AddTreasure("key_s_neck", "key_s_neck", 1, "");
+            AddTreasure("key_l_knife", "key_l_knife", 1, "");
 
-            hintsNotesLocations.Clear();
-            hintsNotesCount.Clear();
-            hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
+            List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
+
+            placementAlgo = new FF13_2AssumedItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers);
         }
 
         public void AddTreasure(string newName, string item, int count, string next)
@@ -101,65 +110,15 @@ namespace FF13_2Rando
             {
                 FF13_2Flags.Items.Treasures.SetRand();
 
-                List<string> keys = treasureData.Keys.ToList().Shuffle().ToList();
-
-
-                List<string> locations = treasureData.Values.SelectMany(t => t.Locations).Distinct().ToList().Shuffle().ToList();
-
-                hintsNotesLocations.ForEach(l =>
-                {
-                    hintsNotesCount.Add(l, 0);
-                });
-
-                List<string> randomZeros = new List<string>();
-                for (int j = 0; j < 10; j++)
-                {
-                    if (RandomNum.RandInt(0, 99) < 10)
-                        randomZeros.Add(hintsNotesCount.Keys.Where(l => !randomZeros.Contains(l)).ToList().Shuffle().First());
-                }
-
-                float copMult = RandomNum.RandInt(12, 100) / 100f;
-
-                for (int i = 0; i < keys.Where(t => IsHintable(t)).Count(); i++)
-                {
-                    Func<string, long> weight = loc => {
-                        if (randomZeros.Contains(loc))
-                            return 0;
-
-                        int max = treasureData.Keys.Where(t => treasureData[t].Locations.Contains(loc)).Count();
-                        long val = (long)(100 * Math.Pow(1 - (hintsNotesCount[loc] / (float)max), 4));
-
-                        return val;
-                    };
-                    string next = RandomNum.SelectRandomWeighted(hintsNotesCount.Keys.ToList(), weight);
-                    hintsNotesCount[next]++;
-                }
-
-                Dictionary<string, int> depths = new Dictionary<string, int>();
-                Dictionary<string, int> hintsRem = hintsNotesCount.ToDictionary(p => p.Key, p => p.Value);
-                Dictionary<string, string> placement = GetImportantPlacement(new Dictionary<string, string>(), depths, hintsRem, keys, keys.Where(t => RequiresLogic(t)).ToList(), 0, new List<string>()).Item2;
-
-                List<string> newKeys = keys.Where(k => !placement.ContainsValue(k)).ToList().Shuffle().ToList();
-                foreach (string k in keys.Where(k => !placement.ContainsKey(k)))
-                {
-                    placement.Add(k, newKeys[0]);
-                    newKeys.RemoveAt(0);
-                }
-
-                foreach (string key in keys)
-                {
-                    string repKey = placement[key];
-                    treasures[key].s11ItemResourceId_string = treasuresOrig[repKey].s11ItemResourceId_string;
-                    treasures[key].iItemCount = treasuresOrig[repKey].iItemCount;
-                }
+                placementAlgo.Randomize(new List<string>());
 
                 // Update hints again to reflect actual numbers
-                hintsNotesLocations.ForEach(l =>
+                placementAlgo.HintsByLocation.ForEach(l =>
                 {
-                    int uniqueCount = treasureData.Keys.Where(t => placement.ContainsKey(t) && treasureData[t].Locations.Count == 1 && treasureData[t].Locations[0] == l && IsHintable(placement[t])).Count();
+                    int uniqueCount = itemLocations.Keys.Where(t => placementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas.Count == 1 && itemLocations[t].Areas[0] == l && placementAlgo.IsHintable(placementAlgo.Placement[t])).Count();
                     hintsNotesUniqueCount.Add(l, uniqueCount);
 
-                    int sharedCount = treasureData.Keys.Where(t => placement.ContainsKey(t) && treasureData[t].Locations.Count > 1 && treasureData[t].Locations.Contains(l) && IsHintable(placement[t])).Count();
+                    int sharedCount = itemLocations.Keys.Where(t => placementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas.Count > 1 && itemLocations[t].Areas.Contains(l) && placementAlgo.IsHintable(placementAlgo.Placement[t])).Count();
                     hintsNotesSharedCount.Add(l, sharedCount);
                 });
 
@@ -172,299 +131,12 @@ namespace FF13_2Rando
                 treasures["ran_init_cp"].iItemCount = FF13_2Flags.Other.InitCPAmount.Value;
             }
         }
-        private Tuple<bool, Dictionary<string, string>> GetImportantPlacement(Dictionary<string, string> soFar, Dictionary<string, int> depths, Dictionary<string, int> hintsCountRem, List<string> locations, List<string> important, int initialCount, List<string> areasSoFar)
-        {
-            HistoriaCruxRando cruxRando = randomizers.Get<HistoriaCruxRando>("Historia Crux");
-            Dictionary<string, int> items = GetItemsAvailable(soFar);
-            List<string> remaining = important.Where(t => !soFar.ContainsValue(t)).ToList().Shuffle().ToList();
-
-            areasSoFar = GetLocationsAvailable(items, areasSoFar);
-            foreach (string rep in remaining)
-            {
-                // Only important key items are affected by location/depth logic
-                if (IsImportantKeyItem(rep))
-                {
-                    List<string> allowedLocations = new List<string>();
-                    allowedLocations.AddRange(hintsCountRem.Keys.Where(l => !IsHintable(rep) || (hintsCountRem[l] > 0 && IsHintable(rep))).ToList().Shuffle());
-                    // If there are no more locations with available spots, just add to any location
-                    allowedLocations.AddRange(hintsCountRem.Keys.Where(l => !allowedLocations.Contains(l)).ToList().Shuffle());
-
-                    // Remove inaccessible locations
-                    allowedLocations = allowedLocations.Intersect(areasSoFar).ToList();
-
-
-
-                    foreach (string loc in allowedLocations)
-                    {
-                        List<string> possible = locations.Where(t => 
-                                                                !soFar.ContainsKey(t) && 
-                                                                treasureData[t].IsValid(items, this) && 
-                                                                treasureData[t].Locations.Contains(loc) &&
-                                                                treasureData[t].RequiredLocations.Intersect(allowedLocations).Count() == treasureData[t].RequiredLocations.Count &&
-                                                                IsAllowed(t, rep) &&
-                                                                cruxRando.GetMogLevel(allowedLocations) >= treasureData[t].MogLevel).ToList();
-                        while (possible.Count > 0)
-                        {
-                            Tuple<string, int> nextPlacement = SelectNext(soFar, depths, items, possible, rep);
-                            string next = nextPlacement.Item1;
-                            int depth = nextPlacement.Item2;
-                            string hint = null;
-                            //if (LRFlags.Other.HintsMain.FlagEnabled)
-                                //hint = AddHint(soFar, depths, items, next, rep, depth);
-                            soFar.Add(next, rep);
-                            depths.Add(next, depth);
-                            if (IsHintable(rep))
-                                treasureData[next].Locations.ForEach(l => hintsCountRem[l]--);
-                            if (soFar.Count == initialCount + important.Count)
-                                return new Tuple<bool, Dictionary<string, string>>(true, soFar);
-                            Tuple<bool, Dictionary<string, string>> result = GetImportantPlacement(soFar, depths, hintsCountRem, locations, important, initialCount, areasSoFar);
-                            if (result.Item1)
-                                return result;
-                            else
-                            {
-                                possible.Remove(next);
-                                soFar.Remove(next);
-                                depths.Remove(next);
-                                if (IsHintable(rep))
-                                    treasureData[next].Locations.ForEach(l => hintsCountRem[l]++);
-                                //if (hint != null)
-                                //hintsMain.Values.ForEach(l => l.Remove(hint));
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    List<string> possible = locations.Where(t => !soFar.ContainsKey(t) && treasureData[t].IsValid(items, this) && IsAllowed(t, rep)).ToList();
-                    while (possible.Count > 0)
-                    {
-                        string next = possible[RandomNum.RandInt(0, possible.Count - 1)];
-                        soFar.Add(next, rep);
-                        if (soFar.Count == initialCount + important.Count)
-                            return new Tuple<bool, Dictionary<string, string>>(true, soFar);
-                        Tuple<bool, Dictionary<string, string>> result = GetImportantPlacement(soFar, depths, hintsCountRem, locations, important, initialCount, areasSoFar);
-                        if (result.Item1)
-                            return result;
-                        else
-                        {
-                            possible.Remove(next);
-                            soFar.Remove(next);
-                        }
-                    }
-                }
-            }
-            return new Tuple<bool, Dictionary<string, string>>(false, soFar);
-        }
-
-        private Tuple<string, int> SelectNext(Dictionary<string, string> soFar, Dictionary<string, int> depths, Dictionary<string, int> items, List<string> possible, string rep)
-        {
-            /*if (LRFlags.Items.KeyDepth.SelectedValue == LRFlags.Items.KeyDepth.Values[LRFlags.Items.KeyDepth.Values.Count - 1])
-            {
-                IOrderedEnumerable<KeyValuePair<string, int>> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, soFar, depths, s)).OrderByDescending(p => p.Value);
-                KeyValuePair<string, int> pair = possDepths.First();
-                return new Tuple<string, int>(pair.Key, pair.Value);
-            }
-            else*/
-            {
-                //int index = LRFlags.Items.KeyDepth.Values.IndexOf(LRFlags.Items.KeyDepth.SelectedValue);
-                float expBase = 1;
-                /*if (index == 0)
-                    expBase = 1;
-                if (index == 1)
-                    expBase = 1.05f;
-                if (index == 2)
-                    expBase = 1.1f;
-                if (index == 3)
-                    expBase = 1.25f;*/
-                Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, soFar, depths, s));
-                string next = RandomNum.SelectRandomWeighted(possible, s => (long)Math.Pow(expBase, possDepths[s]));
-                return new Tuple<string, int>(next, possDepths[next]);
-            }
-        }
-
-        private int GetNextDepth(Dictionary<string, int> items, Dictionary<string, string> soFar, Dictionary<string, int> depths, string location)
-        {
-            /*
-            int reqsMax = GetReqsMaxDepth(soFar, depths, treasureData[location].Requirements);
-
-            int minItems = 8;
-            int keyItemsFound = soFar.Where(p => IsKeyItem(p.Value)).Count();
-            // Early day/easier checks have higher "depths" as minItems is low to start chains
-            float diffModifier = Math.Min(minItems, keyItemsFound) / (float)minItems;
-            int maxDifficulty = treasureData.Values.Select(t => t.Difficulty).Max();
-            int diffValue = (int)(diffModifier * treasureData[location].Difficulty + (1 - diffModifier) * (maxDifficulty - treasureData[location].Difficulty));
-
-            int val = reqsMax + 1 + diffValue;
-            return RandomNum.RandInt(Math.Max(reqsMax + 1, val - 2), val + 2);*/
-            return 1;
-        }
-
-        private int GetReqsMaxDepth(Dictionary<string, string> soFar, Dictionary<string, int> depths, ItemReq req)
-        {
-            return req.GetPossibleRequirements().Select(item =>
-            {
-                return soFar.Keys.Where(t => treasuresOrig[soFar[t]].s11ItemResourceId_string == item).Select(t => depths[t]).DefaultIfEmpty(0).Max();
-            }).DefaultIfEmpty(0).Max();
-        }
-
-        private bool RequiresLogic(string t)
-        {
-            if (IsImportantKeyItem(t))
-                return true;
-            return false;
-        }
-
-        private bool IsAllowed(string old, string rep)
-        {
-            if (!FF13_2Flags.Items.KeyWild.Enabled && (IsWildArtefactKeyItem(rep) || IsWildArtefactKeyItem(old)))
-                return old == rep;
-            if (!FF13_2Flags.Items.KeyGraviton.Enabled && (IsGravitonKeyItem(rep) || IsGravitonKeyItem(old)))
-                return old == rep;
-            if (!FF13_2Flags.Items.KeySide.Enabled && (IsSideKeyItem(rep) || IsSideKeyItem(old)))
-                return old == rep;
-            if (!FF13_2Flags.Items.KeyGateSeal.Enabled && (IsGateSealKeyItem(rep) || IsGateSealKeyItem(old)))
-                return old == rep;
-            if (treasureData[old].Traits.Contains("Brain"))
-            {
-                if (IsImportantKeyItem(rep) && !IsImportantKeyItem(old) && !FF13_2Flags.Items.KeyPlaceBrainBlast.Enabled)
-                    return false;
-            }
-            else
-            {
-                if (IsImportantKeyItem(rep) && !IsImportantKeyItem(old) && !FF13_2Flags.Items.KeyPlaceTreasure.Enabled)
-                    return false;
-            }
-            return true;
-        }
-        private bool IsKeyItem(string t, bool orig = true)
-        {
-            DataStoreDB3<DataStoreRTreasurebox> db = orig ? treasuresOrig : treasures;
-            return db[t].s11ItemResourceId_string.StartsWith("key") || db[t].s11ItemResourceId_string.StartsWith("opt") || db[t].s11ItemResourceId_string.StartsWith("frg");
-        }
-        private bool IsImportantKeyItem(string t)
-        {
-            return IsWildArtefactKeyItem(t) || IsGravitonKeyItem(t) || IsSideKeyItem(t) || IsGateSealKeyItem(t);
-        }
-
-        private bool IsWildArtefactKeyItem(string t)
-        {
-            return treasureData[t].Traits.Contains("Wild");
-        }
-
-        private bool IsGravitonKeyItem(string t)
-        {
-            return treasureData[t].Traits.Contains("Graviton");
-        }
-
-        private bool IsSideKeyItem(string t)
-        {
-            return treasureData[t].Traits.Contains("SideKey");
-        }
-
-        private bool IsGateSealKeyItem(string t)
-        {
-            return treasureData[t].Traits.Contains("GateSeal");
-        }
-
-        private Dictionary<string, int> GetItemsAvailable(Dictionary<string, string> soFar)
-        {
-            Dictionary<string, int> dict = new Dictionary<string, int>();
-            soFar.ForEach(p =>
-            {
-                string item = treasuresOrig[p.Value].s11ItemResourceId_string;
-                int amount = treasuresOrig[p.Value].iItemCount;
-                if (dict.ContainsKey(item))
-                    dict[item] += amount;
-                else
-                    dict.Add(item, amount);
-            });
-            return dict;
-
-        }
-
-        private bool IsHintable(string rep)
-        {
-            if (!FF13_2Flags.Items.KeyWild.Enabled && IsWildArtefactKeyItem(rep))
-                return false;
-            if (!FF13_2Flags.Items.KeyGraviton.Enabled && IsGravitonKeyItem(rep))
-                return false;
-            if (!FF13_2Flags.Items.KeySide.Enabled && IsSideKeyItem(rep))
-                return false;
-            if (!FF13_2Flags.Items.KeyGateSeal.Enabled && IsGateSealKeyItem(rep))
-                return false;
-            if (IsImportantKeyItem(rep))
-                return true;
-            return false;
-        }
-
-        private List<string> GetLocationsAvailable(Dictionary<string, int> items, List<string> soFar)
-        {
-            HistoriaCruxRando cruxRando = randomizers.Get<HistoriaCruxRando>("Historia Crux");
-            List<string> list = new List<string>();
-            list.Add("start");
-            if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 0)
-                list.Add("h_hm_AD0003");
-            if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 1)
-                list.Add("h_bj_AD0005");
-            int oldCount = -1;
-            list.AddRange(soFar);
-            list = list.Distinct().ToList();
-
-            while (list.Count != oldCount)
-            {
-                oldCount = list.Count;
-                int wildsNeeded = cruxRando.GetWildsNeeded(list);
-                int gravitonsHeld = items.Keys.Where(i => i.StartsWith("frg_cmn_gvtn")).Select(i => items[i]).Sum();
-
-                cruxRando.gateData.Values.Where(g =>
-                {
-                    if (!list.Contains(g.Location))
-                        return false;
-                    string nextLocation = cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Substring(0, cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Length - 2);
-                    if (!cruxRando.placement.ContainsKey(nextLocation))
-                        return false;
-                    if (g.Traits.Contains("Wild") && (items.ContainsKey("opt_silver") ? items["opt_silver"] : 0) < wildsNeeded)
-                        return false;
-                    if (g.Traits.Contains("Graviton") && gravitonsHeld < 5)
-                        return false;
-                    if (!g.ItemRequirements.IsValid(items))
-                        return false;
-                    return true;
-                }).ForEach(g =>
-                {
-                    string nextLocation = cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Substring(0, cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Length - 2);
-                    if (!list.Contains(cruxRando.placement[nextLocation]))
-                    {
-                        list.Add(cruxRando.placement[nextLocation]);
-                    }
-                });
-
-                // Unlock Void after Ch 2
-                if (list.Contains("h_gh_AD0010") && list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000") && !list.Contains("h_sp_NA0001"))
-                    list.Add("h_sp_NA0001");
-
-                int gravitons = items.Keys.Where(i => i.StartsWith("frg_cmn_gvtn")).Select(i => items[i]).Sum();
-                // Unlock Dying World/Bodhum 700 after Academia 4XX and Graviton
-                if (list.Contains("h_aa_AD0400") && gravitons >= 5 && !list.Contains("h_dd_AD0700") && !list.Contains("h_hm_AD0700") && !list.Contains("h_zz_NA0950"))
-                {
-                    list.Add("h_dd_AD0700");
-                    list.Add("h_hm_AD0700");
-                    list.Add("h_zz_NA0950");
-                }
-
-                // Unlock Serendipity after Yaschas 1X and Sunleth 300
-                if (list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000") && list.Contains("h_gh_AD0010") && list.Contains("h_cl_NA0000") && !list.Contains("h_cs_NA0000"))
-                    list.Add("h_cs_NA0000");
-            }
-
-            return list;
-        }
 
         private void SaveHints()
         {
-            HistoriaCruxRando cruxRando = randomizers.Get<HistoriaCruxRando>("Historia Crux");
-            EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
-            TextRando textRando = randomizers.Get<TextRando>("Text");
+            HistoriaCruxRando cruxRando = Randomizers.Get<HistoriaCruxRando>("Historia Crux");
+            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+            TextRando textRando = Randomizers.Get<TextRando>("Text");
 
             if (FF13_2Flags.Items.Treasures.FlagEnabled)
             {
@@ -491,27 +163,29 @@ namespace FF13_2Rando
             SaveHints();
             treasures.SaveDB3(@"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_treasurebox.wdb");
+            search.SaveDB3(@"\db\resident\searchitem.wdb");
         }
 
         public override HTMLPage GetDocumentation()
         {
-            HistoriaCruxRando cruxRando = randomizers.Get<HistoriaCruxRando>("Historia Crux");
+            HistoriaCruxRando cruxRando = Randomizers.Get<HistoriaCruxRando>("Historia Crux");
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
 
-            page.HTMLElements.Add(new Table("", (new string[] { "Location", "New Contents" }).ToList(), (new int[] { 60, 40 }).ToList(), treasureData.Values.Select(t =>
+            page.HTMLElements.Add(new Table("", (new string[] { "Location", "New Contents", "Mog Level Required" }).ToList(), (new int[] { 50, 30, 20 }).ToList(), itemLocations.Values.Select(t =>
             {
-                string itemID = treasures[t.ID].s11ItemResourceId_string;
+                string itemID = placementAlgo.GetLocationItem(t.ID, false).Item1;
+                int count = placementAlgo.GetLocationItem(t.ID, false).Item2;
                 string name = GetItemName(itemID);
-                string location = $"{string.Join("/", treasureData[t.ID].Locations.Select(s => cruxRando.areaData[s].Name))} - {treasureData[t.ID].Name}";
-                return new string[] { location, $"{name} x {treasures[t.ID].iItemCount}" }.ToList();
+                string location = $"{string.Join("/", itemLocations[t.ID].Areas.Select(s => cruxRando.areaData[s].Name))} - {itemLocations[t.ID].Name}";
+                return new string[] { location, $"{name} x {count}", GetMogLevelRequiredText(t.MogLevel) }.ToList();
             }).ToList()));
             return page;
         }
 
         private string GetItemName(string itemID)
         {
-            EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
-            TextRando textRando = randomizers.Get<TextRando>("Text");
+            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+            TextRando textRando = Randomizers.Get<TextRando>("Text");
             string name;
             if (itemID == "")
                 name = "Gil";
@@ -531,31 +205,109 @@ namespace FF13_2Rando
             return name;
         }
 
-        public class TreasureData
+        private string GetMogLevelRequiredText(int level)
         {
-            public string ID { get; set; }
-            public string Name { get; set; }
-            public List<string> Locations { get; set; }
-            public int MogLevel { get; set; }
-            public List<string> RequiredLocations { get; set; }
-            public ItemReq Requirements { get; set; }
-            public List<string> Traits { get; set; }
+            switch (level)
+            {
+                case 0:
+                    return "0 - None";
+                case 1:
+                    return "1 - Moogle Hunt";
+                case 2:
+                    return "2 - Moogle Throw";
+                case 3:
+                    return "3 - Advanced Moogle Hunt";
+                default:
+                    return level.ToString();
+            }
+        }
+
+        public class TreasureData : FF13_2ItemLocation
+        {
+            public override string ID { get; }
+            public override string Name { get; }
+            public override int MogLevel { get; }
+            public override ItemReq Requirements { get; }
+            public override List<string> Traits { get; }
+            public override List<string> Areas { get; }
+            public override List<string> RequiredAreas { get; }
+
             public TreasureData(string[] row)
             {
                 ID = row[0];
                 Name = row[1];
-                Locations = row[2].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
+                Areas = row[2].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 MogLevel = int.Parse(row[3]);
-                RequiredLocations = row[4].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
+                RequiredAreas = row[4].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 Requirements = ItemReq.Parse(row[5]);
                 Traits = row[6].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
             }
 
-            public bool IsValid(Dictionary<string, int> items, TreasureRando treasureRando)
+            public override bool IsValid(Dictionary<string, int> items)
             {
                 if (!Requirements.IsValid(items))
                     return false;
                 return true;
+            }
+
+            public override void SetData(dynamic obj, string newItem, int newCount)
+            {
+                DataStoreRTreasurebox t = (DataStoreRTreasurebox)obj;
+                t.s11ItemResourceId_string = newItem;
+                t.iItemCount = newCount;
+            }
+
+            public override Tuple<string, int> GetData(dynamic obj)
+            {
+                DataStoreRTreasurebox t = (DataStoreRTreasurebox)obj;
+                return new Tuple<string, int>(t.s11ItemResourceId_string, t.iItemCount);
+            }
+        }
+
+        public class SearchItemData : FF13_2ItemLocation
+        {
+            public override string ID { get; }
+            public int Index { get; }
+            public override string Name { get; }
+            public override int MogLevel { get; }
+            public override ItemReq Requirements { get; }
+            public override List<string> Traits { get; }
+            public override List<string> Areas { get; }
+            public override List<string> RequiredAreas { get; }
+
+            public SearchItemData(string[] row)
+            {
+                ID = row[0] + ":" + row[1];
+                Index = int.Parse(row[1]);
+                Name = row[2];
+                Areas = row[3].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
+                MogLevel = 2;
+                RequiredAreas = row[4].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
+                Requirements = ItemReq.Parse(row[5]);
+                Traits = row[6].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
+            }
+
+            public override bool IsValid(Dictionary<string, int> items)
+            {
+                if (!Requirements.IsValid(items))
+                    return false;
+                return true;
+            }
+
+            public override void SetData(dynamic obj, string newItem, int newCount)
+            {
+                DataStoreSearchItem s = (DataStoreSearchItem)obj;
+                s.SetItem(Index, newItem);
+                s.SetCount(Index, newCount);
+                s.SetMax(Index, 1);
+            }
+
+            public override Tuple<string, int> GetData(dynamic obj)
+            {
+                DataStoreSearchItem s = (DataStoreSearchItem)obj;
+                int count = s.GetCount(Index);
+                int max = s.GetMax(Index);
+                return new Tuple<string, int>(s.GetItem(Index), max == 0 ? count : (count * max));
             }
         }
 

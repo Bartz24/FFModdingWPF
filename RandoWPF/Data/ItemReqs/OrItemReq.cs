@@ -28,5 +28,10 @@ namespace Bartz24.RandoWPF
         {
             return reqs.SelectMany(r => r.GetPossibleRequirements()).Distinct().ToList();
         }
+
+        public override string GetDisplay(Func<string, string> itemNameFunc)
+        {
+            return $"({string.Join(" OR ", reqs.Select(r => r.GetDisplay(itemNameFunc)))})";
+        }
     }
 }

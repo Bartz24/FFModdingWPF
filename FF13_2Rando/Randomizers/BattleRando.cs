@@ -64,7 +64,7 @@ namespace FF13_2Rando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            EnemyRando enemyRando = randomizers.Get<EnemyRando>("Enemies");
+            EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
             charaSetEnemyMappings = CharaSetMapping.Values.SelectMany(a => a).Distinct().ToDictionary(s => s, _ => new Dictionary<string, string>());
             if (FF13_2Flags.Enemies.EnemyLocations.FlagEnabled)
             {
@@ -140,7 +140,7 @@ namespace FF13_2Rando
 
         private void UpdateBossStats(BossData newBoss, BossData origBoss)
         {
-            EnemyRando enemyRando = randomizers.Get<EnemyRando>("Enemies");
+            EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
             DataStoreBtCharaSpec newEnemy = enemyRando.GetEnemy(newBoss.ID);
             DataStoreBtCharaSpec origEnemy = enemyRando.GetEnemy(origBoss.ID, true);
 
@@ -185,7 +185,7 @@ namespace FF13_2Rando
             int maxVariety = 3;
             int attempts = 0;
 
-            EnemyRando enemyRando = randomizers.Get<EnemyRando>("Enemies");
+            EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
             newEnemies.Clear();
             charSpecs.Clear();
             if (oldEnemies[0].Traits.Contains("Boss"))

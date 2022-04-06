@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,6 +17,19 @@ namespace Bartz24.Data
         {
             Directory.CreateDirectory(Path.GetDirectoryName(dest));
             File.Copy(source, dest, overwrite);
+        }
+        public static void ReadCSVFile(string file, Action<string[]> readRow, bool hasHeader = false)
+        {
+            using (CsvParser csv = new CsvParser(new StreamReader(file), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
+            {
+                while (csv.Read())
+                {
+                    if (csv.Row > 1 || !hasHeader)
+                    {
+                        readRow(csv.Record);
+                    }
+                }
+            }
         }
     }
 }

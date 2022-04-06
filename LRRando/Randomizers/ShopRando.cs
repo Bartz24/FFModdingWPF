@@ -38,7 +38,7 @@ namespace LRRando
 
             shopData = File.ReadAllLines(@"data\shops.csv").Select(s => new ShopData(s.Split(","))).ToDictionary(s => s.ID, s => s);
 
-            EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
+            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
             equipRando.items["mat_z_000"].uPurchasePrice = 770;
             equipRando.items["mat_z_001"].uPurchasePrice = 1900;
             equipRando.items["mat_z_002"].uPurchasePrice = 770;
@@ -78,8 +78,8 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
-            TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
+            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
 
             equipRando.itemWeapons.Values.Where(i => equipRando.items.Keys.Contains(i.name) && (i.u4WeaponKind == (int)WeaponKind.Weapon && i.u4AccessoryPos == 0 || i.u4WeaponKind == (int)WeaponKind.Shield)).ForEach(i =>
             {
@@ -100,8 +100,10 @@ namespace LRRando
 
                 shopData.Keys.Select(s => shopsOrig[s]).ForEach(s => shopsDict.Add(s.name, s.GetItems().Where(i =>
                       s.u3Category == (int)ShopCategory.Inn ||
-                      (s.u3Category == (int)ShopCategory.Libra && (!i.StartsWith("libra") || treasureRando.treasures.Values.Where(t => t.s11ItemResourceId_string == i).Count() == 0)) ||
-                      i.StartsWith("e") && i.Length == 4).ToList())
+                      (s.u3Category == (int)ShopCategory.Libra && (
+                                    !i.StartsWith("libra") || 
+                                    treasureRando.itemLocations.Values.Where(t => treasureRando.placementAlgo.GetLocationItem(t.ID, false).Item1 == i).Count() == 0)
+                      )).ToList())
                 );
 
                 Dictionary<string, int> maxSizes = shopsDict.Keys.ToDictionary(k => k, k =>
@@ -112,16 +114,30 @@ namespace LRRando
                 List<string> libraMaterials = new List<string>();
                 shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra).ForEach(_ => libraMaterials.AddRange(equipRando.items.Keys.Where(i => i.StartsWith("mat_z")).ToList().Shuffle()));
 
+                for(int n = 4; n <= 8; n++)
+                {
+                    shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra && shopsDict.ContainsKey(s.name)).ForEach(s => shopsDict[s.name].Add("mat_abi_0_0" + n));
+                }
+
                 foreach (string equip in treasureRando.RemainingEquip)
                 {
-                    string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && isValid(equip, (ShopCategory)shopsOrig[k].u3Category)).ToList().Shuffle().First();
+                    string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && IsValid(equip, (ShopCategory)shopsOrig[k].u3Category)).ToList().Shuffle().First();
                     shopsDict[next].Add(equip);
                     string unique = uniqueShops.Keys.Where(k => next.StartsWith(k)).FirstOrDefault();
                     if (!string.IsNullOrEmpty(unique))
                         uniqueShops[unique].Add(equip);
                 }
+                foreach (string adorn in treasureRando.RemainingAdorn)
+                {
+                    string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && IsValid(adorn, (ShopCategory)shopsOrig[k].u3Category)).ToList().Shuffle().First();
+                    shopsDict[next].Add(adorn);
+                    string unique = uniqueShops.Keys.Where(k => next.StartsWith(k)).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(unique))
+                        uniqueShops[unique].Add(adorn);
+                }
                 List<string> possibleItems = new List<string>();
                 possibleItems.AddRange(treasureRando.RemainingEquip);
+                possibleItems.AddRange(treasureRando.RemainingAdorn);
                 possibleItems.AddRange(GetItems());
                 foreach (string shop in shopsDict.Keys.ToList().Shuffle().OrderBy(s => s != "shop_ptl_pt00"))
                 {
@@ -129,7 +145,7 @@ namespace LRRando
                     while (shopsDict[shop].Count < maxSizes[shop])
                     {
                         IList<string> possible = possibleItems.Where(i =>
-                            isValid(i, (ShopCategory)shopsOrig[shop].u3Category)
+                            IsValid(i, (ShopCategory)shopsOrig[shop].u3Category)
                             && !shopsDict[shop].Contains(i)
                             && (uniqueShops.Keys.Where(k => shop.StartsWith(k)).Count() == 0 && !uniqueShops.Values.SelectMany(l => l).Contains(i) || uniqueShops.Keys.Where(k => shop.StartsWith(k)).Count() > 0)
                         ).ToList().Shuffle();
@@ -197,14 +213,14 @@ namespace LRRando
             return list.Distinct().ToList();
         }
 
-        private bool isValid(string item, ShopCategory shop)
+        private bool IsValid(string item, ShopCategory shop)
         {
             if (shop == ShopCategory.Ark || shop == ShopCategory.Items)
                 return item.StartsWith("it");
             if (shop == ShopCategory.Forge)
                 return item.StartsWith("e") && item.Length == 4 || item.StartsWith("wea") || item.StartsWith("shi");
             if (shop == ShopCategory.Outfitters)
-                return item.StartsWith("e") && item.Length == 4 || item.StartsWith("cos");
+                return item.StartsWith("e") && item.Length == 4 || item.StartsWith("cos") || item.StartsWith("acc");
             return false;
         }
 
@@ -215,9 +231,9 @@ namespace LRRando
 
         public override HTMLPage GetDocumentation()
         {
-            EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
-            AbilityRando abilityRando = randomizers.Get<AbilityRando>("Abilities");
-            TextRando textRando = randomizers.Get<TextRando>("Text");
+            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+            AbilityRando abilityRando = Randomizers.Get<AbilityRando>("Abilities");
+            TextRando textRando = Randomizers.Get<TextRando>("Text");
             HTMLPage page = new HTMLPage("Shops", "template/documentation.html");
 
             shopData.Keys.Select(s => shops[s]).Where(s => s.u3Category == (int)ShopCategory.Ark || s.u3Category == (int)ShopCategory.Forge || s.u3Category == (int)ShopCategory.Items || s.u3Category == (int)ShopCategory.Libra || s.u3Category == (int)ShopCategory.Outfitters).ForEach(shop =>

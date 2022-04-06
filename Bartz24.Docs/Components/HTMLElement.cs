@@ -11,15 +11,18 @@ namespace Bartz24.Docs
     public class HTMLElement
     {
         public string TagType { get; }
+        public string ID { get; }
 
-        public HTMLElement(string tagType)
+        public HTMLElement(string tagType, string id)
         {
             TagType = tagType;
+            ID = id;
         }
 
         public virtual List<HtmlNode> Generate()
         {
-            HtmlNode node = HtmlNode.CreateNode($"<{TagType}></{TagType}");
+            string idInfo = ID == null ? "" : $" id=\"{ID}\"";
+            HtmlNode node = HtmlNode.CreateNode($"<{TagType}{idInfo}></{TagType}");
             GenerateContent(node);
             return new List<HtmlNode>() { node };
         }

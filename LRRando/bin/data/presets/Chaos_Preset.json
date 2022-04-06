@@ -1,6 +1,6 @@
 {
   "name": "3 - Chaos",
-  "version": "0.4.7",
+  "version": "0.6.0",
   "flags": [
     {
       "FlagEnabled": true,
@@ -132,8 +132,20 @@
           "ID": "KeyCoP"
         },
         {
-          "SelectedValue": "CoP",
-          "ID": "KeyPlacement"
+          "Enabled": true,
+          "ID": "KeyPlaceTreas"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceQuest"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceCoP"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyPlaceGrindy"
         },
         {
           "SelectedValue": "Hard",

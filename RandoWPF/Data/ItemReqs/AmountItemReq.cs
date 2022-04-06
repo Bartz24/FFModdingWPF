@@ -27,5 +27,10 @@ namespace Bartz24.RandoWPF
         {
             return new string[] { item }.ToList();
         }
+
+        public override string GetDisplay(Func<string, string> itemNameFunc)
+        {
+            return $"{itemNameFunc(item)} x {amount}";
+        }
     }
 }

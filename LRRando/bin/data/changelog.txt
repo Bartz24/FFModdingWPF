@@ -9,8 +9,30 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.5.4 Changelog:
+0.6.0 Changelog:
 
--Fixed enemies originally with 1 enemy being capped at 2 enemies, also fixes enemies inside enemies.
--Fixed Ultimate Lair cactuar statue not appearing.
--Improved Fang rejoining the party after leaving Ultimate Lair. Should appear after leaving, but will always appear after warping with a normal cactuar statue.
+-Added the following items to the pool:
+    -Fragment of Radiance
+    -Crux Tip, Crux Body, Crux Base (Combines as normal or when interacting with door to boss. All 3 tablets still required to beat Dead Dunes.)
+    -Spectral Elixir
+    -Gordon Gourmet's Recipe
+    -Steak a la Civet
+    -Father's Letter
+    -Proof of Overcoming Limits (Ark Day 1)
+    -Cursed Dragon Claw
+    -Monster Flesh
+    -Ultima Weapon/Shield
+    -Study of Despair
+    -Desmond Notes
+-All menu options unlocked at the start (EP abilities, schemata, etc)
+-3rd Garb initial equipment are now given at the start (but not equipped)
+-New item placement logic to have more unique seeds even on harder settings (works by placing items backwards)
+    -Allows items to appear in places like Main Quest 5 which almost never got items before
+    -No longer creates long artificial item chains.
+    -Much less dependent on late game quests and CoP
+-Accessories can now appear in Outfitters shops for 50k gil each (1 time buy)
+-Adornments now shuffled between shops and treasures/rewards
+-Added higher end ability upgrade materials to shops
+-Added requirements and difficulty to item location documentation (Requirements can be hidden with a button)
+-Key item placement flag is more granular now
+-Lowered Caius- and Grendel- HP and resistances, and Chaos Bahamut- stats

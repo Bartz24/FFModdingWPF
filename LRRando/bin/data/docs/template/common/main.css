@@ -112,3 +112,27 @@ tr:nth-child(even) {background-color: #464646;}
     bottom:0;
     
 }
+
+table.hide1 tbody tr > *:nth-child(1) {
+    display: none;
+}
+
+table.hide2 tbody tr > *:nth-child(2) {
+    display: none;
+}
+
+table.hide3 tbody tr > *:nth-child(3) {
+    display: none;
+}
+
+table.hide4 tbody tr > *:nth-child(4) {
+    display: none;
+}
+
+table.hide5 tbody tr > *:nth-child(5) {
+    display: none;
+}
+
+table.hide6 tbody tr > *:nth-child(6) {
+    display: none;
+}

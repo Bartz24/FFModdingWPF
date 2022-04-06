@@ -1,6 +1,6 @@
 {
   "name": "4 - Hopeless",
-  "version": "0.4.7",
+  "version": "0.6.0",
   "flags": [
     {
       "FlagEnabled": true,
@@ -132,8 +132,20 @@
           "ID": "KeyCoP"
         },
         {
-          "SelectedValue": "Grindy",
-          "ID": "KeyPlacement"
+          "Enabled": true,
+          "ID": "KeyPlaceTreas"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceQuest"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceCoP"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceGrindy"
         },
         {
           "SelectedValue": "Hard+++",

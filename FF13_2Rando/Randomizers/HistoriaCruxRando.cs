@@ -65,6 +65,7 @@ namespace FF13_2Rando
 
                 List<string> openings = gateData.Keys
                     .Where(id => !gateData[id].Traits.Contains("Paradox"))
+                    .Where(id => !FF13_2Flags.Other.RandoDLC.Enabled ? !gateData[id].Traits.Contains("DLC") : true)
                     .Select(id => gateTable[id].sOpenHistoria1_string)
                     .Select(s => s.Substring(0, s.Length - 2))
                     .Distinct().ToList();
@@ -80,6 +81,9 @@ namespace FF13_2Rando
                 {
                     gateTable.Keys.Where(id => gateTableOrig[id].sOpenHistoria1_string.StartsWith(open)).ToList().ForEach(id => gateTable[id].sOpenHistoria1_string = placement[open] + "_a");
                 });
+
+                if (placement.ContainsKey("h_hm_AD0003"))
+                    gateTable["hs_hmaa10_zz"].sArea_string = placement["h_hm_AD0003"];
 
                 RandomNum.ClearRand();
             }

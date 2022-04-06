@@ -70,5 +70,10 @@ namespace Bartz24.RandoWPF
             }
             throw new Exception("Item Requirement parsed is not supported: " + s);
         }
+
+        public virtual string GetDisplay(Func<string, string> itemNameFunc)
+        {
+            return "None";
+        }
     }
 }

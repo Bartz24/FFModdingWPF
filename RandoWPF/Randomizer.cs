@@ -10,11 +10,11 @@ namespace Bartz24.RandoWPF
 {
     public class Randomizer
     {
-        protected RandomizerManager randomizers;
+        public RandomizerManager Randomizers { get; }
 
         public Randomizer(RandomizerManager randomizers)
         {
-            this.randomizers = randomizers;
+            this.Randomizers = randomizers;
         }
 
         public virtual void Load()

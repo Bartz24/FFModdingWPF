@@ -17,6 +17,7 @@ namespace LRRando
     public class BattleRando : Randomizer
     {
         public DataStoreDB3<DataStoreBtScene> btScenes = new DataStoreDB3<DataStoreBtScene>();
+        public DataStoreDB3<DataStoreBtScene> btScenesOrig = new DataStoreDB3<DataStoreBtScene>();
         DataStoreDB3<DataStoreRCharaSet> charaSets = new DataStoreDB3<DataStoreRCharaSet>();
         Dictionary<string, EnemyData> enemyData = new Dictionary<string, EnemyData>();
         Dictionary<string, Dictionary<int, BossData>> bossData = new Dictionary<string, Dictionary<int, BossData>>();
@@ -42,6 +43,7 @@ namespace LRRando
             FileExtensions.CopyFile(path, outPath);
 
             btScenes.Load("LR", outPath, SetupData.Paths["Nova"]);
+            btScenesOrig.Load("LR", outPath, SetupData.Paths["Nova"]);
             charaSets.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
             enemyData = File.ReadAllLines(@"data\enemies.csv").Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);
@@ -51,7 +53,7 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            EnemyRando enemyRando = randomizers.Get<EnemyRando>("Enemies");
+            EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
             if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
             {
                 LRFlags.Enemies.EnemyLocations.SetRand();
@@ -137,8 +139,8 @@ namespace LRRando
 
         private void UpdateEnemyLists(DataStoreBtScene btScene, List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, Dictionary<string, string> shuffledBosses, List<EnemyData> allowed, int maxVariety)
         {
-            TextRando textRando = randomizers.Get<TextRando>("Text");
-            EnemyRando enemyRando = randomizers.Get<EnemyRando>("Enemies");
+            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
             newEnemies.Clear();
             charSpecs.Clear();
             if (oldEnemies[0].Class == "Boss")
@@ -317,7 +319,7 @@ namespace LRRando
 
         private void TransferBattleDrops()
         {
-            TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
             treasureRando.BattleDrops.Keys.ForEach(btscName =>
             {
                 btScenes[btscName].sDropItem0_string = treasureRando.BattleDrops[btscName];

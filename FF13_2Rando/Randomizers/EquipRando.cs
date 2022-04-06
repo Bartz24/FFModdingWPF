@@ -43,7 +43,7 @@ namespace FF13_2Rando
 
         private string GetItemName(string itemID)
         {
-            TextRando textRando = randomizers.Get<TextRando>("Text");
+            TextRando textRando = Randomizers.Get<TextRando>("Text");
             string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
             if (name.Contains("{End}"))
                 name = name.Substring(0, name.IndexOf("{End}"));

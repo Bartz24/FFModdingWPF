@@ -15,7 +15,7 @@ namespace Bartz24.Docs
         private List<int> ColumnWidths { get; }
         private List<List<string>> TableContents { get; }
         private bool EncodeStrings { get; }
-        public Table(string header, List<string> columns, List<int> colWidths, List<List<string>> contents, bool encode = true) : base("table")
+        public Table(string header, List<string> columns, List<int> colWidths, List<List<string>> contents, string id = null, bool encode = true) : base("table", id)
         {
             HeaderName = header;
             ColumnNames = columns;

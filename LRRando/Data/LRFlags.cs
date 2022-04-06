@@ -207,8 +207,8 @@ namespace LRRando
         public class Items
         {
             public static Flag Treasures;
-            public static ToggleFlagProperty Pilgrims, EPLearns, EPMissable, IDCardBuy, KeyMain, KeySide, KeyCoP;
-            public static ComboBoxFlagProperty KeyPlacement, KeyDepth;
+            public static ToggleFlagProperty Pilgrims, EPLearns, EPMissable, IDCardBuy, KeyMain, KeySide, KeyCoP, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy;
+            public static ComboBoxFlagProperty KeyDepth;
             public static Flag Shops;
             public static Flag CoPReqs;
 
@@ -252,7 +252,7 @@ namespace LRRando
                     ID = "KeyMain",
                     Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
                     "The following key items will be included in the pool based on the set level:\n" +
-                    "Fragment of Mischief, Fragment of Smiles, Fragment of Courage, Fragment of Kindness, Moogle Fragment, Beloved's Gift, Sneaking-In Special Ticket, ID Card, Midnight Mauve, Serah's Pendant, Dead Dunes Tablets, Dr. Gysahl's Gysahl Greens, Seedhunter Membership Card"
+                    "5 Sazh Fragments, Moogle Fragment, Beloved's Gift, Sneaking-In Special Ticket, ID Card, Midnight Mauve, Serah's Pendant, Dead Dunes Tablets, Crux Pieces, Dr. Gysahl's Gysahl Greens, Seedhunter Membership Card"
                 }.Register(Treasures);
                 KeySide = (ToggleFlagProperty)new ToggleFlagProperty()
                 {
@@ -260,7 +260,7 @@ namespace LRRando
                     ID = "KeySide",
                     Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
                     "The following key items will be included in the pool based on the set level:\n" +
-                    "Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Arithmometer, Red/Green Carbuncle Dolls, Phantom Rose, Shaolong Gui Shell, Mandragora Root, Talbot's Gratitude, Service Entrance Key, Music Satchel, Civet Musk"
+                    "Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Arithmometer, Red/Green Carbuncle Dolls, Phantom Rose, Shaolong Gui Shell, Mandragora Root, Spectral Elixir, Talbot's Gratitude, Service Entrance Key, Music Satchel, Civet Musk, Gordon Gourmet's Recipe, Steak a la Civet, Father's Letter, Proof of Overcoming Limits, Cursed Dragon Claw, Monster Flesh"
                 }.Register(Treasures);
                 KeyCoP = (ToggleFlagProperty)new ToggleFlagProperty()
                 {
@@ -271,30 +271,46 @@ namespace LRRando
                     "Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Chocobo Girl's Phone No., Proof of Legendary Title"
                 }.Register(Treasures);
 
-                KeyPlacement = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+
+                KeyPlaceTreasure = (ToggleFlagProperty)new ToggleFlagProperty()
                 {
-                    Text = "Key Item Placement",
-                    ID = "KeyPlacement",
-                    Description = "The following determines valid locations for key items" +
-                    "Levels:\n" +
-                    "    Key Items Only - Key items are shuffled between themselves.\n" +
-                    "    Treasures - Key items are also allowed in treasures/Learned EP ability spots.\n" +
-                    "    Quests - Key items are also allowed in side quests and Global Canvas of Prayers.\n" +
-                    "    CoP - Key items are also allowed in all Canvas of Prayers.\n" +
-                    "    Grindy - Key items are also allowed in 20+ Soul Seed rewards and 10+ Unappraised Items.\n",
-                    Values = new string[] { "Key Items Only", "Treasures", "Quests", "CoP", "Grindy" }.ToList()
+                    Text = "Key Item Placement - Treasures",
+                    ID = "KeyPlaceTreas",
+                    Description = "Key items are also allowed in treasures and other misc item locations."
+                }.Register(Treasures);
+
+
+                KeyPlaceQuest = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Key Item Placement - Quests",
+                    ID = "KeyPlaceQuest",
+                    Description = "Key items are also allowed in side quests and Global Canvas of Prayers."
+                }.Register(Treasures);
+
+                KeyPlaceCoP = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Key Item Placement - Canvas of Prayers",
+                    ID = "KeyPlaceCoP",
+                    Description = "Key items are also allowed in non-global Canvas of Prayers."
+                }.Register(Treasures);
+
+                KeyPlaceGrindy = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Key Item Placement - Grindy",
+                    ID = "KeyPlaceGrindy",
+                    Description = "Key items are also allowed in 20+ Soul Seed rewards and 10+ Unappraised Items."
                 }.Register(Treasures);
 
                 KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
                 {
                     Text = "Item Difficulty Depth",
                     ID = "KeyDepth",
-                    Description = "Key items and EP abilities will be more likely to appear in longer chains of key items and more difficult/time-consuming locations. Some items will be placed early on to start chains on earlier days.\n\n" +
+                    Description = "Key items and EP abilities will be more likely to appear in more difficult locations. CoP is less likely in general since there are so many.\n\n" +
                     "Depths:\n" +
                     "    Normal - Each location is equally likely.\n" +
-                    "    Hard - Each level of depth/difficulty increases likelyhood of that location by 1.05x.\n" +
-                    "    Hard+ - Each level of depth/difficulty increases likelyhood of that location by 1.10x.\n" +
-                    "    Hard++ - Each level of depth/difficulty increases likelyhood of that location by 1.25x.\n" +
+                    "    Hard - Each level of depth/difficulty increases likelyhood of that location by 1.1x.\n" +
+                    "    Hard+ - Each level of depth/difficulty increases likelyhood of that location by 1.20x.\n" +
+                    "    Hard++ - Each level of depth/difficulty increases likelyhood of that location by 1.50x.\n" +
                     "    Hard+++ - Locations of the highest depth/difficulty will tend to be preferred.",
                     Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
                 }.Register(Treasures);

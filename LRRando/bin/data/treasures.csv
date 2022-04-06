@@ -1,350 +1,369 @@
-﻿tre_box_b_008,Dead Dunes,Dead Dunes Golden Scarab,CoPKey,,1
-tre_box_b_009,Dead Dunes,Dead Dunes Oasis Lighthouse,CoPKey,,1
-tre_box_b_011,Dead Dunes,Dead Dunes Shrine At Grave Of The Colossi,CoPKey,,0
-tre_box_d_001,Dead Dunes,Dead Dunes Giant's Sandbox,,,0
-tre_box_d_002,Dead Dunes,Dead Dunes Golden Chamber Lower,,,1
-tre_box_d_003,Dead Dunes,Dead Dunes Giant's Sandbox,,,0
-tre_box_d_004,Dead Dunes,Dead Dunes Giant's Sandbox,,,0
-tre_box_d_005,Dead Dunes,Dead Dunes Giant's Sandbox,,,0
-tre_box_d_006,Dead Dunes,Dead Dunes Ruffian Cliff,,,0
-tre_box_d_007,Dead Dunes,Dead Dunes Dry Floodlands,,,0
-tre_box_d_008,Dead Dunes,Dead Dunes Oasis Lighthouse,,,1
-tre_box_d_009,Dead Dunes,Dead Dunes Oasis Lighthouse,,,1
-tre_box_d_010,Dead Dunes,Dead Dunes Atomos's Sand,,,0
-tre_box_d_011,Dead Dunes,Dead Dunes Grave Of The Colossi,,,0
-tre_box_d_012,Dead Dunes,Dead Dunes Grave Of The Colossi,,,0
-tre_box_d_013,Dead Dunes,Dead Dunes Grave Of The Colossi,,,0
-tre_box_d_014,Dead Dunes,Dead Dunes Atomos's Sand,,,0
-tre_box_d_015,Dead Dunes,Dead Dunes Ruffian 2nd Floor,,,0
-tre_box_d_016,Dead Dunes,Dead Dunes Chamber Of Dusk Upper,,,1
-tre_box_d_017,Dead Dunes,Dead Dunes Chamber Of Plenilune Upper,,,1
-tre_box_d_018,Dead Dunes,Dead Dunes Chamber Of Plenilune Upper,,,1
-tre_box_d_019,Dead Dunes,Dead Dunes Chamber Of Plenilune Upper,,,1
-tre_box_d_020,Dead Dunes,Dead Dunes Chamber Of Plenilune Lower,,,1
-tre_box_d_021,Dead Dunes,Dead Dunes Chamber Of Plenilune Lower,,,1
-tre_box_d_022,Dead Dunes,Dead Dunes Chamber Of Plenilune Lower,,,1
-tre_box_d_023,Dead Dunes,Dead Dunes Sacred Grove,,,1
-tre_box_d_024,Dead Dunes,Dead Dunes Golden Chamber Upper,,,1
-tre_box_d_025,Dead Dunes,Dead Dunes Shrine At Dry Floodlands,,,0
-tre_box_d_026,Dead Dunes,Dead Dunes Golden Chamber Lower,,,1
-tre_box_d_027,Dead Dunes,Dead Dunes Golden Chamber Lower,,,1
-tre_box_d_028,Dead Dunes,Dead Dunes Golden Chamber Lower,,,1
-tre_box_d_029,Dead Dunes,Dead Dunes Scorched Earth Lower,EP,,1
-tre_box_d_030,Dead Dunes,Dead Dunes Scorched Earth Upper,,,1
-tre_box_d_031,Dead Dunes,Dead Dunes Scorched Earth Upper,,,1
-tre_box_d_032,Dead Dunes,Dead Dunes Golden Chamber Upper,,,1
-tre_box_d_033,Dead Dunes,Dead Dunes Shrine At Atomos's Sands,,,0
-tre_box_d_034,Dead Dunes,Dead Dunes Giant's Sandbox,,,0
-tre_box_d_035,Dead Dunes,Dead Dunes Dry Floodlands,,,0
-tre_d_seki_1,Dead Dunes,Dead Dunes Shrine Tablet,MainKey,,1
-tre_d_seki_2,Dead Dunes,Dead Dunes Shrine Tablet,MainKey,,1
-tre_d_seki_3,Dead Dunes,Dead Dunes Shrine Tablet,MainKey,,1
-tre_key_d_bakt,Dead Dunes,Dead Dunes Bhakti,Missable|Quest,,1
-tre_key_dkye1,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye10,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye11,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye12,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye13,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye14,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye2,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye3,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye4,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye5,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye6,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye7,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye8,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye9,Dead Dunes,Dead Dunes Pilgrim's Crux,Pilgrim,,0
-tre_key_lupe,Dead Dunes,Dead Dunes Loupe,SideKey,,0
-tre_qst_041,Dead Dunes,Quest The Life Of A Machine,Missable|Quest,,1
-tre_qst_041_2,Dead Dunes,Quest The Life Of A Machine,Missable|Quest,,1
-tre_qst_042,Dead Dunes,Quest Old Rivals,Quest,I(key_d_keisan|1),1
-tre_qst_042_2,Dead Dunes,Quest Old Rivals,Quest,I(key_d_keisan|1),1
-tre_qst_044,Dead Dunes,Quest His Wife's Dream,Quest,I(key_d_keisan|1),1
-tre_qst_044_2,Dead Dunes,Quest His Wife's Dream,Quest,I(key_d_keisan|1),1
-tre_qst_045,Dead Dunes,Quest Tool Of The Trade,Quest,I(key_d_lupe|1),0
-tre_qst_045_2,Dead Dunes,Quest Tool Of The Trade,Quest,I(key_d_lupe|1),0
-tre_qst_046,Dead Dunes,Quest Adonis's Audition,Quest,,1
-tre_qst_046_2,Dead Dunes,Quest Adonis's Audition,Quest,,1
-tre_qst_047,Dead Dunes,Quest What Rough Beast Slouches,Quest,,8
-tre_qst_047_2,Dead Dunes,Quest What Rough Beast Slouches,Quest,,8
-tre_qst_048,Dead Dunes,Quest Skeletons In The Closet,Quest,I(key_d_sekiban|1),6
-tre_qst_048_2,Dead Dunes,Quest Skeletons In The Closet,Quest,I(key_d_sekiban|1),6
-tre_qst_049,Dead Dunes,Quest Last One Standing,Missable|Quest,,10
-tre_qst_049_2,Dead Dunes,Quest Last One Standing,Missable|Quest,,10
-tre_qst_049_3,Dead Dunes,Quest Last One Standing,Missable|Quest,,10
-tre_drp_hunnu,Dead Dunes,Cactair Fragment of Kindness,Battle|MainKey,,1
-tre_drp_keisan,Dead Dunes,Goblots Arithmometer,Battle|SideKey,,1
-tre_acc_a_9060,Dead Dunes,Dead Dunes Boss Drop,Battle,I(key_d_sekiban|3),2
+﻿tre_box_b_008,Dead Dunes,Golden Scarab Treasure,CoPKey,,1
+tre_box_b_009,Dead Dunes,Oasis Lighthouse Treasure,CoPKey,,1
+tre_box_b_011,Dead Dunes,Grave of the Colossi Shrine Treasure,CoPKey,,0
+tre_box_d_001,Dead Dunes,Giant's Sandbox Treasure,,,0
+tre_box_d_002,Dead Dunes,Golden Chamber Lower Treasure,,,1
+tre_box_d_003,Dead Dunes,Giant's Sandbox Treasure,,,0
+tre_box_d_004,Dead Dunes,Giant's Sandbox Treasure,,,0
+tre_box_d_005,Dead Dunes,Giant's Sandbox Treasure,,,0
+tre_box_d_006,Dead Dunes,Ruffian Outdoor Treasure,,,0
+tre_box_d_007,Dead Dunes,Dry Floodlands Treasure,,,0
+tre_box_d_008,Dead Dunes,Oasis Lighthouse Treasure,,,1
+tre_box_d_009,Dead Dunes,Oasis Lighthouse Treasure,,,1
+tre_box_d_010,Dead Dunes,Atomos's Sand Treasure,,,0
+tre_box_d_011,Dead Dunes,Grave of the Colossi Treasure,,,0
+tre_box_d_012,Dead Dunes,Grave of the Colossi Treasure,,,0
+tre_box_d_013,Dead Dunes,Grave of the Colossi Treasure,,,0
+tre_box_d_014,Dead Dunes,Atomos's Sand Treasure,,,0
+tre_box_d_015,Dead Dunes,Ruffian 2nd Floor Treasure,,,0
+tre_box_d_016,Dead Dunes,Maze Chamber of Dusk (Upper) Treasure,,,1
+tre_box_d_017,Dead Dunes,Maze Chamber of Plenilune (Upper) Treasure,,,1
+tre_box_d_018,Dead Dunes,Maze Chamber of Plenilune (Upper) Treasure,,,1
+tre_box_d_019,Dead Dunes,Maze Chamber of Plenilune (Upper) Treasure,,,1
+tre_box_d_020,Dead Dunes,Maze Chamber of Plenilune (Lower) Treasure,,,1
+tre_box_d_021,Dead Dunes,Maze Chamber of Plenilune (Lower) Treasure,,,1
+tre_box_d_022,Dead Dunes,Maze Chamber of Plenilune (Lower) Treasure,,,1
+tre_box_d_023,Dead Dunes,Maze Sacred Grove Treasure,,,1
+tre_box_d_024,Dead Dunes,Maze Golden Chamber (Upper) Treasure,,,1
+tre_box_d_025,Dead Dunes,Dry Floodlands Shrine Treasure,,,0
+tre_box_d_026,Dead Dunes,Maze Golden Chamber (Lower) Treasure,,,1
+tre_box_d_027,Dead Dunes,Maze Golden Chamber (Lower) Treasure,,,1
+tre_box_d_028,Dead Dunes,Maze Golden Chamber (Lower) Treasure,,,1
+tre_box_d_029,Dead Dunes,Maze Scorched Earth (Lower) Treasure,EP,,5
+tre_box_d_030,Dead Dunes,Maze Scorched Earth (Upper) Treasure,,,1
+tre_box_d_031,Dead Dunes,Maze Scorched Earth (Upper) Treasure,,,1
+tre_box_d_032,Dead Dunes,Maze Golden Chamber (Upper) Treasure,,,1
+tre_box_d_033,Dead Dunes,Atomos's Sands Shrine Treasure,,,0
+tre_box_d_034,Dead Dunes,Giant's Sandbox Treasure,,,0
+tre_box_d_035,Dead Dunes,Dry Floodlands Treasure,,,0
+tre_d_seki_1,Dead Dunes,Grave of the Colossi Shrine Tablet,MainKey,,1
+tre_d_seki_2,Dead Dunes,Dry Floodlands Shrine Tablet,MainKey,,1
+tre_d_seki_3,Dead Dunes,Atomos's Sands Shrine Tablet,MainKey,,1
+tre_d_base,Dead Dunes,Maze Mural Crux Base,MainKey,I(key_d_sekiban|3),2
+tre_d_wing,Dead Dunes,Maze Mural Crux Body,MainKey,I(key_d_sekiban|2),1
+tre_d_top,Dead Dunes,Maze Mural Crux Tip,MainKey,I(key_d_sekiban|2),1
+tre_key_d_bakt,Dead Dunes,Maze Bhakti Reward,Missable|Quest,,1
+tre_key_dkye1,Dead Dunes,Grave of the Colossi Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye10,Dead Dunes,Maze Scorched Earth Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye11,Dead Dunes,Maze Golden Chamber (Lower) Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye12,Dead Dunes,Maze Scorched Earth Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye13,Dead Dunes,Dry Floodlands Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye14,Dead Dunes,Atomos's Sands Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye2,Dead Dunes,Giant's Sandbox Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye3,Dead Dunes,Maze Sacred Grove Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye4,Dead Dunes,Maze Sacred Grove Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye5,Dead Dunes,Maze Golden Chamber (Upper) Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye6,Dead Dunes,Maze Sacred Grove Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye7,Dead Dunes,Maze Golden Chamber (Upper) Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye8,Dead Dunes,Maze Sacred Grove Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye9,Dead Dunes,Maze Golden Chamber (Lower) Pilgrim's Crux,Pilgrim,,0
+tre_key_lupe,Dead Dunes,Atomos's Sands Loupe,SideKey,,0
+tre_qst_041,Dead Dunes,The Life of a Machine Quest,Missable|Quest,,1
+tre_qst_041_2,Dead Dunes,The Life of a Machine Quest,Missable|Quest,,1
+tre_qst_042,Dead Dunes,Old Rivals Quest,Quest,I(key_d_keisan|1),2
+tre_qst_042_2,Dead Dunes,Old Rivals Quest,Quest,I(key_d_keisan|1),2
+tre_qst_044,Dead Dunes,His Wife's Dream Quest,Quest,I(key_d_keisan|1),2
+tre_qst_044_2,Dead Dunes,His Wife's Dream Quest,Quest,I(key_d_keisan|1),2
+tre_qst_045,Dead Dunes,Tool of the Trade Quest,Quest,I(key_d_lupe|1),1
+tre_qst_045_2,Dead Dunes,Tool of the Trade Quest,Quest,I(key_d_lupe|1),1
+tre_qst_046,Dead Dunes,Adonis's Audition Quest,Quest,,1
+tre_qst_046_2,Dead Dunes,Adonis's Audition Quest,Quest,,1
+tre_qst_047,Dead Dunes,What Rough Beast Slouches Quest,Quest,I(key_d_niku|1),3
+tre_qst_047_2,Dead Dunes,What Rough Beast Slouches Quest,Quest,I(key_d_niku|1),3
+tre_qst_048,Dead Dunes,Skeletons In The Closet Quest,Quest,I(key_d_sekiban|1),6
+tre_qst_048_2,Dead Dunes,Skeletons In The Closet Quest,Quest,I(key_d_sekiban|1),6
+tre_qst_049,Dead Dunes,Last One Standing Quest,Missable|Quest,,10
+tre_qst_049_2,Dead Dunes,Last One Standing Quest,Missable|Quest,,10
+tre_qst_049_3,Dead Dunes,Last One Standing Quest,Missable|Quest,,10
+tre_libra_m375,Dead Dunes,What Rough Beast Slouches Libra Notes,,,3
+tre_acc_a_9060,Dead Dunes,Dead Dunes Boss Drop,Battle,AND(I(key_d_sekiban|3)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_wing|1)),7
 tre_acc_a_9200,Dead Dunes,Aeronite Missable Drop,Missable,,8
-tre_box_b_000,Luxerion,Luxerion Cathedral Proof Of Courage,CoPKey,,0
-tre_box_b_001,Luxerion,Luxerion Pilgrim's Passage Violet Amulet,CoPKey,,0
-tre_box_l_000,Luxerion,Luxerion North Station Plaza Ladder,,,0
-tre_box_l_001,Luxerion,Luxerion The Avenue Ladder,,,0
-tre_box_l_002,Luxerion,Luxerion Gallery Steps,,,0
-tre_box_l_003,Luxerion,Luxerion 2nd Ave,,,0
-tre_box_l_004,Luxerion,Luxerion Pilgrim's Passage Grass Area,,,0
-tre_box_l_005,Luxerion,Luxerion Old Theater Platform,,,0
-tre_box_l_006,Luxerion,Luxerion Mangled Hill,,,1
-tre_box_l_009,Luxerion,Luxerion South Station (Supply Sphere),,I(key_kyu_pass|1),0
-tre_box_l_010,Luxerion,Luxerion Warehouse District (Supply Sphere),,I(key_kyu_pass|1),0
-tre_box_l_011,Luxerion,Luxerion Residences (Supply Sphere),,I(key_kyu_pass|1),0
-tre_box_l_012,Luxerion,Luxerion Forsaken Graveyard,,,1
-tre_box_l_013,Luxerion,Luxerion Den Of Shadows,,,1
-tre_box_l_014,Luxerion,Luxerion Near Phone,,,0
-tre_box_l_015,Luxerion,Luxerion Den Of Shadows,,,1
-tre_box_l_016,Luxerion,Luxerion Near Phone,,,0
-tre_box_l_017,Luxerion,Luxerion Near Phone,,,0
-tre_box_l_019,Luxerion,Luxerion Marketplace,,,0
-tre_box_l_020,Luxerion,Luxerion Forsaken Graveyard,,,1
-tre_key_l_ball,Luxerion,Luxerion 1st Ave Rubber Ball,SideKey,,2
-tre_key_l_kb_g,Luxerion,Luxerion Marketplace Doll,SideKey,,0
-tre_key_l_kb_r,Luxerion,Luxerion North Station Plaza Doll,SideKey,,0
-tre_key_l_kino,Luxerion,Luxerion Warehouse District Thunderclap Cap,SideKey,,0
+tre_box_b_000,Luxerion,Cathedral Proof Of Courage,CoPKey,,0
+tre_box_b_001,Luxerion,Pilgrim's Passage Violet Amulet Treasure,CoPKey,,0
+tre_box_l_000,Luxerion,North Station Plaza Treasure,,,0
+tre_box_l_001,Luxerion,The Avenue Treasure,,,0
+tre_box_l_002,Luxerion,Gallery Steps Treasure,,,0
+tre_box_l_003,Luxerion,2nd Ave Treasure,,,0
+tre_box_l_004,Luxerion,Pilgrim's Passage (Grassy) Treasure,,,0
+tre_box_l_005,Luxerion,Old Theater Platform Treasure,,,0
+tre_box_l_006,Luxerion,The Warren Mangled Hill Treasure,,,1
+tre_box_l_009,Luxerion,South Station (Supply Sphere) Treasure,,I(key_kyu_pass|1),2
+tre_box_l_010,Luxerion,Warehouse District (Supply Sphere) Treasure,,I(key_kyu_pass|1),2
+tre_box_l_011,Luxerion,Residences (Supply Sphere) Treasure,,I(key_kyu_pass|1),2
+tre_box_l_012,Luxerion,Forsaken Graveyard Treasure,,,1
+tre_box_l_013,Luxerion,Den Of Shadows Treasure,,,1
+tre_box_l_014,Luxerion,Luxerion After 1st Phone,,,0
+tre_box_l_015,Luxerion,Den Of Shadows Treasure,,,1
+tre_box_l_016,Luxerion,Luxerion After 1st Phone,,,0
+tre_box_l_017,Luxerion,Luxerion After 1st Phone,,,0
+tre_box_l_019,Luxerion,Luxerion Marketplace Treasure,,,0
+tre_box_l_020,Luxerion,Forsaken Graveyard Treasure,,,1
+tre_key_l_ball,Luxerion,1st Ave Rubber Ball,SideKey,,2
+tre_key_l_kb_g,Luxerion,Marketplace Doll,SideKey,,0
+tre_key_l_kb_r,Luxerion,North Station Plaza Doll,SideKey,,0
+tre_key_l_kino,Luxerion,Warehouse District Thunderclap Cap,SideKey,,0
 tre_key_l_kish,Luxerion,Luxerion Proof of Legendary Title,CoPKey,,1
 tre_key_l_hana,Luxerion,Luxerion Ghost Phantom Rose,SideKey,,2
 tre_key_l_pen,Luxerion,Luxerion Marketplace Pen,SideKey,,0
-trd_soulcd,Luxerion,Luxerion Baird Seedhunter Membership Card,Trade|MainKey,,0
-tre_key_l_q006,Luxerion,Quest Born From Chaos,Quest,,1
+trd_soulcd,Luxerion,Baird Seedhunter Membership Card,Trade|MainKey,,2
 tre_kyu_pass,Luxerion,Virgil Supply Sphere Password,SideKey,,1
-trd_niku,Luxerion,Luxerion Shaolong Gui Shell,Trade|SideKey,,0
-trd_ninjin,Luxerion,Luxerion Mandragora Root,Trade|SideKey,,0
-tre_qst_001,Luxerion,Quest The Things She Lost,Quest,OR(I(key_kb_g|1)|I(key_kb_r|1)),0
-tre_qst_001_2,Luxerion,Quest The Things She Lost,Quest,OR(I(key_kb_g|1)|I(key_kb_r|1)),0
-tre_qst_002,Luxerion,"Quest Where Are You, Holmes?",Missable|Quest,,0
-tre_qst_002_2,Luxerion,"Quest Where Are You, Holmes?",Missable|Quest,,0
-tre_qst_002_3,Luxerion,"Quest Where Are You, Holmes?",Missable|Quest,,0
-tre_qst_003,Luxerion,Quest Like Clockwork,Quest,,1
-tre_qst_003_2,Luxerion,Quest Like Clockwork,Quest,,1
-tre_qst_004,Luxerion,Quest Dying Wish,Quest,AND(I(key_j_kino|1)|I(key_niku|1)|I(key_ninjin|1)),1
-tre_qst_004_2,Luxerion,Quest Dying Wish,Quest,AND(I(key_j_kino|1)|I(key_niku|1)|I(key_ninjin|1)),1
-tre_qst_005,Luxerion,Quest Suspicious Spheres,Quest,I(key_kyu_pass|1),1
-tre_qst_005_2,Luxerion,Quest Suspicious Spheres,Quest,I(key_kyu_pass|1),1
-tre_qst_006,Luxerion,Quest Born From Chaos,Quest,,1
-tre_qst_006_2,Luxerion,Quest Born From Chaos,Quest,,1
-tre_qst_006_3,Luxerion,Quest Born From Chaos,Quest,,1
-tre_qst_007,Luxerion,Quest Soul Seeds,Quest,,0
-tre_qst_007_2,Luxerion,Quest Soul Seeds,Quest,,0
-tre_qst_008,Luxerion,Quest Faster Than Lightning,Quest,,1
-tre_qst_008_2,Luxerion,Quest Faster Than Lightning,Quest,,1
-tre_qst_009,Luxerion,Quest Treasured Ball,Quest,I(key_ball|1),2
-tre_qst_009_2,Luxerion,Quest Treasured Ball,Quest,I(key_ball|1),2
-tre_key_l_kimo,Luxerion,Luxerion Talbot's Gratitude,SideKey,I(key_ball|1),2
-tre_qst_010,Luxerion,Quest The Angel's Tears,Quest,,3
-tre_qst_010_2,Luxerion,Quest The Angel's Tears,Quest,,3
-tre_qst_011,Luxerion,Quest The Saint's Stone,Quest,,2
-tre_qst_011_2,Luxerion,Quest The Saint's Stone,Quest,,2
-tre_qst_011_3,Luxerion,Quest The Saint's Stone,Quest,,2
-tre_key_l_kagi,Luxerion,Luxerion Service Entrance Key,SideKey,,2
-tre_qst_012,Luxerion,Quest Whither Faith,Missable|Quest,,0
-tre_qst_012_2,Luxerion,Quest Whither Faith,Missable|Quest,,0
-tre_qst_013,Luxerion,Quest The Avid Reader,Missable|Quest,,3
-tre_qst_013_2,Luxerion,Quest The Avid Reader,Missable|Quest,,3
-tre_qst_014,Luxerion,Quest Buried Passion,Quest,I(key_l_pen|1),2
-tre_qst_014_2,Luxerion,Quest Buried Passion,Quest,I(key_l_pen|1),2
-tre_qst_015,Luxerion,Quest The Girl Who Cried Wolf,Missable|Quest,,3
-tre_qst_015_2,Luxerion,Quest The Girl Who Cried Wolf,Missable|Quest,,3
-tre_qst_016,Luxerion,Quest Stuck In A Gem,Quest,,2
-tre_qst_016_2,Luxerion,Quest Stuck In A Gem,Quest,,2
-tre_qst_017,Luxerion,Quest Get The Girl,Quest,,2
-tre_qst_017_2,Luxerion,Quest Get The Girl,Quest,,2
-tre_qst_019,Luxerion,Quest A Rose By Any Other Name,Quest,I(key_l_hana|1),4
-tre_qst_019_2,Luxerion,Quest A Rose By Any Other Name,Quest,I(key_l_hana|1),4
-tre_qst_019_3,Luxerion,Quest A Rose By Any Other Name,Quest,I(key_l_hana|1),4
-tre_qst_019_4,Luxerion,Quest A Rose By Any Other Name,Quest,I(key_l_hana|1),4
-tre_qst_020,Luxerion,Quest Voices From The Grave,Quest,,3
-tre_qst_020_2,Luxerion,Quest Voices From The Grave,Quest,,3
-tre_qst_091,Luxerion,Quest To Save The Sinless,Missable|Quest,,4
-tre_qst_091_2,Luxerion,Quest To Save The Sinless,Missable|Quest,,4
-tre_ti840,Luxerion,Replace EP Ability Chronostasis,EP,,0
-tre_wea_oa00,Luxerion,Luxerion Boss Drop,Battle,,3
-tre_wea_oa01,Luxerion,Luxerion Boss+ Only Missable Drop,Missable,,6
-tre_box_b_004,Wildlands,Wildlands Moogle Village Moogle Dust,CoPKey,,2
-tre_box_b_005,Wildlands,Wildlands Research Camp Photo Frame,CoPKey,,2
-tre_box_b_006,Wildlands,Wildlands Poltae Etro's Forbidden Tome,CoPKey,,2
-tre_box_b_007,Wildlands,Wildlands North Broken Gyroscope,CoPKey,I(key_w_yasai_t|1),2
-tre_box_b_010,Wildlands,Wildlands South Of Aryas Village,CoPKey,,0
-tre_box_w_000,Wildlands,Wildlands Jagd Woods,,I(key_w_yasai_t|1),2
-tre_box_w_001,Wildlands,Wildlands Grasslands,,I(key_w_yasai_t|1),2
-tre_box_w_002,Wildlands,Wildlands Poltae,,I(key_w_yasai_t|1),2
-tre_box_w_003,Wildlands,Wildlands Canopus Farms,,,0
-tre_box_w_004,Wildlands,Wildlands Rocky Crag,,I(key_w_yasai_t|1),2
-tre_box_w_005,Wildlands,Wildlands Grasslands,,I(key_w_yasai_t|1),2
-tre_box_w_006,Wildlands,Wildlands Aryas Village,,,0
-tre_box_w_007,Wildlands,Wildlands Grasslands,,I(key_w_yasai_t|1),2
-tre_box_w_008,Wildlands,Wildlands Eremite Plains,,I(key_w_yasai_t|1),2
-tre_box_w_009,Wildlands,Wildlands Eremite Plains,,I(key_w_yasai_t|1),2
-tre_box_w_010,Wildlands,Wildlands Moogle Village,,I(key_w_yasai_t|1),2
-tre_box_w_011,Wildlands,Wildlands City Of Ruins,EP,I(key_w_yasai_t|1),2
-tre_box_w_012,Wildlands,Wildlands Rocky Crag,,I(key_w_yasai_t|1),2
-tre_box_w_013,Wildlands,Wildlands Rocky Crag,,I(key_w_yasai_t|1),2
-tre_box_w_014,Wildlands,Wildlands Aryas Village,,I(key_w_yasai_t|1),2
-tre_box_w_015,Wildlands,Wildlands Poltae,,,0
-tre_box_w_016,Wildlands,Wildlands Crash Site Fragment,MainKey,I(key_w_yasai_t|1),2
-tre_box_w_050,Wildlands,Wildlands Goddess Temple,,I(key_w_yasai_t|1),3
-tre_box_w_051,Wildlands,Wildlands Goddess Temple,,I(key_w_yasai_t|1),3
-tre_box_w_052,Wildlands,Wildlands Goddess Temple,,I(key_w_yasai_t|1),3
-tre_box_w_053,Wildlands,Wildlands Goddess Temple,,I(key_w_yasai_t|1),3
-tre_box_w_054,Wildlands,Wildlands Goddess Temple,,I(key_w_yasai_t|1),3
-tre_box_w_056,Wildlands,Wildlands Goddess Temple,,I(key_w_yasai_t|1),3
-tre_box_w_057,Wildlands,Wildlands Goddess Temple,,I(key_w_yasai_t|1),3
-tre_box_w_058,Wildlands,Wildlands Goddess Temple,,I(key_w_yasai_t|1),3
-tre_box_w_060,Wildlands,Wildlands Goddess Temple,,I(key_w_yasai_t|1),3
-tre_key_yasai_t,Wildlands,Wildlands Dr Gysahl's Gysahl Greens,MainKey,,1
-tre_key_s_okuri,Wildlands,Wildlands Aryas Village Beloved's Gift,MainKey,,0
-tre_qst_021,Wildlands,Quest A Father's Request,Quest,I(key_w_yasai_t|1),1
-tre_qst_021_2,Wildlands,Quest A Father's Request,Quest,I(key_w_yasai_t|1),1
-tre_qst_022,Wildlands,Quest The Hunter's Challenge,Quest,I(key_w_yasai_t|1),3
-tre_qst_022_2,Wildlands,Quest The Hunter's Challenge,Quest,I(key_w_yasai_t|1),3
-tre_qst_022_3,Wildlands,Quest The Hunter's Challenge,Quest,I(key_w_yasai_t|1),3
-tre_qst_023,Wildlands,Quest A Final Cure,Quest,I(key_w_yasai_t|1),3
-tre_qst_023_2,Wildlands,Quest A Final Cure,Quest,I(key_w_yasai_t|1),3
-tre_qst_023_3,Wildlands,Quest A Final Cure,Quest,I(key_w_yasai_t|1),3
-tre_qst_024,Wildlands,Quest Fuzzy Search,Quest,,0
-tre_qst_024_2,Wildlands,Quest Fuzzy Search,Quest,,0
-tre_qst_024_3,Wildlands,Quest Fuzzy Search,Quest,,0
-tre_qst_025,Wildlands,Quest Round 'Em Up,Quest,I(key_w_yasai_t|1),2
-tre_qst_025_2,Wildlands,Quest Round 'Em Up,Quest,I(key_w_yasai_t|1),2
-tre_qst_026,Wildlands,Quest Chocobo Cheer,Quest,I(key_w_yasai_t|1),2
-tre_qst_026_2,Wildlands,Quest Chocobo Cheer,Quest,I(key_w_yasai_t|1),2
-tre_qst_026_3,Wildlands,Quest Chocobo Cheer,Quest,I(key_w_yasai_t|1),2
-tre_qst_027,Wildlands,"Quest Peace And Quiet, Kupo",Quest,,2
-tre_qst_027_2,Wildlands,"Quest Peace And Quiet, Kupo",Quest|MainKey,,2
-tre_qst_027_3,Wildlands,"Quest Peace And Quiet, Kupo",Quest,,2
-tre_qst_028,Wildlands,Quest Saving An Angel,Quest,I(key_w_yasai_t|1),0
-tre_qst_028_2,Wildlands,Quest Saving An Angel,Quest,I(key_w_yasai_t|1),0
-tre_qst_029,Wildlands,Quest Omega Point,Quest,I(key_w_yasai_t|1),2
-tre_qst_029_2,Wildlands,Quest Omega Point,Quest,I(key_w_yasai_t|1),2
-tre_qst_030,Wildlands,Quest The Old Man And The Field,Quest,I(key_w_yasai_t|1),3
-tre_qst_030_2,Wildlands,Quest The Old Man And The Field,Quest,I(key_w_yasai_t|1),3
-tre_qst_031,Wildlands,Quest Land Of Our Forebears,Quest,I(key_w_yasai_t|1),4
-tre_qst_031_2,Wildlands,Quest Land Of Our Forebears,Quest,I(key_w_yasai_t|1),4
-tre_qst_032,Wildlands,Quest A Taste Of The Past,Quest,I(key_w_yasai_t|1),2
-tre_qst_032_2,Wildlands,Quest A Taste Of The Past,Quest,I(key_w_yasai_t|1),2
-tre_qst_032_3,Wildlands,Quest A Taste Of The Past,Quest,I(key_w_yasai_t|1),2
-tre_qst_033,Wildlands,"Quest Dog, Doctor And Assistant",Quest,I(key_w_yasai_t|1),3
-tre_qst_033_2,Wildlands,"Quest Dog, Doctor And Assistant",Quest,I(key_w_yasai_t|1),3
-tre_qst_034,Wildlands,Main Quest 5,Quest,AND(I(key_w_yasai_t|1)|I(key_s_kairaku|1)|I(key_w_mogsoul|1)|I(key_soulcd|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1)),3
-tre_qst_034_2,Wildlands,Main Quest 5,Quest,AND(I(key_w_yasai_t|1)|I(key_s_kairaku|1)|I(key_w_mogsoul|1)|I(key_soulcd|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1)),3
-tre_qst_034_3,Wildlands,Main Quest 5,Quest,AND(I(key_w_yasai_t|1)|I(key_s_kairaku|1)|I(key_w_mogsoul|1)|I(key_soulcd|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1)),3
-tre_qst_035,Wildlands,Quest The Right Stuff,Quest,I(key_w_yasai_t|1),3
-tre_qst_035_2,Wildlands,Quest The Right Stuff,Quest,I(key_w_yasai_t|1),3
-tre_qst_036,Wildlands,Quest The Secret Lives Of Sheep,Quest,I(key_w_yasai_t|1),3
-tre_qst_036_2,Wildlands,Quest The Secret Lives Of Sheep,Quest,I(key_w_yasai_t|1),3
-tre_qst_037,Wildlands,"Quest Where Are You, Moogle?",Quest,,3
-tre_qst_037_2,Wildlands,"Quest Where Are You, Moogle?",Quest,,3
-tre_qst_037_3,Wildlands,"Quest Where Are You, Moogle?",Quest,,3
-tre_qst_038,Wildlands,Quest Mercy Of A Goddess,Quest,I(key_w_yasai_t|1),4
-tre_qst_038_2,Wildlands,Quest Mercy Of A Goddess,Quest,I(key_w_yasai_t|1),4
-tre_qst_039,Wildlands,Quest The Grail Of Valhalla,Quest,I(key_w_yasai_t|1),4
-tre_qst_039_2,Wildlands,Quest The Grail Of Valhalla,Quest,I(key_w_yasai_t|1),4
-tre_qst_039_3,Wildlands,Quest The Grail Of Valhalla,Quest,I(key_w_yasai_t|1),4
-tre_qst_040,Wildlands,Quest To Live In Chaos,Quest,I(key_w_yasai_t|1),5
-tre_qst_040_2,Wildlands,Quest To Live In Chaos,Quest,I(key_w_yasai_t|1),5
-tre_qst_040_3,Wildlands,Quest To Live In Chaos,Quest,I(key_w_yasai_t|1),5
-tre_qst_081,Wildlands,Quest Killing Time,Quest,I(key_w_yasai_t|1),2
-tre_qst_081_2,Wildlands,Quest Killing Time,Quest,I(key_w_yasai_t|1),2
-tre_qst_082,Wildlands,Quest Matchmaker,Quest,I(key_w_yasai_t|1),4
-tre_qst_082_2,Wildlands,Quest Matchmaker,Quest,I(key_w_yasai_t|1),4
-tre_qst_083,Wildlands,Quest Mother And Daughter,Quest,I(key_w_yasai_t|1),4
-tre_qst_083_2,Wildlands,Quest Mother And Daughter,Quest,I(key_w_yasai_t|1),4
-tre_wea_oa02,Wildlands,Wildlands Boss Drop,Battle,I(key_w_yasai_t|1),4
-tre_box_b_002,Yusnaan,Yusnaan Reveler's Quarter Lapis Lazuli,CoPKey,,0
-tre_box_b_003,Yusnaan,Yusnaan Industrial Area Power Booster,CoPKey,AND(I(key_y_id|1)|I(key_y_ticket|1)),2
-tre_box_b_012,Yusnaan,Yusnaan Tunnel Oath Of The Merchants Guild,CoPKey,,0
-tre_box_b_013,Yusnaan,Yusnaan Industrial Area Jade Hair Comb,CoPKey,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
-tre_box_b_014,Yusnaan,Yusnaan Industrial Area Bronze Pocket Watch,CoPKey,I(key_y_ticket|1),1
-tre_key_b_20,Yusnaan,Yusnaan Chocobo Girl Poster,CoPKey,,0
-tre_box_y_000,Yusnaan,Yusnaan Glutton's Quarter,,,0
-tre_box_y_001,Yusnaan,Yusnaan Aromatic Market,,,0
-tre_box_y_002,Yusnaan,Yusnaan Central Ave,,,0
-tre_box_y_003,Yusnaan,Yusnaan Coliseum Square,,,0
-trd_ticket,Yusnaan,Yusnaan Sneaking-In Special Ticket,Trade|MainKey,,0
-tre_box_y_004,Yusnaan,Yusnaan Warehouse District Id Card,Trade|MainKey,I(key_y_ticket|1),1
-tre_box_y_005,Yusnaan,Yusnaan Coliseum Square Musical,SideKey,I(key_y_kagi1|1),0
-tre_box_y_006,Yusnaan,Yusnaan East From Cactuar Statue Musical,SideKey,I(key_y_kagi1|1),0
-tre_box_y_007,Yusnaan,Yusnaan West Of Station Musical,SideKey,I(key_y_kagi1|1),0
-tre_box_y_008,Yusnaan,Yusnaan Near Cactuar Statue,,,0
-tre_box_y_009,Yusnaan,Yusnaan Reveler's Quarter,,,0
-tre_box_y_010,Yusnaan,Yusnaan Augur's Quarter,,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
-tre_box_y_011,Yusnaan,Yusnaan Patron's Palace,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
-tre_box_y_012,Yusnaan,Yusnaan Hawker's Row,,,0
-tre_box_y_013,Yusnaan,Yusnaan Augur's Quarter,,AND(I(key_y_ticket|1)|I(key_y_id|1)),0
-tre_box_y_015,Yusnaan,Yusnaan Warehouse District,,I(key_y_ticket|1),0
-tre_box_y_017,Yusnaan,Yusnaan Augur's Quarter,,AND(I(key_y_id|1)|I(key_y_ticket|1)),1
-tre_box_y_018,Yusnaan,Yusnaan Supply Line,,I(key_y_ticket|1),1
-tre_box_y_019,Yusnaan,Yusnaan Industrial Area,,I(key_y_ticket|1),0
-tre_box_y_021,Yusnaan,Yusnaan Lower City,,,0
-tre_box_y_022,Yusnaan,Yusnaan Glutton's Quarter,EP,,0
-tre_box_y_024,Yusnaan,Yusnaan Reveler's Quarter,,,0
-tre_box_y_051,Yusnaan,Yusnaan Patron's Palace,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
-tre_box_y_052,Yusnaan,Yusnaan Patron's Palace,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
-tre_box_y_055,Yusnaan,Yusnaan Patron's Palace,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
-tre_box_y_056,Yusnaan,Yusnaan Patron's Palace,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
-tre_box_y_059,Yusnaan,Yusnaan Fragment of Courage,MainKey,I(key_w_yasai_t|1),1
-tre_col_y_004,Yusnaan,Yusnaan Slaughterhouse,Missable|Quest,,1
-tre_col_y_005,Yusnaan,Yusnaan Slaughterhouse,Missable|Quest,,1
-tre_col_y_006,Yusnaan,Yusnaan Slaughterhouse,Missable|Quest,,1
-tre_col_y_007,Yusnaan,Yusnaan Slaughterhouse,Missable|Quest,,1
-tre_col_y_008,Yusnaan,Yusnaan Slaughterhouse,Missable|Quest,,1
-tre_col_y_009,Yusnaan,Yusnaan Slaughterhouse,Missable|Quest,,1
-tre_col_y_010,Yusnaan,Yusnaan Slaughterhouse,Missable|Quest,,1
-tre_col_y_012,Yusnaan,Yusnaan Slaughterhouse,Missable|Quest,,1
-tre_col_y_013,Yusnaan,Yusnaan Slaughterhouse,Missable|Quest,,1
-tre_col_y_014,Yusnaan,Yusnaan Slaughterhouse,Missable|Quest,,1
-tre_col_y_016,Yusnaan,Yusnaan Slaughterhouse - Fighting Actress,,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
-tre_col_y_017,Yusnaan,Yusnaan Slaughterhouse - Fighting Actress,,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
-tre_col_y_018,Yusnaan,Yusnaan Slaughterhouse - Fighting Actress,,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
-tre_cos_fa00,Yusnaan,Yusnaan Slaughterhouse - Fighting Actress (MM),MainKey,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
-tre_col_y_019,Yusnaan,Yusnaan Slaughterhouse - Tanbam's Taboo,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
-tre_cos_la00,Yusnaan,Yusnaan Chocobo Girl Miqo'te Dress,,,1
-tre_wea_da00,Yusnaan,Yusnaan Director Femme Fetale,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),1
-tre_qst_061,Yusnaan,Quest Fireworks In A Bottle,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
-tre_qst_061_2,Yusnaan,Quest Fireworks In A Bottle,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
-tre_qst_062,Yusnaan,Quest The Fighting Actress,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
-tre_qst_062_2,Yusnaan,Quest The Fighting Actress,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
-tre_qst_063,Yusnaan,Quest Songless Diva,Quest,I(key_y_kaban|1),1
-tre_qst_063_2,Yusnaan,Quest Songless Diva,Quest,I(key_y_kaban|1),1
-tre_qst_064,Yusnaan,Quest Stolen Things,Quest,,1
-tre_qst_064_2,Yusnaan,Quest Stolen Things,Quest,,1
-tre_qst_065,Yusnaan,Quest Fireworks For A Steal,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
-tre_qst_065_2,Yusnaan,Quest Fireworks For A Steal,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
-tre_qst_066,Yusnaan,Quest A Testing Proposition,Quest,,4
-tre_qst_066_2,Yusnaan,Quest A Testing Proposition,Quest,,4
-tre_qst_067,Yusnaan,Quest Last Date,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
-tre_qst_067_2,Yusnaan,Quest Last Date,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
-tre_qst_068,Yusnaan,Quest Free Will,Quest,,6
-tre_qst_068_2,Yusnaan,Quest Free Will,Quest,,6
-tre_qst_068_3,Yusnaan,Quest Free Will,Quest,,6
-tre_qst_069,Yusnaan,Quest Friends Forever,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
-tre_qst_069_2,Yusnaan,Quest Friends Forever,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
-tre_qst_069_3,Yusnaan,Quest Friends Forever,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
-tre_qst_070,Yusnaan,Quest Family Food,Quest,I(key_y_bashira|1),1
-tre_qst_070_2,Yusnaan,Quest Family Food,Quest,I(key_y_bashira|1),1
-tre_qst_071,Yusnaan,Quest Tanbam's Taboo,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
-tre_qst_071_2,Yusnaan,Quest Tanbam's Taboo,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
-tre_qst_072,Yusnaan,Quest Play It For Me,Quest,AND(I(key_y_kagi2|1)|I(key_y_kagi3|1)|I(key_y_rappa|1)),0
-tre_qst_072_2,Yusnaan,Quest Play It For Me,Quest,AND(I(key_y_kagi2|1)|I(key_y_kagi3|1)|I(key_y_rappa|1)),0
-tre_qst_073,Yusnaan,Quest Adoring Adornments,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),2
-tre_qst_073_2,Yusnaan,Quest Adoring Adornments,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),2
-tre_qst_074,Yusnaan,Quest Adoring Candice,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),4
-tre_qst_074_2,Yusnaan,Quest Adoring Candice,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),4
-tre_qst_074_3,Yusnaan,Quest Adoring Candice,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),4
-tre_qst_076,Yusnaan,Quest Death Safari,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),5
-tre_qst_076_2,Yusnaan,Quest Death Safari,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),5
-tre_qst_076_3,Yusnaan,Quest Death Safari,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),5
-tre_qst_076_4,Yusnaan,Quest Death Safari,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),5
-tre_qst_076_5,Yusnaan,Quest Death Safari,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),5
-tre_qst_077,Yusnaan,Quest Death Game,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),7
-tre_qst_077_2,Yusnaan,Quest Death Game,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),7
-tre_qst_077_3,Yusnaan,Quest Death Game,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),7
-tre_y_kagi1,Yusnaan,Morris Musical Treasure Sphere Key,SideKey,,0
-tre_key_y_serap,Yusnaan,Patron's Palace Serah's Pendant,MainKey,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),2
-tre_drp_kaban,Yusnaan,Gremlins Music Satchel,Battle|SideKey,,0
-tre_drp_bashira,Yusnaan,Schrodinger Civet Musk,Battle|SideKey,,1
-tre_acc_a_9050,Yusnaan,Yusnaan Boss Drop,Battle,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),4
-tre_box_p_000,Ark,Ark Day 1,Same,,0
-tre_box_p_001,Ark,Ark Day 1,Same,,0
-tre_box_p_002,Ark,Ark Day 1,Same,,0
+trd_niku,Luxerion,Buy Shaolong Gui Shell,Trade|SideKey,,0
+trd_ninjin,Luxerion,Buy Mandragora Root,Trade|SideKey,,0
+tre_key_l_bt_sp,Luxerion,Chocobo Emporium Spectral Elixir,Trade|SideKey,AND(I(key_j_kino|1)|I(key_niku|1)|I(key_ninjin|1)),4
+tre_qst_001,Luxerion,The Things She Lost Quest,Quest,OR(I(key_kb_g|1)|I(key_kb_r|1)),2
+tre_qst_001_2,Luxerion,The Things She Lost Quest,Quest,OR(I(key_kb_g|1)|I(key_kb_r|1)),2
+tre_qst_002,Luxerion,"Where Are You, Holmes? Quest",Missable|Quest,,0
+tre_qst_002_2,Luxerion,"Where Are You, Holmes? Quest",Missable|Quest,,0
+tre_qst_002_3,Luxerion,"Where Are You, Holmes? Quest",Missable|Quest,,0
+tre_qst_003,Luxerion,Like Clockwork Quest,Quest,,1
+tre_qst_003_2,Luxerion,Like Clockwork Quest,Quest,,1
+tre_qst_004,Luxerion,Dying Wish Quest,Quest,I(key_sp_bt|1),2
+tre_qst_004_2,Luxerion,Dying Wish Quest,Quest,I(key_sp_bt|1),2
+tre_qst_005,Luxerion,Suspicious Spheres Quest,Quest,I(key_kyu_pass|1),2
+tre_qst_005_2,Luxerion,Suspicious Spheres Quest,Quest,I(key_kyu_pass|1),2
+tre_key_l_q006,Luxerion,Born From Chaos Quest,Quest,I(key_behi_tume|1),1
+tre_qst_006,Luxerion,Born From Chaos Quest,Quest,I(key_behi_tume|1),1
+tre_qst_006_2,Luxerion,Born From Chaos Quest,Quest,I(key_behi_tume|1),1
+tre_qst_006_3,Luxerion,Born From Chaos Quest,Quest,I(key_behi_tume|1),1
+tre_qst_007,Luxerion,Soul Seeds Quest,Quest,,0
+tre_qst_007_2,Luxerion,Soul Seeds Quest,Quest,,0
+tre_qst_008,Luxerion,Faster Than Lightning Quest,Quest,,1
+tre_qst_008_2,Luxerion,Faster Than Lightning Quest,Quest,,1
+tre_qst_009,Luxerion,Treasured Ball Quest,Quest,I(key_ball|1),2
+tre_qst_009_2,Luxerion,Treasured Ball Quest,Quest,I(key_ball|1),2
+tre_key_l_kimo,Luxerion,Talbot's Gratitude,SideKey,I(key_ball|1),2
+tre_qst_010,Luxerion,The Angel's Tears Quest,Quest,,3
+tre_qst_010_2,Luxerion,The Angel's Tears Quest,Quest,,3
+tre_qst_011,Luxerion,The Saint's Stone Quest,Quest,,2
+tre_qst_011_2,Luxerion,The Saint's Stone Quest,Quest,,2
+tre_qst_011_3,Luxerion,The Saint's Stone Quest,Quest,,2
+tre_key_l_kagi,Luxerion,Aremiah Service Entrance Key,SideKey,,2
+tre_qst_012,Luxerion,Whither Faith Quest,Missable|Quest,,0
+tre_qst_012_2,Luxerion,Whither Faith Quest,Missable|Quest,,0
+tre_qst_013,Luxerion,The Avid Reader Quest,Missable|Quest,,3
+tre_qst_013_2,Luxerion,The Avid Reader Quest,Missable|Quest,,3
+tre_qst_014,Luxerion,Buried Passion Quest,Quest,I(key_l_pen|1),2
+tre_qst_014_2,Luxerion,Buried Passion Quest,Quest,I(key_l_pen|1),2
+tre_qst_015,Luxerion,The Girl Who Cried Wolf Quest,Missable|Quest,,3
+tre_qst_015_2,Luxerion,The Girl Who Cried Wolf Quest,Missable|Quest,,3
+tre_qst_016,Luxerion,Stuck in a Gem Quest,Quest,,2
+tre_qst_016_2,Luxerion,Stuck in a Gem Quest,Quest,,2
+tre_qst_017,Luxerion,Get the Girl Quest,Quest,,2
+tre_qst_017_2,Luxerion,Get the Girl Quest,Quest,,2
+tre_qst_019,Luxerion,A Rose By Any Other Name Quest,Quest,I(key_l_hana|1),4
+tre_qst_019_2,Luxerion,A Rose By Any Other Name Quest,Quest,I(key_l_hana|1),4
+tre_qst_019_3,Luxerion,A Rose By Any Other Name Quest,Quest,I(key_l_hana|1),4
+tre_qst_019_4,Luxerion,A Rose By Any Other Name Quest,Quest,I(key_l_hana|1),4
+tre_qst_020,Luxerion,Voices from the Grave Quest,Quest,,3
+tre_qst_020_2,Luxerion,Voices from the Grave Quest,Quest,,3
+tre_qst_091,Luxerion,To Save the Sinless Quest,Missable|Quest,,4
+tre_qst_091_2,Luxerion,To Save the Sinless Quest,Missable|Quest,,4
+tre_ti840,Luxerion,Replace Chronostasis,EP,,0
+tre_wea_oa00,Luxerion,Luxerion Boss Drop,Battle,,7
+tre_wea_oa01,Luxerion,Luxerion Boss+ Only Missable Drop,Missable,,8
+tre_box_b_004,Wildlands,Moogle Village Moogle Dust Treasure,CoPKey,,2
+tre_box_b_005,Wildlands,Research Camp Photo Frame Treasure,CoPKey,,2
+tre_box_b_006,Wildlands,Poltae Etro's Forbidden Tome,CoPKey,,2
+tre_box_b_007,Wildlands,Eremite Plains Broken Gyroscope Treasure,CoPKey,I(key_w_yasai_t|1),2
+tre_box_b_010,Wildlands,Aryas Village Treasure,CoPKey,,0
+tre_box_w_000,Wildlands,Jagd Woods Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_001,Wildlands,The Grasslands Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_002,Wildlands,Poltae Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_003,Wildlands,Canopus Farms Treasure,,,0
+tre_box_w_004,Wildlands,Rocky Crag Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_005,Wildlands,The Grasslands Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_006,Wildlands,Aryas Village Treasure,,,0
+tre_box_w_007,Wildlands,The Grasslands Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_008,Wildlands,Eremite Plains Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_009,Wildlands,Eremite Plains Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_010,Wildlands,Moogle Village Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_011,Wildlands,City of Ruins Treasure,EP,I(key_w_yasai_t|1),2
+tre_box_w_012,Wildlands,Rocky Crag Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_013,Wildlands,Rocky Crag Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_014,Wildlands,Aryas Village Treasure,,I(key_w_yasai_t|1),2
+tre_box_w_015,Wildlands,Poltae Treasure,,,0
+tre_box_w_016,Wildlands,Eremite Plains Crash Site Fragment,MainKey,I(key_w_yasai_t|1),3
+tre_box_w_050,Wildlands,Goddess Temple Treasure,,I(key_w_yasai_t|1),4
+tre_box_w_051,Wildlands,Goddess Temple Treasure,,I(key_w_yasai_t|1),4
+tre_box_w_052,Wildlands,Goddess Temple Treasure,,I(key_w_yasai_t|1),4
+tre_box_w_053,Wildlands,Goddess Temple Treasure,,I(key_w_yasai_t|1),4
+tre_box_w_054,Wildlands,Goddess Temple Treasure,,I(key_w_yasai_t|1),4
+tre_box_w_056,Wildlands,Goddess Temple Treasure,,I(key_w_yasai_t|1),4
+tre_box_w_057,Wildlands,Goddess Temple Treasure,,I(key_w_yasai_t|1),4
+tre_box_w_058,Wildlands,Goddess Temple Treasure,,I(key_w_yasai_t|1),4
+tre_box_w_060,Wildlands,Goddess Temple Treasure,,I(key_w_yasai_t|1),4
+tre_key_yasai_t,Wildlands,Dr Gysahl's Gysahl Greens,MainKey,,1
+tre_key_s_okuri,Wildlands,Aryas Village Beloved's Gift Treasure,MainKey,,0
+tre_w_tane,Wildlands,Sarala Vegatable Seeds,,I(key_w_yasai_t|1),1
+tre_qst_021,Wildlands,A Father's Request Quest,Quest,I(key_w_yasai_t|1),1
+tre_qst_021_2,Wildlands,A Father's Request Quest,Quest,I(key_w_yasai_t|1),1
+tre_qst_022,Wildlands,The Hunter's Challenge Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_022_2,Wildlands,The Hunter's Challenge Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_022_3,Wildlands,The Hunter's Challenge Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_023,Wildlands,A Final Cure Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_023_2,Wildlands,A Final Cure Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_023_3,Wildlands,A Final Cure Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_024,Wildlands,Fuzzy Search Quest,Quest,,0
+tre_qst_024_2,Wildlands,Fuzzy Search Quest,Quest,,0
+tre_qst_024_3,Wildlands,Fuzzy Search Quest,Quest,,0
+tre_qst_025,Wildlands,Round 'em Up Quest,Quest,I(key_w_yasai_t|1),2
+tre_qst_025_2,Wildlands,Round 'em Up Quest,Quest,I(key_w_yasai_t|1),2
+tre_qst_026,Wildlands,Chocobo Cheer Quest,Quest,I(key_w_yasai_t|1),2
+tre_qst_026_2,Wildlands,Chocobo Cheer Quest,Quest,I(key_w_yasai_t|1),2
+tre_qst_026_3,Wildlands,Chocobo Cheer Quest,Quest,I(key_w_yasai_t|1),2
+tre_qst_027,Wildlands,"Peace and Quiet, Kupo Quest",Quest,,2
+tre_qst_027_2,Wildlands,"Peace and Quiet, Kupo Quest",Quest|MainKey,,2
+tre_qst_027_3,Wildlands,"Peace and Quiet, Kupo Quest",Quest,,2
+tre_qst_028,Wildlands,Saving an Angel Quest,Quest,I(key_w_yasai_t|1),1
+tre_qst_028_2,Wildlands,Saving an Angel Quest,Quest,I(key_w_yasai_t|1),1
+tre_qst_029,Wildlands,Omega Point Quest,Quest,AND(I(key_w_yasai_t|1)|I(key_w_data|1)),2
+tre_qst_029_2,Wildlands,Omega Point Quest,Quest,AND(I(key_w_yasai_t|1)|I(key_w_data|1)),2
+tre_qst_030,Wildlands,The Old Man and the Field Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_030_2,Wildlands,The Old Man and the Field Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_031,Wildlands,Land of our Forebears Quest,Quest,I(key_w_yasai_t|1),6
+tre_qst_031_2,Wildlands,Land of our Forebears Quest,Quest,I(key_w_yasai_t|1),6
+tre_qst_032,Wildlands,A Taste of the Past Quest,Quest,AND(I(key_w_yasai_t|1)|I(key_w_apple|2)),2
+tre_qst_032_2,Wildlands,A Taste of the Past Quest,Quest,AND(I(key_w_yasai_t|1)|I(key_w_apple|2)),2
+tre_qst_032_3,Wildlands,A Taste of the Past Quest,Quest,AND(I(key_w_yasai_t|1)|I(key_w_apple|2)),2
+tre_qst_033,Wildlands,"Dog, Doctor and Assistant Quest",Quest,I(key_w_yasai_t|1),3
+tre_qst_033_2,Wildlands,"Dog, Doctor and Assistant Quest",Quest,I(key_w_yasai_t|1),3
+tre_qst_034,Wildlands,Main Quest 5,Quest,AND(I(key_w_yasai_t|1)|I(key_s_kairaku|1)|I(key_s_hiai|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1)),7
+tre_qst_034_2,Wildlands,Main Quest 5,Quest,AND(I(key_w_yasai_t|1)|I(key_s_kairaku|1)|I(key_s_hiai|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1)),7
+tre_qst_034_3,Wildlands,Main Quest 5,Quest,AND(I(key_w_yasai_t|1)|I(key_s_kairaku|1)|I(key_s_hiai|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1)),7
+tre_qst_035,Wildlands,The Right Stuff Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_035_2,Wildlands,The Right Stuff Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_036,Wildlands,The Secret Lives of Sheep Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_036_2,Wildlands,The Secret Lives of Sheep Quest,Quest,I(key_w_yasai_t|1),3
+tre_qst_037,Wildlands,"Where Are You, Moogle? Quest",Quest,,3
+tre_qst_037_2,Wildlands,"Where Are You, Moogle? Quest",Quest,,3
+tre_qst_037_3,Wildlands,"Where Are You, Moogle? Quest",Quest,,3
+tre_qst_038,Wildlands,Mercy of a Goddess Quest,Quest,I(key_w_yasai_t|1),4
+tre_qst_038_2,Wildlands,Mercy of a Goddess Quest,Quest,I(key_w_yasai_t|1),4
+tre_qst_039,Wildlands,The Grail of Valhalla Quest,Quest,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)|I(key_w_buhin1|1)|I(key_w_buhin2|1)|I(key_w_buhin3|1)),4
+tre_qst_039_2,Wildlands,The Grail of Valhalla Quest,Quest,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)|I(key_w_buhin1|1)|I(key_w_buhin2|1)|I(key_w_buhin3|1)),4
+tre_qst_039_3,Wildlands,The Grail of Valhalla Quest,Quest,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)|I(key_w_buhin1|1)|I(key_w_buhin2|1)|I(key_w_buhin3|1)),4
+tre_qst_040,Wildlands,To Live in Chaos Quest,Quest,I(key_w_yasai_t|1),5
+tre_qst_040_2,Wildlands,To Live in Chaos Quest,Quest,I(key_w_yasai_t|1),5
+tre_qst_040_3,Wildlands,To Live in Chaos Quest,Quest,I(key_w_yasai_t|1),5
+tre_qst_081,Wildlands,Killing Time Quest,Quest,I(key_w_yasai_t|1),2
+tre_qst_081_2,Wildlands,Killing Time Quest,Quest,I(key_w_yasai_t|1),2
+tre_qst_082,Wildlands,Matchmaker Quest,Quest,I(key_w_yasai_t|1),4
+tre_qst_082_2,Wildlands,Matchmaker Quest,Quest,I(key_w_yasai_t|1),4
+tre_qst_083,Wildlands,Mother and Daughter Quest,Quest,I(key_w_yasai_t|1),4
+tre_qst_083_2,Wildlands,Mother and Daughter Quest,Quest,I(key_w_yasai_t|1),4
+tre_w_tamago,Wildlands,The Secret Lives of Sheep Mystery Egg,,I(key_w_yasai_t|1),3
+tre_w_moji1,Wildlands,Goddess Temple Goddess Glyphs,,I(key_w_yasai_t|1),4
+tre_w_moji2,Wildlands,Goddess Temple Chaos Glyphs,,I(key_w_yasai_t|1),4
+tre_w_buhin1,Wildlands,Poltae Plate Metal Fragment,,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)),4
+tre_w_buhin2,Wildlands,Poltae Silvered Metal Fragment,,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)),4
+tre_w_buhin3,Wildlands,Poltae Gold Metal Fragment,,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)),4
+tre_w_data,Wildlands,Research Camp Data Recorder,,I(key_w_yasai_t|1),4
+tre_w_apple1,Wildlands,Aryas Village Apple,,I(key_w_yasai_t|1),1
+tre_w_apple2,Wildlands,Aryas Village Apple,,I(key_w_yasai_t|1),1
+tre_w_apple3,Wildlands,Aryas Village Apple,,I(key_w_yasai_t|1),1
+tre_wea_oa02,Wildlands,Wildlands Boss Drop,Battle,I(key_w_yasai_t|1),7
+tre_box_b_002,Yusnaan,Reveler's Quarter Lapis Lazuli Treasure,CoPKey,,0
+tre_box_b_003,Yusnaan,Industrial Area Power Booster,CoPKey,AND(I(key_y_id|1)|I(key_y_ticket|1)),2
+tre_box_b_012,Yusnaan,Tunnel Oath of the Merchants Guild Treasure,CoPKey,,0
+tre_box_b_013,Yusnaan,Industrial Area Jade Hair Comb,CoPKey,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),2
+tre_box_b_014,Yusnaan,Industrial Area Bronze Pocket Watch,CoPKey,I(key_y_ticket|1),1
+tre_key_b_20,Yusnaan,Chocobo Girl Poster,CoPKey,,0
+tre_box_y_000,Yusnaan,Glutton's Quarter Treasure,,,0
+tre_box_y_001,Yusnaan,Aromatic Market Treasure,,,0
+tre_box_y_002,Yusnaan,Central Ave Treasure,,,0
+tre_box_y_003,Yusnaan,Coliseum Square Treasure,,,0
+trd_ticket,Yusnaan,Tour Guide Sneaking-In Special Ticket,Trade|MainKey,,2
+tre_box_y_004,Yusnaan,Warehouse District Id Card,Trade|MainKey,I(key_y_ticket|1),3
+tre_box_y_005,Yusnaan,Coliseum Square (Musical) Treasure,SideKey,I(key_y_kagi1|1),2
+tre_box_y_006,Yusnaan,Cactuar Statue (Musical) Treasure,SideKey,I(key_y_kagi1|1),2
+tre_box_y_007,Yusnaan,Station (Musical) Treasure,SideKey,I(key_y_kagi1|1),2
+tre_box_y_008,Yusnaan,Cactuar Statue Treasure,,,0
+tre_box_y_009,Yusnaan,Reveler's Quarter Treasure,,,0
+tre_box_y_010,Yusnaan,Augur's Quarter Treasure,,AND(I(key_y_ticket|1)|I(key_y_id|1)),1
+tre_box_y_011,Yusnaan,Patron's Palace Treasure,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
+tre_box_y_012,Yusnaan,Hawker's Row Treasure,,,0
+tre_box_y_013,Yusnaan,Augur's Quarter Treasure,,AND(I(key_y_ticket|1)|I(key_y_id|1)),0
+tre_box_y_015,Yusnaan,Warehouse District Treasure,,I(key_y_ticket|1),0
+tre_box_y_017,Yusnaan,Augur's Quarter Treasure,,AND(I(key_y_id|1)|I(key_y_ticket|1)),1
+tre_box_y_018,Yusnaan,Supply Line Treasure,,I(key_y_ticket|1),1
+tre_box_y_019,Yusnaan,Industrial Area Treasure,,I(key_y_ticket|1),0
+tre_box_y_021,Yusnaan,Lower City Treasure,,,0
+tre_box_y_022,Yusnaan,Glutton's Quarter Treasure,EP,,5
+tre_box_y_024,Yusnaan,Reveler's Quarter Treasure,,,0
+tre_box_y_051,Yusnaan,Patron's Palace Treasure,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
+tre_box_y_052,Yusnaan,Patron's Palace Treasure,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
+tre_box_y_055,Yusnaan,Patron's Palace Treasure,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
+tre_box_y_056,Yusnaan,Patron's Palace Treasure,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),3
+tre_box_y_059,Yusnaan,Slaughterhouse Special Fragment of Courage,MainKey,I(key_w_yasai_t|1),1
+tre_col_y_004,Yusnaan,Slaughterhouse,Missable|Quest,,1
+tre_col_y_005,Yusnaan,Slaughterhouse,Missable|Quest,,1
+tre_col_y_006,Yusnaan,Slaughterhouse,Missable|Quest,,1
+tre_col_y_007,Yusnaan,Slaughterhouse,Missable|Quest,,1
+tre_col_y_008,Yusnaan,Slaughterhouse,Missable|Quest,,1
+tre_col_y_009,Yusnaan,Slaughterhouse,Missable|Quest,,1
+tre_col_y_010,Yusnaan,Slaughterhouse,Missable|Quest,,1
+tre_col_y_012,Yusnaan,Slaughterhouse,Missable|Quest,,1
+tre_col_y_013,Yusnaan,Slaughterhouse,Missable|Quest,,1
+tre_col_y_014,Yusnaan,Slaughterhouse,Missable|Quest,,1
+tre_col_y_016,Yusnaan,The Fighting Actress Slaughterhouse,,AND(I(key_y_ticket|1)|I(key_y_id|1)),4
+tre_col_y_017,Yusnaan,The Fighting Actress Slaughterhouse,,AND(I(key_y_ticket|1)|I(key_y_id|1)),4
+tre_col_y_018,Yusnaan,The Fighting Actress Slaughterhouse,,AND(I(key_y_ticket|1)|I(key_y_id|1)),4
+tre_cos_fa00,Yusnaan,The Fighting Actress Slaughterhouse,MainKey,AND(I(key_y_ticket|1)|I(key_y_id|1)),4
+tre_col_y_019,Yusnaan,Tanbam's Taboo Slaughterhouse,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),6
+tre_cos_la00,Yusnaan,Chocobo Girl Miqo'te Dress,,,1
+tre_wea_da00,Yusnaan,Director Femme Fetale,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),4
+tre_qst_061,Yusnaan,Fireworks in a Bottle Quest,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),2
+tre_qst_061_2,Yusnaan,Fireworks in a Bottle Quest,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),2
+tre_qst_062,Yusnaan,The Fighting Actress Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),4
+tre_qst_062_2,Yusnaan,The Fighting Actress Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),4
+tre_qst_063,Yusnaan,Songless Diva Quest,Quest,I(key_y_kaban|1),2
+tre_qst_063_2,Yusnaan,Songless Diva Quest,Quest,I(key_y_kaban|1),2
+tre_qst_064,Yusnaan,Stolen Things Quest,Quest,I(key_y_letter|1),1
+tre_qst_064_2,Yusnaan,Stolen Things Quest,Quest,I(key_y_letter|1),1
+tre_qst_065,Yusnaan,Fireworks for a Steal Quest,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),2
+tre_qst_065_2,Yusnaan,Fireworks for a Steal Quest,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),2
+tre_qst_066,Yusnaan,A Testing Proposition Quest,Quest,,4
+tre_qst_066_2,Yusnaan,A Testing Proposition Quest,Quest,,4
+tre_qst_067,Yusnaan,Last Date Quest,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_067_2,Yusnaan,Last Date Quest,Missable|Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_068,Yusnaan,Free Will Quest,Quest,,6
+tre_qst_068_2,Yusnaan,Free Will Quest,Quest,,6
+tre_qst_068_3,Yusnaan,Free Will Quest,Quest,,6
+tre_qst_069,Yusnaan,Friends Forever Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_069_2,Yusnaan,Friends Forever Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_069_3,Yusnaan,Friends Forever Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_070,Yusnaan,Family Food Quest,Quest,AND(I(key_y_bashira|1)|I(key_y_recipe|1)|I(key_y_cream|1)),3
+tre_qst_070_2,Yusnaan,Family Food Quest,Quest,AND(I(key_y_bashira|1)|I(key_y_recipe|1)|I(key_y_cream|1)),3
+tre_qst_071,Yusnaan,Tanbam's Taboo Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_071_2,Yusnaan,Tanbam's Taboo Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_072,Yusnaan,Play It for Me Quest,Quest,AND(I(key_y_kagi2|1)|I(key_y_kagi3|1)|I(key_y_rappa|1)),3
+tre_qst_072_2,Yusnaan,Play It for Me Quest,Quest,AND(I(key_y_kagi2|1)|I(key_y_kagi3|1)|I(key_y_rappa|1)),3
+tre_qst_073,Yusnaan,Adoring Adornments Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),2
+tre_qst_073_2,Yusnaan,Adoring Adornments Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),2
+tre_qst_074,Yusnaan,Adoring Candice Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),4
+tre_qst_074_2,Yusnaan,Adoring Candice Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),4
+tre_qst_074_3,Yusnaan,Adoring Candice Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),4
+tre_qst_076,Yusnaan,Death Safari Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),5
+tre_qst_076_2,Yusnaan,Death Safari Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),5
+tre_qst_076_3,Yusnaan,Death Safari Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),5
+tre_qst_076_4,Yusnaan,Death Safari Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),5
+tre_qst_076_5,Yusnaan,Death Safari Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),5
+tre_qst_077,Yusnaan,Death Game Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),7
+tre_qst_077_2,Yusnaan,Death Game Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),7
+tre_qst_077_3,Yusnaan,Death Game Quest,Quest,AND(I(key_y_ticket|1)|I(key_y_id|1)),7
+tre_y_kagi1,Yusnaan,Morris Musical Treasure Sphere Key,SideKey,,1
+tre_key_y_serap,Yusnaan,Patron's Palace Serah's Pendant,MainKey,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)),5
+tre_y_recipe,Yusnaan,Gordon Gourmet's Recipe,SideKey,I(key_y_bashira|1),2
+tre_y_cream,Yusnaan,Seedy Steak a la Civet,SideKey,AND(I(key_y_bashira|1)|I(key_y_recipe|1)),3
+tre_y_letter,Yusnaan,Gregory Father's Letter,SideKey,,1
+tre_libra_m330,Yusnaan,Tanbam's Taboo Libra Notes,,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_acc_a_9050,Yusnaan,Yusnaan Boss Drop,Battle,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),7
+tre_box_p_003,Ark,Initial 3rd Garb,Same,,0
+tre_box_p_200,Ark,Initial 3rd Garb,Same,,0
+tre_box_p_201,Ark,Initial 3rd Garb,Same,,0
+tre_box_p_000,Ark,Ark Day 1,SideKey,,0
+tre_box_p_001,Ark,Ark Day 1,,,0
+tre_box_p_002,Ark,Ark Day 1,,,0
 tre_box_p_004,Ark,Ark Day 1,,,0
 tre_box_p_004_2,Ark,Ark Day 1,,,0
 tre_box_p_100,Ark,Ark Day 2,,,1
@@ -365,243 +384,244 @@ tre_box_p_111,Ark,Ark Final Day,Missable,,10
 tre_box_p_111_2,Ark,Ark Final Day,Missable,,10
 tre_box_p_111_3,Ark,Ark Final Day,Missable,,10
 tre_box_p_112,Ark,Ark Extra Day,Missable,,11
-tre_ti000,Ark,Replace EP Ability Curaga,EP,,0
-tre_ti810,Ark,Replace EP Ability Teleport,EP,,0
-tre_ti830,Ark,Replace EP Ability Escape,EP,,0
-tre_qst_1151,CoP Dead Dunes,CoP Quest Flower In The Sands,CoP,,1
-tre_qst_1151_1,CoP Dead Dunes,CoP Quest Flower In The Sands,CoP,,1
-tre_qst_1152,CoP Dead Dunes,CoP Quest Biologically Speaking,CoP,,2
-tre_qst_1152_1,CoP Dead Dunes,CoP Quest Biologically Speaking,CoP,,2
-tre_qst_1153,CoP Dead Dunes,CoP Quest The Real Client,CoP,,4
-tre_qst_1153_1,CoP Dead Dunes,CoP Quest The Real Client,CoP,,4
-tre_qst_1153_2,CoP Dead Dunes,CoP Quest The Real Client,CoP,,4
-tre_qst_1154,CoP Dead Dunes,CoP Quest For My Child,CoP,,1
-tre_qst_1154_1,CoP Dead Dunes,CoP Quest For My Child,CoP,,1
-tre_qst_1154_2,CoP Dead Dunes,CoP Quest For My Child,CoP,,1
-tre_qst_1155,CoP Dead Dunes,CoP Quest Bandits' New Weapon,CoP,,3
-tre_qst_1155_1,CoP Dead Dunes,CoP Quest Bandits' New Weapon,CoP,,3
-tre_qst_1155_2,CoP Dead Dunes,CoP Quest Bandits' New Weapon,CoP,,3
-tre_qst_1156,CoP Dead Dunes,CoP Quest Banned Goods,CoP,,3
-tre_qst_1156_1,CoP Dead Dunes,CoP Quest Banned Goods,CoP,,3
-tre_qst_1156_2,CoP Dead Dunes,CoP Quest Banned Goods,CoP,,3
-tre_qst_1157,CoP Dead Dunes,CoP Quest Climbing The Ranks I,CoP,,2
-tre_qst_1157_1,CoP Dead Dunes,CoP Quest Climbing The Ranks I,CoP,,2
-tre_qst_1159,CoP Dead Dunes,CoP Quest Miracle Vintage,CoP,,4
-tre_qst_1159_1,CoP Dead Dunes,CoP Quest Miracle Vintage,CoP,,4
-tre_qst_1159_2,CoP Dead Dunes,CoP Quest Miracle Vintage,CoP,,4
-tre_qst_1164,CoP Dead Dunes,CoP Quest Climbing The Ranks II,CoP,,6
-tre_qst_1164_1,CoP Dead Dunes,CoP Quest Climbing The Ranks II,CoP,,6
-tre_qst_1165,CoP Dead Dunes,CoP Quest Heightened Security,CoP,,2
-tre_qst_1165_1,CoP Dead Dunes,CoP Quest Heightened Security,CoP,,2
-tre_qst_1165_2,CoP Dead Dunes,CoP Quest Heightened Security,CoP,,2
-tre_qst_1168,CoP Dead Dunes,CoP Quest Desert Cleanup,CoP,,8
-tre_qst_1168_1,CoP Dead Dunes,CoP Quest Desert Cleanup,CoP,,8
-tre_qst_1168_2,CoP Dead Dunes,CoP Quest Desert Cleanup,CoP,,8
-tre_qst_1171,CoP Dead Dunes,CoP Quest A Treasure For A God,CoP,I(key_d_sekiban|3),3
-tre_qst_1171_1,CoP Dead Dunes,CoP Quest A Treasure For A God,CoP,I(key_d_sekiban|3),3
-tre_qst_1172,CoP Dead Dunes,CoP Quest Lucky Charm,CoP,,3
-tre_qst_1172_1,CoP Dead Dunes,CoP Quest Lucky Charm,CoP,,3
-tre_qst_1173,CoP Dead Dunes,CoP Quest Supply And Demand,CoP,,4
-tre_qst_1173_1,CoP Dead Dunes,CoP Quest Supply And Demand,CoP,,4
-tre_qst_1173_2,CoP Dead Dunes,CoP Quest Supply And Demand,CoP,,4
-tre_qst_1174,CoP Dead Dunes,CoP Quest A New Application,CoP,I(key_y_bashira|1),6
-tre_qst_1174_1,CoP Dead Dunes,CoP Quest A New Application,CoP,I(key_y_bashira|1),6
-tre_qst_1174_2,CoP Dead Dunes,CoP Quest A New Application,CoP,I(key_y_bashira|1),6
-tre_qst_1175,CoP Dead Dunes,CoP Quest Pride And Greed I,CoP,,2
-tre_qst_1175_1,CoP Dead Dunes,CoP Quest Pride And Greed I,CoP,,2
-tre_qst_1175_2,CoP Dead Dunes,CoP Quest Pride And Greed I,CoP,,2
-tre_qst_1176,CoP Dead Dunes,CoP Quest Pride And Greed II,CoP,,3
-tre_qst_1176_1,CoP Dead Dunes,CoP Quest Pride And Greed II,CoP,,3
-tre_qst_1176_2,CoP Dead Dunes,CoP Quest Pride And Greed II,CoP,,3
-tre_qst_1177,CoP Dead Dunes,CoP Quest Pride And Greed III,CoP,,6
-tre_qst_1177_1,CoP Dead Dunes,CoP Quest Pride And Greed III,CoP,,6
-tre_qst_1177_2,CoP Dead Dunes,CoP Quest Pride And Greed III,CoP,,6
-tre_qst_1001,CoP Luxerion,CoP Quest Revenge Is Sweet,CoP,,2
-tre_qst_1001_1,CoP Luxerion,CoP Quest Revenge Is Sweet,CoP,,2
-tre_qst_1002,CoP Luxerion,CoP Quest Gift Of Gratitude,CoP,,3
-tre_qst_1002_1,CoP Luxerion,CoP Quest Gift Of Gratitude,CoP,,3
-tre_qst_1002_2,CoP Luxerion,CoP Quest Gift Of Gratitude,CoP,,3
-tre_qst_1003,CoP Luxerion,CoP Quest A Song For God,CoP,,2
-tre_qst_1003_1,CoP Luxerion,CoP Quest A Song For God,CoP,,2
-tre_qst_1003_2,CoP Luxerion,CoP Quest A Song For God,CoP,,2
-tre_qst_1005,CoP Luxerion,CoP Quest Slay The Machine,CoP,,3
-tre_qst_1005_1,CoP Luxerion,CoP Quest Slay The Machine,CoP,,3
-tre_qst_1006,CoP Luxerion,CoP Quest Enchanted Brush,CoP,,5
-tre_qst_1006_1,CoP Luxerion,CoP Quest Enchanted Brush,CoP,,5
-tre_qst_1006_2,CoP Luxerion,CoP Quest Enchanted Brush,CoP,,5
-tre_qst_1007,CoP Luxerion,CoP Quest Heretics' Beasts,CoP,,5
-tre_qst_1007_1,CoP Luxerion,CoP Quest Heretics' Beasts,CoP,,5
-tre_qst_1007_2,CoP Luxerion,CoP Quest Heretics' Beasts,CoP,,5
-tre_qst_1008,CoP Luxerion,CoP Quest Grave Of A Bounty Hunter,CoP,,3
-tre_qst_1008_1,CoP Luxerion,CoP Quest Grave Of A Bounty Hunter,CoP,,3
-tre_qst_1008_2,CoP Luxerion,CoP Quest Grave Of A Bounty Hunter,CoP,,3
-tre_qst_1009,CoP Luxerion,CoP Quest Inventive Seamstress,CoP,,2
-tre_qst_1009_1,CoP Luxerion,CoP Quest Inventive Seamstress,CoP,,2
-tre_qst_1011,CoP Luxerion,CoP Quest Puppeteer's Lament,CoP,,1
-tre_qst_1011_1,CoP Luxerion,CoP Quest Puppeteer's Lament,CoP,,1
-tre_qst_1011_2,CoP Luxerion,CoP Quest Puppeteer's Lament,CoP,,1
-tre_qst_1012,CoP Luxerion,CoP Quest Revenge Has Teeth,CoP,,4
-tre_qst_1012_1,CoP Luxerion,CoP Quest Revenge Has Teeth,CoP,,4
-tre_qst_1015,CoP Luxerion,CoP Quest Night Patrol,CoP,,6
-tre_qst_1015_1,CoP Luxerion,CoP Quest Night Patrol,CoP,,6
-tre_qst_1015_2,CoP Luxerion,CoP Quest Night Patrol,CoP,,6
-tre_qst_1016,CoP Luxerion,CoP Quest Trapped,CoP,,9
-tre_qst_1016_1,CoP Luxerion,CoP Quest Trapped,CoP,,9
-tre_qst_1016_2,CoP Luxerion,CoP Quest Trapped,CoP,,9
-tre_qst_1016_3,CoP Luxerion,CoP Quest Trapped,CoP,,9
-tre_qst_1021,CoP Luxerion,CoP Quest Mythical Badge,CoP,I(key_l_kishin|1),1
-tre_qst_1021_1,CoP Luxerion,CoP Quest Mythical Badge,CoP,I(key_l_kishin|1),1
-tre_qst_1021_2,CoP Luxerion,CoP Quest Mythical Badge,CoP,I(key_l_kishin|1),1
-tre_qst_1101,CoP Wildlands,CoP Quest Sun Flower,CoP,,1
-tre_qst_1101_1,CoP Wildlands,CoP Quest Sun Flower,CoP,,1
-tre_qst_1102,CoP Wildlands,CoP Quest Moon Flower,CoP,,1
-tre_qst_1102_1,CoP Wildlands,CoP Quest Moon Flower,CoP,,1
-tre_qst_1102_2,CoP Wildlands,CoP Quest Moon Flower,CoP,,1
-tre_qst_1103,CoP Wildlands,CoP Quest Secret Of The Chocoborel,CoP,,3
-tre_qst_1103_1,CoP Wildlands,CoP Quest Secret Of The Chocoborel,CoP,,3
-tre_qst_1103_2,CoP Wildlands,CoP Quest Secret Of The Chocoborel,CoP,,3
-tre_qst_1104,CoP Wildlands,CoP Quest Wildlands In Danger!,CoP,I(key_w_yasai_t|1),1
-tre_qst_1104_1,CoP Wildlands,CoP Quest Wildlands In Danger!,CoP,I(key_w_yasai_t|1),1
-tre_qst_1104_2,CoP Wildlands,CoP Quest Wildlands In Danger!,CoP,I(key_w_yasai_t|1),1
-tre_qst_1105,CoP Wildlands,CoP Quest Hunting The Hunter,CoP,,3
-tre_qst_1105_1,CoP Wildlands,CoP Quest Hunting The Hunter,CoP,,3
-tre_qst_1105_2,CoP Wildlands,CoP Quest Hunting The Hunter,CoP,,3
-tre_qst_1106,CoP Wildlands,CoP Quest Forget Me Not,CoP,,3
-tre_qst_1106_1,CoP Wildlands,CoP Quest Forget Me Not,CoP,,3
-tre_qst_1106_2,CoP Wildlands,CoP Quest Forget Me Not,CoP,,3
-tre_qst_1107,CoP Wildlands,CoP Quest A Word Of Thanks,CoP,,2
-tre_qst_1107_1,CoP Wildlands,CoP Quest A Word Of Thanks,CoP,,2
-tre_qst_1107_2,CoP Wildlands,CoP Quest A Word Of Thanks,CoP,,2
-tre_qst_1108,CoP Wildlands,CoP Quest Fresh Fertilizer,CoP,I(key_w_yasai_t|1),3
-tre_qst_1108_1,CoP Wildlands,CoP Quest Fresh Fertilizer,CoP,I(key_w_yasai_t|1),3
-tre_qst_1108_2,CoP Wildlands,CoP Quest Fresh Fertilizer,CoP,I(key_w_yasai_t|1),3
-tre_qst_1109,CoP Wildlands,CoP Quest For The Future,CoP,,1
-tre_qst_1109_1,CoP Wildlands,CoP Quest For The Future,CoP,,1
-tre_qst_1109_2,CoP Wildlands,CoP Quest For The Future,CoP,,1
-tre_qst_1110,CoP Wildlands,CoP Quest Dumpling Cook-Off,CoP,,5
-tre_qst_1110_1,CoP Wildlands,CoP Quest Dumpling Cook-Off,CoP,,5
-tre_qst_1110_2,CoP Wildlands,CoP Quest Dumpling Cook-Off,CoP,,5
-tre_qst_1111,CoP Wildlands,CoP Quest Brain Over Brawn,CoP,,4
-tre_qst_1111_1,CoP Wildlands,CoP Quest Brain Over Brawn,CoP,,4
-tre_qst_1111_2,CoP Wildlands,CoP Quest Brain Over Brawn,CoP,,4
-tre_qst_1113,CoP Wildlands,CoP Quest Hunter's Challenge,CoP,,1
-tre_qst_1113_1,CoP Wildlands,CoP Quest Hunter's Challenge,CoP,,1
-tre_qst_1113_2,CoP Wildlands,CoP Quest Hunter's Challenge,CoP,,1
-tre_qst_1114,CoP Wildlands,CoP Quest A Secret Wish,CoP,,5
-tre_qst_1114_1,CoP Wildlands,CoP Quest A Secret Wish,CoP,,5
-tre_qst_1114_2,CoP Wildlands,CoP Quest A Secret Wish,CoP,,5
-tre_qst_1115,CoP Wildlands,CoP Quest Moghan's Plea,CoP,,3
-tre_qst_1115_1,CoP Wildlands,CoP Quest Moghan's Plea,CoP,,3
-tre_qst_1115_2,CoP Wildlands,CoP Quest Moghan's Plea,CoP,,3
-tre_qst_1116,CoP Wildlands,CoP Quest What's In A Brew?,CoP,I(key_w_yasai_t|1),9
-tre_qst_1116_1,CoP Wildlands,CoP Quest What's In A Brew?,CoP,I(key_w_yasai_t|1),9
-tre_qst_1116_2,CoP Wildlands,CoP Quest What's In A Brew?,CoP,I(key_w_yasai_t|1),9
-tre_qst_1116_3,CoP Wildlands,CoP Quest What's In A Brew?,CoP,I(key_w_yasai_t|1),9
-tre_qst_1117,CoP Wildlands,CoP Quest A Prayer To A Goddess,CoP,,3
-tre_qst_1117_1,CoP Wildlands,CoP Quest A Prayer To A Goddess,CoP,,3
-tre_qst_1117_2,CoP Wildlands,CoP Quest A Prayer To A Goddess,CoP,,3
-tre_qst_1118,CoP Wildlands,CoP Quest Gatekeeper's Curiosity,CoP,,4
-tre_qst_1118_1,CoP Wildlands,CoP Quest Gatekeeper's Curiosity,CoP,,4
-tre_qst_1119,CoP Wildlands,CoP Quest Echoes of a Drum,CoP,,2
-tre_qst_1119_1,CoP Wildlands,CoP Quest Echoes of a Drum,CoP,,2
-tre_qst_1119_2,CoP Wildlands,CoP Quest Echoes of a Drum,CoP,,2
-tre_qst_1120,CoP Wildlands,CoP Quest A Voice From Below,CoP,,3
-tre_qst_1120_1,CoP Wildlands,CoP Quest A Voice From Below,CoP,,3
-tre_qst_1120_2,CoP Wildlands,CoP Quest A Voice From Below,CoP,,3
-tre_qst_1121,CoP Wildlands,CoP Quest Chocobo Chow,CoP,I(key_w_yasai_t|1),3
-tre_qst_1121_1,CoP Wildlands,CoP Quest Chocobo Chow,CoP,I(key_w_yasai_t|1),3
-tre_qst_1121_2,CoP Wildlands,CoP Quest Chocobo Chow,CoP,I(key_w_yasai_t|1),3
-tre_qst_1122,CoP Wildlands,CoP Quest Sylkis Secrets,CoP,I(key_w_yasai_t|1),6
-tre_qst_1122_1,CoP Wildlands,CoP Quest Sylkis Secrets,CoP,I(key_w_yasai_t|1),6
-tre_qst_1122_2,CoP Wildlands,CoP Quest Sylkis Secrets,CoP,I(key_w_yasai_t|1),6
-tre_qst_1123,CoP Wildlands,CoP Quest Digging Mole,CoP,I(key_w_yasai_t|1),3
-tre_qst_1123_1,CoP Wildlands,CoP Quest Digging Mole,CoP,I(key_w_yasai_t|1),3
-tre_qst_1123_2,CoP Wildlands,CoP Quest Digging Mole,CoP,I(key_w_yasai_t|1),3
-tre_qst_1124,CoP Wildlands,CoP Quest Two Together,CoP,,4
-tre_qst_1124_1,CoP Wildlands,CoP Quest Two Together,CoP,,4
-tre_qst_1124_2,CoP Wildlands,CoP Quest Two Together,CoP,,4
-tre_qst_1125,CoP Wildlands,CoP Quest Emergency Treatment,CoP,I(key_w_yasai_t|1),4
-tre_qst_1125_1,CoP Wildlands,CoP Quest Emergency Treatment,CoP,I(key_w_yasai_t|1),4
-tre_qst_1125_2,CoP Wildlands,CoP Quest Emergency Treatment,CoP,I(key_w_yasai_t|1),4
-tre_qst_1126,CoP Wildlands,CoP Quest Moogle Gourmand,CoP,I(key_w_yasai_t|1),2
-tre_qst_1126_1,CoP Wildlands,CoP Quest Moogle Gourmand,CoP,I(key_w_yasai_t|1),2
-tre_qst_1126_2,CoP Wildlands,CoP Quest Moogle Gourmand,CoP,I(key_w_yasai_t|1),2
-tre_qst_1051,CoP Yusnaan,CoP Quest Secret Machine,CoP,,2
-tre_qst_1051_1,CoP Yusnaan,CoP Quest Secret Machine,CoP,,2
-tre_qst_1052,CoP Yusnaan,CoP Quest Soulful Horn,CoP,,3
-tre_qst_1052_1,CoP Yusnaan,CoP Quest Soulful Horn,CoP,,3
-tre_qst_1052_2,CoP Yusnaan,CoP Quest Soulful Horn,CoP,,3
-tre_qst_1056,CoP Yusnaan,CoP Quest A Dangerous Cocktail,CoP,,2
-tre_qst_1056_1,CoP Yusnaan,CoP Quest A Dangerous Cocktail,CoP,,2
-tre_qst_1059,CoP Yusnaan,CoP Quest Source Of Inspiration,CoP,,2
-tre_qst_1059_1,CoP Yusnaan,CoP Quest Source Of Inspiration,CoP,,2
-tre_qst_1060,CoP Yusnaan,CoP Quest Youth Potion,CoP,,5
-tre_qst_1060_1,CoP Yusnaan,CoP Quest Youth Potion,CoP,,5
-tre_qst_1060_2,CoP Yusnaan,CoP Quest Youth Potion,CoP,,5
-tre_qst_1061,CoP Yusnaan,CoP Quest Beast Summoner,CoP,,4
-tre_qst_1061_1,CoP Yusnaan,CoP Quest Beast Summoner,CoP,,4
-tre_qst_1061_2,CoP Yusnaan,CoP Quest Beast Summoner,CoP,,4
-tre_qst_1062,CoP Yusnaan,CoP Quest What Seekers Seek,CoP,,3
-tre_qst_1062_1,CoP Yusnaan,CoP Quest What Seekers Seek,CoP,,3
-tre_qst_1062_2,CoP Yusnaan,CoP Quest What Seekers Seek,CoP,,3
-tre_qst_1063,CoP Yusnaan,CoP Quest True Colors,CoP,,3
-tre_qst_1063_1,CoP Yusnaan,CoP Quest True Colors,CoP,,3
-tre_qst_1063_2,CoP Yusnaan,CoP Quest True Colors,CoP,,3
-tre_qst_1064,CoP Yusnaan,CoP Quest Ultimate Craving,CoP,,6
-tre_qst_1064_1,CoP Yusnaan,CoP Quest Ultimate Craving,CoP,,6
-tre_qst_1064_2,CoP Yusnaan,CoP Quest Ultimate Craving,CoP,,6
-tre_qst_1064_3,CoP Yusnaan,CoP Quest Ultimate Craving,CoP,,6
-tre_qst_1065,CoP Yusnaan,CoP Quest Spell For Spell,CoP,,6
-tre_qst_1065_1,CoP Yusnaan,CoP Quest Spell For Spell,CoP,,6
-tre_qst_1065_2,CoP Yusnaan,CoP Quest Spell For Spell,CoP,,6
-tre_qst_1071,CoP Yusnaan,CoP Quest Unfired Firework,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),3
-tre_qst_1071_1,CoP Yusnaan,CoP Quest Unfired Firework,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),3
-tre_qst_1071_2,CoP Yusnaan,CoP Quest Unfired Firework,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),3
-tre_qst_1072,CoP Yusnaan,CoP Quest Time Doesn't Heal,CoP,AND(I(key_b_16|1)|I(key_b_17|1)),1
-tre_qst_1072_1,CoP Yusnaan,CoP Quest Time Doesn't Heal,CoP,AND(I(key_b_16|1)|I(key_b_17|1)),1
-tre_qst_1072_2,CoP Yusnaan,CoP Quest Time Doesn't Heal,CoP,AND(I(key_b_16|1)|I(key_b_17|1)),1
-tre_qst_1073,CoP Yusnaan,CoP Quest A Man For A Chocobo Girl,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(key_y_ticket|1)),3
-tre_qst_1073_1,CoP Yusnaan,CoP Quest A Man For A Chocobo Girl,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(key_y_ticket|1)),3
-tre_qst_1073_2,CoP Yusnaan,CoP Quest A Man For A Chocobo Girl,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(key_y_ticket|1)),3
-tre_qst_1074,CoP Yusnaan,CoP Quest Rebuilding,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),1
-tre_qst_1074_1,CoP Yusnaan,CoP Quest Rebuilding,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),1
-tre_qst_1301,CoP Global,CoP Quest Global: Key To Her Heart,Quest,AND(I(key_s_okuri|1)|I(key_w_yasai_t|1)),2
-tre_qst_1301_1,CoP Global,CoP Quest Global: Key To Her Heart,Quest|MainKey,AND(I(key_s_okuri|1)|I(key_w_yasai_t|1)),2
-tre_qst_1301_2,CoP Global,CoP Quest Global: Key To Her Heart,Quest,AND(I(key_s_okuri|1)|I(key_w_yasai_t|1)),2
-tre_qst_1302,CoP Global,CoP Quest Global: Roadworks I,Quest,,6
-tre_qst_1302_1,CoP Global,CoP Quest Global: Roadworks I,Quest,,6
-tre_qst_1302_2,CoP Global,CoP Quest Global: Roadworks I,Quest,,6
-tre_qst_1303,CoP Global,CoP Quest Global: Roadworks II,Quest,AND(I(key_b_09|1)|I(key_b_10|1)),6
-tre_qst_1303_1,CoP Global,CoP Quest Global: Roadworks II,Quest,AND(I(key_b_09|1)|I(key_b_10|1)),6
-tre_qst_1303_2,CoP Global,CoP Quest Global: Roadworks II,Quest,AND(I(key_b_09|1)|I(key_b_10|1)),6
-tre_qst_1304,CoP Global,CoP Quest Global: Roadworks III,Quest,AND(I(key_b_11|1)|I(key_b_12|1)),6
-tre_qst_1304_1,CoP Global,CoP Quest Global: Roadworks III,Quest,AND(I(key_b_11|1)|I(key_b_12|1)),6
-tre_qst_1304_2,CoP Global,CoP Quest Global: Roadworks III,Quest,AND(I(key_b_11|1)|I(key_b_12|1)),6
-tre_qst_1305,CoP Global,CoP Quest Global: A Girl's Challenge,Quest,I(key_b_00|1),2
-tre_qst_1305_1,CoP Global,CoP Quest Global: A Girl's Challenge,Quest,I(key_b_00|1),2
-tre_qst_1306,CoP Global,CoP Quest Global: What's Left Behind,Quest,I(key_b_01|1),2
-tre_qst_1306_1,CoP Global,CoP Quest Global: What's Left Behind,Quest,I(key_b_01|1),2
-tre_qst_1307,CoP Global,CoP Quest Global: Seeing The Dawn,Quest,AND(I(key_b_02|1)|I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),3
-tre_qst_1307_1,CoP Global,CoP Quest Global: Seeing The Dawn,Quest,AND(I(key_b_02|1)|I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),3
-tre_qst_1308,CoP Global,CoP Quest Global: Staying Sharp,Quest,AND(I(key_b_03|1)|I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),1
-tre_qst_1308_1,CoP Global,CoP Quest Global: Staying Sharp,Quest,AND(I(key_b_03|1)|I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),1
-tre_qst_1309,CoP Global,CoP Quest Global: Where Moogles Be,Quest,AND(I(key_b_04|1)|I(key_w_yasai_t|1)),1
-tre_qst_1309_1,CoP Global,CoP Quest Global: Where Moogles Be,Quest,AND(I(key_b_04|1)|I(key_w_yasai_t|1)),1
-tre_qst_1310,CoP Global,CoP Quest Global: Fading Prayer,Quest,AND(I(key_b_05|1)|I(key_w_yasai_t|1)),1
-tre_qst_1310_1,CoP Global,CoP Quest Global: Fading Prayer,Quest,AND(I(key_b_05|1)|I(key_w_yasai_t|1)),1
-tre_qst_1311,CoP Global,CoP Quest Global: Forbidden Tome,Quest,AND(I(key_b_06|1)|I(key_w_yasai_t|1)),4
-tre_qst_1311_1,CoP Global,CoP Quest Global: Forbidden Tome,Quest,AND(I(key_b_06|1)|I(key_w_yasai_t|1)),4
-tre_qst_1312,CoP Global,CoP Quest Global: Shoot For The Sky,Quest,I(key_b_07|1),1
-tre_qst_1312_1,CoP Global,CoP Quest Global: Shoot For The Sky,Quest,I(key_b_07|1),1
-tre_qst_1312_2,CoP Global,CoP Quest Global: Shoot For The Sky,Quest,I(key_b_07|1),1
-tre_qst_1313,CoP Global,CoP Quest Global: Digging Mysteries,Quest,AND(I(key_b_08|1)|I(key_d_sekiban|2)),2
-tre_qst_1313_1,CoP Global,CoP Quest Global: Digging Mysteries,Quest,AND(I(key_b_08|1)|I(key_d_sekiban|2)),2
-tre_qst_1313_2,CoP Global,CoP Quest Global: Digging Mysteries,Quest,AND(I(key_b_08|1)|I(key_d_sekiban|2)),2
+tre_ti000,Ark,Replace Curaga,EP,,0
+tre_ti810,Ark,Replace Teleport,EP,,0
+tre_ti830,Ark,Replace Escape,EP,,0
+tre_qst_1151,CoP Dead Dunes,Flower in the Sands CoP Quest,CoP,,1
+tre_qst_1151_1,CoP Dead Dunes,Flower in the Sands CoP Quest,CoP,,1
+tre_qst_1152,CoP Dead Dunes,Biologically Speaking CoP Quest,CoP,,2
+tre_qst_1152_1,CoP Dead Dunes,Biologically Speaking CoP Quest,CoP,,2
+tre_qst_1153,CoP Dead Dunes,The Real Client CoP Quest,CoP,,4
+tre_qst_1153_1,CoP Dead Dunes,The Real Client CoP Quest,CoP,,4
+tre_qst_1153_2,CoP Dead Dunes,The Real Client CoP Quest,CoP,,4
+tre_qst_1154,CoP Dead Dunes,For My Child CoP Quest,CoP,,1
+tre_qst_1154_1,CoP Dead Dunes,For My Child CoP Quest,CoP,,1
+tre_qst_1154_2,CoP Dead Dunes,For My Child CoP Quest,CoP,,1
+tre_qst_1155,CoP Dead Dunes,Bandits' New Weapon CoP Quest,CoP,,3
+tre_qst_1155_1,CoP Dead Dunes,Bandits' New Weapon CoP Quest,CoP,,3
+tre_qst_1155_2,CoP Dead Dunes,Bandits' New Weapon CoP Quest,CoP,,3
+tre_qst_1156,CoP Dead Dunes,Banned Goods CoP Quest,CoP,,3
+tre_qst_1156_1,CoP Dead Dunes,Banned Goods CoP Quest,CoP,,3
+tre_qst_1156_2,CoP Dead Dunes,Banned Goods CoP Quest,CoP,,3
+tre_qst_1157,CoP Dead Dunes,Climbing The Ranks I CoP Quest,CoP,,2
+tre_qst_1157_1,CoP Dead Dunes,Climbing The Ranks I CoP Quest,CoP,,2
+tre_qst_1159,CoP Dead Dunes,Miracle Vintage CoP Quest,CoP,,4
+tre_qst_1159_1,CoP Dead Dunes,Miracle Vintage CoP Quest,CoP,,4
+tre_qst_1159_2,CoP Dead Dunes,Miracle Vintage CoP Quest,CoP,,4
+tre_qst_1164,CoP Dead Dunes,Climbing The Ranks II CoP Quest,CoP,,6
+tre_qst_1164_1,CoP Dead Dunes,Climbing The Ranks II CoP Quest,CoP,,6
+tre_qst_1165,CoP Dead Dunes,Heightened Security CoP Quest,CoP,,2
+tre_qst_1165_1,CoP Dead Dunes,Heightened Security CoP Quest,CoP,,2
+tre_qst_1165_2,CoP Dead Dunes,Heightened Security CoP Quest,CoP,,2
+tre_qst_1168,CoP Dead Dunes,Desert Cleanup CoP Quest,CoP,,8
+tre_qst_1168_1,CoP Dead Dunes,Desert Cleanup CoP Quest,CoP,,8
+tre_qst_1168_2,CoP Dead Dunes,Desert Cleanup CoP Quest,CoP,,8
+tre_qst_1171,CoP Dead Dunes,A Treasure for a God CoP Quest,CoP,AND(I(key_d_sekiban|3)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_wing|1)),5
+tre_qst_1171_1,CoP Dead Dunes,A Treasure for a God CoP Quest,CoP,AND(I(key_d_sekiban|3)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_wing|1)),5
+tre_qst_1172,CoP Dead Dunes,Lucky Charm CoP Quest,CoP,,3
+tre_qst_1172_1,CoP Dead Dunes,Lucky Charm CoP Quest,CoP,,3
+tre_qst_1173,CoP Dead Dunes,Supply and Demand CoP Quest,CoP,,4
+tre_qst_1173_1,CoP Dead Dunes,Supply and Demand CoP Quest,CoP,,4
+tre_qst_1173_2,CoP Dead Dunes,Supply and Demand CoP Quest,CoP,,4
+tre_qst_1174,CoP Dead Dunes,A New Application CoP Quest,CoP,AND(I(key_y_bashira|1)|I(key_y_recipe|1)|I(key_y_cream|1)),6
+tre_qst_1174_1,CoP Dead Dunes,A New Application CoP Quest,CoP,AND(I(key_y_bashira|1)|I(key_y_recipe|1)|I(key_y_cream|1)),6
+tre_qst_1174_2,CoP Dead Dunes,A New Application CoP Quest,CoP,AND(I(key_y_bashira|1)|I(key_y_recipe|1)|I(key_y_cream|1)),6
+tre_qst_1175,CoP Dead Dunes,Pride And Greed I CoP Quest,CoP,,2
+tre_qst_1175_1,CoP Dead Dunes,Pride And Greed I CoP Quest,CoP,,2
+tre_qst_1175_2,CoP Dead Dunes,Pride And Greed I CoP Quest,CoP,,2
+tre_qst_1176,CoP Dead Dunes,Pride And Greed II CoP Quest,CoP,,3
+tre_qst_1176_1,CoP Dead Dunes,Pride And Greed II CoP Quest,CoP,,3
+tre_qst_1176_2,CoP Dead Dunes,Pride And Greed II CoP Quest,CoP,,3
+tre_qst_1177,CoP Dead Dunes,Pride And Greed III CoP Quest,CoP,,6
+tre_qst_1177_1,CoP Dead Dunes,Pride And Greed III CoP Quest,CoP,,6
+tre_qst_1177_2,CoP Dead Dunes,Pride And Greed III CoP Quest,CoP,,6
+tre_qst_1001,CoP Luxerion,Revenge Is Sweet CoP Quest,CoP,,2
+tre_qst_1001_1,CoP Luxerion,Revenge Is Sweet CoP Quest,CoP,,2
+tre_qst_1002,CoP Luxerion,Gift of Gratitude CoP Quest,CoP,,3
+tre_qst_1002_1,CoP Luxerion,Gift of Gratitude CoP Quest,CoP,,3
+tre_qst_1002_2,CoP Luxerion,Gift of Gratitude CoP Quest,CoP,,3
+tre_qst_1003,CoP Luxerion,A Song for God CoP Quest,CoP,,2
+tre_qst_1003_1,CoP Luxerion,A Song for God CoP Quest,CoP,,2
+tre_qst_1003_2,CoP Luxerion,A Song for God CoP Quest,CoP,,2
+tre_qst_1005,CoP Luxerion,Slay the Machine CoP Quest,CoP,,3
+tre_qst_1005_1,CoP Luxerion,Slay the Machine CoP Quest,CoP,,3
+tre_qst_1006,CoP Luxerion,Enchanted Brush CoP Quest,CoP,,5
+tre_qst_1006_1,CoP Luxerion,Enchanted Brush CoP Quest,CoP,,5
+tre_qst_1006_2,CoP Luxerion,Enchanted Brush CoP Quest,CoP,,5
+tre_qst_1007,CoP Luxerion,Heretics' Beasts CoP Quest,CoP,,5
+tre_qst_1007_1,CoP Luxerion,Heretics' Beasts CoP Quest,CoP,,5
+tre_qst_1007_2,CoP Luxerion,Heretics' Beasts CoP Quest,CoP,,5
+tre_qst_1008,CoP Luxerion,Grave of a Bounty Hunter CoP Quest,CoP,,3
+tre_qst_1008_1,CoP Luxerion,Grave of a Bounty Hunter CoP Quest,CoP,,3
+tre_qst_1008_2,CoP Luxerion,Grave of a Bounty Hunter CoP Quest,CoP,,3
+tre_qst_1009,CoP Luxerion,Inventive Seamstress CoP Quest,CoP,,2
+tre_qst_1009_1,CoP Luxerion,Inventive Seamstress CoP Quest,CoP,,2
+tre_qst_1011,CoP Luxerion,Puppeteer's Lament CoP Quest,CoP,,1
+tre_qst_1011_1,CoP Luxerion,Puppeteer's Lament CoP Quest,CoP,,1
+tre_qst_1011_2,CoP Luxerion,Puppeteer's Lament CoP Quest,CoP,,1
+tre_qst_1012,CoP Luxerion,Revenge has Teeth CoP Quest,CoP,,4
+tre_qst_1012_1,CoP Luxerion,Revenge has Teeth CoP Quest,CoP,,4
+tre_qst_1015,CoP Luxerion,Night Patrol CoP Quest,CoP,,6
+tre_qst_1015_1,CoP Luxerion,Night Patrol CoP Quest,CoP,,6
+tre_qst_1015_2,CoP Luxerion,Night Patrol CoP Quest,CoP,,6
+tre_qst_1016,CoP Luxerion,Trapped CoP Quest,CoP,,9
+tre_qst_1016_1,CoP Luxerion,Trapped CoP Quest,CoP,,9
+tre_qst_1016_2,CoP Luxerion,Trapped CoP Quest,CoP,,9
+tre_qst_1016_3,CoP Luxerion,Trapped CoP Quest,CoP,,9
+tre_qst_1021,CoP Luxerion,Mythical Badge CoP Quest,CoP,I(key_l_kishin|1),2
+tre_qst_1021_1,CoP Luxerion,Mythical Badge CoP Quest,CoP,I(key_l_kishin|1),2
+tre_qst_1021_2,CoP Luxerion,Mythical Badge CoP Quest,CoP,I(key_l_kishin|1),2
+tre_qst_1101,CoP Wildlands,Sun Flower CoP Quest,CoP,,1
+tre_qst_1101_1,CoP Wildlands,Sun Flower CoP Quest,CoP,,1
+tre_qst_1102,CoP Wildlands,Moon Flower CoP Quest,CoP,,1
+tre_qst_1102_1,CoP Wildlands,Moon Flower CoP Quest,CoP,,1
+tre_qst_1102_2,CoP Wildlands,Moon Flower CoP Quest,CoP,,1
+tre_qst_1103,CoP Wildlands,Secret of the Chocoborel CoP Quest,CoP,,3
+tre_qst_1103_1,CoP Wildlands,Secret of the Chocoborel CoP Quest,CoP,,3
+tre_qst_1103_2,CoP Wildlands,Secret of the Chocoborel CoP Quest,CoP,,3
+tre_qst_1104,CoP Wildlands,Wildlands In Danger! CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1104_1,CoP Wildlands,Wildlands In Danger! CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1104_2,CoP Wildlands,Wildlands In Danger! CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1105,CoP Wildlands,Hunting the Hunter CoP Quest,CoP,,3
+tre_qst_1105_1,CoP Wildlands,Hunting the Hunter CoP Quest,CoP,,3
+tre_qst_1105_2,CoP Wildlands,Hunting the Hunter CoP Quest,CoP,,3
+tre_qst_1106,CoP Wildlands,Forget Me Not CoP Quest,CoP,,3
+tre_qst_1106_1,CoP Wildlands,Forget Me Not CoP Quest,CoP,,3
+tre_qst_1106_2,CoP Wildlands,Forget Me Not CoP Quest,CoP,,3
+tre_qst_1107,CoP Wildlands,A Word of Thanks CoP Quest,CoP,,2
+tre_qst_1107_1,CoP Wildlands,A Word of Thanks CoP Quest,CoP,,2
+tre_qst_1107_2,CoP Wildlands,A Word of Thanks CoP Quest,CoP,,2
+tre_qst_1108,CoP Wildlands,Fresh Fertilizer CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1108_1,CoP Wildlands,Fresh Fertilizer CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1108_2,CoP Wildlands,Fresh Fertilizer CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1109,CoP Wildlands,For the Future CoP Quest,CoP,,1
+tre_qst_1109_1,CoP Wildlands,For the Future CoP Quest,CoP,,1
+tre_qst_1109_2,CoP Wildlands,For the Future CoP Quest,CoP,,1
+tre_qst_1110,CoP Wildlands,Dumpling Cook-Off CoP Quest,CoP,,5
+tre_qst_1110_1,CoP Wildlands,Dumpling Cook-Off CoP Quest,CoP,,5
+tre_qst_1110_2,CoP Wildlands,Dumpling Cook-Off CoP Quest,CoP,,5
+tre_qst_1111,CoP Wildlands,Brain Over Brawn CoP Quest,CoP,,4
+tre_qst_1111_1,CoP Wildlands,Brain Over Brawn CoP Quest,CoP,,4
+tre_qst_1111_2,CoP Wildlands,Brain Over Brawn CoP Quest,CoP,,4
+tre_qst_1113,CoP Wildlands,Hunter's Challenge CoP Quest,CoP,,1
+tre_qst_1113_1,CoP Wildlands,Hunter's Challenge CoP Quest,CoP,,1
+tre_qst_1113_2,CoP Wildlands,Hunter's Challenge CoP Quest,CoP,,1
+tre_qst_1114,CoP Wildlands,A Secret Wish CoP Quest,CoP,,5
+tre_qst_1114_1,CoP Wildlands,A Secret Wish CoP Quest,CoP,,5
+tre_qst_1114_2,CoP Wildlands,A Secret Wish CoP Quest,CoP,,5
+tre_qst_1115,CoP Wildlands,Moghan's Plea CoP Quest,CoP,,3
+tre_qst_1115_1,CoP Wildlands,Moghan's Plea CoP Quest,CoP,,3
+tre_qst_1115_2,CoP Wildlands,Moghan's Plea CoP Quest,CoP,,3
+tre_qst_1116,CoP Wildlands,What's in a Brew? CoP Quest,CoP,I(key_w_yasai_t|1),9
+tre_qst_1116_1,CoP Wildlands,What's in a Brew? CoP Quest,CoP,I(key_w_yasai_t|1),9
+tre_qst_1116_2,CoP Wildlands,What's in a Brew? CoP Quest,CoP,I(key_w_yasai_t|1),9
+tre_qst_1116_3,CoP Wildlands,What's in a Brew? CoP Quest,CoP,I(key_w_yasai_t|1),9
+tre_qst_1117,CoP Wildlands,A Prayer to a Goddess CoP Quest,CoP,,3
+tre_qst_1117_1,CoP Wildlands,A Prayer to a Goddess CoP Quest,CoP,,3
+tre_qst_1117_2,CoP Wildlands,A Prayer to a Goddess CoP Quest,CoP,,3
+tre_qst_1118,CoP Wildlands,Gatekeeper's Curiosity CoP Quest,CoP,,4
+tre_qst_1118_1,CoP Wildlands,Gatekeeper's Curiosity CoP Quest,CoP,,4
+tre_qst_1119,CoP Wildlands,Echoes of a Drum CoP Quest,CoP,,2
+tre_qst_1119_1,CoP Wildlands,Echoes of a Drum CoP Quest,CoP,,2
+tre_qst_1119_2,CoP Wildlands,Echoes of a Drum CoP Quest,CoP,,2
+tre_qst_1120,CoP Wildlands,A Voice From Below CoP Quest,CoP,,3
+tre_qst_1120_1,CoP Wildlands,A Voice From Below CoP Quest,CoP,,3
+tre_qst_1120_2,CoP Wildlands,A Voice From Below CoP Quest,CoP,,3
+tre_qst_1121,CoP Wildlands,Chocobo Chow CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1121_1,CoP Wildlands,Chocobo Chow CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1121_2,CoP Wildlands,Chocobo Chow CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1122,CoP Wildlands,Sylkis Secrets CoP Quest,CoP,I(key_w_yasai_t|1),6
+tre_qst_1122_1,CoP Wildlands,Sylkis Secrets CoP Quest,CoP,I(key_w_yasai_t|1),6
+tre_qst_1122_2,CoP Wildlands,Sylkis Secrets CoP Quest,CoP,I(key_w_yasai_t|1),6
+tre_qst_1123,CoP Wildlands,Digging Mole CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1123_1,CoP Wildlands,Digging Mole CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1123_2,CoP Wildlands,Digging Mole CoP Quest,CoP,I(key_w_yasai_t|1),3
+tre_qst_1124,CoP Wildlands,Two Together CoP Quest,CoP,,4
+tre_qst_1124_1,CoP Wildlands,Two Together CoP Quest,CoP,,4
+tre_qst_1124_2,CoP Wildlands,Two Together CoP Quest,CoP,,4
+tre_qst_1125,CoP Wildlands,Emergency Treatment CoP Quest,CoP,I(key_w_yasai_t|1),4
+tre_qst_1125_1,CoP Wildlands,Emergency Treatment CoP Quest,CoP,I(key_w_yasai_t|1),4
+tre_qst_1125_2,CoP Wildlands,Emergency Treatment CoP Quest,CoP,I(key_w_yasai_t|1),4
+tre_qst_1126,CoP Wildlands,Moogle Gourmand CoP Quest,CoP,I(key_w_yasai_t|1),2
+tre_qst_1126_1,CoP Wildlands,Moogle Gourmand CoP Quest,CoP,I(key_w_yasai_t|1),2
+tre_qst_1126_2,CoP Wildlands,Moogle Gourmand CoP Quest,CoP,I(key_w_yasai_t|1),2
+tre_qst_1051,CoP Yusnaan,Secret Machine CoP Quest,CoP,,2
+tre_qst_1051_1,CoP Yusnaan,Secret Machine CoP Quest,CoP,,2
+tre_qst_1052,CoP Yusnaan,Soulful Horn CoP Quest,CoP,,3
+tre_qst_1052_1,CoP Yusnaan,Soulful Horn CoP Quest,CoP,,3
+tre_qst_1052_2,CoP Yusnaan,Soulful Horn CoP Quest,CoP,,3
+tre_qst_1056,CoP Yusnaan,A Dangerous Cocktail CoP Quest,CoP,,2
+tre_qst_1056_1,CoP Yusnaan,A Dangerous Cocktail CoP Quest,CoP,,2
+tre_qst_1059,CoP Yusnaan,Source of Inspiration CoP Quest,CoP,,2
+tre_qst_1059_1,CoP Yusnaan,Source of Inspiration CoP Quest,CoP,,2
+tre_qst_1060,CoP Yusnaan,Youth Potion CoP Quest,CoP,,5
+tre_qst_1060_1,CoP Yusnaan,Youth Potion CoP Quest,CoP,,5
+tre_qst_1060_2,CoP Yusnaan,Youth Potion CoP Quest,CoP,,5
+tre_qst_1061,CoP Yusnaan,Beast Summoner CoP Quest,CoP,,4
+tre_qst_1061_1,CoP Yusnaan,Beast Summoner CoP Quest,CoP,,4
+tre_qst_1061_2,CoP Yusnaan,Beast Summoner CoP Quest,CoP,,4
+tre_qst_1062,CoP Yusnaan,What Seekers Seek CoP Quest,CoP,,3
+tre_qst_1062_1,CoP Yusnaan,What Seekers Seek CoP Quest,CoP,,3
+tre_qst_1062_2,CoP Yusnaan,What Seekers Seek CoP Quest,CoP,,3
+tre_qst_1063,CoP Yusnaan,True Colors CoP Quest,CoP,,3
+tre_qst_1063_1,CoP Yusnaan,True Colors CoP Quest,CoP,,3
+tre_qst_1063_2,CoP Yusnaan,True Colors CoP Quest,CoP,,3
+tre_qst_1064,CoP Yusnaan,Ultimate Craving CoP Quest,CoP,,6
+tre_qst_1064_1,CoP Yusnaan,Ultimate Craving CoP Quest,CoP,,6
+tre_qst_1064_2,CoP Yusnaan,Ultimate Craving CoP Quest,CoP,,6
+tre_qst_1064_3,CoP Yusnaan,Ultimate Craving CoP Quest,CoP,,6
+tre_qst_1065,CoP Yusnaan,Spell for Spell CoP Quest,CoP,,6
+tre_qst_1065_1,CoP Yusnaan,Spell for Spell CoP Quest,CoP,,6
+tre_qst_1065_2,CoP Yusnaan,Spell for Spell CoP Quest,CoP,,6
+tre_qst_1071,CoP Yusnaan,Unfired Firework CoP Quest,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_1071_1,CoP Yusnaan,Unfired Firework CoP Quest,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_1071_2,CoP Yusnaan,Unfired Firework CoP Quest,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_1072,CoP Yusnaan,Time Doesn't Heal CoP Quest,CoP,AND(I(key_b_16|1)|I(key_b_17|1)),3
+tre_qst_1072_1,CoP Yusnaan,Time Doesn't Heal CoP Quest,CoP,AND(I(key_b_16|1)|I(key_b_17|1)),3
+tre_qst_1072_2,CoP Yusnaan,Time Doesn't Heal CoP Quest,CoP,AND(I(key_b_16|1)|I(key_b_17|1)),3
+tre_qst_1073,CoP Yusnaan,A Man for a Chocobo Girl CoP Quest,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(key_y_ticket|1)),4
+tre_qst_1073_1,CoP Yusnaan,A Man for a Chocobo Girl CoP Quest,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(key_y_ticket|1)),4
+tre_qst_1073_2,CoP Yusnaan,A Man for a Chocobo Girl CoP Quest,CoP,AND(I(key_b_20|1)|I(key_y_id|1)|I(key_y_ticket|1)),4
+tre_qst_1074,CoP Yusnaan,Rebuilding CoP Quest,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_1074_1,CoP Yusnaan,Rebuilding CoP Quest,CoP,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_1301,CoP Global,Global: Key To Her Heart CoP Quest,Quest,AND(I(key_s_okuri|1)|I(key_w_yasai_t|1)),2
+tre_qst_1301_1,CoP Global,Global: Key To Her Heart CoP Quest,Quest|MainKey,AND(I(key_s_okuri|1)|I(key_w_yasai_t|1)),2
+tre_qst_1301_2,CoP Global,Global: Key To Her Heart CoP Quest,Quest,AND(I(key_s_okuri|1)|I(key_w_yasai_t|1)),2
+tre_qst_1302,CoP Global,Global: Roadworks I CoP Quest,Quest,,6
+tre_qst_1302_1,CoP Global,Global: Roadworks I CoP Quest,Quest,,6
+tre_qst_1302_2,CoP Global,Global: Roadworks I CoP Quest,Quest,,6
+tre_qst_1303,CoP Global,Global: Roadworks II CoP Quest,Quest,AND(I(key_b_09|1)|I(key_b_10|1)),6
+tre_qst_1303_1,CoP Global,Global: Roadworks II CoP Quest,Quest,AND(I(key_b_09|1)|I(key_b_10|1)),6
+tre_qst_1303_2,CoP Global,Global: Roadworks II CoP Quest,Quest,AND(I(key_b_09|1)|I(key_b_10|1)),6
+tre_qst_1304,CoP Global,Global: Roadworks III CoP Quest,Quest,AND(I(key_b_11|1)|I(key_b_12|1)),6
+tre_qst_1304_1,CoP Global,Global: Roadworks III CoP Quest,Quest,AND(I(key_b_11|1)|I(key_b_12|1)),6
+tre_qst_1304_2,CoP Global,Global: Roadworks III CoP Quest,Quest,AND(I(key_b_11|1)|I(key_b_12|1)),6
+tre_qst_1305,CoP Global,Global: A Girl's Challenge CoP Quest,Quest,I(key_b_00|1),2
+tre_qst_1305_1,CoP Global,Global: A Girl's Challenge CoP Quest,Quest,I(key_b_00|1),2
+tre_qst_1306,CoP Global,Global: What's Left Behind CoP Quest,Quest,I(key_b_01|1),2
+tre_qst_1306_1,CoP Global,Global: What's Left Behind CoP Quest,Quest,I(key_b_01|1),2
+tre_qst_1307,CoP Global,Global: Seeing The Dawn CoP Quest,Quest,AND(I(key_b_02|1)|I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_1307_1,CoP Global,Global: Seeing The Dawn CoP Quest,Quest,AND(I(key_b_02|1)|I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_1308,CoP Global,Global: Staying Sharp CoP Quest,Quest,AND(I(key_b_03|1)|I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_1308_1,CoP Global,Global: Staying Sharp CoP Quest,Quest,AND(I(key_b_03|1)|I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)),5
+tre_qst_1309,CoP Global,Global: Where Moogles Be CoP Quest,Quest,AND(I(key_b_04|1)|I(key_w_yasai_t|1)),3
+tre_qst_1309_1,CoP Global,Global: Where Moogles Be CoP Quest,Quest,AND(I(key_b_04|1)|I(key_w_yasai_t|1)),3
+tre_qst_1310,CoP Global,Global: Fading Prayer CoP Quest,Quest,AND(I(key_b_05|1)|I(key_w_yasai_t|1)),3
+tre_qst_1310_1,CoP Global,Global: Fading Prayer CoP Quest,Quest,AND(I(key_b_05|1)|I(key_w_yasai_t|1)),3
+tre_qst_1311,CoP Global,Global: Forbidden Tome CoP Quest,Quest,AND(I(key_b_06|1)|I(key_w_yasai_t|1)),4
+tre_qst_1311_1,CoP Global,Global: Forbidden Tome CoP Quest,Quest,AND(I(key_b_06|1)|I(key_w_yasai_t|1)),4
+tre_qst_1312,CoP Global,Global: Shoot For The Sky CoP Quest,Quest,I(key_b_07|1),3
+tre_qst_1312_1,CoP Global,Global: Shoot For The Sky CoP Quest,Quest,I(key_b_07|1),3
+tre_qst_1312_2,CoP Global,Global: Shoot For The Sky CoP Quest,Quest,I(key_b_07|1),3
+tre_qst_1313,CoP Global,Global: Digging Mysteries CoP Quest,Quest,AND(I(key_b_08|1)|I(key_d_sekiban|2)),4
+tre_qst_1313_1,CoP Global,Global: Digging Mysteries CoP Quest,Quest,AND(I(key_b_08|1)|I(key_d_sekiban|2)),4
+tre_qst_1313_2,CoP Global,Global: Digging Mysteries CoP Quest,Quest,AND(I(key_b_08|1)|I(key_d_sekiban|2)),4
 tre_seed_1st_00,Soul Seeds/Unappraised,10 Soul Seeds,,I(key_soulcd|1),2
 tre_seed_1st_01,Soul Seeds/Unappraised,20 Soul Seeds,Grindy,I(key_soulcd|1),4
 tre_seed_1st_02,Soul Seeds/Unappraised,30 Soul Seeds,Grindy,I(key_soulcd|1),7
 tre_seed_1st_03,Soul Seeds/Unappraised,40 Soul Seeds,Grindy,I(key_soulcd|1),8
 tre_seed_1st_04,Soul Seeds/Unappraised,50 Soul Seeds,Grindy,I(key_soulcd|1),9
+tre_s_hiai,Soul Seeds/Unappraised,Soul Seeds Fragment of Radiance,MainKey,AND(I(key_soulcd|1)|I(key_w_mogsoul|1)),2
 tre_key_d_kant1,Soul Seeds/Unappraised,1 Unappraised,Pilgrim|Quest,I(key_d_lupe|1),1
 tre_key_d_kant2,Soul Seeds/Unappraised,5 Unappraised,Quest,I(key_d_lupe|1),2
 tre_key_d_kant3,Soul Seeds/Unappraised,10 Unappraised,Grindy|Quest,I(key_d_lupe|1),4
@@ -640,7 +660,7 @@ tre_box_e_000,Ultimate Lair,Ultimate Lair Floor 29,Battle,,7
 tre_box_e_001,Ultimate Lair,Ultimate Lair Floor 30,Battle,,7
 tre_box_e_002,Ultimate Lair,Ultimate Lair Floor 31,Battle,,7
 tre_box_e_003,Ultimate Lair,Ultimate Lair Floor 32,Battle,,7
-tre_qst_099,Ultimate Lair,Ultimate Lair Boss,Quest,,9
+tre_qst_099,Ultimate Lair,Ultimate Lair Boss Reward,Quest,,9
 tre_acc_b_9070,Final Day,Arcangeli Omega Drop,Battle|Missable,,6
 tre_acc_a_9160,Final Day,Sugriva Omega Drop,Battle|Missable,,6
 tre_acc_a_9170,Final Day,Chimera Omega Drop,Battle|Missable,,6
@@ -651,3 +671,5 @@ tre_box_l_029,Final Day,Final Day Altar Of Birth,Missable,,9
 tre_box_l_030,Final Day,Final Day Temple Of Light,Missable,,9
 tre_box_l_031,Final Day,Final Day Temple Of Light,Missable,,9
 tre_box_l_032,Final Day,Final Day Temple Of Light,Missable,,9
+tre_wea_ea00,Final Day,Final Day Ultima Weapon,Missable,,9
+tre_shi_ea00,Final Day,Final Day Ultima Shield,Missable,,9

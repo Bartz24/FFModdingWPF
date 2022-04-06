@@ -17,16 +17,16 @@ namespace FF13_2Rando
         public class Items
         {
             public static Flag Treasures;
-            public static ToggleFlagProperty KeyWild, KeyGraviton, KeyGateSeal, KeySide, KeyPlaceTreasure, KeyPlaceBrainBlast;
-            //public static ComboBoxFlagProperty KeyDepth;
+            public static ToggleFlagProperty KeyWild, KeyGraviton, KeyGateSeal, KeySide, KeyPlaceTreasure, KeyPlaceBrainBlast, KeyPlaceThrowCryst, KeyPlaceThrowJunk;
+            public static ComboBoxFlagProperty KeyDepth;
 
             internal static void Init()
             {
                 Treasures = new Flag()
                 {
-                    Text = "Randomize Treasures",
+                    Text = "Randomize Item Locations",
                     FlagID = "Treasures",
-                    DescriptionFormat = "Randomize treasure spheres and cubes, and non-useful fragments.\n" +
+                    DescriptionFormat = "Randomize treasure spheres and cubes, Improved Moogle Throw search items, and non-useful fragments.\n" +
                     "Any key items in the pool will by default be shuffled between themselves.\n" +
                     "Does not include normal artefacts and event based items and fragments."
                 }.Register(FlagType.Items);
@@ -41,7 +41,7 @@ namespace FF13_2Rando
                 KeyGraviton = (ToggleFlagProperty)new ToggleFlagProperty()
                 {
                     Text = "Include Graviton Core Fragments",
-                    ID = "KeyGrqaviton",
+                    ID = "KeyGraviton",
                     Description = "The 7 Graviton Core fragments will be included in the pool of key items."
                 }.Register(Treasures);
 
@@ -73,7 +73,21 @@ namespace FF13_2Rando
                     ID = "KeyPlaceBrain",
                     Description = "Key items are also allowed in Brain Blast rewards."
                 }.Register(Treasures);
-                /*
+
+                KeyPlaceThrowCryst = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Key Item Placement - Improved Moogle Throw Monster Crystals",
+                    ID = "KeyPlaceMogCryst",
+                    Description = "Key items are also allowed to replace Improve Moogle Throw monster crystal locations."
+                }.Register(Treasures);
+
+                KeyPlaceThrowJunk = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Key Item Placement - Improved Moogle Throw Junk",
+                    ID = "KeyPlaceMogJunk",
+                    Description = "Key items are also allowed to replace Improve Moogle Throw junk locations."
+                }.Register(Treasures);
+                
                 KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
                 {
                     Text = "Item Difficulty Depth",
@@ -86,7 +100,7 @@ namespace FF13_2Rando
                     "    Hard++ - Each level of depth/difficulty increases likelyhood of that location by 1.25x.\n" +
                     "    Hard+++ - Locations of the highest depth/difficulty will tend to be preferred.",
                     Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
-                }.Register(Treasures);*/
+                }.Register(Treasures);
             }
         }
         public class Enemies
@@ -135,6 +149,7 @@ namespace FF13_2Rando
             public static Flag InitCP;
             public static Flag Music;
             public static ComboBoxFlagProperty ForcedStart;
+            public static ToggleFlagProperty RandoDLC;
             public static NumberFlagProperty InitCPAmount;
 
             internal static void Init()
@@ -165,6 +180,14 @@ namespace FF13_2Rando
                     "Bodhum - Force starting in New Bodhum 3 AF. (Recommended to avoid softlocks and resets).\n" +
                     "Bodhum & Bresha - Force starting in New Bodhum 3 AF leading to Bresha Ruins 5 AF for branching options.",
                     Values = new string[] { "None", "Bodhum", "Bodhum & Bresha" }.ToList()
+                }.Register(HistoriaCrux);
+
+                RandoDLC = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include DLC Areas",
+                    ID = "RandDLCCrux",
+                    Description = "Includes the Lightning, Sazh, and Coliseum DLC into the pool. Turning this on will also make 3 additional areas open from the start.\n" +
+                    "Note that these areas are now accessible from the start regardless of what this is set to (Random if on, Early DLC if off)."
                 }.Register(HistoriaCrux);
 
                 Music = new Flag()

@@ -81,6 +81,11 @@ namespace Bartz24.Data
             b = temp;
         }
 
+        public static void Swap<T>(this List<T> list, T i1, T i2)
+        {
+            Swap(list, list.IndexOf(i1), list.IndexOf(i2));
+        }
+
         public static void Swap<T>(this List<T> list, int i1, int i2)
         {
             T temp = list[i1];

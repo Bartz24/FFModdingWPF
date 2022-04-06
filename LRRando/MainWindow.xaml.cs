@@ -163,7 +163,7 @@ namespace LRRando
                         if (Directory.Exists(outFolder))
                             Directory.Delete(outFolder, true);
                         Directory.CreateDirectory(outFolder);
-                        CopyFromTemplate(outFolder, "data\\modpack");
+                        CopyFromFolder(outFolder, "data\\modpack");
 
                         SetProgressBar("Loading Data...", -1);
 
@@ -173,6 +173,13 @@ namespace LRRando
                         SetupData.WPDTracking.Clear();
                         SetupData.WPDTracking.Add(wdbpackOutPath, new List<string>());
                         Nova.UnpackWPD(wdbpackOutPath, SetupData.Paths["Nova"]);
+
+                        CopyFromFolder(outFolder +"\\Data\\db\\resident\\_wdbpack.bin", outFolder + "\\Data\\db\\resident\\_wdbpack.bin.rando");
+                        foreach(string file in Directory.GetFiles(outFolder + "\\Data\\db\\resident\\_wdbpack.bin.rando"))
+                        {
+                            SetupData.WPDTracking[wdbpackOutPath].Add(System.IO.Path.GetFileName(file));
+                        }
+                        Directory.Delete(outFolder + "\\Data\\db\\resident\\_wdbpack.bin.rando", true);
 
                         randomizers.ForEach(r => r.Load());
                         randomizers.ForEach(r =>
@@ -246,7 +253,7 @@ namespace LRRando
 #endif
         }
 
-        private void CopyFromTemplate(string mainFolder, string templateFolder)
+        private void CopyFromFolder(string mainFolder, string templateFolder)
         {
             //Now Create all of the directories
             foreach (string dirPath in Directory.GetDirectories(templateFolder, "*",

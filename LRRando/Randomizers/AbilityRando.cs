@@ -33,30 +33,30 @@ namespace LRRando
         {
             abilities.LoadDB3("LR", @"\db\resident\bt_ability.wdb");
             abilityGrowths.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb", false);
-            TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
             treasureRando.AddTreasure("ini_ba_abi", "", 1, "");
             treasureRando.AddTreasure("ini_ca_abi", "", 1, "");
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
 
             if (LRFlags.StatsAbilities.EPAbilities.FlagEnabled)
             {
                 LRFlags.StatsAbilities.EPAbilities.SetRand();
 
-                IEnumerable<DataStoreRTreasurebox> keys = treasureRando.treasures.Values.Where(t => t.s11ItemResourceId_string.StartsWith("ti") || t.s11ItemResourceId_string == "at900_00");
+                IEnumerable<LRItemLocation> keys = treasureRando.itemLocations.Values.Where(t =>   treasureRando.placementAlgo.GetLocationItem(t.ID).Item1.StartsWith("ti") || treasureRando.placementAlgo.GetLocationItem(t.ID).Item1 == "at900_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled)
-                    keys = keys.Where(t => t.s11ItemResourceId_string != "ti830_00");
+                    keys = keys.Where(t => treasureRando.placementAlgo.GetLocationItem(t.ID).Item1 != "ti830_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled)
-                    keys = keys.Where(t => t.s11ItemResourceId_string != "ti840_00");
+                    keys = keys.Where(t => treasureRando.placementAlgo.GetLocationItem(t.ID).Item1 != "ti840_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled)
-                    keys = keys.Where(t => t.s11ItemResourceId_string != "ti810_00");
+                    keys = keys.Where(t => treasureRando.placementAlgo.GetLocationItem(t.ID).Item1 != "ti810_00");
 
                 keys.ToList().Shuffle((t1, t2) => {
-                    string value = t1.s11ItemResourceId_string;
-                    t1.s11ItemResourceId_string = t2.s11ItemResourceId_string;
-                    t2.s11ItemResourceId_string = value;
+                    string value = treasureRando.placementAlgo.GetLocationItem(t1.ID, false).Item1;
+                    treasureRando.placementAlgo.SetLocationItem(t1.ID, treasureRando.placementAlgo.GetLocationItem(t2.ID, false).Item1, 1);
+                    treasureRando.placementAlgo.SetLocationItem(t2.ID, value, 1);
                 });
 
                 if (LRFlags.StatsAbilities.NerfOC.FlagEnabled)
@@ -100,8 +100,8 @@ namespace LRRando
 
         private void RandomizeInitAbility(string name)
         {
-            TreasureRando treasureRando = randomizers.Get<TreasureRando>("Treasures");
-            EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
             List<DataStoreItem> enumerable = equipRando.GetAbilities(-1).Where(a => a.name.EndsWith("_00")).ToList();
             DataStoreItem random = enumerable.ElementAt(RandomNum.RandInt(0, enumerable.Count() - 1));
 

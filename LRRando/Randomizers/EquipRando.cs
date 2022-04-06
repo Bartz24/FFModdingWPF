@@ -49,13 +49,13 @@ namespace LRRando
             passiveAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_pasv_ablty.wdb", false);
             passives = File.ReadAllLines(@"data\passives.csv").ToList();
             abilityData = File.ReadAllLines(@"data\abilities.csv").Select(s => new AbilityData(s.Split(","))).ToDictionary(a => a.ID, e => e);
-
+            /*
             items.InsertCopyAlphabetical("key_b_20", "key_r_kanki");
             items["key_r_kanki"].sItemNameStringId_string = "$m_001";
             items["key_r_kanki"].sHelpStringId_string = "$m_001_ac000";
             items["key_r_kanki"].u16SortAllByKCategory = 100;
             items["key_r_kanki"].u16SortCategoryByCategory = 150;
-
+            */
             items.InsertCopyAlphabetical("key_b_20", "key_r_multi");
             items["key_r_multi"].sItemNameStringId_string = "$m_001_ac100";
             items["key_r_multi"].sHelpStringId_string = "$m_002";
@@ -93,6 +93,11 @@ namespace LRRando
                 RandomizePassives();
                 RandomNum.ClearRand();
             }
+
+            itemWeapons.Values.Where(a => a.u4AccessoryPos > 0 && items.Keys.Contains(a.name)).ForEach(a => {
+                items[a.name].uPurchasePrice = 50000;
+                items[a.name].u1OnlyOne = 1;
+            });
         }
 
         private void RandomizeAbilities()
@@ -117,7 +122,7 @@ namespace LRRando
 
         private string RandomizeAbility(string name, int forceType)
         {
-            AbilityRando abilityRando = randomizers.Get<AbilityRando>("Abilities");
+            AbilityRando abilityRando = Randomizers.Get<AbilityRando>("Abilities");
             if (name != "")
             {
                 List<string> possible = GetGarbAbilities(forceType);
@@ -410,7 +415,7 @@ namespace LRRando
 
         private string GetItemName(string itemID)
         {
-            TextRando textRando = randomizers.Get<TextRando>("Text");
+            TextRando textRando = Randomizers.Get<TextRando>("Text");
             string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
             if (name.Contains("{End}"))
                 name = name.Substring(0, name.IndexOf("{End}"));
@@ -420,7 +425,7 @@ namespace LRRando
 
         private string GetPassiveName(string passiveID)
         {
-            TextRando textRando = randomizers.Get<TextRando>("Text");
+            TextRando textRando = Randomizers.Get<TextRando>("Text");
             string name = "";
             if (autoAbilities[passiveID].sStringResId_string != "" && textRando.mainSysUS.Keys.Contains(autoAbilities[passiveID].sStringResId_string))
                 name = textRando.mainSysUS[autoAbilities[passiveID].sStringResId_string];
@@ -437,8 +442,8 @@ namespace LRRando
 
         private string GetAbilityName(string abilityID)
         {
-            TextRando textRando = randomizers.Get<TextRando>("Text");
-            AbilityRando abilityRando = randomizers.Get<AbilityRando>("Abilities");
+            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            AbilityRando abilityRando = Randomizers.Get<AbilityRando>("Abilities");
             string name = "";
             if (abilityRando.abilities.Keys.Contains(abilityID))
             {
