@@ -38,12 +38,8 @@ namespace LRRando
 
         public override void Load()
         {
-            string path = Nova.GetNovaFile("LR", @"db\resident\bt_scene.wdb", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
-            string outPath = SetupData.OutputFolder + @"\db\resident\bt_scene.wdb";
-            FileExtensions.CopyFile(path, outPath);
-
-            btScenes.Load("LR", outPath, SetupData.Paths["Nova"]);
-            btScenesOrig.Load("LR", outPath, SetupData.Paths["Nova"]);
+            btScenesOrig.LoadDB3("LR", @"\db\resident\bt_scene.wdb");
+            btScenes.LoadDB3("LR", @"\db\resident\bt_scene.wdb");
             charaSets.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
             enemyData = File.ReadAllLines(@"data\enemies.csv").Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);

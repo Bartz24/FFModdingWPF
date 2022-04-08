@@ -251,16 +251,16 @@ tre_qst_082,Wildlands,Matchmaker Quest,Quest,I(key_w_yasai_t|1),4
 tre_qst_082_2,Wildlands,Matchmaker Quest,Quest,I(key_w_yasai_t|1),4
 tre_qst_083,Wildlands,Mother and Daughter Quest,Quest,I(key_w_yasai_t|1),4
 tre_qst_083_2,Wildlands,Mother and Daughter Quest,Quest,I(key_w_yasai_t|1),4
-tre_w_tamago,Wildlands,The Secret Lives of Sheep Mystery Egg,,I(key_w_yasai_t|1),3
-tre_w_moji1,Wildlands,Goddess Temple Goddess Glyphs,,I(key_w_yasai_t|1),4
-tre_w_moji2,Wildlands,Goddess Temple Chaos Glyphs,,I(key_w_yasai_t|1),4
-tre_w_buhin1,Wildlands,Poltae Plate Metal Fragment,,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)),4
-tre_w_buhin2,Wildlands,Poltae Silvered Metal Fragment,,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)),4
-tre_w_buhin3,Wildlands,Poltae Gold Metal Fragment,,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)),4
-tre_w_data,Wildlands,Research Camp Data Recorder,,I(key_w_yasai_t|1),4
-tre_w_apple1,Wildlands,Aryas Village Apple,,I(key_w_yasai_t|1),1
-tre_w_apple2,Wildlands,Aryas Village Apple,,I(key_w_yasai_t|1),1
-tre_w_apple3,Wildlands,Aryas Village Apple,,I(key_w_yasai_t|1),1
+tre_w_tamago,Wildlands,The Secret Lives of Sheep Mystery Egg,SideKey,I(key_w_yasai_t|1),3
+tre_w_moji1,Wildlands,Goddess Temple Goddess Glyphs,SideKey,I(key_w_yasai_t|1),4
+tre_w_moji2,Wildlands,Goddess Temple Chaos Glyphs,SideKey,I(key_w_yasai_t|1),4
+tre_w_buhin1,Wildlands,Poltae Plate Metal Fragment,SideKey,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)),4
+tre_w_buhin2,Wildlands,Poltae Silvered Metal Fragment,SideKey,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)),4
+tre_w_buhin3,Wildlands,Poltae Gold Metal Fragment,SideKey,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)),4
+tre_w_data,Wildlands,Research Camp Data Recorder,SideKey,I(key_w_yasai_t|1),4
+tre_w_apple1,Wildlands,Aryas Village Apple,SideKey,I(key_w_yasai_t|1),1
+tre_w_apple2,Wildlands,Aryas Village Apple,SideKey,I(key_w_yasai_t|1),1
+tre_w_apple3,Wildlands,Aryas Village Apple,SideKey,I(key_w_yasai_t|1),1
 tre_wea_oa02,Wildlands,Wildlands Boss Drop,Battle,I(key_w_yasai_t|1),7
 tre_box_b_002,Yusnaan,Reveler's Quarter Lapis Lazuli Treasure,CoPKey,,0
 tre_box_b_003,Yusnaan,Industrial Area Power Booster,CoPKey,AND(I(key_y_id|1)|I(key_y_ticket|1)),2

@@ -563,16 +563,12 @@ namespace LRRando
                 b.sDropItem0_string = newItem;
                 b.u16DropProb0 = 10000;
                 b.u8NumDrop0 = newCount;
-                BattleRando battleRando = rando.Randomizers.Get<BattleRando>("Battles");
-                battleRando.btScenes[ID].sDropItem0_string = newItem;
-                battleRando.btScenes[ID].u16DropProb0 = 10000;
-                battleRando.btScenes[ID].u8NumDrop0 = newCount;
             }
 
             public override Tuple<string, int> GetData(dynamic obj)
             {
-                BattleRando battleRando = rando.Randomizers.Get<BattleRando>("Battles");
-                return new Tuple<string, int>(battleRando.btScenes[ID].sDropItem0_string, battleRando.btScenes[ID].u8NumDrop0);
+                DataStoreBtScene b = (DataStoreBtScene)obj;
+                return new Tuple<string, int>(b.sDropItem0_string, b.u8NumDrop0);
             }
         }
 

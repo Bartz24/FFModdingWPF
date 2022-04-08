@@ -260,7 +260,7 @@ namespace LRRando
                     ID = "KeySide",
                     Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
                     "The following key items will be included in the pool based on the set level:\n" +
-                    "Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Arithmometer, Red/Green Carbuncle Dolls, Phantom Rose, Shaolong Gui Shell, Mandragora Root, Spectral Elixir, Talbot's Gratitude, Service Entrance Key, Music Satchel, Civet Musk, Gordon Gourmet's Recipe, Steak a la Civet, Father's Letter, Proof of Overcoming Limits, Cursed Dragon Claw, Monster Flesh"
+                    "Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Arithmometer, Red/Green Carbuncle Dolls, Phantom Rose, Shaolong Gui Shell, Mandragora Root, Spectral Elixir, Talbot's Gratitude, Service Entrance Key, Music Satchel, Civet Musk, Gordon Gourmet's Recipe, Steak a la Civet, Father's Letter, Goddess Glyphs, Chaos Glyphs, Metal Fragments, Data Recorder, Aryas Apples, Mystery Egg, Proof of Overcoming Limits, Cursed Dragon Claw, Monster Flesh"
                 }.Register(Treasures);
                 KeyCoP = (ToggleFlagProperty)new ToggleFlagProperty()
                 {
