@@ -65,7 +65,7 @@ namespace FF13_2Rando
 
                 List<string> openings = gateData.Keys
                     .Where(id => !gateData[id].Traits.Contains("Paradox"))
-                    .Where(id => !FF13_2Flags.Other.RandoDLC.Enabled ? !gateData[id].Traits.Contains("DLC") : true)
+                    .Where(id => FF13_2Flags.Other.RandoDLC.Enabled || !gateData[id].Traits.Contains("DLC"))
                     .Select(id => gateTable[id].sOpenHistoria1_string)
                     .Select(s => s.Substring(0, s.Length - 2))
                     .Distinct().ToList();

@@ -171,14 +171,19 @@ namespace FF13_2Rando
             HistoriaCruxRando cruxRando = Randomizers.Get<HistoriaCruxRando>("Historia Crux");
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
 
-            page.HTMLElements.Add(new Table("", (new string[] { "Location", "New Contents", "Mog Level Required" }).ToList(), (new int[] { 50, 30, 20 }).ToList(), itemLocations.Values.Select(t =>
+            page.HTMLElements.Add(new Button("document.getElementById(\"itemlocations\").classList.toggle(\"hide3\")", null, "Hide/Show Requirements"));
+
+            page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Requirements", "Mog Level Required" }).ToList(), (new int[] { 30, 25, 30, 15 }).ToList(), itemLocations.Values.Select(t =>
             {
                 string itemID = placementAlgo.GetLocationItem(t.ID, false).Item1;
-                int count = placementAlgo.GetLocationItem(t.ID, false).Item2;
                 string name = GetItemName(itemID);
+                string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
+                if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
+                    reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
                 string location = $"{string.Join("/", itemLocations[t.ID].Areas.Select(s => cruxRando.areaData[s].Name))} - {itemLocations[t.ID].Name}";
-                return new string[] { location, $"{name} x {count}", GetMogLevelRequiredText(t.MogLevel) }.ToList();
-            }).ToList()));
+                return (new string[] { location, $"{name} x {placementAlgo.GetLocationItem(t.ID, false).Item2}", reqsDisplay, GetMogLevelRequiredText(t.MogLevel) }).ToList();
+            }).ToList(), "itemlocations"));
+
             return page;
         }
 

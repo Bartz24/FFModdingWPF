@@ -113,6 +113,15 @@ namespace FF13_2Rando
                 return;
             }
 
+            if (FF13_2Flags.Other.RandoDLC.Enabled && !Nova.IsModInstalled(SetupData.Paths["Nova"], "DLC Restoration - Console Content", "13-2"))
+            {
+                MessageBox.Show("The 'Include DLC Areas' flag was turned on and requires the following mod that is detected to be missing:\n" +
+                    "'DLC Restoration - Console Content'\n\n" +
+                    "Download and install the mod from the Core Mods download in the Nova discord server.\n" +
+                    "Once this mod is installed, you will be able to generate the rando modpack.", "Additional mods required");
+                return;
+            }
+
 #if DEBUG
             bool tests = false;
             if (MessageBox.Show("Run tests?", "Tests", MessageBoxButton.YesNo) == MessageBoxResult.Yes)

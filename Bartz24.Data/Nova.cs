@@ -160,5 +160,31 @@ namespace Bartz24.Data
                 process.WaitForExit();
             }
         }
+
+        public static bool IsModInstalled(string novaPath, string modName, string game)
+        {
+            string novaFolder = novaPath.Substring(0, novaPath.LastIndexOf("\\"));
+            string gameFolder = "";
+            switch (game)
+            {
+                case "13":
+                    gameFolder = "XIII";
+                    break;
+                case "13-2":
+                    gameFolder = "XIII-2";
+                    break;
+                case "LR":
+                    gameFolder = "XIII-LR";
+                    break;
+            }
+
+            string iniPath = $"{novaFolder}\\Mods\\{gameFolder}\\{modName}\\modconfig.ini";
+            if (!File.Exists(iniPath))
+                return false;
+
+            IniFile ini = new IniFile(iniPath);
+
+            return ini.Read("Installed", "NovaChysaliaConfig") == "true";
+        }
     }
 }

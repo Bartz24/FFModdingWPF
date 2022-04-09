@@ -8,7 +8,11 @@ tre_hmaa_024,Winding Way,h_hm_AD0003,0,,,SideKey
 tre_hmaa_004,Tidal Shallows,h_hm_AD0003,0,,,
 tre_hmaa_005,Tidal Shallows,h_hm_AD0003,0,,,
 tre_hmaa_007,Meteorite Impact Site,h_hm_AD0003,0,,,
-tre_gvtn1,Tidal Shallows Fragment,h_hm_AD0003,1,,,Graviton
+tre_gvtn1,Tidal Shallows Graviton Fragment,h_hm_AD0003,1,,,Graviton
+frg_cmn_hmaa001,Gogmagog Alpha Fragment,h_hm_AD0003,0,,,
+frg_cmn_hmaa002,Gogmagog Beta Fragment,h_hm_AD0003,0,,,
+key_s_neck,Snow's Necklace,h_hm_AD0003,0,,,
+key_l_knife,Lightning's Knife,h_hm_AD0003,0,,,
 tre_hpaa_001,Meteorite Impact Site Fragment,h_zz_NA0950,1,,I(opt_aaea_re|1),
 tre_hpaa_002,Meteorite Impact Site Fragment,h_zz_NA0950,1,,I(opt_aaea_re|1),
 tre_hmaa_015,Beachfront,h_hm_AD0700,1,,,
@@ -111,7 +115,6 @@ tre_snda_001,Animal Trail,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_002,Animal Trail,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_017,Animal Trail,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_018,Animal Trail,h_sn_AD0300|h_sn_AD0400,2,,,
-tre_snea_reopt,Animal Trail,h_sn_AD0300,2,,,GateSeal
 tre_snda_019,Warpwood,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_012,Hidden Woodland Area,h_sn_AD0300|h_sn_AD0400,0,,,
 tre_snda_015,Hidden Woodland Area,h_sn_AD0300|h_sn_AD0400,1,,,
@@ -119,6 +122,7 @@ tre_snda_020,Bow Isle,h_sn_AD0300|h_sn_AD0400,0,,,
 tre_snda_011,Isle of Arboreal Embrace,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_013,Lush Woodland Path,h_sn_AD0300|h_sn_AD0400,1,,,
 tre_snda_009,Overgrown Forest,h_sn_AD0300|h_sn_AD0400,1,,,
+tre_snea_reopt,Assembly Area Minflans,h_sn_AD0400,1,,,GateSeal
 tre_gvtn7,Assembly Area Fragment,h_sn_AD0400,1,,,Graviton
 tre_snda_016,Overgrown Forest Fragment,h_sn_AD0300,2,,,
 tre_snda_opts1,Animal Trail Wild Artefact,h_sn_AD0300,2,,,Wild

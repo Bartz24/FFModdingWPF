@@ -9,12 +9,6 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.6.1 Changelog:
+0.6.2 Changelog:
 
--Fixed the following items not being marked as side key items:
-    -Mystery Egg
-    -Goddess/Chaos Glyphs
-    -Metal Fragments
-    -Aryas Apples
-    -Data Recorder
--Fixed items moved to/from battle drops being duplicated or lost
+-Fixed EP ability shuffling swapping unintended items

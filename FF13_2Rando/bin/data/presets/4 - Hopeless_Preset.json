@@ -1,5 +1,5 @@
 {
-  "name": "2 - Key Item Shuffle",
+  "name": "4 - Hopeless",
   "version": "0.6.1",
   "flags": [
     {
@@ -22,23 +22,23 @@
           "ID": "KeySide"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeyPlaceTreas"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeyPlaceBrain"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeyPlaceMogCryst"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeyPlaceMogJunk"
         },
         {
-          "SelectedValue": "Normal",
+          "SelectedValue": "Hard+++",
           "ID": "KeyDepth"
         }
       ],
@@ -71,7 +71,7 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "SelectedValue": "Bodhum",
+          "SelectedValue": "None",
           "ID": "ForcedStart"
         },
         {

@@ -1,4 +1,7 @@
 ﻿start,hs_hmaa_def,,,0,Start,
+start,hs_hmaa11_va,DLC,,0,Start DLC 1,
+start,hs_hmaa12_cl,DLC,,0,Start DLC 2,
+start,hs_hmaa13_cs,DLC,,0,Start DLC 3,
 h_hm_AD0003,hs_hmaa01_bj,,,0,Bodhum 3 AF -> Bresha 5 AF,
 h_bj_AD0005,hs_bjaa01_gy,,,1,Bresha 5 AF -> Yaschas 10 AF,
 h_bj_AD0005,hs_bjaa02_sn,,,1,Bresha 5 AF -> Sunleth 300 AF,

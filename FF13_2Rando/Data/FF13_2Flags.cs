@@ -92,12 +92,12 @@ namespace FF13_2Rando
                 {
                     Text = "Item Difficulty Depth",
                     ID = "KeyDepth",
-                    Description = "Key items will be more likely to appear in longer chains of key items and more difficult/time-consuming and later locations.\n\n" +
+                    Description = "Key items will be more likely to appear in later locations.\n\n" +
                     "Depths:\n" +
                     "    Normal - Each location is equally likely.\n" +
-                    "    Hard - Each level of depth/difficulty increases likelyhood of that location by 1.05x.\n" +
-                    "    Hard+ - Each level of depth/difficulty increases likelyhood of that location by 1.10x.\n" +
-                    "    Hard++ - Each level of depth/difficulty increases likelyhood of that location by 1.25x.\n" +
+                    "    Hard - Each level of depth/difficulty increases likelyhood of that location by 1.10x.\n" +
+                    "    Hard+ - Each level of depth/difficulty increases likelyhood of that location by 1.20x.\n" +
+                    "    Hard++ - Each level of depth/difficulty increases likelyhood of that location by 1.50x.\n" +
                     "    Hard+++ - Locations of the highest depth/difficulty will tend to be preferred.",
                     Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
                 }.Register(Treasures);
@@ -131,7 +131,7 @@ namespace FF13_2Rando
                     Text = "Shuffle Bosses",
                     ID = "RandBoss",
                     Description = "Shuffle the following bosses between each other:\n" +
-                    "Gogmagog (Alpha, Beta and Gamma), Aloedai, Caius (Oerba, Void Beyond, Dying World, Deck, Beach, and Paradoxes)\n"
+                    "Gogmagog (Alpha, Beta and Gamma), Aloedai, Caius (Oerba, Void Beyond, Dying World, Deck, Beach, and Paradoxes), Kalavinka, Ugallu, Gorgyra\n"
                 }.Register(EnemyLocations);
 
                 DLCBosses = (ToggleFlagProperty)new ToggleFlagProperty()
@@ -186,8 +186,9 @@ namespace FF13_2Rando
                 {
                     Text = "Include DLC Areas",
                     ID = "RandDLCCrux",
-                    Description = "Includes the Lightning, Sazh, and Coliseum DLC into the pool. Turning this on will also make 3 additional areas open from the start.\n" +
-                    "Note that these areas are now accessible from the start regardless of what this is set to (Random if on, Early DLC if off)."
+                    Description = "Includes the Lightning, Sazh, and Coliseum DLC into the pool. Turning this on will also allow 3 additional areas open from the start.\n\n" +
+                    "[NOTE]\n" +
+                    "This requires a separate mod 'DLC Restoration - Console Content' that is provided as a core mod for Nova. Download this mod from the Core Mods download in the Nova discord server."
                 }.Register(HistoriaCrux);
 
                 Music = new Flag()
