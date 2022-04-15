@@ -45,18 +45,18 @@ namespace LRRando
             {
                 LRFlags.StatsAbilities.EPAbilities.SetRand();
 
-                IEnumerable<LRItemLocation> keys = treasureRando.itemLocations.Values.Where(t => treasureRando.placementAlgo.GetLocationItem(t.ID, false).Item1.StartsWith("ti") || treasureRando.placementAlgo.GetLocationItem(t.ID, false).Item1 == "at900_00");
+                IEnumerable<LRItemLocation> keys = treasureRando.itemLocations.Values.Where(t => treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1.StartsWith("ti") || treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1 == "at900_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled)
-                    keys = keys.Where(t => treasureRando.placementAlgo.GetLocationItem(t.ID, false).Item1 != "ti830_00");
+                    keys = keys.Where(t => treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1 != "ti830_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled)
-                    keys = keys.Where(t => treasureRando.placementAlgo.GetLocationItem(t.ID, false).Item1 != "ti840_00");
+                    keys = keys.Where(t => treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1 != "ti840_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled)
-                    keys = keys.Where(t => treasureRando.placementAlgo.GetLocationItem(t.ID, false).Item1 != "ti810_00");
+                    keys = keys.Where(t => treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1 != "ti810_00");
 
                 keys.ToList().Shuffle((t1, t2) => {
-                    string value = treasureRando.placementAlgo.GetLocationItem(t1.ID, false).Item1;
-                    treasureRando.placementAlgo.SetLocationItem(t1.ID, treasureRando.placementAlgo.GetLocationItem(t2.ID, false).Item1, 1);
-                    treasureRando.placementAlgo.SetLocationItem(t2.ID, value, 1);
+                    string value = treasureRando.PlacementAlgo.GetLocationItem(t1.ID, false).Item1;
+                    treasureRando.PlacementAlgo.SetLocationItem(t1.ID, treasureRando.PlacementAlgo.GetLocationItem(t2.ID, false).Item1, 1);
+                    treasureRando.PlacementAlgo.SetLocationItem(t2.ID, value, 1);
                 });
 
                 if (LRFlags.StatsAbilities.NerfOC.FlagEnabled)

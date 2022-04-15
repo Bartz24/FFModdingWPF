@@ -1,10 +1,5 @@
-0.6.2 Changelog:
+0.6.3 Changelog:
 
--Added Improved Moogle Throw items to pool with a few new flags
--Added New Bodhum Gogmagog fragments, Snow's Necklace, and Lightning's Knife to pool
--Added Include DLC Areas flag (Requires DLC Restoration Core Mod)
--New item placement logic to have more unique seeds even on harder settings (works by placing items backwards)
--Lowered Ugallu and Gorgyra STR/MAG
--Added requirements to item location documentation (Requirements can be hidden with a button)
--Fixed Cura and Curaga not requiring Cure/Curasa first
--Fixed Thunderstruck Gate seal location always being vanilla
+-Fixed seed generation getting stuck on more restrictive item placement
+-Fixed randomized events not giving fragments correctly
+-Gorgyra and Ugallu spawns are now black portal spawns

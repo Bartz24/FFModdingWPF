@@ -158,7 +158,7 @@ tre_qst_020,Luxerion,Voices from the Grave Quest,Quest,,3
 tre_qst_020_2,Luxerion,Voices from the Grave Quest,Quest,,3
 tre_qst_091,Luxerion,To Save the Sinless Quest,Missable|Quest,,4
 tre_qst_091_2,Luxerion,To Save the Sinless Quest,Missable|Quest,,4
-tre_ti840,Luxerion,Replace Chronostasis,EP,,0
+tre_ti840,Luxerion,Replace Chronostasis,,,0
 tre_wea_oa00,Luxerion,Luxerion Boss Drop,Battle,,7
 tre_wea_oa01,Luxerion,Luxerion Boss+ Only Missable Drop,Missable,,8
 tre_box_b_004,Wildlands,Moogle Village Moogle Dust Treasure,CoPKey,,2
@@ -384,9 +384,9 @@ tre_box_p_111,Ark,Ark Final Day,Missable,,10
 tre_box_p_111_2,Ark,Ark Final Day,Missable,,10
 tre_box_p_111_3,Ark,Ark Final Day,Missable,,10
 tre_box_p_112,Ark,Ark Extra Day,Missable,,11
-tre_ti000,Ark,Replace Curaga,EP,,0
-tre_ti810,Ark,Replace Teleport,EP,,0
-tre_ti830,Ark,Replace Escape,EP,,0
+tre_ti000,Ark,Replace Curaga,,,0
+tre_ti810,Ark,Replace Teleport,,,0
+tre_ti830,Ark,Replace Escape,,,0
 tre_qst_1151,CoP Dead Dunes,Flower in the Sands CoP Quest,CoP,,1
 tre_qst_1151_1,CoP Dead Dunes,Flower in the Sands CoP Quest,CoP,,1
 tre_qst_1152,CoP Dead Dunes,Biologically Speaking CoP Quest,CoP,,2

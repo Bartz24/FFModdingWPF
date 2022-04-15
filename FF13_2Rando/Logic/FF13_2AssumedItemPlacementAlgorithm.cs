@@ -17,7 +17,7 @@ namespace FF13_2Rando
 
         List<string> WildGatesOpenOrder = new List<string>();
 
-        public FF13_2AssumedItemPlacementAlgorithm(Dictionary<string, FF13_2ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers) : base(itemLocations, hintsByLocations)
+        public FF13_2AssumedItemPlacementAlgorithm(Dictionary<string, FF13_2ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
         {
             treasureRando = randomizers.Get<TreasureRando>("Treasures");
             cruxRando = randomizers.Get<HistoriaCruxRando>("Historia Crux");
@@ -82,7 +82,11 @@ namespace FF13_2Rando
             switch (ItemLocations[key])
             {
                 case TreasureRando.TreasureData t:
-                    return t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
+                    Tuple<string, int> tuple = t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
+                    if (ItemLocations[key].Traits.Contains("Event") && tuple.Item1.StartsWith("frg"))
+                        return new Tuple<string, int>(tuple.Item1, 1);
+
+                    return tuple;
                 case TreasureRando.SearchItemData s:
                     string id = key.Substring(0, key.IndexOf(":"));
                     return s.GetData(orig ? treasureRando.searchOrig[id] : treasureRando.search[id]);
@@ -96,6 +100,8 @@ namespace FF13_2Rando
             switch (ItemLocations[key])
             {
                 case TreasureRando.TreasureData t:
+                    if (ItemLocations[key].Traits.Contains("Event") && item.StartsWith("frg"))
+                        count = 0;
                     t.SetData(treasureRando.treasures[key], item, count);
                     break;
                 case TreasureRando.SearchItemData s:
@@ -191,7 +197,7 @@ namespace FF13_2Rando
             return list;
         }
 
-        private bool IsAllowed(string old, string rep)
+        public override bool IsAllowed(string old, string rep)
         {
             if (!FF13_2Flags.Items.KeyWild.Enabled && (IsWildArtefactKeyItem(rep) || IsWildArtefactKeyItem(old)))
                 return old == rep;
@@ -272,6 +278,11 @@ namespace FF13_2Rando
                 string next = RandomNum.SelectRandomWeighted(possible, s => (long)Math.Pow(expBase, possDepths[s]));
                 return new Tuple<string, int>(next, possDepths[next]);
             }
+        }
+
+        public override void Clear()
+        {
+
         }
     }
 }

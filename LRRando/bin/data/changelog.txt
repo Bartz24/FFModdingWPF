@@ -9,6 +9,8 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.6.2 Changelog:
+0.6.3 Changelog:
 
--Fixed EP ability shuffling swapping unintended items
+-Fixed seed generation getting stuck on more restrictive item placement
+-Fixed useless hints being generated on more restrictive item placement
+-Fixed Father's Letter not being required to be stolen

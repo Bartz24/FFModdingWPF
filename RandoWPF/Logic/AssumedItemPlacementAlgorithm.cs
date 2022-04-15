@@ -9,65 +9,63 @@ namespace Bartz24.RandoWPF
 {
     public abstract class AssumedItemPlacementAlgorithm<T> : ItemPlacementAlgorithm<T> where T : ItemLocation
     {
-
-        public AssumedItemPlacementAlgorithm(Dictionary<string, T> itemLocations, List<string> hintsByLocations) : base(itemLocations, hintsByLocations)
+        public AssumedItemPlacementAlgorithm(Dictionary<string, T> itemLocations, List<string> hintsByLocations, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
         {
-        }
-
-        protected override void DoImportantPlacement(List<string> locations, List<string> important, List<string> defaultAreas)
-        {
-            while(true)
-            {
-                bool output = TryImportantPlacement(locations, important, new List<string>(defaultAreas));
-                if (output)
-                    return;
-                Placement.Clear();
-                Depths.Clear();
-            }
-            //throw new Exception("Failed to place all important items");
         }
 
         protected override bool TryImportantPlacement(List<string> locations, List<string> important, List<string> accessibleAreas)
         {
-            Dictionary<string, int> items = GetItemsAvailable(important.ToDictionary(l => l, l => l));
+            List<string> remaining = important.Where(t => !Placement.ContainsValue(t)).ToList().Shuffle().ToList();
+            Dictionary<string, int> items = GetItemsAvailable(remaining.ToDictionary(l => l, l => l));
 
-            List<string> remaining = important.Shuffle().ToList();
+            List<string> remainingLogic = remaining.Where(t => RequiresDepthLogic(t)).ToList().Shuffle().ToList();
 
-            foreach (string rep in remaining)
+            remainingLogic = PrioritizeLockedItems(locations, remainingLogic, important);
+            foreach (string rep in remainingLogic)
             {
                 Tuple<string, int> nextItem = GetLocationItem(rep);
                 items[nextItem.Item1] -= nextItem.Item2;
                 List<string> newAccessibleAreas = GetNewAreasAvailable(items, new List<string>());
 
-                // Only important key items are affected by location/depth logic
-                if (RequiresDepthLogic(rep))
+                List<string> possible = newAccessibleAreas.SelectMany(loc => locations.Where(t => !Placement.ContainsKey(t) && IsValid(t, rep, loc, items, newAccessibleAreas))).Distinct().ToList().Shuffle().ToList();
+                int count = possible.Count;
+                if (possible.Count > 0)
                 {
-                    List<string> possible = newAccessibleAreas.SelectMany(loc => locations.Where(t => !Placement.ContainsKey(t) && IsValid(t, rep, loc, items, newAccessibleAreas))).Distinct().ToList();
-                    if (possible.Count > 0)
-                    {
-                        Tuple<string, int> nextPlacement = SelectNext(items, possible, rep);
-                        string next = nextPlacement.Item1;
-                        int depth = nextPlacement.Item2;
-                        string hint = null;
-                        if (IsHintable(rep))
-                            hint = AddHint(items, next, rep, depth);
-                        Placement.Add(next, rep);
-                        Depths.Add(next, depth);
-                        if (Placement.Count == important.Count)
-                            return true;
-                    }
+                    Tuple<string, int> nextPlacement = SelectNext(items, possible, rep);
+                    string next = nextPlacement.Item1;
+                    int depth = nextPlacement.Item2;
+                    string hint = null;
+                    if (IsHintable(rep))
+                        hint = AddHint(items, next, rep, depth);
+                    Placement.Add(next, rep);
+                    Depths.Add(next, depth);
+                    if (Placement.Count == important.Count)
+                        return true;
                 }
                 else
+                    return false;
+            }
+
+            List<string> remainingOther = remaining.Where(t => !RequiresDepthLogic(t)).ToList().Shuffle().ToList();
+            foreach (string rep in remainingOther)
+            {
+                Tuple<string, int> nextItem = GetLocationItem(rep);
+                items[nextItem.Item1] -= nextItem.Item2;
+                List<string> newAccessibleAreas = GetNewAreasAvailable(items, new List<string>());
+
+                List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && IsAllowed(t, rep)).ToList();
+                if (possible.Count > 0)
                 {
-                    List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && IsValid(t, rep, null, items, newAccessibleAreas)).ToList();
-                    if (possible.Count > 0)
-                    {
-                        string next = possible[RandomNum.RandInt(0, possible.Count - 1)];
-                        Placement.Add(next, rep);
-                        if (Placement.Count == important.Count)
-                            return true;
-                    }
+                    string next = possible[RandomNum.RandInt(0, possible.Count - 1)];
+                    string hint = null;
+                    if (IsHintable(rep))
+                        hint = AddHint(items, next, rep, 0);
+                    Placement.Add(next, rep);
+                    if (Placement.Count == important.Count)
+                        return true;
                 }
+                else
+                    return false;
             }
             return false;
         }

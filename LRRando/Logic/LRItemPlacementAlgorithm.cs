@@ -28,7 +28,7 @@ namespace LRRando
             {
                 List<HintData> possible = treasureRando.hintData.Values.Where(h =>
                 {
-                    if (!h.Requirements.IsValid(items))
+                    if (!h.Requirements.IsValid(GetItemsAvailable()))
                         return false;
                     if (h.Requirements.GetPossibleRequirements().Contains(replacement))
                         return false;
@@ -50,22 +50,6 @@ namespace LRRando
             }
             return null;
         }
-
-        public override int GetNextDepth(Dictionary<string, int> items, string location)
-        {
-            int reqsMax = GetReqsMaxDepth(ItemLocations[location].Requirements);
-
-            int minItems = 8;
-            int keyItemsFound = Placement.Where(p => IsKeyItem(p.Value)).Count();
-            // Early day/easier checks have higher "depths" as minItems is low to start chains
-            float diffModifier = Math.Min(minItems, keyItemsFound) / (float)minItems;
-            int maxDifficulty = ItemLocations.Values.Select(t => t.Difficulty).Max();
-            int diffValue = (int)(diffModifier * ItemLocations[location].Difficulty + (1 - diffModifier) * (maxDifficulty - ItemLocations[location].Difficulty));
-
-            int val = reqsMax + 1 + diffValue;
-            return RandomNum.RandInt(Math.Max(reqsMax + 1, val - 2), val + 2);
-        }
-
         private int GetReqsMaxDepth(ItemReq req)
         {
             return req.GetPossibleRequirements().Select(item =>
@@ -74,11 +58,25 @@ namespace LRRando
             }).DefaultIfEmpty(0).Max();
         }
 
+        public override int GetNextDepth(Dictionary<string, int> items, string location)
+        {
+            int minItems = 8;
+            int keyItemsFound = Placement.Where(p => treasureRando.IsImportantKeyItem(p.Value)).Count();
+            // Early day/easier checks have higher "depths" as minItems is low to start chains
+            float diffModifier = Math.Min(minItems, keyItemsFound) / (float)minItems;
+            int maxDifficulty = ItemLocations.Values.Select(t => t.Difficulty).Max();
+            int val = (int)(diffModifier * ItemLocations[location].Difficulty + (1 - diffModifier) * (maxDifficulty - ItemLocations[location].Difficulty));
+
+            if (ItemLocations[location].Traits.Contains("CoP"))
+                val = (int)Math.Round(Math.Pow(val, 0.75f)) / 2;
+            return RandomNum.RandInt(Math.Max(0, val - 2), val + 2);
+        }
+
         public override bool IsHintable(string location)
         {
-            if (IsKeyItem(location) && !IsPilgrimKeyItem(location))
+            if (treasureRando.IsImportantKeyItem(location) && !treasureRando.IsPilgrimKeyItem(location))
                 return true;
-            if (IsPilgrimKeyItem(location) && LRFlags.Other.HintsPilgrim.FlagEnabled)
+            if (treasureRando.IsPilgrimKeyItem(location) && LRFlags.Other.HintsPilgrim.FlagEnabled)
                 return true;
             if (LRFlags.Other.HintsEP.FlagEnabled && (GetLocationItem(location).Item1.StartsWith("ti") || GetLocationItem(location).Item1 == "at900_00"))
                 return true;
@@ -95,22 +93,23 @@ namespace LRRando
         public override void RemoveHint(string hint, string location)
         {
             ItemLocations[location].Areas.ForEach(l => HintsByLocationsCount[l]++);
+            treasureRando.hintsMain[hint].Remove(location);
         }
 
         public override bool RequiresDepthLogic(string location)
         {
-            return IsKeyItem(location) || IsEPAbility(location);
+            return treasureRando.IsImportantKeyItem(location);
         }
 
         public override bool RequiresLogic(string location)
         {
             if (ItemLocations[location].Traits.Contains("Same"))
-                return false;
-            if (IsKeyItem(location))
+                return true;
+            if (treasureRando.IsImportantKeyItem(location))
                 return true;
             if (GetLocationItem(location).Item1.StartsWith("libra"))
                 return true;
-            if (IsEPAbility(location))
+            if (treasureRando.IsEPAbility(location))
                 return true;
             if (GetLocationItem(location).Item1.StartsWith("it"))
                 return true;
@@ -157,17 +156,17 @@ namespace LRRando
             return ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
         }
 
-        private bool IsAllowed(string old, string rep)
+        public override bool IsAllowed(string old, string rep)
         {
-            if (!LRFlags.Items.Pilgrims.Enabled && (IsPilgrimKeyItem(rep) || IsPilgrimKeyItem(old)))
+            if (!LRFlags.Items.Pilgrims.Enabled && (treasureRando.IsPilgrimKeyItem(rep) || treasureRando.IsPilgrimKeyItem(old)))
                 return old == rep;
-            if (!LRFlags.Items.KeyMain.Enabled && (IsMainKeyItem(rep) || IsMainKeyItem(old)))
+            if (!LRFlags.Items.KeyMain.Enabled && (treasureRando.IsMainKeyItem(rep) || treasureRando.IsMainKeyItem(old)))
                 return old == rep;
-            if (!LRFlags.Items.KeySide.Enabled && (IsSideKeyItem(rep) || IsSideKeyItem(old)))
+            if (!LRFlags.Items.KeySide.Enabled && (treasureRando.IsSideKeyItem(rep) || treasureRando.IsSideKeyItem(old)))
                 return old == rep;
-            if (!LRFlags.Items.KeyCoP.Enabled && (IsCoPKeyItem(rep) || IsCoPKeyItem(old)))
+            if (!LRFlags.Items.KeyCoP.Enabled && (treasureRando.IsCoPKeyItem(rep) || treasureRando.IsCoPKeyItem(old)))
                 return old == rep;
-            if (!LRFlags.Items.EPLearns.Enabled && (IsEPAbility(rep) || IsEPAbility(old)))
+            if (!LRFlags.Items.EPLearns.Enabled && (treasureRando.IsEPAbility(rep) || treasureRando.IsEPAbility(old)))
                 return old == rep;
             if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled && (GetLocationItem(rep).Item1 == "ti830_00" || GetLocationItem(old).Item1 == "ti830_00"))
                 return old == rep;
@@ -181,37 +180,37 @@ namespace LRRando
 
             if (ItemLocations[old].Traits.Contains("Missable"))
             {
-                if (IsKeyItem(rep))
+                if (treasureRando.IsImportantKeyItem(rep))
                     return false;
                 if (GetLocationItem(rep).Item1.StartsWith("libra"))
                     return false;
-                if (!LRFlags.Items.EPMissable.Enabled && IsEPAbility(rep))
+                if (!LRFlags.Items.EPMissable.Enabled && treasureRando.IsEPAbility(rep))
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("CoP"))
             {
-                if (IsEPAbility(rep))
+                if (treasureRando.IsEPAbility(rep))
                     return false;
-                if (IsKeyItem(rep) && !IsKeyItem(old) && !LRFlags.Items.KeyPlaceCoP.Enabled)
+                if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !LRFlags.Items.KeyPlaceCoP.Enabled)
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("Grindy"))
             {
-                if (IsKeyItem(rep) && !IsKeyItem(old) && !LRFlags.Items.KeyPlaceGrindy.Enabled)
+                if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !LRFlags.Items.KeyPlaceGrindy.Enabled)
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("Quest"))
             {
-                if (IsEPAbility(rep))
+                if (treasureRando.IsEPAbility(rep))
                     return false;
                 if (GetLocationItem(rep).Item1.StartsWith("it"))
                     return false;
-                if (IsKeyItem(rep) && !IsKeyItem(old) && !LRFlags.Items.KeyPlaceQuest.Enabled)
+                if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !LRFlags.Items.KeyPlaceQuest.Enabled)
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("Battle"))
             {
-                if (IsEPAbility(rep))
+                if (treasureRando.IsEPAbility(rep))
                     return false;
                 if (GetLocationItem(rep).Item1.StartsWith("it"))
                     return false;
@@ -222,7 +221,7 @@ namespace LRRando
             }
             if (ItemLocations[old].Traits.Contains("Trade"))
             {
-                if (IsEPAbility(rep))
+                if (treasureRando.IsEPAbility(rep))
                     return false;
                 if (GetLocationItem(rep).Item2 > 1)
                     return false;
@@ -230,43 +229,12 @@ namespace LRRando
                     return false;
             }
 
-            if (IsKeyItem(rep) && !IsPilgrimKeyItem(rep) && (!IsKeyItem(old) || IsPilgrimKeyItem(old)) && !LRFlags.Items.KeyPlaceTreasure.Enabled)
+            if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsPilgrimKeyItem(rep) && (!treasureRando.IsImportantKeyItem(old) || treasureRando.IsPilgrimKeyItem(old)) && !LRFlags.Items.KeyPlaceTreasure.Enabled)
                 return false;
-            if ((!IsKeyItem(rep) || IsPilgrimKeyItem(rep)) && IsKeyItem(old) && !IsPilgrimKeyItem(old) && !LRFlags.Items.KeyPlaceTreasure.Enabled)
+            if ((!treasureRando.IsImportantKeyItem(rep) || treasureRando.IsPilgrimKeyItem(rep)) && treasureRando.IsImportantKeyItem(old) && !treasureRando.IsPilgrimKeyItem(old) && !LRFlags.Items.KeyPlaceTreasure.Enabled)
                 return false;
             return true;
         }
-
-        public bool IsEPAbility(string t, bool orig = true)
-        {
-            return GetLocationItem(t, orig).Item1.StartsWith("ti") || GetLocationItem(t, orig).Item1 == "at900_00";
-        }
-
-        public bool IsKeyItem(string t, bool orig = true)
-        {
-            return GetLocationItem(t, orig).Item1.StartsWith("key") || GetLocationItem(t, orig).Item1 == "cos_fa00";
-        }
-
-        public bool IsMainKeyItem(string t)
-        {
-            return ItemLocations[t].Traits.Contains("MainKey");
-        }
-
-        public bool IsSideKeyItem(string t)
-        {
-            return ItemLocations[t].Traits.Contains("SideKey");
-        }
-
-        public bool IsCoPKeyItem(string t)
-        {
-            return ItemLocations[t].Traits.Contains("CoPKey");
-        }
-
-        public bool IsPilgrimKeyItem(string t)
-        {
-            return ItemLocations[t].Traits.Contains("Pilgrim");
-        }
-
 
         public override Tuple<string, int> SelectNext(Dictionary<string, int> items, List<string> possible, string rep)
         {
@@ -283,17 +251,20 @@ namespace LRRando
                 if (index == 0)
                     expBase = 1;
                 if (index == 1)
-                    expBase = 1.05f;
-                if (index == 2)
                     expBase = 1.1f;
+                if (index == 2)
+                    expBase = 1.2f;
                 if (index == 3)
-                    expBase = 1.25f;
+                    expBase = 1.5f;
                 Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
                 string next = RandomNum.SelectRandomWeighted(possible, s => (long)Math.Pow(expBase, possDepths[s]));
                 return new Tuple<string, int>(next, possDepths[next]);
             }
         }
 
-        
+        public override void Clear()
+        {
+            treasureRando.hintsMain.Values.ForEach(l => l.Clear());
+        }
     }
 }

@@ -35,7 +35,11 @@ namespace LRRando
         public List<string> RandomAdorn = new List<string>();
         public List<string> RemainingAdorn = new List<string>();
 
-        public LRAssumedItemPlacementAlgorithm placementAlgo;
+        private LRAssumedItemPlacementAlgorithm placementAlgo;
+        private LRItemPlacementAlgorithm placementAlgoBackup;
+        private bool usingBackup = false;
+
+        public ItemPlacementAlgorithm<LRItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgo; }
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -146,7 +150,8 @@ namespace LRRando
             }
             RandomNum.ClearRand();
 
-            placementAlgo = new LRAssumedItemPlacementAlgorithm(itemLocations, locations, Randomizers);
+            placementAlgo = new LRAssumedItemPlacementAlgorithm(itemLocations, locations, Randomizers, 10);
+            placementAlgoBackup = new LRItemPlacementAlgorithm(itemLocations, locations, Randomizers);
         }
 
         public void AddTreasure(string newName, string item, int count, string next)
@@ -184,7 +189,11 @@ namespace LRRando
 
                 List<string> keys = itemLocations.Keys.ToList().Shuffle().ToList();
 
-                placementAlgo.Randomize(new List<string>());
+                if(!placementAlgo.Randomize(new List<string>()))
+                {
+                    usingBackup = true;
+                    placementAlgoBackup.Randomize(new List<string>());
+                }
 
                 // Same treasures take priority
                 keys = keys.OrderBy(k => !itemLocations[k].Traits.Contains("Same")).ToList();
@@ -206,24 +215,24 @@ namespace LRRando
                             return true;
                         return false;
                     };
-                    if (RandomEquip.Contains(placementAlgo.GetLocationItem(key, false).Item1))
+                    if (RandomEquip.Contains(PlacementAlgo.GetLocationItem(key, false).Item1))
                     {
-                        string next = RemainingEquip.Where(s => !isSame || sameCheck(s, placementAlgo.GetLocationItem(key, false).Item1)).ToList().Shuffle().First();
+                        string next = RemainingEquip.Where(s => !isSame || sameCheck(s, PlacementAlgo.GetLocationItem(key, false).Item1)).ToList().Shuffle().First();
                         RemainingEquip.Remove(next);
-                        placementAlgo.SetLocationItem(key, next, 1);
+                        PlacementAlgo.SetLocationItem(key, next, 1);
                     }
-                    if (RandomAdorn.Contains(placementAlgo.GetLocationItem(key, false).Item1))
+                    if (RandomAdorn.Contains(PlacementAlgo.GetLocationItem(key, false).Item1))
                     {
-                        string next = RemainingAdorn.Where(s => !isSame || sameCheck(s, placementAlgo.GetLocationItem(key, false).Item1)).ToList().Shuffle().First();
+                        string next = RemainingAdorn.Where(s => !isSame || sameCheck(s, PlacementAlgo.GetLocationItem(key, false).Item1)).ToList().Shuffle().First();
                         RemainingAdorn.Remove(next);
-                        placementAlgo.SetLocationItem(key, next, 1);
+                        PlacementAlgo.SetLocationItem(key, next, 1);
                     }
 
-                    if (equipRando.items.Keys.Contains(placementAlgo.GetLocationItem(key, false).Item1) && equipRando.IsAbility(equipRando.items[placementAlgo.GetLocationItem(key, false).Item1]))
+                    if (equipRando.items.Keys.Contains(PlacementAlgo.GetLocationItem(key, false).Item1) && equipRando.IsAbility(equipRando.items[PlacementAlgo.GetLocationItem(key, false).Item1]))
                     {
-                        string lv = placementAlgo.GetLocationItem(key, false).Item1.Substring(placementAlgo.GetLocationItem(key, false).Item1.Length - 3);
+                        string lv = PlacementAlgo.GetLocationItem(key, false).Item1.Substring(PlacementAlgo.GetLocationItem(key, false).Item1.Length - 3);
                         string next = equipRando.GetAbilities(-1).Shuffle().First().sScriptId_string;
-                        placementAlgo.SetLocationItem(key, next + lv, 1);
+                        PlacementAlgo.SetLocationItem(key, next + lv, 1);
                     }
                 }
 
@@ -234,7 +243,7 @@ namespace LRRando
                     // Update hints again to reflect actual numbers
                     hintsNotesLocations.Keys.Where(note => hintsNotesLocations[note] != null).ForEach(note =>
                         {
-                            int locationCount = itemLocations.Keys.Where(t => placementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas[0] == hintsNotesLocations[note] && placementAlgo.IsHintable(placementAlgo.Placement[t])).Count();
+                            int locationCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas[0] == hintsNotesLocations[note] && PlacementAlgo.IsHintable(PlacementAlgo.Placement[t])).Count();
                             hintsNotesCount[hintsNotesLocations[note]] = locationCount;
                         });
                 }
@@ -242,6 +251,35 @@ namespace LRRando
                 if (LRFlags.Items.IDCardBuy.Enabled)
                     treasures["ran_rando_id"].s11ItemResourceId_string = "true";
             }
+        }
+        public bool IsImportantKeyItem(string location)
+        {
+            return IsMainKeyItem(location) || IsSideKeyItem(location) || IsCoPKeyItem(location);
+        }
+
+        public bool IsEPAbility(string t, bool orig = true)
+        {
+            return PlacementAlgo.GetLocationItem(t, orig).Item1.StartsWith("ti") || PlacementAlgo.GetLocationItem(t, orig).Item1 == "at900_00";
+        }
+
+        public bool IsMainKeyItem(string t)
+        {
+            return PlacementAlgo.ItemLocations[t].Traits.Contains("MainKey");
+        }
+
+        public bool IsSideKeyItem(string t)
+        {
+            return PlacementAlgo.ItemLocations[t].Traits.Contains("SideKey");
+        }
+
+        public bool IsCoPKeyItem(string t)
+        {
+            return PlacementAlgo.ItemLocations[t].Traits.Contains("CoPKey");
+        }
+
+        public bool IsPilgrimKeyItem(string t)
+        {
+            return PlacementAlgo.ItemLocations[t].Traits.Contains("Pilgrim");
         }
 
         public List<string> GetRandomizableEquip()
@@ -368,27 +406,27 @@ namespace LRRando
                 case 0:
                 default:
                     {
-                        return $"{t.Name} has {GetItemName(placementAlgo.GetLocationItem(t.ID, false).Item1)}";
+                        return $"{t.Name} has {GetItemName(PlacementAlgo.GetLocationItem(t.ID, false).Item1)}";
                     }
                 case 1:
                     {
                         string type = "Other";
-                        if (placementAlgo.IsMainKeyItem(placementAlgo.Placement[t.ID]))
+                        if (IsMainKeyItem(PlacementAlgo.Placement[t.ID]))
                             type = "a Story Key Item";
-                        if (placementAlgo.IsSideKeyItem(placementAlgo.Placement[t.ID]))
+                        if (IsSideKeyItem(PlacementAlgo.Placement[t.ID]))
                             type = "a Side Key Item";
-                        if (placementAlgo.IsCoPKeyItem(placementAlgo.Placement[t.ID]))
+                        if (IsCoPKeyItem(PlacementAlgo.Placement[t.ID]))
                             type = "a CoP Key Item";
-                        if (placementAlgo.IsPilgrimKeyItem(placementAlgo.Placement[t.ID]))
+                        if (IsPilgrimKeyItem(PlacementAlgo.Placement[t.ID]))
                             type = "Pilgrim's Crux";
-                        if (placementAlgo.IsEPAbility(t.ID, false))
+                        if (IsEPAbility(t.ID, false))
                             type = "an EP Ability";
 
                         return $"{t.Name} has {type}";
                     }
                 case 2:
                     {
-                        return $"{t.Areas[0]} has {GetItemName(placementAlgo.GetLocationItem(t.ID, false).Item1)}";
+                        return $"{t.Areas[0]} has {GetItemName(PlacementAlgo.GetLocationItem(t.ID, false).Item1)}";
                     }
                 case 3:
                     {
@@ -411,12 +449,12 @@ namespace LRRando
 
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Location", "Requirements", "'Difficulty'" }).ToList(), (new int[] { 30, 20, 10, 35, 5 }).ToList(), itemLocations.Values.Select(t =>
             {
-                string itemID = placementAlgo.GetLocationItem(t.ID, false).Item1;
+                string itemID = PlacementAlgo.GetLocationItem(t.ID, false).Item1;
                 string name = GetItemName(itemID);
                 string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
-                return (new string[] { t.Name, $"{name} x {placementAlgo.GetLocationItem(t.ID, false).Item2}", t.Areas[0], reqsDisplay, $"{t.Difficulty}" }).ToList();
+                return (new string[] { t.Name, $"{name} x {PlacementAlgo.GetLocationItem(t.ID, false).Item2}", t.Areas[0], reqsDisplay, $"{t.Difficulty}" }).ToList();
             }).ToList(), "itemlocations"));
 
             if (LRFlags.Items.Treasures.FlagEnabled && LRFlags.Other.HintsMain.FlagEnabled)
