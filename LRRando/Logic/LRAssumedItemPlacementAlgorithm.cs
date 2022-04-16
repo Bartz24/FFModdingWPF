@@ -69,6 +69,8 @@ namespace LRRando
 
             if (ItemLocations[location].Traits.Contains("CoP"))
                 val = (int)Math.Round(Math.Pow(val, 0.75f)) / 2;
+            if (ItemLocations[location].Areas[0] == "Ultimate Lair")
+                val = (int)Math.Round(Math.Pow(val, 0.75f));
             return RandomNum.RandInt(Math.Max(0, val - 2), val + 2);
         }
 

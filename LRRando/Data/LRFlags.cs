@@ -122,7 +122,7 @@ namespace LRRando
         public class Enemies
         {
             public static Flag EnemyLocations, BhuniPlus, MatDrops, AbiDrops;
-            public static ToggleFlagProperty EnemiesSize, EncounterSize, Bosses, Zaltys, Ereshkigal, Prologue;
+            public static ToggleFlagProperty EnemiesSize, EncounterSize, Bosses, Zaltys, Ereshkigal, Aeronite, Prologue;
 
             internal static void Init()
             {
@@ -180,6 +180,14 @@ namespace LRRando
                     ID = "RandEresh",
                     Description = "Includes Ereshkigal in the pool. This boss scales down if randomized to a story boss.\n" +
                     "Story bosses will scale up if replacing Ereshkigal."
+                }.Register(EnemyLocations);
+
+                Aeronite = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Aeronite",
+                    ID = "RandAeronite",
+                    Description = "Includes Aeronite in the pool. This boss scales down if randomized to a story boss.\n" +
+                    "Story bosses will scale up if replacing Aeronite."
                 }.Register(EnemyLocations);
 
                 MatDrops = new Flag()

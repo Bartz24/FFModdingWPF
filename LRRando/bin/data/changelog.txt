@@ -9,8 +9,8 @@ WARNING: If the LAST previously played rando version was 0.1.0 or lower, you wil
 If you need to view these instructions again, click the Changelog button in the bottom right of rando.
 
 
-0.6.3 Changelog:
+0.6.4 Changelog:
 
--Fixed seed generation getting stuck on more restrictive item placement
--Fixed useless hints being generated on more restrictive item placement
--Fixed Father's Letter not being required to be stolen
+-Fixed Moogle Fragment turn in crash
+-Added Include Aeronite in boss pool flag (off by default as I'm still skeptical it works)
+-Ultimate Lair has a lower chance of having keys items

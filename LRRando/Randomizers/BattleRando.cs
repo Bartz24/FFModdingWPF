@@ -55,7 +55,7 @@ namespace LRRando
                 LRFlags.Enemies.EnemyLocations.SetRand();
                 if (LRFlags.Enemies.Bosses.Enabled)
                 {
-                    List<string> list = bossData.Keys.Where(k => (k != "Ereshkigal" || LRFlags.Enemies.Ereshkigal.Enabled) && (k != "Zaltys" || LRFlags.Enemies.Zaltys.Enabled)).ToList();
+                    List<string> list = bossData.Keys.Where(k => (k != "Aeronite" || LRFlags.Enemies.Aeronite.Enabled) && (k != "Ereshkigal" || LRFlags.Enemies.Ereshkigal.Enabled) && (k != "Zaltys" || LRFlags.Enemies.Zaltys.Enabled)).ToList();
                     List<string> shuffled = list.Shuffle().ToList();
                     shuffledBosses = Enumerable.Range(0, list.Count).ToDictionary(i => list[i], i => shuffled[i]);
                 }
@@ -84,7 +84,7 @@ namespace LRRando
                     }
                     if (count > 0)
                     {
-                        if (oldEnemies[0].Class != "Boss" || LRFlags.Enemies.Bosses.Enabled && (oldEnemies[0].ID != "m370" || LRFlags.Enemies.Ereshkigal.Enabled) && (oldEnemies[0].ID != "m352_tuto" || LRFlags.Enemies.Zaltys.Enabled))
+                        if (oldEnemies[0].Class != "Boss" || LRFlags.Enemies.Bosses.Enabled && (oldEnemies[0].ID != "m375" || LRFlags.Enemies.Aeronite.Enabled) && (oldEnemies[0].ID != "m370" || LRFlags.Enemies.Ereshkigal.Enabled) && (oldEnemies[0].ID != "m352_tuto" || LRFlags.Enemies.Zaltys.Enabled))
                         {
                             List<EnemyData> newEnemies = new List<EnemyData>();
                             List<string> charSpecs = new List<string>();
@@ -177,6 +177,11 @@ namespace LRRando
                     btScene.s8PartyEntryId_string = "btsc_caius";
                     btScene.s8BtChEntryId_string = "btsc_caius";
                     btScene.u1EvenNoShift = 1;
+                }
+                if (newGroup == "Aeronite" && group != "Aeronite")
+                {
+                    btScene.s8PartyEntryId_string = "btsc00375";
+                    btScene.s8BtChEntryId_string = "btsc00375";
                 }
                 // No Score ID means new stats
                 if (newBoss.ScoreID == "")
