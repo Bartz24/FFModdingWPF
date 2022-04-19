@@ -1,0 +1,207 @@
+Location,Name,ID,Requirements,Rank,Traits,FakeItems
+Rabanastre,Tomaj Writ of Transit,9000,,0,Writ,Vaan
+Rabanastre,Tomaj Clan Primer,916B,,0,MainKey,
+Rabanastre,Tomaj,916C,,0,,
+Giza Plains Dry,Masyua Shadestone,9002,,0,MainKey,Penelo
+Giza Plains Dry,Giza Sunstone,9001,I(8079),0,MainKey,
+Lowtown,Dalan Crescent Stone,905E,I(807A),0,MainKey,
+Lowtown,Dalan Sword of the Order,905F,I(80AC),0,MainKey,
+Dreadnought Leviathan,No. 1 Brig Key,9060,I(80AC),1,MainKey,
+Dreadnought Leviathan,Systems Access Key,9061,AND(I(80AC)|I(8076)),1,MainKey,Ashe
+Dreadnought Leviathan,Manufacted Nethicite,912C,AND(I(80AC)|I(8076)),1,MainKey,
+Nam-Yensa Sandsea,Eksir Berries,912D,,1,,
+Tomb of Raithwall,Dawn Shard,912E,,2,MainKey,
+Royal Palace,Goddess's Magicite,912F,I(8080),1,MainKey,Balthier|Fran|Guest
+Barheim Passage,Burrough Tube Fuse,9130,I(8080),1,MainKey,Guest
+Jahara,Great-chief Elder After Dawn Shard,911F,I(8078),2,,Guest
+Eruyt Village,Lente's Tear,9131,,2,MainKey,
+Stilshrine of Miriam,Sword of Kings,9132,AND(OR(I(8077)|I(80B7))|I(8078)),2,MainKey,
+Tchita Uplands,Soul Ward Key,9133,,3,MainKey,
+Tchita Uplands,Mandragora Reward,9052,I(80B6),3,,
+Archades,Pinewood Chop 1,9134,,0,MainKey,
+Archades,Pinewood Chop 2,9135,,0,MainKey,
+Archades,Pinewood Chop 3,9136,,0,MainKey,
+Archades,Pinewood Chop 4,9137,,0,GrindyKey,
+Archades,Pinewood Chop 5,9138,,0,GrindyKey,
+Archades,Pinewood Chop 6,9139,,0,GrindyKey,
+Archades,Pinewood Chop 7,913A,,0,GrindyKey,
+Archades,Pinewood Chop 8,913B,,0,GrindyKey,
+Archades,Pinewood Chop 9,913C,,0,GrindyKey,
+Archades,Pinewood Chop 10,913D,,0,GrindyKey,
+Archades,Pinewood Chop 11,913E,,0,GrindyKey,
+Archades,Pinewood Chop 12,913F,,0,GrindyKey,
+Archades,Pinewood Chop 13,9140,,0,GrindyKey,
+Archades,Pinewood Chop 14,9141,,0,GrindyKey,
+Archades,Pinewood Chop 15,9142,,0,GrindyKey,
+Archades,Pinewood Chop 16,9143,,0,GrindyKey,
+Archades,Pinewood Chop 17,9144,,0,GrindyKey,
+Archades,Pinewood Chop 18,9145,,0,GrindyKey,
+Archades,Pinewood Chop 19,9146,,0,GrindyKey,
+Archades,Pinewood Chop 20,9147,,0,GrindyKey,
+Archades,Pinewood Chop 21,9148,,0,GrindyKey,
+Archades,Pinewood Chop 22,9149,,0,GrindyKey,
+Archades,Pinewood Chop 23,914A,,0,GrindyKey,
+Archades,Pinewood Chop 24,914B,,0,GrindyKey,
+Archades,Pinewood Chop 25,914C,,0,GrindyKey,
+Archades,Pinewood Chop 26,914D,,0,GrindyKey,
+Archades,Pinewood Chop 27,914E,,0,GrindyKey,
+Archades,Pinewood Chop 28,914F,,0,GrindyKey,
+Archades,Sandalwood Chop,9150,I(2113|28),2,GrindyKey,
+Draklor Laboratory,Lab Access Card,9151,OR(I(2113|3)|I(2112)),0,MainKey,
+Giruvegan,Treaty-Blade,9152,OR(I(8077)|I(80B7)),5,MainKey,
+Pharos of Ridorana,Black Orb 1,9153,I(8077),6,MainKey,
+Pharos of Ridorana,Black Orb 2,9154,I(8077),6,MainKey,
+Pharos of Ridorana,Black Orb 3,9155,I(8077),6,MainKey,
+Pharos of Ridorana Subterra,Black Orb 4,9156,AND(I(8077)|I(2116|3)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 5,9157,AND(I(8077)|I(2116|3)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 6,9158,AND(I(8077)|I(2116|3)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 7,9159,AND(I(8077)|I(2116|3)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 8,915A,AND(I(8077)|I(2116|3)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 9,915B,AND(I(8077)|I(2116|8)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 10,915C,AND(I(8077)|I(2116|8)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 11,915D,AND(I(8077)|I(2116|8)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 12,915E,AND(I(8077)|I(2116|8)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 13,915F,AND(I(8077)|I(2116|8)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 14,9160,AND(I(8077)|I(2116|8)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 15,9161,AND(I(8077)|I(2116|8)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 16,9162,AND(I(8077)|I(2116|15)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 17,9163,AND(I(8077)|I(2116|15)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 18,9164,AND(I(8077)|I(2116|15)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 19,9165,AND(I(8077)|I(2116|15)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 20,9166,AND(I(8077)|I(2116|15)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 21,9167,AND(I(8077)|I(2116|15)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 22,9168,AND(I(8077)|I(2116|15)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 23,9169,AND(I(8077)|I(2116|15)),7,BlackOrb,
+Pharos of Ridorana Subterra,Black Orb 24,916A,AND(I(8077)|I(2116|15)),7,BlackOrb,
+Rabanastre,Hunt 1: Rogue Tomato,9003,,1,Hunt,Hunt
+Rabanastre,Hunt 2: Thextera,9004,,1,Hunt,Hunt
+Dalmasca Estersand,Hunt 3: Flowering Cactoid,9005,I(8073),1,Hunt,Hunt
+Lowtown,Hunt 4: Wraith,9006,,1,Hunt,Hunt
+Bhujerba,Hunt 5: Nidhogg,9007,,1,Hunt,Hunt
+Rabanastre,Hunt 6: White Mousse,9008,,5,Hunt,Hunt
+Lowtown,Hunt 7: Ring Wyrm,9009,,3,Hunt,Hunt
+Rabanastre,Hunt 8: Wyvern Lord,900A,,2,Hunt,Hunt
+Rabanastre,Hunt 9: Marilith,900B,I(808E),5,Hunt,Hunt
+Jahara,Hunt 10: Enkelados,900C,I(8086),2,Hunt,Hunt
+Giza Plains Rains,Hunt 11: Croakadile,900D,I(807C),2,Hunt,Hunt
+Jahara,Hunt 12: Ixtab,900E,,2,Hunt,Hunt
+Mt. Bur-Omisace,Hunt 13: Feral Retriever,900F,OR(I(8077)|I(80B7)),3,Hunt,Hunt
+Eruyt Village,Hunt 14: Vorpal Bunny,9010,AND(OR(I(8077)|I(80B7))|I(8087)),3,Hunt,Hunt
+Jahara,Hunt 15: Mindflayer,9011,,4,Hunt,Hunt
+Dalmasca Estersand,Hunt 16: Bloodwing,9012,I(8093),5,Hunt,Hunt
+Nalbina Fortress,Hunt 17: Atomos,9013,,3,Hunt,Hunt
+Nalbina Fortress,Hunt 18: Roblon,9014,,6,Hunt,Hunt
+Mosphoran Highwaste,Hunt 19: Braegh,9015,,4,Hunt,Hunt
+Archades,Hunt 20: Darksteel,9016,I(80B6),4,Hunt,Hunt
+Balfonheim,Hunt 21: Vyraal,9017,I(809B),5,Hunt,Hunt
+Old Archades,Hunt 22: Lindwyrm,9018,I(808A),5,Hunt,Hunt
+Archades,Hunt 23: Overlord,9019,,6,Hunt,Hunt
+Nalbina Fortress,Hunt 24: Goliath,901A,,6,Hunt,Hunt
+Nalbina Fortress,Hunt 25: Deathscythe,901B,,6,Hunt,Hunt
+Skyferry,Hunt 26: Deathgaze,901C,,7,Hunt,Hunt
+Bhujerba,Hunt 27: Diabolos,901D,,7,Hunt,Hunt
+Mt. Bur-Omisace,Hunt 28: Piscodaemon,901E,OR(I(8077)|I(80B7)),5,Hunt,Hunt
+Eruyt Village,Hunt 29: Wild Malboro,901F,OR(I(8077)|I(80B7)),6,Hunt,Hunt
+Jahara,Hunt 30: Catoblepas,9020,,6,Hunt,Hunt
+Mt. Bur-Omisace,Hunt 31: Fafnir,9021,AND(OR(I(8077)|I(80B7))|I(809A)),7,Hunt,Hunt
+Balfonheim,Hunt 32: Pylraster,9022,I(8077),7,Hunt,Hunt
+Giza Plains Dry,Hunt 33: Cluckatrice,9023,I(8071),1,Hunt,Hunt
+Bhujerba,Hunt 34: Rocktoise,9024,I(8071),1,Hunt,Hunt
+Lowtown,Hunt 35: Orthros,9025,AND(I(8071)|I(8092)|I(Fran)|I(Ashe)|I(Penelo)),5,Hunt,Hunt
+Giza Plains Dry,Hunt 36: Gil Snapper,9026,AND(I(8071)|I(807D)),3,Hunt,Hunt
+Mt. Bur-Omisace,Hunt 37: Trickster,9027,AND(OR(I(8077)|I(80B7))|I(8071)),5,Hunt,Hunt
+Bhujerba,Hunt 38: Antlion,9028,AND(I(8071)|I(807E)),5,Hunt,Hunt
+Clan Hall,Hunt 39: Carrot,9029,I(8071),7,Hunt,Hunt
+Clan Hall,Hunt 40: Gilgamesh,902A,AND(I(8071)|I(807E)|I(807F)),7,Hunt,Hunt
+Clan Hall,Hunt 41: Belito,9122,I(8071),5,Hunt,Hunt
+Lowtown,Hunt 42: Behemoth King,902B,AND(OR(I(8077)|I(80B7))|I(8071)),7,Hunt,Hunt
+Balfonheim,Hunt 43: Ixion,902C,AND(I(8071)|I(8077)),6,Hunt,Hunt
+Clan Hall,Hunt 44: Shadowseer,902D,AND(I(8071)|I(8077)|I(2116|24)),6,Hunt,Hunt
+Clan Hall,Hunt 45: Yiazmat,902E,AND(I(8071)|I(8077)),8,Hunt,Hunt
+Clan Hall,Clan Rank: Moppet,902F,I(8071),1,ClanRank,
+Clan Hall,Clan Rank: Hedge Knight,9030,AND(I(8071)|I(Hunt|2)),2,ClanRank,
+Clan Hall,Clan Rank: Rear Guard,9031,AND(I(8071)|I(Hunt|4)),3,ClanRank,
+Clan Hall,Clan Rank: Vanguard,9032,AND(I(8071)|I(Hunt|8)),4,ClanRank,
+Clan Hall,Clan Rank: Headhunter,9033,AND(I(8071)|I(Hunt|10)),5,ClanRank,
+Clan Hall,Clan Rank: Ward of Justice,9034,AND(I(8071)|I(Hunt|12)),6,ClanRank,
+Clan Hall,Clan Rank: Brave Companion,9035,AND(I(8071)|I(Hunt|14)),7,ClanRank,
+Clan Hall,Clan Rank: Riskbreaker,9036,AND(I(8071)|I(Hunt|16)),8,ClanRank,
+Clan Hall,Clan Rank: Paragon of Justice,9037,AND(I(8071)|I(Hunt|24)),9,ClanRank,
+Clan Hall,Clan Rank: High Guardian,9038,AND(I(8071)|I(Hunt|28)),10,ClanRank,
+Clan Hall,Clan Rank: Knight of the Round,9039,AND(I(8071)|I(Hunt|32)),11,ClanRank,
+Clan Hall,Clan Rank: Order of Ambrosia,903A,AND(I(8071)|I(Hunt|45)|I(Esper|13)|I(80B6)|I(80B5)),12,ClanRank,
+Clan Hall,Clan Boss: Flans,903B,AND(I(8071)|I(8080)),1,ClanBoss,
+Clan Hall,Clan Boss: Firemane,903C,AND(I(8071)|I(8080)),1,ClanBoss,
+Clan Hall,Clan Boss: Earth Tyrant,903D,AND(I(8071)|I(80B1)|I(80B2)),4,ClanBoss,
+Clan Hall,Clan Boss: Mimic Queen,903E,AND(I(8071)|I(8080)|I(8074)),1,ClanBoss,
+Clan Hall,Clan Boss: Demon Wall 1,903F,I(8071),3,ClanBoss,
+Clan Hall,Clan Boss: Demon Wall 2,9040,I(8071),1,ClanBoss,
+Clan Hall,Clan Boss: Elder Wyrm,9041,AND(OR(I(8077)|I(80B7))|I(8071)),3,ClanBoss,
+Clan Hall,Clan Boss: Tiamat,9042,I(8071),2,ClanBoss,
+Clan Hall,Clan Boss: Vinuskar,9043,AND(OR(I(8077)|I(80B7))|I(8071)),2,ClanBoss,
+Clan Hall,Clan Boss: King Bomb,9044,I(8071),5,ClanBoss,
+Clan Hall,Clan Boss: Mandragora,9045,AND(I(8071)|I(80B6)),4,ClanBoss,
+Clan Hall,Clan Boss: Ahriman,9046,AND(I(8071)|I(80B6)),5,ClanBoss,
+Clan Hall,Clan Boss: Hell Wyrm,9047,AND(I(8071)|I(80B6)|I(80B5)),7,ClanBoss,
+Clan Hall,Clan Boss: Rafflesia,9048,AND(OR(I(8077)|I(80B7))|I(8071)),4,ClanBoss,
+Clan Hall,Clan Boss: Daedulus,9049,AND(OR(I(8077)|I(80B7))|I(8071)),5,ClanBoss,
+Clan Hall,Clan Boss: Tyrant,904A,AND(OR(I(8077)|I(80B7))|I(8071)),5,ClanBoss,
+Clan Hall,Clan Boss: Hydro,904B,AND(I(8071)|I(8077)),5,ClanBoss,
+Clan Hall,Clan Boss: Humbaba Mistant,904C,AND(I(8071)|I(8081)|I(8084)),7,ClanBoss,
+Clan Hall,Clan Boss: Fury,904D,AND(I(8071)|I(8083)|I(8084)),7,ClanBoss,
+Fake,Belias,_1,,0,Fake,Esper|Belias
+Fake,Mateus,_2,OR(I(8077)|I(80B7)),0,Fake,Esper
+Fake,Adrammelech,_3,,0,Fake,Esper
+Fake,Zalera,_4,I(8093),0,Fake,Esper
+Fake,Shemhazai,_5,OR(I(8077)|I(80B7)),0,Fake,Esper
+Fake,Hashmal,_6,AND(I(8077)|I(2116|3)),0,Fake,Esper
+Fake,Cuchulainn,_7,I(80AF),0,Fake,Esper
+Fake,Zeromus,_8,AND(OR(I(8077)|I(80B7))|I(8085)),0,Fake,Esper
+Fake,Exodus,_9,,0,Fake,Esper
+Fake,Famfrit,_10,AND(I(8077)|I(2116|3)|OR(I(808B)|I(808C))|OR(AND(I(8078)|I(80AC))|AND(I(8078)|I(8089))|AND(I(8089)|I(80AC)))),0,Fake,Esper
+Fake,Chaos,_11,I(8082),0,Fake,Esper
+Fake,Ultima,_12,OR(I(8077)|I(80B7)),0,Fake,Esper
+Fake,Zodiark,_13,I(Esper|10),0,Fake,Esper
+Fake,Reddas,_14,AND(OR(I(2113|3)|I(2112))|I(809E)|I(808C)),0,Fake,Guest
+Fake,Basch,_15,I(8075),0,Fake,Basch
+Clan Hall,Clan Esper: Control 1,904E,AND(I(8071)|I(Esper|1)),1,ClanEsper,
+Clan Hall,Clan Esper: Control 4,904F,AND(I(8071)|I(Esper|4)),3,ClanEsper,
+Clan Hall,Clan Esper: Control 8,9050,AND(I(8071)|I(Esper|8)),5,ClanEsper,
+Clan Hall,Clan Esper: Control 13,9051,AND(I(8071)|I(Esper|13)),8,ClanEsper,
+Dalmasca Estersand,Flowering Cactoid Drop,916D,,1,HuntKey,
+Dalmasca Estersand,Patient Barheim Key,916E,I(8073),2,SideKey,
+Dalmasca Estersand,Dantro's Wife Give Cactus Flower,9081,I(8073),1,,
+Dalmasca Estersand,Cactus Family Quest,908A,I(8073),1,,
+Mt. Bur-Omisace,Acolyte Stone of the Condemner,916F,AND(OR(I(8077)|I(80B7))|I(808B)),3,SideKey,
+Dalmasca Westersand,Earth Tyrant Quest Wind Globe,9170,,1,SideKey,
+Rabanastre,Earth Tyrant Quest Windvane,9171,I(80B1),1,SideKey,
+Garamsythe Waterway,White Mouse Drop,9172,,5,HuntKey,
+Rabanastre,Sorbet Sluice Gate Key,9173,I(80AE),5,SideKey,
+Ozmone Plain,Enkelados Drop,9174,,3,HuntKey,
+Giza Plains Dry,Lesina Give Errmonea Leaf,9062,I(8086),3,,
+Bhujerba,Pilika Merchant's Armband,9175,I(8071),1,SideKey,
+Bhujerba,Clio's Technicks Pilika's Diary,9176,AND(I(8071)|I(8098)),1,SideKey,
+Bhujerba,Pilika Give Pilika's Diary,908D,AND(I(8071)|I(8098)|I(8099)),1,,
+Golmore Jungle,Vorpal Bunny Drop,9177,OR(I(8077)|I(80B7)),3,HuntKey,
+Giza Plains Rains,Croakadile Drop,9178,,2,HuntKey,
+Tchita Uplands,Lindwyrm Drop,9179,,5,HuntKey,
+Giza Plains Rains,Nomads Silent Urn,917A,I(8071),3,HuntKey,
+Garamsythe Waterway,Orthros Drop,917B,AND(I(8071)|I(Fran)|I(Ashe)|I(Penelo)),5,HuntKey,
+Bhujerba,Niray Site 3 Key,917D,I(8071),0,SideKey,
+Phon Coast,Site 11 Key,917E,AND(I(8071)|I(807E)),5,SideKey,
+Paramina Rift,Fafnir Drop,917F,OR(I(8077)|I(80B7)),7,HuntKey,
+Zertinan Caverns,Marilith Drop,9180,,5,HuntKey,
+Cerobi Steppe,Vyraal Drop,9181,,5,HuntKey,
+Balfonheim,Viera Wayfarer Dragon Scale,9182,I(809B),5,SideKey,
+Cerobi Steppe,Wyrm Philosopher Ageworn Key,9183,AND(I(809B)|I(80B4)),5,SideKey,
+Skyferry,Ann's Letter,9184,,2,SideKey,
+Skyferry,Ann's Sisters Quest,906C,I(8088),4,Grindy,
+Lowtown,Dusty Letter,9185,,2,SideKey,
+Lowtown,Samal Blackened Fragment,917C,AND(I(8071)|I(8092)|I(Fran)|I(Ashe)|I(Penelo)),5,SideKey,
+Garamsythe Waterway,Dull Fragment,9186,I(80AF),0,SideKey,
+Rabanastre,Grimy Fragment,9187,,5,SideKey,
+Old Archades,Moonsilver Medallion,9188,,5,SideKey,
+Nebreus Deadlands,Give Medallion Fragments ,9189,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,SideKey,
+Nebreus Deadlands,Give Medallion Fragments ,918A,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,SideKey,
+Nebreus Deadlands,Give Medallion Fragments ,918B,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,SideKey,
+Necrohol of Nabudis,Medallion of Might,918C,AND(I(8081)|I(8083)|I(8084)),7,SideKey,

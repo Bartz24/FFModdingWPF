@@ -1,0 +1,107 @@
+Name,ID,Rank,Area,Index,EXPLP,Traits
+Vossler,400F,2,rsn_z,-1,100,Boss
+Belias,4012,2,rsn_z,-1,100,Boss
+Ultima,4013,7,rwg_d,-1,100,Boss
+Zeromus,4014,6,mrm_g,-1,100,Boss
+Chaos,4015,7,bds_e,-1,100,Boss
+Hashmal,4016,5,dgl_h,-1,100,Boss
+Cuchulainn,4017,6,grm_f,-1,100,Boss
+Zalera,4018,4,mic_d,-1,100,Boss
+Mateus,4019,3,mrm_e,-1,100,Boss
+Famfrit,401A,5,dgl_g,-1,100,Boss
+Adrammelech,401B,2,ztc_d,-1,100,Boss
+Shemhazai,401C,4,gil_d,-1,100,Boss
+Exodus,401D,5,mnt_c,-1,100,Boss
+Zodiark,401E,8,hne_e,-1,100,Boss
+Judge,4043,1,rsn_d,-1,100,Boss
+Ba'Gamnan,41F7,5,enw_c,-1,70,Boss
+Bwagi,404D,5,enw_c,-1,10,Boss
+Gijuk,404E,5,enw_c,-1,10,Boss
+Rinok,404F,5,enw_c,-1,10,Boss
+Rogue Tomato,405E,1,dst_a,-1,50,Boss
+Thextera,405F,1,wdl_a,-1,100,Boss
+Flowering Cactoid,4060,1,dst_a,-1,100,Boss
+Wraith,4061,1,grm_g,-1,100,Boss
+Nidhogg,4062,1,lus_a,-1,100,Boss
+White Mousse,4063,5,grm_e,-1,100,Boss
+Ring Wyrm,4064,3,wdl_a,-1,100,Boss
+Wyvern Lord,4065,2,enw_b,-1,100,Boss
+Marilith,4066,5,ztc_a,-1,100,Boss
+Enkelados,4067,2,ozm_c,-1,100,Boss
+Croakadile,4068,2,sav_f,-1,100,Boss
+Ixtab,4069,2,hne_a,-1,100,Boss
+Feral Retriever,406A,3,pbc_c,-1,100,Boss
+Vorpal Bunny,406B,3,gol_b,-1,100,Boss
+Mindflayer,406C,4,hne_a,-1,100,Boss
+Bloodwing,406D,5,mic_e,-1,100,Boss
+Atomos,406E,3,mnt_b,-1,100,Boss
+Roblon,406F,6,bog_b,-1,100,Boss
+Braegh,4070,4,frs_c,-1,100,Boss
+Darksteel,4071,4,rui_b,-1,100,Boss
+Vyraal,4072,5,srb_b,-1,100,Boss
+Lindwyrm,4073,5,pla_b,-1,100,Boss
+Overlord,4074,6,rui_a,-1,100,Boss
+Goliath,4075,6,bds_c,-1,100,Boss
+Deathscythe,4076,6,bds_b,-1,100,Boss
+Deathgaze,4077,7,asp_b,-1,100,Boss
+Diabolos,4078,7,lus_d,-1,100,Boss
+Piscodaemon,4079,5,gil_c,-1,100,Boss
+Wild Malboro,407A,6,mfr_b,-1,100,Boss
+Catoblepas,407B,6,ztc_a,-1,100,Boss
+Fafnir,407C,7,pbc_c,-1,100,Boss
+Pylraster,407D,7,rwf_c,-1,100,Boss
+Chickatrice,407E,1,sav_a,-1,10,Boss
+Cluckatrice,407F,1,sav_a,-1,70,Boss
+Rocktoise,4080,1,lus_b,-1,100,Boss
+Orthros,4081,5,grm_e,-1,100,Boss
+Gil Snapper,4082,3,sav_g,-1,100,Boss
+Trickster,4083,5,pbc_b,-1,100,Boss
+Antlion,4084,5,lus_d,-1,100,Boss
+Carrot,4085,7,frs_a,-1,100,Boss
+Gilgamesh 1,4086,7,lus_c,-1,80,Boss
+Enkidu 1,4087,7,lus_c,-1,20,Boss
+Gilgamesh 2,4086,7,lus_e,-1,80,Boss
+Enkidu 2,4087,7,lus_e,-1,20,Boss
+Behemoth King,4088,7,mfr_c,-1,100,Boss
+Ixion 1,4089,6,rbl_g,-1,100,Boss
+Ixion 2,4089,6,rbl_h,-1,100,Boss
+Ixion 3,4089,6,rbl_i,-1,100,Boss
+Pandaemonium,408A,6,rbl_c,-1,100,Boss
+Slyt,408B,4,rbl_f,-1,100,Boss
+Fenrir,408C,4,rbl_j,-1,100,Boss
+Phoenix,408D,5,rbl_g,-1,100,Boss
+Shadowseer,408E,6,dgl_n,-1,100,Boss
+Yiazmat,408F,8,rwf_d,-1,100,Boss
+Urutan Eater,4094,2,enw_a,-1,100,Boss
+Flan,4141,1,grm_c,-1,25,Boss
+Mandragora Prince,4155,4,rui_d,-1,20,Boss
+Alraune King,4157,4,rui_d,-1,20,Boss
+Onion Queen,4159,4,rui_d,-1,20,Boss
+Pumpkin Star,415B,4,rui_d,-1,20,Boss
+Topstalk,415D,4,rui_d,-1,20,Boss
+Fury,41D7,7,bds_g,-1,100,Boss
+Ahriman,41D8,5,rui_c,0,100,Boss
+Tyrant,41D9,5,gil_c,-1,100,Boss
+Hydro,41DA,5,rwf_c,-1,100,Boss
+King Bomb,41DB,5,frs_b,-1,100,Boss
+Tiamat,41DC,2,hne_b,-1,100,Boss
+Hell Wyrm,41DD,7,rui_e,-1,100,Boss
+Earth Tyrant,41DE,4,wdl_b,-1,100,Boss
+Daedalus,41E9,5,gil_a,-1,100,Boss
+Elder Wyrm,41EA,3,gol_c,-1,100,Boss
+Demon Wall 1,41EB,3,rwg_b,0,100,Boss
+Demon Wall 2,41EB,1,rwg_b,1,100,Boss
+Firemane,41EC,1,grm_d,-1,100,Boss
+Mimic Queen,41ED,1,mic_c,-1,100,Boss
+Vinuskar,41EE,2,mrm_c,-1,100,Boss
+Rafflesia,41F0,4,mfr_b,-1,100,Boss
+Gabranth 1,41F2,5,dgl_g,-1,100,Boss
+Judge Bergan,41F3,3,bul_a,-1,100,Boss
+Judge Ghis,41F5,4,rsn_a,-1,100,Boss
+Gabranth 2,41F2,6,bhm_b,-1,100,Boss
+Vayne Novus,41F6,7,bhm_c,-1,100,Boss
+Cid 1,41F8,5,dor_b,-1,100,Boss
+Cid 2,41F8,5,dgl_g,-1,100,Boss
+Vayne,41F9,6,bhm_c,-1,100,Boss
+Humbaba Mistant,41FA,8,bds_f,-1,100,Boss
+Omega,4263,8,gil_i,-1,100,Boss

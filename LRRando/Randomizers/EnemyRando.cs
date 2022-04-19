@@ -35,6 +35,10 @@ namespace LRRando
             FileExtensions.CopyFile(path, outPath);
 
             enemies.Load("LR", outPath, SetupData.Paths["Nova"]);
+            enemies["m375_break1"].fBrkLoopTime3 = 1203982208;
+            enemies["m375_break2"].fBrkLoopTime3 = 1203982208;
+            enemies["m375_break3"].fBrkLoopTime3 = 1203982208;
+            enemies["m375_break4"].fBrkLoopTime3 = 1203982208;
         }
         public override void Randomize(Action<int> progressSetter)
         {

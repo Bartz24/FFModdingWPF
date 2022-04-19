@@ -31,22 +31,33 @@ namespace Bartz24.RandoWPF
         {
             Placement.Clear();
             Depths.Clear();
-            List<string> keys = ItemLocations.Keys.ToList().Shuffle().ToList();
+            List<string> allowed = GetKeysAllowed();
+            List<string> place = GetKeysToPlace();
 
-            SetHintValues(keys);
+            SetHintValues(place);
 
-            if (!DoImportantPlacement(keys, keys.Where(t => RequiresLogic(t)).ToList(), defaultAreas))
+            if (!DoImportantPlacement(allowed, place.Where(t => RequiresLogic(t)).ToList(), defaultAreas))
                 return false;
 
-            DoNonImportantPlacement(keys);
+            DoNonImportantPlacement(allowed, place);
 
-            ApplyPlacement(keys);
+            ApplyPlacement();
             return true;
         }
 
-        protected virtual void ApplyPlacement(List<string> keys)
+        public virtual List<string> GetKeysAllowed()
         {
-            foreach (string key in keys)
+            return ItemLocations.Keys.ToList().Shuffle().ToList();
+        }
+
+        public virtual List<string> GetKeysToPlace()
+        {
+            return ItemLocations.Keys.ToList().Shuffle().Where(l => GetLocationItem(l) != null || ItemLocations[l].Traits.Contains("Fake")).ToList();
+        }
+
+        protected virtual void ApplyPlacement()
+        {
+            foreach (string key in Placement.Keys.Where(l => !ItemLocations[l].Traits.Contains("Fake")))
             {
                 string repKey = Placement[key];
                 Tuple<string, int> orig = GetLocationItem(repKey);
@@ -54,11 +65,13 @@ namespace Bartz24.RandoWPF
             }
         }
 
-        protected virtual void DoNonImportantPlacement(List<string> keys)
+        protected virtual void DoNonImportantPlacement(List<string> allowed, List<string> place)
         {
-            List<string> newKeys = keys.Where(k => !Placement.ContainsValue(k)).ToList().Shuffle().ToList();
-            foreach (string k in keys.Where(k => !Placement.ContainsKey(k)))
+            List<string> newKeys = place.Where(k => !Placement.ContainsValue(k)).ToList().Shuffle().ToList();
+            foreach (string k in allowed.Where(k => !Placement.ContainsKey(k)).ToList().Shuffle().ToList())
             {
+                if (newKeys.Count == 0)
+                    break;
                 Placement.Add(k, newKeys[0]);
                 newKeys.RemoveAt(0);
             }
@@ -129,6 +142,24 @@ namespace Bartz24.RandoWPF
                 remainingLogic = PrioritizeLockedItems(locations, remainingLogic, important);
                 foreach (string rep in remainingLogic)
                 {
+                    Tuple<string, int> nextItem = GetLocationItem(rep);
+                    if (nextItem == null)
+                    {
+                        if (ItemLocations[rep].Traits.Contains("Fake"))
+                        {
+                            Placement.Add(rep, rep);
+                            if (Placement.Count == important.Count)
+                                return true;
+                            bool result = TryImportantPlacement(locations, important, newAccessibleAreas);
+                            if (result)
+                                return result;
+                            else
+                            {
+                                Placement.Remove(rep);
+                            }
+                        }
+                        continue;
+                    }
                     List<string> allowedLocations = HintsByLocationsCount.Keys.ToList().Shuffle().ToList();
 
                     // Remove inaccessible locations
@@ -169,15 +200,12 @@ namespace Bartz24.RandoWPF
                 List<string> remainingOther = remaining.Where(t => !RequiresDepthLogic(t)).ToList().Shuffle().ToList();
                 foreach (string rep in remainingOther)
                 {
+                    Tuple<string, int> nextItem = GetLocationItem(rep);
+                    if (nextItem == null)
                     {
-                        List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && IsAllowed(t, rep)).ToList();
-                        while (possible.Count > 0)
+                        if (ItemLocations[rep].Traits.Contains("Fake"))
                         {
-                            string next = possible[RandomNum.RandInt(0, possible.Count - 1)];
-                            string hint = null;
-                            if (IsHintable(rep))
-                                hint = AddHint(items, next, rep, 0);
-                            Placement.Add(next, rep);
+                            Placement.Add(rep, rep);
                             if (Placement.Count == important.Count)
                                 return true;
                             bool result = TryImportantPlacement(locations, important, newAccessibleAreas);
@@ -185,12 +213,31 @@ namespace Bartz24.RandoWPF
                                 return result;
                             else
                             {
-                                possible.Remove(next);
-                                Placement.Remove(next);
-                                if (IsHintable(rep))
-                                    RemoveHint(hint, next);
-                                break;
+                                Placement.Remove(rep);
                             }
+                        }
+                        continue;
+                    }
+                    List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && IsAllowed(t, rep)).ToList();
+                    while (possible.Count > 0)
+                    {
+                        string next = possible[RandomNum.RandInt(0, possible.Count - 1)];
+                        string hint = null;
+                        if (IsHintable(rep))
+                            hint = AddHint(items, next, rep, 0);
+                        Placement.Add(next, rep);
+                        if (Placement.Count == important.Count)
+                            return true;
+                        bool result = TryImportantPlacement(locations, important, newAccessibleAreas);
+                        if (result)
+                            return result;
+                        else
+                        {
+                            possible.Remove(next);
+                            Placement.Remove(next);
+                            if (IsHintable(rep))
+                                RemoveHint(hint, next);
+                            break;
                         }
                     }
                 }
@@ -209,17 +256,21 @@ namespace Bartz24.RandoWPF
             return GetItemsAvailable(Placement);
         }
 
-        protected Dictionary<string, int> GetItemsAvailable(Dictionary<string, string> placement)
+        protected virtual Dictionary<string, int> GetItemsAvailable(Dictionary<string, string> placement)
         {
             Dictionary<string, int> dict = new Dictionary<string, int>();
             placement.ForEach(p =>
             {
-                string item = GetLocationItem(p.Value, false).Item1;
-                int amount = GetLocationItem(p.Value, false).Item2;
-                if (dict.ContainsKey(item))
-                    dict[item] += amount;
-                else
-                    dict.Add(item, amount);
+                Tuple<string, int> tuple = GetLocationItem(p.Value, false);
+                if (tuple != null)
+                {
+                    string item = tuple.Item1;
+                    int amount = tuple.Item2;
+                    if (dict.ContainsKey(item))
+                        dict[item] += amount;
+                    else
+                        dict.Add(item, amount);
+                }
             });
             return dict;
 
@@ -257,12 +308,14 @@ namespace Bartz24.RandoWPF
             foreach (string rep in remaining)
             {
                 Tuple<string, int> nextItem = GetLocationItem(rep);
+                if (nextItem == null)
+                    continue;
                 items[nextItem.Item1] -= nextItem.Item2;
                 List<string> newAccessibleAreas = GetNewAreasAvailable(items, new List<string>());
 
                 List<string> possible = newAccessibleAreas.SelectMany(loc => locations.Where(t => !Placement.ContainsKey(t) && IsValid(t, rep, loc, items, newAccessibleAreas))).Distinct().ToList();
                 if (possible.Count == 1)
-                    locked.Add(rep, ItemLocations[rep].Requirements.GetPossibleRequirements().Count);
+                    locked.Add(rep, ItemLocations[rep].Requirements.GetPossibleRequirementsCount());
                 items[nextItem.Item1] += nextItem.Item2;
             }
 

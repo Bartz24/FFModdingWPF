@@ -28,7 +28,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FF13_2Rando", "FF13_2Rando\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bartz24.LR", "Bartz24.LR\Bartz24.LR.csproj", "{6AFD6022-4585-4B65-81E8-4B2E032ECA55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multiworld", "Multiworld\Multiworld.csproj", "{54DCA664-F3DF-4607-96CF-E393E38C7922}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Multiworld", "Multiworld\Multiworld.csproj", "{54DCA664-F3DF-4607-96CF-E393E38C7922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bartz24.FF12", "FF12\Bartz24.FF12.csproj", "{794DDEEF-DE00-4D0C-B832-0D8CC564B585}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FF12Rando", "FF12Rando\FF12Rando.csproj", "{2D6B1AAE-961D-4458-A4D5-35EE6316BE36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +76,14 @@ Global
 		{54DCA664-F3DF-4607-96CF-E393E38C7922}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54DCA664-F3DF-4607-96CF-E393E38C7922}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54DCA664-F3DF-4607-96CF-E393E38C7922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{794DDEEF-DE00-4D0C-B832-0D8CC564B585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{794DDEEF-DE00-4D0C-B832-0D8CC564B585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{794DDEEF-DE00-4D0C-B832-0D8CC564B585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{794DDEEF-DE00-4D0C-B832-0D8CC564B585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6B1AAE-961D-4458-A4D5-35EE6316BE36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6B1AAE-961D-4458-A4D5-35EE6316BE36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6B1AAE-961D-4458-A4D5-35EE6316BE36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6B1AAE-961D-4458-A4D5-35EE6316BE36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

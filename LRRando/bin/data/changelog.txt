@@ -11,6 +11,7 @@ If you need to view these instructions again, click the Changelog button in the 
 
 0.6.4 Changelog:
 
--Fixed Moogle Fragment turn in crash
--Added Include Aeronite in boss pool flag (off by default as I'm still skeptical it works)
--Ultimate Lair has a lower chance of having keys items
+-Fixed moogle fragment turn in not working if you complete Main Quest 5
+-Fixed Aeronite fight despawning if you turn in monster flesh
+-Aeronite no longer gets fed up (more like he will but it takes 99999 seconds)
+-Moved adornments to the bottom of shops

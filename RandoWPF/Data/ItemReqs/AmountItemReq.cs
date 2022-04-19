@@ -27,6 +27,7 @@ namespace Bartz24.RandoWPF
         {
             return new string[] { item }.ToList();
         }
+        public override int GetPossibleRequirementsCount() { return amount; }
 
         public override string GetDisplay(Func<string, string> itemNameFunc)
         {

@@ -174,7 +174,7 @@ namespace LRRando
                         }
                     }
 
-                    shops[shop].SetItems(shopsDict[shop].OrderByDescending(s => equipRando.items[s].uItemNum).ToList());
+                    shops[shop].SetItems(shopsDict[shop].OrderBy(s => s.StartsWith("e")).ThenByDescending(s => equipRando.items[s].uItemNum).ToList());
                     shops[shop].SetItemFlags(Enumerable.Range(0, 32).Select(_ => 0).ToList());
                 }
 

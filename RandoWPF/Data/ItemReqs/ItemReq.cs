@@ -12,6 +12,7 @@ namespace Bartz24.RandoWPF
         public virtual bool IsValid(Dictionary<string, int> itemsAvailable) { return true; }
 
         public virtual List<string> GetPossibleRequirements() { return new List<string>(); }
+        public virtual int GetPossibleRequirementsCount() { return 0; }
 
         public static ItemReq Item(string item, int amount = 1)
         {

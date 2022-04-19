@@ -24,7 +24,17 @@ namespace Bartz24.RandoWPF
             foreach (string rep in remainingLogic)
             {
                 Tuple<string, int> nextItem = GetLocationItem(rep);
-                items[nextItem.Item1] -= nextItem.Item2;
+                RemoveItems(items, nextItem, rep);
+                if (nextItem == null)
+                {
+                    if (ItemLocations[rep].Traits.Contains("Fake"))
+                    {
+                        Placement.Add(rep, rep);
+                        if (Placement.Count == important.Count)
+                            return true;
+                    }
+                    continue;
+                }
                 List<string> newAccessibleAreas = GetNewAreasAvailable(items, new List<string>());
 
                 List<string> possible = newAccessibleAreas.SelectMany(loc => locations.Where(t => !Placement.ContainsKey(t) && IsValid(t, rep, loc, items, newAccessibleAreas))).Distinct().ToList().Shuffle().ToList();
@@ -50,7 +60,17 @@ namespace Bartz24.RandoWPF
             foreach (string rep in remainingOther)
             {
                 Tuple<string, int> nextItem = GetLocationItem(rep);
-                items[nextItem.Item1] -= nextItem.Item2;
+                RemoveItems(items, nextItem, rep);
+                if (nextItem == null)
+                {
+                    if (ItemLocations[rep].Traits.Contains("Fake"))
+                    {
+                        Placement.Add(rep, rep);
+                        if (Placement.Count == important.Count)
+                            return true;
+                    }
+                    continue;
+                }
                 List<string> newAccessibleAreas = GetNewAreasAvailable(items, new List<string>());
 
                 List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && IsAllowed(t, rep)).ToList();
@@ -69,6 +89,13 @@ namespace Bartz24.RandoWPF
             }
             return false;
         }
+
+        public virtual void RemoveItems(Dictionary<string, int> items, Tuple<string, int> nextItem, string rep)
+        {
+            if (nextItem != null)
+                items[nextItem.Item1] -= nextItem.Item2;
+        }
+
         public override Tuple<string, int> SelectNext(Dictionary<string, int> items, List<string> possible, string rep)
         {
             Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));

@@ -1,0 +1,2050 @@
+{format:magic}
+
+{dialog 0, singular="a ", plural="{copyall}s"}
+Teleport Stone
+{/dialog}
+
+{dialog 1}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 2}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 3}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 4}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 5}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 6}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 7}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 8}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 9}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 10}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 11}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 12}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 13}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 14}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 15}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 16}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 17}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 18}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 19}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 20}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 21}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 22}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 23}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 24}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 25}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 26}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 27}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 28}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 29}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 30}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 31}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 32, singular="an ", plural="{copyall}s"}
+Earth Stone
+{/dialog}
+
+{dialog 33, singular="a ", plural="{copyall}s"}
+Wind Stone
+{/dialog}
+
+{dialog 34, singular="a ", plural="{copyall}s"}
+Water Stone
+{/dialog}
+
+{dialog 35, singular="a ", plural="{copyall}s"}
+Fire Stone
+{/dialog}
+
+{dialog 36, singular="an ", plural="{copyall}s"}
+Ice Stone
+{/dialog}
+
+{dialog 37, singular="a ", plural="{copyall}s"}
+Storm Stone
+{/dialog}
+
+{dialog 38, singular="a ", plural="{copyall}s"}
+Holy Stone
+{/dialog}
+
+{dialog 39, singular="a ", plural="{copyall}s"}
+Dark Stone
+{/dialog}
+
+{dialog 40, singular="a piece of ", plural="pieces of {copyall}"}
+Earth Magicite
+{/dialog}
+
+{dialog 41, singular="a piece of ", plural="pieces of {copyall}"}
+Wind Magicite
+{/dialog}
+
+{dialog 42, singular="a piece of ", plural="pieces of {copyall}"}
+Water Magicite
+{/dialog}
+
+{dialog 43, singular="a piece of ", plural="pieces of {copyall}"}
+Fire Magicite
+{/dialog}
+
+{dialog 44, singular="a piece of ", plural="pieces of {copyall}"}
+Ice Magicite
+{/dialog}
+
+{dialog 45, singular="a piece of ", plural="pieces of {copyall}"}
+Storm Magicite
+{/dialog}
+
+{dialog 46, singular="a piece of ", plural="pieces of {copyall}"}
+Holy Magicite
+{/dialog}
+
+{dialog 47, singular="a piece of ", plural="pieces of {copyall}"}
+Dark Magicite
+{/dialog}
+
+{dialog 48, singular="an ", plural="{copyall}s"}
+Earth Crystal
+{/dialog}
+
+{dialog 49, singular="a ", plural="{copyall}s"}
+Wind Crystal
+{/dialog}
+
+{dialog 50, singular="a ", plural="{copyall}s"}
+Water Crystal
+{/dialog}
+
+{dialog 51, singular="a ", plural="{copyall}s"}
+Fire Crystal
+{/dialog}
+
+{dialog 52, singular="an ", plural="{copyall}s"}
+Ice Crystal
+{/dialog}
+
+{dialog 53, singular="a ", plural="{copyall}s"}
+Storm Crystal
+{/dialog}
+
+{dialog 54, singular="a ", plural="{copyall}s"}
+Holy Crystal
+{/dialog}
+
+{dialog 55, singular="a ", plural="{copyall}s"}
+Dark Crystal
+{/dialog}
+
+{dialog 56, singular="an ", plural="{copyall}s"}
+Aries Gem
+{/dialog}
+
+{dialog 57, singular="a ", plural="{copyall}s"}
+Taurus Gem
+{/dialog}
+
+{dialog 58, singular="a ", plural="{copyall}s"}
+Gemini Gem
+{/dialog}
+
+{dialog 59, singular="a ", plural="{copyall}s"}
+Cancer Gem
+{/dialog}
+
+{dialog 60, singular="a ", plural="{copyall}s"}
+Leo Gem
+{/dialog}
+
+{dialog 61, singular="a ", plural="{copyall}s"}
+Virgo Gem
+{/dialog}
+
+{dialog 62, singular="a ", plural="{copyall}s"}
+Libra Gem
+{/dialog}
+
+{dialog 63, singular="a ", plural="{copyall}s"}
+Scorpio Gem
+{/dialog}
+
+{dialog 64, singular="a ", plural="{copyall}s"}
+Sagittarius Gem
+{/dialog}
+
+{dialog 65, singular="a ", plural="{copyall}s"}
+Capricorn Gem
+{/dialog}
+
+{dialog 66, singular="an ", plural="{copyall}s"}
+Aquarius Gem
+{/dialog}
+
+{dialog 67, singular="a ", plural="{copyall}s"}
+Pisces Gem
+{/dialog}
+
+{dialog 68, singular="a ", plural="{copyall}s"}
+Salamand Halcyon
+{/dialog}
+
+{dialog 69, singular="a ", plural="{copyall}s"}
+Mardu Halcyon
+{/dialog}
+
+{dialog 70, singular="a ", plural="{copyall}s"}
+Leshach Halcyon
+{/dialog}
+
+{dialog 71, singular="a ", plural="{copyall}s"}
+Gnoma Halcyon
+{/dialog}
+
+{dialog 72, singular="an ", plural="{copyall}s"}
+Undin Halcyon
+{/dialog}
+
+{dialog 73, singular="a ", plural="{copyall}s"}
+Sylphi Halcyon
+{/dialog}
+
+{dialog 74, singular="a ", plural="{copyall}s"}
+Diakon Halcyon
+{/dialog}
+
+{dialog 75, singular="a ", plural="{copyall}s"}
+Leamonde Halcyon
+{/dialog}
+
+{dialog 76, singular="an ", plural="{copyall}e"}
+Arcana
+{/dialog}
+
+{dialog 77, singular="a ", plural="{copyall}e"}
+High Arcana
+{/dialog}
+
+{dialog 78, singular="a ", plural="{copyall}s"}
+Turtle Shell
+{/dialog}
+
+{dialog 79, singular="an ", plural="{copyall}s"}
+Aged Turtle Shell
+{/dialog}
+
+{dialog 80, singular="an ", plural="{copyall}s"}
+Ancient Turtle Shell
+{/dialog}
+
+{dialog 81, singular="a ", plural="{copyall}s"}
+Molting
+{/dialog}
+
+{dialog 82, singular="an ", plural="{copyall}s"}
+Iron Carapace
+{/dialog}
+
+{dialog 83, singular="a ", plural="{copyall}s"}
+Wyrm Carapace
+{/dialog}
+
+{dialog 84, singular="an ", plural="{copyall}s"}
+Insect Husk
+{/dialog}
+
+{dialog 85, singular="a ", plural="{copyall}s"}
+Battlewyrm Carapace
+{/dialog}
+
+{dialog 86, singular="a suit of ", plural="suits of {copyall}"}
+Destrier Barding
+{/dialog}
+
+{dialog 87, singular="a suit of ", plural="suits of {copyall}"}
+Charger Barding
+{/dialog}
+
+{dialog 88, singular="a ", plural="{copyall}s"}
+Fish Scale
+{/dialog}
+
+{dialog 89, singular="a ", plural="{copyall}s"}
+Yensa Scale
+{/dialog}
+
+{dialog 90, singular="an ", plural="{copyall}s"}
+Ichthon Scale
+{/dialog}
+
+{dialog 91, singular="a ", plural="{copyall}s"}
+Ring Wyrm Scale
+{/dialog}
+
+{dialog 92, singular="a piece of ", plural="pieces of {copyall}"}
+Drab Wool
+{/dialog}
+
+{dialog 93, singular="a piece of ", plural="pieces of {copyall}"}
+Braid Wool
+{/dialog}
+
+{dialog 94, singular="a piece of ", plural="pieces of {copyall}"}
+Fine Wool
+{/dialog}
+
+{dialog 95, singular="a piece of ", plural="pieces of {copyall}"}
+Blood Wool
+{/dialog}
+
+{dialog 96, singular="a ", plural="{copyall}s"}
+Rat Pelt
+{/dialog}
+
+{dialog 97, singular="a ", plural="{copyall}s"}
+Snake Skin
+{/dialog}
+
+{dialog 98, singular="a ", plural="{copyall}s"}
+Tyrant Hide
+{/dialog}
+
+{dialog 99, singular="a ", plural="{copyall}s"}
+Quality Hide
+{/dialog}
+
+{dialog 100, singular="a ", plural="{copyall}s"}
+Beastlord Hide
+{/dialog}
+
+{dialog 101, singular="a ", plural="{copyall}s"}
+Tanned Hide
+{/dialog}
+
+{dialog 102, singular="a ", plural="{copyall}s"}
+Tanned Giantskin
+{/dialog}
+
+{dialog 103, singular="a ", plural="{copyall}s"}
+Tanned Tyrant Hide
+{/dialog}
+
+{dialog 104, singular="a ", plural="{copyall}s"}
+Prime Tanned Hide
+{/dialog}
+
+{dialog 105, singular="a ", plural="{copyall}s"}
+Wolf Pelt
+{/dialog}
+
+{dialog 106, singular="a ", plural="{copyall}s"}
+Coeurl Pelt
+{/dialog}
+
+{dialog 107, singular="a ", plural="{copyall}s"}
+Quality Pelt
+{/dialog}
+
+{dialog 108, singular="a ", plural="{copyall}s"}
+Prime Pelt
+{/dialog}
+
+{dialog 109, singular="a ", plural="{copyall}s"}
+Small Feather
+{/dialog}
+
+{dialog 110, singular="a ", plural="{copyall}s"}
+Large Feather
+{/dialog}
+
+{dialog 111, singular="a ", plural="{copyall}s"}
+Chocobo Feather
+{/dialog}
+
+{dialog 112, singular="a ", plural="{copyall}s"}
+Giant Feather
+{/dialog}
+
+{dialog 113, singular="a ", plural="{copyn:6}s of Feathers"}
+Bundle of Feathers
+{/dialog}
+
+{dialog 114, singular="a ", plural="{copyall}s"}
+Windslicer Pinion
+{/dialog}
+
+{dialog 115, singular="a ", plural="{copyall}s"}
+Horn
+{/dialog}
+
+{dialog 116, singular="a ", plural="{copyall}s"}
+Pointed Horn
+{/dialog}
+
+{dialog 117, singular="a ", plural="{copyall}s"}
+Solid Horn
+{/dialog}
+
+{dialog 118, singular="a ", plural="{copyall}s"}
+Bat Fang
+{/dialog}
+
+{dialog 119, singular="a ", plural="{copyall}s"}
+Crooked Fang
+{/dialog}
+
+{dialog 120, singular="a ", plural="{copyall}s"}
+Spiral Incisor
+{/dialog}
+
+{dialog 121, singular="a ", plural="{copyall}s"}
+Wyvern Fang
+{/dialog}
+
+{dialog 122, singular="a ", plural="{copyall}s"}
+Cactus Fruit
+{/dialog}
+
+{dialog 123, singular="a ", plural="{copyall}s"}
+Succulent Fruit
+{/dialog}
+
+{dialog 124, singular="a ", plural="{copyall}s"}
+Screamroot
+{/dialog}
+
+{dialog 125, singular="a ", plural="{copyall}s"}
+Malboro Vine
+{/dialog}
+
+{dialog 126, singular="a ", plural="{copyall}s"}
+Malboro Fruit
+{/dialog}
+
+{dialog 127, singular="a ", plural="{copyall}s"}
+Malboro Flower
+{/dialog}
+
+{dialog 128, singular="a ", plural="{copyall}s"}
+Bone Fragment
+{/dialog}
+
+{dialog 129, singular="a ", plural="{copyall}s"}
+Sturdy Bone
+{/dialog}
+
+{dialog 130, singular="a ", plural="{copyall}s"}
+Blood-darkened Bone
+{/dialog}
+
+{dialog 131, singular="a piece of ", plural="pieces of {copyall}"}
+Lumber
+{/dialog}
+
+{dialog 132, singular="a piece of ", plural="pieces of {copyall}"}
+Quality Lumber
+{/dialog}
+
+{dialog 133, singular="a ", plural="{copyall}s"}
+Solid Stone
+{/dialog}
+
+{dialog 134, singular="a ", plural="{copyall}s"}
+Quality Stone
+{/dialog}
+
+{dialog 135, singular="a pile of ", plural="piles of {copyall}"}
+Iron Scraps
+{/dialog}
+
+{dialog 136, singular="a nugget of ", plural="nuggets of {copyall}"}
+Iron Ore
+{/dialog}
+
+{dialog 137, singular="a phial of ", plural="phials of {copyall}"}
+Green Liquid
+{/dialog}
+
+{dialog 138, singular="a phial of ", plural="phials of {copyall}"}
+Yellow Liquid
+{/dialog}
+
+{dialog 139, singular="a phial of ", plural="phials of {copyall}"}
+Silver Liquid
+{/dialog}
+
+{dialog 140, singular="a ", plural="{copyall}s"}
+Glass Jewel
+{/dialog}
+
+{dialog 141, singular="a ", plural="{copyall}s"}
+Sky Jewel
+{/dialog}
+
+{dialog 142, singular="a ", plural="{copyall}s"}
+Demon Eyeball
+{/dialog}
+
+{dialog 143, singular="a ", plural="{copyall}s"}
+Demon Feather
+{/dialog}
+
+{dialog 144, singular="a ", plural="{copyall}s"}
+Demon Tail
+{/dialog}
+
+{dialog 145, singular="a ", plural="{copyn:8}s Togail"}
+Grimoire Togail
+{/dialog}
+
+{dialog 146, singular="a ", plural="{copyn:8}s Aidhed"}
+Grimoire Aidhed
+{/dialog}
+
+{dialog 147, singular="a pile of ", plural="piles of {copyall}"}
+Bomb Ashes
+{/dialog}
+
+{dialog 148, singular="a ", plural="{copyall}s"}
+Bomb Shell
+{/dialog}
+
+{dialog 149, singular="a ", plural="{copyn:4}s of Orgain"}
+Book of Orgain
+{/dialog}
+
+{dialog 150, singular="a ", plural="{copyn:4}s of Orgain-Cent"}
+Book of Orgain-Cent
+{/dialog}
+
+{dialog 151, singular="a ", plural="{copyn:4}s of Orgain-Mille"}
+Book of Orgain-Mille
+{/dialog}
+
+{dialog 152, singular="a strip of ", plural="strips of {copyall}"}
+Foul Flesh
+{/dialog}
+
+{dialog 153, singular="a strip of ", plural="strips of {copyall}"}
+Festering Flesh
+{/dialog}
+
+{dialog 154, singular="a strip of ", plural="strips of {copyall}"}
+Maggoty Flesh
+{/dialog}
+
+{dialog 155, singular="a strip of ", plural="strips of {copyall}"}
+Forbidden Flesh
+{/dialog}
+
+{dialog 156, singular="a ", plural="{copyall}s"}
+Feystone
+{/dialog}
+
+{dialog 157, singular="a ", plural="{copyall}s"}
+Pebble
+{/dialog}
+
+{dialog 158, singular="a ", plural="{copyall}s"}
+Broken Sword
+{/dialog}
+
+{dialog 159, singular="a ", plural="{copyall}s"}
+Broken Greataxe
+{/dialog}
+
+{dialog 160, singular="a ", plural="{copyall}s"}
+Broken Spear
+{/dialog}
+
+{dialog 161, singular="a ", plural="{copyn:8}ves"}
+Bent Staff
+{/dialog}
+
+{dialog 162, singular="a ", plural="{copyall}s"}
+Moon Ring
+{/dialog}
+
+{dialog 163, singular="a ", plural="{copyn:6}s of Needles"}
+Bundle of Needles
+{/dialog}
+
+{dialog 164, singular="a ", plural="{copyall}s"}
+Coeurl Whisker
+{/dialog}
+
+{dialog 165, singular="a ", plural="{copyall}s"}
+Mallet
+{/dialog}
+
+{dialog 166, singular="a ", plural="{copyall}s"}
+Tattered Garment
+{/dialog}
+
+{dialog 167, singular="a piece of ", plural="pieces of {copyall}"}
+Split Armor
+{/dialog}
+
+{dialog 168, singular="a ", plural="{copyall}s"}
+Chimera Head
+{/dialog}
+
+{dialog 169, singular="a ", plural="{copyall}s"}
+Rat Tail
+{/dialog}
+
+{dialog 170, singular="a ", plural="{copyall}es"}
+Slaven Harness
+{/dialog}
+
+{dialog 171, singular="a ", plural="{copyall}s"}
+Blood-stained Necklace
+{/dialog}
+
+{dialog 172, singular="a ", plural="{copyall}s"}
+Destrier Mane
+{/dialog}
+
+{dialog 173, singular="a ", plural="{copyall}s"}
+Wargod's Band
+{/dialog}
+
+{dialog 174, singular="a ", plural="{copyn:4}s of Thamasa"}
+Soul of Thamasa
+{/dialog}
+
+{dialog 175, singular="a ", plural="{copyall}s"}
+Beastlord Horn
+{/dialog}
+
+{dialog 176, singular="a ", plural="{copyall}s"}
+Vampyr Fang
+{/dialog}
+
+{dialog 177, singular="a ", plural="{copyall}s"}
+Great Serpent's Fang
+{/dialog}
+
+{dialog 178, singular="a ", plural="{copyall}s"}
+Death's-Head
+{/dialog}
+
+{dialog 179, singular="an ", plural="{copyall}s"}
+Ancient Bone
+{/dialog}
+
+{dialog 180, singular="a ", plural="{copyall}s"}
+Wyrm Bone
+{/dialog}
+
+{dialog 181, singular="a ", plural="{copyall}s"}
+Tyrant Bone
+{/dialog}
+
+{dialog 182, singular="a ", plural="{copyall}s"}
+Mirror Scale
+{/dialog}
+
+{dialog 183, singular="an ", plural="{copyall}s"}
+Emperor Scale
+{/dialog}
+
+{dialog 184, singular="a nugget of ", plural="nuggets of {copyall}"}
+Mythril
+{/dialog}
+
+{dialog 185, singular="a nugget of ", plural="nuggets of {copyall}"}
+Adamantite
+{/dialog}
+
+{dialog 186, singular="a nugget of ", plural="nuggets of {copyall}"}
+Scarletite
+{/dialog}
+
+{dialog 187, singular="a nugget of ", plural="nuggets of {copyall}"}
+Damascus Steel
+{/dialog}
+
+{dialog 188, singular="a nugget of ", plural="nuggets of {copyall}"}
+Orichalcum
+{/dialog}
+
+{dialog 189, singular="a nugget of ", plural="nuggets of {copyall}"}
+Mystletainn
+{/dialog}
+
+{dialog 190, singular="a nugget of ", plural="nuggets of {copyall}"}
+Einherjarium
+{/dialog}
+
+{dialog 191, singular="a nugget of ", plural="nuggets of {copyall}"}
+Electrum
+{/dialog}
+
+{dialog 192, singular="a ", plural="{copyall}s"}
+Dorsal Fin
+{/dialog}
+
+{dialog 193, singular="a ", plural="{copyall}s"}
+Yensa Fin
+{/dialog}
+
+{dialog 194, singular="a ", plural="{copyall}s"}
+Ring Wyrm Liver
+{/dialog}
+
+{dialog 195, singular="an ", plural="Eyes of the Hawk"}
+Eye of the Hawk
+{/dialog}
+
+{dialog 196, singular="a ", plural="{copyall}s"}
+Serpent Eye
+{/dialog}
+
+{dialog 197, singular="a phial of ", plural="phials of {copyall}"}
+Ambrosia
+{/dialog}
+
+{dialog 198, singular="a phial of ", plural="phials of {copyall}"}
+Foul Liquid
+{/dialog}
+
+{dialog 199, singular="a phial of ", plural="phials of {copyall}"}
+Putrid Liquid
+{/dialog}
+
+{dialog 200, singular="a ", plural="{copyall}s"}
+Caramel
+{/dialog}
+
+{dialog 201, singular="a skin of ", plural="skins of {copyall}"}
+Slime Oil
+{/dialog}
+
+{dialog 202, singular="a dose of ", plural="doses of {copyall}"}
+Unpurified Ether
+{/dialog}
+
+{dialog 203, singular="a hipflask of ", plural="hipflasks of {copyall}"}
+Demon Drink
+{/dialog}
+
+{dialog 204, singular="a pinch of ", plural="pinches of {copyall}"}
+Death Powder
+{/dialog}
+
+{dialog 205, singular="a pinch of ", plural="pinches of {copyall}"}
+Soul Powder
+{/dialog}
+
+{dialog 206, singular="a pinch of ", plural="pinches of {copyall}"}
+Zombie Powder
+{/dialog}
+
+{dialog 207, singular="a ", plural="{copyn:6}ies"}
+Snowfly
+{/dialog}
+
+{dialog 208, singular="a ", plural="{copyn:9}ies"}
+Corpse Fly
+{/dialog}
+
+{dialog 209, singular="a ", plural="{copyall}s"}
+Bat Wing
+{/dialog}
+
+{dialog 210, singular="a ", plural="{copyall}s"}
+Wyvern Wing
+{/dialog}
+
+{dialog 211, singular="a ", plural="{copyall}s"}
+Bomb Fragment
+{/dialog}
+
+{dialog 212, singular="a drop of ", plural="drops of {copyall}"}
+Throat Wolf Blood
+{/dialog}
+
+{dialog 213, singular="a cluster of ", plural="clusters of {copyall}"}
+Frogspawn
+{/dialog}
+
+{dialog 214, singular="a skin of ", plural="skins of {copyall}"}
+Frog Oil
+{/dialog}
+
+{dialog 215, singular="a ", plural="{copyall}s"}
+Behemoth Steak
+{/dialog}
+
+{dialog 216, singular="a peck of ", plural="pecks of {copyall}"}
+Gysahl Greens
+{/dialog}
+
+{dialog 217, singular="a stick of ", plural="sticks of {copyall}"}
+White Incense
+{/dialog}
+
+{dialog 218, singular="an ", plural="{copyall}s"}
+Antarctic Wind
+{/dialog}
+
+{dialog 219, singular="an ", plural="{copyall}s"}
+Arctic Wind
+{/dialog}
+
+{dialog 220, singular="a ", plural="{copyn:5}s of the Gods"}
+Wrath of the Gods
+{/dialog}
+
+{dialog 221, singular="a ", plural="{copyall}s"}
+Charged Gizzard
+{/dialog}
+
+{dialog 222, singular="a ", plural="{copyall}s"}
+Lifewick
+{/dialog}
+
+{dialog 223, singular="a ", plural="{copyall}s"}
+Ketu Board
+{/dialog}
+
+{dialog 224, singular="a ", plural="{copyall}s"}
+Magick Lamp
+{/dialog}
+
+{dialog 225, singular="a ", plural="{copyall}s"}
+Hell-Gate's Flame
+{/dialog}
+
+{dialog 226, singular="a ", plural="{copyall}s"}
+Sickle-Blade
+{/dialog}
+
+{dialog 227, singular="a pinch of ", plural="pinches of {copyall}"}
+Stardust
+{/dialog}
+
+{dialog 228, singular="a pinch of ", plural="pinches of {copyall}"}
+Moondust
+{/dialog}
+
+{dialog 229, singular="a ", plural="{copyall}s"}
+Rainbow Egg
+{/dialog}
+
+{dialog 230, singular="a ", plural="{copyall}s"}
+Four-leaf Clover
+{/dialog}
+
+{dialog 231, singular="a ", plural="{copyall}s"}
+Gimble Stalk
+{/dialog}
+
+{dialog 232, singular="an ", plural="{copyall}s"}
+Onion
+{/dialog}
+
+{dialog 233, singular="a ", plural="{copyall}s"}
+Jack-o'-Lantern
+{/dialog}
+
+{dialog 234, singular="a ", plural="{copyall}s"}
+Tomato Stalk
+{/dialog}
+
+{dialog 235, singular="a ", plural="{copyall}s"}
+Demon's Sigh
+{/dialog}
+
+{dialog 236, singular="an ", plural="{copyall}s"}
+Omega Badge
+{/dialog}
+
+{dialog 237, singular="an ", plural="{copyall}s"}
+Empyreal Soul
+{/dialog}
+
+{dialog 238, singular="a ", plural="{copyall}es"}
+Serpentarius
+{/dialog}
+
+{dialog 239, singular="a nugget of ", plural="nuggets of {copyall}"}
+Gemsteel
+{/dialog}
+
+{dialog 240, singular="a ", plural="{copyall}s"}
+Centurio Hero's Badge
+{/dialog}
+
+{dialog 241, singular="a ", plural="{copyall}s"}
+Horakhty's Flame
+{/dialog}
+
+{dialog 242, singular="a pot of ", plural="pots of {copyall}"}
+Phobos Glaze
+{/dialog}
+
+{dialog 243, singular="a lump of ", plural="lumps of {copyall}"}
+Deimos Clay
+{/dialog}
+
+{dialog 244, singular="a ", plural="{copyall}s"}
+Godslayer's Badge
+{/dialog}
+
+{dialog 245, singular="a ", plural="{copyall}s"}
+Lu Shang's Badge
+{/dialog}
+
+{dialog 246}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 247}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 248}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 249}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 250}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 251}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 252}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 253}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 254}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 255}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 256, singular="an ", plural="{copyall}s"}
+Empty Bottle
+{/dialog}
+
+{dialog 257, singular="a ", plural="{copyall}"}
+Common Fish
+{/dialog}
+
+{dialog 258, singular="a ", plural="{copyall}"}
+Delicious Fish
+{/dialog}
+
+{dialog 259, singular="a ", plural="{copyall}s"}
+Nebra Succulent
+{/dialog}
+
+{dialog 260, singular="a ", plural="{copyall}s"}
+Peach Tuft
+{/dialog}
+
+{dialog 261, singular="a ", plural="{copyall}s"}
+Green Tuft
+{/dialog}
+
+{dialog 262, singular="an ", plural="{copyall}s"}
+Orange Tuft
+{/dialog}
+
+{dialog 263, singular="a ", plural="{copyall}s"}
+Brown Tuft
+{/dialog}
+
+{dialog 264, singular="a ", plural="{copyall}s"}
+White Tuft
+{/dialog}
+
+{dialog 265, singular="a drop of ", plural="drops of {copyall}"}
+Valeblossom Dew
+{/dialog}
+
+{dialog 266, singular="a ", plural="{copyall}s"}
+Semclam Shell
+{/dialog}
+
+{dialog 267, singular="a phial of ", plural="phials of {copyall}"}
+Nebralim
+{/dialog}
+
+{dialog 268, singular="a ", plural="{copyall}s"}
+Great Serpentskin
+{/dialog}
+
+{dialog 269, singular="a cask of ", plural="casks of {copyall}"}
+Bhujerban Madhu
+{/dialog}
+
+{dialog 270}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 271}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 272}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 273}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 274, singular="a ", plural="{copyall}s"}
+Sandalwood Chop
+{/dialog}
+
+{dialog 275, singular="a ", plural="{copyall}s"}
+Pinewood Chop
+{/dialog}
+
+{dialog 276, singular="a ", plural="{copyall}s"}
+Small Package
+{/dialog}
+
+{dialog 277, singular="a ", plural="{copyall}s"}
+Dewdrop Pebble
+{/dialog}
+
+{dialog 278, singular="a ", plural="{copyall}s"}
+Black Orb
+{/dialog}
+
+{dialog 279, singular="a ", plural="{copyall}s"}
+Jaya Stick
+{/dialog}
+
+{dialog 280}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 281}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 282}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 283}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 284}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 285}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 286}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 287}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 288}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 289}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 290}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 291}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 292}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 293}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 294}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 295}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 296}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 297}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 298}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 299}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 300}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 301}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 302}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 303}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 304}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 305}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 306}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 307}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 308}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 309}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 310}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 311}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 312}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 313}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 314}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 315}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 316}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 317}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 318}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 319}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 320}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 321}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 322}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 323}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 324}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 325}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 326}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 327}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 328}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 329}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 330}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 331}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 332}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 333}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 334}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 335}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 336}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 337}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 338}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 339}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 340}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 341}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 342}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 343}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 344}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 345}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 346}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 347}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 348}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 349}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 350}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 351}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 352}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 353}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 354}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 355}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 356}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 357}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 358}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 359}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 360}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 361}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 362}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 363}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 364}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 365}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 366}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 367}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 368}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 369}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 370}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 371}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 372}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 373}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 374}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 375}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 376}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 377}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 378}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 379}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 380}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 381}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 382}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 383}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 384}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 385}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 386}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 387}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 388}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 389}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 390}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 391}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 392}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 393}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 394}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 395}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 396}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 397}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 398}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 399}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 400}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 401}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 402}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 403}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 404}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 405}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 406}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 407}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 408}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 409}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 410}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 411}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 412}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 413}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 414}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 415}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 416}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 417}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 418}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 419}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 420}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 421}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 422}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 423}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 424}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 425}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 426}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 427}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 428}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 429}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 430}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 431}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 432}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 433}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 434}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 435}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 436}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 437}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 438}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 439}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 440}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 441}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 442}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 443}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 444}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 445}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 446}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 447}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 448}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 449}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 450}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 451}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 452}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 453}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 454}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 455}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 456}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 457}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 458}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 459}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 460}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 461}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 462}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 463}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 464}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 465}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 466}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 467}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 468}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 469}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 470}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 471}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 472}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 473}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 474}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 475}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 476}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 477}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 478}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 479}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 480}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 481}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 482}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 483}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 484}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 485}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 486}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 487}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 488}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 489}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 490}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 491}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 492}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 493}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 494}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 495}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 496}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 497}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 498}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 499}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 500}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 501}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 502}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 503}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 504}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 505}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 506}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 507}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 508}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 509}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 510}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+
+{dialog 511}
+{0x0f}J6ｄＲＸReserve
+{/dialog}
+

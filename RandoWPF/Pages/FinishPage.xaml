@@ -10,35 +10,5 @@
     <StackPanel Margin="40,10" VerticalAlignment="Center">
         <StackPanel x:Name="PART_Host">
         </StackPanel>
-        <Label Margin="10"/>
-        <Button
-                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                Style="{DynamicResource MaterialDesignOutlinedDarkButton}"
-                Width="250"
-                IsEnabled="True">
-            <Button.Content>
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="InformationOutline"/>
-                    <TextBlock>How do I install the modpack?</TextBlock>
-                </StackPanel>
-            </Button.Content>
-            <Button.CommandParameter>
-                <StackPanel Margin="16">
-                    <TextBlock>-Open NovaCrysalia.</TextBlock>
-                    <TextBlock>-Go to the 'ModPack Manager'</TextBlock>
-                    <TextBlock>-Click 'Add ModPack', and select the generated '.ncmp' randomizer modpack</TextBlock>
-                    <TextBlock>-Double-click on the installed modpack and Click 'Install Mod'</TextBlock>
-                    <TextBlock xml:space="preserve">      Note that only one randomizer seed should be installed at a time!</TextBlock>
-                    <TextBlock>-To play, go back to the 'Game Launcher' tab, change 'Filesystem' to 'Unpacked Mode'</TextBlock>
-                    <TextBlock>-Ensure the correct game is selected and launch the game from Nova Chrysalia</TextBlock>
-                    <Button
-                        Style="{StaticResource MaterialDesignFlatButton}"
-                        IsCancel="True" 
-                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                        HorizontalAlignment="Center"
-                        Content="Ok"/>
-                </StackPanel>
-            </Button.CommandParameter>
-        </Button>
     </StackPanel>
 </UserControl>
