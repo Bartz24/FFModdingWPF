@@ -135,9 +135,9 @@ namespace FF13_2Rando
 
             }
 
-            if (FF13_2Flags.Other.InitCP.FlagEnabled)
+            if (FF13_2Flags.Stats.InitCP.FlagEnabled)
             {
-                treasures["ran_init_cp"].iItemCount = FF13_2Flags.Other.InitCPAmount.Value;
+                treasures["ran_init_cp"].iItemCount = FF13_2Flags.Stats.InitCPAmount.Value;
             }
         }
 

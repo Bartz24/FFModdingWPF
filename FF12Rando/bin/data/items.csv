@@ -1,0 +1,885 @@
+Name,ID,Rank,Upgrade
+Potion,0000,1,0001
+Hi-Potion,0001,4,0002
+X-Potion,0002,7,0005
+Ether,0003,3,0004
+Hi-Ether,0004,7,0005
+Elixir,0005,10,0015
+Phoenix Down,0006,3,
+Gold Needle,0007,1,0010
+Echo Herbs,0008,1,0010
+Antidote,0009,1,0010
+Eye Drops,000A,1,0010
+Prince's Kiss,000B,1,0010
+Handkerchief,000C,2,
+Chronos Tear,000D,2,
+Nu Khai Sand,000E,2,
+Serum,000F,3,
+Remedy,0010,5,
+Soleil Fang,0011,2,
+Rime Fang,0012,2,
+Lightning Fang,0013,2,
+Bacchus's Wine,0014,3,
+Megalixir,0015,11,
+Baltoro Seed,0016,11,
+Domaine Calvados,0017,10,0016
+Dark Energy,0018,11,
+Meteorite A,0019,2,001A
+Meteorite B,001A,5,001B
+Meteorite C,001B,7,001C
+Meteorite D,001C,10,
+Reverse Mote,002A,4,
+Dark Mote,002B,2,
+Aero Mote,002C,3,
+Aquara Mote,002D,4,
+Bio Mote,002E,5,
+Shock Mote,002F,7,
+Holy Mote,0030,8,
+Scathe Mote,0031,8,
+Balance Mote,0032,4,
+Gravity Mote,0033,3,
+Cura Mote,0034,5,
+Dispel Mote,0035,4,
+Aeroga Mote,0036,4,
+Warp Mote,0037,4,
+Bubble Mote,0038,4,
+Hastega Mote,0039,4,
+Reflectga Mote,003A,4,
+Vanishga Mote,003B,4,
+Float Mote,003C,4,
+Eksir Berries,003D,0,
+Dark Matter,003E,10,
+Knot of Rust,003F,2,
+Broadsword,1001,1,10A8
+Longsword,1002,1,1001
+Iron Sword,1003,2,1004
+Zwill Blade,1004,2,1005
+Ancient Sword,1005,3,1007
+Blood Sword,1006,4,100B
+Lohengrin,1007,3,1008
+Flametongue,1008,4,1009
+Demonsbane,1009,4,100A
+Icebrand,100A,4,1006
+Platinum Sword,100B,5,100C
+Bastard Sword,100C,5,100D
+Diamond Sword,100D,6,100E
+Runeblade,100E,6,100F
+Deathbringer,100F,7,1010
+Stoneblade,1010,7,1011
+Durandal,1011,7,10C0
+Claymore,1012,6,1013
+Defender,1013,6,1014
+Save the Queen,1014,6,1015
+Ragnarok,1015,7,1016
+Ultima Blade,1016,7,1018
+Excalibur,1017,10,10AD
+Tournesol,1018,9,1017
+Kotetsu,1019,1,101A
+Osafune,101A,2,101B
+Kogarasumaru,101B,3,101C
+Magoroku,101C,4,101D
+Murasame,101D,5,101E
+Kiku-ichimonji,101E,6,101F
+Yakei,101F,7,1020
+Ame-no-Murakumo,1020,7,1021
+Muramasa,1021,8,1022
+Masamune,1022,9,
+Ashura,1023,5,1024
+Sakura-saezuri,1024,5,1025
+Kagenui,1025,6,1026
+Koga Blade,1026,6,1027
+Iga Blade,1027,6,1028
+Orochi,1028,7,1029
+Yagyu Darkblade,1029,8,10AB
+Javelin,102A,1,102B
+Spear,102B,2,102C
+Partisan,102C,3,102D
+Heavy Lance,102D,4,102E
+Storm Spear,102E,4,102F
+Obelisk,102F,5,1030
+Halberd,1030,5,1031
+Trident,1031,6,1032
+Holy Lance,1032,7,1033
+Gungnir,1033,7,1034
+Dragon Whisker,1034,8,1035
+Zodiac Spear,1035,10,10AE
+Oaken Pole,1036,1,1037
+Cypress Pole,1037,2,1038
+Battle Bamboo,1038,3,1039
+Musk Stick,1039,3,103A
+Iron Pole,103A,4,103B
+Six-fluted Pole,103B,5,103C
+Gokuu Pole,103C,5,103D
+Zephyr Pole,103D,6,103E
+Ivory Pole,103E,6,103F
+Sweep,103F,6,1040
+Eight-fluted Pole,1040,7,1041
+Whale Whisker,1041,8,10C6
+Shortbow,1042,1,1043
+Silver Bow,1043,1,1044
+Aevis Killer,1044,2,1045
+Killer Bow,1045,3,1046
+Longbow,1046,4,1047
+Elfin Bow,1047,4,1048
+Loxley Bow,1048,5,1049
+Giant Stonebow,1049,5,104A
+Burning Bow,104A,6,104B
+Traitor's Bow,104B,6,104C
+Yoichi Bow,104C,6,104D
+Perseus Bow,104D,7,104E
+Artemis Bow,104E,7,104F
+Sagittarius,104F,8,10C7
+Bowgun,1050,1,1051
+Crossbow,1051,2,1052
+Paramina Crossbow,1052,3,1053
+Recurve Crossbow,1053,4,1054
+Hunting Crossbow,1054,6,1055
+Penetrator Crossbow,1055,8,1056
+Gastrophetes,1056,8,10B0
+Altair,1057,1,1058
+Capella,1058,2,1059
+Vega,1059,2,105A
+Sirius,105A,3,105B
+Betelgeuse,105B,4,105C
+Ras Algethi,105C,5,105D
+Aldebaran,105D,5,105E
+Spica,105E,6,105F
+Antares,105F,6,1060
+Arcturus,1060,7,1061
+Fomalhaut,1061,8,10C5
+Handaxe,1062,1,1069
+Broadaxe,1063,3,106A
+Slasher,1064,4,106B
+Hammerhead,1065,6,1066
+Francisca,1066,6,106C
+Greataxe,1067,8,1068
+Golden Axe,1068,9,106D
+Iron Hammer,1069,2,1063
+War Hammer,106A,4,1064
+Sledgehammer,106B,5,1065
+Morning Star,106C,7,1067
+Scorpion Tail,106D,9,10C4
+Dagger,106E,1,106F
+Mage Masher,106F,2,1070
+Assassin's Dagger,1070,3,1071
+Chopper,1071,3,1072
+Main Gauche,1072,4,1073
+Gladius,1073,4,1074
+Avenger,1074,5,1075
+Orichalcum Dirk,1075,6,1076
+Platinum Dagger,1076,7,1077
+Zwill Crossblade,1077,8,1078
+Shikari Nagasa,1078,9,10AC
+Rod,1079,1,107B
+Serpent Rod,107A,3,107C
+Healing Rod,107B,1,107A
+Gaia Rod,107C,3,107D
+Power Rod,107D,5,107E
+Empyrean Rod,107E,5,107F
+Holy Rod,107F,7,1080
+Rod of Faith,1080,8,
+Oak Staff,1081,1,1082
+Cherry Staff,1082,3,1083
+Wizard's Staff,1083,3,1084
+Flame Staff,1084,5,1085
+Storm Staff,1085,5,1086
+Glacial Staff,1086,5,1087
+Golden Staff,1087,6,1088
+Judicer's Staff,1088,7,1089
+Cloud Staff,1089,7,108A
+Staff of the Magi,108A,9,
+Mace,108B,1,108C
+Bronze Mace,108C,2,108D
+Bhuj,108D,3,108E
+Miter,108E,3,108F
+Thorned Mace,108F,4,1090
+Chaos Mace,1090,5,1091
+Doom Mace,1091,6,1092
+Zeus Mace,1092,6,1093
+Grand Mace,1093,6,10AF
+Gilt Measure,1094,2,1095
+Arc Scale,1095,2,1097
+Multiscale,1096,4,1098
+Cross Scale,1097,2,1096
+Caliper,1098,6,1099
+Euclid's Sextant,1099,8,
+Hornito,109A,4,109B
+Fumarole,109B,5,109C
+Tumulus,109C,5,109D
+Caldera,109D,6,109E
+Volcano,109E,6,10C3
+Bonebreaker,109F,10,
+Mythril Sword,10A0,1,1002
+Treaty-Blade,10A2,0,
+Sword of Kings,10A3,0,
+Mythril Blade,10A8,2,1003
+Kumbha,10AA,9,10B1
+Mesa,10AB,9,
+Mina,10AC,10,
+Wyrmhero Blade,10AD,10,
+Vrsabha,10AE,10,
+Bone of Byblos,10AF,10,109F
+Tula,10B0,9,
+Great Trango,10B1,10,
+Seitengrat,10B2,11,
+Karkata,10C0,8,10C2
+Excalipur,10C1,1,1012
+Simha,10C2,8,10AA
+Makara,10C3,7,
+Vrscika,10C4,10,
+Mithuna,10C5,9,
+Kanya,10C6,9,
+Dhanusha,10C7,9,10B2
+Gendarme,10C8,11,
+Leather Shield,10C9,1,10CA
+Buckler,10CA,1,10CB
+Bronze Shield,10CB,2,10CC
+Round Shield,10CC,2,10CD
+Shell Shield,10CD,3,10CE
+Golden Shield,10CE,4,10CF
+Ice Shield,10CF,4,10D0
+Flame Shield,10D0,4,10D1
+Diamond Shield,10D1,5,10D2
+Platinum Shield,10D2,5,10D3
+Dragon Shield,10D3,6,10D4
+Crystal Shield,10D4,6,10D6
+Genji Shield,10D5,10,10DB
+Kaiser Shield,10D6,7,10D7
+Aegis Shield,10D7,8,10D8
+Demon Shield,10D8,8,10D9
+Venetian Shield,10D9,8,10DA
+Zodiac Escutcheon,10DA,9,10D5
+Ensanguined Shield,10DB,10,10C8
+Leather Cap,10DC,1,10DD
+Headgear,10DD,1,10DE
+Headguard,10DE,1,10DF
+Leather Headgear,10DF,2,10E0
+Horned Hat,10E0,2,10E1
+Balaclava,10E1,2,10E2
+Soldier's Cap,10E2,3,10E3
+Green Beret,10E3,3,10E4
+Red Cap,10E4,4,10E5
+Headband,10E5,4,10E6
+Pirate Hat,10E6,5,10E7
+Goggle Mask,10E7,5,10E8
+Adamant Hat,10E8,6,10E9
+Officer's Hat,10E9,6,10EA
+Chakra Band,10EA,7,10EB
+Thief's Cap,10EB,7,10EC
+Gigas Hat,10EC,7,10ED
+Chaperon,10ED,8,10EE
+Crown of Laurels,10EE,8,10EF
+Renewing Morion,10EF,9,10F0
+Dueling Mask,10F0,9,
+Cotton Cap,10F1,1,10F2
+Magick Curch,10F2,1,10F3
+Pointy Hat,10F3,1,10F4
+Topkapi Hat,10F4,2,10F5
+Calot Hat,10F5,2,10F6
+Wizard's Hat,10F6,2,10F7
+Lambent Hat,10F7,3,10F8
+Feathered Cap,10F8,3,10F9
+Mage's Hat,10F9,4,10FA
+Lamia's Tiara,10FA,4,10FB
+Sorcerer's Hat,10FB,5,10FC
+Black Cowl,10FC,5,10FD
+Astrakhan Hat,10FD,6,10FE
+Gaia Hat,10FE,6,10FF
+Hypnocrown,10FF,7,1100
+Gold Hairpin,1100,7,1101
+Celebrant's Miter,1101,7,1102
+Black Mask,1102,8,1103
+White Mask,1103,8,1104
+Golden Skullcap,1104,9,1105
+Circlet,1105,9,
+Leather Helm,1106,1,1107
+Bronze Helm,1107,1,1108
+Sallet,1108,2,1109
+Iron Helm,1109,2,110A
+Barbut,110A,3,110B
+Winged Helm,110B,3,110C
+Golden Helm,110C,4,110D
+Burgonet,110D,4,110E
+Close Helmet,110E,5,110F
+Bone Helm,110F,5,1110
+Diamond Helm,1110,6,1111
+Steel Mask,1111,6,1112
+Platinum Helm,1112,7,1113
+Giant's Helmet,1113,7,1114
+Dragon Helm,1114,8,1115
+Genji Helm,1115,9,1116
+Magepower Shishak,1116,9,1117
+Grand Helm,1117,10,
+Leather Clothing,1118,1,1119
+Chromed Leathers,1119,1,111A
+Leather Breastplate,111A,1,111B
+Bronze Chestplate,111B,2,111C
+Ringmail,111C,2,111D
+Windbreaker,111D,2,111E
+Heavy Coat,111E,3,111F
+Survival Vest,111F,3,1120
+Brigandine,1120,4,1121
+Jujitsu Gi,1121,4,1122
+Viking Coat,1122,5,1123
+Metal Jerkin,1123,5,1124
+Adamant Vest,1124,6,1125
+Barrel Coat,1125,6,1126
+Power Vest,1126,7,1127
+Ninja Gear,1127,7,1128
+Gigas Chestplate,1128,7,1129
+Minerva Bustier,1129,8,112A
+Rubber Suit,112A,8,112B
+Mirage Vest,112B,9,112C
+Brave Suit,112C,10,
+Cotton Shirt,112D,1,112E
+Light Woven Shirt,112E,1,112F
+Silken Shirt,112F,1,1130
+Kilimweave Shirt,1130,2,1131
+Shepherd's Bolero,1131,2,1132
+Wizard's Robes,1132,2,1133
+Chanter's Djellaba,1133,3,1134
+Traveler's Vestment,1134,3,1135
+Mage's Habit,1135,4,1136
+Enchanter's Habit,1136,4,1137
+Sorcerer's Habit,1137,5,1138
+Black Garb,1138,5,1139
+Carmagnole,1139,6,113A
+Maduin Gear,113A,6,113B
+Jade Gown,113B,7,113C
+Gaia Gear,113C,7,113D
+Cleric's Robes,113D,7,113E
+White Robes,113E,8,113F
+Black Robes,113F,8,1140
+Glimmering Robes,1140,9,1141
+Lordly Robes,1141,9,
+Leather Armor,1142,1,1143
+Bronze Armor,1143,1,1144
+Scale Armor,1144,2,1145
+Iron Armor,1145,2,1146
+Linen Cuirass,1146,3,1147
+Chainmail,1147,3,1148
+Golden Armor,1148,4,1149
+Shielded Armor,1149,4,114A
+Demon Mail,114A,5,114B
+Bone Mail,114B,5,114C
+Diamond Armor,114C,6,114D
+Mirror Mail,114D,6,114E
+Platinum Armor,114E,7,114F
+Carabineer Mail,114F,7,1150
+Dragon Mail,1150,8,1151
+Genji Armor,1151,9,1152
+Maximillian,1152,9,1153
+Grand Armor,1153,10,
+Opal Ring,1154,8,
+Ruby Ring,1155,5,
+Tourmaline Ring,1156,3,
+Sage's Ring,1157,2,
+Ring of Renewal,1158,5,
+Agate Ring,1159,2,
+Bangle,115A,1,
+Orrachea Armlet,115B,1,
+Power Armlet,115C,2,
+Argyle Armlet,115D,3,
+Diamond Armlet,115E,3,
+Amber Armlet,115F,4,
+Berserker Bracers,1160,7,
+Magick Gloves,1161,4,
+Thief's Cuffs,1162,6,
+Blazer Gloves,1163,4,
+Genji Gloves,1164,10,
+Gauntlets,1165,3,
+Turtleshell Choker,1166,5,
+Nihopalaoa,1167,9,
+Embroidered Tippet,1168,7,
+Leather Gorget,1169,3,
+Jade Collar,116A,3,
+Steel Gorget,116B,3,
+Rose Corsage,116C,4,
+Pheasant Netsuke,116D,5,
+Indigo Pendant,116E,5,
+Golden Amulet,116F,7,
+Bowline Sash,1170,4,
+Firefly,1171,1,
+Sash,1172,4,
+Bubble Belt,1173,7,
+Cameo Belt,1174,4,
+Nishijin Belt,1175,4,
+Black Belt,1176,4,
+Battle Harness,1177,3,
+Germinas Boots,1178,6,
+Hermes Sandals,1179,7,
+Gillie Boots,117A,3,
+Steel Poleyns,117B,2,
+Winged Boots,117C,2,
+Quasimodo Boots,117D,2,
+Manufacted Nethicite,117E,0,
+Cat-ear Hood,117F,6,
+Fuzzy Miter,1180,4,
+Ribbon,1181,10,
+Goddess's Magicite,1182,0,
+Dawn Shard,1183,0,
+Onion Arrows,1184,1,1185
+Parallel Arrows,1185,2,1186
+Fiery Arrows,1186,5,1188
+Bamboo Arrows,1187,3,1187
+Lightning Arrows,1188,5,1189
+Assassin's Arrows,1189,6,118A
+Icecloud Arrows,118A,7,118B
+Artemis Arrows,118B,8,
+Onion Bolts,118C,1,118D
+Long Bolts,118D,2,118E
+Stone Bolts,118E,3,118F
+Lead Bolts,118F,5,1190
+Black Bolts,1190,5,1191
+Time Bolts,1191,6,1192
+Sapping Bolts,1192,7,1193
+Grand Bolts,1193,8,
+Onion Shot,1194,1,1195
+Silent Shot,1195,2,1198
+Aqua Shot,1196,5,1197
+Wyrmfire Shot,1197,5,119B
+Mud Shot,1198,3,1196
+Windslicer Shot,1199,7,119A
+Dark Shot,119A,7,
+Stone Shot,119B,6,1199
+Onion Bombs,119C,4,119D
+Poison Bombs,119D,5,119E
+Stun Bombs,119E,5,11A1
+Oil Bombs,119F,6,11A0
+Chaos Bombs,11A0,7,11A2
+Stink Bombs,11A1,5,119F
+Water Bombs,11A2,8,11A3
+Castellanos,11A3,9,
+Cure,3000,0,
+Blindna,3001,0,
+Vox,3002,0,
+Poisona,3003,0,
+Cura,3004,0,
+Raise,3005,0,
+Curaga,3006,0,
+Stona,3007,0,
+Regen,3008,0,
+Cleanse,3009,0,
+Esuna,300A,0,
+Curaja,300B,0,
+Dispel,300C,0,
+Dispelga,300D,0,
+Renew,300E,0,
+Arise,300F,0,
+Esunaga,3010,0,
+Holy,3011,0,
+Fire,3012,0,
+Thunder,3013,0,
+Blizzard,3014,0,
+Aqua,3015,0,
+Aero,3016,0,
+Fira,3017,0,
+Thundara,3018,0,
+Blizzara,3019,0,
+Bio,301A,0,
+Aeroga,301B,0,
+Firaga,301C,0,
+Thundaga,301D,0,
+Blizzaga,301E,0,
+Shock,301F,0,
+Scourge,3020,0,
+Flare,3021,0,
+Ardor,3022,0,
+Scathe,3023,0,
+Haste,3024,0,
+Float,3025,0,
+Hastega,3026,0,
+Slow,3027,0,
+Immobilize,3028,0,
+Disable,3029,0,
+Bleed,302A,0,
+Break,302B,0,
+Stop,302C,0,
+Slowga,302D,0,
+Countdown,302E,0,
+Reflect,302F,0,
+Reflectga,3030,0,
+Balance,3031,0,
+Warp,3032,0,
+Protect,3033,0,
+Shell,3034,0,
+Bravery,3035,0,
+Faith,3036,0,
+Protectga,3037,0,
+Shellga,3038,0,
+Blind,3039,0,
+Oil,303A,0,
+Poison,303B,0,
+Silence,303C,0,
+Sleep,303D,0,
+Blindga,303E,0,
+Toxify,303F,0,
+Silencega,3040,0,
+Sleepga,3041,0,
+Reverse,3042,0,
+Berserk,3043,0,
+Death,3044,0,
+Confuse,3045,0,
+Decoy,3046,0,
+Vanish,3047,0,
+Vanishga,3048,0,
+Drain,3049,0,
+Syphon,304A,0,
+Bubble,304B,0,
+Dark,304C,0,
+Darkra,304D,0,
+Darkga,304E,0,
+Gravity,304F,0,
+Graviga,3050,0,
+First Aid,4000,0,
+Shades of Black,4001,0,
+Horology,4002,0,
+Stamp,4003,0,
+Achilles,4004,0,
+Charge,4005,0,
+Infuse,4006,0,
+Souleater,4007,0,
+Wither,4008,0,
+Addle,4009,0,
+Bonecrusher,400A,0,
+Steal,400B,0,
+Telekinesis,400C,0,
+Expose,400D,0,
+Shear,400E,0,
+Charm,400F,0,
+Revive,4010,0,
+Sight Unseeing,4011,0,
+Numerology,4012,0,
+Libra,4013,0,
+Poach,4014,0,
+1000 Needles,4015,0,
+Traveler,4016,0,
+Gil Toss,4017,0,
+Teleport Stone,2000,0,
+Earth Stone,2020,0,
+Wind Stone,2021,0,
+Water Stone,2022,0,
+Fire Stone,2023,0,
+Ice Stone,2024,0,
+Storm Stone,2025,0,
+Holy Stone,2026,0,
+Dark Stone,2027,0,
+Earth Magicite,2028,0,
+Wind Magicite,2029,0,
+Water Magicite,202A,0,
+Fire Magicite,202B,0,
+Ice Magicite,202C,0,
+Storm Magicite,202D,0,
+Holy Magicite,202E,0,
+Dark Magicite,202F,0,
+Earth Crystal,2030,0,
+Wind Crystal,2031,0,
+Water Crystal,2032,0,
+Fire Crystal,2033,0,
+Ice Crystal,2034,0,
+Storm Crystal,2035,0,
+Holy Crystal,2036,0,
+Dark Crystal,2037,0,
+Aries Gem,2038,0,
+Taurus Gem,2039,0,
+Gemini Gem,203A,0,
+Cancer Gem,203B,0,
+Leo Gem,203C,0,
+Virgo Gem,203D,0,
+Libra Gem,203E,0,
+Scorpio Gem,203F,0,
+Sagittarius Gem,2040,0,
+Capricorn Gem,2041,0,
+Aquarius Gem,2042,0,
+Pisces Gem,2043,0,
+Salamand Halcyon,2044,0,
+Mardu Halcyon,2045,0,
+Leshach Halcyon,2046,0,
+Gnoma Halcyon,2047,0,
+Undin Halcyon,2048,0,
+Sylphi Halcyon,2049,0,
+Diakon Halcyon,204A,0,
+Leamonde Halcyon,204B,0,
+Arcana,204C,0,
+High Arcana,204D,0,
+Turtle Shell,204E,0,
+Aged Turtle Shell,204F,0,
+Ancient Turtle Shell,2050,0,
+Molting,2051,0,
+Iron Carapace,2052,0,
+Wyrm Carapace,2053,0,
+Insect Husk,2054,0,
+Battlewyrm Carapace,2055,0,
+Destrier Barding,2056,0,
+Charger Barding,2057,0,
+Fish Scale,2058,0,
+Yensa Scale,2059,0,
+Ichthon Scale,205A,0,
+Ring Wyrm Scale,205B,0,
+Drab Wool,205C,0,
+Braid Wool,205D,0,
+Fine Wool,205E,0,
+Blood Wool,205F,0,
+Rat Pelt,2060,0,
+Snake Skin,2061,0,
+Tyrant Hide,2062,0,
+Quality Hide,2063,0,
+Beastlord Hide,2064,0,
+Tanned Hide,2065,0,
+Tanned Giantskin,2066,0,
+Tanned Tyrant Hide,2067,0,
+Prime Tanned Hide,2068,0,
+Wolf Pelt,2069,0,
+Coeurl Pelt,206A,0,
+Quality Pelt,206B,0,
+Prime Pelt,206C,0,
+Small Feather,206D,0,
+Large Feather,206E,0,
+Chocobo Feather,206F,0,
+Giant Feather,2070,0,
+Bundle of Feathers,2071,0,
+Windslicer Pinion,2072,0,
+Horn,2073,0,
+Pointed Horn,2074,0,
+Solid Horn,2075,0,
+Bat Fang,2076,0,
+Crooked Fang,2077,0,
+Spiral Incisor,2078,0,
+Wyvern Fang,2079,0,
+Cactus Fruit,207A,0,
+Succulent Fruit,207B,0,
+Screamroot,207C,0,
+Malboro Vine,207D,0,
+Malboro Fruit,207E,0,
+Malboro Flower,207F,0,
+Bone Fragment,2080,0,
+Sturdy Bone,2081,0,
+Blood-darkened Bone,2082,0,
+Lumber,2083,0,
+Quality Lumber,2084,0,
+Solid Stone,2085,0,
+Quality Stone,2086,0,
+Iron Scraps,2087,0,
+Iron Ore,2088,0,
+Green Liquid,2089,0,
+Yellow Liquid,208A,0,
+Silver Liquid,208B,0,
+Glass Jewel,208C,0,
+Sky Jewel,208D,0,
+Demon Eyeball,208E,0,
+Demon Feather,208F,0,
+Demon Tail,2090,0,
+Grimoire Togail,2091,0,
+Grimoire Aidhed,2092,0,
+Bomb Ashes,2093,0,
+Bomb Shell,2094,0,
+Book of Orgain,2095,0,
+Book of Orgain-Cent,2096,0,
+Book of Orgain-Mille,2097,0,
+Foul Flesh,2098,0,
+Festering Flesh,2099,0,
+Maggoty Flesh,209A,0,
+Forbidden Flesh,209B,0,
+Feystone,209C,0,
+Pebble,209D,0,
+Broken Sword,209E,0,
+Broken Greataxe,209F,0,
+Broken Spear,20A0,0,
+Bent Staff,20A1,0,
+Moon Ring,20A2,0,
+Bundle of Needles,20A3,0,
+Coeurl Whisker,20A4,0,
+Mallet,20A5,0,
+Tattered Garment,20A6,0,
+Split Armor,20A7,0,
+Chimera Head,20A8,0,
+Rat Tail,20A9,0,
+Slaven Harness,20AA,0,
+Blood-stained Necklace,20AB,0,
+Destrier Mane,20AC,0,
+Wargod's Band,20AD,0,
+Soul of Thamasa,20AE,0,
+Beastlord Horn,20AF,0,
+Vampyr Fang,20B0,0,
+Great Serpent's Fang,20B1,0,
+Death's-Head,20B2,0,
+Ancient Bone,20B3,0,
+Wyrm Bone,20B4,0,
+Tyrant Bone,20B5,0,
+Mirror Scale,20B6,0,
+Emperor Scale,20B7,0,
+Mythril,20B8,0,
+Adamantite,20B9,0,
+Scarletite,20BA,0,
+Damascus Steel,20BB,0,
+Orichalcum,20BC,0,
+Mystletainn,20BD,0,
+Einherjarium,20BE,0,
+Electrum,20BF,0,
+Dorsal Fin,20C0,0,
+Yensa Fin,20C1,0,
+Ring Wyrm Liver,20C2,0,
+Eye of the Hawk,20C3,0,
+Serpent Eye,20C4,0,
+Ambrosia,20C5,0,
+Foul Liquid,20C6,0,
+Putrid Liquid,20C7,0,
+Caramel,20C8,0,
+Slime Oil,20C9,0,
+Unpurified Ether,20CA,0,
+Demon Drink,20CB,0,
+Death Powder,20CC,0,
+Soul Powder,20CD,0,
+Zombie Powder,20CE,0,
+Snowfly,20CF,0,
+Corpse Fly,20D0,0,
+Bat Wing,20D1,0,
+Wyvern Wing,20D2,0,
+Bomb Fragment,20D3,0,
+Throat Wolf Blood,20D4,0,
+Frogspawn,20D5,0,
+Frog Oil,20D6,0,
+Behemoth Steak,20D7,0,
+Gysahl Greens,20D8,0,
+White Incense,20D9,0,
+Antarctic Wind,20DA,0,
+Arctic Wind,20DB,0,
+Wrath of the Gods,20DC,0,
+Charged Gizzard,20DD,0,
+Lifewick,20DE,0,
+Ketu Board,20DF,0,
+Magick Lamp,20E0,0,
+Hell-Gate's Flame,20E1,0,
+Sickle-Blade,20E2,0,
+Stardust,20E3,0,
+Moondust,20E4,0,
+Rainbow Egg,20E5,0,
+Four-leaf Clover,20E6,0,
+Gimble Stalk,20E7,0,
+Onion,20E8,0,
+Jack-o'-Lantern,20E9,0,
+Tomato Stalk,20EA,0,
+Demon's Sigh,20EB,0,
+Omega Badge,20EC,0,
+Empyreal Soul,20ED,0,
+Serpentarius,20EE,0,
+Gemsteel,20EF,0,
+Centurio Hero's Badge,20F0,0,
+Horakhty's Flame,20F1,0,
+Phobos Glaze,20F2,0,
+Deimos Clay,20F3,0,
+Godslayer's Badge,20F4,0,
+Lu Shang's Badge,20F5,0,
+Empty Bottle,2100,0,
+Common Fish,2101,0,
+Delicious Fish,2102,0,
+Nebra Succulent,2103,0,
+Peach Tuft,2104,0,
+Green Tuft,2105,0,
+Orange Tuft,2106,0,
+Brown Tuft,2107,0,
+White Tuft,2108,0,
+Valeblossom Dew,2109,0,
+Semclam Shell,210A,0,
+Nebralim,210B,0,
+Great Serpentskin,210C,0,
+Bhujerban Madhu,210D,0,
+Sandalwood Chop,2112,0,
+Pinewood Chop,2113,0,
+Small Package,2114,0,
+Dewdrop Pebble,2115,0,
+Black Orb,2116,0,
+Jaya Stick,2117,0,
+Writ of Transit,8070,0,
+Clan Primer,8071,0,
+Galbana Lilies,8072,0,
+Cactus Flower,8073,0,
+Tube Fuse,8074,0,
+Sword of the Order,8075,0,
+No. 1 Brig Key,8076,0,
+Systems Access Key,8077,0,
+Dawn Shard,8078,0,
+Shadestone,8079,0,
+Sunstone,807A,0,
+Feather of the Flock,807B,0,
+Ring of the Toad,807C,0,
+Silent Urn,807D,0,
+Site 3 Key,807E,0,
+Site 11 Key,807F,0,
+Crescent Stone,8080,0,
+Medallion of Bravery,8081,0,
+Medallion of Might,8082,0,
+Medallion of Love,8083,0,
+Lusterless Medallion,8084,0,
+Stone of the Condemner,8085,0,
+Errmonea Leaf,8086,0,
+Rabbit's Tail,8087,0,
+Ann's Letter,8088,0,
+Manufacted Nethicite,8089,0,
+Rusted Scrap of Armor,808A,0,
+Sword of Kings,808B,0,
+Treaty-Blade,808C,0,
+Dusty Letter,808D,0,
+Serpentwyne Must,808E,0,
+Dull Fragment,808F,0,
+Blackened Fragment,8090,0,
+Grimy Fragment,8091,0,
+Stolen Articles,8092,0,
+Barheim Key,8093,0,
+Muramata,8094,0,
+Matamune,8095,0,
+Cactoid Compact,8096,0,
+Cactoid Commendation,8097,0,
+Merchant's Armband,8098,0,
+Pilika's Diary,8099,0,
+Ring of the Light,809A,0,
+Viera Rucksack,809B,0,
+Time-worn Necklace,809C,0,
+Lab Access Card,809E,0,
+Moonsilver Medallion,80A3,0,
+Wanly Limned Message,80A4,0,
+Green-hued Message,80A5,0,
+Vermillion Message,80A6,0,
+Auric Message,80A7,0,
+Onyx Message,80A8,0,
+Goddess's Magicite,80AC,0,
+Gift of the Great-chief,80AD,0,
+Broken Key,80AE,0,
+Sluice Gate Key,80AF,0,
+Wind Globe,80B1,0,
+Windvane,80B2,0,
+Dragon Scale,80B4,0,
+Ageworn Key,80B5,0,
+Soul Ward Key,80B6,0,
+Lente's Tear,80B7,0,
+Shelled Trophy,80B8,0,
+Fur-scaled Trophy,80B9,0,
+Bony Trophy,80BA,0,
+Fanged Trophy,80BB,0,
+Hide-covered Trophy,80BC,0,
+Maned Trophy,80BD,0,
+Fell Trophy,80BE,0,
+Accursed Trophy,80BF,0,
+Beaked Trophy,80C0,0,
+Maverick Trophy,80C1,0,
+Soulless Trophy,80C2,0,
+Leathern Trophy,80C3,0,
+Sickle Trophy,80C4,0,
+Vengeful Trophy,80C5,0,
+Gravesoil Trophy,80C6,0,
+Metallic Trophy,80C7,0,
+Slimy Trophy,80C8,0,
+Scythe Trophy,80C9,0,
+Feathered Trophy,80CA,0,
+Skull Trophy,80CB,0,
+Mind Trophy,80CC,0,
+Eternal Trophy,80CD,0,
+Clawed Trophy,80CE,0,
+Odiferous Trophy,80CF,0,
+Whiskered Trophy,80D0,0,
+Frigid Trophy,80D1,0,
+Ensanguined Trophy,80D2,0,
+Cruel Trophy,80D3,0,
+Adamantine Trophy,80D4,0,
+Reptilian Trophy,80D5,0,
+Vile Trophy,80D6,0,

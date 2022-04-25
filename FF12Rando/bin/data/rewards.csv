@@ -111,7 +111,7 @@ Lowtown,Hunt 35: Orthros,9025,AND(I(8071)|I(8092)|I(Fran)|I(Ashe)|I(Penelo)),5,H
 Giza Plains Dry,Hunt 36: Gil Snapper,9026,AND(I(8071)|I(807D)),3,Hunt,Hunt
 Mt. Bur-Omisace,Hunt 37: Trickster,9027,AND(OR(I(8077)|I(80B7))|I(8071)),5,Hunt,Hunt
 Bhujerba,Hunt 38: Antlion,9028,AND(I(8071)|I(807E)),5,Hunt,Hunt
-Clan Hall,Hunt 39: Carrot,9029,I(8071),7,Hunt,Hunt
+Aerodrome,Hunt 39: Carrot,9029,I(8071),7,Hunt,Hunt
 Clan Hall,Hunt 40: Gilgamesh,902A,AND(I(8071)|I(807E)|I(807F)),7,Hunt,Hunt
 Clan Hall,Hunt 41: Belito,9122,I(8071),5,Hunt,Hunt
 Lowtown,Hunt 42: Behemoth King,902B,AND(OR(I(8077)|I(80B7))|I(8071)),7,Hunt,Hunt
@@ -149,6 +149,7 @@ Clan Hall,Clan Boss: Tyrant,904A,AND(OR(I(8077)|I(80B7))|I(8071)),5,ClanBoss,
 Clan Hall,Clan Boss: Hydro,904B,AND(I(8071)|I(8077)),5,ClanBoss,
 Clan Hall,Clan Boss: Humbaba Mistant,904C,AND(I(8071)|I(8081)|I(8084)),7,ClanBoss,
 Clan Hall,Clan Boss: Fury,904D,AND(I(8071)|I(8083)|I(8084)),7,ClanBoss,
+Clan Hall,Clan Boss: Omega Mark XII,905A,AND(OR(I(8077)|I(80B7))|I(8071)),8,ClanBoss,
 Fake,Belias,_1,,0,Fake,Esper|Belias
 Fake,Mateus,_2,OR(I(8077)|I(80B7)),0,Fake,Esper
 Fake,Adrammelech,_3,,0,Fake,Esper
@@ -201,7 +202,90 @@ Lowtown,Samal Blackened Fragment,917C,AND(I(8071)|I(8092)|I(Fran)|I(Ashe)|I(Pene
 Garamsythe Waterway,Dull Fragment,9186,I(80AF),0,SideKey,
 Rabanastre,Grimy Fragment,9187,,5,SideKey,
 Old Archades,Moonsilver Medallion,9188,,5,SideKey,
-Nebreus Deadlands,Give Medallion Fragments ,9189,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,SideKey,
-Nebreus Deadlands,Give Medallion Fragments ,918A,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,SideKey,
-Nebreus Deadlands,Give Medallion Fragments ,918B,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,SideKey,
+Nabreus Deadlands,Nabreus Medallion,9189,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,SideKey,
+Nabreus Deadlands,Nabreus Medallion,918A,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,SideKey,
+Nabreus Deadlands,Nabreus Medallion,918B,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,SideKey,
 Necrohol of Nabudis,Medallion of Might,918C,AND(I(8081)|I(8083)|I(8084)),7,SideKey,
+Rabanastre,Viera Rendeveous,9056,,1,,
+Rabanastre,Ktjn Reward,9058,,2,,
+Nalbina Fortress,Jovy Reward,906A,,7,Hunt,
+Dalmasca Estersand,Outpost Mysterious Glint,906E,,0,,
+Dalmasca Estersand,Outpost Mysterious Glint,906F,,0,,
+Dalmasca Estersand,Outpost Mysterious Glint,9057,,0,,
+Dalmasca Estersand,Outpost Mysterious Glint,9070,,0,,
+Dalmasca Estersand,Outpost Mysterious Glint,9059,,0,,
+Balfonheim,Footrace,908F,,0,,
+Phon Coast,Shelled Trophy,9090,,6,HuntClubKey,
+Garamsythe Waterway,Fur-scaled Trophy,9091,I(80B8),6,HuntClubKey,HuntClubKill
+Barheim Passage,Bony Trophy,9092,AND(I(8093)|I(80B8)),7,HuntClubKey,HuntClubKill
+Dalmasca Westersand,Fanged Trophy,9093,I(80B8),5,HuntClubKey,HuntClubKill
+Dalmasca Estersand,Hide-covered Trophy,9094,I(80B8),7,HuntClubKey,HuntClubKill
+Giza Plains Dry,Maned Trophy,9095,I(80B8),7,HuntClubKey,HuntClubKill
+Zertinan Caverns,Fell Trophy,9096,I(80B8),5,HuntClubKey,HuntClubKill
+Lhusu Mines,Accursed Trophy,9097,AND(I(807E)|I(807F)),7,HuntClubKey,HuntClubKill
+Ogir-Yensa Sandsea,Beaked Trophy,9098,I(80B8),7,HuntClubKey,HuntClubKill
+Nam-Yensa Sandsea,Maverick Trophy,9099,I(80B8),7,HuntClubKey,HuntClubKill
+Tomb of Raithwall,Soulless Trophy,909A,I(80B8),6,HuntClubKey,HuntClubKill
+Mosphoran Highwaste,Leathern Trophy,909B,I(80B8),7,HuntClubKey,HuntClubKill
+Salikawood,Sickle Trophy,909C,I(80B8),5,HuntClubKey,HuntClubKill
+Nabreus Deadlands,Vengeful Trophy,909D,I(80B8),7,HuntClubKey,HuntClubKill
+Necrohol of Nabudis,Gravesoil Trophy,909E,I(80B8),7,HuntClubKey,HuntClubKill
+Ozmone Plain,Metallic Trophy,909F,I(80B8),6,HuntClubKey,HuntClubKill
+Henne Mines,Slimy Trophy,90A0,I(80B8),7,HuntClubKey,HuntClubKill
+Golmore Jungle,Scythe Trophy,90A1,AND(OR(I(8077)|I(80B7))|I(80B8)),6,HuntClubKey,HuntClubKill
+Feywood,Feathered Trophy,90A2,AND(OR(I(8077)|I(80B7))|I(80B8)),7,HuntClubKey,HuntClubKill
+Giruvegan,Skull Trophy,90A3,AND(OR(I(8077)|I(80B7))|I(80B8)),5,HuntClubKey,HuntClubKill
+Paramina Rift,Mind Trophy,90A4,AND(OR(I(8077)|I(80B7))|I(80B8)),5,HuntClubKey,HuntClubKill
+Stilshrine of Miriam,Eternal Trophy,90A5,AND(OR(I(8077)|I(80B7))|I(8078)|I(80B8)),5,HuntClubKey,HuntClubKill
+Phon Coast,Clawed Trophy,90A6,I(80B8),7,HuntClubKey,HuntClubKill
+Tchita Uplands,Odiferous Trophy,90A7,I(80B8),7,HuntClubKey,HuntClubKill
+Tchita Uplands,Whiskered Trophy,90A8,I(80B8),7,HuntClubKey,HuntClubKill
+Sochen Cave Palace,Frigid Trophy,90A9,AND(I(80B6)|I(80B8)),5,HuntClubKey,HuntClubKill
+Sochen Cave Palace,Ensanguined Trophy,90AA,AND(I(80B6)|I(80B8)),7,HuntClubKey,HuntClubKill
+Cerobi Steppe,Cruel Trophy,90AB,I(80B8),7,HuntClubKey,HuntClubKill
+Cerobi Steppe,Adamantine Trophy,90AC,I(80B8),7,HuntClubKey,HuntClubKill
+Ridorana Cataract,Reptilian Trophy,90AD,AND(I(8077)|I(80B8)),7,HuntClubKey,HuntClubKill
+Pharos of Ridorana,Vile Trophy,90AE,AND(I(8077)|I(2116|3)|I(80B8)),7,HuntClubKey,HuntClubKill
+Archades,Hunt Club Owner 5 Trophy Rares Defeated,90F9,AND(I(2112)|I(HuntClubKill|5)),6,Grindy,
+Archades,Hunt Club Owner 10 Trophy Rares Defeated,90FA,AND(I(2112)|I(HuntClubKill|10)),7,Grindy,
+Archades,Hunt Club Owner 15 Trophy Rares Defeated,90FB,AND(I(2112)|I(HuntClubKill|15)),7,Grindy,
+Archades,Hunt Club Owner 20 Trophy Rares Defeated,90FC,AND(I(2112)|I(HuntClubKill|20)),8,Grindy,
+Archades,Hunt Club Owner 25 Trophy Rares Defeated,90FD,AND(I(2112)|I(HuntClubKill|25)),9,Grindy,
+Archades,Hunt Club Owner 30 Trophy Rares Defeated,90FE,AND(I(2112)|I(HuntClubKill|30)),10,Grindy,
+Phon Coast,All Trophies Atak 16 or more,90F3,I(80B8),10,Missable,
+Phon Coast,All Trophies Atak 15 or less,90F4,I(80B8),10,Missable,
+Phon Coast,All Trophies Blok 16 or more,90F5,I(80B8),10,Missable,
+Phon Coast,All Trophies Blok 15 or less,90F6,I(80B8),10,Missable,
+Phon Coast,All Trophies Stok 16 or more,90F7,I(80B8),10,Missable,
+Phon Coast,All Trophies Stok 15 or less,90F8,I(80B8),10,Missable,
+Phon Coast,"Atak 1, Blok 0, Stok 0 Outfitters",90FF,I(80B8),5,Missable,
+Phon Coast,"Atak 0, Blok 1, Stok 0 Outfitters",9100,I(80B8),5,Missable,
+Phon Coast,"Atak 0, Blok 0, Stok 1 Outfitters",9101,I(80B8),5,Missable,
+Phon Coast,"Atak 5, Blok 0, Stok 0 Outfitters",9102,I(80B8),6,Missable,
+Phon Coast,"Atak 0, Blok 5, Stok 0 Outfitters",9103,I(80B8),6,Missable,
+Phon Coast,"Atak 0, Blok 0, Stok 5 Outfitters",9104,I(80B8),6,Missable,
+Phon Coast,"Atak 10, Blok 0, Stok 0 Outfitters",9105,I(80B8),7,Missable,
+Phon Coast,"Atak 0, Blok 10, Stok 0 Outfitters",9106,I(80B8),7,Missable,
+Phon Coast,"Atak 0, Blok 0, Stok 10 Outfitters",9107,I(80B8),7,Missable,
+Phon Coast,"Atak 15, Blok 0, Stok 0 Outfitters",9108,I(80B8),7,Missable,
+Phon Coast,"Atak 0, Blok 15, Stok 0 Outfitters",9109,I(80B8),7,Missable,
+Phon Coast,"Atak 0, Blok 0, Stok 15 Outfitters",910A,I(80B8),7,Missable,
+Phon Coast,"Atak 10, Blok 5, Stok 0 Outfitters",910B,I(80B8),7,Missable,
+Phon Coast,"Atak 20, Blok 0, Stok 0 Outfitters",910C,I(80B8),8,Missable,
+Phon Coast,"Atak 0, Blok 20, Stok 0 Outfitters",910D,I(80B8),8,Missable,
+Phon Coast,"Atak 0, Blok 0, Stok 20 Outfitters",910E,I(80B8),8,Missable,
+Phon Coast,"Atak 5, Blok 10, Stok 5 Outfitters",910F,I(80B8),8,Missable,
+Phon Coast,"Atak 25, Blok 0, Stok 0 Outfitters",9110,I(80B8),9,Missable,
+Phon Coast,"Atak 0, Blok 25, Stok 0 Outfitters",9111,I(80B8),9,Missable,
+Phon Coast,"Atak 0, Blok 0, Stok 25 Outfitters",9112,I(80B8),9,Missable,
+Phon Coast,"Atak 5, Blok 5, Stok 15 Outfitters",9113,I(80B8),9,Missable,
+Phon Coast,"Atak 30, Blok 0, Stok 0 Outfitters",9114,I(80B8),10,Missable,
+Phon Coast,"Atak 0, Blok 30, Stok 0 Outfitters",9115,I(80B8),10,Missable,
+Phon Coast,"Atak 0, Blok 0, Stok 30 Outfitters",9116,I(80B8),10,Missable,
+Phon Coast,"Atak 10, Blok 10, Stok 10 Outfitters",9117,I(80B8),10,Missable,
+Phon Coast,"Atak 25, Blok 1, Stok 1 Outfitters",9118,I(80B8),9,Missable,
+Phon Coast,"Atak 1, Blok 25, Stok 1 Outfitters",9119,I(80B8),9,Missable,
+Phon Coast,"Atak 1, Blok 1, Stok 25 Outfitters",911A,I(80B8),9,Missable,
+Phon Coast,"Atak 12, Blok 5, Stok 5 Outfitters",911B,I(80B8),8,Missable,
+Phon Coast,"Atak 5, Blok 12, Stok 5 Outfitters",911C,I(80B8),8,Missable,
+Phon Coast,"Atak 5, Blok 5, Stok 12 Outfitters",911D,I(80B8),8,Missable,

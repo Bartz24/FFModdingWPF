@@ -67,6 +67,9 @@ namespace FF12Rando
 
         public override bool IsValid(string location, string replacement, string area, Dictionary<string, int> items, List<string> areasAvailable)
         {
+            if (treasureRando.IsImportantKeyItem(replacement) && !HasEnoughChars(replacement, items))
+                return false;
+
             return ItemLocations[location].IsValid(items) &&
                 (area == null || ItemLocations[location].Areas.Contains(area)) &&
                 IsAllowed(location, replacement);
@@ -127,7 +130,7 @@ namespace FF12Rando
             return ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
         }
 
-        public override bool IsAllowed(string old, string rep)
+        public override bool IsAllowed(string old, string rep, bool orig = true)
         {
             if (ItemLocations[rep].Traits.Contains("Fake") || ItemLocations[old].Traits.Contains("Fake"))
                 return old == rep;
@@ -142,6 +145,8 @@ namespace FF12Rando
             if (!FF12Flags.Items.KeyOrb.Enabled && (treasureRando.IsBlackOrbKeyItem(rep) || treasureRando.IsBlackOrbKeyItem(old)))
                 return old == rep;
             if (!FF12Flags.Items.KeyHunt.Enabled && (treasureRando.IsHuntKeyItem(rep) || treasureRando.IsHuntKeyItem(old)))
+                return old == rep;
+            if (!FF12Flags.Items.KeyTrophy.Enabled && (treasureRando.IsHuntClubKeyItem(rep) || treasureRando.IsHuntClubKeyItem(old)))
                 return old == rep;
 
             if (ItemLocations[old].Traits.Contains("Missable"))
@@ -252,6 +257,42 @@ namespace FF12Rando
 
 
             return dict;
+        }
+        private int GetCharCount(Dictionary<string, int> items)
+        {
+            int count = 0;
+            if (items.ContainsKey("Vaan") && items["Vaan"] > 0)
+                count++;
+            if (items.ContainsKey("Ashe") && items["Ashe"] > 0)
+                count++;
+            if (items.ContainsKey("Fran") && items["Fran"] > 0)
+                count++;
+            if (items.ContainsKey("Balthier") && items["Balthier"] > 0)
+                count++;
+            if (items.ContainsKey("Basch") && items["Basch"] > 0)
+                count++;
+            if (items.ContainsKey("Penelo") && items["Penelo"] > 0)
+                count++;
+            if (items.ContainsKey("Guest") && items["Guest"] > 0)
+                count++;
+            return count;
+        }
+
+        private bool HasEnoughChars(string location, Dictionary<string, int> items)
+        {
+            int charCount = GetCharCount(items);
+            if (FF12Flags.Items.CharacterScale.Enabled)
+            {
+                if (ItemLocations[location].Difficulty >= 7)
+                    return charCount >= 6;
+                if (ItemLocations[location].Difficulty >= 6)
+                    return charCount >= 5;
+                if (ItemLocations[location].Difficulty >= 5)
+                    return charCount >= 4;
+                if (ItemLocations[location].Difficulty >= 3)
+                    return charCount >= 3;
+            }
+            return true;
         }
     }
 }

@@ -43,8 +43,23 @@ namespace LRRando
             charaSets.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
             enemyData = File.ReadAllLines(@"data\enemies.csv").Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);
-            bossData = File.ReadAllLines(@"data\bosses.csv").Select(s => new BossData(s.Split(","))).GroupBy(b => b.Group).ToDictionary(p => p.Key, p => p.ToDictionary(b => b.Tier, b => b));
-            bossStatsData = File.ReadAllLines(@"data\bossesStats.csv").Select(s => new BossStatsData(s.Split(","))).GroupBy(b => b.ID).ToDictionary(p => p.Key, p => p.ToDictionary(b => b.Tier, b => b));
+
+            FileExtensions.ReadCSVFile(@"data\bosses.csv", row =>
+            {
+                BossData b = new BossData(row);
+                if (!bossData.ContainsKey(b.Group))
+                    bossData.Add(b.Group, new Dictionary<int, BossData>());
+                bossData[b.Group].Add(b.Tier, b);
+            }, false);
+
+            FileExtensions.ReadCSVFile(@"data\bossesStats.csv", row =>
+            {
+                BossStatsData b = new BossStatsData(row);
+                if (!bossStatsData.ContainsKey(b.ID))
+                    bossStatsData.Add(b.ID, new Dictionary<int, BossStatsData>());
+                bossStatsData[b.ID].Add(b.Tier, b);
+            }, true);
+
             shuffledBosses.Clear();
         }
         public override void Randomize(Action<int> progressSetter)
@@ -196,6 +211,7 @@ namespace LRRando
                             enemyRando.enemies[k].u12KeepVal = bossStatsData[k][newTierIndex].Keep;
                             enemyRando.enemies[k].i10ElemDefExVal0 = bossStatsData[k][newTierIndex].PhysicalRes;
                             enemyRando.enemies[k].i10ElemDefExVal1 = bossStatsData[k][newTierIndex].MagicRes;
+                            enemyRando.enemies[k].u12BrkLimitVal = bossStatsData[k][newTierIndex].BreakPoint;
                         });
                     });
                 }
@@ -376,6 +392,7 @@ namespace LRRando
             public int Keep { get; set; }
             public int PhysicalRes { get; set; }
             public int MagicRes { get; set; }
+            public int BreakPoint { get; set; }
             public BossStatsData(string[] row)
             {
                 ID = row[0];
@@ -386,6 +403,7 @@ namespace LRRando
                 Keep = int.Parse(row[5]);
                 PhysicalRes = int.Parse(row[6]);
                 MagicRes = int.Parse(row[7]);
+                BreakPoint = int.Parse(row[8]);
             }
         }
     }

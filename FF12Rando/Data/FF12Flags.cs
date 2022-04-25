@@ -15,9 +15,11 @@ namespace FF12Rando
         }
         public class Items
         {
-            public static Flag Treasures;
-            public static ToggleFlagProperty KeyMain, KeyHunt, KeyGrindy, KeySide, KeyOrb, KeyWrit, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy;
+            public static Flag Treasures, Shops, Bazaars;
+            public static ToggleFlagProperty KeyMain, KeyHunt, KeyGrindy, KeySide, KeyOrb, KeyWrit, KeyTrophy, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, CharacterScale;
             public static ComboBoxFlagProperty KeyDepth;
+            public static NumberFlagProperty ShopSize;
+            public static ToggleFlagProperty ShopsShared;
 
             internal static void Init()
             {
@@ -70,6 +72,13 @@ namespace FF12Rando
                     "For reference, up to 8 can be found in Penumbra, up to 15 in Umbra, and up to 24 in Abyssal."
                 }.Register(Treasures);
 
+                KeyTrophy = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Hunt Club Trophies",
+                    ID = "KeyTrophy",
+                    Description = "The 31 Hunt Club trophy drops from rare game will be included in the key item pool."
+                }.Register(Treasures);
+
                 KeyWrit = (ToggleFlagProperty)new ToggleFlagProperty()
                 {
                     Text = "Include Writ of Transit",
@@ -89,7 +98,7 @@ namespace FF12Rando
                 {
                     Text = "Key Item Placement - Hunts",
                     ID = "KeyPlaceHunt",
-                    Description = "Key items are also allowed in hunt rewards."
+                    Description = "Key items are also allowed in hunt rewards and Jovy's reward."
                 }.Register(Treasures);
 
                 KeyPlaceClanRank = (ToggleFlagProperty)new ToggleFlagProperty()
@@ -118,7 +127,7 @@ namespace FF12Rando
                     Text = "Key Item Placement - Grindy",
                     ID = "KeyPlaceGrindy",
                     Description = "Key items are also allowed in grindy rewards.\n" +
-                    "This includes: Ann's Sister Quest reward"
+                    "This includes: Ann's Sister Quest reward, Hunt Club owner rewards"
                 }.Register(Treasures);
 
                 KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
@@ -134,11 +143,50 @@ namespace FF12Rando
                     "    Hard+++ - Locations of the highest depth/difficulty will tend to be preferred.",
                     Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
                 }.Register(Treasures);
+
+                CharacterScale = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Character Scaled Depth",
+                    ID = "KeyPlaceCharScale",
+                    Description = "Key items placed in later locations will require a certain amount of characters unlocked."
+                }.Register(Treasures);
+
+                Shops = new Flag()
+                {
+                    Text = "Randomize Shops",
+                    FlagID = "Shops",
+                    DescriptionFormat = "Randomize contents of shops. These items can appear in treasures or bazaars if those flags are on."
+                }.Register(FlagType.Items);
+
+                ShopsShared = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Same Shops in the Same Area",
+                    ID = "ShopsSameArea",
+                    Description = "Shops in the same area share the same contents."
+                }.Register(Shops);
+
+                ShopSize = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "",
+                    ID = "ShopSize",
+                    Description = "Set the maximum number of items per shop. Clan shop upgrades are maxed at 2.",
+                    ValueText = "Shop Size:",
+                    MinValue = 0,
+                    MaxValue = 30,
+                    StepSize = 1
+                }.Register(Shops);
+
+                Bazaars = new Flag()
+                {
+                    Text = "Randomize Bazaars",
+                    FlagID = "Bazaars",
+                    DescriptionFormat = "Randomize contents of bazaars. These items can appear in treasures or shops if those flags are on."
+                }.Register(FlagType.Items);
             }
         }
         public class Other
         {
-            public static Flag Party;
+            public static Flag Party, Music;
             public static Flag LicenseBoards, StartingBoards;
             public static Flag ExpMult, LPMult;
             public static Flag HintsMain, HintAbilities;
@@ -185,7 +233,7 @@ namespace FF12Rando
                     Description = "Set the specificity for the hints from main quests.\n\n" +
                     "Options:\n" +
                     "    Exact - Hints give the exact item in the exact location.\n" +
-                    "    Vague Type - Hints give the type ('Main Key Item'/'Side Key Item'/'Hunt Key Item'/'Ability'/'Other') in the exact location.\n" +
+                    "    Vague Type - Hints give the type ('Main Key Item'/'Side Key Item'/'Hunt Key Item'/'Chop'/'Black Orb'/'Writ of Transit'/'Trophy'/'Ability'/'Other') in the exact location.\n" +
                     "    Vague Area - Hints give the exact item in the area.\n" +
                     "    Unknown but Exact Location - Hints will hint that something ('?????') is in the exact location.\n" +
                     "    Random - Each hint will use one of the above rules.",
@@ -197,6 +245,15 @@ namespace FF12Rando
                     Text = "Hint Abilities",
                     FlagID = "HintAbi",
                     DescriptionFormat = "Hints will include information on abilities as well."
+                }.Register(FlagType.Other);
+
+                Music = new Flag()
+                {
+                    Text = "Shuffle Music",
+                    FlagID = "Music",
+                    DescriptionFormat = "Shuffle music around using the supplied music packs.\n" +
+                    "Music packs are required, even for music from the base game.",
+                    Aesthetic = true
                 }.Register(FlagType.Other);
 
                 ExpMult = new Flag()

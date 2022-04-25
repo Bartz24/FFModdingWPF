@@ -1,0 +1,53 @@
+<UserControl x:Class="FF12Rando.SetupPaths"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FF12Rando"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" d:DesignWidth="920.67" d:DesignHeight="171.409" >
+    <Grid>
+        <Grid.Resources >
+            <Style TargetType="Border" >
+                <Setter Property="Padding" Value="1,5,1,5" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <!--<RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />-->
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0">
+            <Label HorizontalAlignment="Right" VerticalAlignment="Center">FF12 VM Script Tools</Label>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="0">
+            <Label x:Name="ToolsTextLabel" VerticalAlignment="Center" Content="{Binding ToolsText, Mode=OneWay}" Foreground="{Binding ToolsTextColor, Mode=OneWay}"/>
+        </Border>
+        <Border Grid.Column="2" Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="toolsDownloadButton" Click="toolsDownloadButton_Click" Margin="0 0 5 0">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Download"/>
+                            <Label Margin="0 -6">Download</Label>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="toolsInstallButton" Click="toolsInstallButton_Click">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="TrayArrowDown"/>
+                            <Label Margin="0 -6">Install</Label>
+                        </StackPanel>
+                    </Button.Content></Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

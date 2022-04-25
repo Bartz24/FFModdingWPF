@@ -1,17 +1,7 @@
-WARNING: If the LAST previously played rando version was 0.1.0 or lower, you will need to first update Nova to 1.0.1 and do the following!!!
--Make sure Nova is on 1.0.1. Download links for Nova are on the rando github download page.
--Uninstall any mods if any have been installed on Nova 1.0.1.
--Delete Unpacked Game Data for LR (from the first tab of Nova).
--Unpack the data again.
+0.6.6 Changelog:
 
-(Ereshkigal shuffling corrupted unpacked data on old versions causing Bhuni to loop. So if you continue getting issues with Bhuni and have NOT done the above this could be the cause)
-
-If you need to view these instructions again, click the Changelog button in the bottom right of rando.
-
-
-0.6.4 Changelog:
-
--Fixed moogle fragment turn in not working if you complete Main Quest 5
--Fixed Aeronite fight despawning if you turn in monster flesh
--Aeronite no longer gets fed up (more like he will but it takes 99999 seconds)
--Moved adornments to the bottom of shops
+-Shuffled bosses now have stagger points adjusted
+-Fixed Aeronite still using Fed Up
+-Added libra note hints to documentation
+-Added ids to docs for tracker purposes
+-Fixed Chocobo Emporium not working after losing Spectral Elixir

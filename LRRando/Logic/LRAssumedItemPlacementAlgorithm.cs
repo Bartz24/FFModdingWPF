@@ -158,7 +158,7 @@ namespace LRRando
             return ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
         }
 
-        public override bool IsAllowed(string old, string rep)
+        public override bool IsAllowed(string old, string rep, bool orig = true)
         {
             if (!LRFlags.Items.Pilgrims.Enabled && (treasureRando.IsPilgrimKeyItem(rep) || treasureRando.IsPilgrimKeyItem(old)))
                 return old == rep;

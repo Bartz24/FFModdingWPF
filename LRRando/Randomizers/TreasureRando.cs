@@ -437,6 +437,8 @@ namespace LRRando
 
         public override HTMLPage GetDocumentation()
         {
+            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+            TextRando textRando = Randomizers.Get<TextRando>("Text");
             OrigBattleDrops.Keys.ForEach(name =>
             {
                 treasures[name].s11ItemResourceId_string = OrigBattleDrops[name];
@@ -459,13 +461,20 @@ namespace LRRando
 
             if (LRFlags.Items.Treasures.FlagEnabled && LRFlags.Other.HintsMain.FlagEnabled)
             {
-                TextRando textRando = Randomizers.Get<TextRando>("Text");
-
-                page.HTMLElements.Add(new Table("Hints", (new string[] { "Main Quest", "Hint" }).ToList(), (new int[] { 20, 80 }).ToList(), hintsMain.Keys.Select(h =>
+                page.HTMLElements.Add(new Table("Main Quest Hints", (new string[] { "Main Quest", "Hint" }).ToList(), (new int[] { 20, 80 }).ToList(), hintsMain.Keys.Select(h =>
                 {
                     return new string[] { hintData[h].Name, textRando.mainSysUS["$" + h].Replace("{Text NewLine}", "\n") }.ToList();
                 }).ToList()));
             }
+
+            if (LRFlags.Items.Treasures.FlagEnabled && LRFlags.Other.HintsNotes.FlagEnabled)
+            {
+                page.HTMLElements.Add(new Table("Libra Note Hints", (new string[] { "Libra Note", "Hint" }).ToList(), (new int[] { 20, 80 }).ToList(), hintsNotesLocations.Keys.Where(note => hintsNotesLocations[note] != null).Select(i =>
+                {
+                    return new string[] { GetItemName(i), textRando.mainSysUS[equipRando.items[i].sHelpStringId_string] }.ToList();
+                }).ToList()));
+            }
+
             return page;
         }
 

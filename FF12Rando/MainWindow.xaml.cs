@@ -77,16 +77,21 @@ namespace FF12Rando
             DataExtensions.Mode = ByteMode.LittleEndian;
 
             ChangelogText = File.ReadAllText(@"data\changelog.txt");
+
+            if (!Directory.Exists("data\\musicPacks"))
+                Directory.CreateDirectory("data\\musicPacks");
         }
 
         private async void generateButton_Click(object sender, RoutedEventArgs e)
         {
             RandomizerManager randomizers = new RandomizerManager();
             randomizers.Add(new TreasureRando(randomizers));
+            randomizers.Add(new EquipRando(randomizers));
             randomizers.Add(new LicenseBoardRando(randomizers));
             randomizers.Add(new EnemyRando(randomizers));
             randomizers.Add(new ShopRando(randomizers));
             randomizers.Add(new TextRando(randomizers));
+            randomizers.Add(new MusicRando(randomizers));
 
 #if DEBUG
             bool tests = false;
@@ -162,14 +167,16 @@ namespace FF12Rando
                             }
                         }
 
-                        docs.Generate(@"packs\docs_latest", @"data\docs\template");
-                        SaveSeedJSON(@"packs\docs_latest\FF12Rando_" + seed + "_Seed.json");
-                        string zipDocsName = $"packs\\FF12Rando_{seed}_Docs.zip";
+                        docs.Generate(@"docs\docs_latest", @"data\docs\template");
+                        SaveSeedJSON(@"docs\docs_latest\FF12Rando_" + seed + "_Seed.json");
+                        string zipDocsName = $"docs\\FF12Rando_{seed}_Docs.zip";
                         if (File.Exists(zipDocsName))
                             File.Delete(zipDocsName);
-                        ZipFile.CreateFromDirectory(@"packs\docs_latest", zipDocsName);
+                        ZipFile.CreateFromDirectory(@"docs\docs_latest", zipDocsName);
 
-                        SetProgressBar($"Complete! Ready to play! The documentation has been generated in the packs folder of this application.", 100);
+                        File.WriteAllText("outdata\\rando.seed", "");
+
+                        SetProgressBar($"Complete! Ready to play! The documentation has been generated in the docs folder of this application.", 100);
                     });
                     this.IsEnabled = true;
                 }
@@ -230,9 +237,9 @@ namespace FF12Rando
 
         private void openModpackFolder_Click(object sender, RoutedEventArgs e)
         {
-            string dir = Directory.GetCurrentDirectory() + "\\packs";
+            string dir = Directory.GetCurrentDirectory() + "\\docs";
             if (!Directory.Exists(dir) || Directory.GetFiles(dir).Length == 0)
-                MessageBox.Show("No modpacks seem to be generated. Generate one first.", "No modpacks generated.");
+                MessageBox.Show("No docs seem to be generated. Generate a seed first first.", "No docs generated.");
             else
                 Process.Start("explorer.exe", dir);
         }

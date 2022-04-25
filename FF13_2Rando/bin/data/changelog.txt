@@ -1,5 +1,5 @@
-0.6.3 Changelog:
+0.6.6 Changelog:
 
--Fixed seed generation getting stuck on more restrictive item placement
--Fixed randomized events not giving fragments correctly
--Gorgyra and Ugallu spawns are now black portal spawns
+-Added weapon stat rando flag
+-Added equipment passive rando flag
+-Added more passive abilities to the pool for weapons and monster crystarium

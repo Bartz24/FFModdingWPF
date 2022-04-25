@@ -1,0 +1,67 @@
+Name,ID,Location,Traits
+Amal's Weaponry,48,Rabanastre,
+Panamis's Protectives,49,Rabanastre,
+Yugri's Magicks,51,Rabanastre,
+Batahn's Technicks,52,Rabanastre,
+Migelo's Sundries,50,Rabanastre,
+Yamoora's Gambits,53,Rabanastre,
+Clan Provisioner 1,13,Clan Hall,Unique
+Clan Provisioner 2,12,Clan Hall,Unique
+Clan Provisioner 3,11,Clan Hall,Unique
+Clan Provisioner 4,10,Clan Hall,Unique
+Clan Provisioner 5,9,Clan Hall,Unique
+Clan Provisioner 6,8,Clan Hall,Unique
+Clan Provisioner 7,7,Clan Hall,Unique
+Clan Provisioner 8,6,Clan Hall,Unique
+Clan Provisioner 9,5,Clan Hall,Unique
+Clan Provisioner 10,4,Clan Hall,Unique
+Clan Provisioner 11,3,Clan Hall,Unique
+Clan Provisioner 12,2,Clan Hall,Unique|Missable
+Travelling Merchant North,0,Lowtown,
+Travelling Merchant South,1,Lowtown,
+Weapons of War,14,Nalbina Fortress,
+Antiqued Armors,15,Nalbina Fortress,
+Mysterious Magicks,17,Nalbina Fortress,
+Troublesome Technicks,19,Nalbina Fortress,
+Portentous Provisions,16,Nalbina Fortress,
+Morning Star Gambits,18,Nalbina Fortress,
+Targe's Arms,54,Bhujerba,
+Rithil's Protectives,55,Bhujerba,
+Mait's Magicks,56,Bhujerba,
+Clio's Technicks,57,Bhujerba,
+Street Vendor,24,Bhujerba,
+Bashketi's Gambits,58,Bhujerba,
+Vint's Armaments Weapons,59,Archades,
+Vint's Armaments Armors,60,Archades,
+Charlotte's Magickery,62,Archades,
+Bulward's Technicks,63,Archades,
+Granch's Requisites,61,Archades,
+Lebleu's Gambits,64,Archades,
+Beruny's Armaments Weapons,65,Balfonheim,
+Beruny's Armaments Armors,66,Balfonheim,
+Quayside Magickery,38,Balfonheim,
+Odo's Technicks,67,Balfonheim,
+The Leapin' Bangaa,37,Balfonheim,
+Waterfront Gambits,39,Balfonheim,
+Dyce,29,Balfonheim,
+Unlucky Merchant,20,Estersand,
+Lohen,21,Westersand,
+Arjie,22,Giza Plains Dry,
+Burrough,23,Barheim Passage,Unique
+Tetran,25,Dreadnought Leviathan,Missable
+Garif Trader,30,Jahara,
+Tetran,31,Eruyt Village,
+Hume,32,Mt. Bur-Omisace,
+Seeq,33,Mt. Bur-Omisace,
+Luccio,34,Mosphoran Highwaste,
+Vendor of Goods,35,Phon Coast,
+Stranded Merchant,36,Old Archades,
+Baknamy,27,Necrohol of Nabudis,Unique
+Storekeeper (Rabanastre <-> Bhujerba),40,Skyferry,
+Storekeeper (Rabanastre <-> Nalbina),41,Skyferry,
+Storekeeper (Rabanastre <-> Archades),42,Skyferry,
+Storekeeper (Nalbina <-> Archades),43,Skyferry,
+Storekeeper (Nalbina <-> Balfonheim),44,Skyferry,
+Storekeeper (Bhujerba <-> Balfonheim),45,Skyferry,
+Storekeeper (Archades <-> Balfonheim),46,Skyferry,
+Storekeeper (All),47,Skyferry,

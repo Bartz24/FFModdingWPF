@@ -1,0 +1,141 @@
+{
+  "name": "4 - Hopeless",
+  "version": "0.6.5",
+  "flags": [
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "KeyMain"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeySide"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyGrindy"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyHunt"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyOrb"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyTrophy"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyWrit"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceTreas"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceHunt"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceRank"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceClanBoss"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceClanEsper"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceGrindy"
+        },
+        {
+          "SelectedValue": "Hard+++",
+          "ID": "KeyDepth"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyPlaceCharScale"
+        }
+      ],
+      "FlagID": "Treasures"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": false,
+          "ID": "ShopsSameArea"
+        },
+        {
+          "Value": 10,
+          "ID": "ShopSize"
+        }
+      ],
+      "FlagID": "Shops"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Bazaars"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandParty"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandBoards"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "StartBoards"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "SelectedValue": "Random",
+          "ID": "HintsSpecific"
+        }
+      ],
+      "FlagID": "HintsMain"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "HintAbi"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [
+        {
+          "Value": 0,
+          "ID": "EXPMultAmt"
+        }
+      ],
+      "FlagID": "EXPMult"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [
+        {
+          "Value": 0,
+          "ID": "LPMultAmt"
+        }
+      ],
+      "FlagID": "LPMult"
+    }
+  ]
+}

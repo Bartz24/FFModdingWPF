@@ -277,7 +277,7 @@ namespace Bartz24.RandoWPF
         }
         public abstract bool RequiresLogic(string location);
         public abstract bool IsValid(string location, string replacement, string area, Dictionary<string, int> items, List<string> areasAvailable);
-        public abstract bool IsAllowed(string old, string rep);
+        public abstract bool IsAllowed(string old, string rep, bool orig = true);
         public abstract int GetNextDepth(Dictionary<string, int> items, string location);
         public abstract bool RequiresDepthLogic(string location);
         public abstract bool IsHintable(string location);

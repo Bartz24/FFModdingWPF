@@ -83,6 +83,7 @@
                             <TextBlock Margin="5"/>
                         </DockPanel>
                         <rando:SetupPage>
+                            <local:SetupPaths/>
                         </rando:SetupPage>
                     </DockPanel>
                 </TabItem>
@@ -107,7 +108,7 @@
                                     Style="{StaticResource MaterialDesignFlatButton}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock>Continue to 3. Finish</TextBlock>
+                                        <TextBlock>Continue to 3. Music</TextBlock>
                                         <materialDesign:PackIcon Kind="ArrowRight"/>
                                     </StackPanel>
                                 </Button.Content>
@@ -120,7 +121,7 @@
                 <TabItem Width="100" Height="50">
                     <TabItem.Header>
                         <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5">
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="3. Finish"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="3. Music"/>
                         </Button>
                     </TabItem.Header>
                     <DockPanel>
@@ -131,6 +132,37 @@
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="ArrowLeft"/>
                                         <TextBlock>Back to 2. Flags</TextBlock>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button DockPanel.Dock="Right" Click="NextStepButton_Click"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Continue to 4. Finish</TextBlock>
+                                        <materialDesign:PackIcon Kind="ArrowRight"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <TextBlock Margin="5"/>
+                        </DockPanel>
+                        <rando:MusicPage/>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Width="100" Height="50">
+                    <TabItem.Header>
+                        <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="4. Finish"/>
+                        </Button>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Bottom">
+                            <Button DockPanel.Dock="Left" Click="PrevStepButton_Click"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ArrowLeft"/>
+                                        <TextBlock>Back to 3. Music</TextBlock>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
@@ -150,7 +182,7 @@
                                 </Grid.RowDefinitions>
                                 <Button Margin="2" Grid.Column="0" Grid.Row="0" 
                                         Click="openModpackFolder_Click"
-                                        ToolTip="Open the folder containing the packs and documentation spoiler logs.">Open Modpack/Docs Folder</Button>
+                                        ToolTip="Open the folder containing the documentation spoiler logs.">Open Docs Folder</Button>
                                 <Button Margin="2" Grid.Column="1" Grid.Row="0" 
                                         Click="shareSeedFolder_Click"
                                         ToolTip="Export the current seed and flags to a JSON file to share.">Share Current Seed with Flags (JSON)</Button>

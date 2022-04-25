@@ -24,7 +24,7 @@ namespace Bartz24.RandoWPF
             foreach (string rep in remainingLogic)
             {
                 Tuple<string, int> nextItem = GetLocationItem(rep);
-                RemoveItems(items, nextItem, rep);
+                RemoveItems(locations, items, nextItem, rep);
                 if (nextItem == null)
                 {
                     if (ItemLocations[rep].Traits.Contains("Fake"))
@@ -60,7 +60,7 @@ namespace Bartz24.RandoWPF
             foreach (string rep in remainingOther)
             {
                 Tuple<string, int> nextItem = GetLocationItem(rep);
-                RemoveItems(items, nextItem, rep);
+                RemoveItems(locations, items, nextItem, rep);
                 if (nextItem == null)
                 {
                     if (ItemLocations[rep].Traits.Contains("Fake"))
@@ -90,7 +90,7 @@ namespace Bartz24.RandoWPF
             return false;
         }
 
-        public virtual void RemoveItems(Dictionary<string, int> items, Tuple<string, int> nextItem, string rep)
+        public virtual void RemoveItems(List<string> locations, Dictionary<string, int> items, Tuple<string, int> nextItem, string rep)
         {
             if (nextItem != null)
                 items[nextItem.Item1] -= nextItem.Item2;

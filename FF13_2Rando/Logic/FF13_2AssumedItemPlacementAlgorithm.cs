@@ -197,7 +197,7 @@ namespace FF13_2Rando
             return list;
         }
 
-        public override bool IsAllowed(string old, string rep)
+        public override bool IsAllowed(string old, string rep, bool orig = true)
         {
             if (!FF13_2Flags.Items.KeyWild.Enabled && (IsWildArtefactKeyItem(rep) || IsWildArtefactKeyItem(old)))
                 return old == rep;

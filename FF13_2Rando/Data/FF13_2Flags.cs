@@ -10,9 +10,61 @@ namespace FF13_2Rando
         public enum FlagType
         {
             All = -1,
+            Stats,
             Items,
             Enemies,
             Other
+        }
+        public class Stats
+        {
+            public static Flag RandCrystAbi;
+            public static Flag InitCP;
+            public static NumberFlagProperty InitCPAmount;
+            public static Flag EquipStats, EquipPassives;
+
+            internal static void Init()
+            {
+                RandCrystAbi = new Flag()
+                {
+                    Text = "Randomize Crystarium Abilities",
+                    FlagID = "RandCrystAbi",
+                    DescriptionFormat = "Randomizes the crystarium abilities.",
+                    Aesthetic = true
+                }.Register(FlagType.Stats);
+
+                InitCP = new Flag()
+                {
+                    Text = "Start with CP",
+                    FlagID = "InitCP",
+                    DescriptionFormat = "Start with a specified amount of CP set below.",
+                    Aesthetic = true
+                }.Register(FlagType.Stats);
+
+                InitCPAmount = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "",
+                    ID = "InitCPAmt",
+                    Description = "",
+                    ValueText = "CP:",
+                    MinValue = 500,
+                    MaxValue = 10000,
+                    StepSize = 500
+                }.Register(InitCP);
+
+                EquipStats = new Flag()
+                {
+                    Text = "Randomize Weapon Stats",
+                    FlagID = "RandEqStat",
+                    DescriptionFormat = "Randomize weapon stats."
+                }.Register(FlagType.Stats);
+
+                EquipPassives = new Flag()
+                {
+                    Text = "Randomize Equipment Passive Abilities",
+                    FlagID = "RandPassive",
+                    DescriptionFormat = "Randomize passive abilities on weapons and accessories."
+                }.Register(FlagType.Stats);
+            }
         }
         public class Items
         {
@@ -144,25 +196,13 @@ namespace FF13_2Rando
         }
         public class Other
         {
-            public static Flag RandCrystAbi;
             public static Flag HistoriaCrux;
-            public static Flag InitCP;
             public static Flag Music;
             public static ComboBoxFlagProperty ForcedStart;
             public static ToggleFlagProperty RandoDLC;
-            public static NumberFlagProperty InitCPAmount;
 
             internal static void Init()
             {
-                RandCrystAbi = new Flag()
-                {
-                    Text = "Randomize Crystarium Abilities",
-                    FlagID = "RandCrystAbi",
-                    DescriptionFormat = "Randomizes the crystarium abilities.",
-                    Aesthetic = true
-                }.Register(FlagType.Other);
-
-
                 HistoriaCrux = new Flag()
                 {
                     Text = "Randomize Historia Crux",
@@ -198,31 +238,13 @@ namespace FF13_2Rando
                     DescriptionFormat = "Shuffle music around.",
                     Aesthetic = true
                 }.Register(FlagType.Other);
-
-                InitCP = new Flag()
-                {
-                    Text = "Start with CP",
-                    FlagID = "InitCP",
-                    DescriptionFormat = "Start with a specified amount of CP set below.",
-                    Aesthetic = true
-                }.Register(FlagType.Other);
-
-                InitCPAmount = (NumberFlagProperty)new NumberFlagProperty()
-                {
-                    Text = "",
-                    ID = "InitCPAmt",
-                    Description = "",
-                    ValueText = "CP:",
-                    MinValue = 500,
-                    MaxValue = 10000,
-                    StepSize = 500
-                }.Register(InitCP);
             }
         }
 
         public static void Init()
         {
             Flags.FlagsList.Clear();
+            Stats.Init();
             Items.Init();
             Enemies.Init();
             Other.Init();

@@ -34,6 +34,26 @@ namespace Bartz24.FF12
             }
         }
 
+        public List<string> GetItems()
+        {
+            return ItemsList.Select(i => i.Item.ToString("X4")).Where(i => i != "FFFF").ToList();
+        }
+
+        public void SetItems(List<string> items)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (i >= items.Count)
+                    ItemsList[i].Item = 0xFFFF;
+                else
+                {
+                    ushort id = Convert.ToUInt16(items[i], 16);
+                    ItemsList[i].Item = id;
+                }
+            }
+        }
+
+
         public override int GetDefaultLength()
         {
             return -1;

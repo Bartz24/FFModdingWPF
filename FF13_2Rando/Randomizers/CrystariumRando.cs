@@ -23,7 +23,7 @@ namespace FF13_2Rando
         public DataStoreDB3<DataStoreRGrowPc> crystNoel = new DataStoreDB3<DataStoreRGrowPc>();
         public DataStoreDB3<DataStoreRGrowSt> crystMonster = new DataStoreDB3<DataStoreRGrowSt>();
 
-        Dictionary<string, AbilityData> abilityData = new Dictionary<string, AbilityData>();
+        public Dictionary<string, AbilityData> abilityData = new Dictionary<string, AbilityData>();
 
         public CrystariumRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -54,9 +54,9 @@ namespace FF13_2Rando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            if (FF13_2Flags.Other.RandCrystAbi.FlagEnabled)
+            if (FF13_2Flags.Stats.RandCrystAbi.FlagEnabled)
             {
-                FF13_2Flags.Other.RandCrystAbi.SetRand();
+                FF13_2Flags.Stats.RandCrystAbi.SetRand();
                 {
                     List<string> learned = new List<string>();
                     crystSerah.Values.Where(c => c.sAbilityId_string != "").ForEach(c =>
