@@ -58,19 +58,19 @@ namespace FF12Rando
 
         public override bool IsHintable(string location)
         {
-            if (!FF12Flags.Items.KeyMain.Enabled && treasureRando.IsMainKeyItem(location))
+            if (FF12Flags.Items.KeyMain.Enabled && treasureRando.IsMainKeyItem(location))
                 return true;
-            if (!FF12Flags.Items.KeySide.Enabled && treasureRando.IsSideKeyItem(location))
+            if (FF12Flags.Items.KeySide.Enabled && treasureRando.IsSideKeyItem(location))
                 return true;
-            if (!FF12Flags.Items.KeyWrit.Enabled && treasureRando.IsWoTItem(location))
+            if (FF12Flags.Items.KeyWrit.Enabled && treasureRando.IsWoTItem(location))
                 return true;
-            if (!FF12Flags.Items.KeyGrindy.Enabled && treasureRando.IsGrindyKeyItem(location))
+            if (FF12Flags.Items.KeyGrindy.Enabled && treasureRando.IsGrindyKeyItem(location))
                 return true;
-            if (!FF12Flags.Items.KeyOrb.Enabled && treasureRando.IsBlackOrbKeyItem(location))
+            if (FF12Flags.Items.KeyOrb.Enabled && treasureRando.IsBlackOrbKeyItem(location))
                 return true;
-            if (!FF12Flags.Items.KeyHunt.Enabled && treasureRando.IsHuntKeyItem(location))
+            if (FF12Flags.Items.KeyHunt.Enabled && treasureRando.IsHuntKeyItem(location))
                 return true;
-            if (!FF12Flags.Items.KeyTrophy.Enabled && treasureRando.IsHuntClubKeyItem(location))
+            if (FF12Flags.Items.KeyTrophy.Enabled && treasureRando.IsHuntClubKeyItem(location))
                 return true;
             if (FF12Flags.Other.HintAbilities.FlagEnabled && treasureRando.IsAbility(location))
                 return true;

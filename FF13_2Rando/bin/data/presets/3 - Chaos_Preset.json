@@ -1,6 +1,6 @@
 {
   "name": "3 - Chaos",
-  "version": "0.6.6",
+  "version": "0.6.8",
   "flags": [
     {
       "FlagEnabled": true,
@@ -26,6 +26,16 @@
       "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "RandPassive"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Value": 15,
+          "ID": "AccWRange"
+        }
+      ],
+      "FlagID": "RandAccW"
     },
     {
       "FlagEnabled": true,

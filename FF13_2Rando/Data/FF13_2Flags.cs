@@ -19,8 +19,8 @@ namespace FF13_2Rando
         {
             public static Flag RandCrystAbi;
             public static Flag InitCP;
-            public static NumberFlagProperty InitCPAmount;
-            public static Flag EquipStats, EquipPassives;
+            public static NumberFlagProperty InitCPAmount, WeightRange;
+            public static Flag EquipStats, EquipPassives, EquipWeights;
 
             internal static void Init()
             {
@@ -64,6 +64,24 @@ namespace FF13_2Rando
                     FlagID = "RandPassive",
                     DescriptionFormat = "Randomize passive abilities on weapons and accessories."
                 }.Register(FlagType.Stats);
+
+                EquipWeights = new Flag()
+                {
+                    Text = "Randomize Accessory Weights",
+                    FlagID = "RandAccW",
+                    DescriptionFormat = "Randomize accessory weights."
+                }.Register(FlagType.Stats);
+
+                WeightRange = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "",
+                    ID = "AccWRange",
+                    Description = "",
+                    ValueText = "+/-",
+                    MinValue = 0,
+                    MaxValue = 100,
+                    StepSize = 5
+                }.Register(EquipWeights);
             }
         }
         public class Items

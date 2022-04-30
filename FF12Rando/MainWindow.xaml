@@ -149,6 +149,7 @@
                         <rando:MusicPage>
                             <Label>Music packs are required for music rando. This includes music packs with music from FF12.</Label>
                             <Label>These packs can be found on the Nexusmods page for the randomizer.</Label>
+                            <Label>Note: Music packs are designed for the Reorchestrated option. Original and OST will be silent.</Label>
                             <Separator/>
                             <Label FontSize="20">Music Packs</Label>
                         </rando:MusicPage>

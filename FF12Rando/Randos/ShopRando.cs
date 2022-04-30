@@ -97,7 +97,8 @@ namespace FF12Rando
 
                     b.Item1ID = Convert.ToUInt16(items[0], 16);
                     b.Item1Amount = 1;
-                    b.Flag = BazaarType.NonRepeatable;
+                    if (b.Flag == BazaarType.Repeatable)
+                        b.Flag = BazaarType.NonRepeatable;
 
                     if (items.Count > 1)
                     {

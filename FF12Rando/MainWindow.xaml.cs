@@ -81,6 +81,10 @@ namespace FF12Rando
             if (!Directory.Exists("data\\musicPacks"))
                 Directory.CreateDirectory("data\\musicPacks");
         }
+        private static bool ToolsInstalled()
+        {
+            return File.Exists("data\\tools\\ff12-text.exe") && File.Exists("data\\tools\\ff12-ebppack.exe") && File.Exists("data\\tools\\ff12-ebpunpack.exe");
+        }
 
         private async void generateButton_Click(object sender, RoutedEventArgs e)
         {
@@ -92,6 +96,21 @@ namespace FF12Rando
             randomizers.Add(new ShopRando(randomizers));
             randomizers.Add(new TextRando(randomizers));
             randomizers.Add(new MusicRando(randomizers));
+
+#if !DEBUG
+            if (!File.Exists("..\\FFXII_TZA.exe"))
+            {
+                MessageBox.Show("Can't detect FFXII_TZA.exe. Make sure to run the randomizer from the steam folder of FF12.", "Incorrect location.");
+                return;
+            }
+#endif
+
+
+            if (!ToolsInstalled())
+            {
+                MessageBox.Show("Text and script tools are not installed. Download and install them on 1. Setup.", "Tools missing.");
+                return;
+            }
 
 #if DEBUG
             bool tests = false;

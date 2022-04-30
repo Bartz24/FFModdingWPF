@@ -1,14 +1,5 @@
-0.6.7 Changelog:
+0.6.8 Changelog:
 
--Redone UI, flags, and logic
--Now requires VM Script tools for text editing (download link in rando program)
--New item placement logic allowing multiple key items per reward and more unique seeds
--Added equipment stat, element, augment, and status effect rando
--Added hunt club trophies and related rewards flag
--Added music rando (requires music packs even for base game music)
--Added Omega Mark XII Clan Boss reward to pool
--Added Viera Rendevous, Ktjn, and Jovy rewards to pool
--Added Outpost mysterious glints to pool
--Added Footrace reward to pool (only have to complete once)
--Multiple hints are given at a time by the cartographers now
--Fixed Pharos elevator being accessible early
+-Fixed monograph bazaars not working
+-Fixed hints for key items not working
+-Fixed Outpost glints and Ktjn rewards not working correctly

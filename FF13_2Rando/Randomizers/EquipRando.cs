@@ -52,6 +52,13 @@ namespace FF13_2Rando
                 RandomizePassives();
                 RandomNum.ClearRand();
             }
+
+            if (FF13_2Flags.Stats.EquipWeights.FlagEnabled)
+            {
+                FF13_2Flags.Stats.EquipWeights.SetRand();
+                RandomizeWeights();
+                RandomNum.ClearRand();
+            }
         }
 
 
@@ -101,6 +108,15 @@ namespace FF13_2Rando
             {
                 IList<AbilityData> list = filteredAbilities.Where(a => a.ID != equip.sAbility_string && a.ID != equip.sAbility2_string && (!a.Traits.Contains("Noel") || equip.name.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.name.Contains("ser"))).ToList().Shuffle();
                 equip.sAbility3_string = list.First().ID;
+            }
+        }
+
+        private void RandomizeWeights()
+        {
+            foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(e => e.u7Cost > 0))
+            {
+                int range = FF13_2Flags.Stats.WeightRange.Value;
+                equip.u7Cost = RandomNum.RandInt(Math.Max(1, equip.u7Cost - range), Math.Min(100, equip.u7Cost + range));
             }
         }
 

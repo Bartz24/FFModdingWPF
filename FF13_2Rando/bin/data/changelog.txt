@@ -1,5 +1,6 @@
-0.6.6 Changelog:
+0.6.8 Changelog:
 
--Added weapon stat rando flag
--Added equipment passive rando flag
--Added more passive abilities to the pool for weapons and monster crystarium
+-Added accessory weight rando flag
+-Enemies with summons limited in larger encounters
+-Removed broken/hidden passive
+-Fixed Sunleth 400 crash

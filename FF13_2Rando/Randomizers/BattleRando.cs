@@ -226,7 +226,7 @@ namespace FF13_2Rando
             }
             else
             {
-                while (charSpecs.Count == 0 || charSpecs.Count > 10)
+                while (charSpecs.Count == 0 || charSpecs.Count > 5)
                 {
                     charSpecs.Clear();
                     newEnemies.Clear();
@@ -278,9 +278,9 @@ namespace FF13_2Rando
 
                     }
                     charSpecs.AddRange(newEnemies.Select(e => e.ID));
+                    newEnemies.Where(e => e.Parts.Count > 0).Distinct().ForEach(e => charSpecs.AddRange(e.Parts));
                 }
             }
-            newEnemies.Where(e => e.Parts.Count > 0).Distinct().ForEach(e => charSpecs.AddRange(e.Parts));
         }
 
         private List<string> IgnoredBtScenes

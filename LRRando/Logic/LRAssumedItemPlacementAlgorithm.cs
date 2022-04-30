@@ -54,7 +54,7 @@ namespace LRRando
         {
             return req.GetPossibleRequirements().Select(item =>
             {
-                return Placement.Keys.Where(t => GetLocationItem(Placement[t]).Item1 == item).Select(t => Depths[t]).DefaultIfEmpty(0).Max();
+                return Placement.Keys.Where(t => GetLocationItem(Placement[t]).Item1 == item).Select(t => Depths[t] + GetReqsMaxDepth(ItemLocations[t].Requirements)).DefaultIfEmpty(0).Max();
             }).DefaultIfEmpty(0).Max();
         }
 
@@ -76,11 +76,21 @@ namespace LRRando
 
         public override bool IsHintable(string location)
         {
-            if (treasureRando.IsImportantKeyItem(location) && !treasureRando.IsPilgrimKeyItem(location))
+            if (LRFlags.Items.Pilgrims.Enabled && LRFlags.Other.HintsPilgrim.FlagEnabled && treasureRando.IsPilgrimKeyItem(location))
                 return true;
-            if (treasureRando.IsPilgrimKeyItem(location) && LRFlags.Other.HintsPilgrim.FlagEnabled)
+            if (LRFlags.Items.KeyMain.Enabled && treasureRando.IsMainKeyItem(location))
                 return true;
-            if (LRFlags.Other.HintsEP.FlagEnabled && (GetLocationItem(location).Item1.StartsWith("ti") || GetLocationItem(location).Item1 == "at900_00"))
+            if (LRFlags.Items.KeySide.Enabled && treasureRando.IsSideKeyItem(location))
+                return true;
+            if (LRFlags.Items.KeyCoP.Enabled && treasureRando.IsCoPKeyItem(location))
+                return true;
+            if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled && GetLocationItem(location).Item1 == "ti830_00")
+                return false;
+            if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled && GetLocationItem(location).Item1 == "ti840_00")
+                return false;
+            if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled && GetLocationItem(location).Item1 == "ti810_00")
+                return false;
+            if (LRFlags.Other.HintsEP.FlagEnabled && treasureRando.IsEPAbility(location))
                 return true;
             return false;
         }
