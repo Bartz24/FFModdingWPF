@@ -146,7 +146,12 @@
                             </Button>
                             <TextBlock Margin="5"/>
                         </DockPanel>
-                        <rando:MusicPage/>
+                        <rando:MusicPage>
+                            <Label>Music packs are required for music rando. This includes music packs with music from FF12.</Label>
+                            <Label>These packs can be found on the Nexusmods page for the randomizer.</Label>
+                            <Separator/>
+                            <Label FontSize="20">Music Packs</Label>
+                        </rando:MusicPage>
                     </DockPanel>
                 </TabItem>
                 <TabItem Width="100" Height="50">

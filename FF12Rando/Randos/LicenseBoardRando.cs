@@ -19,6 +19,11 @@ namespace FF12Rando
         Dictionary<string, DataStoreLicenseBoard> rightSplitBoards = new Dictionary<string, DataStoreLicenseBoard>();
         int[] startingBoards = new int[6];
 
+        string[] LeftBoardNames = new string[] { "Astrologer", "Dark Bishop", "Elementalist", "Enchanter", "Gambler", "Innkeeper", "Loremaster", "Nightshade", "Red Mage", "Shaman", "Sorceror Supreme", "White Mage" };
+        string[] RightBoardNames = new string[] { "Black Belt", "Brawler", "Demolitionist", "Gladiator", "Hunter", "Ninja", "Ravager", "Rogue", "Samurai", "Valkyrie", "Viking", "Weaponmaster" };
+        string[] LeftBoardShort = new string[] { "AST", "DBP", "ELE", "ENC", "GMB", "INN", "LOR", "NSH", "RDM", "SMN", "SRC", "WHM" };
+        string[] RightBoardShort = new string[] { "BLT", "BWR", "DEM", "GLD", "HNT", "NIN", "RAV", "ROG", "SAM", "VAL", "VKG", "WPN" };
+
         public LicenseBoardRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
@@ -64,6 +69,7 @@ namespace FF12Rando
         public override void Randomize(Action<int> progressSetter)
         {
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            TextRando textRando = Randomizers.Get<TextRando>("Text");
 
             if (FF12Flags.Other.LicenseBoards.FlagEnabled)
             {
@@ -74,6 +80,9 @@ namespace FF12Rando
                 {
                     AddBoard(boards[i], leftSplitBoards.Values.ToList()[left[i]]);
                     AddBoard(boards[i], rightSplitBoards.Values.ToList()[right[i]]);
+
+                    textRando.TextMenuMessage[104 + i].Text = LeftBoardNames[left[i]] + " - " + RightBoardNames[right[i]] + "\n {0x0f}où Preview License Board";
+                    textRando.TextMenuCommand[5 + i].Text = LeftBoardShort[left[i]] + "-" + RightBoardShort[right[i]];
                 }
                 RandomNum.ClearRand();
             }

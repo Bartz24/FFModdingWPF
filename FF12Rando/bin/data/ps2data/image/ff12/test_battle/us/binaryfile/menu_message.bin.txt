@@ -1,0 +1,764 @@
+{format:st2e}
+
+{dialog 0 id=20000}
+Dismiss {arg0}?
+{/dialog}
+
+{dialog 1 id=20001}
+No Available Targets
+{/dialog}
+
+{dialog 2 id=20002}
+{/dialog}
+
+{dialog 3 id=20100}
+{amount0} gil
+{/dialog}
+
+{symlink 4 link=2, id=20101}
+
+{symlink 5 link=2, id=20200}
+
+{symlink 6 link=2, id=20201}
+
+{symlink 7 link=2, id=20202}
+
+{dialog 8 id=20203}
+(No items in inventory.)
+{/dialog}
+
+{dialog 9 id=20204}
+(No status effects.)
+{/dialog}
+
+{symlink 10 link=2, id=20205}
+
+{symlink 11 link=2, id=20206}
+
+{symlink 12 link=2, id=20207}
+
+{symlink 13 link=2, id=20208}
+
+{symlink 14 link=2, id=20209}
+
+{symlink 15 link=2, id=20210}
+
+{symlink 16 link=2, id=20211}
+
+{symlink 17 link=2, id=20212}
+
+{symlink 18 link=2, id=20213}
+
+{symlink 19 link=2, id=20214}
+
+{symlink 20 link=2, id=20215}
+
+{symlink 21 link=2, id=20216}
+
+{symlink 22 link=2, id=20217}
+
+{symlink 23 link=2, id=20300}
+
+{symlink 24 link=2, id=20301}
+
+{symlink 25 link=2, id=20302}
+
+{symlink 26 link=2, id=20303}
+
+{symlink 27 link=2, id=20400}
+
+{symlink 28 link=2, id=20401}
+
+{symlink 29 link=2, id=20402}
+
+{symlink 30 link=2, id=20403}
+
+{symlink 31 link=2, id=20404}
+
+{symlink 32 link=2, id=20405}
+
+{symlink 33 link=2, id=20500}
+
+{dialog 34 id=20550}
+Start a new game
+{/dialog}
+
+{dialog 35 id=20551}
+Adjust screen position until the entire frame bordering
+this screen is visible on your monitor. If the frame is
+already visible, no adjustment is necessary.
+{/dialog}
+
+{symlink 36 link=2, id=20552}
+
+{symlink 37 link=2, id=20553}
+
+{symlink 38 link=2, id=20554}
+
+{symlink 39 link=2, id=20555}
+
+{symlink 40 link=2, id=20556}
+
+{symlink 41 link=2, id=20557}
+
+{symlink 42 link=2, id=20558}
+
+{dialog 43 id=20559}
+The two halves of the block at left should
+appear slightly different shades of black.
+{/dialog}
+
+{dialog 44 id=20560}
+Restore all settings to their default values?
+{/dialog}
+
+{symlink 45 link=2, id=20600}
+
+{symlink 46 link=2, id=20601}
+
+{dialog 47 id=20700}
+Fly to {arg0}?
+{/dialog}
+
+{dialog 48 id=20701}
+Leave the Strahl?
+{/dialog}
+
+{dialog 49 id=20702}
+Once you leave for Bahamut you will not
+be able to return. Continue?
+{/dialog}
+
+{symlink 50 link=2, id=20703}
+
+{dialog 51 id=20800}
+Equip your purchase now?
+{/dialog}
+
+{dialog 52 id=20801}
+(Nothing equipped.)
+{/dialog}
+
+{dialog 53 id=20802}
+New bazaar goods are now available!
+{/dialog}
+
+{symlink 54 link=2, id=20803}
+
+{symlink 55 link=2, id=20900}
+
+{symlink 56 link=2, id=20901}
+
+{symlink 57 link=2, id=20902}
+
+{symlink 58 link=2, id=21000}
+
+{symlink 59 link=2, id=21001}
+
+{symlink 60 link=2, id=21100}
+
+{symlink 61 link=2, id=21101}
+
+{dialog 62 id=21102}
+Checking save data...
+Please do not close FINAL FANTASY ⑫ THE ZODIAC AGE
+before these checks are complete.
+{/dialog}
+
+{dialog 63 id=21103}
+No memory card (PS2) found in
+MEMORY CARD {arg0}.
+{/dialog}
+
+{dialog 64 id=21104}
+Failed to read memory card (PS2)
+in MEMORY CARD {arg0}.
+{/dialog}
+
+{dialog 65 id=21105}
+Insufficient disk space.
+In order to create a save game, at least
+{amount0}KB of free space is required.
+{/dialog}
+
+{dialog 66 id=21106}
+Memory card (PS2) in MEMORY CARD {arg0}
+is not formatted. Format it now?
+{/dialog}
+
+{dialog 67 id=21107}
+Formatting memory card (PS2). Do not
+remove/insert memory card (PS2) or
+DUALSHOCK㊦2 analog controller.
+{/dialog}
+
+{dialog 68 id=21108}
+Failed to format memory card (PS2).
+{/dialog}
+
+{dialog 69 id=21109}
+Save data for FINAL FANTASY ⑫ THE ZODIAC AGE
+already exists. Overwrite it?
+{/dialog}
+
+{dialog 70 id=21110}
+{color:18}If you resume from this file,
+all trial mode progress will be lost.
+Are you sure you wish to proceed?{white}
+{/dialog}
+
+{dialog 71 id=21111}
+Saving...
+Please do not close FINAL FANTASY ⑫ THE ZODIAC AGE.
+{/dialog}
+
+{dialog 72 id=21112}
+Save failed.
+{/dialog}
+
+{dialog 73 id=21113}
+Exit save screen without saving?
+{/dialog}
+
+{dialog 74 id=21200}
+No save data found for
+FINAL FANTASY ⑫ THE ZODIAC AGE.
+{/dialog}
+
+{dialog 75 id=21201}
+Loading...
+Please do not close FINAL FANTASY ⑫ THE ZODIAC AGE.
+{/dialog}
+
+{dialog 76 id=21202}
+Load failed.
+{/dialog}
+
+{dialog 77 id=21203}
+{color:18}Your Trial Version save data will no longer
+be playable. Are you sure?{white}
+{/dialog}
+
+{symlink 78 link=2, id=21204}
+
+{symlink 79 link=2, id=21205}
+
+{symlink 80 link=2, id=21206}
+
+{symlink 81 link=2, id=21207}
+
+{symlink 82 link=2, id=21208}
+
+{symlink 83 link=2, id=21209}
+
+{symlink 84 link=2, id=21210}
+
+{symlink 85 link=2, id=21211}
+
+{symlink 86 link=2, id=21300}
+
+{symlink 87 link=2, id=21301}
+
+{dialog 88 id=21302}
+Unable to overwrite other game data.
+FINAL FANTASY XII requires at least
+{amount0}KB of free space to save your game.
+{/dialog}
+
+{symlink 89 link=2, id=21303}
+
+{symlink 90 link=2, id=21304}
+
+{symlink 91 link=2, id=21400}
+
+{symlink 92 link=2, id=21500}
+
+{symlink 93 link=2, id=21501}
+
+{dialog 94 id=21600}
+The FINAL FANTASY XII disc cannot be found.
+{/dialog}
+
+{symlink 95 link=2, id=21601}
+
+{dialog 96 id=21602}
+DUALSHOCK㊦2 analog controller not connected
+to controller port 1. Please connect a
+DUALSHOCK㊦2 analog controller to controller port 1.
+{/dialog}
+
+{symlink 97 link=2, id=21603}
+
+{dialog 98 id=21700}
+Dismount?
+{/dialog}
+
+{dialog 99 id=21800}
+You obtain {color:18}{0x0f}âùù{arg0}{standard}!
+{/dialog}
+
+{symlink 100 link=2, id=21900}
+
+{dialog 101 id=21901}
+Choose this license board?
+{/dialog}
+
+{dialog 102 id=21902}
+You must choose a license board in order
+to obtain licenses. There are twelve boards,
+each allowing you to develop a character
+with unique abilities. {yellow}Once you can enter the
+Clan Hall, you can change boards there.{white}
+{/dialog}
+
+{symlink 103 link=2, id=21903}
+
+{dialog 104 id=22000}
+Mages who wield healing and support magicks.
+Magicks: White (Cure, Protect, etc.)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 105 id=22001}
+Warriors who wield spears to pierce enemy armor.
+Weapons: Spears    Technicks: Revive (Sacrifice HP to revive allies)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 106 id=22002}
+Warriors who snipe their foes with deadly precision.
+Weapons: Guns    Technicks: Charm (Temporarily convert foe to friend)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 107 id=22003}
+Battlemages equally skilled with maces and magicks.
+Weapons: Maces    Magicks: Arcane (Offensive), White (Limited), Black (Limited)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 108 id=22004}
+Stalwart warriors who wield sword and shield.
+Weapons: Swords    Technicks: Souleater (Sacrifice HP to deal damage)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 109 id=22005}
+Warriors who temper their bodies into deadly weapons.
+Weapons: Unarmed, Poles    Technicks: Achilles (Inflict elemental weakness)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 110 id=22006}
+Battlemages who wield crossbows and bend time to their will.
+Weapons: Crossbows    Magicks: Time (Reflect, Haste, etc.)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 111 id=22007}
+Warriors who use mighty weapons to tear their foes asunder.
+Weapons: Axes, Hammers    Technicks: Wither (Reduce enemy attack power)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 112 id=22008}
+Warriors who rain death on their foes from afar.
+Weapons: Bows    Technicks: Poach (Capture foes for loot)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 113 id=22009}
+Mages who channel elemental forces into deadly magicks.
+Magicks: Black (Fire, Silence, etc.)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 114 id=22010}
+Swordmasters who devote themselves body and soul to their lords.
+Weapons: Katana    Technicks: Sight Unseeing (Use the mind's eye to strike)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 115 id=22011}
+Warriors who fight nimbly across hill and dale.
+Weapons: Daggers    Technicks: First Aid (Heal a critical ally)
+{0x0f}où Preview License Board
+{/dialog}
+
+{dialog 116 id=23000}
+NOT USED
+{/dialog}
+
+{dialog 117 id=23001}
+{instant}{center}Your location map for this area is complete!
+{/dialog}
+
+{dialog 118 id=23002}
+{instant}{gold}{arg0}{standard} joins the party!
+{/dialog}
+
+{dialog 119 id=23003}
+{instant}{gold}{arg0}{standard} leaves the party.
+{/dialog}
+
+{dialog 120 id=23004}
+{instant}{gold}{arg0}{standard} joins the party as a guest!
+{/dialog}
+
+{dialog 121 id=23005}
+{instant}{center}The way past the colossus is open!
+{/dialog}
+
+{dialog 122 id=23006}
+{instant}You are now free to ride the cab.
+{/dialog}
+
+{dialog 123 id=23007}
+{instant}{center}You are now free to enter Lowtown
+and leave Rabanastre.
+{/dialog}
+
+{dialog 124 id=23008}
+{instant}{yellow}Clan Primer{white} has been added to the Party Menu.
+{/dialog}
+
+{dialog 125 id=23009}
+{instant}You found all of the moogles!
+{/dialog}
+
+{dialog 126 id=23010}
+{instant}The {blue}Lusterless Medallion{white} keens...
+{/dialog}
+
+{dialog 127 id=23011}
+{instant}You recover your lost items and equipment!
+{/dialog}
+
+{dialog 128 id=23012}
+{instant}{yellow}World Map{white} has been added to the Party Menu.
+{/dialog}
+
+{dialog 129 id=23013}
+{instant}{yellow}Party{white} has been added to the Party Menu.
+{/dialog}
+
+{dialog 130 id=23014}
+{instant}{yellow}Gambits{white} has been added to the Party Menu.
+{/dialog}
+
+{dialog 131 id=23015}
+{instant}{yellow}Licenses{white} has been added to the Party Menu.
+{/dialog}
+
+{symlink 132 link=2, id=23016}
+
+{dialog 133 id=23017}
+{0x0f}Jü㊥㊥㊥You lack the necessary license.{white}
+{/dialog}
+
+{dialog 134 id=23018}
+You cannot hold any more gil.
+{/dialog}
+
+{dialog 135 id=23019}
+{instant}{gold}{arg0}{standard} and {gold}Fran{standard} leave the party.
+{/dialog}
+
+{dialog 136 id=23020}
+{instant}You are now a member of Clan Centurio!
+{/dialog}
+
+{symlink 137 link=2, id=23021}
+
+{symlink 138 link=2, id=23022}
+
+{symlink 139 link=2, id=23023}
+
+{dialog 140 id=23024}
+{instant}{center}{gold}{arg0}{standard} and {gold}{arg0}{standard} join the party!
+{/dialog}
+
+{symlink 141 link=135, id=23025}
+
+{dialog 142 id=23026}
+{instant}{center}{gold}{arg0}{standard} leaves the party.
+{instant}{gold}{arg0}{standard} joins the party!
+{/dialog}
+
+{dialog 143 id=23027}
+This will return you to the title screen.
+Are you sure?
+{/dialog}
+
+{dialog 144 id=23028}
+Obtain {yellow}{arg0}{standard}?
+{/dialog}
+
+{dialog 145 id=23029}
+Only one character can obtain this license.
+Obtain {yellow}{arg0}{standard}?
+{/dialog}
+
+{dialog 146 id=23030}
+This will be this character's final quickening.
+Any remaining quickening tiles will be removed
+from the board. Learn {yellow}{arg0}{standard}?
+{/dialog}
+
+{dialog 147 id=23031}
+Each character can obtain up to three quickening
+licenses from those available on the board.
+Learn {yellow}{arg0}{standard}?
+{/dialog}
+
+{dialog 148 id=23032}
+Only one character can obtain the license
+for this Esper. Obtain {yellow}{arg0}{standard}?
+{/dialog}
+
+{dialog 149 id=23033}
+{instant}Your location map for this area is complete!
+{/dialog}
+
+{dialog 150 id=23034}
+{instant}{center}The candle reveals hidden areas on
+your map of the {color:18}{arg0}{standard}!
+{/dialog}
+
+{dialog 151 id=23035}
+(No equippable items of this type.)
+{/dialog}
+
+{symlink 152 link=2, id=23036}
+
+{symlink 153 link=116, id=23037}
+
+{dialog 154 id=23038}
+The {yellow}{arg0}{standard} license has been added
+to the license board.
+{/dialog}
+
+{dialog 155 id=23039}
+Insufficient free space on memory cards (PS2) in
+MEMORY CARD slots 1 and 2. FINAL FANTASY XII
+requires at least {amount0}KB of free space to save your
+game. Are you sure you wish to continue?
+{/dialog}
+
+{dialog 156 id=23040}
+No memory cards (PS2) found. FINAL FANTASY XII
+requires at least {amount0}KB of free space to save your
+game. Are you sure you wish to continue?
+{/dialog}
+
+{dialog 157 id=23041}
+Unable to load.
+Save data is corrupted.
+{/dialog}
+
+{dialog 158 id=23042}
+Select a new party leader.
+{/dialog}
+
+{dialog 159 id=23043}
+All members of the party have fallen. Reform the
+party with one or more reserve members.
+{/dialog}
+
+{dialog 160 id=23044}
+Save
+{/dialog}
+
+{dialog 161 id=23045}
+Load
+{/dialog}
+
+{dialog 162 id=23046}
+Unused file.
+{/dialog}
+
+{dialog 163 id=23047}
+Corrupt save data.
+{/dialog}
+
+{dialog 164 id=23048}
+In use by another game.
+{/dialog}
+
+{dialog 165 id=23049}
+ESPER
+{/dialog}
+
+{dialog 166 id=23050}
+CLAN RANK
+{/dialog}
+
+{dialog 167 id=23051}
+POINTS
+{/dialog}
+
+{dialog 168 id=23052}
+Corrupt save data. FINAL FANTASY XII requires
+at least {amount0}KB of free space to save your game.
+Are you sure you wish to continue?
+{/dialog}
+
+{dialog 169 id=23053}
+The selected file is in use by another game.
+Unable to overwrite.
+{/dialog}
+
+{dialog 170 id=23054}
+{instant}{center}You can now change leaders and
+issue party commands!
+{/dialog}
+
+{dialog 171 id=23055}
+{instant}{yellow}Gambits{white} has been added to the Battle Menu.
+{/dialog}
+
+{dialog 172 id=23056}
+You cannot dismount here.
+{/dialog}
+
+{dialog 173 id=23057}
+Create new save data for
+FINAL FANTASY ⑫ THE ZODIAC AGE?
+{/dialog}
+
+{dialog 174 id=23058}
+Save complete.
+{/dialog}
+
+{dialog 175 id=23059}
+Load complete.
+{/dialog}
+
+{dialog 176 id=23060}
+Format of memory card (PS2) in
+MEMORY CARD {arg0} successful.
+{/dialog}
+
+{dialog 177 id=23061}
+{instant}A crystal appears!
+{/dialog}
+
+{dialog 178 id=23062}
+{instant}The {yellow}Urutan Eater{white} has fallen!
+{/dialog}
+
+{dialog 179 id=23063}
+{instant}The ancient device stirs.
+{/dialog}
+
+{dialog 180 id=23064}
+{instant}You hand a potion to the Imperial.
+{/dialog}
+
+{dialog 181 id=23065}
+{instant}The gil snapper was drawn into the urn.
+{/dialog}
+
+{symlink 182 link=116, id=23066}
+
+{dialog 183 id=23067}
+{instant}The Strahl can now travel through jagd!
+{/dialog}
+
+{dialog 184 id=23068}
+{instant}The Strahl can now travel to Bahamut!
+{/dialog}
+
+{dialog 185 id=23069}
+Insufficient free space on memory card (PS2) in
+MEMORY CARD slot 1. FINAL FANTASY XII requires
+at least {amount0}KB of free space to save your game.
+Are you sure you wish to continue?
+{/dialog}
+
+{dialog 186 id=23070}
+Insufficient free space on memory card (PS2) in
+MEMORY CARD slot 2. FINAL FANTASY XII requires
+at least {amount0}KB of free space to save your game.
+Are you sure you wish to continue?
+{/dialog}
+
+{symlink 187 link=155, id=23071}
+
+{dialog 188 id=23072}
+Characters who have earned the Second Board
+license can access an additional license board.
+{/dialog}
+
+{dialog 189 id=23073}
+You will be unable to return to the
+License menu until you confirm
+your new board. Proceed anyway?
+{/dialog}
+
+{dialog 190 id=23074}
+Begin New Game-
+{/dialog}
+
+{dialog 191 id=23075}
+Begin New Game+
+{/dialog}
+
+{dialog 192 id=23076}
+This will close FINAL FANTASY ⑫ THE ZODIAC AGE.
+Are you sure?
+{/dialog}
+
+{dialog 193 id=23077}
+That key is already being used.
+Override current setting?
+{/dialog}
+
+{dialog 194 id=23078}
+That key cannot be used.
+{/dialog}
+
+{dialog 195 id=23079}
+Key assignment not complete!
+{/dialog}
+
+{dialog 196 id=23080}
+If you change the Max. LP setting, you won't be able to change it back.
+Are you sure?
+{/dialog}
+
+{dialog 197 id=23081}
+If you change the Max. Gil setting, you won't be able to change it back.
+Are you sure?
+{/dialog}
+
+{dialog 198 id=23082}
+Your display adapter has changed.
+In order to reflect these new settings, you will need to restart the game.
+Restart now? Any unsaved data will be lost.
+{/dialog}
+
+{dialog 199 id=23083}
+The frame rate limit has changed.
+In order to reflect these new settings, you will need to restart the game.
+Restart now? Any unsaved data will be lost.
+{/dialog}
+
+{dialog 200 id=23084}
+Revert all control settings to default?
+{/dialog}
+
+{dialog 201 id=23085}
+Keyboard 1 controls cannot be left unassigned.
+Please assign a key.
+{/dialog}
+
+{dialog 202 id=23086}
+Change the resolution of
+Full-Screen Mode?
+{/dialog}
+
+{dialog 203 id=23087}
+Change screen mode?
+{/dialog}
+

@@ -1,0 +1,123 @@
+Name,ID,Description,Traits
+Sentinel,0,Unaffected by knockback attacks.,Equip
+Safety,1,"Protects from Instant Death, Warp, Bubble, and gravity damage.",Equip
+Ignore Evasion,2,Bypass the enemy's evasion when attacking.,Equip
+Tactician,3,Increases evasion and magick evasion if the enemy has a shield.,Equip
+Alert,4,Increases evasion by 25 if evasion is greater than 0.,Equip
+Last Stand,5,Increases defense when HP Critical.,Equip
+Counter,6,Counter attack occasionally.,Equip
+Improved Counter,7,Counter attack at a more signficant rate.,Equip
+Spellbreaker,8,Increases magick power when HP Critical.,Equip
+Brawler,9,Attack power when fighting empty-handed becomes dependant on level.,Equip
+Adrenaline,10,Increases strength when HP Critical.,Equip
+Focus,11,Increases strength when HP is full.,Equip
+Gillionaire,12,Converts license points to gil.,Equip
+Trigger Happy,13,Improves chance to score multiple hits.,Equip
+Pharmacology,14,Improves potency of recovery items like potions.,Equip
+Toxicology,15,Reverses the effects of recovery items when used.,Equip
+Geomancy,16,Weather effects have no effect on attacks.,Equip
+Master Thief,17,Enables the theft of superior and rare items.,Equip
+Saboteur,18,Bypass the enemy's vitality when casting magick.,Equip
+Magick Lore,19,Increases magick potency by %n.,
+Warmage,20,Gain MP after dealing magick damage.,Equip
+Martyr,21,Gain MP after taking damage.,Equip
+Magick Lore,22,Increases magick potency by %n.,
+Headsman,23,Gain MP after defeating a foe.,Equip
+Magick Lore,24,Increases magick potency by %n.,
+Treasure Hunter,25,"Obtain superior items from chests, coffers, and the like.",Equip
+Magick Lore,26,Increases magick potency by %n.,
+EXP Boost,27,Doubles EXP earned.,Equip
+LP Boost,28,Doubles License Points earned.,Equip
+EXP Null,29,Reduces EXP earned to 0.,Equip
+Spellbound,30,Increases duration of status effects.,Equip
+Piercing Magick,31,Bypass Reflect when casting magick.,Equip
+Spendthrift,32,"Enables casting of magicks with gil, rather than MP.",Equip
+Invisible,33,Invisible to enemies who detect sound and magick.,Equip
+Critical Invisible,34,Invisible to enemies who detect low HP.,Equip
+Battle Lore,35,Increases physical attack damage by %n.,
+Mental Discipline,36,Magicks cost half normal MP cost.,Equip
+Awareness,37,Move safely past traps.,Equip
+Magick Deprived,39,Reduces MP to 0.,Equip
+Gelatinous,40,Damage from guns and measures reduced by 88%.,Equip
+Battle Lore,42,Increases physical attack damage by %n.,
+Battle Lore,43,Increases physical attack damage by %n.,
+Battle Lore,44,Increases physical attack damage by %n.,
+Battle Lore,45,Increases physical attack damage by %n.,
+Battle Lore,46,Increases physical attack damage by %n.,
+Battle Lore,47,Increases physical attack damage by %n.,
+Defense Boost,48,Reduces damage taken by 33%.,Equip
+Attack Boost,49,Base physical attack improved by 20%.,Equip
+Reckless,50,"Attack damage doubled, but user takes damage inflicted.",Equip
+Freecast,51,Magicks casted cost 0 MP.,Equip
+Quick Hit,53,Attacks have no charge time.,Equip
+Fast Talker,54,Magicks have no charge time.,Equip
+Soulbind,58,Enemy receives 5% of damage dealt to user.,Equip
+Battle Lore,60,Increases physical attack damage by %n.,
+Battle Lore,61,Increases physical attack damage by %n.,
+Battle Lore,62,Increases physical attack damage by %n.,
+Battle Lore,63,Increases physical attack damage by %n.,
+Battle Lore,64,Increases physical attack damage by %n.,
+Battle Lore,65,Increases physical attack damage by %n.,
+Battle Lore,66,Increases physical attack damage by %n.,
+Battle Lore,67,Increases physical attack damage by %n.,
+Battle Lore,68,Increases physical attack damage by %n.,
+Magick Lore,69,Increases magick potency by %n.,
+Magick Lore,70,Increases magick potency by %n.,
+Magick Lore,71,Increases magick potency by %n.,
+Magick Lore,72,Increases magick potency by %n.,
+Magick Lore,73,Increases magick potency by %n.,
+HP Lore,74,Increases max HP by %n.,
+HP Lore,75,Increases max HP by %n.,
+HP Lore,76,Increases max HP by %n.,
+HP Lore,77,Increases max HP by %n.,
+HP Lore,78,Increases max HP by %n.,
+HP Lore,79,Increases max HP by %n.,
+HP Lore,80,Increases max HP by %n.,
+HP Lore,81,Increases max HP by %n.,
+HP Lore,82,Increases max HP by %n.,
+HP Lore,83,Increases max HP by %n.,
+HP Lore,84,Increases max HP by %n.,
+HP Lore,85,Increases max HP by %n.,
+Inquisitor,86,Gain MP after dealing damage.,Equip
+Magick Lore,87,Increases magick potency by %n.,
+Shield Block,88,Increases chance to block with a shield by %n%.,
+Shield Block,89,Increases chance to block with a shield by %n%.,
+Shield Block,90,Increases chance to block with a shield by %n%.,
+Channelling,91,Reduces magick MP cost by %n%.,
+Channelling,92,Reduces magick MP cost by %n%.,
+Channelling,93,Reduces magick MP cost by %n%.,
+Swiftness,94,Reduces action time by %n%.,
+Swiftness,95,Reduces action time by %n%.,
+Swiftness,96,Reduces action time by %n%.,
+Magick Lore,97,Increases magick potency by %n.,
+Magick Lore,98,Increases magick potency by %n.,
+Magick Lore,99,Increases magick potency by %n.,
+Magick Lore,100,Increases magick potency by %n.,
+Magick Lore,101,Increases magick potency by %n.,
+Magick Lore,102,Increases magick potency by %n.,
+Serenity,103,Increases magick power when HP is full.,Equip
+Gambit Slot,104,Adds an additional gambit slot.,
+Gambit Slot,105,Adds an additional gambit slot.,
+Gambit Slot,106,Adds an additional gambit slot.,
+Gambit Slot,107,Adds an additional gambit slot.,
+Gambit Slot,108,Adds an additional gambit slot.,
+Gambit Slot,109,Adds an additional gambit slot.,
+Gambit Slot,110,Adds an additional gambit slot.,
+Gambit Slot,111,Adds an additional gambit slot.,
+Gambit Slot,112,Adds an additional gambit slot.,
+Gambit Slot,113,Adds an additional gambit slot.,
+Essentials,114,Attack        Items,
+Remedy Lore,116,"Remedies remove Stop, Doom, and Disease.",Equip
+Remedy Lore,117,"Remedies remove Petrify, Confuse, and Oil.",Equip
+Remedy Lore,118,"Remedies remove Sleep, Sap, Immobilize, and Disable.",Equip
+Potion Lore,119,Potions restore more HP by %n%.,Equip
+Potion Lore,120,Potions restore more HP by %n%.,Equip
+Potion Lore,121,Potions restore more HP by %n%.,Equip
+Ether Lore,122,Ethers restore more MP by %n%.,Equip
+Ether Lore,123,Ethers restore more MP by %n%.,Equip
+Ether Lore,124,Ethers restore more MP by %n%.,Equip
+Phoenix Lore,125,Phoenix Downs restores more HP by %n%.,Equip
+Phoenix Lore,126,Phoenix Downs restores more HP by %n%.,Equip
+Phoenix Lore,127,Phoenix Downs restores more HP by %n%.,Equip
+Second Board,128,Additional License Board unlocked.,
+None,255,,Equip

@@ -1,7 +1,32 @@
 {
   "name": "4 - Hopeless",
-  "version": "0.6.5",
+  "version": "0.6.7",
   "flags": [
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "EquipHiddenStat"
+        }
+      ],
+      "FlagID": "EquipStats"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "EquipElem"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "EquipAug"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "EquipEff"
+    },
     {
       "FlagEnabled": true,
       "FlagProperties": [
@@ -116,6 +141,11 @@
       "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "HintAbi"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Music"
     },
     {
       "FlagEnabled": false,

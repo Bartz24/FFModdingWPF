@@ -243,5 +243,16 @@ namespace Bartz24.Data
 
             return char.ToLower(input[0]) + input.Substring(1);
         }
+
+        public static List<T> EnumToList<T>(this T enumObj) where T : struct, Enum
+        {
+            List<T> list = new List<T>();
+            foreach (T e in Enum.GetValues(typeof(T)))
+            {
+                if (enumObj.HasFlag(e))
+                    list.Add(e);
+            }
+            return list;
+        }
     }
 }

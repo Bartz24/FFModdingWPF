@@ -15,7 +15,12 @@ namespace Bartz24.FF12
 
         public string Format { get; set; }
 
-        private string ztrPath;
+        private bool ReadFromTxt { get; set; }
+
+        public DataStoreBinText(bool readFromTxt)
+        {
+            ReadFromTxt = readFromTxt;
+        }
 
         public StringData this[int id]
         {
@@ -32,6 +37,11 @@ namespace Bartz24.FF12
         }
         public void Load(string path)
         {
+            if (!ReadFromTxt)
+            {
+                Tools.ExtractBINToTXT(path);
+                path = path + ".txt";
+            }
             Data = new Dictionary<int, StringData>();
 
             string[] lines = File.ReadAllLines(path);
@@ -50,19 +60,47 @@ namespace Bartz24.FF12
                     {
                         if (lines[i].StartsWith("{dialog"))
                         {
-                            Match match = Regex.Match(lines[i], "{dialog (.*)}");
-                            string[] parameters = match.Groups[1].Value.Split(", ");
-                            int id = int.Parse(parameters[0]);
+                            Match match = Regex.Match(lines[i], "{dialog (\\d+)(.*)}");
+                            string[] parameters = match.Groups[2].Value.TrimStart().Split(", ");
+                            int id = int.Parse(match.Groups[1].Value);
                             currentStr = new StringData();
-                            for (int j = 1; j < parameters.Length; j++)
+                            currentStr.Type = StringData.StringType.Dialog;
+                            for (int j = 0; j < parameters.Length; j++)
                             {
-                                string[] split = parameters[j].Split("=");
-                                if (split[0] == "singular")
-                                    currentStr.Singular = split[1].Substring(1, split[1].Length - 1);
-                                if (split[0] == "plural")
-                                    currentStr.Plural = split[1].Substring(1, split[1].Length - 1);
+                                if (!string.IsNullOrEmpty(parameters[j]))
+                                {
+                                    string[] split = parameters[j].Split("=");
+                                    if (split[0] == "singular")
+                                        currentStr.Singular = split[1].Substring(1, split[1].Length - 1);
+                                    if (split[0] == "plural")
+                                        currentStr.Plural = split[1].Substring(1, split[1].Length - 1);
+                                    if (split[0] == "id")
+                                        currentStr.ID = int.Parse(split[1]);
+                                }
                             }
                             Add(id, currentStr);
+                        }
+                        else if (lines[i].StartsWith("{symlink"))
+                        {
+                            Match match = Regex.Match(lines[i], "{symlink (\\d+)(.*)}");
+                            string[] parameters = match.Groups[2].Value.TrimStart().Split(", ");
+                            int id = int.Parse(match.Groups[1].Value);
+                            currentStr = new StringData();
+                            currentStr.Type = StringData.StringType.Symlink;
+                            for (int j = 0; j < parameters.Length; j++)
+                            {
+                                if (!string.IsNullOrEmpty(parameters[j]))
+                                {
+                                    string[] split = parameters[j].Split("=");
+                                    if (split[0] == "link")
+                                        currentStr.Link = int.Parse(split[1]);
+                                    if (split[0] == "id")
+                                        currentStr.ID = int.Parse(split[1]);
+                                }
+                            }
+                            Add(id, currentStr);
+
+                            currentStr = null;
                         }
                     }
                     else if(lines[i] == "{/dialog}")
@@ -79,16 +117,59 @@ namespace Bartz24.FF12
             }
         }
 
-        public void Save(string game, string path, string novaPath)
+        public void Save(string path)
         {
-            throw new NotImplementedException();
+            List<string> lines = new List<string>();
+
+            lines.Add("{format:" + Format + "}");
+            lines.Add("");
+
+            foreach (int id in Keys)
+            {
+                if (Values[id].Type == StringData.StringType.Dialog)
+                {
+                    List<string> attributes = new List<string>();
+                    if (!string.IsNullOrEmpty(Values[id].Singular))
+                        attributes.Add("singular=\"" + Values[id].Singular + "\"");
+                    if (!string.IsNullOrEmpty(Values[id].Plural))
+                        attributes.Add("plural=\"" + Values[id].Plural + "\"");
+                    if (Values[id].ID != -1)
+                        attributes.Add("id=" + Values[id].ID);
+                    lines.Add("{dialog " + id + " " + string.Join(", ", attributes) + "}");
+                    lines.Add(Values[id].Text);
+                    lines.Add("{/dialog}");
+                }
+                else if (Values[id].Type == StringData.StringType.Symlink)
+                {
+                    List<string> attributes = new List<string>();
+                    if (Values[id].Link != -1)
+                        attributes.Add("link=" + Values[id].Link);
+                    if (Values[id].ID != -1)
+                        attributes.Add("id=" + Values[id].ID);
+                    lines.Add("{symlink " + id + " " + string.Join(", ", attributes) + "}");
+                }
+                lines.Add("");
+            }
+
+            File.WriteAllLines(path, lines);
+            Tools.ConvertTXTToBIN(path);
         }
 
         public class StringData
         {
+            public enum StringType
+            {
+                Dialog,
+                Symlink
+            }
+
+            public StringType Type { get; set; }
+
             public string Text { get; set; }
             public string Singular { get; set; }
             public string Plural { get; set; }
+            public int ID { get; set; } = -1;
+            public int Link { get; set; } = -1;
         }
     }
 }

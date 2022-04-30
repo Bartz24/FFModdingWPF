@@ -1,7 +1,32 @@
 {
   "name": "1 - Simple",
-  "version": "0.6.5",
+  "version": "0.6.7",
   "flags": [
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [
+        {
+          "Enabled": false,
+          "ID": "EquipHiddenStat"
+        }
+      ],
+      "FlagID": "EquipStats"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "EquipElem"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "EquipAug"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "EquipEff"
+    },
     {
       "FlagEnabled": true,
       "FlagProperties": [
@@ -116,6 +141,11 @@
       "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "HintAbi"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Music"
     },
     {
       "FlagEnabled": true,

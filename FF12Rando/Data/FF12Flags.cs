@@ -10,9 +10,58 @@ namespace FF12Rando
         public enum FlagType
         {
             All = -1,
+            Stats,
             Items,
             Other
         }
+        public class Stats
+        {
+            public static Flag EquipStats, EquipElements, EquipStatus, EquipAugments;
+            public static ToggleFlagProperty EquipHiddenStats;
+            internal static void Init()
+            {
+                EquipStats = new Flag()
+                {
+                    Text = "Randomize Equipment Stats",
+                    FlagID = "EquipStats",
+                    DescriptionFormat = "Randomize equipment stats that are visible in menus.\n" +
+                    "Also affects enemies."
+                }.Register(FlagType.Items);
+
+                EquipHiddenStats = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Hidden Stats",
+                    ID = "EquipHiddenStat",
+                    Description = "Randomize the following hidden stats on weapons as well.\n" +
+                    "Knockback, Combo/Crit Chance, Charge Time"
+                }.Register(EquipStats);
+
+                EquipElements = new Flag()
+                {
+                    Text = "Randomize Equipment Elements",
+                    FlagID = "EquipElem",
+                    DescriptionFormat = "Randomize equipment on-hit, absorb, immune, weak, and potency elements.\n" +
+                    "Also affects enemies."
+                }.Register(FlagType.Items);
+
+                EquipAugments = new Flag()
+                {
+                    Text = "Randomize Equipment Augments",
+                    FlagID = "EquipAug",
+                    DescriptionFormat = "Randomize armor and accessory augments.\n" +
+                    "Also affects enemies."
+                }.Register(FlagType.Items);
+
+                EquipStatus = new Flag()
+                {
+                    Text = "Randomize Equipment Status Effects",
+                    FlagID = "EquipEff",
+                    DescriptionFormat = "Randomize equipment on-hit, on-equip, and immunity status effects.\n" +
+                    "Also affects enemies."
+                }.Register(FlagType.Items);
+            }
+        }
+
         public class Items
         {
             public static Flag Treasures, Shops, Bazaars;
@@ -299,6 +348,7 @@ namespace FF12Rando
         public static void Init()
         {
             Flags.FlagsList.Clear();
+            Stats.Init();
             Items.Init();
             Other.Init();
             Flags.CategoryMap = ((FlagType[])Enum.GetValues(typeof(FlagType))).ToDictionary(f => (int)f, f => string.Join("/", Regex.Split(f.ToString(), @"(?<!^)(?=[A-Z])")));
