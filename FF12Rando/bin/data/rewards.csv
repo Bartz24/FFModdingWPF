@@ -129,7 +129,7 @@ Clan Hall,Clan Rank: Riskbreaker,9036,AND(I(8071)|I(Hunt|16)),8,ClanRank,
 Clan Hall,Clan Rank: Paragon of Justice,9037,AND(I(8071)|I(Hunt|24)),9,ClanRank,
 Clan Hall,Clan Rank: High Guardian,9038,AND(I(8071)|I(Hunt|28)),10,ClanRank,
 Clan Hall,Clan Rank: Knight of the Round,9039,AND(I(8071)|I(Hunt|32)),11,ClanRank,
-Clan Hall,Clan Rank: Order of Ambrosia,903A,AND(I(8071)|I(Hunt|45)|I(Esper|13)|I(80B6)|I(80B5)),12,ClanRank,
+Clan Hall,Clan Rank: Order of Ambrosia,903A,AND(I(8071)|I(Hunt|45)|I(Esper|13)|I(HuntClubKill|30)|I(80B6)|I(80B5)),12,ClanRank|Missable,
 Clan Hall,Clan Boss: Flans,903B,AND(I(8071)|I(8080)),1,ClanBoss,
 Clan Hall,Clan Boss: Firemane,903C,AND(I(8071)|I(8080)),1,ClanBoss,
 Clan Hall,Clan Boss: Earth Tyrant,903D,AND(I(8071)|I(80B1)|I(80B2)),4,ClanBoss,
@@ -215,37 +215,37 @@ Dalmasca Estersand,Outpost Mysterious Glint,9057,,0,,
 Dalmasca Estersand,Outpost Mysterious Glint,9070,,0,,
 Dalmasca Estersand,Outpost Mysterious Glint,9059,,0,,
 Balfonheim,Footrace,908F,,0,,
-Phon Coast,Shelled Trophy,9090,,6,HuntClubKey,
-Garamsythe Waterway,Fur-scaled Trophy,9091,I(80B8),6,HuntClubKey,HuntClubKill
-Barheim Passage,Bony Trophy,9092,AND(I(8093)|I(80B8)),7,HuntClubKey,HuntClubKill
-Dalmasca Westersand,Fanged Trophy,9093,I(80B8),5,HuntClubKey,HuntClubKill
-Dalmasca Estersand,Hide-covered Trophy,9094,I(80B8),7,HuntClubKey,HuntClubKill
-Giza Plains Dry,Maned Trophy,9095,I(80B8),7,HuntClubKey,HuntClubKill
-Zertinan Caverns,Fell Trophy,9096,I(80B8),5,HuntClubKey,HuntClubKill
-Lhusu Mines,Accursed Trophy,9097,AND(I(807E)|I(807F)),7,HuntClubKey,HuntClubKill
-Ogir-Yensa Sandsea,Beaked Trophy,9098,I(80B8),7,HuntClubKey,HuntClubKill
-Nam-Yensa Sandsea,Maverick Trophy,9099,I(80B8),7,HuntClubKey,HuntClubKill
-Tomb of Raithwall,Soulless Trophy,909A,I(80B8),6,HuntClubKey,HuntClubKill
-Mosphoran Highwaste,Leathern Trophy,909B,I(80B8),7,HuntClubKey,HuntClubKill
+Phon Coast,Thalassinon - Shelled Trophy,9090,,6,HuntClubKey,
+Garamsythe Waterway,Gavial - Fur-scaled Trophy,9091,I(80B8),6,HuntClubKey,HuntClubKill
+Barheim Passage,Ishteen - Bony Trophy,9092,AND(I(8093)|I(80B8)),7,HuntClubKey,HuntClubKill
+Dalmasca Westersand,Kaiser Wolf - Fanged Trophy,9093,I(80B8),5,HuntClubKey,HuntClubKill
+Dalmasca Estersand,Terror Tyrant - Hide-covered Trophy,9094,I(80B8),7,HuntClubKey,HuntClubKill
+Giza Plains Dry,Nazarnir - Maned Trophy,9095,I(80B8),7,HuntClubKey,HuntClubKill
+Zertinan Caverns,Alteci - Fell Trophy,9096,I(80B8),5,HuntClubKey,HuntClubKill
+Lhusu Mines,Disma - Accursed Trophy,9097,AND(I(807E)|I(807F)),7,HuntClubKey,HuntClubKill
+Ogir-Yensa Sandsea,Bull Chocobo - Beaked Trophy,9098,I(80B8),7,HuntClubKey,HuntClubKill
+Nam-Yensa Sandsea,Victanir - Maverick Trophy,9099,I(80B8),7,HuntClubKey,HuntClubKill
+Tomb of Raithwall,Zombie Lord - Soulless Trophy,909A,I(80B8),6,HuntClubKey,HuntClubKill
+Mosphoran Highwaste,Dheed - Leathern Trophy,909B,I(80B8),7,HuntClubKey,HuntClubKill
 Salikawood,Sickle Trophy,909C,I(80B8),5,HuntClubKey,HuntClubKill
-Nabreus Deadlands,Vengeful Trophy,909D,I(80B8),7,HuntClubKey,HuntClubKill
-Necrohol of Nabudis,Gravesoil Trophy,909E,I(80B8),7,HuntClubKey,HuntClubKill
-Ozmone Plain,Metallic Trophy,909F,I(80B8),6,HuntClubKey,HuntClubKill
-Henne Mines,Slimy Trophy,90A0,I(80B8),7,HuntClubKey,HuntClubKill
-Golmore Jungle,Scythe Trophy,90A1,AND(OR(I(8077)|I(80B7))|I(80B8)),6,HuntClubKey,HuntClubKill
-Feywood,Feathered Trophy,90A2,AND(OR(I(8077)|I(80B7))|I(80B8)),7,HuntClubKey,HuntClubKill
-Giruvegan,Skull Trophy,90A3,AND(OR(I(8077)|I(80B7))|I(80B8)),5,HuntClubKey,HuntClubKill
-Paramina Rift,Mind Trophy,90A4,AND(OR(I(8077)|I(80B7))|I(80B8)),5,HuntClubKey,HuntClubKill
-Stilshrine of Miriam,Eternal Trophy,90A5,AND(OR(I(8077)|I(80B7))|I(8078)|I(80B8)),5,HuntClubKey,HuntClubKill
-Phon Coast,Clawed Trophy,90A6,I(80B8),7,HuntClubKey,HuntClubKill
-Tchita Uplands,Odiferous Trophy,90A7,I(80B8),7,HuntClubKey,HuntClubKill
-Tchita Uplands,Whiskered Trophy,90A8,I(80B8),7,HuntClubKey,HuntClubKill
-Sochen Cave Palace,Frigid Trophy,90A9,AND(I(80B6)|I(80B8)),5,HuntClubKey,HuntClubKill
-Sochen Cave Palace,Ensanguined Trophy,90AA,AND(I(80B6)|I(80B8)),7,HuntClubKey,HuntClubKill
-Cerobi Steppe,Cruel Trophy,90AB,I(80B8),7,HuntClubKey,HuntClubKill
-Cerobi Steppe,Adamantine Trophy,90AC,I(80B8),7,HuntClubKey,HuntClubKill
-Ridorana Cataract,Reptilian Trophy,90AD,AND(I(8077)|I(80B8)),7,HuntClubKey,HuntClubKill
-Pharos of Ridorana,Vile Trophy,90AE,AND(I(8077)|I(2116|3)|I(80B8)),7,HuntClubKey,HuntClubKill
+Nabreus Deadlands,Arioch - Vengeful Trophy,909D,I(80B8),7,HuntClubKey,HuntClubKill
+Necrohol of Nabudis,Vorres - Gravesoil Trophy,909E,I(80B8),7,HuntClubKey,HuntClubKill
+Ozmone Plain,Killbug - Metallic Trophy,909F,I(80B8),6,HuntClubKey,HuntClubKill
+Henne Mines,Melt - Slimy Trophy,90A0,I(80B8),7,HuntClubKey,HuntClubKill
+Golmore Jungle,Biding Mantis - Scythe Trophy,90A1,AND(OR(I(8077)|I(80B7))|I(80B8)),6,HuntClubKey,HuntClubKill
+Feywood,Dreadguard - Feathered Trophy,90A2,AND(OR(I(8077)|I(80B7))|I(80B8)),7,HuntClubKey,HuntClubKill
+Giruvegan,Crystal Knight - Skull Trophy,90A3,AND(OR(I(8077)|I(80B7))|I(80B8)),5,HuntClubKey,HuntClubKill
+Paramina Rift,Ancbolder - Mind Trophy,90A4,AND(OR(I(8077)|I(80B7))|I(80B8)),5,HuntClubKey,HuntClubKill
+Stilshrine of Miriam,Myath - Eternal Trophy,90A5,AND(OR(I(8077)|I(80B7))|I(8078)|I(80B8)),5,HuntClubKey,HuntClubKill
+Phon Coast,Skullash - Clawed Trophy,90A6,I(80B8),7,HuntClubKey,HuntClubKill
+Tchita Uplands,Kris - Odiferous Trophy,90A7,I(80B8),7,HuntClubKey,HuntClubKill
+Tchita Uplands,Grimalkin - Whiskered Trophy,90A8,I(80B8),7,HuntClubKey,HuntClubKill
+Sochen Cave Palace,Wendice - Frigid Trophy,90A9,AND(I(80B6)|I(80B8)),5,HuntClubKey,HuntClubKill
+Sochen Cave Palace,Anubys - Ensanguined Trophy,90AA,AND(I(80B6)|I(80B8)),7,HuntClubKey,HuntClubKill
+Cerobi Steppe,Bluesang - Cruel Trophy,90AB,I(80B8),7,HuntClubKey,HuntClubKill
+Cerobi Steppe,Aspidochelon - Adamantine Trophy,90AC,I(80B8),7,HuntClubKey,HuntClubKill
+Ridorana Cataract,Abelisk - Reptilian Trophy,90AD,AND(I(8077)|I(80B8)),7,HuntClubKey,HuntClubKill
+Pharos of Ridorana,Avenger - Vile Trophy,90AE,AND(I(8077)|I(2116|3)|I(80B8)),7,HuntClubKey,HuntClubKill
 Archades,Hunt Club Owner 5 Trophy Rares Defeated,90F9,AND(I(2112)|I(HuntClubKill|5)),6,Grindy,
 Archades,Hunt Club Owner 10 Trophy Rares Defeated,90FA,AND(I(2112)|I(HuntClubKill|10)),7,Grindy,
 Archades,Hunt Club Owner 15 Trophy Rares Defeated,90FB,AND(I(2112)|I(HuntClubKill|15)),7,Grindy,

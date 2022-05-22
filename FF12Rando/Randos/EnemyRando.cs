@@ -39,11 +39,11 @@ namespace FF12Rando
                 ards.Add(name, ard);
             });
 
-            FileExtensions.ReadCSVFile(@"data\enemies.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
             {
                 EnemyData e = new EnemyData(row);
                 enemyData.Add(e.ID, e);
-            }, true);
+            }, FileHelpers.CSVFileHeader.HasHeader);
         }
         public override void Randomize(Action<int> progressSetter)
         {

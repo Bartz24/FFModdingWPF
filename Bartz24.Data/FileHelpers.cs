@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bartz24.Data
 {
-    public class FileExtensions
+    public class FileHelpers
     {
 
         public static void CopyFile(string source, string dest, bool overwrite = false)
@@ -18,13 +18,20 @@ namespace Bartz24.Data
             Directory.CreateDirectory(Path.GetDirectoryName(dest));
             File.Copy(source, dest, overwrite);
         }
-        public static void ReadCSVFile(string file, Action<string[]> readRow, bool hasHeader = false)
+
+        public enum CSVFileHeader
+        {
+            HasHeader,
+            NoHeader
+        }
+
+        public static void ReadCSVFile(string file, Action<string[]> readRow, CSVFileHeader fileHeader)
         {
             using (CsvParser csv = new CsvParser(new StreamReader(file), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
             {
                 while (csv.Read())
                 {
-                    if (csv.Row > 1 || !hasHeader)
+                    if (csv.Row > 1 || fileHeader == CSVFileHeader.NoHeader)
                     {
                         readRow(csv.Record);
                     }

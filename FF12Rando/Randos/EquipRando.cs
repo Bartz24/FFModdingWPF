@@ -30,16 +30,17 @@ namespace FF12Rando
 
         public override void Load()
         {
-            FileExtensions.ReadCSVFile(@"data\items.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\items.csv", row =>
             {
                 ItemData i = new ItemData(row);
                 itemData.Add(i.ID, i);
-            }, true);
-            FileExtensions.ReadCSVFile(@"data\augments.csv", row =>
+            }, FileHelpers.CSVFileHeader.HasHeader);
+
+            FileHelpers.ReadCSVFile(@"data\augments.csv", row =>
             {
                 AugmentData a = new AugmentData(row);
                 augmentData.Add(a.ID, a);
-            }, true);
+            }, FileHelpers.CSVFileHeader.HasHeader);
 
             equip = new DataStoreBPEquip();
             equip.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_013.bin"));
@@ -92,7 +93,7 @@ namespace FF12Rando
                         new Tuple<int, int>(0, 99)
                     };
                 float[] weights = new float[] { weapon.Category == EquipCategory.Gun || weapon.Category == EquipCategory.Measure ? 4 : 1, 4, 2, 6, 4, 4, 8, 12 };
-                int[] zeros = new int[] { 0, 90, 97, 97, 60, 60, 90, 90 };
+                int[] zeros = new int[] { 0, 90, 97, 97, 90, 90, 90, 90 };
                 int[] negs = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 
                 if (FF12Flags.Stats.EquipHiddenStats.Enabled)
@@ -155,7 +156,7 @@ namespace FF12Rando
                         new Tuple<int, int>(0, 9)
                     };
                 float[] weights = new float[] { 1, 4, 3, 8, 6, 6, 10, 15 };
-                int[] zeros = new int[] { 0, 90, 97, 97, 60, 60, 90, 90 };
+                int[] zeros = new int[] { 0, 95, 99, 99, 95, 95, 95, 95 };
                 int[] negs = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
                 statPoints = new StatPoints(bounds, weights, zeros, negs);
                 statPoints.Randomize(new int[] { ammo.AttackPower, ammo.Evade, attribute.HP, attribute.MP, attribute.Strength, attribute.MagickPower, attribute.Vitality, attribute.Speed });
@@ -213,7 +214,7 @@ namespace FF12Rando
                         new Tuple<int, int>(0, 99)
                     };
                 float[] weights = new float[] { 8, 8, 1, 3, 20, 20, 15, 15 };
-                int[] zeros = new int[] { 20, 20, 90, 90, 90, 90, 90, 97 };
+                int[] zeros = new int[] { 50, 50, 90, 90, 90, 90, 90, 97 };
                 int[] negs = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
                 statPoints = new StatPoints(bounds, weights, zeros, negs);
                 statPoints.Randomize(new int[] { armor.Defense, armor.MagickResist, attribute.HP, attribute.MP, attribute.Strength, attribute.MagickPower, attribute.Vitality, attribute.Speed });
@@ -290,7 +291,7 @@ namespace FF12Rando
                         new Tuple<int, int>(-1, 3)
                     };
                 float[] weights = new float[] { 1, 1, 1, 1, 1, 1, 1, 1 };
-                int[] zeros = new int[] { 60, 60, 60, 60, 60, 60, 60, 60 };
+                int[] zeros = new int[] { 90, 90, 90, 90, 90, 90, 90, 90 };
                 int[] negs = new int[] { 10, 10, 10, 10, 10, 10, 10, 10 };
                 statPoints = new StatPoints(bounds, weights, zeros, negs);
 

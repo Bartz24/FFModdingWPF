@@ -41,11 +41,11 @@ namespace FF12Rando
             bazaars = new DataStoreBPSection<DataStoreBazaar>();
             bazaars.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_057.bin"));
 
-            FileExtensions.ReadCSVFile(@"data\shops.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\shops.csv", row =>
             {
                 ShopData s = new ShopData(row);
                 shopData.Add(s.ID, s);
-            }, true);
+            }, FileHelpers.CSVFileHeader.HasHeader);
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -75,7 +75,7 @@ namespace FF12Rando
                     {
                         string item1 = RandomNum.SelectRandomWeighted(treasureRando.remainingRandomizeItems, _ => 1);
                         items.Add(item1);
-                        if (!item1.StartsWith("00") && !item1.StartsWith("20") && !item1.StartsWith("21"))
+                        if (ShouldRemoveItem(item1))
                             treasureRando.remainingRandomizeItems.Remove(item1);
                     }
 
@@ -84,14 +84,14 @@ namespace FF12Rando
                     {
                         newItem = RandomNum.SelectRandomWeighted(treasureRando.remainingRandomizeItems, _ => 1);
                         items.Add(newItem);
-                        if (!newItem.StartsWith("00") && !newItem.StartsWith("20") && !newItem.StartsWith("21"))
+                        if (ShouldRemoveItem(newItem))
                             treasureRando.remainingRandomizeItems.Remove(newItem);
                     }
                     if (RandomNum.RandInt(0, 99) < 5)
                     {
                         newItem = RandomNum.SelectRandomWeighted(treasureRando.remainingRandomizeItems, _ => 1);
                         items.Add(newItem);
-                        if (!newItem.StartsWith("00") && !newItem.StartsWith("20") && !newItem.StartsWith("21"))
+                        if (ShouldRemoveItem(newItem))
                             treasureRando.remainingRandomizeItems.Remove(newItem);
                     }
 
@@ -174,6 +174,17 @@ namespace FF12Rando
 
                 RandomNum.ClearRand();
             }
+        }
+
+        private bool ShouldRemoveItem(string newItem)
+        {
+            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+            if (newItem.StartsWith("00") || newItem.StartsWith("20") || newItem.StartsWith("21"))
+                return false;
+            if (newItem.StartsWith("30") || newItem.StartsWith("40"))
+                return true;
+
+            return !equipRando.itemData.ContainsKey(newItem) || RandomNum.RandInt(0, 100) < Math.Pow(equipRando.itemData[newItem].Rank, 2);
         }
 
         private static bool IsMonograph(string item)

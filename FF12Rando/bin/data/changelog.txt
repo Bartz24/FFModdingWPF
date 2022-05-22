@@ -1,5 +1,9 @@
-0.6.8 Changelog:
+0.6.9 Changelog:
 
--Fixed monograph bazaars not working
--Fixed hints for key items not working
--Fixed Outpost glints and Ktjn rewards not working correctly
+-Equipment stats have been rebalanced
+-Improved treasure and trophy hints
+-Fixed shops having a lot of the same items
+-Fixed Loremaster board having an incorrect battle lore
+-Fixed Omega Clan reward being set to the wrong reward
+-Fixed some trophy rewards not being rando
+-Fixed mimics not being interactable

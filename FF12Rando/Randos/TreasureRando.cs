@@ -83,7 +83,7 @@ namespace FF12Rando
 
             itemLocations.Clear();
 
-            FileExtensions.ReadCSVFile(@"data\treasures.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\treasures.csv", row =>
             {
                 int start = int.Parse(row[3]);
                 int count = int.Parse(row[4]);
@@ -92,10 +92,10 @@ namespace FF12Rando
                     TreasureData t = new TreasureData(row, i);
                     itemLocations.Add(t.ID, t);
                 }
-            }, true);
+            }, FileHelpers.CSVFileHeader.HasHeader);
 
             int fakeID = -1;
-            FileExtensions.ReadCSVFile(@"data\rewards.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\rewards.csv", row =>
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -104,7 +104,7 @@ namespace FF12Rando
                         fakeID--;
                     itemLocations.Add(r.ID, r);
                 }
-            }, true);
+            }, FileHelpers.CSVFileHeader.HasHeader);
 
             List<string> hintsNotesLocations = itemLocations.Values.SelectMany(l => l.Areas).Distinct().Where(l => l != "Fake").ToList();
 
@@ -186,14 +186,17 @@ namespace FF12Rando
                         Tuple<string, int> tuple = PlacementAlgo.GetLocationItem(l.ID, false);
                         if (tuple != null && randomizeItems.Contains(tuple.Item1))
                         {
-                            string newItem = RandomNum.SelectRandomWeighted(remainingRandomizeItems, item => {
+                            string newItem = RandomNum.SelectRandomWeighted(remainingRandomizeItems, item =>
+                            {
                                 if (item == "2000")
                                     return 25;
                                 if (item.StartsWith("00") || item.StartsWith("20") || item.StartsWith("21"))
-                                    return 5;
+                                    return 8;
                                 if ((item.StartsWith("30") || item.StartsWith("40")) && itemLocations[l.ID].Traits.Contains("Missable"))
                                     return 0;
-                                return 1;
+                                if (item.StartsWith("30") || item.StartsWith("40"))
+                                    return 1;
+                                return 3;
                             });
                             if (newItem.StartsWith("30") || newItem.StartsWith("40"))
                             {
@@ -207,7 +210,7 @@ namespace FF12Rando
                                 if (tuple.Item1.StartsWith("30") || tuple.Item1.StartsWith("40"))
                                     hints.Where(list => list.Contains(l.ID)).ForEach(list => list.Remove(l.ID));
 
-                                if(l is TreasureData && equipRando.itemData.ContainsKey(newItem) && equipRando.itemData[newItem].Upgrade != "")
+                                if (l is TreasureData && equipRando.itemData.ContainsKey(newItem) && equipRando.itemData[newItem].Upgrade != "")
                                 {
                                     TreasureData t = (TreasureData)l;
                                     ebpAreas[t.MapID].TreasureList[t.Index].RareItem1ID = (ushort)equipRando.itemData[newItem].IntUpgrade;
@@ -215,7 +218,7 @@ namespace FF12Rando
                                 }
                             }
 
-                            if (!newItem.StartsWith("00") && !newItem.StartsWith("20") && !newItem.StartsWith("21"))
+                            if (ShouldRemoveItem(newItem))
                                 remainingRandomizeItems.Remove(newItem);
                         }
                     }
@@ -262,6 +265,17 @@ namespace FF12Rando
                 });
                 RandomNum.ClearRand();
             }
+        }
+
+        private bool ShouldRemoveItem(string newItem)
+        {
+            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+            if (newItem.StartsWith("00") || newItem.StartsWith("20") || newItem.StartsWith("21"))
+                return false;
+            if (newItem.StartsWith("30") || newItem.StartsWith("40"))
+                return true;
+
+            return !equipRando.itemData.ContainsKey(newItem) || RandomNum.RandInt(0, 100) < Math.Pow(equipRando.itemData[newItem].Rank, 2);
         }
 
         private void CollapseAndSelectTreasures()
@@ -653,7 +667,7 @@ namespace FF12Rando
             public TreasureData(string[] row, int index)
             {
                 Areas = new List<string>() { row[0] };
-                Name = row[1] + " Treasure";
+                Name = row[0] + " - " + row[1] + " Treasure";
                 Subarea = row[1];
                 MapID = row[2];
                 ID = row[2] + ":" + index;
