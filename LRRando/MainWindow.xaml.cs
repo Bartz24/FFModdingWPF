@@ -169,7 +169,7 @@ namespace LRRando
 
                         string wdbpackPath = Nova.GetNovaFile("LR", @"db\resident\wdbpack.bin", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
                         string wdbpackOutPath = SetupData.OutputFolder + @"\db\resident\wdbpack.bin";
-                        FileExtensions.CopyFile(wdbpackPath, wdbpackOutPath);
+                        FileHelpers.CopyFile(wdbpackPath, wdbpackOutPath);
                         SetupData.WPDTracking.Clear();
                         SetupData.WPDTracking.Add(wdbpackOutPath, new List<string>());
                         Nova.UnpackWPD(wdbpackOutPath, SetupData.Paths["Nova"]);

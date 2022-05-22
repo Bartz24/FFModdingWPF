@@ -1,4 +1,5 @@
-﻿ac300_00,-100,1,5,28
+﻿ID,BasePower,HitMultiplier,ATBCost,MenuIcon
+ac300_00,-100,1,5,28
 ap000_00,250,1,15,26
 ap100_00,35,1,20,26
 ap200_00,150,1,10,26

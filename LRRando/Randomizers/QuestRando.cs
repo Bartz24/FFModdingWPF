@@ -32,7 +32,7 @@ namespace LRRando
         public override void Load()
         {
             questRewards.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_quest.wdb", false);
-            FileExtensions.CopyFile(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb", SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
+            FileHelpers.CopyFile(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb", SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
             questRequirements.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb", false);
 
             questRewards["qst_062"].iMaxGp = 2000;

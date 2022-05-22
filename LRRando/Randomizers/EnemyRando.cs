@@ -32,7 +32,7 @@ namespace LRRando
         {
             string path = Nova.GetNovaFile("LR", @"db\resident\bt_chara_spec.wdb", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
             string outPath = SetupData.OutputFolder + @"\db\resident\bt_chara_spec.wdb";
-            FileExtensions.CopyFile(path, outPath);
+            FileHelpers.CopyFile(path, outPath);
 
             enemies.Load("LR", outPath, SetupData.Paths["Nova"]);
             enemies["m375"].fBrkLoopTime3 = 1203982208;

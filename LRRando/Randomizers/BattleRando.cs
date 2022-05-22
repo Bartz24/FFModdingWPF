@@ -42,23 +42,27 @@ namespace LRRando
             btScenes.LoadDB3("LR", @"\db\resident\bt_scene.wdb");
             charaSets.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
-            enemyData = File.ReadAllLines(@"data\enemies.csv").Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);
+            FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
+            {
+                EnemyData e = new EnemyData(row);
+                enemyData.Add(e.ID, e);
+            }, FileHelpers.CSVFileHeader.HasHeader);
 
-            FileExtensions.ReadCSVFile(@"data\bosses.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\bosses.csv", row =>
             {
                 BossData b = new BossData(row);
                 if (!bossData.ContainsKey(b.Group))
                     bossData.Add(b.Group, new Dictionary<int, BossData>());
                 bossData[b.Group].Add(b.Tier, b);
-            }, false);
+            }, FileHelpers.CSVFileHeader.HasHeader);
 
-            FileExtensions.ReadCSVFile(@"data\bossesStats.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\bossesStats.csv", row =>
             {
                 BossStatsData b = new BossStatsData(row);
                 if (!bossStatsData.ContainsKey(b.ID))
                     bossStatsData.Add(b.ID, new Dictionary<int, BossStatsData>());
                 bossStatsData[b.ID].Add(b.Tier, b);
-            }, true);
+            }, FileHelpers.CSVFileHeader.HasHeader);
 
             shuffledBosses.Clear();
         }
@@ -307,9 +311,9 @@ namespace LRRando
         }
         public override HTMLPage GetDocumentation()
         {
-            HTMLPage page = new HTMLPage("Bosses", "template/documentation.html");
+            HTMLPage page = new HTMLPage("Battles", "template/documentation.html");
 
-            page.HTMLElements.Add(new Table("", (new string[] { "Original Boss", "New Boss", }).ToList(), (new int[] { 50, 50 }).ToList(), shuffledBosses.Select(p =>
+            page.HTMLElements.Add(new Table("Bosses", (new string[] { "Original Boss", "New Boss" }).ToList(), (new int[] { 50, 50 }).ToList(), shuffledBosses.Select(p =>
             {
                 return new string[] { p.Key, p.Value }.ToList();
             }).ToList()));

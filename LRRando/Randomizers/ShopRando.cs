@@ -36,7 +36,11 @@ namespace LRRando
             shopsOrig.LoadDB3("LR", @"\db\resident\shop.wdb");
             shops.LoadDB3("LR", @"\db\resident\shop.wdb");
 
-            shopData = File.ReadAllLines(@"data\shops.csv").Select(s => new ShopData(s.Split(","))).ToDictionary(s => s.ID, s => s);
+            FileHelpers.ReadCSVFile(@"data\shops.csv", row =>
+            {
+                ShopData s = new ShopData(row);
+                shopData.Add(s.ID, s);
+            }, FileHelpers.CSVFileHeader.HasHeader);
 
             EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
             equipRando.items["mat_z_000"].uPurchasePrice = 770;

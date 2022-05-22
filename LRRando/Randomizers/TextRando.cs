@@ -34,7 +34,7 @@ namespace LRRando
             {
                 string path = Nova.GetNovaFile("LR", @"txtres\zone\z0100\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
                 string outPath = SetupData.OutputFolder + @"\txtres\zone\z0100\txtres_us.ztr";
-                FileExtensions.CopyFile(path, outPath);
+                FileHelpers.CopyFile(path, outPath);
 
                 zone100SysUS.Load(outPath, SetupData.Paths["Nova"]);
             }
@@ -46,7 +46,7 @@ namespace LRRando
             {
                 string path = Nova.GetNovaFile("LR", @"txtres\resident\system\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
                 string outPath = SetupData.OutputFolder + @"\txtres\resident\system\txtres_us.ztr";
-                FileExtensions.CopyFile(path, outPath);
+                FileHelpers.CopyFile(path, outPath);
 
                 mainSysUS.Load(outPath, SetupData.Paths["Nova"]);
             }

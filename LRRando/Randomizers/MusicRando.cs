@@ -33,15 +33,12 @@ namespace LRRando
 
         public override void Load()
         {
-            musicData.Clear();
-            using (CsvParser csv = new CsvParser(new StreamReader(@"data\musicLR.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
+            FileHelpers.ReadCSVFile(@"data\musicLR.csv", row =>
             {
-                while (csv.Read())
-                {
-                    MusicData m = new MusicData(csv.Record);
-                    musicData.Add(m.Path, m);
-                }
-            }
+                MusicData m = new MusicData(row);
+                musicData.Add(m.Path, m);
+            }, FileHelpers.CSVFileHeader.HasHeader);
+            musicData.Clear();
         }
         public override void Randomize(Action<int> progressSetter)
         {

@@ -47,8 +47,18 @@ namespace LRRando
             itemAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
             itemAbilitiesOrig.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
             passiveAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_pasv_ablty.wdb", false);
-            passives = File.ReadAllLines(@"data\passives.csv").ToList();
-            abilityData = File.ReadAllLines(@"data\abilities.csv").Select(s => new AbilityData(s.Split(","))).ToDictionary(a => a.ID, e => e);
+
+            FileHelpers.ReadCSVFile(@"data\passives.csv", row =>
+            {
+                passives.Add(row[0]);
+            }, FileHelpers.CSVFileHeader.HasHeader);
+
+            FileHelpers.ReadCSVFile(@"data\abilities.csv", row =>
+            {
+                AbilityData a = new AbilityData(row);
+                abilityData.Add(a.ID, a);
+            }, FileHelpers.CSVFileHeader.HasHeader);
+
             /*
             items.InsertCopyAlphabetical("key_b_20", "key_r_kanki");
             items["key_r_kanki"].sItemNameStringId_string = "$m_001";

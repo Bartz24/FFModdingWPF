@@ -57,29 +57,26 @@ namespace LRRando
             treasuresOrig.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
             treasures.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
 
-            FileExtensions.ReadCSVFile(@"data\treasures.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\treasures.csv", row =>
             {
                 TreasureData t = new TreasureData(row, this);
                 itemLocations.Add(t.ID, t);
-            }, true);
+            }, FileHelpers.CSVFileHeader.HasHeader);
 
-            FileExtensions.ReadCSVFile(@"data\battleDrops.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\battleDrops.csv", row =>
             {
                 BattleDropData b = new BattleDropData(row, this);
                 itemLocations.Add(b.ID, b);
-            }, true);
+            }, FileHelpers.CSVFileHeader.HasHeader);
 
             hintsMain.Clear();
             hintData.Clear();
-            using (CsvParser csv = new CsvParser(new StreamReader(@"data\hints.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
+            FileHelpers.ReadCSVFile(@"data\hints.csv", row =>
             {
-                while (csv.Read())
-                {
-                    HintData h = new HintData(csv.Record);
-                    hintData.Add(h.ID, h);
-                    hintsMain.Add(h.ID, new List<string>());
-                }
-            }
+                HintData h = new HintData(row);
+                hintData.Add(h.ID, h);
+                hintsMain.Add(h.ID, new List<string>());
+            }, FileHelpers.CSVFileHeader.HasHeader);
 
             AddTreasure("tre_ti000", "ti000_00", 1, "");
             AddTreasure("tre_ti810", "ti810_00", 1, "");

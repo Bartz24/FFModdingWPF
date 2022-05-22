@@ -1,4 +1,5 @@
-﻿tre_box_b_008,Dead Dunes,Golden Scarab Treasure,CoPKey,,1
+﻿ID,Area,Name,Traits,Requirements,Difficulty
+tre_box_b_008,Dead Dunes,Golden Scarab Treasure,CoPKey,,1
 tre_box_b_009,Dead Dunes,Oasis Lighthouse Treasure,CoPKey,,1
 tre_box_b_011,Dead Dunes,Grave of the Colossi Shrine Treasure,CoPKey,,0
 tre_box_d_001,Dead Dunes,Giant's Sandbox Treasure,,,0
@@ -16,47 +17,47 @@ tre_box_d_012,Dead Dunes,Grave of the Colossi Treasure,,,0
 tre_box_d_013,Dead Dunes,Grave of the Colossi Treasure,,,0
 tre_box_d_014,Dead Dunes,Atomos's Sand Treasure,,,0
 tre_box_d_015,Dead Dunes,Ruffian 2nd Floor Treasure,,,0
-tre_box_d_016,Dead Dunes,Maze Chamber of Dusk (Upper) Treasure,,,1
-tre_box_d_017,Dead Dunes,Maze Chamber of Plenilune (Upper) Treasure,,,1
-tre_box_d_018,Dead Dunes,Maze Chamber of Plenilune (Upper) Treasure,,,1
-tre_box_d_019,Dead Dunes,Maze Chamber of Plenilune (Upper) Treasure,,,1
-tre_box_d_020,Dead Dunes,Maze Chamber of Plenilune (Lower) Treasure,,,1
-tre_box_d_021,Dead Dunes,Maze Chamber of Plenilune (Lower) Treasure,,,1
-tre_box_d_022,Dead Dunes,Maze Chamber of Plenilune (Lower) Treasure,,,1
-tre_box_d_023,Dead Dunes,Maze Sacred Grove Treasure,,,1
-tre_box_d_024,Dead Dunes,Maze Golden Chamber (Upper) Treasure,,,1
+tre_box_d_016,Dead Dunes,Temple Ruins Chamber of Dusk (Upper) Treasure,,,1
+tre_box_d_017,Dead Dunes,Temple Ruins Chamber of Plenilune (Upper) Treasure,,,1
+tre_box_d_018,Dead Dunes,Temple Ruins Chamber of Plenilune (Upper) Treasure,,,1
+tre_box_d_019,Dead Dunes,Temple Ruins Chamber of Plenilune (Upper) Treasure,,,1
+tre_box_d_020,Dead Dunes,Temple Ruins Chamber of Plenilune (Lower) Treasure,,,1
+tre_box_d_021,Dead Dunes,Temple Ruins Chamber of Plenilune (Lower) Treasure,,,1
+tre_box_d_022,Dead Dunes,Temple Ruins Chamber of Plenilune (Lower) Treasure,,,1
+tre_box_d_023,Dead Dunes,Temple Ruins Sacred Grove Treasure,,,1
+tre_box_d_024,Dead Dunes,Temple Ruins Golden Chamber (Upper) Treasure,,,1
 tre_box_d_025,Dead Dunes,Dry Floodlands Shrine Treasure,,,0
-tre_box_d_026,Dead Dunes,Maze Golden Chamber (Lower) Treasure,,,1
-tre_box_d_027,Dead Dunes,Maze Golden Chamber (Lower) Treasure,,,1
-tre_box_d_028,Dead Dunes,Maze Golden Chamber (Lower) Treasure,,,1
-tre_box_d_029,Dead Dunes,Maze Scorched Earth (Lower) Treasure,EP,,5
-tre_box_d_030,Dead Dunes,Maze Scorched Earth (Upper) Treasure,,,1
-tre_box_d_031,Dead Dunes,Maze Scorched Earth (Upper) Treasure,,,1
-tre_box_d_032,Dead Dunes,Maze Golden Chamber (Upper) Treasure,,,1
+tre_box_d_026,Dead Dunes,Temple Ruins Golden Chamber (Lower) Treasure,,,1
+tre_box_d_027,Dead Dunes,Temple Ruins Golden Chamber (Lower) Treasure,,,1
+tre_box_d_028,Dead Dunes,Temple Ruins Golden Chamber (Lower) Treasure,,,1
+tre_box_d_029,Dead Dunes,Temple Ruins Scorched Earth (Lower) Treasure,EP,,5
+tre_box_d_030,Dead Dunes,Temple Ruins Scorched Earth (Upper) Treasure,,,1
+tre_box_d_031,Dead Dunes,Temple Ruins Scorched Earth (Upper) Treasure,,,1
+tre_box_d_032,Dead Dunes,Temple Ruins Golden Chamber (Upper) Treasure,,,1
 tre_box_d_033,Dead Dunes,Atomos's Sands Shrine Treasure,,,0
 tre_box_d_034,Dead Dunes,Giant's Sandbox Treasure,,,0
 tre_box_d_035,Dead Dunes,Dry Floodlands Treasure,,,0
 tre_d_seki_1,Dead Dunes,Grave of the Colossi Shrine Tablet,MainKey,,1
 tre_d_seki_2,Dead Dunes,Dry Floodlands Shrine Tablet,MainKey,,1
 tre_d_seki_3,Dead Dunes,Atomos's Sands Shrine Tablet,MainKey,,1
-tre_d_base,Dead Dunes,Maze Mural Crux Base,MainKey,I(key_d_sekiban|3),2
-tre_d_wing,Dead Dunes,Maze Mural Crux Body,MainKey,I(key_d_sekiban|2),1
-tre_d_top,Dead Dunes,Maze Mural Crux Tip,MainKey,I(key_d_sekiban|2),1
-tre_key_d_bakt,Dead Dunes,Maze Bhakti Reward,Missable|Quest,,1
+tre_d_base,Dead Dunes,Temple Ruins Mural Crux Base,MainKey,I(key_d_sekiban|3),2
+tre_d_wing,Dead Dunes,Temple Ruins Mural Crux Body,MainKey,I(key_d_sekiban|2),1
+tre_d_top,Dead Dunes,Temple Ruins Mural Crux Tip,MainKey,I(key_d_sekiban|2),1
+tre_key_d_bakt,Dead Dunes,Temple Ruins Bhakti Reward,Missable|Quest,,1
 tre_key_dkye1,Dead Dunes,Grave of the Colossi Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye10,Dead Dunes,Maze Scorched Earth Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye11,Dead Dunes,Maze Golden Chamber (Lower) Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye12,Dead Dunes,Maze Scorched Earth Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye10,Dead Dunes,Temple Ruins Scorched Earth Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye11,Dead Dunes,Temple Ruins Golden Chamber (Lower) Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye12,Dead Dunes,Temple Ruins Scorched Earth Pilgrim's Crux,Pilgrim,,0
 tre_key_dkye13,Dead Dunes,Dry Floodlands Pilgrim's Crux,Pilgrim,,0
 tre_key_dkye14,Dead Dunes,Atomos's Sands Pilgrim's Crux,Pilgrim,,0
 tre_key_dkye2,Dead Dunes,Giant's Sandbox Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye3,Dead Dunes,Maze Sacred Grove Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye4,Dead Dunes,Maze Sacred Grove Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye5,Dead Dunes,Maze Golden Chamber (Upper) Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye6,Dead Dunes,Maze Sacred Grove Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye7,Dead Dunes,Maze Golden Chamber (Upper) Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye8,Dead Dunes,Maze Sacred Grove Pilgrim's Crux,Pilgrim,,0
-tre_key_dkye9,Dead Dunes,Maze Golden Chamber (Lower) Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye3,Dead Dunes,Temple Ruins Sacred Grove Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye4,Dead Dunes,Temple Ruins Sacred Grove Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye5,Dead Dunes,Temple Ruins Golden Chamber (Upper) Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye6,Dead Dunes,Temple Ruins Sacred Grove Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye7,Dead Dunes,Temple Ruins Golden Chamber (Upper) Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye8,Dead Dunes,Temple Ruins Sacred Grove Pilgrim's Crux,Pilgrim,,0
+tre_key_dkye9,Dead Dunes,Temple Ruins Golden Chamber (Lower) Pilgrim's Crux,Pilgrim,,0
 tre_key_lupe,Dead Dunes,Atomos's Sands Loupe,SideKey,,0
 tre_qst_041,Dead Dunes,The Life of a Machine Quest,Missable|Quest,,1
 tre_qst_041_2,Dead Dunes,The Life of a Machine Quest,Missable|Quest,,1
