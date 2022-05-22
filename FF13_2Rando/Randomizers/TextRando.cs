@@ -33,7 +33,7 @@ namespace FF13_2Rando
             {
                 string path = Nova.GetNovaFile("13-2", @"txtres\resident\system\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
                 string outPath = SetupData.OutputFolder + @"\txtres\resident\system\txtres_us.ztr";
-                FileExtensions.CopyFile(path, outPath);
+                FileHelpers.CopyFile(path, outPath);
 
                 mainSysUS.Load(outPath, SetupData.Paths["Nova"]);
             }

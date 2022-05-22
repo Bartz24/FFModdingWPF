@@ -61,33 +61,43 @@ namespace FF13_2Rando
             itemLocations.Clear();
 
             Dictionary<string, TreasureData> treasureData = new Dictionary<string, TreasureData>();
-            FileExtensions.ReadCSVFile(@"data\treasures.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\treasures.csv", row =>
             {
                 TreasureData t = new TreasureData(row);
                 treasureData.Add(t.ID, t);
-            }, true);
+            }, FileHelpers.CSVFileHeader.HasHeader);
             treasureData.ForEach(p => itemLocations.Add(p.Key, p.Value));
 
             Dictionary<string, SearchItemData> searchData = new Dictionary<string, SearchItemData>();
-            FileExtensions.ReadCSVFile(@"data\searchItems.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\searchItems.csv", row =>
             {
                 SearchItemData s = new SearchItemData(row);
                 searchData.Add(s.ID, s);
-            }, true);
+            }, FileHelpers.CSVFileHeader.HasHeader);
             searchData.ForEach(p => itemLocations.Add(p.Key, p.Value));
 
             hintData.Clear();
-            FileExtensions.ReadCSVFile(@"data\hints.csv", row =>
+            FileHelpers.ReadCSVFile(@"data\hints.csv", row =>
             {
                 HintData h = new HintData(row);
                 hintData.Add(h.ID, h);
-            }, true);
+            }, FileHelpers.CSVFileHeader.HasHeader);
 
             AddTreasure("ran_init_cp", "", 0, "");
             AddTreasure("frg_cmn_hmaa001", "frg_cmn_hmaa001", 1, "");
             AddTreasure("frg_cmn_hmaa002", "frg_cmn_hmaa002", 1, "");
             AddTreasure("key_s_neck", "key_s_neck", 1, "");
             AddTreasure("key_l_knife", "key_l_knife", 1, "");
+
+            // Remove repeatable gil moogle throws
+            search.Values.ForEach(s =>
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    if (s.GetItem(i) == "" && s.GetMax(i) == 0 && s.GetRandom(i) > 0)
+                        s.SetRandom(i, 0);
+                }
+            });
 
             List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
 

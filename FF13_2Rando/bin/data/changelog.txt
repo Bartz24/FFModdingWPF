@@ -1,6 +1,3 @@
-0.6.8 Changelog:
+0.6.9 Changelog:
 
--Added accessory weight rando flag
--Enemies with summons limited in larger encounters
--Removed broken/hidden passive
--Fixed Sunleth 400 crash
+-Removed repeatable gil drops from Improved Moogle Throw

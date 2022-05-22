@@ -34,7 +34,7 @@ namespace FF13_2Rando
         public override void Load()
         {
             itemWeapons.LoadDB3("13-2", @"\db\resident\item_weapon.wdb");
-            FileExtensions.CopyFile(SetupData.OutputFolder + @"\db\resident\item_weapon.wdb", SetupData.OutputFolder + @"\db\resident\item_weapon.wdb.orig");
+            FileHelpers.CopyFile(SetupData.OutputFolder + @"\db\resident\item_weapon.wdb", SetupData.OutputFolder + @"\db\resident\item_weapon.wdb.orig");
             items.LoadDB3("13-2", @"\db\resident\item.wdb");
         }
         public override void Randomize(Action<int> progressSetter)

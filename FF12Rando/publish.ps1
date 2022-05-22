@@ -20,15 +20,12 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
     Copy-Item -Path "bin\publish\FF12Rando.exe" -Destination "bin\publish\rando" -Force
 
     Remove-Item -Recurse -Force "bin\publish\rando\data" -ErrorAction Ignore
-    New-Item -Path "bin\publish\rando\data" -ItemType Directory
     Copy-Item -Path "bin\data\" -Destination "bin\publish\rando\data" -Recurse -Force
 
     Remove-Item -Recurse -Force "bin\publish\scripts" -ErrorAction Ignore
-    New-Item -Path "bin\publish\scripts" -ItemType Directory
     Copy-Item -Path "bin\scripts\" -Destination "bin\publish\scripts" -Recurse -Force
 
     Remove-Item -Recurse -Force "bin\publish\fomod" -ErrorAction Ignore
-    New-Item -Path "bin\publish\fomod" -ItemType Directory
     Copy-Item -Path "bin\fomod\" -Destination "bin\publish\fomod" -Recurse -Force
 
     Write-Host "Creating 7z file..."

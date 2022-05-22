@@ -75,5 +75,13 @@ namespace Bartz24.FF13_2
 		{
 			this.SetPropValue($"u8Count{index}", max);
 		}
+		public int GetRandom(int index)
+		{
+			return this.GetPropValue<int>($"u8Random{index}");
+		}
+		public void SetRandom(int index, int max)
+		{
+			this.SetPropValue($"u8Random{index}", max);
+		}
 	}
 }

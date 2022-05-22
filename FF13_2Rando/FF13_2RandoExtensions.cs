@@ -18,7 +18,7 @@ namespace FF13_2Rando
             string path = Nova.GetNovaFile(game, relativePath, SetupData.Paths["Nova"], SetupData.Paths[game], !fromNovaOnly);
             if (fromNovaOnly || File.Exists(path))
             {
-                FileExtensions.CopyFile(path, outPath, true);
+                FileHelpers.CopyFile(path, outPath, true);
             }
 
             dataStoreDB3.Load(game, outPath, SetupData.Paths["Nova"]);

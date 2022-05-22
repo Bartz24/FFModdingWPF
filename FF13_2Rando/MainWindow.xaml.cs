@@ -177,11 +177,11 @@ namespace FF13_2Rando
 
                         string wdbpackPath = Nova.GetNovaFile("13-2", @"db\resident\wdbpack.bin", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
                         string wdbpackOutPath = SetupData.OutputFolder + @"\db\resident\wdbpack.bin";
-                        FileExtensions.CopyFile(wdbpackPath, wdbpackOutPath);
+                        FileHelpers.CopyFile(wdbpackPath, wdbpackOutPath);
 
                         string x000Path = Nova.GetNovaFile("13-2", @"btscene\pack\wdb\x000.bin", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
                         string x000OutPath = SetupData.OutputFolder + @"\btscene\pack\wdb\x000.bin";
-                        FileExtensions.CopyFile(x000Path, x000OutPath);
+                        FileHelpers.CopyFile(x000Path, x000OutPath);
 
                         SetupData.WPDTracking.Clear();
                         SetupData.WPDTracking.Add(wdbpackOutPath, new List<string>());
