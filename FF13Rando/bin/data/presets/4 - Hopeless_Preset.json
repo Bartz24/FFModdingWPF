@@ -1,0 +1,98 @@
+{
+  "name": "4 - Hopeless",
+  "version": "0.7.0",
+  "flags": [
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "AbiAll"
+        }
+      ],
+      "FlagID": "RandCrystAbi"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "ShuffleCrystMisc"
+        }
+      ],
+      "FlagID": "RandCrystStat"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "ShuffleCrystRole"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandInitStats"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "KeyInitRoles"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyRoles"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyStages"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyEidolith"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyShops"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyReins"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceTreas"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceMissions"
+        },
+        {
+          "SelectedValue": "Hard+++",
+          "ID": "KeyDepth"
+        }
+      ],
+      "FlagID": "Treasures"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "ShuffleRoles"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "ShuffleShops"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "StartingEquip"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Music"
+    }
+  ]
+}

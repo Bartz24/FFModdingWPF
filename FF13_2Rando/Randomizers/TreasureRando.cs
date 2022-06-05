@@ -256,6 +256,8 @@ namespace FF13_2Rando
             public override List<string> Areas { get; }
             public override List<string> RequiredAreas { get; }
 
+            public override int Difficulty => throw new NotImplementedException();
+
             public TreasureData(string[] row)
             {
                 ID = row[0];
@@ -298,6 +300,8 @@ namespace FF13_2Rando
             public override List<string> Traits { get; }
             public override List<string> Areas { get; }
             public override List<string> RequiredAreas { get; }
+
+            public override int Difficulty => throw new NotImplementedException();
 
             public SearchItemData(string[] row)
             {

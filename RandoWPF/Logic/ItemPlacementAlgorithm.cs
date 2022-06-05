@@ -89,7 +89,7 @@ namespace Bartz24.RandoWPF
             List<string> randomZeros = new List<string>();
             for (int j = 0; j < 10; j++)
             {
-                if (RandomNum.RandInt(0, 99) < 10)
+                if (RandomNum.RandInt(0, 99) < 10 && HintsByLocationsCount.Keys.Where(l => !randomZeros.Contains(l)).Count() > 0)
                     randomZeros.Add(HintsByLocationsCount.Keys.Where(l => !randomZeros.Contains(l)).ToList().Shuffle().First());
             }
 

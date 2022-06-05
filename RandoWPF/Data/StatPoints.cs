@@ -13,13 +13,15 @@ namespace Bartz24.RandoWPF
         private float[] Weights { get; set; }
         private int[] ZeroChances { get; set; }
         private int[] NegChances { get; set; }
-        public StatPoints(Tuple<int, int>[] bounds, float[] weights, int[] zeroChances, int[] negChances)
+        private float Rate { get; set; }
+        public StatPoints(Tuple<int, int>[] bounds, float[] weights, int[] zeroChances, int[] negChances, float rate = 0.2f)
         {
             Values = new StatValues(bounds.Length);
             Bounds = bounds;
             Weights = weights;
             ZeroChances = zeroChances;
             NegChances = negChances;
+            Rate = rate;
         }
 
         public void Randomize(int[] actual)
@@ -52,7 +54,7 @@ namespace Bartz24.RandoWPF
                     }).Sum();
                 } while (StatValues.GetBoundsSum(modBounds) < total);
 
-                Values.Randomize(modBounds, total);
+                Values.Randomize(modBounds, total, Rate);
 
                 Enumerable.Range(0, Bounds.Length).ToList().ForEach(i =>
                 {

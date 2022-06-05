@@ -45,7 +45,7 @@ namespace LRRando
             {
                 LRFlags.StatsAbilities.EPAbilities.SetRand();
 
-                IEnumerable<LRItemLocation> keys = treasureRando.itemLocations.Values.Where(t => treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1.StartsWith("ti") || treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1 == "at900_00");
+                IEnumerable<ItemLocation> keys = treasureRando.itemLocations.Values.Where(t => treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1.StartsWith("ti") || treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1 == "at900_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled)
                     keys = keys.Where(t => treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1 != "ti830_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled)

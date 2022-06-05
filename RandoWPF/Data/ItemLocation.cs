@@ -13,6 +13,7 @@ namespace Bartz24.RandoWPF
         public abstract ItemReq Requirements { get; }
         public abstract List<string> Traits { get; }
         public abstract List<string> Areas { get; }
+        public abstract int Difficulty { get; }
         public abstract bool IsValid(Dictionary<string, int> items);
 
         public abstract void SetData(dynamic obj, string newItem, int newCount);

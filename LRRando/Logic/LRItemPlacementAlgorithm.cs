@@ -9,13 +9,13 @@ using static LRRando.TreasureRando;
 
 namespace LRRando
 {
-    public class LRItemPlacementAlgorithm : ItemPlacementAlgorithm<LRItemLocation>
+    public class LRItemPlacementAlgorithm : ItemPlacementAlgorithm<ItemLocation>
     {
         TreasureRando treasureRando;
 
         Dictionary<string, int> AreaDepths = new Dictionary<string, int>();
 
-        public LRItemPlacementAlgorithm(Dictionary<string, LRItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers) : base(itemLocations, hintsByLocations)
+        public LRItemPlacementAlgorithm(Dictionary<string, ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers) : base(itemLocations, hintsByLocations)
         {
             treasureRando = randomizers.Get<TreasureRando>("Treasures");
         }

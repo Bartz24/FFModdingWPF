@@ -1,0 +1,13 @@
+0.7.0 Changelog:
+
+-Includes the following flags:
+    -Randomize crystarium abilities and stats and shuffle nodes
+    -Randomize initial stats
+    -Randomize item locations
+        -Can include roles, stages, eidoliths, shops, omni-kit and gysahl reins
+    -Shuffle roles
+    -Randomize starting equipment
+    -Shuffle music
+-Chapter select from The Lindblum, beat the game when you're strong enough
+-Battle team option is available whenever it shouldn't break the game
+-Secondary role costs are similar to primary roles costs

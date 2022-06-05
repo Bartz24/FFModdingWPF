@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace FF12Rando
 {
-    public class FF12AssumedItemPlacementAlgorithm : AssumedItemPlacementAlgorithm<FF12ItemLocation>
+    public class FF12AssumedItemPlacementAlgorithm : AssumedItemPlacementAlgorithm<ItemLocation>
     {
         TreasureRando treasureRando;
 
         Dictionary<string, int> AreaDepths = new Dictionary<string, int>();
 
-        public FF12AssumedItemPlacementAlgorithm(Dictionary<string, FF12ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
+        public FF12AssumedItemPlacementAlgorithm(Dictionary<string, ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
         {
             treasureRando = randomizers.Get<TreasureRando>("Treasures");
         }

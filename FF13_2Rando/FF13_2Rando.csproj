@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Bartz24.Data\Bartz24.Data.csproj" />
     <ProjectReference Include="..\Bartz24.Docs\Bartz24.Docs.csproj" />
+    <ProjectReference Include="..\Bartz24.FF13Series\Bartz24.FF13Series.csproj" />
     <ProjectReference Include="..\Bartz24.FF13_2\Bartz24.FF13_2.csproj" />
     <ProjectReference Include="..\Bartz24.FF13_2_LR\Bartz24.FF13_2_LR.csproj" />
     <ProjectReference Include="..\RandoWPF\Bartz24.RandoWPF.csproj" />

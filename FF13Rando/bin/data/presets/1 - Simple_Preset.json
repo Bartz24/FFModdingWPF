@@ -1,0 +1,98 @@
+{
+  "name": "1 - Simple",
+  "version": "0.7.0",
+  "flags": [
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": false,
+          "ID": "AbiAll"
+        }
+      ],
+      "FlagID": "RandCrystAbi"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "ShuffleCrystMisc"
+        }
+      ],
+      "FlagID": "RandCrystStat"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "ShuffleCrystRole"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandInitStats"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": false,
+          "ID": "KeyInitRoles"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyRoles"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyStages"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyEidolith"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyShops"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyReins"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyPlaceTreas"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyPlaceMissions"
+        },
+        {
+          "SelectedValue": "Normal",
+          "ID": "KeyDepth"
+        }
+      ],
+      "FlagID": "Treasures"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "ShuffleRoles"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "ShuffleShops"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "StartingEquip"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Music"
+    }
+  ]
+}

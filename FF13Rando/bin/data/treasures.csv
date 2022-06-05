@@ -1,0 +1,534 @@
+﻿ID,Name,Location,Required Items,Traits,Difficulty
+z_ran_lig_com,Lightning Commando Role,Initial,,Same,1
+z_ran_lig_rav,Lightning Ravager Role,Initial,,,1
+z_ran_fan_com,Fang Commando Role,Initial,,Same,1
+z_ran_fan_sen,Fang Sentinel Role,Initial,,,1
+z_ran_fan_sab,Fang Saboteur Role,Initial,,,1
+z_ran_saz_rav,Sazh Ravager Role,Initial,,Same,1
+z_ran_hop_rav,Hope Ravager Role,Initial,,Same,1
+z_ran_hop_syn,Hope Synergist Role,Initial,,,1
+z_ran_hop_med,Hope Medic Role,Initial,,,1
+z_ran_van_rav,Vanille Ravager Role,Initial,,Same,1
+z_ran_van_med,Vanille Medic Role,Initial,,,1
+z_ran_sno_com,Snow Commando Role,Initial,,Same,1
+z_ran_sno_rav,Snow Ravager Role,Initial,,,1
+z_ran_sno_sen,Snow Sentinel Role,Initial,,,1
+z_ini_lig_wea,Lightning's Starting Weapon,Initial,,Same,1
+z_ini_fan_wea,Fang's Starting Weapon,Initial,,Same,1
+z_ini_saz_wea,Sazh's Starting Weapon,Initial,,Same,1
+z_ini_hop_wea,Hope's Starting Weapon,Initial,,Same,1
+z_ini_van_wea,Vanille's Starting Weapon,Initial,,Same,1
+z_ini_sno_wea,Snow's Starting Weapon,Initial,,Same,1
+z_ini_potion,Starting Item,Initial,,,1
+z_ini_gil,Starting Gil,Initial,,,1
+z_ini_shop,Starting Shop,Initial,,,1
+tre_hang_001,Aerorail Trussway 13-E,Hanging Edge,,,1
+tre_hang_002,Aerorail Trussway 12-E,Hanging Edge,,,1
+tre_hang_003,Aerorail Trussway 12-E,Hanging Edge,,,1
+tre_hang_004,Aerorail Trussway 11-E,Hanging Edge,,,1
+tre_hang_005,Aerorail Trussway 5-W,Hanging Edge,,,1
+tre_hang_006,Aerorail Trussway 6-W,Hanging Edge,,,1
+tre_hang_007,Aerorail Trussway 3-N,Hanging Edge,,,1
+tre_hang_008,Aerorail Trussway 3-N,Hanging Edge,,,1
+tre_hgin_014,Sacrarium,Pulse Vestige,,,1
+tre_hgin_001,Sacrarium,Pulse Vestige,,,1
+tre_hgin_012,Sacrarium,Pulse Vestige,,,1
+tre_hgin_002,Sacrarium,Pulse Vestige,,,1
+tre_hgin_011,House of Stairs,Pulse Vestige,,,1
+tre_hgin_005,House of Stairs,Pulse Vestige,,,1
+tre_hgin_006,Ambulatory,Pulse Vestige,,,1
+tre_hgin_003,Ambulatory,Pulse Vestige,,,1
+tre_hgin_007,Ambulatory,Pulse Vestige,,,1
+tre_hgin_008,Oblatorium,Pulse Vestige,,,1
+tre_hgin_010,Anima's Throne,Pulse Vestige,,,1
+z_shp_03_06,Chapter 3 Shop Expansion,Lake Bresha,,,1
+tre_hgcr_001,The Waters Stilled,Lake Bresha,,,1
+tre_hgcr_002,The Waters Stilled,Lake Bresha,,,1
+tre_hgcr_004,The Waters Stilled,Lake Bresha,,,1
+tre_hgcr_005,Amid Timebound Waves,Lake Bresha,,,1
+tre_hgcr_006,Amid Timebound Waves,Lake Bresha,,,1
+tre_hgcr_028,Amid Timebound Waves,Lake Bresha,,,1
+tre_hgcr_007,Amid Timebound Waves,Lake Bresha,,,1
+tre_hgcr_008,Amid Timebound Waves,Lake Bresha,,,1
+tre_hgcr_009,Amid Timebound Waves,Lake Bresha,,,1
+tre_hgcr_010,Encased in Crystal,Lake Bresha,,,2
+tre_hgcr_012,Encased in Crystal,Lake Bresha,,,2
+tre_hgcr_011,Encased in Crystal,Lake Bresha,,,2
+tre_hgcr_014,Encased in Crystal,Lake Bresha,,,2
+tre_hgcr_013,Encased in Crystal,Lake Bresha,,,2
+tre_hgcr_015,Encased in Crystal,Lake Bresha,,,2
+tre_hgcr_016,Encased in Crystal,Lake Bresha,,,2
+tre_hgcr_017,The Frozen Falls,Lake Bresha,,,2
+tre_hgcr_030,The Frozen Falls,Lake Bresha,,,2
+tre_hgcr_029,The Frozen Falls,Lake Bresha,,,2
+tre_hgcr_019,The Mirrored Morass,Lake Bresha,,,2
+tre_hgcr_018,The Mirrored Morass,Lake Bresha,,,2
+tre_hgcr_020,Gates of Antiquity,Lake Bresha,,,2
+tre_hgcr_021,Gates of Antiquity,Lake Bresha,,,2
+tre_hgcr_022,Forgotten Commons,Lake Bresha,,,2
+tre_hgcr_023,Forgotten Commons,Lake Bresha,,,2
+tre_hgcr_024,A City No Longer,Lake Bresha,,,2
+tre_hgcr_003,A City No Longer,Lake Bresha,,,2
+tre_hgcr_025,A City No Longer,Lake Bresha,,,2
+tre_hgcr_027,Echoes of the Past,Lake Bresha,,,2
+tre_hgcr_026,Echoes of the Past,Lake Bresha,,,2
+z_ran_saz_syn,Sazh Synergist Role,Lake Bresha,,,2
+z_ran_van_sab,Vanille Saboteur Role,Lake Bresha,,,2
+z_ran_stg_03,Chapter 3 Crystarium Expansion,Lake Bresha,,,2
+z_shp_04_06,Chapter 4 Shop Expansion,Vile Peaks,,,2
+tre_vpek_001,Wrack and Ruin,Vile Peaks,,,2
+tre_vpek_002,Another Man's Treasure,Vile Peaks,,,3
+tre_vpek_003,Another Man's Treasure,Vile Peaks,,,3
+tre_vpek_005,Munitions Necropolis,Vile Peaks,,,3
+tre_vpek_004,Munitions Necropolis,Vile Peaks,,,3
+tre_vpek_006,Devastated Dreams,Vile Peaks,,,3
+tre_vpek_007,Devastated Dreams,Vile Peaks,,,3
+z_ran_lig_med,Lightning Medic Role,Vile Peaks,,,3
+z_ran_saz_com,Sazh Commando Role,Vile Peaks,,,3
+z_ran_stg_04,Chapter 4 Crystarium Expansion,Vile Peaks,,,3
+tre_vpek_010,Scavenger's Trail,Vile Peaks,,,3
+tre_vpek_011,Scavenger's Trail,Vile Peaks,,,3
+tre_vpek_019,Scavenger's Trail,Vile Peaks,,,3
+tre_vpek_012,Scavenger's Trail,Vile Peaks,,,3
+tre_vpek_013,Scavenger's Trail,Vile Peaks,,,3
+tre_vpek_026,Scavenger's Trail Minigame 0-24,Vile Peaks,,Missable,3
+tre_vpek_027,Scavenger's Trail Minigame 25-34,Vile Peaks,,Missable,3
+tre_vpek_028,Scavenger's Trail Minigame 35+,Vile Peaks,,Missable,3
+tre_vpek_029,Scavenger's Trail Minigame 0-24,Vile Peaks,,Missable,3
+tre_vpek_030,Scavenger's Trail Minigame 25-39,Vile Peaks,,Missable,3
+tre_vpek_031,Scavenger's Trail Minigame 40+,Vile Peaks,,Missable,3
+tre_vpek_020,Scrap Processing,Vile Peaks,,,3
+tre_vpek_016,Scrap Processing,Vile Peaks,,,3
+tre_vpek_009,Scrap Processing,Vile Peaks,,,3
+tre_vpek_017,Scrap Processing,Vile Peaks,,,3
+tre_vpek_021,Scrap Processing,Vile Peaks,,,3
+tre_vpek_014,Scrap Processing,Vile Peaks,,,3
+tre_vpek_015,Scrap Processing,Vile Peaks,,,3
+tre_vpek_018,Scrap Processing,Vile Peaks,,,3
+z_shp_05_00,Chapter 5 Shop Expansion,Gapra Whitewood,,,3
+z_shp_05_06,Chapter 5 Shop Expansion,Gapra Whitewood,,,3
+tre_gapr_001,Canopy Wardwalks,Gapra Whitewood,,,4
+tre_gapr_002,Research Corridor,Gapra Whitewood,,,4
+tre_gapr_003,Bioweapon Research Site D,Gapra Whitewood,,,4
+tre_gapr_004,Field Trial Range S,Gapra Whitewood,,,4
+tre_gapr_005,Field Trial Range N,Gapra Whitewood,,,4
+tre_gapr_006,Environmental Regulation,Gapra Whitewood,,,4
+tre_gapr_007,Environmental Regulation,Gapra Whitewood,,,4
+tre_gapr_008,Environmental Regulation,Gapra Whitewood,,,4
+tre_gapr_009,Bioweapons Maintenance,Gapra Whitewood,,,4
+z_ran_stg_05,Chapter 5 Crystarium Expansion,Gapra Whitewood,,,4
+z_shp_06_02,Chapter 6 Shop Expansion,Sunleth Waterscape,,,4
+z_shp_06_07,Chapter 6 Shop Expansion,Sunleth Waterscape,,,4
+tre_snls_001,The Old Growth,Sunleth Waterscape,,,5
+tre_snls_002,Sun-dappled Trail,Sunleth Waterscape,,,5
+tre_snls_003,Sun-dappled Trail,Sunleth Waterscape,,,5
+tre_snls_004,Sun-dappled Trail,Sunleth Waterscape,,,5
+tre_snls_005,A Shimmering Sky,Sunleth Waterscape,,,5
+tre_snls_007,A Shimmering Sky,Sunleth Waterscape,,,5
+tre_snls_006,A Shimmering Sky,Sunleth Waterscape,,,5
+tre_snls_008,Rain-spotted Vale,Sunleth Waterscape,,,5
+tre_snls_009,Rain-spotted Vale,Sunleth Waterscape,,,5
+z_ran_stg_06,Chapter 6 Crystarium Expansion,Sunleth Waterscape,,,5
+z_shp_07_00,Chapter 7 Shop Expansion,Palumpolum,,,5
+z_shp_07_06,Chapter 7 Shop Expansion,Palumpolum,,,5
+z_shp_07_12,Chapter 7 Shop Expansion,Palumpolum,,,5
+tre_pmpm_001,The Metrostile,Palumpolum,,,6
+tre_pmpm_002,The Metrostile,Palumpolum,,,6
+tre_pmpm_003,The Metrostile,Palumpolum,,,6
+tre_pmpm_005,Nutriculture Complex,Palumpolum,,,6
+tre_pmpm_012,Nutriculture Complex,Palumpolum,,,6
+tre_pmpm_023,Nutriculture Complex,Palumpolum,,,6
+tre_pmpm_024,Nutriculture Complex,Palumpolum,,,6
+tre_pmpm_004,Nutriculture Complex,Palumpolum,,,6
+tre_pmpm_006,Pedestrian Terraces,Palumpolum,,,6
+tre_pmpm_008,Pedestrian Terraces,Palumpolum,,,6
+tre_pmpm_013,Pedestrian Terraces,Palumpolum,,,6
+tre_pmpm_010,Western Promenade,Palumpolum,,,6
+tre_pmpm_026,Western Promenade,Palumpolum,,,6
+tre_pmpm_019,Western Promenade,Palumpolum,,,6
+tre_pmpm_020,Western Promenade,Palumpolum,,,6
+tre_pmpm_014,Central Arcade,Palumpolum,,,6
+tre_pmpm_025,Central Arcade,Palumpolum,,,6
+tre_pmpm_016,Rivera Towers,Palumpolum,,,6
+tre_pmpm_017,Rivera Towers,Palumpolum,,,6
+tre_pmpm_009,Rivera Towers,Palumpolum,,,6
+tre_pmpm_011,Rivera Towers,Palumpolum,,,6
+tre_pmpm_018,Rivera Towers,Palumpolum,,,6
+tre_pmpm_022,Felix Heights,Palumpolum,,,6
+tre_pmpm_021,Felix Heights,Palumpolum,,,6
+tre_pmpm_007,The Estheim Residence,Palumpolum,,,6
+tre_pmpm_028,The Estheim Residence,Palumpolum,,,6
+tre_pmpm_027,The Estheim Residence,Palumpolum,,,6
+z_ran_stg_07,Chapter 7 Crystarium Expansion,Palumpolum,,,6
+z_shp_08_07,Chapter 8 Shop Expansion,Nautilus,,,6
+z_shp_08_10,Chapter 8 Shop Expansion,Nautilus,,,6
+tre_nati_005,Park Square,Nautilus,,,7
+tre_nati_004,Chocobo Corral,Nautilus,,,7
+tre_nati_001,The Mall,Nautilus,,,7
+tre_nati_002,The Clock Tower,Nautilus,,,7
+tre_nati_003,The Clock Tower,Nautilus,,,7
+z_shp_09_00,Chapter 9 Shop Expansion,Palamecia,,,7
+z_shp_09_06,Chapter 9 Shop Expansion,Palamecia,,,7
+z_shp_09_12,Chapter 9 Shop Expansion,Palamecia,,,7
+tre_hiku_001,Short-field Landing Deck,Palamecia,,,8
+tre_hiku_002,External Berths,Palamecia,,,8
+tre_hiku_003,External Berths,Palamecia,,,8
+tre_hiku_004,External Berths,Palamecia,,,8
+tre_hiku_005,Crew Corridors,Palamecia,,,8
+tre_hiku_006,Crew Corridors,Palamecia,,,8
+tre_hiku_007,Crew Corridors,Palamecia,,,8
+tre_hiku_009,Cargo Access,Palamecia,,,8
+tre_hiku_008,Cargo Access,Palamecia,,,8
+tre_hiku_011,Rotary Shaft,Palamecia,,,8
+tre_hiku_013,Rotary Shaft,Palamecia,,,8
+tre_hiku_012,Rotary Shaft,Palamecia,,,8
+tre_hiku_010,Rotary Shaft,Palamecia,,,8
+tre_hiku_015,Primary Engine Bay,Palamecia,,,8
+tre_hiku_014,Primary Engine Bay,Palamecia,,,8
+tre_hiku_016,Starboard Weather Deck,Palamecia,,,8
+tre_hiku_017,Starboard Weather Deck,Palamecia,,,8
+tre_hiku_018,Starboard Weather Deck,Palamecia,,,8
+tre_hiku_019,Starboard Weather Deck,Palamecia,,,8
+tre_hiku_020,Starboard Weather Deck,Palamecia,,,8
+tre_hiku_023,Bridge Access,Palamecia,,,8
+tre_hiku_022,Bridge Access,Palamecia,,,8
+tre_hiku_021,Bridge Access,Palamecia,,,8
+tre_hiku_024,Bridge Access,Palamecia,,,8
+tre_hiku_025,Bridge Access,Palamecia,,,8
+tre_hiku_027,Bridge Access,Palamecia,,,8
+tre_hiku_026,Bridge Access,Palamecia,,,8
+tre_hiku_028,Bridge Access,Palamecia,,,8
+z_ran_stg_09,Chapter 9 Crystarium Expansion,Palamecia,,,9
+z_shp_10_00,Chapter 10 Shop Expansion,Fifth Ark,,,9
+z_shp_10_03,Chapter 10 Shop Expansion,Fifth Ark,,,9
+z_shp_10_06,Chapter 10 Shop Expansion,Fifth Ark,,,9
+z_shp_10_07,Chapter 10 Shop Expansion,Fifth Ark,,,9
+z_shp_10_10,Chapter 10 Shop Expansion,Fifth Ark,,,9
+z_shp_10_11,Chapter 10 Shop Expansion,Fifth Ark,,,9
+z_ran_lig_sen,Lightning Sentinel Role,Fifth Ark,,,9
+z_ran_lig_syn,Lightning Synergist Role,Fifth Ark,,,9
+z_ran_lig_sab,Lightning Saboteur Role,Fifth Ark,,,9
+z_ran_fan_rav,Fang Ravager Role,Fifth Ark,,,9
+z_ran_fan_syn,Fang Synergist Role,Fifth Ark,,,9
+z_ran_fan_med,Fang Medic Role,Fifth Ark,,,9
+z_ran_saz_sen,Sazh Sentinel Role,Fifth Ark,,,9
+z_ran_saz_sab,Sazh Saboteur Role,Fifth Ark,,,9
+z_ran_saz_med,Sazh Medic Role,Fifth Ark,,,9
+z_ran_hop_sen,Hope Sentinel Role,Fifth Ark,,,9
+z_ran_hop_com,Hope Commando Role,Fifth Ark,,,9
+z_ran_hop_sab,Hope Saboteur Role,Fifth Ark,,,9
+z_ran_van_sen,Vanille Sentinel Role,Fifth Ark,,,9
+z_ran_van_com,Vanille Commando Role,Fifth Ark,,,9
+z_ran_van_syn,Vanille Synergist Role,Fifth Ark,,,9
+z_ran_sno_syn,Snow Synergist Role,Fifth Ark,,,9
+z_ran_sno_sab,Snow Saboteur Role,Fifth Ark,,,9
+z_ran_sno_med,Snow Medic Role,Fifth Ark,,,9
+tre_fark_001,Vestibular Hold,Fifth Ark,,,9
+tre_fark_002,Vestibular Hold,Fifth Ark,,,9
+tre_fark_003,Lower Traverse,Fifth Ark,,,9
+tre_fark_004,Lower Traverse,Fifth Ark,,,9
+tre_fark_005,Lower Traverse,Fifth Ark,,,9
+tre_fark_015,High Conflux,Fifth Ark,,,9
+tre_fark_006,Hibernatorium,Fifth Ark,,,9
+tre_fark_007,Inner Circuit,Fifth Ark,,,9
+tre_fark_013,Inner Circuit,Fifth Ark,,,9
+tre_fark_008,Inner Circuit,Fifth Ark,,,9
+tre_fark_009,Inner Circuit,Fifth Ark,,,9
+tre_fark_014,Inner Circuit,Fifth Ark,,,9
+z_ran_stg_10,Chapter 10 Crystarium Expansion,Fifth Ark,,,9
+tre_fark_010,Substratal Conflux,Fifth Ark,,,9
+tre_fark_011,The Synthrona,Fifth Ark,,,9
+tre_fark_012,Hypogeum,Fifth Ark,,,9
+z_shp_11_00,Chapter 11 Shop Expansion,Vallis Media,,,9
+z_shp_11_06,Chapter 11 Shop Expansion,Vallis Media,,,9
+z_shp_11_07,Chapter 11 Shop Expansion,Vallis Media,,,9
+z_shp_11_08,Chapter 11 Shop Expansion,Vallis Media,,,9
+z_shp_11_10,Chapter 11 Shop Expansion,Vallis Media,,,9
+z_shp_11_11,Chapter 11 Shop Expansion,Vallis Media,,,9
+tre_gpcg_001,Fingers of Stone,Vallis Media,,,9
+tre_gpcg_002,Atzilut's Tears,Vallis Media,,,9
+tre_gpda_001,Central Expanse,Archylte Steppe,,,10
+tre_gpda_005,Central Expanse,Archylte Steppe,,,10
+tre_gpda_006,Central Expanse,Archylte Steppe,,,10
+tre_gpda_003,Central Expanse,Archylte Steppe,,,10
+tre_gpda_019,Central Expanse,Archylte Steppe,I(key_field_00),,10
+tre_gpda_004,Central Expanse,Archylte Steppe,,,10
+tre_gpda_023,Northern Highplain,Archylte Steppe,,,10
+tre_gpda_015,Northern Highplain,Archylte Steppe,,,10
+tre_gpda_020,Northern Highplain,Archylte Steppe,I(key_field_00),,10
+tre_gpda_014,Northern Highplain,Archylte Steppe,,,10
+tre_gpda_029,Northern Highplain,Archylte Steppe,,,10
+tre_gpda_013,Western Benchland,Archylte Steppe,,,10
+tre_gpda_002,Western Benchland,Archylte Steppe,,,10
+tre_gpda_030,Western Benchland,Archylte Steppe,,,10
+tre_gpda_012,Western Benchland,Archylte Steppe,,,10
+tre_gpda_008,Western Benchland,Archylte Steppe,,,10
+tre_gpda_009,Western Benchland,Archylte Steppe,,,10
+tre_gpda_007,Western Benchland,Archylte Steppe,,,10
+tre_gpda_022,The Font of Namva,Archylte Steppe,,,10
+tre_gpda_021,The Font of Namva,Archylte Steppe,,,10
+tre_gpda_016,Eastern Tors,Archylte Steppe,,,10
+tre_gpda_017,Eastern Tors,Archylte Steppe,,,10
+tre_gpda_018,Eastern Tors,Archylte Steppe,,,10
+tre_gpda_010,Eastern Tors,Archylte Steppe,,,10
+tre_gpda_011,Eastern Tors,Archylte Steppe,,,10
+tre_gpda_025,Aggra's Pasture,Archylte Steppe,I(key_field_00),,10
+tre_gpda_024,Aggra's Pasture,Archylte Steppe,I(key_field_00),,10
+tre_gpda_027,The Haerii Achaeopolis,Archylte Steppe,I(key_field_00),,10
+tre_gpda_028,The Haerii Achaeopolis,Archylte Steppe,I(key_field_00),,10
+tre_gpda_026,The Haerii Achaeopolis,Archylte Steppe,I(key_field_00),,10
+tre_gpyu_001,Maw of the Abyss,Mah'habara,,,10
+tre_gpyu_016,Maw of the Abyss,Mah'habara,,,10
+z_shp_11_02b,Chapter 11 Mah'habara Shop Expansion,Mah'habara,,,10
+z_shp_11_03b,Chapter 11 Mah'habara Shop Expansion,Mah'habara,,,10
+z_shp_11_06b,Chapter 11 Mah'habara Shop Expansion,Mah'habara,,,10
+z_shp_11_12b,Chapter 11 Mah'habara Shop Expansion,Mah'habara,,,10
+tre_gpyu_002,The Earthworks,Mah'habara,,,10
+tre_gpyu_003,The Earthworks,Mah'habara,,,10
+tre_gpyu_011,Twilit Cavern,Mah'habara,,,10
+tre_gpyu_004,Twilit Cavern,Mah'habara,,,10
+tre_gpyu_005,Dusktide Grotto,Mah'habara,,,10
+tre_gpyu_012,Dusktide Grotto,Mah'habara,,,10
+tre_gpyu_006,Dusktide Grotto,Mah'habara,,,10
+tre_gpyu_007,Dusktide Grotto,Mah'habara,,,10
+tre_gpyu_015,An Asylum from Light,Mah'habara,,,10
+tre_gpyu_014,An Asylum from Light,Mah'habara,,,10
+tre_gpyu_008,An Asylum from Light,Mah'habara,,,10
+tre_gpyu_009,An Asylum from Light,Mah'habara,,,10
+tre_gpyu_013,An Asylum from Light,Mah'habara,,,10
+tre_gpyu_010,Abandoned Dig,Mah'habara,,,10
+tre_gpyu_018,Abandoned Dig,Mah'habara,,,10
+tre_gpyu_017,Abandoned Dig,Mah'habara,,,10
+tre_gptk_001,Subterranean Lake,Sulyya Springs,,,10
+tre_gptk_002,Subterranean Lake,Sulyya Springs,,,10
+tre_gptk_010,Subterranean Lake,Sulyya Springs,,,10
+tre_gptk_008,Subterranean Lake,Sulyya Springs,,,10
+tre_gptk_003,Subterranean Lake,Sulyya Springs,,,10
+tre_gptk_004,Subterranean Lake,Sulyya Springs,,,10
+tre_gptk_005,Subterranean Lake,Sulyya Springs,,,10
+tre_gptk_011,Subterranean Lake,Sulyya Springs,,,10
+tre_gptk_009,Subterranean Lake,Sulyya Springs,,,10
+tre_gptk_006,Ceiling of Sky,Sulyya Springs,,,10
+tre_gptk_007,The Skyreach,Sulyya Springs,,,10
+tre_gptt_001,The Palisades,Taejin's Tower,,,11
+tre_gptt_004,Ground Tier,Taejin's Tower,,,11
+tre_gptt_003,Ground Tier,Taejin's Tower,,,11
+tre_gptt_002,Ground Tier,Taejin's Tower,,,11
+tre_gptt_005,Second Tier,Taejin's Tower,,,11
+tre_gptt_018,Third Tier,Taejin's Tower,,,11
+tre_gptt_006,Third Tier,Taejin's Tower,,,11
+tre_gptt_007,Fourth Tier,Taejin's Tower,,,11
+tre_gptt_008,Fourth Tier,Taejin's Tower,,,11
+tre_gptt_009,Fourth Tier,Taejin's Tower,,,11
+tre_gptt_012,Fifth Tier,Taejin's Tower,,,11
+tre_gptt_011,Fifth Tier,Taejin's Tower,,,11
+tre_gptt_014,Sixth Tier,Taejin's Tower,,,11
+tre_gptt_010,Sixth Tier,Taejin's Tower,,,11
+tre_gptt_013,Sixth Tier,Taejin's Tower,,,11
+tre_gptt_019,Sixth Tier,Taejin's Tower,,,11
+tre_gptt_016,The Cloven Spire,Taejin's Tower,,,11
+tre_gptt_015,The Cloven Spire,Taejin's Tower,,,11
+tre_gptt_017,Seventh Tier,Taejin's Tower,,,11
+tre_gpwo_007,Village Proper,Oerba,,,11
+tre_gpwo_001,Village Proper,Oerba,,,11
+tre_gpwo_002,Village Proper,Oerba,,,11
+tre_gpwo_006,Deserted Schoolhouse,Oerba,,,11
+tre_gpwo_003,Deserted Schoolhouse,Oerba,,,11
+tre_gpwo_004,Rust-eaten Bridge,Oerba,,,11
+tre_gpwo_005,Rust-eaten Bridge,Oerba,,,11
+tre_gpwo_008,Rust-eaten Bridge,Oerba,,,11
+z_ran_stg_11,Chapter 11 Crystarium Expansion,Oerba,,,11
+tre_gpst_001,The Tsubaddran Highlands,Yaschas Massif,,,10
+tre_gpst_005,The Ascendant Scrap,Yaschas Massif,,,10
+tre_gpst_006,The Ascendant Scrap,Yaschas Massif,,,10
+tre_gpst_007,The Ascendant Scrap,Yaschas Massif,,,10
+tre_gpst_008,The Ascendant Scrap,Yaschas Massif,,,10
+tre_gpst_002,The Tsumitran Basin,Yaschas Massif,,,10
+tre_gpst_003,The Tsumitran Basin,Yaschas Massif,,,10
+tre_gpst_004,The Tsumitran Basin,Yaschas Massif,,,10
+tre_gpst_009,The Pass of Paddra,Yaschas Massif,,,10
+tre_gpst_010,The Paddraean Archaeopolis,Yaschas Massif,,,10
+tre_gpst_012,The Paddraean Archaeopolis,Yaschas Massif,,,10
+tre_gpst_011,The Paddraean Archaeopolis,Yaschas Massif,,,10
+tre_gpoc_005,A Dance of Shadow,Faultwarrens,,,13
+tre_gpoc_001,A Dance of Shadow,Faultwarrens,,,13
+tre_gpoc_002,Via Lunae,Faultwarrens,,,13
+tre_gpoc_004,Via Solis,Faultwarrens,,,13
+tre_gpoc_009,The Gaian Path,Faultwarrens,,,13
+tre_gpoc_006,The Sylphid Path,Faultwarrens,,,13
+tre_gpoc_007,The Nereid Path,Faultwarrens,,,13
+z_shp_12_03,Chapter 12 Shop Expansion,Eden,,,11
+z_shp_12_06,Chapter 12 Shop Expansion,Eden,,,11
+tre_eden_001,Grand Prix Circuit,Eden,,,11
+tre_eden_002,Grand Prix Circuit,Eden,,,11
+tre_eden_003,Expressway,Eden,,,11
+tre_eden_004,Expressway,Eden,,,11
+tre_eden_005,Ramuh Interchange,Eden,,,12
+tre_eden_006,Ramuh Interchange,Eden,,,12
+tre_eden_007,Ramuh Interchange,Eden,,,12
+tre_eden_008,Siren Park,Eden,,,12
+tre_eden_010,Siren Park,Eden,,,12
+tre_eden_011,Siren Park,Eden,,,12
+tre_eden_009,Siren Park,Eden,,,12
+tre_eden_012,Leviathan Plaza,Eden,,,12
+tre_eden_018,Leviathan Plaza,Eden,,,12
+tre_eden_017,Leviathan Plaza,Eden,,,12
+tre_eden_013,Leviathan Plaza,Eden,,,12
+tre_eden_014,Leviathan Plaza,Eden,,,12
+tre_eden_015,Edenhall Grand Foyer,Eden,,,12
+tre_eden_016,Edenhall,Eden,,,12
+tre_eden_019,Edenhall,Eden,,,12
+z_shp_13_03,Chapter 13 Shop Expansion,Orphan's Cradle,,,1
+tre_lasd_001,The Tesseracts 1st Section,Orphan's Cradle,,,13
+tre_lasd_002,The Tesseracts 1st Section,Orphan's Cradle,,,13
+tre_lasd_003,The Tesseracts 1st Section,Orphan's Cradle,,,13
+tre_lasd_005,The Tesseracts 2nd Section,Orphan's Cradle,,,13
+tre_lasd_008,The Tesseracts 2nd Section,Orphan's Cradle,,,13
+tre_lasd_009,The Tesseracts 2nd Section,Orphan's Cradle,,,13
+tre_lasd_006,The Tesseracts 2nd Section,Orphan's Cradle,,,13
+tre_lasd_007,The Tesseracts 3rd Section,Orphan's Cradle,,,13
+tre_lasd_012,The Tesseracts 3rd Section,Orphan's Cradle,,,13
+tre_lasd_004,The Tesseracts 3rd Section,Orphan's Cradle,,,13
+tre_lasd_010,The Tesseracts 3rd Section,Orphan's Cradle,,,13
+tre_lasd_011,The Tesseracts 3rd Section,Orphan's Cradle,,,13
+tre_lasd_013,The Tesseracts 4th Section,Orphan's Cradle,,,13
+tre_lasd_014,The Tesseracts 4th Section,Orphan's Cradle,,,13
+tre_lasd_015,The Tesseracts 4th Section,Orphan's Cradle,,,13
+tre_lasd_016,The Tesseracts 4th Section,Orphan's Cradle,,,13
+tre_lasd_017,The Tesseracts 4th Section,Orphan's Cradle,,,13
+tre_lasd_018,The Tesseracts 5th Section,Orphan's Cradle,,,13
+tre_lasd_019,The Tesseracts 5th Section,Orphan's Cradle,,,13
+tre_lasd_021,The Tesseracts 5th Section,Orphan's Cradle,,,13
+tre_lasd_020,The Tesseracts 5th Section,Orphan's Cradle,,,13
+tre_lasd_022,The Tesseracts 6th Section,Orphan's Cradle,,,13
+tre_lasd_023,The Tesseracts 6th Section,Orphan's Cradle,,,13
+tre_lasd_024,The Narthex,Orphan's Cradle,,,13
+z_ran_stg_13,Chapter 13 Crystarium Expansion,Orphan's Cradle,,,13
+tre_ms_n001_01,Mission 1: Ectopudding,Archylte Steppe,,Mission,10
+tre_ms_n001_02,Mission 1: Ectopudding Repeat,Archylte Steppe,,Mission|Missable,10
+tre_ms_n002_01,Mission 2: Uridimmu,Archylte Steppe,,Mission,10
+tre_ms_n002_02,Mission 2: Uridimmu Repeat,Archylte Steppe,,Mission|Missable,10
+tre_ms_n003_01,Mission 3: Ugallu,Yaschas Massif,,Mission,10
+tre_ms_n003_02,Mission 3: Ugallu Repeat,Yaschas Massif,,Mission|Missable,10
+tre_ms_t001_01,Mission 4: Adroa,Yaschas Massif,,Mission,10
+tre_ms_t001_02,Mission 4: Adroa Repeat,Yaschas Massif,,Mission|Missable,10
+tre_ms_n004_01,Mission 5: Edimmu,Yaschas Massif,,Mission,10
+tre_ms_n004_02,Mission 5: Edimmu Repeat,Yaschas Massif,,Mission|Missable,10
+tre_ms_t002_01,Mission 6: Munchkin Maestro,Yaschas Massif,,Mission,10
+tre_ms_t002_02,Mission 6: Munchkin Maestro Repeat,Yaschas Massif,,Mission|Missable,10
+tre_ms_k001_01,Mission 7: Bituitus,Yaschas Massif,,Mission,11
+tre_ms_k001_02,Mission 7: Bituitus Repeat,Yaschas Massif,,Mission|Missable,11
+tre_ms_t003_01,Mission 8: Rakshasa,Vallis Media,,Mission,10
+tre_ms_t003_02,Mission 8: Rakshasa Repeat,Vallis Media,,Mission|Missable,10
+tre_ms_t004_01,Mission 9: Kaiser Behemoth,Archylte Steppe,,Mission,10
+tre_ms_t004_02,Mission 9: Kaiser Behemoth Repeat,Archylte Steppe,,Mission|Missable,10
+tre_ms_n005_01,Mission 10: Ambling Bellows,Archylte Steppe,,Mission,10
+tre_ms_n005_02,Mission 10: Ambling Bellows Repeat,Archylte Steppe,,Mission|Missable,10
+tre_ms_n006_01,Mission 11: Adroa,Archylte Steppe,,Mission,10
+tre_ms_n006_02,Mission 11: Adroa Repeat,Archylte Steppe,,Mission|Missable,10
+tre_ms_k002_01,Mission 12: Geiseric,Archylte Steppe,,Mission,11
+tre_ms_k002_02,Mission 12: Geiseric Repeat,Archylte Steppe,,Mission|Missable,11
+tre_ms_n008_01,Mission 13: Goblin Chieftain,Archylte Steppe,,Mission,11
+tre_ms_n008_02,Mission 13: Goblin Chieftain Repeat,Archylte Steppe,,Mission|Missable,11
+tre_ms_n007_01,Mission 14: Sahagin,Archylte Steppe,,Mission,11
+tre_ms_n007_02,Mission 14: Sahagin Repeat,Archylte Steppe,,Mission|Missable,11
+tre_ms_n011_01,Mission 15: Goblin Chieftain,Archylte Steppe,I(key_field_00),Mission,11
+tre_ms_n011_02,Mission 15: Goblin Chieftain Repeat,Archylte Steppe,I(key_field_00),Mission|Missable,11
+tre_ms_n012_01,Mission 16: Sahagin,Archylte Steppe,,Mission,11
+tre_ms_n012_02,Mission 16: Sahagin Repeat,Archylte Steppe,,Mission|Missable,11
+tre_ms_t005_01,Mission 17: Pulsework Champion,Archylte Steppe,,Mission,11
+tre_ms_t005_02,Mission 17: Pulsework Champion Repeat,Archylte Steppe,,Mission|Missable,11
+tre_ms_t006_01,Mission 18: Ambling Bellows,Archylte Steppe,,Mission,11
+tre_ms_t006_02,Mission 18: Ambling Bellows Repeat,Archylte Steppe,,Mission|Missable,11
+tre_ms_t007_01,Mission 19: Uridimmu,Sulyya Springs,,Mission,11
+tre_ms_t007_02,Mission 19: Uridimmu Repeat,Sulyya Springs,,Mission|Missable,11
+tre_ms_t008_01,Mission 20: Goblin Chieftain,Taejin's Tower,,Mission,11
+tre_ms_t008_02,Mission 20: Goblin Chieftain Repeat,Taejin's Tower,,Mission|Missable,11
+tre_ms_z001_01,Mission 21: Gelatitan,Taejin's Tower,,Mission,11
+tre_ms_z001_02,Mission 21: Gelatitan Repeat,Taejin's Tower,,Mission|Missable,11
+tre_ms_z002_01,Mission 22: Ambling Bellows,Taejin's Tower,,Mission,11
+tre_ms_z002_02,Mission 22: Ambling Bellows Repeat,Taejin's Tower,,Mission|Missable,11
+tre_ms_z003_01,Mission 23: Gurangatch,Taejin's Tower,,Mission,11
+tre_ms_z003_02,Mission 23: Gurangatch Repeat,Taejin's Tower,,Mission|Missable,11
+tre_ms_z004_01,Mission 24: Mushussu,Taejin's Tower,,Mission,11
+tre_ms_z004_02,Mission 24: Mushussu Repeat,Taejin's Tower,,Mission|Missable,11
+tre_ms_z006_01,Mission 25: Vetala,Taejin's Tower,,Mission,11
+tre_ms_z006_02,Mission 25: Vetala Repeat,Taejin's Tower,,Mission|Missable,11
+tre_ms_z005_01,Mission 26: Penanggalan,Taejin's Tower,,Mission,11
+tre_ms_z005_02,Mission 26: Penanggalan Repeat,Taejin's Tower,,Mission|Missable,11
+tre_ms_n013_01,Mission 27: Mithridates,Taejin's Tower,,Mission,12
+tre_ms_n013_02,Mission 27: Mithridates Repeat,Taejin's Tower,,Mission|Missable,12
+tre_ms_t009_01,Mission 28: Ceratosaur,Oerba,,Mission,11
+tre_ms_t009_02,Mission 28: Ceratosaur Repeat,Oerba,,Mission|Missable,11
+tre_ms_n015_01,Mission 29: Juggernaut,Taejin's Tower,,Mission,12
+tre_ms_n015_02,Mission 29: Juggernaut Repeat,Taejin's Tower,,Mission|Missable,12
+tre_ms_k003_01,Mission 30: Syphax,Mah'habara,I(key_field_00),Mission,12
+tre_ms_k003_02,Mission 30: Syphax Repeat,Mah'habara,I(key_field_00),Mission|Missable,12
+tre_ms_t010_01,Mission 31: Pulsework Champion,Archylte Steppe,I(key_field_00),Mission,11
+tre_ms_t010_02,Mission 31: Pulsework Champion Repeat,Archylte Steppe,I(key_field_00),Mission|Missable,11
+tre_ms_n014_01,Mission 32: Amam,Archylte Steppe,,Mission,11
+tre_ms_n014_02,Mission 32: Amam Repeat,Archylte Steppe,,Mission|Missable,11
+tre_ms_n016_01,Mission 33: Adamanchelid,Archylte Steppe,I(key_field_00),Mission,12
+tre_ms_n016_02,Mission 33: Adamanchelid Repeat,Archylte Steppe,I(key_field_00),Mission|Missable,12
+tre_ms_n009_01,Mission 34: Zenobia,Archylte Steppe,I(key_field_00),Mission,13
+tre_ms_n009_02,Mission 34: Zenobia Repeat,Archylte Steppe,I(key_field_00),Mission|Missable,13
+tre_ms_n035_01,Mission 35: Gurangatch,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n035_02,Mission 35: Gurangatch Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n019_01,Mission 36: Amam,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n019_02,Mission 36: Amam Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n020_01,Mission 37: Rafflesia,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n020_02,Mission 37: Rafflesia Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n021_01,Mission 38: Verdelet,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n021_02,Mission 38: Verdelet Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n022_01,Mission 39: Ochu,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n022_02,Mission 39: Ochu Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n023_01,Mission 40: Verdelet,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n023_02,Mission 40: Verdelet Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n024_01,Mission 41: Tonberry,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n024_02,Mission 41: Tonberry Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n025_01,Mission 42: Borgbear Hero,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n025_02,Mission 42: Borgbear Hero Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n026_01,Mission 43: Borgbear Hero,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n026_02,Mission 43: Borgbear Hero Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n027_01,Mission 44: Corrosive Custard,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n027_02,Mission 44: Corrosive Custard Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n028_01,Mission 45: Neochu,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n028_02,Mission 45: Neochu Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n033_01,Mission 46: Zirnitra,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n033_02,Mission 46: Zirnitra Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n030_01,Mission 47: Raktavija,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n030_02,Mission 47: Raktavija Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n031_01,Mission 48: Verdelet,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n031_02,Mission 48: Verdelet Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n032_01,Mission 49: Tyrant,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n032_02,Mission 49: Tyrant Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n029_01,Mission 50: Humbaba,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n029_02,Mission 50: Humbaba Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n036_01,Mission 51: Attacus,Faultwarrens,I(key_field_00),Mission,13
+tre_ms_n036_02,Mission 51: Attacus Repeat,Faultwarrens,I(key_field_00),Mission|Missable,13
+tre_ms_n010_01,Mission 52: Zirnitra,Archylte Steppe,,Mission,13
+tre_ms_n010_02,Mission 52: Zirnitra Repeat,Archylte Steppe,,Mission|Missable,13
+tre_ms_n044_01,Mission 53: Zirnitra,Yaschas Massif,,Mission,13
+tre_ms_n044_02,Mission 53: Zirnitra Repeat,Yaschas Massif,,Mission|Missable,13
+tre_ms_k004_01,Mission 54: Gigantuar,Archylte Steppe,,Mission,13
+tre_ms_k004_02,Mission 54: Gigantuar Repeat,Archylte Steppe,,Mission|Missable,13
+tre_ms_n018_01,Mission 55: Neochu,Archylte Steppe,I(key_field_00),Mission,13
+tre_ms_n018_02,Mission 55: Neochu Repeat,Archylte Steppe,I(key_field_00),Mission|Missable,13
+tre_ms_n037_01,Mission 56: Ugallu,Yaschas Massif,,Mission,13
+tre_ms_n037_02,Mission 56: Ugallu Repeat,Yaschas Massif,,Mission|Missable,13
+tre_ms_n038_01,Mission 57: Sahagin,Vallis Media,,Mission,13
+tre_ms_n038_02,Mission 57: Sahagin Repeat,Vallis Media,,Mission|Missable,13
+tre_ms_n039_01,Mission 58: Humbaba,Mah'habara,,Mission,13
+tre_ms_n039_02,Mission 58: Humbaba Repeat,Mah'habara,,Mission|Missable,13
+tre_ms_n040_01,Mission 59: Zirnitra,Sulyya Springs,,Mission,13
+tre_ms_n040_02,Mission 59: Zirnitra Repeat,Sulyya Springs,,Mission|Missable,13
+tre_ms_n041_01,Mission 60: Gelatitan,Taejin's Tower,,Mission,13
+tre_ms_n041_02,Mission 60: Gelatitan Repeat,Taejin's Tower,,Mission|Missable,13
+tre_ms_n042_01,Mission 61: Juggernaut,Oerba,,Mission,13
+tre_ms_n042_02,Mission 61: Juggernaut Repeat,Oerba,,Mission|Missable,13
+tre_ms_n043_01,Mission 62: Raktavija,Archylte Steppe,,Mission,13
+tre_ms_n043_02,Mission 62: Raktavija Repeat,Archylte Steppe,,Mission|Missable,13
+tre_ms_n017_01,Mission 63: Adamantortoise,Archylte Steppe,,Mission,13
+tre_ms_n017_02,Mission 63: Adamantortoise Repeat,Archylte Steppe,,Mission|Missable,13
+tre_ms_n034_01,Mission 64: Vercingetorix,Yaschas Massif,,Mission,13
+tre_ms_n034_02,Mission 64: Vercingetorix Repeat,Yaschas Massif,,Mission|Missable,13

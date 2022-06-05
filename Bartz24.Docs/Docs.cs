@@ -11,7 +11,7 @@ namespace Bartz24.Docs
     public class Docs
     {
         public DocsSettings Settings { get; set; } = new DocsSettings();
-        private Dictionary<string, HTMLPage> Pages { get; } = new Dictionary<string, HTMLPage>();
+        public Dictionary<string, HTMLPage> Pages { get; } = new Dictionary<string, HTMLPage>();
 
         public void AddPage(string path, HTMLPage page)
         {            
@@ -25,11 +25,9 @@ namespace Bartz24.Docs
 
             CopyFromTemplate(mainFolder, templateFolder);            
 
-            Pages.Add("common/header", new Header(Pages.ToDictionary(p => p.Key, p => p.Value.Name), Settings.Name, "common/header.html"));
-
             foreach (string path in Pages.Keys)
             {
-                Pages[path].Generate(mainFolder + "/" + path + ".html", mainFolder);
+                Pages[path].Generate(mainFolder + "/" + path + ".html", mainFolder, this);
             }
 
             DeleteTemplateFiles(mainFolder);

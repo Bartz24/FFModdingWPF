@@ -32,9 +32,11 @@ namespace Bartz24.Docs
             return doc;
         }
 
-        public void Generate(string fileName, string mainFolder)
+        public void Generate(string fileName, string mainFolder, Docs docs)
         {
             HtmlDocument doc = GetMainDocument(mainFolder);
+
+            new Header(docs.Pages.ToDictionary(p => p.Key, p => p.Value.Name), docs.Settings.Name, "common/header.html", mainFolder).Generate().ForEach(n => doc.GetBody().AppendChild(n));
             GenerateContent(doc);
             doc.Save(fileName);            
         }
@@ -44,7 +46,7 @@ namespace Bartz24.Docs
             HtmlNode title = doc.GetHead().SelectSingleNode("//title");
             title.InnerHtml = HtmlDocument.HtmlEncode(Name);
 
-            HtmlNode contentNode = doc.DocumentNode.SelectSingleNode(".//*[contains(concat(\" \",normalize-space(@class),\" \"),\"tm-content\")]");
+            HtmlNode contentNode = doc.DocumentNode.SelectSingleNode("//div[contains(@class, 'container')]");
             HTMLElements.ForEach(e => e.Generate().ForEach(n => contentNode.AppendChild(n)));
         }
     }

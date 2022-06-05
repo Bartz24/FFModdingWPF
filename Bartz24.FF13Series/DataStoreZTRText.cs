@@ -1,15 +1,13 @@
 ﻿using Bartz24.Data;
 using System;
 using System.Data;
-using System.Data.SQLite;
 using System.Linq;
-using Dapper;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Bartz24.FF13_2LR
+namespace Bartz24.FF13Series
 {
     public class DataStoreZTRText
     {

@@ -1,6 +1,6 @@
 ﻿using Bartz24.Data;
 using Bartz24.FF13_2_LR;
-using Bartz24.FF13_2LR;
+using Bartz24.FF13Series;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;

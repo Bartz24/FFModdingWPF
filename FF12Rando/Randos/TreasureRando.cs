@@ -24,13 +24,13 @@ namespace FF12Rando
         public List<List<string>> hints = Enumerable.Range(0, 35).Select(_ => new List<string>()).ToList();
 
         public Dictionary<string, string> areaMapping = new Dictionary<string, string>();
-        Dictionary<string, FF12ItemLocation> itemLocations = new Dictionary<string, FF12ItemLocation>();
+        Dictionary<string, ItemLocation> itemLocations = new Dictionary<string, ItemLocation>();
         public Dictionary<string, string> missableTreasureLinks = new Dictionary<string, string>();
 
         FF12AssumedItemPlacementAlgorithm placementAlgo;
         FF12ItemPlacementAlgorithm placementAlgoBackup;
         private bool usingBackup = false;
-        public ItemPlacementAlgorithm<FF12ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgo; }
+        public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgo; }
 
         public List<string> treasuresToPlace = new List<string>();
         public List<string> treasuresAllowed = new List<string>();
@@ -652,7 +652,7 @@ namespace FF12Rando
             return String.Join(", ", stringList);
         }
 
-        public class TreasureData : FF12ItemLocation
+        public class TreasureData : ItemLocation
         {
             public override string ID { get; }
             public int Index { get; }
@@ -718,7 +718,7 @@ namespace FF12Rando
             }
         }
 
-        public class RewardData : FF12ItemLocation
+        public class RewardData : ItemLocation
         {
             public override string ID { get; }
             public int IntID { get; }

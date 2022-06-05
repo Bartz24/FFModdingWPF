@@ -21,7 +21,7 @@ namespace LRRando
     {
         public DataStoreDB3<DataStoreRTreasurebox> treasuresOrig = new DataStoreDB3<DataStoreRTreasurebox>();
         public DataStoreDB3<DataStoreRTreasurebox> treasures = new DataStoreDB3<DataStoreRTreasurebox>();
-        public Dictionary<string, LRItemLocation> itemLocations = new Dictionary<string, LRItemLocation>();
+        public Dictionary<string, ItemLocation> itemLocations = new Dictionary<string, ItemLocation>();
         public Dictionary<string, HintData> hintData = new Dictionary<string, HintData>();
         public Dictionary<string, List<string>> hintsMain = new Dictionary<string, List<string>>();
         Dictionary<string, string> hintsNotesLocations = new Dictionary<string, string>();
@@ -39,7 +39,7 @@ namespace LRRando
         private LRItemPlacementAlgorithm placementAlgoBackup;
         private bool usingBackup = false;
 
-        public ItemPlacementAlgorithm<LRItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgo; }
+        public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgo; }
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -389,7 +389,7 @@ namespace LRRando
             }
         }
 
-        private string GetHintText(LRItemLocation t)
+        private string GetHintText(ItemLocation t)
         {
             int index = LRFlags.Other.HintsSpecific.Values.IndexOf(LRFlags.Other.HintsSpecific.SelectedValue);
             if (index == LRFlags.Other.HintsSpecific.Values.Count - 1)
@@ -495,7 +495,7 @@ namespace LRRando
             return name;
         }
 
-        public class TreasureData : LRItemLocation
+        public class TreasureData : ItemLocation
         {
             public override string ID { get; }
             public override string Name { get; }
@@ -572,7 +572,7 @@ namespace LRRando
             }
         }
 
-        public class BattleDropData : LRItemLocation
+        public class BattleDropData : ItemLocation
         {
             public override string ID { get; }
             public override string Name { get; }

@@ -43,7 +43,7 @@ namespace Bartz24.RandoWPF
         public static long RandLong(long low, long high)
         {
             CheckRand();
-            return (long)(rand.NextDouble() * (double)(high - low)) + low;
+            return (long)Math.Round(rand.NextDouble() * (high - low)) + low;
         }
 
         private static void CheckRand()

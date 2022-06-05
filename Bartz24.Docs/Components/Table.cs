@@ -40,6 +40,8 @@ namespace Bartz24.Docs
 
         protected override void GenerateContent(HtmlNode node)
         {
+            "table table-sm table-dark table-hover align-middle".Split(" ").ToList().ForEach(c => node.AddClass(c));
+
             HtmlNode colgroup = HtmlNode.CreateNode("<colgroup></colgroup>");
             foreach (int width in ColumnWidths)
             {
