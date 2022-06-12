@@ -1,13 +1,10 @@
-0.7.0 Changelog:
+0.7.1 Changelog:
 
--Includes the following flags:
-    -Randomize crystarium abilities and stats and shuffle nodes
-    -Randomize initial stats
-    -Randomize item locations
-        -Can include roles, stages, eidoliths, shops, omni-kit and gysahl reins
-    -Shuffle roles
-    -Randomize starting equipment
-    -Shuffle music
--Chapter select from The Lindblum, beat the game when you're strong enough
--Battle team option is available whenever it shouldn't break the game
--Secondary role costs are similar to primary roles costs
+-Added "Return to the Lindblum" option to save points
+    -Disabled while Hope is missing at the start of Ch 11 due to softlocks not figured out yet
+-Repeatable enemy/battle rewards can no longer have crystarium stages or shops
+-Event rewards are no longer repeatable
+-Added Manasvin 3 drop to pool
+-Chapters 1 and 13 now have checkpoints to avoid starting from the start each time you enter (other chapters except 11 will eventually have this)
+-Chapter 11 cannot be repeated anymore, progress ends after Barthandelus 2
+-Fixed Chapter 13 softlocks

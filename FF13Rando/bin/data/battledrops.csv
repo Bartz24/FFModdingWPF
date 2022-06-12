@@ -1,17 +1,17 @@
 ﻿ID,Name,Location,Required Items,Traits,Difficulty
-btsc02001,Pantherons Drop,Pulse Vestige,,,1
-btsc03038,Garuda Interceptor Drop,Lake Bresha,,,2
-btsc03037,Shiva Drop,Lake Bresha,,Eidolon,2
-btsc04026,Dreadnought Drop,Vile Peaks,,,3
-btsc04036,Odin Drop,Vile Peaks,,Eidolon,3
-btsc06022,Feral Behemoth Drop,Gapra Whitewood,,,4
-btsc06046,Aster Protoflorian Drop,Gapra Whitewood,,,4
-btsc07042,Havoc Skytank Drop,Palumpolum,,,6
-btsc08008,Midlight Reaper Drop,Nautilus,,,7
-btsc08012,Brynhildr Drop,Nautilus,,Eidolon,7
-btsc10039,Cid Raines Drop,Fifth Ark,,,9
-btsc10060,Bahamut Drop,Fifth Ark,,Eidolon,9
+btsc02001,Pantherons Drop,Pulse Vestige,,Repeatable,1
+btsc03038,Garuda Interceptor Drop,Lake Bresha,,Repeatable,2
+btsc03037,Shiva Drop,Lake Bresha,,Repeatable|Eidolon,2
+btsc04026,Dreadnought Drop,Vile Peaks,,Repeatable,3
+btsc04036,Odin Drop,Vile Peaks,,Repeatable|Eidolon,3
+btsc06022,Feral Behemoth Drop,Gapra Whitewood,,Repeatable,4
+btsc06046,Aster Protoflorian Drop,Gapra Whitewood,,Repeatable,4
+btsc07042,Havoc Skytank Drop,Palumpolum,,Repeatable,6
+btsc08008,Midlight Reaper Drop,Nautilus,,Repeatable,7
+btsc08012,Brynhildr Drop,Nautilus,,Repeatable|Eidolon,7
+btsc10039,Cid Raines Drop,Fifth Ark,,Repeatable,9
+btsc10060,Bahamut Drop,Fifth Ark,,Repeatable|Eidolon,9
 btsc11100,Alexander Drop,Vallis Media,,Eidolon,9
 btsc11412,Hecatoncheir Drop,Mah'habara,,Eidolon,10
-btsc12001,Anavatapa Warmech Drop,Eden,,,11
-btsc12042,Proudclad 2 Drop,Eden,,,12
+btsc12001,Anavatapa Warmech Drop,Eden,,Repeatable,11
+btsc12042,Proudclad 2 Drop,Eden,,Repeatable,12

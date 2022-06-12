@@ -203,7 +203,7 @@ namespace FF13Rando
         }
         private string GetNextAbilityRole(List<string> used, string chara, Role role, bool allowTech, bool allowAuto)
         {
-            return abilityData.Values.Where(a => !used.Contains(a.ID) && (allowAuto || !a.Traits.Contains("Auto")) && (allowTech && a.Role == Role.None || a.Role == role) && a.Requirements.IsValid(used.ToDictionary(s => s, _ => 1)) && a.Incompatible.Intersect(used).Count() == 0)
+            return abilityData.Values.Where(a => !used.Contains(a.ID) && (allowAuto || !a.Traits.Contains("Auto")) && (allowTech && a.Role == Role.None || a.Role == role) && a.Requirements.IsValid(used.ToDictionary(s => s, _ => 1)) && a.Incompatible.Intersect(used).Count() == 0 && a.Characters.Contains(chara))
                 .ToList().Shuffle().Select(a => a.ID).FirstOrDefault();
         }
 

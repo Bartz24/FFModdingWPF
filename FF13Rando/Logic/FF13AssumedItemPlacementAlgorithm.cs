@@ -130,6 +130,11 @@ namespace FF13Rando
                 if (treasureRando.IsImportantKeyItem(rep))
                     return false;
             }
+            if (ItemLocations[old].Traits.Contains("Repeatable"))
+            {
+                if (!treasureRando.IsRepeatableAllowed(rep))
+                    return false;
+            }
             if (ItemLocations[old].Traits.Contains("Mission"))
             {
                 if (GetLocationItem(rep).Item1 == "")

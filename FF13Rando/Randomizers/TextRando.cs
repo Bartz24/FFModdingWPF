@@ -34,6 +34,23 @@ namespace FF13Rando
                 FileHelpers.CopyFile(path, outPath);
 
                 mainSysUS.Load(outPath, SetupData.Paths["Nova"]);
+
+                mainSysUS["$am_000_00h"] = "Chapter 1";
+                mainSysUS["$am_010_00"] = "Chapter 2";
+                mainSysUS["$am_010_00h"] = "Chapter 3";
+                mainSysUS["$am_020_00"] = "Chapter 4";
+                mainSysUS["$am_020_00h"] = "Chapter 5";
+                mainSysUS["$am_030_00"] = "Chapter 6";
+                mainSysUS["$am_030_00h"] = "Chapter 7";
+                mainSysUS["$am_040_00"] = "Chapter 8";
+                mainSysUS["$am_040_00h"] = "Chapter 9";
+                mainSysUS["$am_050_00"] = "Chapter 10";
+                mainSysUS["$am_050_00h"] = "Chapter 11";
+                mainSysUS["$am_100_00"] = "Chapter 12";
+                mainSysUS["$am_100_00h"] = "Chapter 13";
+                mainSysUS["$am_110_00"] = "Cancel";
+                mainSysUS["$am_110_00h"] = "Return to the {Italic}Lindblum{Italic}";
+
             }
         }
         public override void Randomize(Action<int> progressSetter)

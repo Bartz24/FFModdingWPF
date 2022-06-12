@@ -1,19 +1,20 @@
 ﻿ID,Index,Name,Location,Required Items,Traits,Linked IDs,Difficulty
-m203,0,Anima Drop,Pulse Vestige,,,,1
-m048_s1,0,Garuda Interceptor Drop,Lake Bresha,,,m048_s2,2
-m012_2,0,Dreadnought Drop,Vile Peaks,,,m012,3
-m097,0,Aster Protoflorian Drop,Gapra Whitewood,,,m097_f|m097_i|m097_t|m097_w,4
-m233,0,Enlil Drop,Sunleth Waterscape,,,m233_a,5
-m234,0,Enki Drop,Sunleth Waterscape,,,m234_a,5
-m019_x1,0,Ushumgal Subjugator 1 Drop,Palumpolum,,,m019_x1_berserk,6
-m019,0,Ushumgal Subjugator 2 Drop,Palumpolum,,,,6
-m020,0,Havoc Skytank Drop,Palumpolum,,,m020_x1,6
-m049,0,Kalavinka Striker 1 Drop,Palamecia,,,,8
-m049_2,0,Kalavinka Striker 2 Drop,Palamecia,,,,8
-m300,0,Barthandelus 1 Drop,Palamecia,,,m300_hard,9
-m232,0,Cid Raines Drop,Fifth Ark,,,m232_atk|m232_def|m232_full|m232_hlr,9
+m203,0,Anima Drop,Pulse Vestige,,Repeatable,,1
+m130,0,Manasvin Warmech 3 Drop,Lake Bresha,,Repeatable,,2
+m048_s1,0,Garuda Interceptor Drop,Lake Bresha,,Repeatable,m048_s2,2
+m012_2,0,Dreadnought Drop,Vile Peaks,,Repeatable,m012,3
+m097,0,Aster Protoflorian Drop,Gapra Whitewood,,Repeatable,m097_f|m097_i|m097_t|m097_w,4
+m233,0,Enlil Drop,Sunleth Waterscape,,Repeatable,m233_a,5
+m234,0,Enki Drop,Sunleth Waterscape,,Repeatable,m234_a,5
+m019_x1,0,Ushumgal Subjugator 1 Drop,Palumpolum,,Repeatable,m019_x1_berserk,6
+m019,0,Ushumgal Subjugator 2 Drop,Palumpolum,,Repeatable,,6
+m020,0,Havoc Skytank Drop,Palumpolum,,Repeatable,m020_x1,6
+m049,0,Kalavinka Striker 1 Drop,Palamecia,,Repeatable,,8
+m049_2,0,Kalavinka Striker 2 Drop,Palamecia,,Repeatable,,8
+m300,0,Barthandelus 1 Drop,Palamecia,,Repeatable,m300_hard,9
+m232,0,Cid Raines Drop,Fifth Ark,,Repeatable,m232_atk|m232_def|m232_full|m232_hlr,9
 m210,0,Dahaka Drop,Taejin's Tower,,,m210_f|m210_i|m210_x1|m210_z,11
 m310,0,Barthandelus 2 Drop,Oerba,,,m310_s1,11
-m154_ez,0,Proudclad 1 Drop,Eden,,,m154_ez_pw,12
-m154,0,Proudclad 2 Drop,Eden,,,m154_pw|m154_x1|m154_x1_pw,12
-m137,0,Tiamat Eliminator Drop,Orphan's Cradle,,,m137_x1,13
+m154_ez,0,Proudclad 1 Drop,Eden,,Repeatable,m154_ez_pw,12
+m154,0,Proudclad 2 Drop,Eden,,Repeatable,m154_pw|m154_x1|m154_x1_pw,12
+m137,0,Tiamat Eliminator Drop,Orphan's Cradle,,Repeatable,m137_x1,13

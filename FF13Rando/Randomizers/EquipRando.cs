@@ -43,6 +43,12 @@ namespace FF13Rando
                 }
             }
             items.Copy("key_c_shiva", "cry_stage");
+
+            for (int i = 1; i <= 13; i++)
+            {
+                items.Copy("key_receiver", "chap_prog_" + i.ToString("00"));
+                items.Copy("key_receiver", "chap_comp_" + i.ToString("00"));
+            }
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -70,6 +76,25 @@ namespace FF13Rando
             items["cry_stage"].sHelpStringId_string = "$mb_000_00eh";
             newNames.RemoveAt(0);
             textRando.mainSysUS[items["cry_stage"].sItemNameStringId_string] = "Crystarium Expansion{End}{Many}Crystarium Expansions{End}{Article}a{End}";
+
+            string chapterProgress = newNames[0];
+            newNames.RemoveAt(0);
+            textRando.mainSysUS[chapterProgress] = "Used for tracking in the rando to determine current progress in each chapter.";
+            string chapterComplete = newNames[0];
+            newNames.RemoveAt(0);
+            textRando.mainSysUS[chapterComplete] = "Used for tracking in the rando to determine completed chapters.";
+            for (int i = 1; i <= 13; i++)
+            {
+                items["chap_prog_" + i.ToString("00")].sItemNameStringId_string = newNames[0];
+                newNames.RemoveAt(0);
+                items["chap_prog_" + i.ToString("00")].sHelpStringId_string = chapterProgress;
+                textRando.mainSysUS[items["chap_prog_" + i.ToString("00")].sItemNameStringId_string] = "Chapter " + i + " Progress{End}";
+
+                items["chap_comp_" + i.ToString("00")].sItemNameStringId_string = newNames[0];
+                newNames.RemoveAt(0);
+                items["chap_comp_" + i.ToString("00")].sHelpStringId_string = chapterComplete;
+                textRando.mainSysUS[items["chap_comp_" + i.ToString("00")].sItemNameStringId_string] = "Chapter " + i + " Completed{End}";
+            }
         }
 
         public override void Save()

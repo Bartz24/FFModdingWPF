@@ -41,7 +41,7 @@ tre_hgin_003,Ambulatory,Pulse Vestige,,,1
 tre_hgin_007,Ambulatory,Pulse Vestige,,,1
 tre_hgin_008,Oblatorium,Pulse Vestige,,,1
 tre_hgin_010,Anima's Throne,Pulse Vestige,,,1
-z_shp_03_06,Chapter 3 Shop Expansion,Lake Bresha,,,1
+z_shp_03_06,Chapter 3 Shop Expansion,Lake Bresha,,,2
 tre_hgcr_001,The Waters Stilled,Lake Bresha,,,1
 tre_hgcr_002,The Waters Stilled,Lake Bresha,,,1
 tre_hgcr_004,The Waters Stilled,Lake Bresha,,,1
@@ -74,18 +74,18 @@ tre_hgcr_027,Echoes of the Past,Lake Bresha,,,2
 tre_hgcr_026,Echoes of the Past,Lake Bresha,,,2
 z_ran_saz_syn,Sazh Synergist Role,Lake Bresha,,,2
 z_ran_van_sab,Vanille Saboteur Role,Lake Bresha,,,2
-z_ran_stg_03,Chapter 3 Crystarium Expansion,Lake Bresha,,,2
-z_shp_04_06,Chapter 4 Shop Expansion,Vile Peaks,,,2
+z_ran_stg_03,Chapter 3 Crystarium Expansion,Lake Bresha,,,3
+z_shp_04_06,Chapter 4 Shop Expansion,Vile Peaks,,,1
 tre_vpek_001,Wrack and Ruin,Vile Peaks,,,2
-tre_vpek_002,Another Man's Treasure,Vile Peaks,,,3
-tre_vpek_003,Another Man's Treasure,Vile Peaks,,,3
-tre_vpek_005,Munitions Necropolis,Vile Peaks,,,3
-tre_vpek_004,Munitions Necropolis,Vile Peaks,,,3
-tre_vpek_006,Devastated Dreams,Vile Peaks,,,3
-tre_vpek_007,Devastated Dreams,Vile Peaks,,,3
+tre_vpek_002,Another Man's Treasure,Vile Peaks,,,2
+tre_vpek_003,Another Man's Treasure,Vile Peaks,,,2
+tre_vpek_005,Munitions Necropolis,Vile Peaks,,,2
+tre_vpek_004,Munitions Necropolis,Vile Peaks,,,2
+tre_vpek_006,Devastated Dreams,Vile Peaks,,,2
+tre_vpek_007,Devastated Dreams,Vile Peaks,,,2
 z_ran_lig_med,Lightning Medic Role,Vile Peaks,,,3
 z_ran_saz_com,Sazh Commando Role,Vile Peaks,,,3
-z_ran_stg_04,Chapter 4 Crystarium Expansion,Vile Peaks,,,3
+z_ran_stg_04,Chapter 4 Crystarium Expansion,Vile Peaks,,,4
 tre_vpek_010,Scavenger's Trail,Vile Peaks,,,3
 tre_vpek_011,Scavenger's Trail,Vile Peaks,,,3
 tre_vpek_019,Scavenger's Trail,Vile Peaks,,,3
@@ -105,41 +105,41 @@ tre_vpek_021,Scrap Processing,Vile Peaks,,,3
 tre_vpek_014,Scrap Processing,Vile Peaks,,,3
 tre_vpek_015,Scrap Processing,Vile Peaks,,,3
 tre_vpek_018,Scrap Processing,Vile Peaks,,,3
-z_shp_05_00,Chapter 5 Shop Expansion,Gapra Whitewood,,,3
-z_shp_05_06,Chapter 5 Shop Expansion,Gapra Whitewood,,,3
-tre_gapr_001,Canopy Wardwalks,Gapra Whitewood,,,4
-tre_gapr_002,Research Corridor,Gapra Whitewood,,,4
-tre_gapr_003,Bioweapon Research Site D,Gapra Whitewood,,,4
-tre_gapr_004,Field Trial Range S,Gapra Whitewood,,,4
-tre_gapr_005,Field Trial Range N,Gapra Whitewood,,,4
+z_shp_05_00,Chapter 5 Shop Expansion,Gapra Whitewood,,,1
+z_shp_05_06,Chapter 5 Shop Expansion,Gapra Whitewood,,,1
+tre_gapr_001,Canopy Wardwalks,Gapra Whitewood,,,3
+tre_gapr_002,Research Corridor,Gapra Whitewood,,,3
+tre_gapr_003,Bioweapon Research Site D,Gapra Whitewood,,,3
+tre_gapr_004,Field Trial Range S,Gapra Whitewood,,,3
+tre_gapr_005,Field Trial Range N,Gapra Whitewood,,,3
 tre_gapr_006,Environmental Regulation,Gapra Whitewood,,,4
 tre_gapr_007,Environmental Regulation,Gapra Whitewood,,,4
 tre_gapr_008,Environmental Regulation,Gapra Whitewood,,,4
 tre_gapr_009,Bioweapons Maintenance,Gapra Whitewood,,,4
-z_ran_stg_05,Chapter 5 Crystarium Expansion,Gapra Whitewood,,,4
-z_shp_06_02,Chapter 6 Shop Expansion,Sunleth Waterscape,,,4
-z_shp_06_07,Chapter 6 Shop Expansion,Sunleth Waterscape,,,4
-tre_snls_001,The Old Growth,Sunleth Waterscape,,,5
-tre_snls_002,Sun-dappled Trail,Sunleth Waterscape,,,5
-tre_snls_003,Sun-dappled Trail,Sunleth Waterscape,,,5
-tre_snls_004,Sun-dappled Trail,Sunleth Waterscape,,,5
+z_ran_stg_05,Chapter 5 Crystarium Expansion,Gapra Whitewood,,,5
+z_shp_06_02,Chapter 6 Shop Expansion,Sunleth Waterscape,,,1
+z_shp_06_07,Chapter 6 Shop Expansion,Sunleth Waterscape,,,1
+tre_snls_001,The Old Growth,Sunleth Waterscape,,,4
+tre_snls_002,Sun-dappled Trail,Sunleth Waterscape,,,4
+tre_snls_003,Sun-dappled Trail,Sunleth Waterscape,,,4
+tre_snls_004,Sun-dappled Trail,Sunleth Waterscape,,,4
 tre_snls_005,A Shimmering Sky,Sunleth Waterscape,,,5
 tre_snls_007,A Shimmering Sky,Sunleth Waterscape,,,5
 tre_snls_006,A Shimmering Sky,Sunleth Waterscape,,,5
 tre_snls_008,Rain-spotted Vale,Sunleth Waterscape,,,5
 tre_snls_009,Rain-spotted Vale,Sunleth Waterscape,,,5
-z_ran_stg_06,Chapter 6 Crystarium Expansion,Sunleth Waterscape,,,5
-z_shp_07_00,Chapter 7 Shop Expansion,Palumpolum,,,5
-z_shp_07_06,Chapter 7 Shop Expansion,Palumpolum,,,5
-z_shp_07_12,Chapter 7 Shop Expansion,Palumpolum,,,5
-tre_pmpm_001,The Metrostile,Palumpolum,,,6
-tre_pmpm_002,The Metrostile,Palumpolum,,,6
-tre_pmpm_003,The Metrostile,Palumpolum,,,6
-tre_pmpm_005,Nutriculture Complex,Palumpolum,,,6
-tre_pmpm_012,Nutriculture Complex,Palumpolum,,,6
-tre_pmpm_023,Nutriculture Complex,Palumpolum,,,6
-tre_pmpm_024,Nutriculture Complex,Palumpolum,,,6
-tre_pmpm_004,Nutriculture Complex,Palumpolum,,,6
+z_ran_stg_06,Chapter 6 Crystarium Expansion,Sunleth Waterscape,,,6
+z_shp_07_00,Chapter 7 Shop Expansion,Palumpolum,,,1
+z_shp_07_06,Chapter 7 Shop Expansion,Palumpolum,,,1
+z_shp_07_12,Chapter 7 Shop Expansion,Palumpolum,,,1
+tre_pmpm_001,The Metrostile,Palumpolum,,,5
+tre_pmpm_002,The Metrostile,Palumpolum,,,5
+tre_pmpm_003,The Metrostile,Palumpolum,,,5
+tre_pmpm_005,Nutriculture Complex,Palumpolum,,,5
+tre_pmpm_012,Nutriculture Complex,Palumpolum,,,5
+tre_pmpm_023,Nutriculture Complex,Palumpolum,,,5
+tre_pmpm_024,Nutriculture Complex,Palumpolum,,,5
+tre_pmpm_004,Nutriculture Complex,Palumpolum,,,5
 tre_pmpm_006,Pedestrian Terraces,Palumpolum,,,6
 tre_pmpm_008,Pedestrian Terraces,Palumpolum,,,6
 tre_pmpm_013,Pedestrian Terraces,Palumpolum,,,6
@@ -159,18 +159,18 @@ tre_pmpm_021,Felix Heights,Palumpolum,,,6
 tre_pmpm_007,The Estheim Residence,Palumpolum,,,6
 tre_pmpm_028,The Estheim Residence,Palumpolum,,,6
 tre_pmpm_027,The Estheim Residence,Palumpolum,,,6
-z_ran_stg_07,Chapter 7 Crystarium Expansion,Palumpolum,,,6
-z_shp_08_07,Chapter 8 Shop Expansion,Nautilus,,,6
-z_shp_08_10,Chapter 8 Shop Expansion,Nautilus,,,6
-tre_nati_005,Park Square,Nautilus,,,7
-tre_nati_004,Chocobo Corral,Nautilus,,,7
+z_ran_stg_07,Chapter 7 Crystarium Expansion,Palumpolum,,,7
+z_shp_08_07,Chapter 8 Shop Expansion,Nautilus,,,1
+z_shp_08_10,Chapter 8 Shop Expansion,Nautilus,,,1
+tre_nati_005,Park Square,Nautilus,,,1
+tre_nati_004,Chocobo Corral,Nautilus,,,1
 tre_nati_001,The Mall,Nautilus,,,7
 tre_nati_002,The Clock Tower,Nautilus,,,7
 tre_nati_003,The Clock Tower,Nautilus,,,7
 z_shp_09_00,Chapter 9 Shop Expansion,Palamecia,,,7
 z_shp_09_06,Chapter 9 Shop Expansion,Palamecia,,,7
 z_shp_09_12,Chapter 9 Shop Expansion,Palamecia,,,7
-tre_hiku_001,Short-field Landing Deck,Palamecia,,,8
+tre_hiku_001,Short-field Landing Deck,Palamecia,,,7
 tre_hiku_002,External Berths,Palamecia,,,8
 tre_hiku_003,External Berths,Palamecia,,,8
 tre_hiku_004,External Berths,Palamecia,,,8
@@ -199,35 +199,35 @@ tre_hiku_027,Bridge Access,Palamecia,,,8
 tre_hiku_026,Bridge Access,Palamecia,,,8
 tre_hiku_028,Bridge Access,Palamecia,,,8
 z_ran_stg_09,Chapter 9 Crystarium Expansion,Palamecia,,,9
-z_shp_10_00,Chapter 10 Shop Expansion,Fifth Ark,,,9
-z_shp_10_03,Chapter 10 Shop Expansion,Fifth Ark,,,9
-z_shp_10_06,Chapter 10 Shop Expansion,Fifth Ark,,,9
-z_shp_10_07,Chapter 10 Shop Expansion,Fifth Ark,,,9
-z_shp_10_10,Chapter 10 Shop Expansion,Fifth Ark,,,9
-z_shp_10_11,Chapter 10 Shop Expansion,Fifth Ark,,,9
-z_ran_lig_sen,Lightning Sentinel Role,Fifth Ark,,,9
-z_ran_lig_syn,Lightning Synergist Role,Fifth Ark,,,9
-z_ran_lig_sab,Lightning Saboteur Role,Fifth Ark,,,9
-z_ran_fan_rav,Fang Ravager Role,Fifth Ark,,,9
-z_ran_fan_syn,Fang Synergist Role,Fifth Ark,,,9
-z_ran_fan_med,Fang Medic Role,Fifth Ark,,,9
-z_ran_saz_sen,Sazh Sentinel Role,Fifth Ark,,,9
-z_ran_saz_sab,Sazh Saboteur Role,Fifth Ark,,,9
-z_ran_saz_med,Sazh Medic Role,Fifth Ark,,,9
-z_ran_hop_sen,Hope Sentinel Role,Fifth Ark,,,9
-z_ran_hop_com,Hope Commando Role,Fifth Ark,,,9
-z_ran_hop_sab,Hope Saboteur Role,Fifth Ark,,,9
-z_ran_van_sen,Vanille Sentinel Role,Fifth Ark,,,9
-z_ran_van_com,Vanille Commando Role,Fifth Ark,,,9
-z_ran_van_syn,Vanille Synergist Role,Fifth Ark,,,9
-z_ran_sno_syn,Snow Synergist Role,Fifth Ark,,,9
-z_ran_sno_sab,Snow Saboteur Role,Fifth Ark,,,9
-z_ran_sno_med,Snow Medic Role,Fifth Ark,,,9
-tre_fark_001,Vestibular Hold,Fifth Ark,,,9
-tre_fark_002,Vestibular Hold,Fifth Ark,,,9
-tre_fark_003,Lower Traverse,Fifth Ark,,,9
-tre_fark_004,Lower Traverse,Fifth Ark,,,9
-tre_fark_005,Lower Traverse,Fifth Ark,,,9
+z_shp_10_00,Chapter 10 Shop Expansion,Fifth Ark,,,1
+z_shp_10_03,Chapter 10 Shop Expansion,Fifth Ark,,,1
+z_shp_10_06,Chapter 10 Shop Expansion,Fifth Ark,,,1
+z_shp_10_07,Chapter 10 Shop Expansion,Fifth Ark,,,1
+z_shp_10_10,Chapter 10 Shop Expansion,Fifth Ark,,,1
+z_shp_10_11,Chapter 10 Shop Expansion,Fifth Ark,,,1
+z_ran_lig_sen,Lightning Sentinel Role,Fifth Ark,,,8
+z_ran_lig_syn,Lightning Synergist Role,Fifth Ark,,,8
+z_ran_lig_sab,Lightning Saboteur Role,Fifth Ark,,,8
+z_ran_fan_rav,Fang Ravager Role,Fifth Ark,,,8
+z_ran_fan_syn,Fang Synergist Role,Fifth Ark,,,8
+z_ran_fan_med,Fang Medic Role,Fifth Ark,,,8
+z_ran_saz_sen,Sazh Sentinel Role,Fifth Ark,,,8
+z_ran_saz_sab,Sazh Saboteur Role,Fifth Ark,,,8
+z_ran_saz_med,Sazh Medic Role,Fifth Ark,,,8
+z_ran_hop_sen,Hope Sentinel Role,Fifth Ark,,,8
+z_ran_hop_com,Hope Commando Role,Fifth Ark,,,8
+z_ran_hop_sab,Hope Saboteur Role,Fifth Ark,,,8
+z_ran_van_sen,Vanille Sentinel Role,Fifth Ark,,,8
+z_ran_van_com,Vanille Commando Role,Fifth Ark,,,8
+z_ran_van_syn,Vanille Synergist Role,Fifth Ark,,,8
+z_ran_sno_syn,Snow Synergist Role,Fifth Ark,,,8
+z_ran_sno_sab,Snow Saboteur Role,Fifth Ark,,,8
+z_ran_sno_med,Snow Medic Role,Fifth Ark,,,8
+tre_fark_001,Vestibular Hold,Fifth Ark,,,8
+tre_fark_002,Vestibular Hold,Fifth Ark,,,8
+tre_fark_003,Lower Traverse,Fifth Ark,,,8
+tre_fark_004,Lower Traverse,Fifth Ark,,,8
+tre_fark_005,Lower Traverse,Fifth Ark,,,8
 tre_fark_015,High Conflux,Fifth Ark,,,9
 tre_fark_006,Hibernatorium,Fifth Ark,,,9
 tre_fark_007,Inner Circuit,Fifth Ark,,,9
@@ -235,7 +235,7 @@ tre_fark_013,Inner Circuit,Fifth Ark,,,9
 tre_fark_008,Inner Circuit,Fifth Ark,,,9
 tre_fark_009,Inner Circuit,Fifth Ark,,,9
 tre_fark_014,Inner Circuit,Fifth Ark,,,9
-z_ran_stg_10,Chapter 10 Crystarium Expansion,Fifth Ark,,,9
+z_ran_stg_10,Chapter 10 Crystarium Expansion,Fifth Ark,,,10
 tre_fark_010,Substratal Conflux,Fifth Ark,,,9
 tre_fark_011,The Synthrona,Fifth Ark,,,9
 tre_fark_012,Hypogeum,Fifth Ark,,,9
@@ -337,7 +337,7 @@ tre_gpwo_003,Deserted Schoolhouse,Oerba,,,11
 tre_gpwo_004,Rust-eaten Bridge,Oerba,,,11
 tre_gpwo_005,Rust-eaten Bridge,Oerba,,,11
 tre_gpwo_008,Rust-eaten Bridge,Oerba,,,11
-z_ran_stg_11,Chapter 11 Crystarium Expansion,Oerba,,,11
+z_ran_stg_11,Chapter 11 Crystarium Expansion,Oerba,,,12
 tre_gpst_001,The Tsubaddran Highlands,Yaschas Massif,,,10
 tre_gpst_005,The Ascendant Scrap,Yaschas Massif,,,10
 tre_gpst_006,The Ascendant Scrap,Yaschas Massif,,,10
@@ -403,7 +403,7 @@ tre_lasd_020,The Tesseracts 5th Section,Orphan's Cradle,,,13
 tre_lasd_022,The Tesseracts 6th Section,Orphan's Cradle,,,13
 tre_lasd_023,The Tesseracts 6th Section,Orphan's Cradle,,,13
 tre_lasd_024,The Narthex,Orphan's Cradle,,,13
-z_ran_stg_13,Chapter 13 Crystarium Expansion,Orphan's Cradle,,,13
+z_ran_stg_13,Chapter 13 Crystarium Expansion,Orphan's Cradle,,Missable,14
 tre_ms_n001_01,Mission 1: Ectopudding,Archylte Steppe,,Mission,10
 tre_ms_n001_02,Mission 1: Ectopudding Repeat,Archylte Steppe,,Mission|Missable,10
 tre_ms_n002_01,Mission 2: Uridimmu,Archylte Steppe,,Mission,10
@@ -526,9 +526,9 @@ tre_ms_n041_01,Mission 60: Gelatitan,Taejin's Tower,,Mission,13
 tre_ms_n041_02,Mission 60: Gelatitan Repeat,Taejin's Tower,,Mission|Missable,13
 tre_ms_n042_01,Mission 61: Juggernaut,Oerba,,Mission,13
 tre_ms_n042_02,Mission 61: Juggernaut Repeat,Oerba,,Mission|Missable,13
-tre_ms_n043_01,Mission 62: Raktavija,Archylte Steppe,,Mission,13
-tre_ms_n043_02,Mission 62: Raktavija Repeat,Archylte Steppe,,Mission|Missable,13
+tre_ms_n043_01,Mission 62: Raktavija,Archylte Steppe,,Mission,14
+tre_ms_n043_02,Mission 62: Raktavija Repeat,Archylte Steppe,,Mission|Missable,14
 tre_ms_n017_01,Mission 63: Adamantortoise,Archylte Steppe,,Mission,13
 tre_ms_n017_02,Mission 63: Adamantortoise Repeat,Archylte Steppe,,Mission|Missable,13
-tre_ms_n034_01,Mission 64: Vercingetorix,Yaschas Massif,,Mission,13
-tre_ms_n034_02,Mission 64: Vercingetorix Repeat,Yaschas Massif,,Mission|Missable,13
+tre_ms_n034_01,Mission 64: Vercingetorix,Yaschas Massif,,Mission,14
+tre_ms_n034_02,Mission 64: Vercingetorix Repeat,Yaschas Massif,,Mission|Missable,14

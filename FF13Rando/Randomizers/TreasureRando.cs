@@ -247,6 +247,10 @@ namespace FF13Rando
                 PlacementAlgo.SetLocationItem(l2.ID, temp.Item1, 1);
             });
         }
+        public bool IsRepeatableAllowed(string location)
+        {
+            return IsInitRole(location) || IsOtherRole(location) || IsEidolon(location) || PlacementAlgo.GetLocationItem(location).Item1 == "key_ctool" || IsGysahlReins(location);
+        }
 
         public bool IsImportantKeyItem(string location)
         {
