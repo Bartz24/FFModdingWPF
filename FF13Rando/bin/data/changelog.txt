@@ -1,4 +1,7 @@
-0.7.1 Changelog:
+0.7.1.1 Changelog:
+
+-Fixed item placement on more restricted settings
+-Role items are now removed to keep key item space under 50 items
 
 -Added "Return to the Lindblum" option to save points
     -Disabled while Hope is missing at the start of Ch 11 due to softlocks not figured out yet

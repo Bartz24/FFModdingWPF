@@ -139,9 +139,10 @@ namespace FF13Rando
             AddTreasure("z_shp_13_03", "key_shop_03", 1);
 
             List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
+            List<string> locations = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
 
-            placementAlgoNormal = new FF13AssumedItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers, 10);
-            placementAlgoBackup = new FF13ItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers, -1);
+            placementAlgoNormal = new FF13AssumedItemPlacementAlgorithm(itemLocations, locations, Randomizers, 10);
+            placementAlgoBackup = new FF13ItemPlacementAlgorithm(itemLocations, locations, Randomizers, -1);
         }
 
         public void AddTreasure(string newName, string item, int count)
@@ -169,7 +170,7 @@ namespace FF13Rando
                 if (!placementAlgoNormal.Randomize(new List<string>()))
                 {
                     usingBackup = true;
-                    placementAlgoBackup.Randomize(new List<string>());
+                    placementAlgoBackup.Randomize(placementAlgoBackup.GetNewAreasAvailable(new Dictionary<string, int>(), new List<string>()));
                 }
 
                 // Update hints again to reflect actual numbers

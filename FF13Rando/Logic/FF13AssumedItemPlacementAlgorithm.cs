@@ -132,7 +132,7 @@ namespace FF13Rando
             }
             if (ItemLocations[old].Traits.Contains("Repeatable"))
             {
-                if (!treasureRando.IsRepeatableAllowed(rep))
+                if (!treasureRando.IsRepeatableAllowed(rep) && (FF13Flags.Items.KeyPlaceTreasure.Enabled || FF13Flags.Items.KeyPlaceMissions.Enabled))
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("Mission"))
