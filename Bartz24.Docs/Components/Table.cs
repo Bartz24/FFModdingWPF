@@ -41,6 +41,9 @@ namespace Bartz24.Docs
         protected override void GenerateContent(HtmlNode node)
         {
             "table table-sm table-dark table-hover align-middle".Split(" ").ToList().ForEach(c => node.AddClass(c));
+            node.SetAttributeValue("data-toggle", "table");
+            node.SetAttributeValue("data-search", "true");
+            node.SetAttributeValue("data-search-highlight", "true");
 
             HtmlNode colgroup = HtmlNode.CreateNode("<colgroup></colgroup>");
             foreach (int width in ColumnWidths)
@@ -50,16 +53,19 @@ namespace Bartz24.Docs
             }
             node.AppendChild(colgroup);
 
-
-            HtmlNode body = HtmlNode.CreateNode("<tbody></tbody>");
+            HtmlNode header = HtmlNode.CreateNode("<thead></thead>");
 
             HtmlNode columns = HtmlNode.CreateNode("<tr></tr>");
             foreach (string name in ColumnNames)
             {
-                HtmlNode thNode = HtmlNode.CreateNode($"<th>{HtmlDocument.HtmlEncode(name)}</th>");
+                HtmlNode thNode = HtmlNode.CreateNode($"<th data-sortable=\"true\">{HtmlDocument.HtmlEncode(name)}</th>");
                 columns.AppendChild(thNode);
             }
-            body.AppendChild(columns);
+            header.AppendChild(columns);
+            node.AppendChild(header);
+
+
+            HtmlNode body = HtmlNode.CreateNode("<tbody></tbody>");
 
             foreach (List<string> row in TableContents)
             {

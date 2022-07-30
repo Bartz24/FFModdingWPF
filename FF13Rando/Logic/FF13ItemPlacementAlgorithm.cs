@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace FF13Rando
 {
-    public class FF13ItemPlacementAlgorithm : ItemPlacementAlgorithm<ItemLocation>
+    public class FF13ItemPlacementAlgorithm : ItemPlacementAlgorithm<FF13ItemLocation>
     {
         TreasureRando treasureRando;
 
         Dictionary<string, double> AreaMults = new Dictionary<string, double>();
 
-        public FF13ItemPlacementAlgorithm(Dictionary<string, ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
+        public FF13ItemPlacementAlgorithm(Dictionary<string, FF13ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
         {
             treasureRando = randomizers.Get<TreasureRando>("Treasures");
         }
@@ -37,7 +37,8 @@ namespace FF13Rando
 
         public override bool IsValid(string location, string replacement, string area, Dictionary<string, int> items, List<string> areasAvailable)
         {
-            return ItemLocations[location].IsValid(items) &&
+            return ItemLocations[location].IsValid(items) && 
+                FF13RandoHelpers.AreCrystariumReqsMet(ItemLocations[location], items) &&
                 (area == null || ItemLocations[location].Areas.Contains(area)) &&
                 IsAllowed(location, replacement);
         }
@@ -94,6 +95,7 @@ namespace FF13Rando
                 case TreasureRando.EnemyData e:
                     EnemyRando enemyRando = treasureRando.Randomizers.Get<EnemyRando>("Enemies");
                     e.SetData(enemyRando.charaSpec[key], item, count);
+                    e.LinkedIDs.ForEach(other => e.SetData(enemyRando.charaSpec[other], item, count));
                     break;
                 default:
                     base.SetLocationItem(key, item, count);
@@ -181,7 +183,7 @@ namespace FF13Rando
                 if (index == 3)
                     expBase = 1.25f;
                 Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
-                string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) * GetAreaMult(s) * 100d));
+                string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + GetAreaMult(s) * 16d));
                 return new Tuple<string, int>(next, possDepths[next]);
             }
         }

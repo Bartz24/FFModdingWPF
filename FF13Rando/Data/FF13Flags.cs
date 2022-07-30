@@ -176,7 +176,9 @@ namespace FF13Rando
         }
         public class Other
         {
-            public static Flag Music;
+            public static Flag Music, Enemies;
+            public static NumberFlagProperty EnemyRank;
+            public static ToggleFlagProperty EnemyNoLimit;
 
             internal static void Init()
             {
@@ -187,6 +189,30 @@ namespace FF13Rando
                     DescriptionFormat = "Shuffle music around.",
                     Aesthetic = true
                 }.Register(FlagType.Other);
+
+                Enemies = new Flag()
+                {
+                    Text = "Randomize Enemies",
+                    FlagID = "Enemies",
+                    DescriptionFormat = "Randomizes enemies."
+                }.Register(FlagType.Other);
+
+                EnemyNoLimit = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Increase Enemy Variety",
+                    ID = "EnemyVariety",
+                    Description = "[EXPERIMENTAL] Enemy variety will be increased in areas that allow it. This may cause crashes in areas less tested so use at your own risk. If the crashes become an issue, turn this off and regenerate the seed."
+                }.Register(Enemies);
+
+                EnemyRank = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "Enemy Rank Range",
+                    ID = "EnemyRank",
+                    Description = "Enemies can be replaced by enemies by enemies within the specified value of its \"Rank\".",
+                    ValueText = "Enemy Rank +/-",
+                    MinValue = 0,
+                    MaxValue = 15
+                }.Register(Enemies);
             }
         }
 

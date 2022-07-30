@@ -9,7 +9,7 @@ namespace Bartz24.Data
     public class DataStorePointerList<T> : DataStoreList<T> where T : DataStore, new()
     {
         public readonly T NULL;
-        private Dictionary<int, int> pointerToIndexDictionary = new Dictionary<int, int>();
+        protected Dictionary<int, int> pointerToIndexDictionary = new Dictionary<int, int>();
 
         public DataStorePointerList(T nullVal)
         {

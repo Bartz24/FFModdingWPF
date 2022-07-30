@@ -36,6 +36,7 @@ namespace FF13Rando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Crystarium Data...", 0, 100);
             primaryRoles.Add("lightning", new Role[] { Role.Commando, Role.Ravager, Role.Medic });
             primaryRoles.Add("fang", new Role[] { Role.Commando, Role.Sentinel, Role.Saboteur });
             primaryRoles.Add("snow", new Role[] { Role.Commando, Role.Ravager, Role.Sentinel });
@@ -47,6 +48,7 @@ namespace FF13Rando
             crystariums = chars.ToDictionary(c => c, c => new DataStoreWDB<DataStoreCrystarium>());
             chars.ForEach(c => crystariums[c].LoadWDB("13", @"\db\crystal\crystal_" + c + ".wdb"));
 
+            Randomizers.SetProgressFunc("Loading Crystarium Data...", 80, 100);
             FileHelpers.ReadCSVFile(@"data\abilities.csv", row =>
             {
                 AbilityData a = new AbilityData(row);
@@ -55,10 +57,12 @@ namespace FF13Rando
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 0, 100);
             List<int[]> averageStats = GetAverageStats();
             GetFirstAbilities();
             UpdateCPCosts();
 
+            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 10, 100);
             if (FF13Flags.Stats.RandCrystAbi.FlagEnabled)
             {
                 FF13Flags.Stats.RandCrystAbi.SetRand();
@@ -66,6 +70,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
+            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 20, 100);
             if (FF13Flags.Stats.RandCrystStat.FlagEnabled)
             {
                 FF13Flags.Stats.RandCrystStat.SetRand();
@@ -73,12 +78,15 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
+            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 40, 100);
             if (FF13Flags.Stats.ShuffleCrystMisc.Enabled)
             {
                 FF13Flags.Stats.RandInitStats.SetRand();
                 ShuffleNodesBetweenRoles();
                 RandomNum.ClearRand();
             }
+
+            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 50, 100);
             if (FF13Flags.Stats.ShuffleCrystRole.FlagEnabled)
             {
                 FF13Flags.Stats.ShuffleCrystRole.SetRand();
@@ -86,12 +94,15 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
+            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 80, 100);
             if (FF13Flags.Stats.RandCrystStat.FlagEnabled)
             {
                 FF13Flags.Stats.RandCrystStat.SetRand();
                 RandomizeCrystariumStats(averageStats);
                 RandomNum.ClearRand();
             }
+
+            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 90, 100);
             if (FF13Flags.Stats.RandInitStats.FlagEnabled)
             {
                 FF13Flags.Stats.RandInitStats.SetRand();
@@ -106,9 +117,11 @@ namespace FF13Rando
             for (int stage = 1; stage <= 10; stage++)
             {
                 int[] stats = new int[3];
-                stats[0] = (int)(chars.SelectMany(c => crystariums[c].Values.Where(node => node.iStage == stage && node.iType == CrystariumType.HP && primaryRoles[c].Contains(node.iRole))).Average(node => node.iValue));
-                stats[1] = (int)(chars.SelectMany(c => crystariums[c].Values.Where(node => node.iStage == stage && node.iType == CrystariumType.Strength && primaryRoles[c].Contains(node.iRole))).Average(node => node.iValue));
-                stats[2] = (int)(chars.SelectMany(c => crystariums[c].Values.Where(node => node.iStage == stage && node.iType == CrystariumType.Magic && primaryRoles[c].Contains(node.iRole))).Average(node => node.iValue));
+                stats[0] = (int)chars.SelectMany(c => crystariums[c].Values.Where(node => node.iStage == stage && node.iType == CrystariumType.HP && primaryRoles[c].Contains(node.iRole))).Average(node => node.iValue);
+                int avgStrMag = (int)chars.SelectMany(c => crystariums[c].Values.Where(node => node.iStage == stage && (node.iType == CrystariumType.Strength || node.iType == CrystariumType.Magic) && primaryRoles[c].Contains(node.iRole))).Average(node => node.iValue);
+                stats[1] = avgStrMag;
+                stats[2] = avgStrMag;
+
                 list.Add(stats);
             }
             return list;
@@ -297,7 +310,7 @@ namespace FF13Rando
                 List<CrystariumType> types = new List<CrystariumType>() { CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic };
                 crystariums[chara].Values.Where(c => types.Contains(c.iType)).ForEach(c =>
                 {
-                    c.iType = RandomNum.SelectRandomWeighted(types, t => (int)(Math.Sqrt(roleMults[c.iRole][types.IndexOf(t)]) * 100));
+                    c.iType = RandomNum.SelectRandomWeighted(types, t => (int)(Math.Sqrt(roleMults[c.iRole][types.IndexOf(t)]) * 100 * (t == CrystariumType.HP ? 1.4 : 1)));
                     c.iValue = (ushort)(averageStats[c.iStage - 1][types.IndexOf(c.iType)] * charMults[chara][types.IndexOf(c.iType)] * roleMults[c.iRole][types.IndexOf(c.iType)]);
                     c.iValue = (ushort)Math.Max(1, RandomNum.RandInt((int)(c.iValue * 0.8), (int)(c.iValue * 1.2)));
                 });
@@ -326,7 +339,7 @@ namespace FF13Rando
             {
                 List<CrystariumType> types = new List<CrystariumType>() { CrystariumType.Accessory, CrystariumType.ATBLevel, CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic };
 
-                List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => types.Contains(c.iType)).ToList().Shuffle().ToList();
+                List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => types.Contains(c.iType) && c.iCPCost > 0).ToList().Shuffle().ToList();
                 nodes.Shuffle((c1, c2) => c1.SwapStatsAbilities(c2));
             }
         }
@@ -341,7 +354,12 @@ namespace FF13Rando
 
                     List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => c.iRole == role && c != firstAbis[chara][role] && c.iCPCost > 0).ToList().Shuffle().ToList();
 
-                    nodes.Shuffle((c1, c2) => c1.SwapStatsAbilities(c2));
+                    nodes.Shuffle((c1, c2) => {
+                        if (c1.iType == CrystariumType.RoleLevel && crystariums[chara].Values.IndexOf(c2) < crystariums[chara].Values.IndexOf(firstAbis[chara][c2.iRole]) || c2.iType == CrystariumType.RoleLevel && crystariums[chara].Values.IndexOf(c1) < crystariums[chara].Values.IndexOf(firstAbis[chara][c1.iRole]))
+                            return;
+                        else
+                            c1.SwapStatsAbilities(c2);
+                    });
                 }
             }
         }
@@ -424,6 +442,7 @@ namespace FF13Rando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Crystarium Data...", -1, 100);
             chars.ForEach(c => crystariums[c].SaveWDB(@"\db\crystal\crystal_" + c + ".wdb"));
 
         }

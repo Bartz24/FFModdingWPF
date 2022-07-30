@@ -17,6 +17,7 @@ namespace Bartz24.RandoWPF
 
         public List<string> HintsByLocation = new List<string>();
         public Dictionary<string, int> HintsByLocationsCount = new Dictionary<string, int>();
+        public Action<string, int, int> SetProgressFunc { get; set; }
 
         protected int maxFailCount;
 
@@ -119,6 +120,7 @@ namespace Bartz24.RandoWPF
         {
             for(int i = 0; i < (maxFailCount == -1 ? 1 : maxFailCount); i+=(maxFailCount == -1 ? 0 : 1))
             {
+                UpdateProgress(i);
                 bool output = TryImportantPlacement(locations, important, new List<string>(defaultAreas));
                 if (output)
                     return true;
@@ -127,6 +129,11 @@ namespace Bartz24.RandoWPF
                 Clear();
             }
             return false;
+        }
+
+        protected virtual void UpdateProgress(int i)
+        {
+            SetProgressFunc($"Backup Item Placement Method Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}"), maxFailCount == -1 ? 1 : i, maxFailCount == -1 ? 100 : maxFailCount);
         }
 
         protected virtual bool TryImportantPlacement(List<string> locations, List<string> important, List<string> accessibleAreas)

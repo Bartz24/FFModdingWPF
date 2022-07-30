@@ -22,7 +22,7 @@ namespace FF13Rando
 
         Dictionary<string, HintData> hintData = new Dictionary<string, HintData>();
 
-        public Dictionary<string, ItemLocation> itemLocations = new Dictionary<string, ItemLocation>();
+        public Dictionary<string, FF13ItemLocation> itemLocations = new Dictionary<string, FF13ItemLocation>();
 
         Dictionary<string, List<string>> hintsMain = new Dictionary<string, List<string>>();
         Dictionary<string, int> hintsNotesUniqueCount = new Dictionary<string, int>();
@@ -32,7 +32,7 @@ namespace FF13Rando
         FF13ItemPlacementAlgorithm placementAlgoBackup;
         private bool usingBackup = false;
 
-        public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgoNormal; }
+        public ItemPlacementAlgorithm<FF13ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgoNormal; }
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) {  }
 
@@ -47,6 +47,7 @@ namespace FF13Rando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Treasure Data...", -1, 100);
             treasuresOrig.LoadWDB("13", @"\db\resident\treasurebox.wdb");
             treasures.LoadWDB("13", @"\db\resident\treasurebox.wdb");
 
@@ -142,7 +143,9 @@ namespace FF13Rando
             List<string> locations = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
 
             placementAlgoNormal = new FF13AssumedItemPlacementAlgorithm(itemLocations, locations, Randomizers, 10);
+            placementAlgoNormal.SetProgressFunc = Randomizers.SetProgressFunc;
             placementAlgoBackup = new FF13ItemPlacementAlgorithm(itemLocations, locations, Randomizers, -1);
+            placementAlgoBackup.SetProgressFunc = Randomizers.SetProgressFunc;
         }
 
         public void AddTreasure(string newName, string item, int count)
@@ -160,6 +163,7 @@ namespace FF13Rando
 
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Treasure Data...", -0, 100);
             if (FF13Flags.Items.Treasures.FlagEnabled)
             {
                 FF13Flags.Items.Treasures.SetRand();
@@ -172,6 +176,7 @@ namespace FF13Rando
                     usingBackup = true;
                     placementAlgoBackup.Randomize(placementAlgoBackup.GetNewAreasAvailable(new Dictionary<string, int>(), new List<string>()));
                 }
+                Randomizers.SetProgressFunc("Randomizing Treasure Data...", 60, 100);
 
                 // Update hints again to reflect actual numbers
                 PlacementAlgo.HintsByLocation.ForEach(l =>
@@ -183,16 +188,10 @@ namespace FF13Rando
                     hintsNotesSharedCount.Add(l, sharedCount);
                 });
 
-                EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
-                itemLocations.Values.Where(t => t is EnemyData).Select(t => (EnemyData)t).ForEach(t => t.LinkedIDs.ForEach(other =>
-                {
-                    enemyRando.charaSpec[other].sDropItem0_string = enemyRando.charaSpec[t.ID].sDropItem0_string;
-                    enemyRando.charaSpec[other].sDropItem1_string = enemyRando.charaSpec[t.ID].sDropItem1_string;
-                }));
-
                 RandomNum.ClearRand();
             }
 
+            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 80, 100);
             if (FF13Flags.Items.ShuffleRoles.FlagEnabled)
             {
                 FF13Flags.Items.ShuffleRoles.SetRand();
@@ -215,6 +214,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
+            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 90, 100);
             if (FF13Flags.Items.ShuffleShops.FlagEnabled)
             {
                 FF13Flags.Items.ShuffleShops.SetRand();
@@ -228,6 +228,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
+            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 95, 100);
             if (FF13Flags.Items.StartingEquip.FlagEnabled)
             {
                 FF13Flags.Items.StartingEquip.SetRand();
@@ -291,6 +292,7 @@ namespace FF13Rando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Treasure Data...", -1, 100);
             SaveHints();
             treasures.SaveWDB(@"\db\resident\treasurebox.wdb");
         }
@@ -298,8 +300,6 @@ namespace FF13Rando
         public override HTMLPage GetDocumentation()
         {
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
-
-            page.HTMLElements.Add(new Button("document.getElementById(\"itemlocations\").classList.toggle(\"hide4\")", null, "Hide/Show Requirements"));
 
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Location", "Requirements" }).ToList(), (new int[] { 30, 25, 15, 30 }).ToList(), itemLocations.Values.Select(t =>
             {
@@ -332,13 +332,14 @@ namespace FF13Rando
             return name;
         }
 
-        public class TreasureData : ItemLocation
+        public class TreasureData : FF13ItemLocation
         {
             public override string ID { get; }
             public override string Name { get; }
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }
             public override List<string> Areas { get; }
+            public override List<string> Characters { get; }
             public override int Difficulty { get; }
 
             public TreasureData(string[] row)
@@ -349,6 +350,7 @@ namespace FF13Rando
                 Requirements = ItemReq.Parse(row[3]);
                 Traits = row[4].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 Difficulty = int.Parse(row[5]);
+                Characters = FF13RandoHelpers.ParseReqCharas(row[6]);
             }
 
             public override bool IsValid(Dictionary<string, int> items)
@@ -372,7 +374,7 @@ namespace FF13Rando
             }
         }
 
-        public class EnemyData : ItemLocation
+        public class EnemyData : FF13ItemLocation
         {
             public override string ID { get; }
             public int Index { get; }
@@ -380,6 +382,7 @@ namespace FF13Rando
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }
             public override List<string> Areas { get; }
+            public override List<string> Characters { get; }
             public List<string> LinkedIDs { get; }
             public override int Difficulty { get; }
 
@@ -393,6 +396,7 @@ namespace FF13Rando
                 Traits = row[5].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 LinkedIDs = row[6].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 Difficulty = int.Parse(row[7]);
+                Characters = FF13RandoHelpers.ParseReqCharas(row[8]);
             }
 
             public override bool IsValid(Dictionary<string, int> items)
@@ -406,25 +410,32 @@ namespace FF13Rando
             {
                 DataStoreBtCharaSpec s = (DataStoreBtCharaSpec)obj;
                 if (Index == 0)
+                {
                     s.sDropItem0_string = newItem;
+                    s.u8NumDrop = (byte)newCount;
+                }
                 else
+                {
                     s.sDropItem1_string = newItem;
+                    s.u8NumDrop = (byte)newCount;
+                }
             }
 
             public override Tuple<string, int> GetData(dynamic obj)
             {
                 DataStoreBtCharaSpec s = (DataStoreBtCharaSpec)obj;
-                return new Tuple<string, int>(Index == 0 ? s.sDropItem0_string : s.sDropItem1_string, 1);
+                return new Tuple<string, int>(Index == 0 ? s.sDropItem0_string : s.sDropItem1_string, s.u8NumDrop);
             }
         }
 
-        public class BattleData : ItemLocation
+        public class BattleData : FF13ItemLocation
         {
             public override string ID { get; }
             public override string Name { get; }
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }
             public override List<string> Areas { get; }
+            public override List<string> Characters { get; }
             public override int Difficulty { get; }
 
             public BattleData(string[] row)
@@ -435,6 +446,7 @@ namespace FF13Rando
                 Requirements = ItemReq.Parse(row[3]);
                 Traits = row[4].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 Difficulty = int.Parse(row[5]);
+                Characters = FF13RandoHelpers.ParseReqCharas(row[6]);
             }
 
             public override bool IsValid(Dictionary<string, int> items)
@@ -447,7 +459,7 @@ namespace FF13Rando
             public override void SetData(dynamic obj, string newItem, int newCount)
             {
                 DataStoreBtScene s = (DataStoreBtScene)obj;
-                s.sDrop100Id_string = newItem;
+                s.sDrop100Id_string = newItem;                
             }
 
             public override Tuple<string, int> GetData(dynamic obj)

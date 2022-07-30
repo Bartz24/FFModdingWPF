@@ -102,5 +102,10 @@ namespace Bartz24.RandoWPF
             string next = RandomNum.SelectRandomWeighted(possible, s => 1);
             return new Tuple<string, int>(next, possDepths[next]);
         }
+
+        protected override void UpdateProgress(int i)
+        {
+            SetProgressFunc($"Item Placement Method Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}"), maxFailCount == -1 ? 1 : i, maxFailCount == -1 ? 100 : maxFailCount);
+        }
     }
 }

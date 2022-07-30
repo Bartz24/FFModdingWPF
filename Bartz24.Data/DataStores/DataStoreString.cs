@@ -56,5 +56,12 @@ namespace Bartz24.Data
         {
             return Value.GetHashCode();
         }
+
+        public DataStoreString Substring(int index)
+        {
+            DataStoreString sub = new DataStoreString();
+            sub.LoadData(Data, index);
+            return sub;
+        }
     }
 }

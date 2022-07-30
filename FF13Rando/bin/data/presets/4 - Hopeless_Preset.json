@@ -1,6 +1,6 @@
 {
   "name": "4 - Hopeless",
-  "version": "0.7.0",
+  "version": "0.7.2.-1",
   "flags": [
     {
       "FlagEnabled": true,
@@ -93,6 +93,20 @@
       "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "Music"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": false,
+          "ID": "EnemyVariety"
+        },
+        {
+          "Value": 15,
+          "ID": "EnemyRank"
+        }
+      ],
+      "FlagID": "Enemies"
     }
   ]
 }

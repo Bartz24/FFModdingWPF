@@ -12,7 +12,7 @@ namespace Bartz24.FF13
     {
         Dictionary<string, T> Data = new Dictionary<string, T>();
 
-        DataStorePointerList<DataStoreString> StringList;
+        DataStoreStringPointerList StringList;
 
         Dictionary<string, string> StringPointerMapping;
         Dictionary<string, string> StringPointerEndingMapping;
@@ -85,7 +85,7 @@ namespace Bartz24.FF13
         {
             string filePath = path + "\\!!string";
 
-            StringList = new DataStorePointerList<DataStoreString>(new DataStoreString() { Value = "" });
+            StringList = new DataStoreStringPointerList(new DataStoreString() { Value = "" });
             StringList.LoadData(File.ReadAllBytes(filePath));
         }
 

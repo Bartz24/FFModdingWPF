@@ -58,7 +58,7 @@
                 </TextBlock>
                 <StackPanel Visibility="{Binding ProgressBarVisible,Mode=TwoWay}">
                     <TextBlock TextWrapping="Wrap" Text="{Binding ProgressBarText}"></TextBlock>
-                    <ProgressBar x:Name="progressBar" Value="{Binding ProgressBarValue}" IsIndeterminate="{Binding ProgressBarIndeterminate}"/>
+                    <ProgressBar x:Name="progressBar" Value="{Binding ProgressBarValue}" Maximum="{Binding ProgressBarMaximum}" IsIndeterminate="{Binding ProgressBarIndeterminate}"/>
                 </StackPanel>
             </DockPanel>
             <Separator DockPanel.Dock="Bottom"/>

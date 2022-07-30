@@ -28,6 +28,7 @@ namespace FF13Rando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Text Data...", -1, 100);
             {
                 string path = Nova.GetNovaFile("13", @"txtres\resident\system\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["13"]);
                 string outPath = SetupData.OutputFolder + @"\txtres\resident\system\txtres_us.ztr";
@@ -55,6 +56,7 @@ namespace FF13Rando
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Text Data...", -1, 100);
         }
 
         private string GetHash()
@@ -67,6 +69,7 @@ namespace FF13Rando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Text Data...", -1, 100);
 
             TempTextCleanup(mainSysUS);
 

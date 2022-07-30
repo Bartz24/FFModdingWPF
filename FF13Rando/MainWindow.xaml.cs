@@ -36,6 +36,13 @@ namespace FF13Rando
             get { return (int)GetValue(ProgressBarValueProperty); }
             set { SetValue(ProgressBarValueProperty, value); }
         }
+        public static readonly DependencyProperty ProgressBarMaximumProperty =
+        DependencyProperty.Register(nameof(ProgressBarMaximum), typeof(int), typeof(MainWindow));
+        public int ProgressBarMaximum
+        {
+            get { return (int)GetValue(ProgressBarMaximumProperty); }
+            set { SetValue(ProgressBarMaximumProperty, value); }
+        }
         public static readonly DependencyProperty ProgressBarVisibleProperty =
         DependencyProperty.Register(nameof(ProgressBarVisible), typeof(Visibility), typeof(MainWindow));
         public Visibility ProgressBarVisible
@@ -86,6 +93,7 @@ namespace FF13Rando
         private async void generateButton_Click(object sender, RoutedEventArgs e)
         {
             RandomizerManager randomizers = new RandomizerManager();
+            randomizers.SetProgressFunc = SetProgressBar;
             randomizers.Add(new EquipRando(randomizers));
             randomizers.Add(new TreasureRando(randomizers));
             randomizers.Add(new CrystariumRando(randomizers));
@@ -253,7 +261,7 @@ namespace FF13Rando
                 File.Copy(newPath, newPath.Replace(templateFolder, mainFolder), true);
         }
 
-        private void SetProgressBar(string text, int value)
+        private void SetProgressBar(string text, int value, int maxValue = 100)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -261,6 +269,7 @@ namespace FF13Rando
                 ProgressBarText = text;
                 ProgressBarIndeterminate = value < 0;
                 ProgressBarValue = value;
+                ProgressBarMaximum = maxValue;
             });
         }
 

@@ -1,0 +1,189 @@
+﻿ID,Name,Traits,Rank
+m001,Pantheron,,1
+m002,Silver Lobo,,3
+m003,Gorgonopsid,,6
+m004,Adamantheron,,9
+m005,Managarmr,,10
+m007,Rust Pudding,,7
+m007m,Ferruginous Pudding,,12
+m007l,Corrosive Custard,,14
+m008,Flandragora,,3
+m008l,Hybrid Flora,,10
+m010,Flanborg,,4
+m015,Feral Behemoth,,5
+m016,Beta Behemoth,,2
+m017,Corps Marksman,,2
+m018,Orion,,5
+m034,Skata'ne,,6
+m035,Incubus,,3
+m036,Yaksha,,10
+m037,Triffid,,7
+m038,Vespid,,3
+m039,Barbed Specter,,3
+m040,Vespid Soldier,,4
+m041,Gremlin,,2
+m042,Imp,,6
+m043,Zwerg Scandroid,,1
+m045,Leyak,,6
+m047,Alpha Behemoth,,4
+m050,Wyvern,Flying,6
+m054,Munchkin,,6
+m055,Borgbear,,12
+m056,Goblin Chieftain,,11
+m057,Munchkin Maestro,,8
+m058,Borgbear Hero,,13
+m059,Sahagin,,8
+m060,Orobon,,10
+m061,Dagonite,,12
+m062,Corps Watchman,,3
+m063,Pulsework Soldier,,3
+m064,Pulsework Knight,,6
+m065,Pulsework Gladiator,,8
+m066,Bomb,,4
+m069,Navidon,,11
+m070,Scalebeast,,6
+m071,Lucidon,,5
+m072,Thermadon,,6
+m075,Greater Behemoth,,7
+m077,Proto-Behemoth,,12
+m079,Flanitor,,4
+m080,PSICOM Predator,,3
+m081,PSICOM Ranger,,2
+m081_zo,PSICOM Ranger Solo Snow,,2
+m082,PSICOM Warden,,1
+m083,PSICOM Infiltrator,,5
+m084,Sanctum Archangel,,11
+m091,Flan,,5
+m091m,Dire Flan,,9
+m091l,Monstrous Flan,,11
+m094,Goblin,,8
+m098,Vernal Harvester,,13
+m099,Crawler,,3
+m100,Noctilucale,,4
+m101,Alraune,,6
+m102,Frag Leech,,2
+m104,Ghast,,2
+m105,Taxim,,9
+m106,Strigoi,,10
+m107,Vampire,,12
+m108,Wight,Flying,1
+m109,Nelapsi,Flying,8
+m110,Pijavica,Flying,10
+m111,Varcolaci,Flying,7
+m115,Uhlan,,4
+m116,Bulwarker,,11
+m117,Ciconia Velocycle,Flying,3
+m118,Milvus Velocycle,Flying,4
+m119,Falco Velocycle,Flying,6
+m120,Aquila Velocycle,Flying,13
+m123,Bloodfang Bass,,2
+m124,Breshan Bass,,3
+m125,Hedge Frog,,2
+m126,Mud Frog,,4
+m127,Ceratosaur,,6
+m128,Ceratoraptor,,9
+m133,Megrim Thrasher,,14
+m139,PSICOM Aerial Recon,Flying,1
+m140,PSICOM Aerial Sniper,Flying,4
+m141,PSICOM Dragoon,Flying,5
+m144,PSICOM Huntress,,5
+m145,Sanctum Inquisitrix,,10
+m150,Thexteron,,3
+m151,Myrmidon,,2
+m151_hang,Myrmidon Hanging Edge,,2
+m152,Viking,,6
+m153,Watchdrone,,2
+m155,Corps Tranquifex,,2
+m156,Corps Pacifex,,3
+m157,Corps Gunner,,2
+m158,Corps Regular,,2
+m159,Corps Defender,,8
+m160,Corps Steward,,8
+m161,PSICOM Scavenger,,3
+m162,PSICOM Tracker,,2
+m162_zo,PSICOM Tracker Alt,,2
+m163,PSICOM Enforcer,,1
+m163_bhg,PSICOM Enforcer Alt,,1
+m164,PSICOM Raider,,5
+m165,Sanctum Seraph,,9
+m166,PSICOM Marauder,,2
+m167,PSICOM Warlord,,5
+m168,PSICOM Reaver,,6
+m169,Sanctum Templar,,13
+m172,Phosphoric Ooze,,4
+m172l,Alchemic Ooze,,7
+m173,Garchimacera,,3
+m174,Rangda,,8
+m175,Amphisbaena,Flying,11
+m176,Behemoth King,,12
+m177,Berserker,,9
+m178,Tyrant,,13
+m179,Immortal,,14
+m180,Boxed Phalanx,,9
+m182,Hoplite,,7
+m183,Stikini,,6
+m184,Succubus,,3
+m185,Yakshini,,9
+m186,Adamantoise,,17
+m186a,Adamantortoise,,17
+m187,Adamanchelid,,14
+m189,Ochu,,14
+m190,Microchu,,8
+m191,Bituitus,Flying|Event,12
+m192,Chonchon,,7
+m193,Seeker,,7
+m194,Ghoul,,1
+m195,Geiseric,,12
+m197,Attacus,,18
+m199,Vetala,,12
+m201,Vercingetorix,Flying|Event,20
+m205,Deckdrone,,5
+m206,Ahriman,,7
+m207,Pulsework Centurion,,9
+m211,Zwerg Metrodroid,,3
+m212,Megistotherian,,12
+m213,Svarog,Flying,10
+m214,Circuitron,,5
+m215,Cryohedron,,7
+m216,Juggernaut,,14
+m222,Syphax,,14
+m229,PSICOM Bombardier,,4
+m230,PSICOM Destroyer,,6
+m231,Sanctum Celebrant,,9
+m235,Bandersnatch,,12
+m236,Jabberwocky,,12
+m241,Numidia,,8
+m242,Wladislaus,,15
+m243,Lodestar Behemoth,,6
+m250,Sacrifice,,11
+m253,Cactuar,,11
+m254,Tonberry,,14
+m256,Flowering Cactuar,,11
+m257,Gigantuar,,16
+m260,Crusader,,3
+m261,PSICOM Executioner,,3
+m400,Uridimmu,,8
+m401,Adroa,,8
+m402,Pulsework Champion,,12
+m403,Amam,,12
+m404,Rakshasa,,10
+m405,Neochu,,17
+m406,Gurangatch,,11
+m407,Kaiser Behemoth,,12
+m408,Zirnitra,Flying,16
+m409,Verdelet,,9
+m410,Edimmu,Flying,10
+m411,Mithridates,Flying|Event,13
+m412,Rafflesia,,8
+m413,Mushussu,,9
+m414,Raktavija,,18
+m415,Humbaba,,14
+m416,Ambling Bellows,,11
+m417,Ugallu,,11
+m418,Penanggalan,,13
+m419,Ectopudding,,9
+m420,Gelatitan,,13
+m421,Shaolong Gui,,18
+m422,Long Gui,,19
+m423,Picochu,,11
+m424,Cryptos,,8
