@@ -1,3 +1,8 @@
+0.7.2.1 Changelog:
+-Fixed item placement getting stuck
+-Improved item placement progress bars during randomization
+-Improved item placement performance
+
 0.7.2.0 Changelog:
 
 -Added enemy rando with options for enemy rank range and an experimental option to increase enemy variety

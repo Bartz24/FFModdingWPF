@@ -13,7 +13,7 @@ namespace Bartz24.RandoWPF
         {
         }
 
-        protected override bool TryImportantPlacement(List<string> locations, List<string> important, List<string> accessibleAreas)
+        protected override bool TryImportantPlacement(int attempt, List<string> locations, List<string> important, List<string> accessibleAreas)
         {
             List<string> remaining = important.Where(t => !Placement.ContainsValue(t)).ToList().Shuffle().ToList();
             Dictionary<string, int> items = GetItemsAvailable(remaining.ToDictionary(l => l, l => l));
@@ -23,6 +23,7 @@ namespace Bartz24.RandoWPF
             remainingLogic = PrioritizeLockedItems(locations, remainingLogic, important);
             foreach (string rep in remainingLogic)
             {
+                UpdateProgress(attempt, Placement.Count, important.Count);
                 Tuple<string, int> nextItem = GetLocationItem(rep);
                 RemoveItems(locations, items, nextItem, rep);
                 if (nextItem == null)
@@ -59,6 +60,7 @@ namespace Bartz24.RandoWPF
             List<string> remainingOther = remaining.Where(t => !RequiresDepthLogic(t)).ToList().Shuffle().ToList();
             foreach (string rep in remainingOther)
             {
+                UpdateProgress(attempt, Placement.Count, important.Count);
                 Tuple<string, int> nextItem = GetLocationItem(rep);
                 RemoveItems(locations, items, nextItem, rep);
                 if (nextItem == null)
@@ -103,9 +105,9 @@ namespace Bartz24.RandoWPF
             return new Tuple<string, int>(next, possDepths[next]);
         }
 
-        protected override void UpdateProgress(int i)
+        protected override void UpdateProgress(int i, int items, int maxItems)
         {
-            SetProgressFunc($"Item Placement Method Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}"), maxFailCount == -1 ? 1 : i, maxFailCount == -1 ? 100 : maxFailCount);
+            SetProgressFunc($"Item Placement Method Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}") + $" ({items} out of {maxItems} items placed)", items, maxItems);
         }
     }
 }

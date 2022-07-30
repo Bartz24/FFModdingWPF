@@ -19,32 +19,32 @@ namespace FF13Rando
                 case 1:
                     return stage >= 1 && roleCount >= 0 * partySize;
                 case 2:
-                    return stage >= 2 && roleCount >= 1 * partySize;
+                    return stage >= 1 && roleCount >= 1 * partySize;
                 case 3:
-                    return stage >= 3 && roleCount >= 2 * partySize;
+                    return stage >= 1 && roleCount >= 1 * partySize;
                 case 4:
-                    return stage >= 4 && roleCount >= 2 * partySize;
+                    return stage >= 2 && roleCount >= 1 * partySize;
                 case 5:
-                    return stage >= 4 && roleCount >= 3 * partySize;
+                    return stage >= 3 && roleCount >= 2 * partySize;
                 case 6:
-                    return stage >= 5 && roleCount >= 3 * partySize;
+                    return stage >= 4 && roleCount >= 2 * partySize;
                 case 7:
-                    return stage >= 6 && roleCount >= 3 * partySize;
+                    return stage >= 4 && roleCount >= 3 * partySize;
                 case 8:
-                    return stage >= 6 && roleCount >= 3 * partySize;
+                    return stage >= 5 && roleCount >= 3 * partySize;
                 case 9:
-                    return stage >= 7 && roleCount >= 3 * partySize;
+                    return stage >= 5 && roleCount >= 3 * partySize;
                 case 10:
-                    return stage >= 7 && roleCount >= 4 * partySize;
+                    return stage >= 6 && roleCount >= 3 * partySize;
                 case 11:
-                    return stage >= 8 && roleCount >= 4 * partySize;
+                    return stage >= 7 && roleCount >= 4 * partySize;
                 case 12:
-                    return stage >= 9 && roleCount >= 5 * partySize;
+                    return stage >= 8 && roleCount >= 5 * partySize;
                 case 13:
                     return stage >= 9 && roleCount >= 6 * partySize;
                 case 14:
                 default:
-                    return stage >= 10 && roleCount >= 6 * partySize;
+                    return stage >= 9 && roleCount >= 6 * partySize;
             }
         }
 

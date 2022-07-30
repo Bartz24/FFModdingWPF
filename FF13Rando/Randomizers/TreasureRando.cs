@@ -142,7 +142,7 @@ namespace FF13Rando
             List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
             List<string> locations = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
 
-            placementAlgoNormal = new FF13AssumedItemPlacementAlgorithm(itemLocations, locations, Randomizers, 10);
+            placementAlgoNormal = new FF13AssumedItemPlacementAlgorithm(itemLocations, locations, Randomizers, 3);
             placementAlgoNormal.SetProgressFunc = Randomizers.SetProgressFunc;
             placementAlgoBackup = new FF13ItemPlacementAlgorithm(itemLocations, locations, Randomizers, -1);
             placementAlgoBackup.SetProgressFunc = Randomizers.SetProgressFunc;
