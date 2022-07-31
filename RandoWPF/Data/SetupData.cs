@@ -19,7 +19,7 @@ namespace Bartz24.RandoWPF
         public static string OutputFolder;
 
         public static string Seed { get; set; }
-        public static string Version { get; set; } = "0.7.2.1";
+        public static string Version { get; set; } = "0.7.3.0";
 
         public static string SearchSteamRegistry(string path)
         {

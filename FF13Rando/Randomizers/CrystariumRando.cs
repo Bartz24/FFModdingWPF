@@ -312,6 +312,8 @@ namespace FF13Rando
                 {
                     c.iType = RandomNum.SelectRandomWeighted(types, t => (int)(Math.Sqrt(roleMults[c.iRole][types.IndexOf(t)]) * 100 * (t == CrystariumType.HP ? 1.4 : 1)));
                     c.iValue = (ushort)(averageStats[c.iStage - 1][types.IndexOf(c.iType)] * charMults[chara][types.IndexOf(c.iType)] * roleMults[c.iRole][types.IndexOf(c.iType)]);
+                    if (crystariums[chara].Values.Where(other => other.iStage == c.iStage && other.iRole == c.iRole).Count() == 1)
+                        c.iValue *= 10;
                     c.iValue = (ushort)Math.Max(1, RandomNum.RandInt((int)(c.iValue * 0.8), (int)(c.iValue * 1.2)));
                 });
             }
