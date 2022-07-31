@@ -410,15 +410,12 @@ namespace FF13Rando
             {
                 DataStoreBtCharaSpec s = (DataStoreBtCharaSpec)obj;
                 if (Index == 0)
-                {
                     s.sDropItem0_string = newItem;
-                    s.u8NumDrop = (byte)newCount;
-                }
                 else
-                {
                     s.sDropItem1_string = newItem;
+
+                if (s.u8NumDrop > 0)
                     s.u8NumDrop = (byte)newCount;
-                }
             }
 
             public override Tuple<string, int> GetData(dynamic obj)
@@ -459,13 +456,14 @@ namespace FF13Rando
             public override void SetData(dynamic obj, string newItem, int newCount)
             {
                 DataStoreBtScene s = (DataStoreBtScene)obj;
-                s.sDrop100Id_string = newItem;                
+                s.sDrop100Id_string = newItem;
+                s.u8NumDrop100 = (byte)newCount;
             }
 
             public override Tuple<string, int> GetData(dynamic obj)
             {
                 DataStoreBtScene s = (DataStoreBtScene)obj;
-                return new Tuple<string, int>(s.sDrop100Id_string, 1);
+                return new Tuple<string, int>(s.sDrop100Id_string, s.u8NumDrop100);
             }
         }
 

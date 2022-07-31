@@ -131,14 +131,14 @@ namespace FF13Rando
                                   if (!list.Contains(charaspec))
                                       list.Add(charaspec);
 
-                                  if (list.Count > (IsVarietyLimited(id) ? 16 : 60) && list.Count > charaSets[c].GetCharaSpecs().Count)
+                                  if (list.Count > Math.Min(FF13Flags.Other.EnemyNoLimit.Enabled ? 60 : 16, battleData[id].CharasetLimit) && list.Count > charaSets[c].GetCharaSpecs().Count)
                                   {
                                       canAdd = false;
                                       possible.Remove(e.sEntryBtChSpec_string);
                                       if (possible.Count == 0)
                                       {
                                           // If it hit the soft cap, it's ok to add
-                                          if (!IsVarietyLimited(id) && list.Count <= 64)
+                                          if (!FF13Flags.Other.EnemyNoLimit.Enabled && battleData[id].CharasetLimit >= 60 && list.Count <= 64)
                                           {
                                               canAdd = true;
                                               possible.Add(e.sEntryBtChSpec_string);
@@ -222,6 +222,7 @@ namespace FF13Rando
             public string Location { get; set; }
             public List<string> Charasets { get; set; }
             public List<string> Traits { get; set; }
+            public int CharasetLimit { get; set; }
             public BattleData(string[] row)
             {
                 ID = row[0];
@@ -229,6 +230,7 @@ namespace FF13Rando
                 Location = row[2];
                 Charasets = row[3].Split("|").Where(s => !String.IsNullOrEmpty(s)).ToList();
                 Traits = row[4].Split("|").ToList();
+                CharasetLimit = int.Parse(row[5]);
             }
         }
     }
