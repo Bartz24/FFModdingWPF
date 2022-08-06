@@ -1,10 +1,7 @@
-﻿using Bartz24.Data;
-using Bartz24.RandoWPF;
+﻿using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13Rando
 {
@@ -37,7 +34,7 @@ namespace FF13Rando
 
         public override bool IsValid(string location, string replacement, string area, Dictionary<string, int> items, List<string> areasAvailable)
         {
-            return ItemLocations[location].IsValid(items) && 
+            return ItemLocations[location].IsValid(items) &&
                 FF13RandoHelpers.AreCrystariumReqsMet(ItemLocations[location], items) &&
                 (area == null || ItemLocations[location].Areas.Contains(area)) &&
                 IsAllowed(location, replacement);

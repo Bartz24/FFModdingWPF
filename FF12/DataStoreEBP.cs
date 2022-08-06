@@ -1,9 +1,6 @@
 ﻿using Bartz24.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.FF12
 {
@@ -36,7 +33,7 @@ namespace Bartz24.FF12
             TreasureList = new DataStoreList<DataStoreTreasure>();
             TreasureList.LoadData(data.SubArray(treasureDataOffset, size * treasureCount));
 
-            for(int i = 0; i < trapCount; i++)
+            for (int i = 0; i < trapCount; i++)
             {
                 int trapBase = (int)data.ReadUInt(mspOffset + i * 4 + 4);
                 trapNonRespawnable.Add(data.ReadByte(mspOffset + trapBase + 4));

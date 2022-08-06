@@ -7,12 +7,9 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13_2Rando
 {
@@ -27,7 +24,7 @@ namespace FF13_2Rando
 
         Dictionary<string, string> shuffledBosses = new Dictionary<string, string>();
 
-        public BattleRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {

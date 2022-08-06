@@ -2,11 +2,8 @@
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13Rando
 {
@@ -16,7 +13,7 @@ namespace FF13Rando
         List<string> newSoundFiles = new List<string>();
         Dictionary<string, string> names = new Dictionary<string, string>();
 
-        public MusicRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public MusicRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {

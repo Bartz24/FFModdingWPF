@@ -1,14 +1,11 @@
-﻿using Bartz24.Docs;
+﻿using Bartz24.Data;
+using Bartz24.Docs;
+using Bartz24.FF12;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bartz24.Data;
-using Bartz24.FF12;
 
 namespace FF12Rando
 {
@@ -58,7 +55,8 @@ namespace FF12Rando
             prices = new DataStoreBPSection<DataStorePrice>();
             prices.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_028.bin"));
 
-            ebpAreas = File.ReadAllLines("data\\treasureAddresses.csv").ToDictionary(s => s.Split(',')[0], s => {
+            ebpAreas = File.ReadAllLines("data\\treasureAddresses.csv").ToDictionary(s => s.Split(',')[0], s =>
+            {
                 string name = s.Split(',')[0];
                 string area = name.Substring(0, name.Length - 2);
                 int offset = Int32.Parse(s.Split(',')[1]);
@@ -67,7 +65,8 @@ namespace FF12Rando
                 ebp.LoadData(File.ReadAllBytes($"data\\ps2data\\plan_master\\us\\plan_map\\{area}\\{name}\\global\\{name}.ebp"));
                 return ebp;
             });
-            ebpAreasOrig = File.ReadAllLines("data\\treasureAddresses.csv").ToDictionary(s => s.Split(',')[0], s => {
+            ebpAreasOrig = File.ReadAllLines("data\\treasureAddresses.csv").ToDictionary(s => s.Split(',')[0], s =>
+            {
                 string name = s.Split(',')[0];
                 string area = name.Substring(0, name.Length - 2);
                 int offset = Int32.Parse(s.Split(',')[1]);
@@ -138,14 +137,15 @@ namespace FF12Rando
 
                 CollapseAndSelectTreasures();
 
-                if(!placementAlgo.Randomize(new List<string>()))
+                if (!placementAlgo.Randomize(new List<string>()))
                 {
                     usingBackup = true;
                     placementAlgoBackup.Randomize(new List<string>());
                 }
 
                 int respawnIndex = 0;
-                itemLocations.Values.ToList().Shuffle().ForEach(l => {
+                itemLocations.Values.ToList().Shuffle().ForEach(l =>
+                {
                     if (PlacementAlgo.GetKeysAllowed().Contains(l.ID))
                     {
                         if (IsEmpty(l.ID))
@@ -222,8 +222,8 @@ namespace FF12Rando
                                 remainingRandomizeItems.Remove(newItem);
                         }
                     }
-                });     
-                
+                });
+
                 if (!FF12Flags.Items.KeyWrit.Enabled)
                 {
                     itemLocations.Values.Where(l => PlacementAlgo.GetLocationItem(l.ID, false) != null && PlacementAlgo.GetLocationItem(l.ID, false).Item1 == "8070")
@@ -557,7 +557,8 @@ namespace FF12Rando
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin", rewards.Data);
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_028.bin", prices.Data);
 
-            ebpAreas.ForEach(p => {
+            ebpAreas.ForEach(p =>
+            {
                 string name = p.Key.Split(',')[0];
                 string area = name.Substring(0, name.Length - 2);
                 File.WriteAllBytes($"outdata\\ps2data\\plan_master\\us\\plan_map\\{area}\\{name}\\global\\{name}.ebp", p.Value.Data);
@@ -647,7 +648,7 @@ namespace FF12Rando
                 stringList.Add($"{treasure.GilCommon} Gil" + (treasure.GilCommon != treasure.GilRare ? $" or {treasure.GilRare} Gil (with DA)" : ""));
             else
             {
-               stringList.Add($"{GetItemName(treasure.CommonItem1ID.ToString("X4"))} x 1" + (treasure.CommonItem1ID != treasure.RareItem1ID ? $" or {GetItemName(treasure.RareItem1ID.ToString("X4"))} x 1 (with DA)" : ""));
+                stringList.Add($"{GetItemName(treasure.CommonItem1ID.ToString("X4"))} x 1" + (treasure.CommonItem1ID != treasure.RareItem1ID ? $" or {GetItemName(treasure.RareItem1ID.ToString("X4"))} x 1 (with DA)" : ""));
             }
             return String.Join(", ", stringList);
         }

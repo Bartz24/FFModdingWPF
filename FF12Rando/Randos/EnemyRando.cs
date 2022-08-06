@@ -1,14 +1,10 @@
-﻿using Bartz24.Docs;
+﻿using Bartz24.Data;
+using Bartz24.FF12;
+using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bartz24.Data;
-using Bartz24.RandoWPF;
-using Bartz24.FF12;
 
 namespace FF12Rando
 {
@@ -81,7 +77,8 @@ namespace FF12Rando
 
         public override void Save()
         {
-            ards.ForEach(p => {
+            ards.ForEach(p =>
+            {
                 File.WriteAllBytes($"outdata\\ps2data\\plan_master\\in\\plan_map\\{p.Key}\\area\\{p.Key}.ard", p.Value.Data);
             });
         }

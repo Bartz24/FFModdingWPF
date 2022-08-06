@@ -157,7 +157,7 @@ namespace FF13_2Rando
                     ID = "KeyPlaceMogJunk",
                     Description = "Key items are also allowed to replace Improve Moogle Throw junk locations."
                 }.Register(Treasures);
-                
+
                 KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
                 {
                     Text = "Item Difficulty Depth",

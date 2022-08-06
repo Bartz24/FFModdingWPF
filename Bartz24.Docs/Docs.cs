@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.Docs
 {
@@ -14,7 +9,7 @@ namespace Bartz24.Docs
         public Dictionary<string, HTMLPage> Pages { get; } = new Dictionary<string, HTMLPage>();
 
         public void AddPage(string path, HTMLPage page)
-        {            
+        {
             Pages.Add(path, page);
         }
 
@@ -23,7 +18,7 @@ namespace Bartz24.Docs
             if (Directory.Exists(mainFolder))
                 Directory.Delete(mainFolder, true);
 
-            CopyFromTemplate(mainFolder, templateFolder);            
+            CopyFromTemplate(mainFolder, templateFolder);
 
             foreach (string path in Pages.Keys)
             {

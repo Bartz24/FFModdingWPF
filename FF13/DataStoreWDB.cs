@@ -1,10 +1,9 @@
 ﻿using Bartz24.Data;
-using System;
-using System.Data;
-using System.Linq;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Data;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace Bartz24.FF13
 {
@@ -20,7 +19,7 @@ namespace Bartz24.FF13
         public T this[string id]
         {
             get { return Data[id]; }
-        }        
+        }
 
         public List<string> Keys { get => Data.Keys.ToList(); }
         public List<T> Values { get => Data.Values.ToList(); }
@@ -193,9 +192,10 @@ namespace Bartz24.FF13
 
         private void PreWorkaround(string path)
         {
-            Directory.GetFiles(path).Where(s => !Path.GetFileName(s).StartsWith("!!")).ForEach(s => {
-                string fixPath = Path.Combine(Path.GetDirectoryName(s), Path.GetFileName(s).Replace("_", "!")); 
-                File.Move(s, fixPath); 
+            Directory.GetFiles(path).Where(s => !Path.GetFileName(s).StartsWith("!!")).ForEach(s =>
+            {
+                string fixPath = Path.Combine(Path.GetDirectoryName(s), Path.GetFileName(s).Replace("_", "!"));
+                File.Move(s, fixPath);
             });
         }
         private void PostWorkaround(string path)

@@ -22,7 +22,7 @@ namespace FF13_2Rando
 
         public Dictionary<string, string> placement = new Dictionary<string, string>();
 
-        public HistoriaCruxRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public HistoriaCruxRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -287,7 +287,7 @@ namespace FF13_2Rando
 
             return size < 5;
         }
-        
+
         public override HTMLPage GetDocumentation()
         {
             HTMLPage page = new HTMLPage("Historia Crux", "template/documentation.html");

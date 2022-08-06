@@ -2,11 +2,8 @@
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13_2Rando
 {
@@ -16,7 +13,7 @@ namespace FF13_2Rando
         List<string> newSoundFiles = new List<string>();
         Dictionary<string, string> names = new Dictionary<string, string>();
 
-        public MusicRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public MusicRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -49,7 +46,7 @@ namespace FF13_2Rando
         }*/
 
         public override void Save()
-        {            
+        {
             for (int i = 0; i < Math.Min(soundFiles.Count, newSoundFiles.Count); i++)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName($"{SetupData.OutputFolder}\\{newSoundFiles[i]}"));

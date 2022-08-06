@@ -3,17 +3,9 @@ using Bartz24.Docs;
 using Bartz24.FF13_2;
 using Bartz24.FF13_2_LR;
 using Bartz24.RandoWPF;
-using CsvHelper;
-using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Bartz24.FF13_2_LR.Enums;
 
 namespace FF13_2Rando
 {
@@ -39,7 +31,7 @@ namespace FF13_2Rando
 
         public ItemPlacementAlgorithm<FF13_2ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgo; }
 
-        public TreasureRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -213,7 +205,7 @@ namespace FF13_2Rando
             string name;
             if (itemID == "")
                 name = "Gil";
-            else if(itemID.StartsWith("frg"))
+            else if (itemID.StartsWith("frg"))
             {
                 name = textRando.mainSysUS[fragments[itemID].sNameStringId_string];
                 if (name.Contains("{End}"))

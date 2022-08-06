@@ -19,103 +19,103 @@ btsc01019,,Hanging Edge,chset_z016_defe,,60
 btsc01012,,Hanging Edge,chset_z016_def8,,60
 btsc01013,,Hanging Edge,chset_z016_def9,,60
 btsc01014,,Hanging Edge,chset_z016_def9,,60
-btsc02001,,Pulse Vestige,chset_z017_def1,,60
-btsc02004,,Pulse Vestige,chset_z017_def1|chset_z017_def3,,60
-btsc02025,,Pulse Vestige,chset_z017_def1|chset_z017_def3,,60
-btsc02003,,Pulse Vestige,chset_z017_def1|chset_z017_def3,,60
-btsc02002,,Pulse Vestige,chset_z017_def1|chset_z017_def3,,60
-btsc02026,,Pulse Vestige,chset_z017_def1,,60
-btsc02018,,Pulse Vestige,chset_z017_def1,,60
-btsc02027,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,60
-btsc02022,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,60
-btsc02019,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,60
-btsc02006,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,60
-btsc02005,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,60
-btsc02028,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,60
-btsc02007,,Pulse Vestige,chset_z017_def3,,60
-btsc02035,,Pulse Vestige,chset_z017_def3,,60
-btsc02029,,Pulse Vestige,chset_z017_def3,,60
-btsc02020,,Pulse Vestige,chset_z017_def3,,60
-btsc02024,,Pulse Vestige,chset_z017_def3,,60
-btsc02023,,Pulse Vestige,chset_z017_def3,,60
-btsc02011,,Pulse Vestige,chset_z017_def3,,60
-btsc02008,,Pulse Vestige,chset_z017_def4,,60
-btsc02037,,Pulse Vestige,chset_z017_def4,,60
-btsc02012,,Pulse Vestige,chset_z017_def4,,60
-btsc02038,,Pulse Vestige,chset_z017_def4,,60
-btsc02039,,Pulse Vestige,chset_z017_def4,,60
-btsc02040,,Pulse Vestige,chset_z017_def4,,60
-btsc02030,,Pulse Vestige,chset_z017_def4,,60
-btsc02013,,Pulse Vestige,chset_z017_def4,,60
-btsc02031,,Pulse Vestige,chset_z017_def4,,60
-btsc02032,,Pulse Vestige,chset_z017_def4,,60
-btsc02021,,Pulse Vestige,chset_z017_def4,,60
-btsc02041,,Pulse Vestige,chset_z017_def4,,60
-btsc02034,,Pulse Vestige,chset_z017_def4,,60
-btsc02033,,Pulse Vestige,chset_z017_def4,,60
-btsc02036,,Pulse Vestige,chset_z017_def4,,60
+btsc02001,,Pulse Vestige,chset_z017_def1,,32
+btsc02004,,Pulse Vestige,chset_z017_def1|chset_z017_def3,,16
+btsc02025,,Pulse Vestige,chset_z017_def1|chset_z017_def3,,16
+btsc02003,,Pulse Vestige,chset_z017_def1|chset_z017_def3,,16
+btsc02002,,Pulse Vestige,chset_z017_def1|chset_z017_def3,,16
+btsc02026,,Pulse Vestige,chset_z017_def1,,32
+btsc02018,,Pulse Vestige,chset_z017_def1,,32
+btsc02027,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,16
+btsc02022,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,16
+btsc02019,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,16
+btsc02006,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,16
+btsc02005,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,16
+btsc02028,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,16
+btsc02007,,Pulse Vestige,chset_z017_def3,,16
+btsc02035,,Pulse Vestige,chset_z017_def3,,16
+btsc02029,,Pulse Vestige,chset_z017_def3,,16
+btsc02020,,Pulse Vestige,chset_z017_def3,,16
+btsc02024,,Pulse Vestige,chset_z017_def3,,16
+btsc02023,,Pulse Vestige,chset_z017_def3,,16
+btsc02011,,Pulse Vestige,chset_z017_def3,,16
+btsc02008,,Pulse Vestige,chset_z017_def4,,24
+btsc02037,,Pulse Vestige,chset_z017_def4,,24
+btsc02012,,Pulse Vestige,chset_z017_def4,,24
+btsc02038,,Pulse Vestige,chset_z017_def4,,24
+btsc02039,,Pulse Vestige,chset_z017_def4,,24
+btsc02040,,Pulse Vestige,chset_z017_def4,,24
+btsc02030,,Pulse Vestige,chset_z017_def4,,24
+btsc02013,,Pulse Vestige,chset_z017_def4,,24
+btsc02031,,Pulse Vestige,chset_z017_def4,,24
+btsc02032,,Pulse Vestige,chset_z017_def4,,24
+btsc02021,,Pulse Vestige,chset_z017_def4,,24
+btsc02041,,Pulse Vestige,chset_z017_def4,,24
+btsc02034,,Pulse Vestige,chset_z017_def4,,24
+btsc02033,,Pulse Vestige,chset_z017_def4,,24
+btsc02036,,Pulse Vestige,chset_z017_def4,,24
 btsc02014,,Pulse Vestige,chset_z017_def2,,60
 btsc02015,,Pulse Vestige,chset_z017_def2,,60
 btsc02016,,Pulse Vestige,chset_z017_def2,,60
 btsc03001,,Lake Bresha,chset_z002def_0,,60
-btsc03002,,Lake Bresha,chset_z002def_1,,60
-btsc03003,,Lake Bresha,chset_z002def_1,,60
-btsc03004,,Lake Bresha,chset_z002def_1,,60
-btsc03005,,Lake Bresha,chset_z002def_1,,60
-btsc03006,,Lake Bresha,chset_z002def_1,,60
-btsc03007,,Lake Bresha,chset_z002def_1,,60
+btsc03002,,Lake Bresha,chset_z002def_1,,20
+btsc03003,,Lake Bresha,chset_z002def_1,,20
+btsc03004,,Lake Bresha,chset_z002def_1,,20
+btsc03005,,Lake Bresha,chset_z002def_1,,20
+btsc03006,,Lake Bresha,chset_z002def_1,,20
+btsc03007,,Lake Bresha,chset_z002def_1,,20
 btsc03010,,Lake Bresha,chset_z002def_2,,60
 btsc03011,,Lake Bresha,chset_z002def_2,,60
 btsc03012,,Lake Bresha,chset_z002def_2,,60
-btsc03014,,Lake Bresha,chset_z002def_3,,60
-btsc03015,,Lake Bresha,chset_z002def_3,,60
-btsc03016,,Lake Bresha,chset_z002def_3,,60
-btsc03017,,Lake Bresha,chset_z002def_3,,60
-btsc03033,,Lake Bresha,chset_z002def_3,,60
-btsc03018,,Lake Bresha,chset_z002def_3,,60
-btsc03019,,Lake Bresha,chset_z002def_3,,60
-btsc03042,,Lake Bresha,chset_z002def_3,,60
-btsc03041,,Lake Bresha,chset_z002def_3,,60
-btsc03021,,Lake Bresha,chset_z002def_3,,60
-btsc03020,,Lake Bresha,chset_z002def_3,,60
-btsc03034,,Lake Bresha,chset_z002def_3,,60
+btsc03014,,Lake Bresha,chset_z002def_3,,24
+btsc03015,,Lake Bresha,chset_z002def_3,,24
+btsc03016,,Lake Bresha,chset_z002def_3,,24
+btsc03017,,Lake Bresha,chset_z002def_3,,24
+btsc03033,,Lake Bresha,chset_z002def_3,,24
+btsc03018,,Lake Bresha,chset_z002def_3,,24
+btsc03019,,Lake Bresha,chset_z002def_3,,24
+btsc03042,,Lake Bresha,chset_z002def_3,,24
+btsc03041,,Lake Bresha,chset_z002def_3,,24
+btsc03021,,Lake Bresha,chset_z002def_3,,24
+btsc03020,,Lake Bresha,chset_z002def_3,,24
+btsc03034,,Lake Bresha,chset_z002def_3,,24
 btsc03022,,Lake Bresha,chset_z002def_5,,60
 btsc03024,,Lake Bresha,chset_z002def_5,,60
 btsc03035,,Lake Bresha,chset_z002def_5,,60
 btsc03025,,Lake Bresha,chset_z002def_5,,60
-btsc03044,,Lake Bresha,chset_z002def_6,,60
-btsc03026,,Lake Bresha,chset_z002def_6,,60
-btsc03027,,Lake Bresha,chset_z002def_6,,60
-btsc03029,,Lake Bresha,chset_z002def_6,,60
-btsc03028,,Lake Bresha,chset_z002def_6,,60
-btsc03030,,Lake Bresha,chset_z002def_6,,60
-btsc03031,,Lake Bresha,chset_z002def_6,,60
+btsc03044,,Lake Bresha,chset_z002def_6,,32
+btsc03026,,Lake Bresha,chset_z002def_6,,32
+btsc03027,,Lake Bresha,chset_z002def_6,,32
+btsc03029,,Lake Bresha,chset_z002def_6,,32
+btsc03028,,Lake Bresha,chset_z002def_6,,32
+btsc03030,,Lake Bresha,chset_z002def_6,,32
+btsc03031,,Lake Bresha,chset_z002def_6,,32
 btsc03036,,Lake Bresha,chset_z002chpt,,60
 btsc04052,,Vile Peaks,chset_z004_def0,,60
-btsc04002,,Vile Peaks,chset_z004_def1,,60
-btsc04003,,Vile Peaks,chset_z004_def1,,60
-btsc04004,,Vile Peaks,chset_z004_def1,,60
-btsc04005,,Vile Peaks,chset_z004_def1,,60
-btsc04006,,Vile Peaks,chset_z004_def1,,60
-btsc04007,,Vile Peaks,chset_z004_def1,,60
-btsc04008,,Vile Peaks,chset_z004_def1,,60
-btsc04009,,Vile Peaks,chset_z004_def1,,60
-btsc04010,,Vile Peaks,chset_z004_def1,,60
-btsc04011,,Vile Peaks,chset_z004_def1,,60
-btsc04012,,Vile Peaks,chset_z004_def1,,60
-btsc04013,,Vile Peaks,chset_z004_def1,,60
-btsc04015,,Vile Peaks,chset_z004_def1,,60
-btsc04016,,Vile Peaks,chset_z004_def1,,60
-btsc04017,,Vile Peaks,chset_z004_def1,,60
-btsc04018,,Vile Peaks,chset_z004_def1,,60
-btsc04019,,Vile Peaks,chset_z004_def1,,60
-btsc04014,,Vile Peaks,chset_z004_def1,,60
-btsc04020,,Vile Peaks,chset_z004_def1,,60
-btsc04021,,Vile Peaks,chset_z004_def1,,60
-btsc04022,,Vile Peaks,chset_z004_def1,,60
-btsc04023,,Vile Peaks,chset_z004_def1,,60
-btsc04024,,Vile Peaks,chset_z004_def1,,60
-btsc04025,,Vile Peaks,chset_z004_def1,,60
+btsc04002,,Vile Peaks,chset_z004_def1,,32
+btsc04003,,Vile Peaks,chset_z004_def1,,32
+btsc04004,,Vile Peaks,chset_z004_def1,,32
+btsc04005,,Vile Peaks,chset_z004_def1,,32
+btsc04006,,Vile Peaks,chset_z004_def1,,32
+btsc04007,,Vile Peaks,chset_z004_def1,,32
+btsc04008,,Vile Peaks,chset_z004_def1,,32
+btsc04009,,Vile Peaks,chset_z004_def1,,32
+btsc04010,,Vile Peaks,chset_z004_def1,,32
+btsc04011,,Vile Peaks,chset_z004_def1,,32
+btsc04012,,Vile Peaks,chset_z004_def1,,32
+btsc04013,,Vile Peaks,chset_z004_def1,,32
+btsc04015,,Vile Peaks,chset_z004_def1,,32
+btsc04016,,Vile Peaks,chset_z004_def1,,32
+btsc04017,,Vile Peaks,chset_z004_def1,,32
+btsc04018,,Vile Peaks,chset_z004_def1,,32
+btsc04019,,Vile Peaks,chset_z004_def1,,32
+btsc04014,,Vile Peaks,chset_z004_def1,,32
+btsc04020,,Vile Peaks,chset_z004_def1,,32
+btsc04021,,Vile Peaks,chset_z004_def1,,32
+btsc04022,,Vile Peaks,chset_z004_def1,,32
+btsc04023,,Vile Peaks,chset_z004_def1,,32
+btsc04024,,Vile Peaks,chset_z004_def1,,32
+btsc04025,,Vile Peaks,chset_z004_def1,,32
 btsc04027,,Vile Peaks,chset_z004_def4,,60
 btsc04028,,Vile Peaks,chset_z004_def6,,60
 btsc04051,,Vile Peaks,chset_z004_def6,,60
@@ -143,94 +143,94 @@ btsc04048,,Vile Peaks,chset_z004_def7,,60
 btsc04049,,Vile Peaks,chset_z004_def7,,60
 btsc04050,,Vile Peaks,chset_z004_def7,,60
 btsc06001,,Gapra Whitewood,chset_z015_140|chset_z015_160,,60
-btsc06002,,Gapra Whitewood,chset_z015_160|chset_z015_200,,60
-btsc06003,,Gapra Whitewood,chset_z015_160|chset_z015_200,,60
-btsc06004,,Gapra Whitewood,chset_z015_160|chset_z015_200,,60
-btsc06028,,Gapra Whitewood,chset_z015_160|chset_z015_200,,60
-btsc06005,,Gapra Whitewood,chset_z015_160|chset_z015_200,,60
-btsc06006,,Gapra Whitewood,chset_z015_200|chset_z015_300,,60
-btsc06031,,Gapra Whitewood,chset_z015_200|chset_z015_300,,60
-btsc06036,,Gapra Whitewood,chset_z015_200|chset_z015_300,,60
-btsc06007,,Gapra Whitewood,chset_z015_200|chset_z015_300,,60
-btsc06008,,Gapra Whitewood,chset_z015_200|chset_z015_300,,60
-btsc06037,,Gapra Whitewood,chset_z015_200|chset_z015_300,,60
-btsc06009,,Gapra Whitewood,chset_z015_200|chset_z015_300,,60
-btsc06010,,Gapra Whitewood,chset_z015_200|chset_z015_300,,60
-btsc06038,,Gapra Whitewood,chset_z015_200|chset_z015_300,,60
-btsc06011,,Gapra Whitewood,chset_z015_300,,60
-btsc06039,,Gapra Whitewood,chset_z015_300|chset_z015_400,,60
-btsc06012,,Gapra Whitewood,chset_z015_300|chset_z015_400,,60
-btsc06013,,Gapra Whitewood,chset_z015_300|chset_z015_400,,60
-btsc06040,,Gapra Whitewood,chset_z015_300|chset_z015_400,,60
-btsc06014,,Gapra Whitewood,chset_z015_300|chset_z015_400,,60
-btsc06041,,Gapra Whitewood,chset_z015_300|chset_z015_400,,60
-btsc06015,,Gapra Whitewood,chset_z015_300|chset_z015_400,,60
-btsc06016,,Gapra Whitewood,chset_z015_300,,60
+btsc06002,,Gapra Whitewood,chset_z015_160|chset_z015_200,,32
+btsc06003,,Gapra Whitewood,chset_z015_160|chset_z015_200,,32
+btsc06004,,Gapra Whitewood,chset_z015_160|chset_z015_200,,32
+btsc06028,,Gapra Whitewood,chset_z015_160|chset_z015_200,,32
+btsc06005,,Gapra Whitewood,chset_z015_160|chset_z015_200,,32
+btsc06006,,Gapra Whitewood,chset_z015_200|chset_z015_300,,32
+btsc06031,,Gapra Whitewood,chset_z015_200|chset_z015_300,,32
+btsc06036,,Gapra Whitewood,chset_z015_200|chset_z015_300,,32
+btsc06007,,Gapra Whitewood,chset_z015_200|chset_z015_300,,32
+btsc06008,,Gapra Whitewood,chset_z015_200|chset_z015_300,,32
+btsc06037,,Gapra Whitewood,chset_z015_200|chset_z015_300,,32
+btsc06009,,Gapra Whitewood,chset_z015_200|chset_z015_300,,32
+btsc06010,,Gapra Whitewood,chset_z015_200|chset_z015_300,,32
+btsc06038,,Gapra Whitewood,chset_z015_200|chset_z015_300,,32
+btsc06011,,Gapra Whitewood,chset_z015_300,,32
+btsc06039,,Gapra Whitewood,chset_z015_300|chset_z015_400,,32
+btsc06012,,Gapra Whitewood,chset_z015_300|chset_z015_400,,32
+btsc06013,,Gapra Whitewood,chset_z015_300|chset_z015_400,,32
+btsc06040,,Gapra Whitewood,chset_z015_300|chset_z015_400,,32
+btsc06014,,Gapra Whitewood,chset_z015_300|chset_z015_400,,32
+btsc06041,,Gapra Whitewood,chset_z015_300|chset_z015_400,,32
+btsc06015,,Gapra Whitewood,chset_z015_300|chset_z015_400,,32
+btsc06016,,Gapra Whitewood,chset_z015_300,,32
 btsc06034,,Gapra Whitewood,chset_z015_400,,60
 btsc06017,,Gapra Whitewood,chset_z015_400|chset_z015_500,,60
 btsc06018,,Gapra Whitewood,chset_z015_400|chset_z015_500,,60
-btsc06019,,Gapra Whitewood,chset_z015_500|chset_z015_700,,60
-btsc06020,,Gapra Whitewood,chset_z015_500|chset_z015_700,,60
-btsc06021,,Gapra Whitewood,chset_z015_500|chset_z015_700,,60
-btsc06022,,Gapra Whitewood,chset_z015_500,,60
-btsc06035,,Gapra Whitewood,chset_z015_500|chset_z015_700,,60
-btsc06044,,Gapra Whitewood,chset_z015_500|chset_z015_700,,60
-btsc06023,,Gapra Whitewood,chset_z015_500|chset_z015_700,,60
-btsc06024,,Gapra Whitewood,chset_z015_500|chset_z015_700,,60
-btsc06025,,Gapra Whitewood,chset_z015_500|chset_z015_700,,60
-btsc06026,,Gapra Whitewood,chset_z015_500|chset_z015_700,,60
-btsc06027,,Gapra Whitewood,chset_z015_500|chset_z015_700,,60
-btsc06029,,Gapra Whitewood,chset_z015_500|chset_z015_700,,60
-btsc06030,,Gapra Whitewood,chset_z015_700,,60
-btsc06032,,Gapra Whitewood,chset_z015_700,,60
-btsc06033,,Gapra Whitewood,chset_z015_700,,60
-btsc06045,,Gapra Whitewood,chset_z015_700,,60
-btsc05001,,Sunleth Waterscape,chset_z010_def|chset_z010_def2,,60
-btsc05002,,Sunleth Waterscape,chset_z010_def|chset_z010_def2,,60
-btsc05004,,Sunleth Waterscape,chset_z010_def|chset_z010_def2,,60
-btsc05003,,Sunleth Waterscape,chset_z010_def|chset_z010_def2,,60
-btsc05005,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05039,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05058,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05006,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05007,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05008,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05009,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05010,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05059,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05011,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05012,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05013,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05014,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05015,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05060,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05026,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05028,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05050,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05030,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05051,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05029,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05040,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05016,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05017,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05019,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05018,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05041,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05031,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05032,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05052,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05054,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05034,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05035,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05053,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05033,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05020,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05021,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05042,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05043,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05022,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05023,,Sunleth Waterscape,chset_z010_def2,,60
-btsc05024,,Sunleth Waterscape,chset_z010_def2,,60
+btsc06019,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06020,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06021,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06022,,Gapra Whitewood,chset_z015_500,,32
+btsc06035,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06044,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06023,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06024,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06025,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06026,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06027,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06029,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06030,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06032,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06033,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc06045,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
+btsc05001,,Sunleth Waterscape,chset_z010_def|chset_z010_def2,,32
+btsc05002,,Sunleth Waterscape,chset_z010_def|chset_z010_def2,,32
+btsc05004,,Sunleth Waterscape,chset_z010_def|chset_z010_def2,,32
+btsc05003,,Sunleth Waterscape,chset_z010_def|chset_z010_def2,,32
+btsc05005,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05039,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05058,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05006,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05007,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05008,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05009,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05010,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05059,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05011,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05012,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05013,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05014,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05015,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05060,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05026,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05028,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05050,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05030,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05051,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05029,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05040,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05016,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05017,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05019,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05018,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05041,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05031,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05032,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05052,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05054,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05034,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05035,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05053,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05033,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05020,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05021,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05042,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05043,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05022,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05023,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05024,,Sunleth Waterscape,chset_z010_def2,,32
 btsc07001,,Palumpolum,chset_z008_def,,60
 btsc07002,,Palumpolum,chset_z008_def,,60
 btsc07003,,Palumpolum,chset_z008_def,,60
@@ -244,24 +244,24 @@ btsc07009,,Palumpolum,chset_z008_c012|chset_z008_c014,,60
 btsc07056,,Palumpolum,chset_z008_c012|chset_z008_c014,,60
 btsc07065,,Palumpolum,chset_z008_c012|chset_z008_c014,,60
 btsc07010,,Palumpolum,chset_z008_c020,,60
-btsc07011,,Palumpolum,chset_z008_c030,,60
-btsc07012,,Palumpolum,chset_z008_c030,,60
-btsc07052,,Palumpolum,chset_z008_c030,,60
-btsc07014,,Palumpolum,chset_z008_c030,,60
-btsc07060,,Palumpolum,chset_z008_c030,,60
-btsc07013,,Palumpolum,chset_z008_c030,,60
-btsc07015,,Palumpolum,chset_z008_c030,,60
+btsc07011,,Palumpolum,chset_z008_c030,,24
+btsc07012,,Palumpolum,chset_z008_c030,,24
+btsc07052,,Palumpolum,chset_z008_c030,,24
+btsc07014,,Palumpolum,chset_z008_c030,,24
+btsc07060,,Palumpolum,chset_z008_c030,,24
+btsc07013,,Palumpolum,chset_z008_c030,,24
+btsc07015,,Palumpolum,chset_z008_c030,,24
 btsc07043,,Palumpolum,chset_z008_c060,,60
 btsc07044,,Palumpolum,chset_z008_c060,,60
 btsc07045,,Palumpolum,chset_z008_c060,,60
-btsc07016,,Palumpolum,chset_z008_c075,,60
-btsc07017,,Palumpolum,chset_z008_c075,,60
-btsc07018,,Palumpolum,chset_z008_c075,,60
-btsc07019,,Palumpolum,chset_z008_c075,,60
-btsc07022,,Palumpolum,chset_z008_c075,,60
-btsc07020,,Palumpolum,chset_z008_c075,,60
-btsc07024,,Palumpolum,chset_z008_c075,,60
-btsc07067,,Palumpolum,chset_z008_c075,,60
+btsc07016,,Palumpolum,chset_z008_c075,,32
+btsc07017,,Palumpolum,chset_z008_c075,,32
+btsc07018,,Palumpolum,chset_z008_c075,,32
+btsc07019,,Palumpolum,chset_z008_c075,,32
+btsc07022,,Palumpolum,chset_z008_c075,,32
+btsc07020,,Palumpolum,chset_z008_c075,,32
+btsc07024,,Palumpolum,chset_z008_c075,,32
+btsc07067,,Palumpolum,chset_z008_c075,,32
 btsc07061,,Palumpolum,chset_z008_c100,,60
 btsc07062,,Palumpolum,chset_z008_c100,,60
 btsc07053,,Palumpolum,chset_z008_c100,,60
@@ -283,584 +283,586 @@ btsc07034,,Palumpolum,chset_z008_c150,,60
 btsc07038,,Palumpolum,chset_z008_c192,,60
 btsc07058,,Palumpolum,chset_z008_c192,,60
 btsc07057,,Palumpolum,chset_z008_c192,,60
-btsc08001,,Nautilus,chset_z006_tok|chset_z006_tok2,,60
-btsc08002,,Nautilus,chset_z006_tok|chset_z006_tok2,,60
-btsc08009,,Nautilus,chset_z006_tok|chset_z006_tok2,,60
-btsc08003,,Nautilus,chset_z006_tok|chset_z006_tok2,,60
-btsc08007,,Nautilus,chset_z006_tok|chset_z006_tok2,,60
-btsc08004,,Nautilus,chset_z006_tok|chset_z006_tok2,,60
-btsc08005,,Nautilus,chset_z006_tok|chset_z006_tok2,,60
-btsc08006,,Nautilus,chset_z006_tok|chset_z006_tok2,,60
-btsc09050,,Palamecia,chset_z003_e070,,60
-btsc09001,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,60
-btsc09074,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,60
-btsc09006,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,60
-btsc09002,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,60
-btsc09075,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,60
-btsc09003,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,60
-btsc09076,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,60
-btsc09004,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,60
-btsc09077,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,60
-btsc09005,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,60
-btsc09007,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09051,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09008,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09009,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09010,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09011,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09012,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09052,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09024,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09053,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09025,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09054,,Palamecia,chset_z003_e080|chset_z003_e120,,60
-btsc09013,,Palamecia,chset_z003_e090,,60
-btsc09014,,Palamecia,chset_z003_e090,,60
-btsc09015,,Palamecia,chset_z003_e090,,60
-btsc09016,,Palamecia,chset_z003_e090,,60
-btsc09017,,Palamecia,chset_z003_e090,,60
-btsc09018,,Palamecia,chset_z003_e120,,60
-btsc09021,,Palamecia,chset_z003_e120,,60
-btsc09060,,Palamecia,chset_z003_e120,,60
-btsc09061,,Palamecia,chset_z003_e120,,60
-btsc09057,,Palamecia,chset_z003_e120,,60
-btsc09019,,Palamecia,chset_z003_e120,,60
-btsc09056,,Palamecia,chset_z003_e120,,60
-btsc09020,,Palamecia,chset_z003_e120,,60
-btsc09059,,Palamecia,chset_z003_e120,,60
-btsc09058,,Palamecia,chset_z003_e120,,60
-btsc09023,,Palamecia,chset_z003_e120,,60
-btsc09022,,Palamecia,chset_z003_e120,,60
-btsc09033,,Palamecia,chset_z003_e150,,60
-btsc09031,,Palamecia,chset_z003_e150,,60
-btsc09032,,Palamecia,chset_z003_e150,,60
-btsc09030,,Palamecia,chset_z003_e150,,60
-btsc09034,,Palamecia,chset_z003_e150,,60
-btsc09027,,Palamecia,chset_z003_e150,,60
-btsc09026,,Palamecia,chset_z003_e150,,60
-btsc09062,,Palamecia,chset_z003_e170,,60
-btsc09035,,Palamecia,chset_z003_e170,,60
-btsc09036,,Palamecia,chset_z003_e170,,60
-btsc09028,,Palamecia,chset_z003_e170,,60
-btsc09029,,Palamecia,chset_z003_e170,,60
-btsc09037,,Palamecia,chset_z003_e170,,60
-btsc09063,,Palamecia,chset_z003_e170,,60
-btsc09067,,Palamecia,chset_z003_e170,,60
-btsc09038,,Palamecia,chset_z003_e170,,60
-btsc09068,,Palamecia,chset_z003_e170,,60
-btsc09039,,Palamecia,chset_z003_e170,,60
-btsc09070,,Palamecia,chset_z003_e170,,60
-btsc09069,,Palamecia,chset_z003_e170,,60
-btsc09071,,Palamecia,chset_z003_e170,,60
-btsc09065,,Palamecia,chset_z003_e170,,60
-btsc09040,,Palamecia,chset_z003_e170,,60
-btsc09043,,Palamecia,chset_z003_f220,,60
-btsc09046,,Palamecia,chset_z003_f220,,60
-btsc09045,,Palamecia,chset_z003_f220,,60
-btsc09072,,Palamecia,chset_z003_f220,,60
-btsc09044,,Palamecia,chset_z003_f220,,60
-btsc09047,,Palamecia,chset_z003_f220,,60
-btsc09049,,Palamecia,chset_z003_f220,,60
-btsc09073,,Palamecia,chset_z003_f220,,60
-btsc09048,,Palamecia,chset_z003_f220,,60
-btsc10034,,Fifth Ark,chset_z018_020,,60
-btsc10001,,Fifth Ark,chset_z018_020,,60
-btsc10002,,Fifth Ark,chset_z018_020,,60
-btsc10003,,Fifth Ark,chset_z018_020,,60
-btsc10004,,Fifth Ark,chset_z018_020|chset_z018_030,,60
-btsc10007,,Fifth Ark,chset_z018_020|chset_z018_030,,60
-btsc10005,,Fifth Ark,chset_z018_020|chset_z018_030,,60
-btsc10006,,Fifth Ark,chset_z018_020|chset_z018_030,,60
-btsc10008,,Fifth Ark,chset_z018_020|chset_z018_030,,60
-btsc10009,,Fifth Ark,chset_z018_030,,60
-btsc10010,,Fifth Ark,chset_z018_030,,60
-btsc10011,,Fifth Ark,chset_z018_030,,60
-btsc10014,,Fifth Ark,chset_z018_030,,60
-btsc10015,,Fifth Ark,chset_z018_030,,60
-btsc10016,,Fifth Ark,chset_z018_030,,60
-btsc10017,,Fifth Ark,chset_z018_030,,60
-btsc10013,,Fifth Ark,chset_z018_030,,60
-btsc10012,,Fifth Ark,chset_z018_030,,60
-btsc10018,,Fifth Ark,chset_z018_030,,60
-btsc10019,,Fifth Ark,chset_z018_030,,60
-btsc10057,,Fifth Ark,chset_z018_030|chset_z018_040,,60
-btsc10058,,Fifth Ark,chset_z018_030|chset_z018_040,,60
-btsc10023,,Fifth Ark,chset_z018_040|chset_z018_045,,60
-btsc10024,,Fifth Ark,chset_z018_040|chset_z018_045,,60
-btsc10025,,Fifth Ark,chset_z018_040|chset_z018_045,,60
-btsc10026,,Fifth Ark,chset_z018_040|chset_z018_045,,60
-btsc10027,,Fifth Ark,chset_z018_040|chset_z018_045,,60
-btsc10028,,Fifth Ark,chset_z018_040|chset_z018_045,,60
-btsc10029,,Fifth Ark,chset_z018_040|chset_z018_045,,60
-btsc10030,,Fifth Ark,chset_z018_040|chset_z018_045,,60
-btsc10031,,Fifth Ark,chset_z018_045,,60
-btsc10032,,Fifth Ark,chset_z018_045,,60
-btsc10033,,Fifth Ark,chset_z018_045,,60
-btsc10055,,Fifth Ark,chset_z018_080,,60
-btsc10036,,Fifth Ark,chset_z018_080,,60
-btsc10037,,Fifth Ark,chset_z018_080,,60
-btsc10042,,Fifth Ark,chset_z018_080,,60
-btsc10040,,Fifth Ark,chset_z018_080,,60
-btsc10043,,Fifth Ark,chset_z018_080,,60
-btsc10044,,Fifth Ark,chset_z018_090|chset_z018_100,,60
-btsc10045,,Fifth Ark,chset_z018_090|chset_z018_100,,60
-btsc10046,,Fifth Ark,chset_z018_100,,60
-btsc10047,,Fifth Ark,chset_z018_100,,60
-btsc10038,,Fifth Ark,chset_z018_100,,60
-btsc10056,,Fifth Ark,chset_z018_100,,60
-btsc10059,,Fifth Ark,chset_z018_100,,60
-btsc10050,,Fifth Ark,chset_z018_100,,60
-btsc10051,,Fifth Ark,chset_z018_100,,60
-btsc10041,,Fifth Ark,chset_z018_100,,60
-btsc10052,,Fifth Ark,chset_z018_100,,60
-btsc10053,,Fifth Ark,chset_z018_100,,60
-btsc12002,,Eden,chset_z019_f2,,60
-btsc12015,,Eden,chset_z019_f2,,60
-btsc12003,,Eden,chset_z019_f2,,60
-btsc12004,,Eden,chset_z019_f3,,60
-btsc12005,,Eden,chset_z019_f3,,60
-btsc12006,,Eden,chset_z019_f3,,60
-btsc12007,,Eden,chset_z019_f3,,60
-btsc12008,,Eden,chset_z019_f4,,60
-btsc12009,,Eden,chset_z019_f4_1,,60
-btsc12016,,Eden,chset_z019_f4_1,,60
-btsc12010,,Eden,chset_z019_f4_1,,60
-btsc12011,,Eden,chset_z019_f5,,60
-btsc12012,,Eden,chset_z019_f5,,60
-btsc12017,,Eden,chset_z019_f5,,60
-btsc12013,,Eden,chset_z019_f5,,60
-btsc12034,,Eden,chset_z019_f6,,60
-btsc12019,,Eden,chset_z019_f6_1,,60
-btsc12020,,Eden,chset_z019_f6_1,,60
-btsc12021,,Eden,chset_z019_f6_2,,60
-btsc12022,,Eden,chset_z019_f6_2,,60
-btsc12023,,Eden,chset_z019_f6_2,,60
-btsc12024,,Eden,chset_z019_f6_2,,60
-btsc12065,,Eden,chset_z019_f6_2,,60
-btsc12025,,Eden,chset_z019_f6_2,,60
-btsc12026,,Eden,chset_z019_f6_2,,60
-btsc12027,,Eden,chset_z019_f6_2,,60
-btsc12028,,Eden,chset_z019_f7,,60
-btsc12029,,Eden,chset_z019_f7,,60
-btsc12030,,Eden,chset_z019_f7,,60
-btsc12031,,Eden,chset_z019_f7_1,,60
-btsc12039,,Eden,chset_z019_f7_1,,60
-btsc12040,,Eden,chset_z019_f7_1,,60
-btsc12038,,Eden,chset_z019_f7_1,,60
-btsc12037,,Eden,chset_z019_f7_1,,60
-btsc12032,,Eden,chset_z019_f7,,60
-btsc12062,,Eden,chset_z019_f7_1,,60
-btsc12033,,Eden,chset_z019_f7_1,,60
-btsc12036,,Eden,chset_z019_f7_1,,60
-btsc12035,,Eden,chset_z019_f7_1,,60
-btsc12041,,Eden,chset_z019_f7_1,,60
-btsc12043,,Eden,chset_z019_f8_1|chset_z019_f8_2,,60
-btsc12044,,Eden,chset_z019_f8_2,,60
-btsc12045,,Eden,chset_z019_f8_2,,60
-btsc12046,,Eden,chset_z019_f8_2,,60
-btsc12063,,Eden,chset_z019_f8_2,,60
-btsc12047,,Eden,chset_z019_f8_2,,60
-btsc12048,,Eden,chset_z019_f8_2,,60
-btsc12064,,Eden,chset_z019_f8_2,,60
-btsc12049,,Eden,chset_z019_f8_2,,60
-btsc12050,,Eden,chset_z019_f8_2,,60
-btsc12051,,Eden,chset_z019_f8_2,,60
-btsc12052,,Eden,chset_z019_f8_2,,60
-btsc12053,,Eden,chset_z019_f9_1,,60
-btsc12054,,Eden,chset_z019_f9_1,,60
-btsc12055,,Eden,chset_z019_f9_1,,60
-btsc12056,,Eden,chset_z019_f9_1,,60
-btsc12061,,Eden,chset_z019_f9_1,,60
-btsc12057,,Eden,chset_z019_f9_1,,60
-btsc12058,,Eden,chset_z019_f9_1,,60
-btsc12059,,Eden,chset_z019_f9_1,,60
-btsc12060,,Eden,chset_z019_f9_1,,60
-btsc12066,,Eden,chset_z019_f9_1,,60
-btsc12105,,Orphan's Cradle,chset_z029_ev1|chset_z029_def|chset_z029_def1|chset_z029_def2|chset_z029_def3,,60
-btsc12101,,Orphan's Cradle,chset_z029_ev1|chset_z029_def|chset_z029_def1|chset_z029_def2|chset_z029_def3,,60
-btsc12108,,Orphan's Cradle,chset_z029_def,,60
-btsc12109,,Orphan's Cradle,chset_z029_def,,60
-btsc12110,,Orphan's Cradle,chset_z029_def,,60
-btsc12111,,Orphan's Cradle,chset_z029_def,,60
-btsc12112,,Orphan's Cradle,chset_z029_def,,60
-btsc12113,,Orphan's Cradle,chset_z029_def,,60
-btsc12114,,Orphan's Cradle,chset_z029_def,,60
-btsc12115,,Orphan's Cradle,chset_z029_def,,60
-btsc12116,,Orphan's Cradle,chset_z029_def,,60
-btsc12118,,Orphan's Cradle,chset_z029_def,,60
-btsc12119,,Orphan's Cradle,chset_z029_def,,60
-btsc12117,,Orphan's Cradle,chset_z029_def,,60
-btsc12120,,Orphan's Cradle,chset_z029_def1,,60
-btsc12121,,Orphan's Cradle,chset_z029_def1,,60
-btsc12122,,Orphan's Cradle,chset_z029_def1,,60
-btsc12123,,Orphan's Cradle,chset_z029_def1,,60
-btsc12127,,Orphan's Cradle,chset_z029_def1,,60
-btsc12128,,Orphan's Cradle,chset_z029_def1,,60
-btsc12124,,Orphan's Cradle,chset_z029_def1,,60
-btsc12125,,Orphan's Cradle,chset_z029_def1,,60
-btsc12126,,Orphan's Cradle,chset_z029_def1,,60
-btsc12081,,Orphan's Cradle,chset_z029_def1,,60
-btsc12129,,Orphan's Cradle,chset_z029_def2,,60
-btsc12130,,Orphan's Cradle,chset_z029_def2,,60
-btsc12132,,Orphan's Cradle,chset_z029_def2,,60
-btsc12134,,Orphan's Cradle,chset_z029_def2,,60
-btsc12133,,Orphan's Cradle,chset_z029_def2,,60
-btsc12131,,Orphan's Cradle,chset_z029_def2,,60
-btsc12084,,Orphan's Cradle,chset_z029_def2,,60
-btsc12139,,Orphan's Cradle,chset_z029_def3,,60
-btsc12136,,Orphan's Cradle,chset_z029_def3,,60
-btsc12137,,Orphan's Cradle,chset_z029_def3,,60
-btsc12138,,Orphan's Cradle,chset_z029_def3,,60
-btsc11101,,Vallis Media,chset_z021_ev2|chset_z021_def2,,60
-btsc11102,,Vallis Media,chset_z021_ev2|chset_z021_def2,,60
-btsc11104,,Vallis Media,chset_z021_ev2|chset_z021_def2,,60
-btsc11105,,Vallis Media,chset_z021_ev2|chset_z021_def2,,60
-btsc11106,,Vallis Media,chset_z021_ev2|chset_z021_def2,,60
-btsc11107,,Vallis Media,chset_z021_ev2|chset_z021_def2,,60
-btsc11108,,Vallis Media,chset_z021_ev2|chset_z021_def2,,60
-btsc11223,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11346,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11244,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11284,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11255,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11285,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11221,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11286,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11224,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11232,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11207,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11245,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11288,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11214,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11315,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11215,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11314,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11287,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11273,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11283,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11222,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11235,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11313,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11239,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11238,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11316,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11243,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11248,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11246,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11280,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11312,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11229,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11202,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11225,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11345,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11269,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11275,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11213,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11201,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11251,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11281,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11250,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11210,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11335,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11209,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11252,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11254,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11310,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11278,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11297,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11274,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11253,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11212,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11208,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11282,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11334,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11311,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11290,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11291,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11231,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11292,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11233,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11234,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11289,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11336,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11294,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11296,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11299,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11298,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11205,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11295,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11300,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11293,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11318,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11343,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11226,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11301,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11206,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11342,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11308,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11339,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11242,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11236,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11247,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11241,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11204,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11240,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11237,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11227,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11228,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11451,,Mah'habara,chset_z022_def1,,60
-btsc11401,,Mah'habara,chset_z022_def1,,60
-btsc11402,,Mah'habara,chset_z022_def1,,60
-btsc11434,,Mah'habara,chset_z022_def1,,60
-btsc11435,,Mah'habara,chset_z022_def1,,60
-btsc11436,,Mah'habara,chset_z022_def1,,60
-btsc11405,,Mah'habara,chset_z022_def1,,60
-btsc11406,,Mah'habara,chset_z022_a021,,60
-btsc11404,,Mah'habara,chset_z022_def1,,60
-btsc11407,,Mah'habara,chset_z022_def1,,60
-btsc11458,,Mah'habara,chset_z022_def1,,60
-btsc11408,,Mah'habara,chset_z022_def1,,60
-btsc11409,,Mah'habara,chset_z022_def8|chset_z022_def3,,60
-btsc11411,,Mah'habara,chset_z022_def3,,60
-btsc11410,,Mah'habara,chset_z022_def3,,60
-btsc11437,,Mah'habara,chset_z022_def3,,60
-btsc11441,,Mah'habara,chset_z022_def4,,60
-btsc11442,,Mah'habara,chset_z022_def4,,60
-btsc11414,,Mah'habara,chset_z022_def4,,60
-btsc11415,,Mah'habara,chset_z022_def4,,60
-btsc11444,,Mah'habara,chset_z022_def4,,60
-btsc11446,,Mah'habara,chset_z022_def4,,60
-btsc11417,,Mah'habara,chset_z022_def4,,60
-btsc11447,,Mah'habara,chset_z022_def5,,60
-btsc11418,,Mah'habara,chset_z022_def5,,60
-btsc11501,,Sulyya Springs,chset_z024_def1,,60
-btsc11506,,Sulyya Springs,chset_z024_def1,,60
-btsc11502,,Sulyya Springs,chset_z024_def1,,60
-btsc11503,,Sulyya Springs,chset_z024_def1,,60
-btsc11504,,Sulyya Springs,chset_z024_def1,,60
-btsc11507,,Sulyya Springs,chset_z024_def1,,60
-btsc11509,,Sulyya Springs,chset_z024_def1,,60
-btsc11505,,Sulyya Springs,chset_z024_def1,,60
-btsc11601,,Taejin's Tower,chset_z026_o,,60
-btsc11602,,Taejin's Tower,chset_z026_o,,60
-btsc11603,,Taejin's Tower,chset_z026_o,,60
-btsc11604,,Taejin's Tower,chset_z026_o,,60
-btsc11605,,Taejin's Tower,chset_z026_o,,60
-btsc11640,,Taejin's Tower,chset_z026_o,,60
-btsc11642,,Taejin's Tower,chset_z026_o,,60
-btsc11643,,Taejin's Tower,chset_z026_o,,60
-btsc11606,,Taejin's Tower,chset_z026_2f,,60
-btsc11609,,Taejin's Tower,chset_z026_2f,,60
-btsc11607,,Taejin's Tower,chset_z026_2f,,60
-btsc11608,,Taejin's Tower,chset_z026_2f,,60
-btsc11611,,Taejin's Tower,chset_z026_2f,,60
-btsc11613,,Taejin's Tower,chset_z026_2f,,60
-btsc11612,,Taejin's Tower,chset_z026_2f,,60
-btsc11610,,Taejin's Tower,chset_z026_2f,,60
-btsc11614,,Taejin's Tower,chset_z026_2f,,60
-btsc11615,,Taejin's Tower,chset_z026_2f,,60
-btsc11617,,Taejin's Tower,chset_z026_3f,,60
-btsc11621,,Taejin's Tower,chset_z026_4f,,60
-btsc11622,,Taejin's Tower,chset_z026_4f,,60
-btsc11623,,Taejin's Tower,chset_z026_4f,,60
-btsc11624,,Taejin's Tower,chset_z026_4f,,60
-btsc11616,,Taejin's Tower,chset_z026_3f,,60
-btsc11638,,Taejin's Tower,chset_z026_4f,,60
-btsc11619,,Taejin's Tower,chset_z026_4f,,60
-btsc11620,,Taejin's Tower,chset_z026_4f,,60
-btsc11625,,Taejin's Tower,chset_z026_4f,,60
-btsc11626,,Taejin's Tower,chset_z026_4f,,60
-btsc11632,,Taejin's Tower,chset_z026_4f,,60
-btsc11627,,Taejin's Tower,chset_z026_4f,,60
-btsc11631,,Taejin's Tower,chset_z026_4f,,60
-btsc11629,,Taejin's Tower,chset_z026_4f,,60
-btsc11633,,Taejin's Tower,chset_z026_4f,,60
-btsc11634,,Taejin's Tower,chset_z026_4f,,60
-btsc11645,,Taejin's Tower,chset_z026_5f,,60
-btsc11646,,Taejin's Tower,chset_z026_5f,,60
-btsc11644,,Taejin's Tower,chset_z026_5f,,60
-btsc11636,,Taejin's Tower,chset_z026_k,,60
-btsc11710,,Oerba,chset_z027_def3,,60
-btsc11711,,Oerba,chset_z027_def3,,60
-btsc11712,,Oerba,chset_z027_def3,,60
-btsc11713,,Oerba,chset_z027_def3,,60
-btsc11717,,Oerba,chset_z027_def3,,60
-btsc11718,,Oerba,chset_z027_def3,,60
-btsc11714,,Oerba,chset_z027_def3,,60
-btsc11701,,Oerba,chset_z027_def3,,60
-btsc11715,,Oerba,chset_z027_def3,,60
-btsc11702,,Oerba,chset_z027_def3,,60
-btsc11716,,Oerba,chset_z027_def3,,60
-btsc11720,,Oerba,chset_z027_def3,,60
-btsc11704,,Oerba,chset_z027_def3,,60
-btsc11721,,Oerba,chset_z027_def3,,60
-btsc11703,,Oerba,chset_z027_def3,,60
-btsc11705,,Oerba,chset_z027_def3,,60
-btsc11724,,Oerba,chset_z027_def3,,60
-btsc11706,,Oerba,chset_z027_def3,,60
-btsc11707,,Oerba,chset_z027_def3,,60
-btsc11455,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,Mission,60
-btsc14454,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,Mission,60
-btsc11109,,Vallis Media,chset_z021_def2,,60
-btsc11110,,Vallis Media,chset_z021_def2,,60
-btsc11001,,Yaschas Massif,chset_z020_def1,,60
-btsc11004,,Yaschas Massif,chset_z020_def1,,60
-btsc11006,,Yaschas Massif,chset_z020_def1,,60
-btsc11003,,Yaschas Massif,chset_z020_def1,,60
-btsc11005,,Yaschas Massif,chset_z020_def1,,60
-btsc11007,,Yaschas Massif,chset_z020_def1,,60
-btsc11008,,Yaschas Massif,chset_z020_def1,,60
-btsc11010,,Yaschas Massif,chset_z020_def1,,60
-btsc11009,,Yaschas Massif,chset_z020_def1,,60
-btsc11012,,Yaschas Massif,chset_z020_def1,,60
-btsc11013,,Yaschas Massif,chset_z020_def1,,60
-btsc11014,,Yaschas Massif,chset_z020_def1,,60
-btsc11015,,Yaschas Massif,chset_z020_def1,,60
-btsc11016,,Yaschas Massif,chset_z020_def1,,60
-btsc11018,,Yaschas Massif,chset_z020_def2,,60
-btsc11019,,Yaschas Massif,chset_z020_def2,,60
-btsc11020,,Yaschas Massif,chset_z020_def2,,60
-btsc11021,,Yaschas Massif,chset_z020_def2,,60
-btsc11022,,Yaschas Massif,chset_z020_def2,,60
-btsc11023,,Yaschas Massif,chset_z020_def2,,60
-btsc11011,,Yaschas Massif,chset_z020_def1,,60
-btsc11024,,Yaschas Massif,chset_z020_def2,,60
-btsc11025,,Yaschas Massif,chset_z020_def2,,60
-btsc11026,,Yaschas Massif,chset_z020_def3,,60
-btsc11027,,Yaschas Massif,chset_z020_def3,,60
-btsc11031,,Yaschas Massif,chset_z020_def3,,60
-btsc11032,,Yaschas Massif,chset_z020_def3,,60
-btsc11030,,Yaschas Massif,chset_z020_def3,,60
-btsc11028,,Yaschas Massif,chset_z020_def3,,60
-btsc11034,,Yaschas Massif,chset_z020_def3|chset_z020_def4,,60
-btsc11029,,Yaschas Massif,chset_z020_def3,,60
-btsc11037,,Yaschas Massif,chset_z020_def4,,60
-btsc11039,,Yaschas Massif,chset_z020_def4,,60
-btsc11043,,Yaschas Massif,chset_z020_def4,,60
-btsc11040,,Yaschas Massif,chset_z020_def4,,60
-btsc11035,,Yaschas Massif,chset_z020_def5,,60
-btsc11130,,Vallis Media,chset_z021_def2,Mission,60
-btsc14453,,Archylte Steppe,chset_z023_def1,Mission,60
-btsc14437,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,60
-btsc14452,,Archylte Steppe,chset_z023_def1,Mission,60
-btsc14449,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc14450,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc14451,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11448,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc14447,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,60
-btsc11457,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,60
-btsc14446,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,60
-btsc11277,,Archylte Steppe,chset_z023_def1|chset_z023_def4,,60
-btsc11259,,Archylte Steppe,chset_z023_def4,,60
-btsc11258,,Archylte Steppe,chset_z023_def4,,60
-btsc11256,,Archylte Steppe,chset_z023_def4,,60
-btsc11257,,Archylte Steppe,chset_z023_def4,,60
-btsc11260,,Archylte Steppe,chset_z023_def4,,60
-btsc14456,,Archylte Steppe,chset_z023_a031,Mission,60
-btsc11337,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11445,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,Mission,60
-btsc14443,,Archylte Steppe,chset_z023_def4,Mission,60
-btsc14436,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,Mission,60
-btsc11456,,Mah'habara,chset_z022_def3,Mission,60
-btsc11508,,Sulyya Springs,chset_z024_def1,Mission,60
-btsc11637,,Taejin's Tower,chset_z026_o,Mission,60
-btsc11630,,Taejin's Tower,chset_z026_o,Mission,60
-btsc11722,,Oerba,chset_z027_def3,Mission,60
-btsc11639,,Taejin's Tower,chset_z026_o,Mission,60
-btsc11340,,Archylte Steppe,chset_z023_def2,,60
-btsc11220,,Archylte Steppe,chset_z023_def2,,60
-btsc11218,,Archylte Steppe,chset_z023_def2,,60
-btsc11217,,Archylte Steppe,chset_z023_def2,,60
-btsc11219,,Archylte Steppe,chset_z023_def2,,60
-btsc11270,,Archylte Steppe,chset_z023_def2,,60
-btsc11420,,Mah'habara,chset_z022_def2,,60
-btsc11422,,Mah'habara,chset_z022_def2,,60
-btsc11449,,Mah'habara,chset_z022_def2,,60
-btsc11454,,Mah'habara,chset_z022_def2,,60
-btsc11425,,Mah'habara,chset_z022_def7,,60
-btsc11450,,Mah'habara,chset_z022_def7,,60
-btsc11453,,Mah'habara,chset_z022_def7,,60
-btsc11452,,Mah'habara,chset_z022_def7,,60
-btsc11464,,Mah'habara,chset_z022_def7,,60
-btsc11426,,Mah'habara,chset_z022_def7,,60
-btsc11421,,Mah'habara,chset_z022_def2,,60
-btsc11428,,Mah'habara,chset_z022_def6,,60
-btsc11429,,Mah'habara,chset_z022_def6,,60
-btsc11459,,Mah'habara,chset_z022_def6,,60
-btsc11460,,Mah'habara,chset_z022_def6,,60
-btsc11461,,Mah'habara,chset_z022_def6,,60
-btsc11462,,Mah'habara,chset_z022_def6,,60
-btsc11463,,Mah'habara,chset_z022_def6,,60
-btsc11431,,Mah'habara,chset_z022_def6,,60
-btsc11432,,Mah'habara,chset_z022_def6,,60
-btsc11433,,Mah'habara,chset_z022_def6,Mission,60
-btsc11261,,Archylte Steppe,chset_z023_def3,,60
-btsc11264,,Archylte Steppe,chset_z023_def3,,60
-btsc11265,,Archylte Steppe,chset_z023_def3,,60
-btsc11341,,Archylte Steppe,chset_z023_def3,,60
-btsc11347,,Archylte Steppe,chset_z023_def3,,60
-btsc11271,,Archylte Steppe,chset_z023_def3,,60
-btsc11262,,Archylte Steppe,chset_z023_def3,,60
-btsc11263,,Archylte Steppe,chset_z023_def3,,60
-btsc11267,,Archylte Steppe,chset_z023_def3,,60
-btsc11272,,Archylte Steppe,chset_z023_def3,,60
-btsc11268,,Archylte Steppe,chset_z023_def3,,60
-btsc11266,,Archylte Steppe,chset_z023_def3,,60
-btsc14438,,Archylte Steppe,chset_z023_def3,,60
-btsc14444,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,60
-btsc14442,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,Mission,60
-btsc14458,,Archylte Steppe,chset_z023_def3,Mission,60
-btsc11836,,Faultwarrens,chset_z030_b2,Mission,60
-btsc11829,,Faultwarrens,chset_z030_b4,Mission,60
-btsc11814,,Faultwarrens,chset_z030_b5b,Mission,60
-btsc11828,,Faultwarrens,chset_z030_b8,Mission,60
-btsc11858,,Faultwarrens,chset_z030_b8,,60
-btsc11835,,Faultwarrens,chset_z030_b9f,Mission,60
-btsc11825,,Faultwarrens,chset_z030_b7,,60
-btsc11855,,Faultwarrens,chset_z030_b7,,60
-btsc11824,,Faultwarrens,chset_z030_b7,Mission,60
-btsc11853,,Faultwarrens,chset_z030_b7,,60
-btsc11852,,Faultwarrens,chset_z030_b7,,60
-btsc11832,,Faultwarrens,chset_z030_b9c,Mission,60
-btsc11837,,Faultwarrens,chset_z030_b9a,Mission,60
-btsc11812,,Faultwarrens,chset_z030_b6a,Mission,60
-btsc11818,,Faultwarrens,chset_z030_b5c,,60
-btsc11817,,Faultwarrens,chset_z030_b5c,,60
-btsc11845,,Faultwarrens,chset_z030_b5c,,60
-btsc11844,,Faultwarrens,chset_z030_b5c,,60
-btsc11823,,Faultwarrens,chset_z030_b5c,Mission,60
-btsc11833,,Faultwarrens,chset_z030_b9d,Mission,60
-btsc11831,,Faultwarrens,chset_z030_b9b,Mission,60
-btsc11801,,Faultwarrens,chset_z030_b3,Mission,60
-btsc11843,,Faultwarrens,chset_z030_b3,,60
-btsc11807,,Faultwarrens,chset_z030_b5a,Mission,60
-btsc11806,,Faultwarrens,chset_z030_b5a,,60
-btsc11859,,Faultwarrens,chset_z030_b6b,,60
-btsc11816,,Faultwarrens,chset_z030_b6b,Mission,60
-btsc11834,,Faultwarrens,chset_z030_b9e,Mission,60
-btsc11830,,Faultwarrens,chset_z030_b9g,Mission,60
-btsc14441,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,Mission,60
-btsc11002,,Yaschas Massif,chset_z020_def3,Mission,60
-btsc14459,,Archylte Steppe,chset_z023_a018,Mission,60
-btsc14439,,Archylte Steppe,chset_z023_def2,Mission,60
-btsc11033,,Yaschas Massif,chset_z020_def2,Mission,60
-btsc11131,,Vallis Media,chset_z021_def2,Mission,60
-btsc11465,,Mah'habara,chset_z022_def1,Mission,60
-btsc11510,,Sulyya Springs,chset_z024_def1,Mission,60
-btsc11647,,Taejin's Tower,chset_z026_5f,Mission,60
-btsc11723,,Oerba,chset_z027_def3,Mission,60
-btsc14435,,Archylte Steppe,chset_z023_def1,Mission,60
-btsc14431,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc14440,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,Mission,60
-btsc14430,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc14427,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc14428,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc14425,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc14429,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc14432,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc14434,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc14426,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_def1,,60
-btsc11036,,Yaschas Massif,chset_z020_def6,,60
-btsc11038,,Yaschas Massif,chset_z020_def6,,60
-btsc11042,,Yaschas Massif,chset_z020_def6,,60
-btsc11041,,Yaschas Massif,chset_z020_def7,Mission,60
+btsc08001,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
+btsc08002,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
+btsc08009,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
+btsc08003,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
+btsc08007,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
+btsc08004,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
+btsc08005,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
+btsc08006,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
+btsc09050,,Palamecia,chset_z003_e070,,20
+btsc09001,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
+btsc09074,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
+btsc09006,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
+btsc09002,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
+btsc09075,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
+btsc09003,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
+btsc09076,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
+btsc09004,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
+btsc09077,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
+btsc09005,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
+btsc09007,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09051,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09008,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09009,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09010,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09011,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09012,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09052,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09024,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09053,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09025,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09054,,Palamecia,chset_z003_e080|chset_z003_e120,,20
+btsc09013,,Palamecia,chset_z003_e090,,24
+btsc09014,,Palamecia,chset_z003_e090,,24
+btsc09015,,Palamecia,chset_z003_e090,,24
+btsc09016,,Palamecia,chset_z003_e090,,24
+btsc09017,,Palamecia,chset_z003_e090,,24
+btsc09018,,Palamecia,chset_z003_e120,,20
+btsc09021,,Palamecia,chset_z003_e120,,20
+btsc09060,,Palamecia,chset_z003_e120,,20
+btsc09061,,Palamecia,chset_z003_e120,,20
+btsc09057,,Palamecia,chset_z003_e120,,20
+btsc09019,,Palamecia,chset_z003_e120,,20
+btsc09056,,Palamecia,chset_z003_e120,,20
+btsc09020,,Palamecia,chset_z003_e120,,20
+btsc09059,,Palamecia,chset_z003_e120,,20
+btsc09058,,Palamecia,chset_z003_e120,,20
+btsc09023,,Palamecia,chset_z003_e120,,20
+btsc09022,,Palamecia,chset_z003_e120,,20
+btsc09033,,Palamecia,chset_z003_e150,,24
+btsc09031,,Palamecia,chset_z003_e150,,24
+btsc09032,,Palamecia,chset_z003_e150,,24
+btsc09030,,Palamecia,chset_z003_e150,,24
+btsc09034,,Palamecia,chset_z003_e150,,24
+btsc09027,,Palamecia,chset_z003_e150,,24
+btsc09026,,Palamecia,chset_z003_e150,,24
+btsc09062,,Palamecia,chset_z003_e170,,20
+btsc09035,,Palamecia,chset_z003_e170,,20
+btsc09036,,Palamecia,chset_z003_e170,,20
+btsc09028,,Palamecia,chset_z003_e170,,20
+btsc09029,,Palamecia,chset_z003_e170,,20
+btsc09037,,Palamecia,chset_z003_e170,,20
+btsc09063,,Palamecia,chset_z003_e170,,20
+btsc09067,,Palamecia,chset_z003_e170,,20
+btsc09038,,Palamecia,chset_z003_e170,,20
+btsc09068,,Palamecia,chset_z003_e170,,20
+btsc09039,,Palamecia,chset_z003_e170,,20
+btsc09070,,Palamecia,chset_z003_e170,,20
+btsc09069,,Palamecia,chset_z003_e170,,20
+btsc09071,,Palamecia,chset_z003_e170,,20
+btsc09065,,Palamecia,chset_z003_e170,,20
+btsc09040,,Palamecia,chset_z003_e170,,20
+btsc09043,,Palamecia,chset_z003_f220,,24
+btsc09046,,Palamecia,chset_z003_f220,,24
+btsc09045,,Palamecia,chset_z003_f220,,24
+btsc09072,,Palamecia,chset_z003_f220,,24
+btsc09044,,Palamecia,chset_z003_f220,,24
+btsc09047,,Palamecia,chset_z003_f220,,24
+btsc09049,,Palamecia,chset_z003_f220,,24
+btsc09073,,Palamecia,chset_z003_f220,,24
+btsc09048,,Palamecia,chset_z003_f220,,24
+btsc10034,,Fifth Ark,chset_z018_020,,24
+btsc10001,,Fifth Ark,chset_z018_020,,24
+btsc10002,,Fifth Ark,chset_z018_020,,24
+btsc10003,,Fifth Ark,chset_z018_020,,24
+btsc10004,,Fifth Ark,chset_z018_020|chset_z018_030,,24
+btsc10007,,Fifth Ark,chset_z018_020|chset_z018_030,,24
+btsc10005,,Fifth Ark,chset_z018_020|chset_z018_030,,24
+btsc10006,,Fifth Ark,chset_z018_020|chset_z018_030,,24
+btsc10008,,Fifth Ark,chset_z018_020|chset_z018_030,,24
+btsc10009,,Fifth Ark,chset_z018_030,,24
+btsc10010,,Fifth Ark,chset_z018_030,,24
+btsc10011,,Fifth Ark,chset_z018_030,,24
+btsc10014,,Fifth Ark,chset_z018_030,,24
+btsc10015,,Fifth Ark,chset_z018_030,,24
+btsc10016,,Fifth Ark,chset_z018_030,,24
+btsc10017,,Fifth Ark,chset_z018_030,,24
+btsc10013,,Fifth Ark,chset_z018_030,,24
+btsc10012,,Fifth Ark,chset_z018_030,,24
+btsc10018,,Fifth Ark,chset_z018_030,,24
+btsc10019,,Fifth Ark,chset_z018_030,,24
+btsc10057,,Fifth Ark,chset_z018_030|chset_z018_040,,24
+btsc10058,,Fifth Ark,chset_z018_030|chset_z018_040,,24
+btsc10023,,Fifth Ark,chset_z018_040|chset_z018_045,,24
+btsc10024,,Fifth Ark,chset_z018_040|chset_z018_045,,24
+btsc10025,,Fifth Ark,chset_z018_040|chset_z018_045,,24
+btsc10026,,Fifth Ark,chset_z018_040|chset_z018_045,,24
+btsc10027,,Fifth Ark,chset_z018_040|chset_z018_045,,24
+btsc10028,,Fifth Ark,chset_z018_040|chset_z018_045,,24
+btsc10029,,Fifth Ark,chset_z018_040|chset_z018_045,,24
+btsc10030,,Fifth Ark,chset_z018_040|chset_z018_045,,24
+btsc10031,,Fifth Ark,chset_z018_045,,24
+btsc10032,,Fifth Ark,chset_z018_045,,24
+btsc10033,,Fifth Ark,chset_z018_045,,24
+btsc10055,,Fifth Ark,chset_z018_080,,24
+btsc10036,,Fifth Ark,chset_z018_080,,24
+btsc10037,,Fifth Ark,chset_z018_080,,24
+btsc10042,,Fifth Ark,chset_z018_080,,24
+btsc10040,,Fifth Ark,chset_z018_080,,24
+btsc10043,,Fifth Ark,chset_z018_080,,24
+btsc10044,,Fifth Ark,chset_z018_090|chset_z018_100,,24
+btsc10045,,Fifth Ark,chset_z018_090|chset_z018_100,,24
+btsc10046,,Fifth Ark,chset_z018_100,,24
+btsc10047,,Fifth Ark,chset_z018_100,,24
+btsc10038,,Fifth Ark,chset_z018_100,,24
+btsc10056,,Fifth Ark,chset_z018_100,,24
+btsc10059,,Fifth Ark,chset_z018_100,,24
+btsc10050,,Fifth Ark,chset_z018_100,,24
+btsc10051,,Fifth Ark,chset_z018_100,,24
+btsc10041,,Fifth Ark,chset_z018_100,,24
+btsc10052,,Fifth Ark,chset_z018_100,,24
+btsc10053,,Fifth Ark,chset_z018_100,,24
+btsc12002,,Eden,chset_z019_f2,,24
+btsc12015,,Eden,chset_z019_f2,,24
+btsc12003,,Eden,chset_z019_f2,,24
+btsc12004,,Eden,chset_z019_f3,,24
+btsc12005,,Eden,chset_z019_f3,,24
+btsc12006,,Eden,chset_z019_f3,,24
+btsc12007,,Eden,chset_z019_f3,,24
+btsc12008,,Eden,chset_z019_f4,,24
+btsc12009,,Eden,chset_z019_f4_1,,24
+btsc12016,,Eden,chset_z019_f4_1,,24
+btsc12010,,Eden,chset_z019_f4_1,,24
+btsc12011,,Eden,chset_z019_f5,,24
+btsc12012,,Eden,chset_z019_f5,,24
+btsc12017,,Eden,chset_z019_f5,,24
+btsc12013,,Eden,chset_z019_f5,,24
+btsc12034,,Eden,chset_z019_f6,,24
+btsc12019,,Eden,chset_z019_f6_1,,24
+btsc12020,,Eden,chset_z019_f6_1,,24
+btsc12021,,Eden,chset_z019_f6_2,,24
+btsc12022,,Eden,chset_z019_f6_2,,24
+btsc12023,,Eden,chset_z019_f6_2,,24
+btsc12024,,Eden,chset_z019_f6_2,,24
+btsc12065,,Eden,chset_z019_f6_2,,24
+btsc12025,,Eden,chset_z019_f6_2,,24
+btsc12026,,Eden,chset_z019_f6_2,,24
+btsc12027,,Eden,chset_z019_f6_2,,24
+btsc12028,,Eden,chset_z019_f7,,24
+btsc12029,,Eden,chset_z019_f7,,24
+btsc12030,,Eden,chset_z019_f7,,24
+btsc12031,,Eden,chset_z019_f7_1,,24
+btsc12039,,Eden,chset_z019_f7_1,,24
+btsc12040,,Eden,chset_z019_f7_1,,24
+btsc12038,,Eden,chset_z019_f7_1,,24
+btsc12037,,Eden,chset_z019_f7_1,,24
+btsc12032,,Eden,chset_z019_f7,,24
+btsc12062,,Eden,chset_z019_f7_1,,24
+btsc12033,,Eden,chset_z019_f7_1,,24
+btsc12036,,Eden,chset_z019_f7_1,,24
+btsc12035,,Eden,chset_z019_f7_1,,24
+btsc12041,,Eden,chset_z019_f7_1,,24
+btsc12043,,Eden,chset_z019_f8_1|chset_z019_f8_2,,24
+btsc12044,,Eden,chset_z019_f8_2,,24
+btsc12045,,Eden,chset_z019_f8_2,,24
+btsc12046,,Eden,chset_z019_f8_2,,24
+btsc12063,,Eden,chset_z019_f8_2,,24
+btsc12047,,Eden,chset_z019_f8_2,,24
+btsc12048,,Eden,chset_z019_f8_2,,24
+btsc12064,,Eden,chset_z019_f8_2,,24
+btsc12049,,Eden,chset_z019_f8_2,,24
+btsc12050,,Eden,chset_z019_f8_2,,24
+btsc12051,,Eden,chset_z019_f8_2,,24
+btsc12052,,Eden,chset_z019_f8_2,,24
+btsc12053,,Eden,chset_z019_f9_1,,24
+btsc12054,,Eden,chset_z019_f9_1,,24
+btsc12055,,Eden,chset_z019_f9_1,,24
+btsc12056,,Eden,chset_z019_f9_1,,24
+btsc12061,,Eden,chset_z019_f9_1,,24
+btsc12057,,Eden,chset_z019_f9_1,,24
+btsc12058,,Eden,chset_z019_f9_1,,24
+btsc12059,,Eden,chset_z019_f9_1,,24
+btsc12060,,Eden,chset_z019_f9_1,,24
+btsc12066,,Eden,chset_z019_f9_1,,24
+btsc12105,,Orphan's Cradle,chset_z029_ev1|chset_z029_def|chset_z029_def1|chset_z029_def2|chset_z029_def3,,24
+btsc12101,,Orphan's Cradle,chset_z029_ev1|chset_z029_def|chset_z029_def1|chset_z029_def2|chset_z029_def3,,24
+btsc12108,,Orphan's Cradle,chset_z029_def,,24
+btsc12109,,Orphan's Cradle,chset_z029_def,,24
+btsc12110,,Orphan's Cradle,chset_z029_def,,24
+btsc12111,,Orphan's Cradle,chset_z029_def,,24
+btsc12112,,Orphan's Cradle,chset_z029_def,,24
+btsc12113,,Orphan's Cradle,chset_z029_def,,24
+btsc12114,,Orphan's Cradle,chset_z029_def,,24
+btsc12115,,Orphan's Cradle,chset_z029_def,,24
+btsc12116,,Orphan's Cradle,chset_z029_def,,24
+btsc12118,,Orphan's Cradle,chset_z029_def,,24
+btsc12119,,Orphan's Cradle,chset_z029_def,,24
+btsc12117,,Orphan's Cradle,chset_z029_def,,24
+btsc12120,,Orphan's Cradle,chset_z029_def1,,24
+btsc12121,,Orphan's Cradle,chset_z029_def1,,24
+btsc12122,,Orphan's Cradle,chset_z029_def1,,24
+btsc12123,,Orphan's Cradle,chset_z029_def1,,24
+btsc12127,,Orphan's Cradle,chset_z029_def1,,24
+btsc12128,,Orphan's Cradle,chset_z029_def1,,24
+btsc12124,,Orphan's Cradle,chset_z029_def1,,24
+btsc12125,,Orphan's Cradle,chset_z029_def1,,24
+btsc12126,,Orphan's Cradle,chset_z029_def1,,24
+btsc12081,,Orphan's Cradle,chset_z029_def1,,24
+btsc12129,,Orphan's Cradle,chset_z029_def2,,20
+btsc12130,,Orphan's Cradle,chset_z029_def2,,20
+btsc12132,,Orphan's Cradle,chset_z029_def2,,20
+btsc12134,,Orphan's Cradle,chset_z029_def2,,20
+btsc12133,,Orphan's Cradle,chset_z029_def2,,20
+btsc12131,,Orphan's Cradle,chset_z029_def2,,20
+btsc12084,,Orphan's Cradle,chset_z029_def2,,20
+btsc12139,,Orphan's Cradle,chset_z029_def3,,24
+btsc12136,,Orphan's Cradle,chset_z029_def3,,24
+btsc12137,,Orphan's Cradle,chset_z029_def3,,24
+btsc12138,,Orphan's Cradle,chset_z029_def3,,24
+btsc11101,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
+btsc11102,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
+btsc11104,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
+btsc11105,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
+btsc11106,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
+btsc11107,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
+btsc11108,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
+btsc11223,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11346,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11244,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11284,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11255,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11285,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11221,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11286,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11224,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11232,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11207,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11245,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11288,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11214,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11315,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11215,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11314,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11287,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11273,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11283,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11222,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11235,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11313,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11239,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11238,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11316,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11243,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11248,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11246,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11280,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11312,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11229,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11202,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11225,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11345,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11269,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11275,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11213,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11201,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11251,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11281,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11250,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11210,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11335,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11209,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11252,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11254,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11310,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11278,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11297,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11274,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11253,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11212,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11208,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11282,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11334,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11311,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11290,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11291,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11231,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11292,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11233,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11234,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11289,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11336,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11294,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11296,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11299,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11298,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11205,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11295,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11300,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11293,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11318,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11343,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11226,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11301,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11206,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11342,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11308,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11339,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11242,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11236,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11247,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11241,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11204,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11240,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11237,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11227,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11228,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11451,,Mah'habara,chset_z022_def1,,24
+btsc11401,,Mah'habara,chset_z022_def1,,24
+btsc11402,,Mah'habara,chset_z022_def1,,24
+btsc11434,,Mah'habara,chset_z022_def1,,24
+btsc11435,,Mah'habara,chset_z022_def1,,24
+btsc11436,,Mah'habara,chset_z022_def1,,24
+btsc11405,,Mah'habara,chset_z022_def1,,24
+btsc11406,,Mah'habara,chset_z022_a021,,24
+btsc11404,,Mah'habara,chset_z022_def1,,24
+btsc11407,,Mah'habara,chset_z022_def1,,24
+btsc11458,,Mah'habara,chset_z022_def1,,24
+btsc11408,,Mah'habara,chset_z022_def1,,24
+btsc11409,,Mah'habara,chset_z022_def8|chset_z022_def3,,24
+btsc11411,,Mah'habara,chset_z022_def3,,24
+btsc11410,,Mah'habara,chset_z022_def3,,24
+btsc11437,,Mah'habara,chset_z022_def3,,24
+btsc11441,,Mah'habara,chset_z022_def4,,24
+btsc11442,,Mah'habara,chset_z022_def4,,24
+btsc11414,,Mah'habara,chset_z022_def4,,24
+btsc11415,,Mah'habara,chset_z022_def4,,24
+btsc11444,,Mah'habara,chset_z022_def4,,24
+btsc11446,,Mah'habara,chset_z022_def4,,24
+btsc11417,,Mah'habara,chset_z022_def4,,24
+btsc11447,,Mah'habara,chset_z022_def5,,24
+btsc11418,,Mah'habara,chset_z022_def5,,24
+btsc11501,,Sulyya Springs,chset_z024_def1,,24
+btsc11506,,Sulyya Springs,chset_z024_def1,,24
+btsc11502,,Sulyya Springs,chset_z024_def1,,24
+btsc11503,,Sulyya Springs,chset_z024_def1,,24
+btsc11504,,Sulyya Springs,chset_z024_def1,,24
+btsc11507,,Sulyya Springs,chset_z024_def1,,24
+btsc11509,,Sulyya Springs,chset_z024_def1,,24
+btsc11505,,Sulyya Springs,chset_z024_def1,,24
+btsc11601,,Taejin's Tower,chset_z026_o,,24
+btsc11602,,Taejin's Tower,chset_z026_o,,24
+btsc11603,,Taejin's Tower,chset_z026_o,,24
+btsc11604,,Taejin's Tower,chset_z026_o,,24
+btsc11605,,Taejin's Tower,chset_z026_o,,24
+btsc11640,,Taejin's Tower,chset_z026_o,,24
+btsc11642,,Taejin's Tower,chset_z026_o,,24
+btsc11643,,Taejin's Tower,chset_z026_o,,24
+btsc11606,,Taejin's Tower,chset_z026_2f,,24
+btsc11609,,Taejin's Tower,chset_z026_2f,,24
+btsc11607,,Taejin's Tower,chset_z026_2f,,24
+btsc11608,,Taejin's Tower,chset_z026_2f,,24
+btsc11611,,Taejin's Tower,chset_z026_2f,,24
+btsc11613,,Taejin's Tower,chset_z026_2f,,24
+btsc11612,,Taejin's Tower,chset_z026_2f,,24
+btsc11610,,Taejin's Tower,chset_z026_2f,,24
+btsc11614,,Taejin's Tower,chset_z026_2f,,24
+btsc11615,,Taejin's Tower,chset_z026_2f,,24
+btsc11617,,Taejin's Tower,chset_z026_3f,,24
+btsc11621,,Taejin's Tower,chset_z026_4f,,24
+btsc11622,,Taejin's Tower,chset_z026_4f,,24
+btsc11623,,Taejin's Tower,chset_z026_4f,,24
+btsc11624,,Taejin's Tower,chset_z026_4f,,24
+btsc11616,,Taejin's Tower,chset_z026_3f,,24
+btsc11638,,Taejin's Tower,chset_z026_4f,,24
+btsc11619,,Taejin's Tower,chset_z026_4f,,24
+btsc11620,,Taejin's Tower,chset_z026_4f,,24
+btsc11625,,Taejin's Tower,chset_z026_4f,,24
+btsc11626,,Taejin's Tower,chset_z026_4f,,24
+btsc11632,,Taejin's Tower,chset_z026_4f,,24
+btsc11627,,Taejin's Tower,chset_z026_4f,,24
+btsc11631,,Taejin's Tower,chset_z026_4f,,24
+btsc11629,,Taejin's Tower,chset_z026_4f,,24
+btsc11633,,Taejin's Tower,chset_z026_4f,,24
+btsc11634,,Taejin's Tower,chset_z026_4f,,24
+btsc11645,,Taejin's Tower,chset_z026_5f,,24
+btsc11646,,Taejin's Tower,chset_z026_5f,,24
+btsc11644,,Taejin's Tower,chset_z026_5f,,24
+btsc11636,,Taejin's Tower,chset_z026_k,,24
+btsc11710,,Oerba,chset_z027_def3,,24
+btsc11711,,Oerba,chset_z027_def3,,24
+btsc11712,,Oerba,chset_z027_def3,,24
+btsc11713,,Oerba,chset_z027_def3,,24
+btsc11717,,Oerba,chset_z027_def3,,24
+btsc11718,,Oerba,chset_z027_def3,,24
+btsc11714,,Oerba,chset_z027_def3,,24
+btsc11701,,Oerba,chset_z027_def3,,24
+btsc11715,,Oerba,chset_z027_def3,,24
+btsc11702,,Oerba,chset_z027_def3,,24
+btsc11716,,Oerba,chset_z027_def3,,24
+btsc11720,,Oerba,chset_z027_def3,,24
+btsc11704,,Oerba,chset_z027_def3,,24
+btsc11721,,Oerba,chset_z027_def3,,24
+btsc11703,,Oerba,chset_z027_def3,,24
+btsc11705,,Oerba,chset_z027_def3,,24
+btsc11724,,Oerba,chset_z027_def3,,24
+btsc11706,,Oerba,chset_z027_def3,,24
+btsc11707,,Oerba,chset_z027_def3,,24
+btsc11455,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc14454,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc11109,,Vallis Media,chset_z021_def2,,24
+btsc11110,,Vallis Media,chset_z021_def2,,24
+btsc11001,,Yaschas Massif,chset_z020_def1,,24
+btsc11004,,Yaschas Massif,chset_z020_def1,,24
+btsc11006,,Yaschas Massif,chset_z020_def1,,24
+btsc11003,,Yaschas Massif,chset_z020_def1,,24
+btsc11005,,Yaschas Massif,chset_z020_def1,,24
+btsc11007,,Yaschas Massif,chset_z020_def1,,24
+btsc11008,,Yaschas Massif,chset_z020_def1,,24
+btsc11010,,Yaschas Massif,chset_z020_def1,,24
+btsc11009,,Yaschas Massif,chset_z020_def1,,24
+btsc11012,,Yaschas Massif,chset_z020_def1,,24
+btsc11013,,Yaschas Massif,chset_z020_def1,,24
+btsc11014,,Yaschas Massif,chset_z020_def1,,24
+btsc11015,,Yaschas Massif,chset_z020_def1,,24
+btsc11016,,Yaschas Massif,chset_z020_def1,,24
+btsc11018,,Yaschas Massif,chset_z020_def2,,24
+btsc11019,,Yaschas Massif,chset_z020_def2,,24
+btsc11020,,Yaschas Massif,chset_z020_def2,,24
+btsc11021,,Yaschas Massif,chset_z020_def2,,24
+btsc11022,,Yaschas Massif,chset_z020_def2,,24
+btsc11023,,Yaschas Massif,chset_z020_def2,,24
+btsc11011,,Yaschas Massif,chset_z020_def1,,24
+btsc11024,,Yaschas Massif,chset_z020_def2,,24
+btsc11025,,Yaschas Massif,chset_z020_def2,,24
+btsc11026,,Yaschas Massif,chset_z020_def3,,24
+btsc11027,,Yaschas Massif,chset_z020_def3,,24
+btsc11031,,Yaschas Massif,chset_z020_def3,,24
+btsc11032,,Yaschas Massif,chset_z020_def3,,24
+btsc11030,,Yaschas Massif,chset_z020_def3,,24
+btsc11028,,Yaschas Massif,chset_z020_def3,,24
+btsc11034,,Yaschas Massif,chset_z020_def3|chset_z020_def4,,24
+btsc11029,,Yaschas Massif,chset_z020_def3,,24
+btsc11037,,Yaschas Massif,chset_z020_def4,,24
+btsc11039,,Yaschas Massif,chset_z020_def4,,24
+btsc11043,,Yaschas Massif,chset_z020_def4,,24
+btsc11040,,Yaschas Massif,chset_z020_def4,,24
+btsc11035,,Yaschas Massif,chset_z020_def5,,24
+btsc11130,,Vallis Media,chset_z021_def2,Mission,24
+btsc14455,,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
+btsc14453,,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
+btsc14437,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
+btsc14457,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
+btsc14452,,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
+btsc14449,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc14450,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc14451,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11448,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc14447,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
+btsc11457,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
+btsc14446,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
+btsc11277,,Archylte Steppe,chset_z023_def1|chset_z023_def4,,48
+btsc11259,,Archylte Steppe,chset_z023_def4,,48
+btsc11258,,Archylte Steppe,chset_z023_def4,,48
+btsc11256,,Archylte Steppe,chset_z023_def4,,48
+btsc11257,,Archylte Steppe,chset_z023_def4,,48
+btsc11260,,Archylte Steppe,chset_z023_def4,,48
+btsc14456,,Archylte Steppe,chset_z023_a031,Mission,48
+btsc11337,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11445,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc14443,,Archylte Steppe,chset_z023_def4,Mission,48
+btsc14436,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc11456,,Mah'habara,chset_z022_def3,Mission,24
+btsc11508,,Sulyya Springs,chset_z024_def1,Mission,24
+btsc11637,,Taejin's Tower,chset_z026_o,Mission,24
+btsc11630,,Taejin's Tower,chset_z026_o,Mission,24
+btsc11722,,Oerba,chset_z027_def3,Mission,24
+btsc11639,,Taejin's Tower,chset_z026_o,Mission,24
+btsc11340,,Archylte Steppe,chset_z023_def2,,48
+btsc11220,,Archylte Steppe,chset_z023_def2,,48
+btsc11218,,Archylte Steppe,chset_z023_def2,,48
+btsc11217,,Archylte Steppe,chset_z023_def2,,48
+btsc11219,,Archylte Steppe,chset_z023_def2,,48
+btsc11270,,Archylte Steppe,chset_z023_def2|chset_z023_def3,,48
+btsc11420,,Mah'habara,chset_z022_def2,,24
+btsc11422,,Mah'habara,chset_z022_def2,,24
+btsc11449,,Mah'habara,chset_z022_def2,,24
+btsc11454,,Mah'habara,chset_z022_def2,,24
+btsc11425,,Mah'habara,chset_z022_def7,,24
+btsc11450,,Mah'habara,chset_z022_def7,,24
+btsc11453,,Mah'habara,chset_z022_def7,,24
+btsc11452,,Mah'habara,chset_z022_def7,,24
+btsc11464,,Mah'habara,chset_z022_def7,,24
+btsc11426,,Mah'habara,chset_z022_def7,,24
+btsc11421,,Mah'habara,chset_z022_def2,,24
+btsc11428,,Mah'habara,chset_z022_def6,,24
+btsc11429,,Mah'habara,chset_z022_def6,,24
+btsc11459,,Mah'habara,chset_z022_def6,,24
+btsc11460,,Mah'habara,chset_z022_def6,,24
+btsc11461,,Mah'habara,chset_z022_def6,,24
+btsc11462,,Mah'habara,chset_z022_def6,,24
+btsc11463,,Mah'habara,chset_z022_def6,,24
+btsc11431,,Mah'habara,chset_z022_def6,,24
+btsc11432,,Mah'habara,chset_z022_def6,,24
+btsc11433,,Mah'habara,chset_z022_def6,Mission,24
+btsc11261,,Archylte Steppe,chset_z023_def3,,24
+btsc11264,,Archylte Steppe,chset_z023_def3,,24
+btsc11265,,Archylte Steppe,chset_z023_def3,,24
+btsc11341,,Archylte Steppe,chset_z023_def3,,24
+btsc11347,,Archylte Steppe,chset_z023_def3,,24
+btsc11271,,Archylte Steppe,chset_z023_def3,,24
+btsc11262,,Archylte Steppe,chset_z023_def3,,24
+btsc11263,,Archylte Steppe,chset_z023_def3,,24
+btsc11267,,Archylte Steppe,chset_z023_def3,,24
+btsc11272,,Archylte Steppe,chset_z023_def3,,24
+btsc11268,,Archylte Steppe,chset_z023_def3,,24
+btsc11266,,Archylte Steppe,chset_z023_def3,,24
+btsc14438,,Archylte Steppe,chset_z023_def3,,24
+btsc14444,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
+btsc14442,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc14458,,Archylte Steppe,chset_z023_def3,Mission,24
+btsc11836,,Faultwarrens,chset_z030_b2,Mission,24
+btsc11829,,Faultwarrens,chset_z030_b4,Mission,24
+btsc11814,,Faultwarrens,chset_z030_b5b,Mission,24
+btsc11828,,Faultwarrens,chset_z030_b8,Mission,24
+btsc11858,,Faultwarrens,chset_z030_b8,,24
+btsc11835,,Faultwarrens,chset_z030_b9f,Mission,24
+btsc11825,,Faultwarrens,chset_z030_b7,,24
+btsc11855,,Faultwarrens,chset_z030_b7,,24
+btsc11824,,Faultwarrens,chset_z030_b7,Mission,24
+btsc11853,,Faultwarrens,chset_z030_b7,,24
+btsc11852,,Faultwarrens,chset_z030_b7,,24
+btsc11832,,Faultwarrens,chset_z030_b9c,Mission,24
+btsc11837,,Faultwarrens,chset_z030_b9a,Mission,24
+btsc11812,,Faultwarrens,chset_z030_b6a,Mission,24
+btsc11818,,Faultwarrens,chset_z030_b5c,,24
+btsc11817,,Faultwarrens,chset_z030_b5c,,24
+btsc11845,,Faultwarrens,chset_z030_b5c,,24
+btsc11844,,Faultwarrens,chset_z030_b5c,,24
+btsc11823,,Faultwarrens,chset_z030_b5c,Mission,24
+btsc11833,,Faultwarrens,chset_z030_b9d,Mission,24
+btsc11831,,Faultwarrens,chset_z030_b9b,Mission,24
+btsc11801,,Faultwarrens,chset_z030_b3,Mission,24
+btsc11843,,Faultwarrens,chset_z030_b3,,24
+btsc11807,,Faultwarrens,chset_z030_b5a,Mission,24
+btsc11806,,Faultwarrens,chset_z030_b5a,,24
+btsc11859,,Faultwarrens,chset_z030_b6b,,24
+btsc11816,,Faultwarrens,chset_z030_b6b,Mission,24
+btsc11834,,Faultwarrens,chset_z030_b9e,Mission,24
+btsc11830,,Faultwarrens,chset_z030_b9g,Mission,24
+btsc14441,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc11002,,Yaschas Massif,chset_z020_def3,Mission,24
+btsc14459,,Archylte Steppe,chset_z023_a018,Mission,48
+btsc14439,,Archylte Steppe,chset_z023_def2,Mission,48
+btsc11033,,Yaschas Massif,chset_z020_def2,Mission,24
+btsc11131,,Vallis Media,chset_z021_def2,Mission,48
+btsc11465,,Mah'habara,chset_z022_def1,Mission,24
+btsc11510,,Sulyya Springs,chset_z024_def1,Mission,24
+btsc11647,,Taejin's Tower,chset_z026_5f,Mission,48
+btsc11723,,Oerba,chset_z027_def3,Mission,24
+btsc14435,,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
+btsc14431,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc14440,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc14430,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc14427,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc14428,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc14425,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc14429,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc14432,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc14434,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc14426,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11036,,Yaschas Massif,chset_z020_def6,,24
+btsc11038,,Yaschas Massif,chset_z020_def6,,24
+btsc11042,,Yaschas Massif,chset_z020_def6,,24
+btsc11041,,Yaschas Massif,chset_z020_def7,Mission,24

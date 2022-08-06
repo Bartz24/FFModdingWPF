@@ -8,18 +8,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LRRando
 {
@@ -35,6 +25,13 @@ namespace LRRando
         {
             get { return (int)GetValue(ProgressBarValueProperty); }
             set { SetValue(ProgressBarValueProperty, value); }
+        }
+        public static readonly DependencyProperty ProgressBarMaximumProperty =
+        DependencyProperty.Register(nameof(ProgressBarMaximum), typeof(int), typeof(MainWindow));
+        public int ProgressBarMaximum
+        {
+            get { return (int)GetValue(ProgressBarMaximumProperty); }
+            set { SetValue(ProgressBarMaximumProperty, value); }
         }
         public static readonly DependencyProperty ProgressBarVisibleProperty =
         DependencyProperty.Register(nameof(ProgressBarVisible), typeof(Visibility), typeof(MainWindow));
@@ -86,6 +83,7 @@ namespace LRRando
         private async void generateButton_Click(object sender, RoutedEventArgs e)
         {
             RandomizerManager randomizers = new RandomizerManager();
+            randomizers.SetProgressFunc = SetProgressBar;
             randomizers.Add(new QuestRando(randomizers));
             randomizers.Add(new TreasureRando(randomizers));
             randomizers.Add(new EquipRando(randomizers));
@@ -132,7 +130,7 @@ namespace LRRando
                     {
                         string outFolder = System.IO.Path.GetTempPath() + @"lr_rando_temp";
                         SetupData.OutputFolder = outFolder + @"\Data";
-                                                
+
                         int seed = RandomNum.GetIntSeed(SetupData.Seed);
 #if DEBUG
                         if (tests)
@@ -174,8 +172,8 @@ namespace LRRando
                         SetupData.WPDTracking.Add(wdbpackOutPath, new List<string>());
                         Nova.UnpackWPD(wdbpackOutPath, SetupData.Paths["Nova"]);
 
-                        CopyFromFolder(outFolder +"\\Data\\db\\resident\\_wdbpack.bin", outFolder + "\\Data\\db\\resident\\_wdbpack.bin.rando");
-                        foreach(string file in Directory.GetFiles(outFolder + "\\Data\\db\\resident\\_wdbpack.bin.rando"))
+                        CopyFromFolder(outFolder + "\\Data\\db\\resident\\_wdbpack.bin", outFolder + "\\Data\\db\\resident\\_wdbpack.bin.rando");
+                        foreach (string file in Directory.GetFiles(outFolder + "\\Data\\db\\resident\\_wdbpack.bin.rando"))
                         {
                             SetupData.WPDTracking[wdbpackOutPath].Add(System.IO.Path.GetFileName(file));
                         }
@@ -246,7 +244,7 @@ namespace LRRando
                     {
                         innerMost = innerMost.InnerException;
                     }
-                    MessageBox.Show("Randomizer encountered an error:\n" + innerMost.Message, "Rando failed");
+                    MessageBox.Show("Randomizer encountered an error:\n" + innerMost.Message + "\n\n" + innerMost.StackTrace, "Rando failed");
                 }
 #if DEBUG
             }
@@ -266,7 +264,7 @@ namespace LRRando
                 File.Copy(newPath, newPath.Replace(templateFolder, mainFolder), true);
         }
 
-        private void SetProgressBar(string text, int value)
+        private void SetProgressBar(string text, int value, int maxValue = 100)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -274,6 +272,7 @@ namespace LRRando
                 ProgressBarText = text;
                 ProgressBarIndeterminate = value < 0;
                 ProgressBarValue = value;
+                ProgressBarMaximum = maxValue;
             });
         }
 
@@ -316,7 +315,7 @@ namespace LRRando
         private void shareSeedFolder_Click(object sender, RoutedEventArgs e)
         {
             int seed = RandomNum.GetIntSeed(SetupData.Seed);
-            
+
             VistaSaveFileDialog dialog = new VistaSaveFileDialog();
             dialog.Filter = "JSON|*.json";
             dialog.DefaultExt = ".json";

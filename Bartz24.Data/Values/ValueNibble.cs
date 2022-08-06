@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bartz24.Data
+﻿namespace Bartz24.Data
 {
     public static class ValueNibble
     {

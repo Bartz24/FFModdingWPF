@@ -2,12 +2,6 @@
 using Bartz24.FF13Series;
 using Bartz24.RandoWPF;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13Rando
 {
@@ -15,7 +9,7 @@ namespace FF13Rando
     {
         public DataStoreZTRText mainSysUS = new DataStoreZTRText();
 
-        public TextRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public TextRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {

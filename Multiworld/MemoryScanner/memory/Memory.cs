@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Bartz24.Data;
+using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Diagnostics;
-using Bartz24.Data;
+using System.Runtime.InteropServices;
 
 
 namespace memory
@@ -64,16 +64,16 @@ namespace memory
         private ProcessModule localModule;
         private byte[] backupBytes = null;
 
-        public Scanner(Process process, IntPtr handle = default(IntPtr), String pattern = "" )
+        public Scanner(Process process, IntPtr handle = default(IntPtr), String pattern = "")
         {
             lprocess = process;
             lpattern = pattern;
             handleProcess = handle;
         }
 
-        public void setPattern(String pattern) { lpattern = pattern;  }
+        public void setPattern(String pattern) { lpattern = pattern; }
 
-        public void setHandle(IntPtr handle) { handleProcess = handle;  }
+        public void setHandle(IntPtr handle) { handleProcess = handle; }
 
         public void setModule(ProcessModule module) { localModule = module; }
 
@@ -83,7 +83,7 @@ namespace memory
             foreach (String each in pattern.Split(' '))
             {
                 if (each == "??") { convertertedArray.Add(Convert.ToByte("0", 16)); }
-                else{ convertertedArray.Add(Convert.ToByte(each,16)); }
+                else { convertertedArray.Add(Convert.ToByte(each, 16)); }
             }
             return convertertedArray.ToArray();
 
@@ -118,15 +118,15 @@ namespace memory
             IntPtr bytesRead;
             byte[] localModulebytes = new byte[localModule.ModuleMemorySize];
             byte[] convertedByteArray = ConvertPattern(lpattern);
-            Memory.ReadProcessMemory(handleProcess,localModule.BaseAddress,localModulebytes,localModule.ModuleMemorySize,out bytesRead);
-            return scanLogic(localModulebytes,convertedByteArray);
+            Memory.ReadProcessMemory(handleProcess, localModule.BaseAddress, localModulebytes, localModule.ModuleMemorySize, out bytesRead);
+            return scanLogic(localModulebytes, convertedByteArray);
 
         }
 
         public override bool writeBytes(Process process, ulong address, byte[] bytesToWrite)
         {
             IntPtr bytesWritten = IntPtr.Zero;
-            setBackupBytes(process,address,bytesToWrite);
+            setBackupBytes(process, address, bytesToWrite);
             Memory.WriteProcessMemory(process.Handle, (IntPtr)address, bytesToWrite, bytesToWrite.Length, out bytesWritten);
             if (bytesWritten == IntPtr.Zero) { return false; }
             else { return true; }
@@ -152,5 +152,5 @@ namespace memory
         }
     }
 
-    
+
 }

@@ -5,10 +5,8 @@ using Bartz24.RandoWPF;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FF13Rando
@@ -25,7 +23,7 @@ namespace FF13Rando
         public Dictionary<string, BattleData> battleData = new Dictionary<string, BattleData>();
         public Dictionary<string, EnemyData> enemyData = new Dictionary<string, EnemyData>();
 
-        public BattleRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -95,9 +93,9 @@ namespace FF13Rando
                 //List<string> setEnemies = charaSets.Values.SelectMany(c => c.GetCharaSpecs()).Distinct().ToList();
                 //setEnemies.Sort();
 
-                battleData.Keys.ForEach(id =>
+                battleData.Keys.ToList().Shuffle().ForEach(id =>
                 {
-                    btscs[id].Values.Where(e => enemyData.ContainsKey(e.sEntryBtChSpec_string)).ForEach(e =>
+                    btscs[id].Values.Shuffle().Where(e => enemyData.ContainsKey(e.sEntryBtChSpec_string)).ForEach(e =>
                       {
                           string oldEnemy = e.sEntryBtChSpec_string;
                           bool canAdd = true;
@@ -118,10 +116,9 @@ namespace FF13Rando
                           {
                               canAdd = true;
                               e.sEntryBtChSpec_string = RandomNum.SelectRandomWeighted(possible, _ => 1);
-                              if (e.sEntryBtChSpec_string == null)
+                              if (e.sEntryBtChSpec_string == oldEnemy)
                               {
-                                  e.sEntryBtChSpec_string = oldEnemy;
-                                  return;
+                                  break;
                               }
                               battleData[id].Charasets.ForEach(c =>
                               {
@@ -137,32 +134,34 @@ namespace FF13Rando
                                       possible.Remove(e.sEntryBtChSpec_string);
                                       if (possible.Count == 0)
                                       {
+                                          canAdd = true;
                                           // If it hit the soft cap, it's ok to add
-                                          if (!FF13Flags.Other.EnemyNoLimit.Enabled && battleData[id].CharasetLimit >= 60 && list.Count <= 64)
+                                          if (FF13Flags.Other.EnemyNoLimit.Enabled && battleData[id].CharasetLimit >= 60 && list.Count <= 64)
                                           {
-                                              canAdd = true;
                                               possible.Add(e.sEntryBtChSpec_string);
                                           }
                                           else
                                           {
                                               e.sEntryBtChSpec_string = oldEnemy;
-                                              return;
                                           }
                                       }
                                   }
                               });
                           } while (!canAdd);
 
-                          battleData[id].Charasets.ForEach(c =>
+                          if (e.sEntryBtChSpec_string != oldEnemy)
                           {
-                              List<string> list = charaSets[c].GetCharaSpecs();
+                              battleData[id].Charasets.ForEach(c =>
+                              {
+                                  List<string> list = charaSets[c].GetCharaSpecs();
 
-                              string charaspec = enemyRando.charaSpec[e.sEntryBtChSpec_string].sCharaSpec_string;
-                              if (!list.Contains(charaspec))
-                                  list.Add(charaspec);
+                                  string charaspec = enemyRando.charaSpec[e.sEntryBtChSpec_string].sCharaSpec_string;
+                                  if (!list.Contains(charaspec))
+                                      list.Add(charaspec);
 
-                              charaSets[c].SetCharaSpecs(list);
-                          });
+                                  charaSets[c].SetCharaSpecs(list);
+                              });
+                          }
                       });
                 });
 
@@ -173,6 +172,18 @@ namespace FF13Rando
         private bool IsVarietyLimited(string id)
         {
             return battleData[id].Traits.Contains("LimitChara") || !FF13Flags.Other.EnemyNoLimit.Enabled;
+        }
+
+        public override HTMLPage GetDocumentation()
+        {
+            HTMLPage page = new HTMLPage("Encounters", "template/documentation.html");
+
+            page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID (Actual Location TBD)", "New Enemies" }).ToList(), (new int[] { 20, 80 }).ToList(), btscs.Keys.OrderBy(b => b).Select(b =>
+              {
+                  List<string> names = btscs[b].Values.Where(e => !e.sEntryBtChSpec_string.StartsWith("pc")).Select(e => enemyData.ContainsKey(e.sEntryBtChSpec_string) ? enemyData[e.sEntryBtChSpec_string].Name : (e.sEntryBtChSpec_string + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
+                  return new string[] { b, string.Join(",", names) }.ToList();
+              }).ToList()));
+            return page;
         }
 
         public override void Save()

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF
 {
@@ -19,7 +17,7 @@ namespace Bartz24.RandoWPF
             Add(rank, item, dependent);
         }
 
-        public TieredDependent(int rank, T item, T dependent, bool any=false)
+        public TieredDependent(int rank, T item, T dependent, bool any = false)
             : base(0, default(T), 1, 1, 1)
         {
             anyNeeded = any;
@@ -43,20 +41,20 @@ namespace Bartz24.RandoWPF
 
         public TieredDependent<T> AddDep(T item, T dependent)
         {
-            if(dependent != null)
+            if (dependent != null)
             {
                 if (dependentDict.ContainsKey(item))
                     dependentDict[item].Add(dependent);
                 else
                     dependentDict.Add(item, new T[] { dependent }.ToList());
             }
-                
+
             return this;
         }
 
         public new TieredDependent<T> Register(TieredManager<T> manager)
         {
-            return (TieredDependent<T>) base.Register(manager);
+            return (TieredDependent<T>)base.Register(manager);
         }
 
         public bool MeetsRequirement(T item, List<T> possibleDepedents)

@@ -1,14 +1,11 @@
-﻿using Bartz24.Docs;
+﻿using Bartz24.Data;
+using Bartz24.Docs;
+using Bartz24.FF12;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bartz24.Data;
-using Bartz24.FF12;
 
 namespace FF12Rando
 {
@@ -145,7 +142,8 @@ namespace FF12Rando
 
                         for (int i = 0; i < count; i++)
                         {
-                            string newItem = RandomNum.SelectRandomWeighted(treasureRando.remainingRandomizeItems, item => {
+                            string newItem = RandomNum.SelectRandomWeighted(treasureRando.remainingRandomizeItems, item =>
+                            {
                                 if (items.Contains(item))
                                     return 0;
                                 if (s.Traits.Contains("Missable") && (item.StartsWith("30") || item.StartsWith("40")))

@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF
 {
@@ -118,7 +116,7 @@ namespace Bartz24.RandoWPF
 
         protected virtual bool DoImportantPlacement(List<string> locations, List<string> important, List<string> defaultAreas)
         {
-            for(int i = 0; i < (maxFailCount == -1 ? int.MaxValue : maxFailCount); i++)
+            for (int i = 0; i < (maxFailCount == -1 ? int.MaxValue : maxFailCount); i++)
             {
                 bool output = TryImportantPlacement(i, locations, important, new List<string>(defaultAreas));
                 if (output)

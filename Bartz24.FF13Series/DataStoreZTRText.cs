@@ -1,10 +1,8 @@
 ﻿using Bartz24.Data;
-using System;
-using System.Data;
-using System.Linq;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Bartz24.FF13Series
@@ -44,7 +42,7 @@ namespace Bartz24.FF13Series
                     ztrPath = lines[i];
                 else if (i > 1)
                 {
-                    Match match =  Regex.Match(lines[i], $"\".*{doubleBar}(.*)\" = \"(.*)\";");
+                    Match match = Regex.Match(lines[i], $"\".*{doubleBar}(.*)\" = \"(.*)\";");
                     Data.Add(match.Groups[1].Value, match.Groups[2].Value);
                 }
             }

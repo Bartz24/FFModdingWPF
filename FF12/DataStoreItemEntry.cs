@@ -1,9 +1,4 @@
 ﻿using Bartz24.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.FF12
 {
@@ -12,7 +7,7 @@ namespace Bartz24.FF12
         public ushort Item
         {
             get { return Data.ReadUShort(0x0); }
-            set { Data.SetUShort(0x0,value); }
+            set { Data.SetUShort(0x0, value); }
         }
         public override int GetDefaultLength()
         {

@@ -1,22 +1,11 @@
 using Ookii.Dialogs.Wpf;
 using SharpCompress.Archives.SevenZip;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bartz24.RandoWPF
 {
@@ -89,14 +78,14 @@ namespace Bartz24.RandoWPF
                         }
 
                         MessageBox.Show("Music pack has been successfully installed.");
-                        UpdateMusicPackList();                        
+                        UpdateMusicPackList();
                     }
                     catch
                     {
                         MessageBox.Show("Failed to install the music pack when extracting the files.");
                     }
                 }
-                else if(Directory.Exists("data\\musicPacks\\" + name))
+                else if (Directory.Exists("data\\musicPacks\\" + name))
                     MessageBox.Show("There already exists a music pack with this name.", "The selected file is not valid");
                 else
                     MessageBox.Show("Make sure the selected file is a 7z file.", "The selected file is not valid");
@@ -106,7 +95,7 @@ namespace Bartz24.RandoWPF
         private void DeleteMusic_Click(object sender, RoutedEventArgs e)
         {
             string selected = musicList.SelectedItem?.ToString();
-            if(selected != null)
+            if (selected != null)
             {
                 if (MessageBox.Show("Are you sure you want to delete this music pack?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {

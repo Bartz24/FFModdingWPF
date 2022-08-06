@@ -4,12 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Bartz24.RandoWPF
-{    
+{
     public class Flags
     {
         public static List<Flag> FlagsList { get; set; } = new List<Flag>();

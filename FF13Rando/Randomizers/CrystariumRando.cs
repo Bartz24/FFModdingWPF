@@ -4,11 +4,7 @@ using Bartz24.FF13;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13Rando
 {
@@ -23,7 +19,7 @@ namespace FF13Rando
         private string[] chars = new string[] { "lightning", "fang", "hope", "sazh", "snow", "vanille" };
         public Dictionary<string, Dictionary<Role, DataStoreCrystarium>> firstAbis = new Dictionary<string, Dictionary<Role, DataStoreCrystarium>>();
 
-        public CrystariumRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public CrystariumRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -356,7 +352,8 @@ namespace FF13Rando
 
                     List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => c.iRole == role && c != firstAbis[chara][role] && c.iCPCost > 0).ToList().Shuffle().ToList();
 
-                    nodes.Shuffle((c1, c2) => {
+                    nodes.Shuffle((c1, c2) =>
+                    {
                         if (c1.iType == CrystariumType.RoleLevel && crystariums[chara].Values.IndexOf(c2) < crystariums[chara].Values.IndexOf(firstAbis[chara][c2.iRole]) || c2.iType == CrystariumType.RoleLevel && crystariums[chara].Values.IndexOf(c1) < crystariums[chara].Values.IndexOf(firstAbis[chara][c1.iRole]))
                             return;
                         else
@@ -380,7 +377,8 @@ namespace FF13Rando
                 page.HTMLElements.Add(new Table(name[0].ToString().ToUpper() + name.Substring(1),
                     new string[] { "Stage", "Commando", "Ravager", "Sentinel", "Synergist", "Saboteur", "Medic" }.ToList(),
                     new int[] { 10, 15, 15, 15, 15, 15, 15 }.ToList(),
-                    Enumerable.Range(1, 10).Select(stage => {
+                    Enumerable.Range(1, 10).Select(stage =>
+                    {
                         List<string> list = new List<string>();
                         list.Add(stage.ToString());
                         list.AddRange(new string[] { "", "", "", "", "", "" });

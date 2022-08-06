@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Bartz24.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bartz24.Data;
 
 namespace Bartz24.RandoWPF
 {

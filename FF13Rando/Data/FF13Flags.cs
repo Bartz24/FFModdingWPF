@@ -137,7 +137,7 @@ namespace FF13Rando
                     ID = "KeyPlaceMissions",
                     Description = "Key items are also allowed in first time mission rewards."
                 }.Register(Treasures);
-                
+
                 KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
                 {
                     Text = "Item Difficulty Depth",

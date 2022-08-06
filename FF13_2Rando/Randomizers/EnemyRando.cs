@@ -4,11 +4,7 @@ using Bartz24.FF13_2_LR;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13_2Rando
 {
@@ -30,7 +26,7 @@ namespace FF13_2Rando
             "bt_chsp_x000_108"
         };
 
-        public EnemyRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public EnemyRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -43,12 +39,14 @@ namespace FF13_2Rando
 
         public override void Load()
         {
-            x000.ForEach(s => {
+            x000.ForEach(s =>
+            {
                 DataStoreDB3<DataStoreBtCharaSpec> db3 = new DataStoreDB3<DataStoreBtCharaSpec>();
                 db3.LoadDB3("13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
                 enemies.Add(s, db3);
             });
-            x000.ForEach(s => {
+            x000.ForEach(s =>
+            {
                 DataStoreDB3<DataStoreBtCharaSpec> db3 = new DataStoreDB3<DataStoreBtCharaSpec>();
                 db3.LoadDB3("13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
                 enemiesOrig.Add(s, db3);
@@ -83,10 +81,11 @@ namespace FF13_2Rando
 
         public override void Save()
         {
-            x000.ForEach(s => {
+            x000.ForEach(s =>
+            {
                 enemies[s].SaveDB3(@"\btscene\pack\wdb\_x000.bin\" + s + ".wdb");
                 SetupData.WPDTracking[SetupData.OutputFolder + @"\btscene\pack\wdb\x000.bin"].Add(s + ".wdb");
-            });      
+            });
         }
     }
 }

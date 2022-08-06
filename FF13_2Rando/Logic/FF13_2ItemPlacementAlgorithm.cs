@@ -3,8 +3,6 @@ using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13_2Rando
 {
@@ -113,7 +111,7 @@ namespace FF13_2Rando
         }
 
         public override List<string> GetNewAreasAvailable(Dictionary<string, int> items, List<string> soFar)
-        {            
+        {
             List<string> list = new List<string>();
             list.Add("start");
             if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 0)

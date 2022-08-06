@@ -1,5 +1,4 @@
 ﻿using Bartz24.RandoWPF;
-using System;
 
 namespace FF13_2Rando
 {

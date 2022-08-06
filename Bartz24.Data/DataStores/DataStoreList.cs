@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.Data
 {
@@ -18,7 +16,7 @@ namespace Bartz24.Data
                 List<byte[]> data = list.Select(t => t.Data).ToList();
                 byte[] allData = new byte[data.Sum(a => a.Length)];
                 int offset = 0;
-                foreach(byte[] array in data)
+                foreach (byte[] array in data)
                 {
                     allData.SetSubArray(offset, array);
                     offset += array.Length;
@@ -35,7 +33,7 @@ namespace Bartz24.Data
                 T val = new T();
                 val.LoadData(data, offset);
                 offset += val.Length;
-                Add(val,list.Count);
+                Add(val, list.Count);
             }
         }
 
@@ -49,7 +47,7 @@ namespace Bartz24.Data
 
         public virtual void Clear()
         {
-            list.Clear();            
+            list.Clear();
         }
 
         public virtual void Add(T obj, int i)

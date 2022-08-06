@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.Data
 {
@@ -14,7 +11,7 @@ namespace Bartz24.Data
             int n = seq.Length;
             return Enumerable.Range(0, n).Sum(i => seq[i] * (long)Math.Pow(pow, i));
         }
-        
+
         public static long[] DecodeNaturalSequence(long val, int n, int pow)
         {
             long[] seq = new long[n];

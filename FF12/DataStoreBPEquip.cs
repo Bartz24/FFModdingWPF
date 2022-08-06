@@ -1,9 +1,5 @@
 ﻿using Bartz24.Data;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.FF12
 {
@@ -26,7 +22,7 @@ namespace Bartz24.FF12
 
                 for (int i = 0; i < EquipDataList.Count; i++)
                 {
-                    if(EquipDataList[i].Type == EquipType.Armor || EquipDataList[i].Type == EquipType.Accessory)
+                    if (EquipDataList[i].Type == EquipType.Armor || EquipDataList[i].Type == EquipType.Accessory)
                     {
                         DataStoreArmor d = new DataStoreArmor();
                         d.LoadData(EquipDataList[i].Data);

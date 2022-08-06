@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.Data
 {
@@ -70,7 +68,7 @@ namespace Bartz24.Data
         public override void Add(T obj, int i)
         {
             pointerToIndexDictionary.Add(i, list.Count);
-            base.Add(obj,list.Count);
+            base.Add(obj, list.Count);
         }
 
         public override int IndexOf(T obj)

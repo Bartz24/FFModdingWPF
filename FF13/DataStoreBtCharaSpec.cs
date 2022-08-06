@@ -1,9 +1,4 @@
 ﻿using Bartz24.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.FF13
 {
@@ -27,7 +22,7 @@ namespace Bartz24.FF13
             set { Data.SetUInt(0xF4, value); }
         }
         public string sDropItem1_string { get; set; }
-        
+
         public byte u8NumDrop
         {
             get { return Data.ReadByte(0x14C); }
