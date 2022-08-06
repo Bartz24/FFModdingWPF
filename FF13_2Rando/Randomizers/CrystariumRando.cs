@@ -22,10 +22,6 @@ namespace FF13_2Rando
 
         public CrystariumRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Crystarium...";
-        }
         public override string GetID()
         {
             return "Crystarium";

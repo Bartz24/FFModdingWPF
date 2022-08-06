@@ -22,10 +22,6 @@ namespace FF12Rando
 
         public LicenseBoardRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing License Boards...";
-        }
         public override string GetID()
         {
             return "License Boards";

@@ -25,10 +25,6 @@ namespace FF13Rando
 
         public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Battles...";
-        }
         public override string GetID()
         {
             return "Battles";

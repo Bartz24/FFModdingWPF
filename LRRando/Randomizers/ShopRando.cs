@@ -18,10 +18,6 @@ namespace LRRando
 
         public ShopRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Shops...";
-        }
         public override string GetID()
         {
             return "Shops";

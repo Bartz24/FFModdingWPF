@@ -24,10 +24,6 @@ namespace FF13_2Rando
 
         public HistoriaCruxRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Historia Crux...";
-        }
         public override string GetID()
         {
             return "Historia Crux";

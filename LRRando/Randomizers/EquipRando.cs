@@ -25,10 +25,6 @@ namespace LRRando
 
         public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Equipment...";
-        }
         public override string GetID()
         {
             return "Equip";

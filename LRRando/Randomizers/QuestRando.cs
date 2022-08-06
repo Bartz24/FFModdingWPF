@@ -16,10 +16,6 @@ namespace LRRando
 
         public QuestRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Quest Rewards...";
-        }
         public override string GetID()
         {
             return "Quests";
