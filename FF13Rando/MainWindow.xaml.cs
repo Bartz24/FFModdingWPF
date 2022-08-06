@@ -162,6 +162,7 @@ namespace FF13Rando
                             Directory.Delete(outFolder, true);
                         Directory.CreateDirectory(outFolder);
                         CopyFromTemplate(outFolder, "data\\modpack");
+                        RandoHelpers.UpdateSeedInFile(outFolder + "\\modconfig.ini", seed.ToString());
 
                         SetProgressBar("Loading Data...", -1);
 
