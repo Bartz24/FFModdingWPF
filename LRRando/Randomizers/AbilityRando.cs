@@ -14,10 +14,6 @@ namespace LRRando
 
         public AbilityRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Abilities...";
-        }
         public override string GetID()
         {
             return "Abilities";

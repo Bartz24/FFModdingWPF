@@ -35,10 +35,6 @@ namespace LRRando
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Treasures...";
-        }
         public override string GetID()
         {
             return "Treasures";

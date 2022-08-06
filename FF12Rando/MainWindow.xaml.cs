@@ -156,7 +156,6 @@ namespace FF12Rando
                         randomizers.ForEach(r => r.Load());
                         randomizers.ForEach(r =>
                         {
-                            SetProgressBar(r.GetProgressMessage(), 0);
                             r.Randomize(v => ProgressBarValue = v);
                         });
                         SetProgressBar("Saving Data...", -1);

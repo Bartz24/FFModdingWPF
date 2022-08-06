@@ -32,10 +32,6 @@ namespace Bartz24.RandoWPF
             return null;
         }
 
-        public virtual string GetProgressMessage()
-        {
-            return "Progressing...";
-        }
         public virtual string GetID()
         {
             return "NONE";

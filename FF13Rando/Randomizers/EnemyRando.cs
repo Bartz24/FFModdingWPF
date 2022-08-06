@@ -11,10 +11,6 @@ namespace FF13Rando
 
         public EnemyRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Enemies...";
-        }
         public override string GetID()
         {
             return "Enemies";

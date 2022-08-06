@@ -15,10 +15,6 @@ namespace FF13Rando
 
         public MusicRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Music...";
-        }
         public override string GetID()
         {
             return "Music";

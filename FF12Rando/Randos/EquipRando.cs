@@ -15,10 +15,6 @@ namespace FF12Rando
         public DataStoreBPEquip equip;
         public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Equip...";
-        }
         public override string GetID()
         {
             return "Equip";

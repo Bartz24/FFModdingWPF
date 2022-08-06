@@ -162,6 +162,7 @@ namespace LRRando
                             Directory.Delete(outFolder, true);
                         Directory.CreateDirectory(outFolder);
                         CopyFromFolder(outFolder, "data\\modpack");
+                        RandoHelpers.UpdateSeedInFile(outFolder + "\\modconfig.ini", seed.ToString());
 
                         SetProgressBar("Loading Data...", -1);
 
@@ -182,7 +183,6 @@ namespace LRRando
                         randomizers.ForEach(r => r.Load());
                         randomizers.ForEach(r =>
                         {
-                            SetProgressBar(r.GetProgressMessage(), 0);
                             r.Randomize(v => ProgressBarValue = v);
                         });
                         SetProgressBar("Saving Data...", -1);

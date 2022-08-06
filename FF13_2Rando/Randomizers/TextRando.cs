@@ -11,10 +11,6 @@ namespace FF13_2Rando
 
         public TextRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Text...";
-        }
         public override string GetID()
         {
             return "Text";

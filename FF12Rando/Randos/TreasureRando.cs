@@ -37,10 +37,6 @@ namespace FF12Rando
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetProgressMessage()
-        {
-            return "Randomizing Item Placement... (may take a while)";
-        }
         public override string GetID()
         {
             return "Treasures";
