@@ -21,10 +21,10 @@ namespace LRRando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Enemy Data...", -1, 100);
             string path = Nova.GetNovaFile("LR", @"db\resident\bt_chara_spec.wdb", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
             string outPath = SetupData.OutputFolder + @"\db\resident\bt_chara_spec.wdb";
             FileHelpers.CopyFile(path, outPath);
-
             enemies.Load("LR", outPath, SetupData.Paths["Nova"]);
             enemies["m375"].fBrkLoopTime3 = 1203982208;
             enemies["m375_break1"].fBrkLoopTime3 = 1203982208;
@@ -36,9 +36,12 @@ namespace LRRando
             enemies["m375_break2"].s8Ability18_string = "m375_ac900";
             enemies["m375_break3"].s8Ability18_string = "m375_ac900";
             enemies["m375_break4"].s8Ability18_string = "m375_ac900";
+
+            enemies["m330"].u16DropGil = 4000;
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Enemy Data...", -1, 100);
             EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
 
@@ -159,6 +162,7 @@ namespace LRRando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Enemy Data...", -1, 100);
             string outPath = SetupData.OutputFolder + @"\db\resident\bt_chara_spec.wdb";
             enemies.Save(outPath, SetupData.Paths["Nova"]);
         }

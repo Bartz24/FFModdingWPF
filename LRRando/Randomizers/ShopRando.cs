@@ -25,7 +25,9 @@ namespace LRRando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Shop Data...", 0, 100);
             shopsOrig.LoadDB3("LR", @"\db\resident\shop.wdb");
+            Randomizers.SetProgressFunc("Loading Shop Data...", 50, 100);
             shops.LoadDB3("LR", @"\db\resident\shop.wdb");
 
             FileHelpers.ReadCSVFile(@"data\shops.csv", row =>
@@ -77,12 +79,14 @@ namespace LRRando
             EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
 
+            Randomizers.SetProgressFunc("Randomizing Shop Data...", 0, 100);
             equipRando.itemWeapons.Values.Where(i => equipRando.items.Keys.Contains(i.name) && (i.u4WeaponKind == (int)WeaponKind.Weapon && i.u4AccessoryPos == 0 || i.u4WeaponKind == (int)WeaponKind.Shield)).ForEach(i =>
             {
                 equipRando.items[i.name].uSellPrice = (int)(2 * equipRando.items[i.name].uSellPrice / Math.Log10(Math.Pow(equipRando.items[i.name].uSellPrice, 1.5) / 1.5));
                 equipRando.items[i.name].uSellPrice = equipRando.items[i.name].uSellPrice.RoundToSignificantDigits((int)Math.Max(2, Math.Ceiling(Math.Log10(equipRando.items[i.name].uSellPrice) - 2)));
             });
 
+            Randomizers.SetProgressFunc("Randomizing Shop Data...", 20, 100);
             if (LRFlags.Items.Shops.FlagEnabled)
             {
                 LRFlags.Items.Shops.SetRand();
@@ -131,6 +135,9 @@ namespace LRRando
                     if (!string.IsNullOrEmpty(unique))
                         uniqueShops[unique].Add(adorn);
                 }
+
+                Randomizers.SetProgressFunc("Randomizing Shop Data...", 70, 100);
+
                 List<string> possibleItems = new List<string>();
                 possibleItems.AddRange(treasureRando.RemainingEquip);
                 possibleItems.AddRange(treasureRando.RemainingAdorn);
@@ -222,6 +229,7 @@ namespace LRRando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Shop Data...", -1, 100);
             shops.SaveDB3(@"\db\resident\shop.wdb");
         }
 

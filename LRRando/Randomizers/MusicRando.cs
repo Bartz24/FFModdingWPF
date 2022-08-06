@@ -23,6 +23,7 @@ namespace LRRando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Music Data...", -1, 100);
             FileHelpers.ReadCSVFile(@"data\musicLR.csv", row =>
             {
                 MusicData m = new MusicData(row);
@@ -32,6 +33,7 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Music Data...", -1, 100);
             if (LRFlags.Other.Music.FlagEnabled)
             {
                 LRFlags.Other.Music.SetRand();
@@ -52,6 +54,7 @@ namespace LRRando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Music Data...", -1, 100);
             for (int i = 0; i < Math.Min(soundFiles.Count, newSoundFiles.Count); i++)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName($"{SetupData.OutputFolder}\\{newSoundFiles[i]}"));

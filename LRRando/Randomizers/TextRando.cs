@@ -21,6 +21,7 @@ namespace LRRando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Text Data...", 0, 100);
             {
                 string path = Nova.GetNovaFile("LR", @"txtres\zone\z0100\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
                 string outPath = SetupData.OutputFolder + @"\txtres\zone\z0100\txtres_us.ztr";
@@ -33,6 +34,7 @@ namespace LRRando
             zone100SysUS["$sys_yu_noopn"] = "You need an {Color Gold}ID card{Color SkyBlue} and have to complete the Warehouse to open the gate.";
             zone100SysUS["$sys_yu_mq2"] = "You need {Color Gold}Serah's Pendant{Color SkyBlue} and have to check the table.";
 
+            Randomizers.SetProgressFunc("Loading Text Data...", 50, 100);
             {
                 string path = Nova.GetNovaFile("LR", @"txtres\resident\system\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
                 string outPath = SetupData.OutputFolder + @"\txtres\resident\system\txtres_us.ztr";
@@ -49,6 +51,7 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Text Data...", -1, 100);
             if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
             {
                 mainSysUS["$m_355"] += " (I may crash with {Key R2})";
@@ -236,6 +239,7 @@ namespace LRRando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Text Data...", -1, 100);
             string hash = GetHash();
 
             mainSysUS["$dif_conf_e"] = "{Icon Attention} You have selected {Color Red}EASY MODE{Color SkyBlue}.{Text NewLine}" +
