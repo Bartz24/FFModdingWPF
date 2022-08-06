@@ -1,9 +1,5 @@
 ﻿using HtmlAgilityPack;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.Docs
 {
@@ -11,7 +7,7 @@ namespace Bartz24.Docs
     {
         private string OnClick { get; }
         private string Name { get; }
-        public Button(string onclick, string id=null, string name="") : base("button", id)
+        public Button(string onclick, string id = null, string name = "") : base("button", id)
         {
             OnClick = onclick;
             Name = name;

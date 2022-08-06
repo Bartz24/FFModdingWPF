@@ -1,15 +1,9 @@
-﻿using Bartz24.Data;
-using Bartz24.FF13_2_LR;
+﻿using Bartz24.FF13_2_LR;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Bartz24.FF13_2_LR.Enums;
 
 namespace LRRando
 {
@@ -18,7 +12,7 @@ namespace LRRando
         public DataStoreDB3<DataStoreBtAbility> abilities = new DataStoreDB3<DataStoreBtAbility>();
         public DataStoreDB3<DataStoreRBtAbiGrow> abilityGrowths = new DataStoreDB3<DataStoreRBtAbiGrow>();
 
-        public AbilityRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public AbilityRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -53,7 +47,8 @@ namespace LRRando
                 if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled)
                     keys = keys.Where(t => treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1 != "ti810_00");
 
-                keys.ToList().Shuffle((t1, t2) => {
+                keys.ToList().Shuffle((t1, t2) =>
+                {
                     string value = treasureRando.PlacementAlgo.GetLocationItem(t1.ID, false).Item1;
                     treasureRando.PlacementAlgo.SetLocationItem(t1.ID, treasureRando.PlacementAlgo.GetLocationItem(t2.ID, false).Item1, 1);
                     treasureRando.PlacementAlgo.SetLocationItem(t2.ID, value, 1);

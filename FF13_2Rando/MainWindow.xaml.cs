@@ -8,18 +8,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FF13_2Rando
 {
@@ -255,7 +245,7 @@ namespace FF13_2Rando
                     {
                         innerMost = innerMost.InnerException;
                     }
-                    MessageBox.Show("Randomizer encountered an error:\n" + innerMost.Message, "Rando failed");
+                    MessageBox.Show("Randomizer encountered an error:\n" + innerMost.Message + "\n\n" + innerMost.StackTrace, "Rando failed");
                 }
 #if DEBUG
             }

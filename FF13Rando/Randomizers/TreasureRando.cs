@@ -2,16 +2,9 @@
 using Bartz24.Docs;
 using Bartz24.FF13;
 using Bartz24.RandoWPF;
-using CsvHelper;
-using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13Rando
 {
@@ -34,7 +27,7 @@ namespace FF13Rando
 
         public ItemPlacementAlgorithm<FF13ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgoNormal; }
 
-        public TreasureRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -219,7 +212,8 @@ namespace FF13Rando
             {
                 FF13Flags.Items.ShuffleShops.SetRand();
 
-                itemLocations.Values.Where(t => IsShop(t.ID, false)).ToList().Shuffle((l1, l2) => {
+                itemLocations.Values.Where(t => IsShop(t.ID, false)).ToList().Shuffle((l1, l2) =>
+                {
                     Tuple<string, int> temp = PlacementAlgo.GetLocationItem(l1.ID, false);
                     PlacementAlgo.SetLocationItem(l1.ID, PlacementAlgo.GetLocationItem(l2.ID, false).Item1, 1);
                     PlacementAlgo.SetLocationItem(l2.ID, temp.Item1, 1);

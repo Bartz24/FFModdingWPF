@@ -1,9 +1,6 @@
-﻿using Bartz24.RandoWPF;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF
 {
@@ -16,13 +13,13 @@ namespace Bartz24.RandoWPF
             return list.Where(t => rank >= t.LowBound && rank <= t.GetHighBound(count)).ToList();
         }
 
-        public Tuple<T,int> Get(int rank, int maxCount, Func<Tiered<T>,long> weightFunc = null, bool anyRandom = false)
+        public Tuple<T, int> Get(int rank, int maxCount, Func<Tiered<T>, long> weightFunc = null, bool anyRandom = false)
         {
             if (weightFunc == null)
                 weightFunc = t => t.Weight;
             List<Tiered<T>> items = GetTiered(rank, maxCount);
             Tiered<T> tiered = RandomNum.SelectRandomWeighted(items, weightFunc);
-            return Get(rank,maxCount, tiered, null, anyRandom);
+            return Get(rank, maxCount, tiered, null, anyRandom);
         }
 
         public Tuple<T, int> Get(int rank, int maxCount, Tiered<T> tiered, Func<T, bool> meetsReq = null, bool anyRandom = false)
@@ -33,10 +30,10 @@ namespace Bartz24.RandoWPF
             return possible[RandomNum.RandInt(0, possible.Count - 1)];
         }
 
-        public int GetRank(T obj, int count=1)
+        public int GetRank(T obj, int count = 1)
         {
             int avg = 0, avgCount = 0;
-            foreach(Tiered<T> tiered in list)
+            foreach (Tiered<T> tiered in list)
             {
                 int rank = tiered.GetRank(obj, count);
                 if (rank != -1)
@@ -46,7 +43,7 @@ namespace Bartz24.RandoWPF
                     avg += rank;
                     avgCount++;
                 }
-                    
+
             }
             return avgCount == 0 ? -1 : (int)Math.Round((float)avg / avgCount);
         }
@@ -54,7 +51,8 @@ namespace Bartz24.RandoWPF
         public int GetLowBound()
         {
             int lowest = Int32.MaxValue;
-            list.ForEach(t => {
+            list.ForEach(t =>
+            {
                 if (t.LowBound < lowest)
                     lowest = t.LowBound;
             });
@@ -64,7 +62,8 @@ namespace Bartz24.RandoWPF
         public int GetHighBound()
         {
             int highest = Int32.MinValue;
-            list.ForEach(t => {
+            list.ForEach(t =>
+            {
                 if (t.HighBound > highest)
                     highest = t.HighBound;
             });

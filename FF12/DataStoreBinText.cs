@@ -1,10 +1,7 @@
 ﻿using Bartz24.Data;
-using System;
-using System.Data;
-using System.Linq;
 using System.Collections.Generic;
-using System.Reflection;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Bartz24.FF12
@@ -53,7 +50,7 @@ namespace Bartz24.FF12
                 {
                     Match match = Regex.Match(lines[i], "{format:(.*)}");
                     Format = match.Groups[1].Value;
-                }    
+                }
                 else if (i > 1)
                 {
                     if (currentStr == null)
@@ -103,7 +100,7 @@ namespace Bartz24.FF12
                             currentStr = null;
                         }
                     }
-                    else if(lines[i] == "{/dialog}")
+                    else if (lines[i] == "{/dialog}")
                     {
                         currentStr = null;
                     }

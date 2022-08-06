@@ -1,9 +1,6 @@
-﻿using Bartz24.RandoWPF;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF
 {
@@ -13,7 +10,7 @@ namespace Bartz24.RandoWPF
         protected int maxCount, weight;
         protected float countScale;
 
-        public Tiered(int rank, T item,int weight=1, int max=1, float scale = 1.1f)
+        public Tiered(int rank, T item, int weight = 1, int max = 1, float scale = 1.1f)
         {
             this.maxCount = max;
             this.weight = weight;
@@ -37,7 +34,7 @@ namespace Bartz24.RandoWPF
 
         public List<T> Items
         {
-            get => list.Select(o => o.Item2).ToList();     
+            get => list.Select(o => o.Item2).ToList();
         }
 
         public List<int> Ranks
@@ -72,7 +69,7 @@ namespace Bartz24.RandoWPF
 
         public int GetRank(T obj, int count)
         {
-            foreach(Tuple<int,T> t in list)
+            foreach (Tuple<int, T> t in list)
             {
                 if (!t.Item2.Equals(obj))
                     continue;
@@ -107,8 +104,8 @@ namespace Bartz24.RandoWPF
 
         public int GetRandomCount(int rankBoost, int max)
         {
-            int lower = GetCount(rankBoost,max);
-            int upper = GetCount(rankBoost + 1,max);
+            int lower = GetCount(rankBoost, max);
+            int upper = GetCount(rankBoost + 1, max);
             return lower >= upper ? lower : RandomNum.RandInt(lower, upper - 1);
         }
 
@@ -131,7 +128,7 @@ namespace Bartz24.RandoWPF
                 if (anyRandom || (rank >= list[i].Item1 && rank <= upperBound && meetsReq.Invoke(list[i].Item2)))
                     validIndexes.Add(i);
             }
-            return validIndexes.Select(i => new Tuple<T, int>(list[i].Item2, GetRandomCount(rank - list[i].Item1,count))).ToList();
+            return validIndexes.Select(i => new Tuple<T, int>(list[i].Item2, GetRandomCount(rank - list[i].Item1, count))).ToList();
         }
 
     }

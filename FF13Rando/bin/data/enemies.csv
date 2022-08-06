@@ -133,8 +133,8 @@ m191,Bituitus,Flying|Event,12
 m192,Chonchon,,7
 m193,Seeker,,7
 m194,Ghoul,,1
-m195,Geiseric,,12
-m197,Attacus,,18
+m195,Geiseric,Event,12
+m197,Attacus,Event,18
 m199,Vetala,,12
 m201,Vercingetorix,Flying|Event,20
 m205,Deckdrone,,5
@@ -146,7 +146,7 @@ m213,Svarog,Flying,10
 m214,Circuitron,,5
 m215,Cryohedron,,7
 m216,Juggernaut,,14
-m222,Syphax,,14
+m222,Syphax,Event,14
 m229,PSICOM Bombardier,,4
 m230,PSICOM Destroyer,,6
 m231,Sanctum Celebrant,,9
@@ -159,7 +159,7 @@ m250,Sacrifice,,11
 m253,Cactuar,,11
 m254,Tonberry,,14
 m256,Flowering Cactuar,,11
-m257,Gigantuar,,16
+m257,Gigantuar,Event,16
 m260,Crusader,,3
 m261,PSICOM Executioner,,3
 m400,Uridimmu,,8

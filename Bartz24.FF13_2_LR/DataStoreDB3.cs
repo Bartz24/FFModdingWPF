@@ -1,12 +1,9 @@
 ﻿using Bartz24.Data;
 using System;
-using System.Data;
-using System.Data.SQLite;
-using System.Linq;
-using Dapper;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Reflection;
-using System.IO;
 
 namespace Bartz24.FF13_2_LR
 {
@@ -26,7 +23,7 @@ namespace Bartz24.FF13_2_LR
         public T this[string id]
         {
             get { return Data[id]; }
-        }        
+        }
 
         public List<string> Keys { get => Data.Keys.ToList(); }
         public List<T> Values { get => Data.Values.ToList(); }

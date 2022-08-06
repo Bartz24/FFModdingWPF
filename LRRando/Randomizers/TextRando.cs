@@ -1,15 +1,9 @@
 ﻿using Bartz24.Data;
-using Bartz24.FF13_2_LR;
 using Bartz24.FF13Series;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Bartz24.FF13_2_LR.Enums;
 
 namespace LRRando
 {
@@ -18,7 +12,7 @@ namespace LRRando
         public DataStoreZTRText zone100SysUS = new DataStoreZTRText();
         public DataStoreZTRText mainSysUS = new DataStoreZTRText();
 
-        public TextRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public TextRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -72,7 +66,7 @@ namespace LRRando
                 {
                 }
             }
-            
+
             LRFlags.Other.HintsPilgrim.SetRand();
 
             //EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
@@ -206,7 +200,7 @@ namespace LRRando
 
             foreach (char c in numberForm)
             {
-                switch(c)
+                switch (c)
                 {
                     case '0':
                         iconForm += "{Icon Shotgun}";

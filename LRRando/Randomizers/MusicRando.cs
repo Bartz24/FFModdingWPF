@@ -1,15 +1,9 @@
 ﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
-using CsvHelper;
-using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LRRando
 {
@@ -20,7 +14,7 @@ namespace LRRando
         Dictionary<string, string> names = new Dictionary<string, string>();
         Dictionary<string, MusicData> musicData = new Dictionary<string, MusicData>();
 
-        public MusicRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public MusicRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -61,7 +55,7 @@ namespace LRRando
         }*/
 
         public override void Save()
-        {            
+        {
             for (int i = 0; i < Math.Min(soundFiles.Count, newSoundFiles.Count); i++)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName($"{SetupData.OutputFolder}\\{newSoundFiles[i]}"));

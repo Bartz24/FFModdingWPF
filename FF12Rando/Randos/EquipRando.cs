@@ -1,14 +1,10 @@
-﻿using Bartz24.Docs;
+﻿using Bartz24.Data;
+using Bartz24.FF12;
+using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bartz24.Data;
-using Bartz24.RandoWPF;
-using Bartz24.FF12;
 
 namespace FF12Rando
 {
@@ -277,7 +273,7 @@ namespace FF12Rando
                 newElem.Shuffle().Take(count).ForEach(e => ammo.Elements |= e);
             }
 
-            foreach(DataStoreAttribute attribute in equip.AttributeDataList)
+            foreach (DataStoreAttribute attribute in equip.AttributeDataList)
             {
                 StatPoints statPoints;
                 Tuple<int, int>[] bounds = new Tuple<int, int>[] {
@@ -389,7 +385,7 @@ namespace FF12Rando
 
                 for (int i = 0; i < countEquip; i++)
                 {
-                    Bartz24.FF12.Status next = RandomNum.SelectRandomWeighted(newStatus, s=>StatusEffectWeightOnEquip(s, id));
+                    Bartz24.FF12.Status next = RandomNum.SelectRandomWeighted(newStatus, s => StatusEffectWeightOnEquip(s, id));
                     newStatus.Remove(next);
                     attribute.StatusEffectsOnEquip |= next;
                 }

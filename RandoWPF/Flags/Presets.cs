@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF
 {
@@ -31,7 +29,7 @@ namespace Bartz24.RandoWPF
         public static event EventHandler SelectedChanged = delegate { };
 
         public static string Serialize(string presetName, string version)
-        {            
+        {
             JObject o = JObject.FromObject(new
             {
                 name = presetName,
@@ -57,7 +55,8 @@ namespace Bartz24.RandoWPF
 
         public static void LoadPresets()
         {
-            Directory.GetFiles(@"data\presets", "*.json").ToList().ForEach(f => {
+            Directory.GetFiles(@"data\presets", "*.json").ToList().ForEach(f =>
+            {
                 LoadPreset(f, false);
             });
 
@@ -65,7 +64,8 @@ namespace Bartz24.RandoWPF
 
             if (!Directory.Exists("presets"))
                 Directory.CreateDirectory("presets");
-            Directory.GetFiles(@"presets", "*.json").ToList().ForEach(f => {
+            Directory.GetFiles(@"presets", "*.json").ToList().ForEach(f =>
+            {
                 LoadPreset(f, true);
             });
         }

@@ -1,14 +1,8 @@
-﻿using Bartz24.Data;
-using Bartz24.Docs;
-using Bartz24.FF13;
+﻿using Bartz24.FF13;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13Rando
 {
@@ -16,7 +10,7 @@ namespace FF13Rando
     {
         public DataStoreWDB<DataStoreItem> items = new DataStoreWDB<DataStoreItem>();
 
-        public EquipRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {

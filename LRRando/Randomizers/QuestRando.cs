@@ -4,12 +4,8 @@ using Bartz24.LR;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Bartz24.FF13_2_LR.Enums;
 
 namespace LRRando
 {
@@ -18,7 +14,7 @@ namespace LRRando
         public DataStoreDB3<DataStoreRQuest> questRewards = new DataStoreDB3<DataStoreRQuest>();
         public DataStoreDB3<DataStoreRQuestCtrl> questRequirements = new DataStoreDB3<DataStoreRQuestCtrl>();
 
-        public QuestRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public QuestRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {

@@ -5,11 +5,7 @@ using Bartz24.LR;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Bartz24.FF13_2_LR.Enums;
 
 namespace LRRando
@@ -27,7 +23,7 @@ namespace LRRando
 
         List<string> passives = new List<string>();
 
-        public EquipRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -104,7 +100,8 @@ namespace LRRando
                 RandomNum.ClearRand();
             }
 
-            itemWeapons.Values.Where(a => a.u4AccessoryPos > 0 && items.Keys.Contains(a.name)).ForEach(a => {
+            itemWeapons.Values.Where(a => a.u4AccessoryPos > 0 && items.Keys.Contains(a.name)).ForEach(a =>
+            {
                 items[a.name].uPurchasePrice = 50000;
                 items[a.name].u1OnlyOne = 1;
             });

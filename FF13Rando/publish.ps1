@@ -18,9 +18,10 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
 }
 
 $Update = Read-Host "Publish and create 7z? (Y/N)"
-$Release = Read-Host "Publish and create as release build? (Y/N)"
 if ( ($Update -eq "Y") -or ($Update -eq "y") )
 {
+    dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true --output "bin\publish"
+
     Write-Host "Copying data to bin\publish..."
 
     Remove-Item -Recurse -Force "bin\publish\data" -ErrorAction Ignore
@@ -32,9 +33,6 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
     & "7z.exe" a -t7z "FF13Randomizer$Version.7z" "data" "README.pdf" "FF13Rando.exe"
     Pop-Location
 
-    if ( ($Release -ne "Y") -or ($Release -ne "y") )
-    {
-        Copy-Item -Path "bin\publish\FF13Randomizer$Version.7z" -Destination "bin\build\FF13RandomizerPreview.7z" -Force
-    }
+    Copy-Item -Path "bin\publish\FF13Randomizer$Version.7z" -Destination "bin\build\FF13RandomizerPreview.7z" -Force
 }
 Read-Host -Prompt "Press Enter to exit"

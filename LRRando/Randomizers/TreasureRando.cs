@@ -3,17 +3,9 @@ using Bartz24.Docs;
 using Bartz24.FF13_2_LR;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
-using CsvHelper;
-using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Bartz24.FF13_2_LR.Enums;
 
 namespace LRRando
 {
@@ -41,7 +33,7 @@ namespace LRRando
 
         public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgo; }
 
-        public TreasureRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -147,8 +139,10 @@ namespace LRRando
             }
             RandomNum.ClearRand();
 
-            placementAlgo = new LRAssumedItemPlacementAlgorithm(itemLocations, locations, Randomizers, 10);
+            placementAlgo = new LRAssumedItemPlacementAlgorithm(itemLocations, locations, Randomizers, 3);
+            placementAlgo.SetProgressFunc = Randomizers.SetProgressFunc;
             placementAlgoBackup = new LRItemPlacementAlgorithm(itemLocations, locations, Randomizers);
+            placementAlgoBackup.SetProgressFunc = Randomizers.SetProgressFunc;
         }
 
         public void AddTreasure(string newName, string item, int count, string next)
@@ -186,7 +180,7 @@ namespace LRRando
 
                 List<string> keys = itemLocations.Keys.ToList().Shuffle().ToList();
 
-                if(!placementAlgo.Randomize(new List<string>()))
+                if (!placementAlgo.Randomize(new List<string>()))
                 {
                     usingBackup = true;
                     placementAlgoBackup.Randomize(new List<string>());

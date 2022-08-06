@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Bartz24.Data
 {
@@ -10,7 +6,7 @@ namespace Bartz24.Data
     {
         public string ID
         {
-            get => Encoding.UTF8.GetString(Data.SubArray(0, 0x10)).Replace("\0","");
+            get => Encoding.UTF8.GetString(Data.SubArray(0, 0x10)).Replace("\0", "");
             set
             {
                 byte[] bytes = Encoding.UTF8.GetBytes(value.ToCharArray(), 0, 0x10);

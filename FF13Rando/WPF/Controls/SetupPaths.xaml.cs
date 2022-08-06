@@ -1,21 +1,9 @@
 using Bartz24.RandoWPF;
 using Ookii.Dialogs.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FF13Rando
 {
@@ -84,7 +72,7 @@ namespace FF13Rando
                     MessageBox.Show("Make sure the executable is something like 'NovaChrysalia.exe'.", "The selected executable is not valid");
             }
         }
-        
+
         private void steamPath13Button_Click(object sender, RoutedEventArgs e)
         {
             VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog();
@@ -103,7 +91,7 @@ namespace FF13Rando
                     MessageBox.Show("Make sure the folder is something like 'FINAL FANTASY XIII'.", "The selected folder is not valid");
             }
         }
-        
+
 
         /*private void steamPath13_2Button_Click(object sender, RoutedEventArgs e)
         {

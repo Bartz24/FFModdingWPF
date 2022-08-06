@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bartz24.Docs;
+﻿using Bartz24.Docs;
+using System;
 
 namespace Bartz24.RandoWPF
 {
@@ -31,7 +26,7 @@ namespace Bartz24.RandoWPF
         {
 
         }
-        
+
         public virtual HTMLPage GetDocumentation()
         {
             return null;

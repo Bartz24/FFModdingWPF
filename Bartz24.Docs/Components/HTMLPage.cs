@@ -1,10 +1,8 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HtmlAgilityPack;
 
 namespace Bartz24.Docs
 {
@@ -38,7 +36,7 @@ namespace Bartz24.Docs
 
             new Header(docs.Pages.ToDictionary(p => p.Key, p => p.Value.Name), docs.Settings.Name, "common/header.html", mainFolder).Generate().ForEach(n => doc.GetBody().AppendChild(n));
             GenerateContent(doc);
-            doc.Save(fileName);            
+            doc.Save(fileName);
         }
 
         protected virtual void GenerateContent(HtmlDocument doc)

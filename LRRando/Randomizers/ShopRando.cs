@@ -5,11 +5,7 @@ using Bartz24.LR;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Bartz24.FF13_2_LR.Enums;
 
 namespace LRRando
@@ -20,7 +16,7 @@ namespace LRRando
         DataStoreDB3<DataStoreShop> shops = new DataStoreDB3<DataStoreShop>();
         Dictionary<string, ShopData> shopData = new Dictionary<string, ShopData>();
 
-        public ShopRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public ShopRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -105,20 +101,20 @@ namespace LRRando
                 shopData.Keys.Select(s => shopsOrig[s]).ForEach(s => shopsDict.Add(s.name, s.GetItems().Where(i =>
                       s.u3Category == (int)ShopCategory.Inn ||
                       (s.u3Category == (int)ShopCategory.Libra && (
-                                    !i.StartsWith("libra") || 
+                                    !i.StartsWith("libra") ||
                                     treasureRando.itemLocations.Values.Where(t => treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1 == i).Count() == 0)
                       )).ToList())
                 );
 
                 Dictionary<string, int> maxSizes = shopsDict.Keys.ToDictionary(k => k, k =>
                     shopsDict[k].Count + RandomNum.RandInt(
-                        shopsOrig[k].u3Category == (int)ShopCategory.Ark || shopsOrig[k].u3Category == (int)ShopCategory.Items ? 1 : 3, 
+                        shopsOrig[k].u3Category == (int)ShopCategory.Ark || shopsOrig[k].u3Category == (int)ShopCategory.Items ? 1 : 3,
                         (shopsOrig[k].u3Category == (int)ShopCategory.Ark || shopsOrig[k].u3Category == (int)ShopCategory.Items ? 6 : 18) - shopsDict[k].Count)
                 );
                 List<string> libraMaterials = new List<string>();
                 shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra).ForEach(_ => libraMaterials.AddRange(equipRando.items.Keys.Where(i => i.StartsWith("mat_z")).ToList().Shuffle()));
 
-                for(int n = 4; n <= 8; n++)
+                for (int n = 4; n <= 8; n++)
                 {
                     shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra && shopsDict.ContainsKey(s.name)).ForEach(s => shopsDict[s.name].Add("mat_abi_0_0" + n));
                 }

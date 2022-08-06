@@ -1,16 +1,11 @@
 ﻿using Bartz24.Data;
-using Bartz24.Docs;
 using Bartz24.FF13_2;
 using Bartz24.FF13_2_LR;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Bartz24.FF13_2_LR.Enums;
 using static FF13_2Rando.CrystariumRando;
 
 namespace FF13_2Rando
@@ -20,7 +15,7 @@ namespace FF13_2Rando
         public DataStoreDB3<DataStoreItemWeapon> itemWeapons = new DataStoreDB3<DataStoreItemWeapon>();
         public DataStoreDB3<DataStoreItem> items = new DataStoreDB3<DataStoreItem>();
 
-        public EquipRando(RandomizerManager randomizers) : base(randomizers) {  }
+        public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
         public override string GetProgressMessage()
         {
@@ -67,14 +62,14 @@ namespace FF13_2Rando
             foreach (DataStoreItemWeapon weapon in itemWeapons.Values.Where(w => w.name.Contains("wea")))
             {
                 StatPoints statPoints;
-                    Tuple<int, int>[] bounds = new Tuple<int, int>[] {
+                Tuple<int, int>[] bounds = new Tuple<int, int>[] {
                         new Tuple<int, int>(1, 300),
                         new Tuple<int, int>(1, 300)
                     };
-                    float[] weights = new float[] { 1, 1 };
-                    int[] zeros = new int[] { 0, 0 };
-                    int[] negs = new int[] { 0, 0 };
-                    statPoints = new StatPoints(bounds, weights, zeros, negs);
+                float[] weights = new float[] { 1, 1 };
+                int[] zeros = new int[] { 0, 0 };
+                int[] negs = new int[] { 0, 0 };
+                statPoints = new StatPoints(bounds, weights, zeros, negs);
                 statPoints.Randomize(new int[] { weapon.i16AttackModVal, weapon.i16MagicModVal });
 
                 weapon.i16AttackModVal = statPoints[0];
