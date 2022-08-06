@@ -23,8 +23,10 @@ namespace LRRando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Quest Data...", 0, 100);
             questRewards.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_quest.wdb", false);
             FileHelpers.CopyFile(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb", SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
+            Randomizers.SetProgressFunc("Loading Quest Data...", 50, 100);
             questRequirements.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb", false);
 
             questRewards["qst_062"].iMaxGp = 2000;
@@ -33,6 +35,7 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Quest Data...", 0, 100);
             if (LRFlags.StatsAbilities.Quests.FlagEnabled)
             {
                 LRFlags.StatsAbilities.Quests.SetRand();
@@ -100,6 +103,7 @@ namespace LRRando
                 RandomNum.ClearRand();
             }
 
+            Randomizers.SetProgressFunc("Randomizing Quest Data...", 80, 100);
             if (LRFlags.Items.CoPReqs.FlagEnabled)
             {
                 questRequirements.Values.Where(q => q.iQuestIndex >= 1000).ForEach(q =>
@@ -122,8 +126,10 @@ namespace LRRando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Quest Data...", 0, 100);
             questRewards.SaveDB3(@"\db\resident\_wdbpack.bin\r_quest.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_quest.wdb");
+            Randomizers.SetProgressFunc("Saving Quest Data...", 50, 100);
             questRequirements.SaveDB3(@"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_quest_ctrl.wdb");
             TempSaveFix();

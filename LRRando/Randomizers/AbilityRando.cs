@@ -21,9 +21,12 @@ namespace LRRando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Ability Data...", 0, 100);
             abilities.LoadDB3("LR", @"\db\resident\bt_ability.wdb");
+            Randomizers.SetProgressFunc("Loading Ability Data...", 50, 100);
             abilityGrowths.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb", false);
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            Randomizers.SetProgressFunc("Loading Ability Data...", 80, 100);
             treasureRando.AddTreasure("ini_ba_abi", "", 1, "");
             treasureRando.AddTreasure("ini_ca_abi", "", 1, "");
         }
@@ -31,6 +34,7 @@ namespace LRRando
         {
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
 
+            Randomizers.SetProgressFunc("Randomizing Ability Data...", 0, 100);
             if (LRFlags.StatsAbilities.EPAbilities.FlagEnabled)
             {
                 LRFlags.StatsAbilities.EPAbilities.SetRand();
@@ -58,6 +62,7 @@ namespace LRRando
                 RandomNum.ClearRand();
             }
 
+            Randomizers.SetProgressFunc("Randomizing Ability Data...", 50, 100);
             if (LRFlags.StatsAbilities.EPCosts.FlagEnabled)
             {
                 LRFlags.StatsAbilities.EPCosts.SetRand();
@@ -101,8 +106,9 @@ namespace LRRando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Ability Data...", 0, 100);
             abilities.SaveDB3(@"\db\resident\bt_ability.wdb");
-            //abilities.DeleteDB3(@"\db\resident\bt_ability.db3");
+            Randomizers.SetProgressFunc("Saving Ability Data...", 50, 100);
             abilityGrowths.DeleteDB3(@"\db\resident\_wdbpack.bin\r_bt_abi_grow.db3");
         }
     }

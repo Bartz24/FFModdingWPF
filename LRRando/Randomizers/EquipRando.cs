@@ -32,12 +32,19 @@ namespace LRRando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Equip Data...", 0, 100);
             itemWeapons.LoadDB3("LR", @"\db\resident\item_weapon.wdb");
+            Randomizers.SetProgressFunc("Loading Equip Data...", 10, 100);
             items.LoadDB3("LR", @"\db\resident\item.wdb");
+            Randomizers.SetProgressFunc("Loading Equip Data...", 30, 100);
             itemsOrig.LoadDB3("LR", @"\db\resident\item.wdb");
+            Randomizers.SetProgressFunc("Loading Equip Data...", 40, 100);
             autoAbilities.LoadDB3("LR", @"\db\resident\bt_auto_ability.wdb");
+            Randomizers.SetProgressFunc("Loading Equip Data...", 50, 100);
             itemAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
+            Randomizers.SetProgressFunc("Loading Equip Data...", 70, 100);
             itemAbilitiesOrig.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
+            Randomizers.SetProgressFunc("Loading Equip Data...", 80, 100);
             passiveAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_pasv_ablty.wdb", false);
 
             FileHelpers.ReadCSVFile(@"data\passives.csv", row =>
@@ -64,6 +71,7 @@ namespace LRRando
             items["key_r_multi"].u16SortAllByKCategory = 101;
             items["key_r_multi"].u16SortCategoryByCategory = 151;
 
+            Randomizers.SetProgressFunc("Loading Equip Data...", 90, 100);
             itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
             itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
 
@@ -75,6 +83,7 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Equip Data...", 0, 100);
             if (LRFlags.StatsAbilities.EquipStats.FlagEnabled)
             {
                 LRFlags.StatsAbilities.EquipStats.SetRand();
@@ -82,6 +91,7 @@ namespace LRRando
                 RandomNum.ClearRand();
             }
 
+            Randomizers.SetProgressFunc("Randomizing Equip Data...", 40, 100);
             if (LRFlags.StatsAbilities.GarbAbilities.FlagEnabled)
             {
                 LRFlags.StatsAbilities.GarbAbilities.SetRand();
@@ -89,6 +99,7 @@ namespace LRRando
                 RandomNum.ClearRand();
             }
 
+            Randomizers.SetProgressFunc("Randomizing Equip Data...", 70, 100);
             if (LRFlags.StatsAbilities.EquipPassives.FlagEnabled)
             {
                 LRFlags.StatsAbilities.EquipPassives.SetRand();
@@ -333,10 +344,14 @@ namespace LRRando
 
             itemAbilities.Values.Where(i => i.i8AtbDec < 0).ForEach(i => i.i8AtbDec += 256);
 
+            Randomizers.SetProgressFunc("Saving Equip Data...", 0, 100);
             itemWeapons.SaveDB3(@"\db\resident\item_weapon.wdb");
+            Randomizers.SetProgressFunc("Saving Equip Data...", 20, 100);
             items.SaveDB3(@"\db\resident\item.wdb");
+            Randomizers.SetProgressFunc("Saving Equip Data...", 40, 100);
             itemAbilities.SaveDB3(@"\db\resident\_wdbpack.bin\r_item_abi.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_item_abi.wdb");
+            Randomizers.SetProgressFunc("Saving Equip Data...", 80, 100);
             autoAbilities.DeleteDB3(@"\db\resident\bt_auto_ability.db3");
             passiveAbilities.DeleteDB3(@"\db\resident\_wdbpack.bin\r_pasv_ablty.db3");
         }
