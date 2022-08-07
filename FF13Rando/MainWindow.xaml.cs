@@ -163,6 +163,7 @@ namespace FF13Rando
                         Directory.CreateDirectory(outFolder);
                         CopyFromTemplate(outFolder, "data\\modpack");
                         RandoHelpers.UpdateSeedInFile(outFolder + "\\modconfig.ini", seed.ToString());
+                        File.Move(outFolder + "\\Code\\patch.nccp", outFolder + $"\\Code\\FF13 Randomizer {seed}.nccp");
 
                         SetProgressBar("Loading Data...", -1);
 
