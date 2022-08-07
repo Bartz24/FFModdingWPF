@@ -15,6 +15,8 @@ namespace Bartz24.RandoWPF
 
         public List<string> HintsByLocation = new List<string>();
         public Dictionary<string, int> HintsByLocationsCount = new Dictionary<string, int>();
+
+        Dictionary<string, double> AreaMults = new Dictionary<string, double>();
         public Action<string, int, int> SetProgressFunc { get; set; }
 
         protected int maxFailCount;
@@ -26,8 +28,9 @@ namespace Bartz24.RandoWPF
             maxFailCount = maxFail;
         }
 
-        public virtual bool Randomize(List<string> defaultAreas)
+        public virtual bool Randomize(List<string> defaultAreas, Dictionary<string, double> areaMults)
         {
+            AreaMults = areaMults;
             Placement.Clear();
             Depths.Clear();
             List<string> allowed = GetKeysAllowed();
@@ -333,6 +336,10 @@ namespace Bartz24.RandoWPF
             }
 
             return remaining.OrderByDescending(rep => locked.ContainsKey(rep) ? locked[rep] : -1).ToList();
+        }
+        public double GetAreaMult(string location)
+        {
+            return Math.Max(0.01, ItemLocations[location].Areas.Select(a => AreaMults[a]).Average());
         }
     }
 }

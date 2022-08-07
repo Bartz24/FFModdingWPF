@@ -83,6 +83,52 @@ namespace LRRando
                 RandomNum.ClearRand();
             }
 
+
+            Randomizers.SetProgressFunc("Randomizing Ability Data...", 80, 100);
+            if (LRFlags.StatsAbilities.AbilityPassives.FlagEnabled)
+            {
+                EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+                LRFlags.StatsAbilities.AbilityPassives.SetRand();
+
+                abilityGrowths.Values.ForEach(abi =>
+                {
+                    if (abi.sPasvAbility1_string != "" && abi.sPasvAbility1_string != "0")
+                        abi.sPasvAbility1_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility2_string != "" && abi.sPasvAbility2_string != "0")
+                        abi.sPasvAbility2_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility3_string != "" && abi.sPasvAbility3_string != "0")
+                        abi.sPasvAbility3_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility4_string != "" && abi.sPasvAbility4_string != "0")
+                        abi.sPasvAbility4_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility5_string != "" && abi.sPasvAbility5_string != "0")
+                        abi.sPasvAbility5_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility6_string != "" && abi.sPasvAbility6_string != "0")
+                        abi.sPasvAbility6_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility7_string != "" && abi.sPasvAbility7_string != "0")
+                        abi.sPasvAbility7_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility8_string != "" && abi.sPasvAbility8_string != "0")
+                        abi.sPasvAbility8_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility9_string != "" && abi.sPasvAbility9_string != "0")
+                        abi.sPasvAbility9_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility10_string != "" && abi.sPasvAbility10_string != "0")
+                        abi.sPasvAbility10_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility11_string != "" && abi.sPasvAbility11_string != "0")
+                        abi.sPasvAbility11_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility12_string != "" && abi.sPasvAbility12_string != "0")
+                        abi.sPasvAbility12_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility13_string != "" && abi.sPasvAbility13_string != "0")
+                        abi.sPasvAbility13_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility14_string != "" && abi.sPasvAbility14_string != "0")
+                        abi.sPasvAbility14_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility15_string != "" && abi.sPasvAbility15_string != "0")
+                        abi.sPasvAbility15_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                    if (abi.sPasvAbility16_string != "" && abi.sPasvAbility16_string != "0")
+                        abi.sPasvAbility16_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
+                });
+
+                RandomNum.ClearRand();
+            }
+
             LRFlags.StatsAbilities.EPAbilities.SetRand();
             RandomizeInitAbility("ini_ba_abi");
             RandomizeInitAbility("ini_ca_abi");
@@ -109,7 +155,8 @@ namespace LRRando
             Randomizers.SetProgressFunc("Saving Ability Data...", 0, 100);
             abilities.SaveDB3(@"\db\resident\bt_ability.wdb");
             Randomizers.SetProgressFunc("Saving Ability Data...", 50, 100);
-            abilityGrowths.DeleteDB3(@"\db\resident\_wdbpack.bin\r_bt_abi_grow.db3");
+            abilityGrowths.SaveDB3(@"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb");
+            SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_bt_abi_grow.wdb");
         }
     }
 }

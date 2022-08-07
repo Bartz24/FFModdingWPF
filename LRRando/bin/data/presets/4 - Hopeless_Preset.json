@@ -1,0 +1,224 @@
+{
+  "name": "4 - Hopeless",
+  "version": "0.7.3.0",
+  "flags": [
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandEqStat"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandGarbAbi"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandPassive"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "EPAbiEsc"
+        },
+        {
+          "Enabled": true,
+          "ID": "EPAbiChr"
+        },
+        {
+          "Enabled": true,
+          "ID": "EPAbiTlp"
+        }
+      ],
+      "FlagID": "EPAbi"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Quests"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "EPZero"
+        },
+        {
+          "Value": 5,
+          "ID": "EPRange"
+        }
+      ],
+      "FlagID": "RandEPCost"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "AbiPass"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "NerfOC"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "RandEneSize"
+        },
+        {
+          "Enabled": true,
+          "ID": "RandEncCount"
+        },
+        {
+          "Enabled": true,
+          "ID": "RandProlo"
+        },
+        {
+          "Enabled": true,
+          "ID": "RandBoss"
+        },
+        {
+          "Enabled": true,
+          "ID": "RandZaltys"
+        },
+        {
+          "Enabled": true,
+          "ID": "RandEresh"
+        },
+        {
+          "Enabled": false,
+          "ID": "RandAeronite"
+        }
+      ],
+      "FlagID": "RandEne"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandMatDrops"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandAbiDrops"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "BhuniPlus"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "Pilgrims"
+        },
+        {
+          "Enabled": true,
+          "ID": "LearnEP"
+        },
+        {
+          "Enabled": true,
+          "ID": "EPMiss"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyMain"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeySide"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyCoP"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceTreas"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceQuest"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceCoP"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceSuperboss"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceGrindy"
+        },
+        {
+          "SelectedValue": "Hard+++",
+          "ID": "KeyDepth"
+        },
+        {
+          "Enabled": true,
+          "ID": "BuyID"
+        }
+      ],
+      "FlagID": "Treasures"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "Shops"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "CoPReqs"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "Fanfare"
+        }
+      ],
+      "FlagID": "Music"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "SelectedValue": "Random",
+          "ID": "HintsSpecific"
+        },
+        {
+          "Enabled": false,
+          "ID": "HintsDepth"
+        }
+      ],
+      "FlagID": "HintsMain"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "HintsArea"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "HintsEP"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "HintsPilgrim"
+    }
+  ]
+}

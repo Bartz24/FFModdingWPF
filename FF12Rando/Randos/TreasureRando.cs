@@ -133,10 +133,11 @@ namespace FF12Rando
 
                 CollapseAndSelectTreasures();
 
-                if (!placementAlgo.Randomize(new List<string>()))
+                Dictionary<string, double> areaMults = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
+                if (!placementAlgo.Randomize(new List<string>(), areaMults))
                 {
                     usingBackup = true;
-                    placementAlgoBackup.Randomize(new List<string>());
+                    placementAlgoBackup.Randomize(new List<string>(), areaMults);
                 }
 
                 int respawnIndex = 0;

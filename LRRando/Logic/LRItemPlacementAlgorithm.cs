@@ -11,8 +11,6 @@ namespace LRRando
     {
         TreasureRando treasureRando;
 
-        Dictionary<string, int> AreaDepths = new Dictionary<string, int>();
-
         public LRItemPlacementAlgorithm(Dictionary<string, ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers) : base(itemLocations, hintsByLocations)
         {
             treasureRando = randomizers.Get<TreasureRando>("Treasures");
@@ -52,7 +50,8 @@ namespace LRRando
         {
             return req.GetPossibleRequirements().Select(item =>
             {
-                return Placement.Keys.Where(t => GetLocationItem(Placement[t]).Item1 == item).Select(t => Depths[t] + GetReqsMaxDepth(ItemLocations[t].Requirements)).DefaultIfEmpty(0).Max();
+                List<string> reqChecks = Placement.Keys.Where(t => GetLocationItem(Placement[t]).Item1 == item && !ItemLocations[t].Requirements.GetPossibleRequirements().Contains(item)).ToList();
+                return reqChecks.Select(t => Depths[t] + GetReqsMaxDepth(ItemLocations[t].Requirements)).DefaultIfEmpty(0).Max();
             }).DefaultIfEmpty(0).Max();
         }
 
@@ -209,6 +208,11 @@ namespace LRRando
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !LRFlags.Items.KeyPlaceGrindy.Enabled)
                     return false;
             }
+            if (ItemLocations[old].Traits.Contains("Superboss"))
+            {
+                if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !LRFlags.Items.KeyPlaceSuperboss.Enabled)
+                    return false;
+            }
             if (ItemLocations[old].Traits.Contains("Quest"))
             {
                 if (treasureRando.IsEPAbility(rep))
@@ -267,7 +271,7 @@ namespace LRRando
                 if (index == 3)
                     expBase = 1.5f;
                 Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
-                string next = RandomNum.SelectRandomWeighted(possible, s => (long)Math.Pow(expBase, possDepths[s]));
+                string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + GetAreaMult(s) * 16d));
                 return new Tuple<string, int>(next, possDepths[next]);
             }
         }

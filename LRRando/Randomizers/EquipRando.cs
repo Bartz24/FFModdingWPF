@@ -332,7 +332,7 @@ namespace LRRando
             }
         }
 
-        private List<DataStoreBtAutoAbility> GetFilteredAbilities()
+        public List<DataStoreBtAutoAbility> GetFilteredAbilities()
         {
             return autoAbilities.Values.Where(a => passives.Contains(a.name)).ToList();
         }
