@@ -69,7 +69,7 @@ namespace LRRando
             LRFlags.Other.HintsPilgrim.SetRand();
 
             //EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
-            //RandomizeWords(equipRando.items.Values.Where(i => i.sItemNameStringId_string != "").Select(i => i.sItemNameStringId_string).ToList());
+            RandomizeWords(mainSysUS.Keys.Where(k => k.StartsWith("$sns")).ToList());
 
             RandomNum.ClearRand();
         }
@@ -94,8 +94,6 @@ namespace LRRando
                             string next = RandomNum.SelectRandomWeighted(wordDictionary.Keys.ToList(), s => wordDictionary[s]);
                             string modified = next;
 
-                            if (word.ToUpper() == word)
-                                modified = modified.ToUpper();
                             if (word.Length > 1 && word[0].ToString().ToUpper() == word[0].ToString())
                                 modified = modified[0].ToString().ToUpper() + modified.Substring(1);
                             parts[i] = modified;
@@ -190,7 +188,7 @@ namespace LRRando
         }
 
         private string[] Punctuation { get; set; } = new string[] { " ", ".", ",", "{Text NewLine}", "!", "{", "(", ")", "?", ":", "-", "+" };
-        private string[] IgnoredWords { get; set; } = new string[] { "of", "the", "at", "a", "in", "on", "its", "an" };
+        private string[] IgnoredWords { get; set; } = new string[] { "of", "the", "at", "a", "in", "on", "its", "an", "i", "i'm" };
 
         private string GetHash()
         {

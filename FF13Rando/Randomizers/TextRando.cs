@@ -48,18 +48,61 @@ namespace FF13Rando
         {
             Randomizers.SetProgressFunc("Randomizing Text Data...", -1, 100);
         }
-
         private string GetHash()
         {
-            string numberForm = RandomNum.GetHash(6);
+            string numberForm = RandomNum.GetHash(6, 9);
             string iconForm = "";
 
-            return numberForm;
+            foreach (char c in numberForm)
+            {
+                switch (c)
+                {
+                    case '0':
+                        iconForm += "{Icon Clock}";
+                        break;
+                    case '1':
+                        iconForm += "{Icon Attention}";
+                        break;
+                    case '2':
+                        iconForm += "{Icon Exclamation}";
+                        break;
+                    case '3':
+                        iconForm += "{Icon EmptryCirlces}";
+                        break;
+                    case '4':
+                        iconForm += "{Icon Greather}";
+                        break;
+                    case '5':
+                        iconForm += "{Icon Less}";
+                        break;
+                    case '6':
+                        iconForm += "{Icon Doc}";
+                        break;
+                    case '7':
+                        iconForm += "{Icon Ok}";
+                        break;
+                    case '8':
+                        iconForm += "{Icon FilledCirlces}";
+                        break;
+                }
+            }
+
+            return iconForm;
         }
 
         public override void Save()
         {
             Randomizers.SetProgressFunc("Saving Text Data...", -1, 100);
+            string hash = GetHash();
+
+            mainSysUS["$dif_conf_e"] = "{Icon Attention} You have selected {Color Red}EASY MODE{Color SkyBlue} for battles.{Text NewLine}" +
+                "Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
+                "Seed Hash (for validation): " + hash + "{Text NewLine}" +
+                "Begin playing in {Color Red}EASY MODE{Color SkyBlue}?|Yes|No";
+            mainSysUS["$dif_conf_n"] = "{Icon Attention} You have selected {Color Red}NORMAL MODE{Color SkyBlue} for battles.{Text NewLine}" +
+                "Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
+                "Seed Hash (for validation): " + hash + "{Text NewLine}" +
+                "Begin playing in {Color Red}NORMAL MODE{Color SkyBlue}?|Yes|No";
 
             TempTextCleanup(mainSysUS);
 
