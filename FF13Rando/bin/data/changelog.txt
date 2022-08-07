@@ -1,20 +1,9 @@
-0.7.2.1 Changelog:
--Fixed item placement getting stuck
--Improved item placement progress bars during randomization
--Improved item placement performance
-
-0.7.2.0 Changelog:
-
--Added enemy rando with options for enemy rank range and an experimental option to increase enemy variety
--Added Manasvin 1 and 2 drops to pool
--Crystarium stages and roles are now forced to appear earlier, regardless of difficulty.
--Important items are now randomly distributed between areas/chapters. Harder difficulties will place these later in the area.
--Improved documentation tables with search and sorting
--Improved randomization progress bars to give more details
--Adjusted crystarium stat rando, strength and magic are more similar and HP nodes are more frequent
--Enemy drops now have the correct amounts
--Fixed weird behavior with Dreadnought drops
--Fixed Ch3 crash after first battle
--Fixed battle team being allowed in the first part of Ch8
--Fixed softlocks after restarting a chapter
--Fixed role levels appearing before the first abilities
+0.7.3.0 Changelog:
+-Increased enemy variety in most areas with experimental setting
+-Reduced enemy variety in areas known to crash or have missing enemies (1 section of Ch5, 1 section of Ch9, and Archylte Steppe)
+-Increased Snow's single stat node stages by 10x
+-Added basic battle documentation for debug purposes
+-Included seed in modpack name in Nova (allows multiple seeds to be loaded into Nova at once)
+-Added seed and seed hash to title screen
+-Fixed duplicate Dreadnought drops
+-Fixed battle drops set to 1 count
