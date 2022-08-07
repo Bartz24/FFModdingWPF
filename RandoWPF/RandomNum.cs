@@ -106,8 +106,10 @@ namespace Bartz24.RandoWPF
             }
         }
 
-        public static string GetHash(int length)
+        public static string GetHash(int length, int numBase = 10)
         {
+            if (numBase > 10 || numBase < 1)
+                throw new Exception("Base not supported: " + numBase);
             int sum = 0;
             foreach (Flag flag in Flags.FlagsList)
             {
@@ -122,7 +124,7 @@ namespace Bartz24.RandoWPF
             string s = "";
             for (int i = 0; i < length; i++)
             {
-                s += random.Next(0, 9).ToString();
+                s += random.Next(0, numBase - 1).ToString();
             }
             return s;
         }
