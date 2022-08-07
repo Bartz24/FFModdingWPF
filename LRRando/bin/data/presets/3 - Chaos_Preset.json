@@ -1,6 +1,6 @@
 {
-  "name": "4 - Hopeless",
-  "version": "0.6.0",
+  "name": "3 - Chaos",
+  "version": "0.7.3.0",
   "flags": [
     {
       "FlagEnabled": true,
@@ -48,7 +48,7 @@
           "ID": "EPZero"
         },
         {
-          "Value": 5,
+          "Value": 3,
           "ID": "EPRange"
         }
       ],
@@ -56,6 +56,11 @@
     },
     {
       "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "AbiPass"
+    },
+    {
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "NerfOC"
     },
@@ -85,6 +90,10 @@
         {
           "Enabled": true,
           "ID": "RandEresh"
+        },
+        {
+          "Enabled": false,
+          "ID": "RandAeronite"
         }
       ],
       "FlagID": "RandEne"
@@ -100,7 +109,7 @@
       "FlagID": "RandAbiDrops"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "BhuniPlus"
     },
@@ -116,7 +125,7 @@
           "ID": "LearnEP"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "EPMiss"
         },
         {
@@ -144,11 +153,15 @@
           "ID": "KeyPlaceCoP"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
+          "ID": "KeyPlaceSuperboss"
+        },
+        {
+          "Enabled": false,
           "ID": "KeyPlaceGrindy"
         },
         {
-          "SelectedValue": "Hard+++",
+          "SelectedValue": "Hard",
           "ID": "KeyDepth"
         },
         {
@@ -164,7 +177,7 @@
       "FlagID": "Shops"
     },
     {
-      "FlagEnabled": false,
+      "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "CoPReqs"
     },
@@ -186,7 +199,7 @@
           "ID": "HintsSpecific"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "HintsDepth"
         }
       ],
@@ -203,7 +216,7 @@
       "FlagID": "HintsEP"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "HintsPilgrim"
     }

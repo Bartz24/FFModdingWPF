@@ -20,7 +20,7 @@ namespace LRRando
             public static Flag EPAbilities, NerfOC, EPCosts;
             public static ToggleFlagProperty EPAbilitiesEscape, EPAbilitiesChrono, EPAbilitiesTp, EPCostsZero;
             public static NumberFlagProperty EPCostsRange;
-            public static Flag EquipStats, GarbAbilities, EquipPassives;
+            public static Flag EquipStats, GarbAbilities, EquipPassives, AbilityPassives;
             public static Flag Quests;
 
             internal static void Init()
@@ -110,6 +110,13 @@ namespace LRRando
                     MinValue = 1,
                     MaxValue = 5
                 }.Register(EPCosts);
+
+                AbilityPassives = new Flag()
+                {
+                    Text = "Randomize Ability Passives",
+                    FlagID = "AbiPass",
+                    DescriptionFormat = "Randomizes the passives on abilities. Includes synthesized passive abilities and rare passive abilities."
+                }.Register(FlagType.StatsAbilities);
 
                 NerfOC = new Flag()
                 {
@@ -215,7 +222,7 @@ namespace LRRando
         public class Items
         {
             public static Flag Treasures;
-            public static ToggleFlagProperty Pilgrims, EPLearns, EPMissable, IDCardBuy, KeyMain, KeySide, KeyCoP, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy;
+            public static ToggleFlagProperty Pilgrims, EPLearns, EPMissable, IDCardBuy, KeyMain, KeySide, KeyCoP, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy, KeyPlaceSuperboss;
             public static ComboBoxFlagProperty KeyDepth;
             public static Flag Shops;
             public static Flag CoPReqs;
@@ -300,6 +307,13 @@ namespace LRRando
                     Text = "Key Item Placement - Canvas of Prayers",
                     ID = "KeyPlaceCoP",
                     Description = "Key items are also allowed in non-global Canvas of Prayers."
+                }.Register(Treasures);
+
+                KeyPlaceSuperboss = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Key Item Placement - Superbosses",
+                    ID = "KeyPlaceSuperboss",
+                    Description = "Key items are also allowed on Aeronite and Ereshkigal drops and rewards."
                 }.Register(Treasures);
 
                 KeyPlaceGrindy = (ToggleFlagProperty)new ToggleFlagProperty()

@@ -1,19 +1,19 @@
 {
-  "name": "3 - Chaos",
-  "version": "0.6.0",
+  "name": "1 - Simple",
+  "version": "0.7.3.0",
   "flags": [
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "RandEqStat"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "RandGarbAbi"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "RandPassive"
     },
@@ -21,15 +21,15 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "EPAbiEsc"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "EPAbiChr"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "EPAbiTlp"
         }
       ],
@@ -41,18 +41,23 @@
       "FlagID": "Quests"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "EPZero"
         },
         {
-          "Value": 3,
+          "Value": 1,
           "ID": "EPRange"
         }
       ],
       "FlagID": "RandEPCost"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "AbiPass"
     },
     {
       "FlagEnabled": false,
@@ -63,15 +68,15 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "RandEneSize"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "RandEncCount"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "RandProlo"
         },
         {
@@ -83,14 +88,18 @@
           "ID": "RandZaltys"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "RandEresh"
+        },
+        {
+          "Enabled": false,
+          "ID": "RandAeronite"
         }
       ],
       "FlagID": "RandEne"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "RandMatDrops"
     },
@@ -120,39 +129,43 @@
           "ID": "EPMiss"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "KeyMain"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "KeySide"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "KeyCoP"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "KeyPlaceTreas"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "KeyPlaceQuest"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "KeyPlaceCoP"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyPlaceSuperboss"
         },
         {
           "Enabled": false,
           "ID": "KeyPlaceGrindy"
         },
         {
-          "SelectedValue": "Hard",
+          "SelectedValue": "Normal",
           "ID": "KeyDepth"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "BuyID"
         }
       ],
@@ -182,7 +195,7 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "SelectedValue": "Random",
+          "SelectedValue": "Vague Area",
           "ID": "HintsSpecific"
         },
         {

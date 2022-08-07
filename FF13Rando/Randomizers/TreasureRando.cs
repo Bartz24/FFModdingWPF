@@ -158,12 +158,10 @@ namespace FF13Rando
                 FF13Flags.Items.Treasures.SetRand();
 
                 Dictionary<string, double> areaMults = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
-                placementAlgoNormal.SetAreaMults(areaMults);
-                placementAlgoBackup.SetAreaMults(areaMults);
-                if (!placementAlgoNormal.Randomize(new List<string>()))
+                if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
                 {
                     usingBackup = true;
-                    placementAlgoBackup.Randomize(placementAlgoBackup.GetNewAreasAvailable(new Dictionary<string, int>(), new List<string>()));
+                    placementAlgoBackup.Randomize(placementAlgoBackup.GetNewAreasAvailable(new Dictionary<string, int>(), new List<string>()), areaMults);
                 }
                 Randomizers.SetProgressFunc("Randomizing Treasure Data...", 60, 100);
 

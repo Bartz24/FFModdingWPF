@@ -9,8 +9,6 @@ namespace FF13Rando
     {
         TreasureRando treasureRando;
 
-        Dictionary<string, double> AreaMults = new Dictionary<string, double>();
-
         public FF13ItemPlacementAlgorithm(Dictionary<string, FF13ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
         {
             treasureRando = randomizers.Get<TreasureRando>("Treasures");
@@ -183,15 +181,6 @@ namespace FF13Rando
                 string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + GetAreaMult(s) * 16d));
                 return new Tuple<string, int>(next, possDepths[next]);
             }
-        }
-
-        public double GetAreaMult(string location)
-        {
-            return Math.Max(0.01, ItemLocations[location].Areas.Select(a => AreaMults[a]).Average());
-        }
-        public void SetAreaMults(Dictionary<string, double> mults)
-        {
-            AreaMults = mults;
         }
 
         public override void Clear()

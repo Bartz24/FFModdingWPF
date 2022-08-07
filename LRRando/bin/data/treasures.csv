@@ -77,7 +77,7 @@ tre_qst_049,Dead Dunes,Last One Standing Quest,Missable|Quest,,10
 tre_qst_049_2,Dead Dunes,Last One Standing Quest,Missable|Quest,,10
 tre_qst_049_3,Dead Dunes,Last One Standing Quest,Missable|Quest,,10
 tre_libra_m375,Dead Dunes,What Rough Beast Slouches Libra Notes,,,3
-tre_acc_a_9060,Dead Dunes,Dead Dunes Boss Drop,Battle,AND(I(key_d_sekiban|3)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_wing|1)),7
+tre_acc_a_9060,Dead Dunes,Dead Dunes Boss Drop,Battle|Superboss,AND(I(key_d_sekiban|3)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_wing|1)),7
 tre_acc_a_9200,Dead Dunes,Aeronite Missable Drop,Missable,,8
 tre_box_b_000,Luxerion,Cathedral Proof Of Courage,CoPKey,,0
 tre_box_b_001,Luxerion,Pilgrim's Passage Violet Amulet Treasure,CoPKey,,0
@@ -661,7 +661,7 @@ tre_box_e_000,Ultimate Lair,Ultimate Lair Floor 29,Battle,,7
 tre_box_e_001,Ultimate Lair,Ultimate Lair Floor 30,Battle,,7
 tre_box_e_002,Ultimate Lair,Ultimate Lair Floor 31,Battle,,7
 tre_box_e_003,Ultimate Lair,Ultimate Lair Floor 32,Battle,,7
-tre_qst_099,Ultimate Lair,Ultimate Lair Boss Reward,Quest,,9
+tre_qst_099,Ultimate Lair,Ultimate Lair Boss Reward,Quest|Superboss,,9
 tre_acc_b_9070,Final Day,Arcangeli Omega Drop,Battle|Missable,,6
 tre_acc_a_9160,Final Day,Sugriva Omega Drop,Battle|Missable,,6
 tre_acc_a_9170,Final Day,Chimera Omega Drop,Battle|Missable,,6

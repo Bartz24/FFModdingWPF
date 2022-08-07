@@ -69,6 +69,11 @@ namespace Bartz24.RandoWPF
             return Math.Min(high, Math.Max(low, (int)Math.Round(randNormal)));
         }
 
+        public static T SelectRandom<T>(List<T> list)
+        {
+            return list[RandomNum.RandInt(0, list.Count - 1)];
+        }
+
         public static T SelectRandomWeighted<T>(List<T> list, Func<T, long> weightFunc)
         {
             CheckRand();

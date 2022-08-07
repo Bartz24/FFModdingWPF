@@ -1,6 +1,6 @@
 {
-  "name": "2 - Main Key Item Shuffle",
-  "version": "0.4.7",
+  "name": "4 - Hopeless",
+  "version": "0.7.3.0",
   "flags": [
     {
       "FlagEnabled": true,
@@ -21,7 +21,7 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "EPAbiEsc"
         },
         {
@@ -29,7 +29,7 @@
           "ID": "EPAbiChr"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "EPAbiTlp"
         }
       ],
@@ -44,18 +44,23 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "EPZero"
         },
         {
-          "Value": 2,
+          "Value": 5,
           "ID": "EPRange"
         }
       ],
       "FlagID": "RandEPCost"
     },
     {
-      "FlagEnabled": false,
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "AbiPass"
+    },
+    {
+      "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "NerfOC"
     },
@@ -83,14 +88,18 @@
           "ID": "RandZaltys"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "RandEresh"
+        },
+        {
+          "Enabled": false,
+          "ID": "RandAeronite"
         }
       ],
       "FlagID": "RandEne"
     },
     {
-      "FlagEnabled": false,
+      "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "RandMatDrops"
     },
@@ -100,7 +109,7 @@
       "FlagID": "RandAbiDrops"
     },
     {
-      "FlagEnabled": false,
+      "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "BhuniPlus"
     },
@@ -116,7 +125,7 @@
           "ID": "LearnEP"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "EPMiss"
         },
         {
@@ -124,19 +133,35 @@
           "ID": "KeyMain"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeySide"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeyCoP"
         },
         {
-          "SelectedValue": "Key Items Only",
-          "ID": "KeyPlacement"
+          "Enabled": true,
+          "ID": "KeyPlaceTreas"
         },
         {
-          "SelectedValue": "Normal",
+          "Enabled": true,
+          "ID": "KeyPlaceQuest"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceCoP"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceSuperboss"
+        },
+        {
+          "Enabled": true,
+          "ID": "KeyPlaceGrindy"
+        },
+        {
+          "SelectedValue": "Hard+++",
           "ID": "KeyDepth"
         },
         {
@@ -152,7 +177,7 @@
       "FlagID": "Shops"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [],
       "FlagID": "CoPReqs"
     },
@@ -170,11 +195,11 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "SelectedValue": "Vague Area",
+          "SelectedValue": "Random",
           "ID": "HintsSpecific"
         },
         {
-          "Enabled": true,
+          "Enabled": false,
           "ID": "HintsDepth"
         }
       ],
@@ -191,7 +216,7 @@
       "FlagID": "HintsEP"
     },
     {
-      "FlagEnabled": false,
+      "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "HintsPilgrim"
     }

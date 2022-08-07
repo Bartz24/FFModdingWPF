@@ -24,12 +24,12 @@ namespace LRRando
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Music Data...", -1, 100);
+            musicData.Clear();
             FileHelpers.ReadCSVFile(@"data\musicLR.csv", row =>
             {
                 MusicData m = new MusicData(row);
                 musicData.Add(m.Path, m);
             }, FileHelpers.CSVFileHeader.HasHeader);
-            musicData.Clear();
         }
         public override void Randomize(Action<int> progressSetter)
         {
