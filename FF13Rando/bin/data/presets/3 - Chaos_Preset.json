@@ -1,6 +1,6 @@
 {
   "name": "3 - Chaos",
-  "version": "0.7.2.0",
+  "version": "0.7.4.0",
   "flags": [
     {
       "FlagEnabled": true,
@@ -98,7 +98,7 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": false,
+          "SelectedValue": "Allow Other Enemies - Low",
           "ID": "EnemyVariety"
         },
         {

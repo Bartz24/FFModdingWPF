@@ -49,7 +49,7 @@ namespace FF13Rando
         public static int GetRoleCount(FF13ItemLocation loc, Dictionary<string, int> items)
         {
             string[] roles = new string[] { "com", "rav", "sen", "syn", "sab", "med" };
-            int have = loc.Characters.Sum(c => roles.Where(r => items.GetValueOrDefault($"rol_{c}_{r}", 0) > 0).Count());
+            int have = loc.Characters.Sum(c => items.Keys.Where(i => i.StartsWith($"rol_{c}_") && items[i] > 0).Count());
             return have;
         }
 

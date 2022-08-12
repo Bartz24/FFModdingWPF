@@ -14,9 +14,9 @@ namespace Bartz24.RandoWPF
                 return Math.Pow(x, 1d / 3d);
         }
 
-        public static IList<T> Shuffle<T>(this IList<T> list)
+        public static List<T> Shuffle<T>(this IEnumerable<T> enumerable)
         {
-            IList<T> newList = new List<T>(list);
+            List<T> newList = new List<T>(enumerable);
             int n = newList.Count;
             while (n > 1)
             {
@@ -29,7 +29,7 @@ namespace Bartz24.RandoWPF
             return newList;
         }
 
-        public static void Shuffle<T>(this IList<T> list, Action<T, T> swapFunc)
+        public static void Shuffle<T>(this List<T> list, Action<T, T> swapFunc)
         {
             int n = list.Count;
             while (n > 1)
@@ -48,7 +48,7 @@ namespace Bartz24.RandoWPF
                 for (int w = 0; w < weights[i]; w++)
                     map.Add(map.Count, i);
             }
-            List<int> shuffled = Enumerable.Range(0, map.Count).ToList().Shuffle().ToList();
+            List<int> shuffled = Enumerable.Range(0, map.Count).Shuffle();
             list = Enumerable.Range(0, map.Count).Select(i => list[map[shuffled[i]]]).ToList();
             return list;
         }

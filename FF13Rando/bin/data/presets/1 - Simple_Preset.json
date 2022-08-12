@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.7.2.-1",
+  "version": "0.7.4.0",
   "flags": [
     {
       "FlagEnabled": true,
@@ -95,10 +95,10 @@
       "FlagID": "Music"
     },
     {
-      "FlagEnabled": false,
+      "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": false,
+          "SelectedValue": "Enemies Stay to the Same Area",
           "ID": "EnemyVariety"
         },
         {

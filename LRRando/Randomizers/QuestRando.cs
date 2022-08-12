@@ -40,7 +40,7 @@ namespace LRRando
             {
                 LRFlags.StatsAbilities.Quests.SetRand();
 
-                List<DataStoreRQuest> mainQuests = questRewards.Values.Where(q => q.iMaxGp > 0 || q.iMaxAtb > 0 || q.iItemBagSize > 0).ToList().Shuffle().ToList();
+                List<DataStoreRQuest> mainQuests = questRewards.Values.Where(q => q.iMaxGp > 0 || q.iMaxAtb > 0 || q.iItemBagSize > 0).Shuffle();
                 int ep = mainQuests.Select(q => q.iMaxGp).Sum();
                 int atb = mainQuests.Select(q => q.iMaxAtb).Sum();
                 int items = mainQuests.Select(q => q.iItemBagSize).Sum();

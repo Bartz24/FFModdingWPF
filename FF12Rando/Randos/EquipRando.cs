@@ -340,7 +340,7 @@ namespace FF12Rando
         {
             foreach (DataStoreArmor armor in equip.EquipDataList.Where(a => a is DataStoreArmor))
             {
-                armor.AugmentOffset = (byte)augmentData.Values.Where(a => a.Traits.Contains("Equip")).ToList().Shuffle().First().IntID;
+                armor.AugmentOffset = (byte)augmentData.Values.Where(a => a.Traits.Contains("Equip")).Shuffle().First().IntID;
             }
         }
 

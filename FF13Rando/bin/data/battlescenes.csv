@@ -1,24 +1,24 @@
 ﻿ID,Name,Location,Charasets,Traits,Charaset Limit
-btsc01002,,Hanging Edge,chset_z016_def0,,60
-btsc01003,,Hanging Edge,chset_z016_def0,,60
-btsc01004,,Hanging Edge,chset_z016_def0,,60
-btsc01005,,Hanging Edge,chset_z016_def2,,60
-btsc01006,,Hanging Edge,chset_z016_def2,,60
-btsc01007,,Hanging Edge,chset_z016_def2,,60
-btsc01008,,Hanging Edge,chset_z016_def2,,60
-btsc01020,,Hanging Edge,chset_z016_def2,,60
-btsc01009,,Hanging Edge,chset_z016_defh,,60
-btsc01021,,Hanging Edge,chset_z016_def5,,60
-btsc01010,,Hanging Edge,chset_z016_def5,,60
-btsc01011,,Hanging Edge,chset_z016_def5,,60
-btsc01023,,Hanging Edge,chset_z016_def5,,60
-btsc01024,,Hanging Edge,chset_z016_def5,,60
-btsc01017,,Hanging Edge,chset_z016_def7,,60
-btsc01022,,Hanging Edge,chset_z016_def7,,60
-btsc01019,,Hanging Edge,chset_z016_defe,,60
-btsc01012,,Hanging Edge,chset_z016_def8,,60
-btsc01013,,Hanging Edge,chset_z016_def9,,60
-btsc01014,,Hanging Edge,chset_z016_def9,,60
+btsc01002,,Hanging Edge,chset_z016_def0,,44
+btsc01003,,Hanging Edge,chset_z016_def0,,44
+btsc01004,,Hanging Edge,chset_z016_def0,,44
+btsc01005,,Hanging Edge,chset_z016_def2,,44
+btsc01006,,Hanging Edge,chset_z016_def2,,44
+btsc01007,,Hanging Edge,chset_z016_def2,,44
+btsc01008,,Hanging Edge,chset_z016_def2,,44
+btsc01020,,Hanging Edge,chset_z016_def2,,44
+btsc01009,,Hanging Edge,chset_z016_defh,,44
+btsc01021,,Hanging Edge,chset_z016_def5,,44
+btsc01010,,Hanging Edge,chset_z016_def5,,44
+btsc01011,,Hanging Edge,chset_z016_def5,,44
+btsc01023,,Hanging Edge,chset_z016_def5,,44
+btsc01024,,Hanging Edge,chset_z016_def5,,44
+btsc01017,,Hanging Edge,chset_z016_def7,,44
+btsc01022,,Hanging Edge,chset_z016_def7,,44
+btsc01019,,Hanging Edge,chset_z016_defe,,44
+btsc01012,,Hanging Edge,chset_z016_def8,,44
+btsc01013,,Hanging Edge,chset_z016_def9,,44
+btsc01014,,Hanging Edge,chset_z016_def9,,44
 btsc02001,,Pulse Vestige,chset_z017_def1,,32
 btsc02004,,Pulse Vestige,chset_z017_def1|chset_z017_def3,,16
 btsc02025,,Pulse Vestige,chset_z017_def1|chset_z017_def3,,16
@@ -39,34 +39,34 @@ btsc02020,,Pulse Vestige,chset_z017_def3,,16
 btsc02024,,Pulse Vestige,chset_z017_def3,,16
 btsc02023,,Pulse Vestige,chset_z017_def3,,16
 btsc02011,,Pulse Vestige,chset_z017_def3,,16
-btsc02008,,Pulse Vestige,chset_z017_def4,,24
-btsc02037,,Pulse Vestige,chset_z017_def4,,24
-btsc02012,,Pulse Vestige,chset_z017_def4,,24
-btsc02038,,Pulse Vestige,chset_z017_def4,,24
-btsc02039,,Pulse Vestige,chset_z017_def4,,24
-btsc02040,,Pulse Vestige,chset_z017_def4,,24
-btsc02030,,Pulse Vestige,chset_z017_def4,,24
-btsc02013,,Pulse Vestige,chset_z017_def4,,24
-btsc02031,,Pulse Vestige,chset_z017_def4,,24
-btsc02032,,Pulse Vestige,chset_z017_def4,,24
-btsc02021,,Pulse Vestige,chset_z017_def4,,24
-btsc02041,,Pulse Vestige,chset_z017_def4,,24
-btsc02034,,Pulse Vestige,chset_z017_def4,,24
-btsc02033,,Pulse Vestige,chset_z017_def4,,24
-btsc02036,,Pulse Vestige,chset_z017_def4,,24
-btsc02014,,Pulse Vestige,chset_z017_def2,,60
-btsc02015,,Pulse Vestige,chset_z017_def2,,60
-btsc02016,,Pulse Vestige,chset_z017_def2,,60
-btsc03001,,Lake Bresha,chset_z002def_0,,60
+btsc02008,,Pulse Vestige,chset_z017_def4,,20
+btsc02037,,Pulse Vestige,chset_z017_def4,,20
+btsc02012,,Pulse Vestige,chset_z017_def4,,20
+btsc02038,,Pulse Vestige,chset_z017_def4,,20
+btsc02039,,Pulse Vestige,chset_z017_def4,,20
+btsc02040,,Pulse Vestige,chset_z017_def4,,20
+btsc02030,,Pulse Vestige,chset_z017_def4,,20
+btsc02013,,Pulse Vestige,chset_z017_def4,,20
+btsc02031,,Pulse Vestige,chset_z017_def4,,20
+btsc02032,,Pulse Vestige,chset_z017_def4,,20
+btsc02021,,Pulse Vestige,chset_z017_def4,,20
+btsc02041,,Pulse Vestige,chset_z017_def4,,20
+btsc02034,,Pulse Vestige,chset_z017_def4,,20
+btsc02033,,Pulse Vestige,chset_z017_def4,,20
+btsc02036,,Pulse Vestige,chset_z017_def4,,20
+btsc02014,,Pulse Vestige,chset_z017_def2,,44
+btsc02015,,Pulse Vestige,chset_z017_def2,,44
+btsc02016,,Pulse Vestige,chset_z017_def2,,44
+btsc03001,,Lake Bresha,chset_z002def_0,,44
 btsc03002,,Lake Bresha,chset_z002def_1,,20
 btsc03003,,Lake Bresha,chset_z002def_1,,20
 btsc03004,,Lake Bresha,chset_z002def_1,,20
 btsc03005,,Lake Bresha,chset_z002def_1,,20
 btsc03006,,Lake Bresha,chset_z002def_1,,20
 btsc03007,,Lake Bresha,chset_z002def_1,,20
-btsc03010,,Lake Bresha,chset_z002def_2,,60
-btsc03011,,Lake Bresha,chset_z002def_2,,60
-btsc03012,,Lake Bresha,chset_z002def_2,,60
+btsc03010,,Lake Bresha,chset_z002def_2,,44
+btsc03011,,Lake Bresha,chset_z002def_2,,44
+btsc03012,,Lake Bresha,chset_z002def_2,,44
 btsc03014,,Lake Bresha,chset_z002def_3,,24
 btsc03015,,Lake Bresha,chset_z002def_3,,24
 btsc03016,,Lake Bresha,chset_z002def_3,,24
@@ -79,19 +79,19 @@ btsc03041,,Lake Bresha,chset_z002def_3,,24
 btsc03021,,Lake Bresha,chset_z002def_3,,24
 btsc03020,,Lake Bresha,chset_z002def_3,,24
 btsc03034,,Lake Bresha,chset_z002def_3,,24
-btsc03022,,Lake Bresha,chset_z002def_5,,60
-btsc03024,,Lake Bresha,chset_z002def_5,,60
-btsc03035,,Lake Bresha,chset_z002def_5,,60
-btsc03025,,Lake Bresha,chset_z002def_5,,60
-btsc03044,,Lake Bresha,chset_z002def_6,,32
-btsc03026,,Lake Bresha,chset_z002def_6,,32
-btsc03027,,Lake Bresha,chset_z002def_6,,32
-btsc03029,,Lake Bresha,chset_z002def_6,,32
-btsc03028,,Lake Bresha,chset_z002def_6,,32
-btsc03030,,Lake Bresha,chset_z002def_6,,32
-btsc03031,,Lake Bresha,chset_z002def_6,,32
-btsc03036,,Lake Bresha,chset_z002chpt,,60
-btsc04052,,Vile Peaks,chset_z004_def0,,60
+btsc03022,,Lake Bresha,chset_z002def_5,,44
+btsc03024,,Lake Bresha,chset_z002def_5,,44
+btsc03035,,Lake Bresha,chset_z002def_5,,44
+btsc03025,,Lake Bresha,chset_z002def_5,,44
+btsc03044,,Lake Bresha,chset_z002def_6,,24
+btsc03026,,Lake Bresha,chset_z002def_6,,24
+btsc03027,,Lake Bresha,chset_z002def_6,,24
+btsc03029,,Lake Bresha,chset_z002def_6,,24
+btsc03028,,Lake Bresha,chset_z002def_6,,24
+btsc03030,,Lake Bresha,chset_z002def_6,,24
+btsc03031,,Lake Bresha,chset_z002def_6,,24
+btsc03036,,Lake Bresha,chset_z002chpt,,44
+btsc04052,,Vile Peaks,chset_z004_def0,,44
 btsc04002,,Vile Peaks,chset_z004_def1,,32
 btsc04003,,Vile Peaks,chset_z004_def1,,32
 btsc04004,,Vile Peaks,chset_z004_def1,,32
@@ -116,33 +116,33 @@ btsc04022,,Vile Peaks,chset_z004_def1,,32
 btsc04023,,Vile Peaks,chset_z004_def1,,32
 btsc04024,,Vile Peaks,chset_z004_def1,,32
 btsc04025,,Vile Peaks,chset_z004_def1,,32
-btsc04027,,Vile Peaks,chset_z004_def4,,60
-btsc04028,,Vile Peaks,chset_z004_def6,,60
-btsc04051,,Vile Peaks,chset_z004_def6,,60
-btsc04029,,Vile Peaks,chset_z004_def6,,60
-btsc04030,,Vile Peaks,chset_z004_def6,,60
-btsc04031,,Vile Peaks,chset_z004_def6,,60
-btsc04032,,Vile Peaks,chset_z004_def5,,60
-btsc04033,,Vile Peaks,chset_z004_def5,,60
-btsc04034,,Vile Peaks,chset_z004_def5,,60
-btsc04035,,Vile Peaks,chset_z004_def5,,60
-btsc04037,,Vile Peaks,chset_z004_def5,,60
-btsc04038,,Vile Peaks,chset_z004_def7,,60
-btsc04039,,Vile Peaks,chset_z004_def7,,60
-btsc04040,,Vile Peaks,chset_z004_def7,,60
-btsc04041,,Vile Peaks,chset_z004_def7,,60
-btsc04042,,Vile Peaks,chset_z004_def7,,60
-btsc04044,,Vile Peaks,chset_z004_def7,,60
-btsc04046,,Vile Peaks,chset_z004_def7,,60
-btsc04045,,Vile Peaks,chset_z004_def7,,60
-btsc04055,,Vile Peaks,chset_z004_def7,,60
-btsc04054,,Vile Peaks,chset_z004_def7,,60
-btsc04043,,Vile Peaks,chset_z004_def7,,60
-btsc04047,,Vile Peaks,chset_z004_def7,,60
-btsc04048,,Vile Peaks,chset_z004_def7,,60
-btsc04049,,Vile Peaks,chset_z004_def7,,60
-btsc04050,,Vile Peaks,chset_z004_def7,,60
-btsc06001,,Gapra Whitewood,chset_z015_140|chset_z015_160,,60
+btsc04027,,Vile Peaks,chset_z004_def4,,44
+btsc04028,,Vile Peaks,chset_z004_def6,,44
+btsc04051,,Vile Peaks,chset_z004_def6,,44
+btsc04029,,Vile Peaks,chset_z004_def6,,44
+btsc04030,,Vile Peaks,chset_z004_def6,,44
+btsc04031,,Vile Peaks,chset_z004_def6,,44
+btsc04032,,Vile Peaks,chset_z004_def5,,44
+btsc04033,,Vile Peaks,chset_z004_def5,,44
+btsc04034,,Vile Peaks,chset_z004_def5,,44
+btsc04035,,Vile Peaks,chset_z004_def5,,44
+btsc04037,,Vile Peaks,chset_z004_def5,,44
+btsc04038,,Vile Peaks,chset_z004_def7,,44
+btsc04039,,Vile Peaks,chset_z004_def7,,44
+btsc04040,,Vile Peaks,chset_z004_def7,,44
+btsc04041,,Vile Peaks,chset_z004_def7,,44
+btsc04042,,Vile Peaks,chset_z004_def7,,44
+btsc04044,,Vile Peaks,chset_z004_def7,,44
+btsc04046,,Vile Peaks,chset_z004_def7,,44
+btsc04045,,Vile Peaks,chset_z004_def7,,44
+btsc04055,,Vile Peaks,chset_z004_def7,,44
+btsc04054,,Vile Peaks,chset_z004_def7,,44
+btsc04043,,Vile Peaks,chset_z004_def7,,44
+btsc04047,,Vile Peaks,chset_z004_def7,,44
+btsc04048,,Vile Peaks,chset_z004_def7,,44
+btsc04049,,Vile Peaks,chset_z004_def7,,44
+btsc04050,,Vile Peaks,chset_z004_def7,,44
+btsc06001,,Gapra Whitewood,chset_z015_140|chset_z015_160,,44
 btsc06002,,Gapra Whitewood,chset_z015_160|chset_z015_200,,32
 btsc06003,,Gapra Whitewood,chset_z015_160|chset_z015_200,,32
 btsc06004,,Gapra Whitewood,chset_z015_160|chset_z015_200,,32
@@ -166,9 +166,9 @@ btsc06014,,Gapra Whitewood,chset_z015_300|chset_z015_400,,32
 btsc06041,,Gapra Whitewood,chset_z015_300|chset_z015_400,,32
 btsc06015,,Gapra Whitewood,chset_z015_300|chset_z015_400,,32
 btsc06016,,Gapra Whitewood,chset_z015_300,,32
-btsc06034,,Gapra Whitewood,chset_z015_400,,60
-btsc06017,,Gapra Whitewood,chset_z015_400|chset_z015_500,,60
-btsc06018,,Gapra Whitewood,chset_z015_400|chset_z015_500,,60
+btsc06034,,Gapra Whitewood,chset_z015_400,,44
+btsc06017,,Gapra Whitewood,chset_z015_400|chset_z015_500,,44
+btsc06018,,Gapra Whitewood,chset_z015_400|chset_z015_500,,44
 btsc06019,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
 btsc06020,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
 btsc06021,,Gapra Whitewood,chset_z015_500|chset_z015_700,,32
@@ -231,19 +231,19 @@ btsc05043,,Sunleth Waterscape,chset_z010_def2,,32
 btsc05022,,Sunleth Waterscape,chset_z010_def2,,32
 btsc05023,,Sunleth Waterscape,chset_z010_def2,,32
 btsc05024,,Sunleth Waterscape,chset_z010_def2,,32
-btsc07001,,Palumpolum,chset_z008_def,,60
-btsc07002,,Palumpolum,chset_z008_def,,60
-btsc07003,,Palumpolum,chset_z008_def,,60
-btsc07004,,Palumpolum,chset_z008_def,,60
-btsc07005,,Palumpolum,chset_z008_def,,60
-btsc07007,,Palumpolum,chset_z008_def|chset_z008_c012,,60
-btsc07059,,Palumpolum,chset_z008_def|chset_z008_c012,,60
-btsc07008,,Palumpolum,chset_z008_def|chset_z008_c012,,60
-btsc07051,,Palumpolum,chset_z008_def|chset_z008_c012,,60
-btsc07009,,Palumpolum,chset_z008_c012|chset_z008_c014,,60
-btsc07056,,Palumpolum,chset_z008_c012|chset_z008_c014,,60
-btsc07065,,Palumpolum,chset_z008_c012|chset_z008_c014,,60
-btsc07010,,Palumpolum,chset_z008_c020,,60
+btsc07001,,Palumpolum,chset_z008_def,,44
+btsc07002,,Palumpolum,chset_z008_def,,44
+btsc07003,,Palumpolum,chset_z008_def,,44
+btsc07004,,Palumpolum,chset_z008_def,,44
+btsc07005,,Palumpolum,chset_z008_def,,44
+btsc07007,,Palumpolum,chset_z008_def|chset_z008_c012,,44
+btsc07059,,Palumpolum,chset_z008_def|chset_z008_c012,,44
+btsc07008,,Palumpolum,chset_z008_def|chset_z008_c012,,44
+btsc07051,,Palumpolum,chset_z008_def|chset_z008_c012,,44
+btsc07009,,Palumpolum,chset_z008_c012|chset_z008_c014,,44
+btsc07056,,Palumpolum,chset_z008_c012|chset_z008_c014,,44
+btsc07065,,Palumpolum,chset_z008_c012|chset_z008_c014,,44
+btsc07010,,Palumpolum,chset_z008_c020,,44
 btsc07011,,Palumpolum,chset_z008_c030,,24
 btsc07012,,Palumpolum,chset_z008_c030,,24
 btsc07052,,Palumpolum,chset_z008_c030,,24
@@ -251,9 +251,9 @@ btsc07014,,Palumpolum,chset_z008_c030,,24
 btsc07060,,Palumpolum,chset_z008_c030,,24
 btsc07013,,Palumpolum,chset_z008_c030,,24
 btsc07015,,Palumpolum,chset_z008_c030,,24
-btsc07043,,Palumpolum,chset_z008_c060,,60
-btsc07044,,Palumpolum,chset_z008_c060,,60
-btsc07045,,Palumpolum,chset_z008_c060,,60
+btsc07043,,Palumpolum,chset_z008_c060,,44
+btsc07044,,Palumpolum,chset_z008_c060,,44
+btsc07045,,Palumpolum,chset_z008_c060,,44
 btsc07016,,Palumpolum,chset_z008_c075,,32
 btsc07017,,Palumpolum,chset_z008_c075,,32
 btsc07018,,Palumpolum,chset_z008_c075,,32
@@ -262,27 +262,27 @@ btsc07022,,Palumpolum,chset_z008_c075,,32
 btsc07020,,Palumpolum,chset_z008_c075,,32
 btsc07024,,Palumpolum,chset_z008_c075,,32
 btsc07067,,Palumpolum,chset_z008_c075,,32
-btsc07061,,Palumpolum,chset_z008_c100,,60
-btsc07062,,Palumpolum,chset_z008_c100,,60
-btsc07053,,Palumpolum,chset_z008_c100,,60
-btsc07025,,Palumpolum,chset_z008_c100,,60
-btsc07026,,Palumpolum,chset_z008_c100,,60
-btsc07028,,Palumpolum,chset_z008_c100,,60
-btsc07054,,Palumpolum,chset_z008_c100,,60
-btsc07029,,Palumpolum,chset_z008_c100,,60
-btsc07046,,Palumpolum,chset_z008_c130,,60
-btsc07063,,Palumpolum,chset_z008_c130,,60
-btsc07047,,Palumpolum,chset_z008_c130,,60
-btsc07035,,Palumpolum,chset_z008_c130,,60
-btsc07032,,Palumpolum,chset_z008_c130,,60
-btsc07064,,Palumpolum,chset_z008_c130,,60
-btsc07055,,Palumpolum,chset_z008_c150,,60
-btsc07033,,Palumpolum,chset_z008_c150,,60
-btsc07049,,Palumpolum,chset_z008_c150,,60
-btsc07034,,Palumpolum,chset_z008_c150,,60
-btsc07038,,Palumpolum,chset_z008_c192,,60
-btsc07058,,Palumpolum,chset_z008_c192,,60
-btsc07057,,Palumpolum,chset_z008_c192,,60
+btsc07061,,Palumpolum,chset_z008_c100,,44
+btsc07062,,Palumpolum,chset_z008_c100,,44
+btsc07053,,Palumpolum,chset_z008_c100,,44
+btsc07025,,Palumpolum,chset_z008_c100,,44
+btsc07026,,Palumpolum,chset_z008_c100,,44
+btsc07028,,Palumpolum,chset_z008_c100,,44
+btsc07054,,Palumpolum,chset_z008_c100,,44
+btsc07029,,Palumpolum,chset_z008_c100,,44
+btsc07046,,Palumpolum,chset_z008_c130,,44
+btsc07063,,Palumpolum,chset_z008_c130,,44
+btsc07047,,Palumpolum,chset_z008_c130,,44
+btsc07035,,Palumpolum,chset_z008_c130,,44
+btsc07032,,Palumpolum,chset_z008_c130,,44
+btsc07064,,Palumpolum,chset_z008_c130,,44
+btsc07055,,Palumpolum,chset_z008_c150,,44
+btsc07033,,Palumpolum,chset_z008_c150,,44
+btsc07049,,Palumpolum,chset_z008_c150,,44
+btsc07034,,Palumpolum,chset_z008_c150,,44
+btsc07038,,Palumpolum,chset_z008_c192,,44
+btsc07058,,Palumpolum,chset_z008_c192,,44
+btsc07057,,Palumpolum,chset_z008_c192,,44
 btsc08001,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
 btsc08002,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
 btsc08009,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
@@ -367,11 +367,11 @@ btsc10034,,Fifth Ark,chset_z018_020,,24
 btsc10001,,Fifth Ark,chset_z018_020,,24
 btsc10002,,Fifth Ark,chset_z018_020,,24
 btsc10003,,Fifth Ark,chset_z018_020,,24
-btsc10004,,Fifth Ark,chset_z018_020|chset_z018_030,,24
-btsc10007,,Fifth Ark,chset_z018_020|chset_z018_030,,24
-btsc10005,,Fifth Ark,chset_z018_020|chset_z018_030,,24
-btsc10006,,Fifth Ark,chset_z018_020|chset_z018_030,,24
-btsc10008,,Fifth Ark,chset_z018_020|chset_z018_030,,24
+btsc10004,,Fifth Ark,chset_z018_020|chset_z018_030,,20
+btsc10007,,Fifth Ark,chset_z018_020|chset_z018_030,,20
+btsc10005,,Fifth Ark,chset_z018_020|chset_z018_030,,20
+btsc10006,,Fifth Ark,chset_z018_020|chset_z018_030,,20
+btsc10008,,Fifth Ark,chset_z018_020|chset_z018_030,,20
 btsc10009,,Fifth Ark,chset_z018_030,,24
 btsc10010,,Fifth Ark,chset_z018_030,,24
 btsc10011,,Fifth Ark,chset_z018_030,,24

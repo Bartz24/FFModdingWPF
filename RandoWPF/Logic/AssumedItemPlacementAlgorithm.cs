@@ -12,10 +12,10 @@ namespace Bartz24.RandoWPF
 
         protected override bool TryImportantPlacement(int attempt, List<string> locations, List<string> important, List<string> accessibleAreas)
         {
-            List<string> remaining = important.Where(t => !Placement.ContainsValue(t)).ToList().Shuffle().ToList();
+            List<string> remaining = important.Where(t => !Placement.ContainsValue(t)).Shuffle();
             Dictionary<string, int> items = GetItemsAvailable(remaining.ToDictionary(l => l, l => l));
 
-            List<string> remainingLogic = remaining.Where(t => RequiresDepthLogic(t)).ToList().Shuffle().ToList();
+            List<string> remainingLogic = remaining.Where(t => RequiresDepthLogic(t)).Shuffle();
 
             remainingLogic = PrioritizeLockedItems(locations, remainingLogic, important);
             foreach (string rep in remainingLogic)
@@ -35,7 +35,7 @@ namespace Bartz24.RandoWPF
                 }
                 List<string> newAccessibleAreas = GetNewAreasAvailable(items, new List<string>());
 
-                List<string> possible = newAccessibleAreas.SelectMany(loc => locations.Where(t => !Placement.ContainsKey(t) && IsValid(t, rep, loc, items, newAccessibleAreas))).Distinct().ToList().Shuffle().ToList();
+                List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && IsValid(t, rep, items, newAccessibleAreas)).Shuffle();
                 int count = possible.Count;
                 if (possible.Count > 0)
                 {
@@ -54,7 +54,7 @@ namespace Bartz24.RandoWPF
                     return false;
             }
 
-            List<string> remainingOther = remaining.Where(t => !RequiresDepthLogic(t)).ToList().Shuffle().ToList();
+            List<string> remainingOther = remaining.Where(t => !RequiresDepthLogic(t)).Shuffle();
             foreach (string rep in remainingOther)
             {
                 UpdateProgress(attempt, Placement.Count, important.Count);

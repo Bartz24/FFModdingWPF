@@ -49,18 +49,18 @@ namespace FF12Rando
             {
                 FF12Flags.Items.Bazaars.SetRand();
 
-                bazaars.DataList.ToList().Shuffle().ForEach(b =>
+                bazaars.DataList.Shuffle().ForEach(b =>
                 {
                     List<string> items = new List<string>();
                     if (treasureRando.remainingRandomizeItems.Where(item => IsMonograph(item)).Count() > 0)
                     {
-                        string item1 = treasureRando.remainingRandomizeItems.Where(item => IsMonograph(item)).ToList().Shuffle().First();
+                        string item1 = treasureRando.remainingRandomizeItems.Where(item => IsMonograph(item)).Shuffle().First();
                         items.Add(item1);
                         treasureRando.remainingRandomizeItems.Remove(item1);
                     }
                     else if (treasureRando.remainingRandomizeItems.Where(item => equipRando.itemData.ContainsKey(item) && equipRando.itemData[item].Rank >= 10).Count() > 0)
                     {
-                        string item1 = treasureRando.remainingRandomizeItems.Where(item => equipRando.itemData.ContainsKey(item) && equipRando.itemData[item].Rank >= 10).ToList().Shuffle().First();
+                        string item1 = treasureRando.remainingRandomizeItems.Where(item => equipRando.itemData.ContainsKey(item) && equipRando.itemData[item].Rank >= 10).Shuffle().First();
                         items.Add(item1);
                         treasureRando.remainingRandomizeItems.Remove(item1);
                     }
@@ -124,7 +124,7 @@ namespace FF12Rando
 
                 Dictionary<string, int> locationsShared = new Dictionary<string, int>();
                 List<string> used = new List<string>();
-                shopData.Values.ToList().Shuffle().OrderByDescending(s => s.Traits.Contains("Unique")).ForEach(s =>
+                shopData.Values.Shuffle().OrderByDescending(s => s.Traits.Contains("Unique")).ForEach(s =>
                 {
                     DataStoreShop shop = shops[s.ID];
                     if (FF12Flags.Items.ShopsShared.Enabled && !s.Traits.Contains("Unique") && locationsShared.ContainsKey(s.Area))

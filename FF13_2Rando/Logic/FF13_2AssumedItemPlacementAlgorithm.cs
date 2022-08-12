@@ -47,10 +47,10 @@ namespace FF13_2Rando
             return false;
         }
 
-        public override bool IsValid(string location, string replacement, string area, Dictionary<string, int> items, List<string> areasAvailable)
+        public override bool IsValid(string location, string replacement, Dictionary<string, int> items, List<string> areasAvailable)
         {
             return ItemLocations[location].IsValid(items) &&
-                (area == null || ItemLocations[location].Areas.Contains(area)) &&
+                ItemLocations[location].Areas.Intersect(areasAvailable).Count() > 0 &&
                 ItemLocations[location].RequiredAreas.Intersect(areasAvailable).Count() == ItemLocations[location].RequiredAreas.Count &&
                 IsAllowed(location, replacement) &&
                 cruxRando.GetMogLevel(areasAvailable) >= ItemLocations[location].MogLevel;
@@ -155,7 +155,7 @@ namespace FF13_2Rando
                 {
                     string nextLocation = cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Substring(0, cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Length - 2);
                     return !list.Contains(cruxRando.placement[nextLocation]);
-                }).ToList().Shuffle().FirstOrDefault();
+                }).Shuffle().FirstOrDefault();
 
                 if (g != null)
                 {

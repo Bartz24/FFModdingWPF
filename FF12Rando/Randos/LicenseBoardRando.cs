@@ -66,8 +66,8 @@ namespace FF12Rando
             if (FF12Flags.Other.LicenseBoards.FlagEnabled)
             {
                 FF12Flags.Other.LicenseBoards.SetRand();
-                int[] left = Enumerable.Range(0, 12).ToList().Shuffle().ToArray();
-                int[] right = Enumerable.Range(0, 12).ToList().Shuffle().ToArray();
+                int[] left = Enumerable.Range(0, 12).Shuffle().ToArray();
+                int[] right = Enumerable.Range(0, 12).Shuffle().ToArray();
                 for (int i = 0; i < 12; i++)
                 {
                     AddBoard(boards[i], leftSplitBoards.Values.ToList()[left[i]]);
@@ -82,7 +82,7 @@ namespace FF12Rando
             if (FF12Flags.Other.StartingBoards.FlagEnabled)
             {
                 FF12Flags.Other.StartingBoards.SetRand();
-                startingBoards = Enumerable.Range(1, 12).ToList().Shuffle().Take(6).ToArray();
+                startingBoards = Enumerable.Range(1, 12).Shuffle().Take(6).ToArray();
                 treasureRando.prices[0x77].Price = (uint)MathExtensions.EncodeNaturalSequence(startingBoards.Select(i => (long)i).ToArray(), 13);
                 RandomNum.ClearRand();
             }
