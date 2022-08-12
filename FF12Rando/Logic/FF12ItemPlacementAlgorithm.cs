@@ -75,13 +75,13 @@ namespace FF12Rando
             return false;
         }
 
-        public override bool IsValid(string location, string replacement, string area, Dictionary<string, int> items, List<string> areasAvailable)
+        public override bool IsValid(string location, string replacement, Dictionary<string, int> items, List<string> areasAvailable)
         {
             if (treasureRando.IsImportantKeyItem(replacement) && !HasEnoughChars(replacement, items))
                 return false;
 
             return ItemLocations[location].IsValid(items) &&
-                (area == null || ItemLocations[location].Areas.Contains(area)) &&
+                ItemLocations[location].Areas.Intersect(areasAvailable).Count() > 0 &&
                 IsAllowed(location, replacement);
         }
 

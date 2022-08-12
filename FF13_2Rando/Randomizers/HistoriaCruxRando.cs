@@ -88,11 +88,11 @@ namespace FF13_2Rando
         private Tuple<bool, Dictionary<string, string>> GetPlacement(Dictionary<string, string> soFar, List<string> openings)
         {
             List<string> available = GetAvailableLocations(soFar);
-            List<string> remaining = openings.Where(t => !soFar.ContainsValue(t)).ToList().Shuffle().ToList();
+            List<string> remaining = openings.Where(t => !soFar.ContainsValue(t)).Shuffle();
 
             foreach (string rep in remaining)
             {
-                List<string> possible = openings.Where(o => !soFar.ContainsKey(o) && IsAllowed(o, soFar, available)).ToList().Shuffle().ToList();
+                List<string> possible = openings.Where(o => !soFar.ContainsKey(o) && IsAllowed(o, soFar, available)).Shuffle();
                 if (possible.Count == 0)
                     return new Tuple<bool, Dictionary<string, string>>(false, soFar);
             }

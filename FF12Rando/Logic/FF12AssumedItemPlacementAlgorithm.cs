@@ -75,13 +75,13 @@ namespace FF12Rando
             return false;
         }
 
-        public override bool IsValid(string location, string replacement, string area, Dictionary<string, int> items, List<string> areasAvailable)
+        public override bool IsValid(string location, string replacement, Dictionary<string, int> items, List<string> areasAvailable)
         {
             if (treasureRando.IsImportantKeyItem(replacement) && !HasEnoughChars(replacement, items))
                 return false;
 
             return ItemLocations[location].IsValid(items) &&
-                (area == null || ItemLocations[location].Areas.Contains(area)) &&
+                ItemLocations[location].Areas.Intersect(areasAvailable).Count() > 0 &&
                 IsAllowed(location, replacement);
         }
 
@@ -274,7 +274,7 @@ namespace FF12Rando
         {
             List<string> possible, newPossible = null;
             List<string> newAccessibleAreas = GetNewAreasAvailable(items, new List<string>());
-            possible = newAccessibleAreas.SelectMany(loc => locations.Where(t => IsValid(t, rep, loc, items, newAccessibleAreas))).Distinct().ToList().Shuffle().ToList();
+            possible = locations.Where(t => !Placement.ContainsKey(t) && IsValid(t, rep, items, newAccessibleAreas)).Shuffle();
 
             base.RemoveItems(locations, items, nextItem, rep);
 
@@ -284,7 +284,7 @@ namespace FF12Rando
                 if (newPossible != null)
                     possible = new List<string>(newPossible);
 
-                newPossible = newAccessibleAreas.SelectMany(loc => possible.Where(t => IsValid(t, rep, loc, items, newAccessibleAreas))).Distinct().ToList().Shuffle().ToList();
+                newPossible = locations.Where(t => !Placement.ContainsKey(t) && IsValid(t, rep, items, newAccessibleAreas)).Shuffle();
 
                 List<string> removed = possible.Where(s => !newPossible.Contains(s)).ToList();
                 removed.Where(s => fakeItemTracking.ContainsValue(s)).ForEach(s =>

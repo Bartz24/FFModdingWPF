@@ -188,7 +188,7 @@ namespace FF13Rando
                 foreach (string c in chars)
                 {
                     string first = c == "saz" ? "rav" : RandomNum.SelectRandomWeighted(new List<string>() { "com", "rav" }, _ => 1);
-                    List<string> rolesRemaining = roles.Where(r => r != first).ToList().Shuffle().ToList();
+                    List<string> rolesRemaining = roles.Where(r => r != first).Shuffle();
                     PlacementAlgo.SetLocationItem(itemLocations.Values.First(t => t.ID.StartsWith("z_ran_" + c) && itemLocations[t.ID].Traits.Contains("Same")).ID, $"rol_{c}_{first}", 1);
 
                     itemLocations.Values.Where(t => PlacementAlgo.GetLocationItem(t.ID, false).Item1.StartsWith("rol_" + c) && !itemLocations[t.ID].Traits.Contains("Same")).ForEach(t =>

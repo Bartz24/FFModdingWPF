@@ -60,7 +60,7 @@ namespace FF13_2Rando
         public MainWindow()
         {
             FF13_2Flags.Init();
-            FF13_2Presets.Init();
+            Presets.Init();
             InitializeComponent();
             this.DataContext = this;
             HideProgressBar();

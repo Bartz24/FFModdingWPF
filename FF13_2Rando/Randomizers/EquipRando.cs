@@ -87,17 +87,17 @@ namespace FF13_2Rando
             List<AbilityData> filteredAbilities = crystariumRando.abilityData.Values.Where(a => a.Role == "" && !a.Traits.Contains("Mon")).ToList();
             foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility_string != ""))
             {
-                IList<AbilityData> list = filteredAbilities.Where(a => (!a.Traits.Contains("Noel") || equip.name.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.name.Contains("ser"))).ToList().Shuffle();
+                IList<AbilityData> list = filteredAbilities.Where(a => (!a.Traits.Contains("Noel") || equip.name.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.name.Contains("ser"))).Shuffle();
                 equip.sAbility_string = list.First().ID;
             }
             foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility2_string != ""))
             {
-                IList<AbilityData> list = filteredAbilities.Where(a => a.ID != equip.sAbility_string && (!a.Traits.Contains("Noel") || equip.name.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.name.Contains("ser"))).ToList().Shuffle();
+                IList<AbilityData> list = filteredAbilities.Where(a => a.ID != equip.sAbility_string && (!a.Traits.Contains("Noel") || equip.name.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.name.Contains("ser"))).Shuffle();
                 equip.sAbility2_string = list.First().ID;
             }
             foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility3_string != ""))
             {
-                IList<AbilityData> list = filteredAbilities.Where(a => a.ID != equip.sAbility_string && a.ID != equip.sAbility2_string && (!a.Traits.Contains("Noel") || equip.name.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.name.Contains("ser"))).ToList().Shuffle();
+                IList<AbilityData> list = filteredAbilities.Where(a => a.ID != equip.sAbility_string && a.ID != equip.sAbility2_string && (!a.Traits.Contains("Noel") || equip.name.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.name.Contains("ser"))).Shuffle();
                 equip.sAbility3_string = list.First().ID;
             }
         }

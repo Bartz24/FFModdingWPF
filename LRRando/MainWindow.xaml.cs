@@ -67,7 +67,7 @@ namespace LRRando
         public MainWindow()
         {
             LRFlags.Init();
-            LRPresets.Init();
+            Presets.Init();
             InitializeComponent();
             this.DataContext = this;
             HideProgressBar();

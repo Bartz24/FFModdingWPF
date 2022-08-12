@@ -178,7 +178,7 @@ namespace FF13Rando
         {
             public static Flag Music, Enemies;
             public static NumberFlagProperty EnemyRank;
-            public static ToggleFlagProperty EnemyNoLimit;
+            public static ComboBoxFlagProperty EnemyVariety;
 
             internal static void Init()
             {
@@ -197,11 +197,15 @@ namespace FF13Rando
                     DescriptionFormat = "Randomizes enemies."
                 }.Register(FlagType.Other);
 
-                EnemyNoLimit = (ToggleFlagProperty)new ToggleFlagProperty()
+                EnemyVariety = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
                 {
-                    Text = "Increase Enemy Variety",
+                    Text = "Enemy Variety",
                     ID = "EnemyVariety",
-                    Description = "[EXPERIMENTAL] Enemy variety will be increased in areas that allow it. This may cause crashes in areas less tested so use at your own risk. If the crashes become an issue, turn this off and regenerate the seed."
+                    Description = "Enemies Stay to the Same Area - Each encounter will only contain enemies from the area.\n" +
+                    "Allow Other Enemies - Low - Allows enemies from other areas but limits variety to avoid crashes. Most encounters will not contain new enemies.\n" +
+                    "Allow Other Enemies - Medium - Allows enemies from other areas but limits variety in some areas. This may cause crashes in areas less tested so use at your own risk.\n" +
+                    "Allow Other Enemies - Max - Allows enemies from other areas but limits variety as least as possible to avoid known crashes. This may cause crashes in areas less tested so use at your own risk.",
+                    Values = new string[] { "Enemies Stay to the Same Area", "Allow Other Enemies - Low", "Allow Other Enemies - Medium [EXPERIMENTAL]", "Allow Other Enemies - Max [EXPERIMENTAL]" }.ToList()
                 }.Register(Enemies);
 
                 EnemyRank = (NumberFlagProperty)new NumberFlagProperty()

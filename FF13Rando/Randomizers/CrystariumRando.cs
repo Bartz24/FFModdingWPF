@@ -167,14 +167,14 @@ namespace FF13Rando
                     // Set remaining abilities
                     for (int stage = 1; stage <= 10; stage++)
                     {
-                        List<DataStoreCrystarium> nodes = remaining.Where(c => c.iStage == stage).ToList().Shuffle().ToList();
+                        List<DataStoreCrystarium> nodes = remaining.Where(c => c.iStage == stage).Shuffle();
 
                         foreach (DataStoreCrystarium node in nodes)
                         {
                             IEnumerable<AbilityData> required = abilityData.Values.Where(a => a.Characters.Contains(chara) && a.Traits.Contains("Required") && !abilitiesPlaced.Contains(a.ID));
                             if (remaining.Count == required.Count())
                             {
-                                node.sAbility_string = required.ToList().Shuffle().Select(a => a.ID).First();
+                                node.sAbility_string = required.Shuffle().Select(a => a.ID).First();
                                 remaining.Remove(node);
                                 abilitiesPlaced.Add(node.sAbility_string);
                                 continue;
@@ -204,12 +204,12 @@ namespace FF13Rando
         private string GetNextAbilityAll(List<string> used, string chara, bool allowAuto)
         {
             return abilityData.Values.Where(a => !used.Contains(a.ID) && (allowAuto || !a.Traits.Contains("Auto")) && a.Requirements.IsValid(used.ToDictionary(s => s, _ => 1)) && a.Incompatible.Intersect(used).Count() == 0 && a.Characters.Contains(chara))
-                .ToList().Shuffle().Select(a => a.ID).FirstOrDefault();
+                .Shuffle().Select(a => a.ID).FirstOrDefault();
         }
         private string GetNextAbilityRole(List<string> used, string chara, Role role, bool allowTech, bool allowAuto)
         {
             return abilityData.Values.Where(a => !used.Contains(a.ID) && (allowAuto || !a.Traits.Contains("Auto")) && (allowTech && a.Role == Role.None || a.Role == role) && a.Requirements.IsValid(used.ToDictionary(s => s, _ => 1)) && a.Incompatible.Intersect(used).Count() == 0 && a.Characters.Contains(chara))
-                .ToList().Shuffle().Select(a => a.ID).FirstOrDefault();
+                .Shuffle().Select(a => a.ID).FirstOrDefault();
         }
 
         private void UpdateCPCosts()
@@ -333,7 +333,7 @@ namespace FF13Rando
             {
                 List<CrystariumType> types = new List<CrystariumType>() { CrystariumType.Accessory, CrystariumType.ATBLevel, CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic };
 
-                List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => types.Contains(c.iType) && c.iCPCost > 0).ToList().Shuffle().ToList();
+                List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => types.Contains(c.iType) && c.iCPCost > 0).Shuffle();
                 nodes.Shuffle((c1, c2) => c1.SwapStatsAbilities(c2));
             }
         }
@@ -346,7 +346,7 @@ namespace FF13Rando
                 {
                     Role role = (Role)r;
 
-                    List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => c.iRole == role && c != firstAbis[chara][role] && c.iCPCost > 0).ToList().Shuffle().ToList();
+                    List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => c.iRole == role && c != firstAbis[chara][role] && c.iCPCost > 0).Shuffle();
 
                     nodes.Shuffle((c1, c2) =>
                     {

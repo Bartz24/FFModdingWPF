@@ -89,8 +89,9 @@ namespace FF13Rando
                 //List<string> setEnemies = charaSets.Values.SelectMany(c => c.GetCharaSpecs()).Distinct().ToList();
                 //setEnemies.Sort();
 
-                battleData.Keys.ToList().Shuffle().ForEach(id =>
+                battleData.Keys.Shuffle().ForEach(id =>
                 {
+                    List<string> vanillaEnemies = btscs[id].Values.Select(e => e.sEntryBtChSpec_string).ToList();
                     btscs[id].Values.Shuffle().Where(e => enemyData.ContainsKey(e.sEntryBtChSpec_string)).ForEach(e =>
                       {
                           string oldEnemy = e.sEntryBtChSpec_string;
@@ -112,7 +113,7 @@ namespace FF13Rando
                           {
                               canAdd = true;
                               e.sEntryBtChSpec_string = RandomNum.SelectRandomWeighted(possible, _ => 1);
-                              if (e.sEntryBtChSpec_string == oldEnemy)
+                              if (vanillaEnemies.Contains(e.sEntryBtChSpec_string))
                               {
                                   break;
                               }
@@ -124,7 +125,7 @@ namespace FF13Rando
                                   if (!list.Contains(charaspec))
                                       list.Add(charaspec);
 
-                                  if (list.Count > Math.Min(FF13Flags.Other.EnemyNoLimit.Enabled ? 60 : 16, battleData[id].CharasetLimit) && list.Count > charaSets[c].GetCharaSpecs().Count)
+                                  if (list.Count > Math.Min(GetMaxCountAllowed(), battleData[id].CharasetLimit) && list.Count > charaSets[c].GetCharaSpecs().Count)
                                   {
                                       canAdd = false;
                                       possible.Remove(e.sEntryBtChSpec_string);
@@ -132,7 +133,7 @@ namespace FF13Rando
                                       {
                                           canAdd = true;
                                           // If it hit the soft cap, it's ok to add
-                                          if (FF13Flags.Other.EnemyNoLimit.Enabled && battleData[id].CharasetLimit >= 60 && list.Count <= 64)
+                                          if (FF13Flags.Other.EnemyVariety.SelectedIndex == FF13Flags.Other.EnemyVariety.Values.Count - 1 && battleData[id].CharasetLimit >= 44 && list.Count <= 48)
                                           {
                                               possible.Add(e.sEntryBtChSpec_string);
                                           }
@@ -145,7 +146,7 @@ namespace FF13Rando
                               });
                           } while (!canAdd);
 
-                          if (e.sEntryBtChSpec_string != oldEnemy)
+                          if (!vanillaEnemies.Contains(e.sEntryBtChSpec_string))
                           {
                               battleData[id].Charasets.ForEach(c =>
                               {
@@ -165,9 +166,21 @@ namespace FF13Rando
             }
         }
 
-        private bool IsVarietyLimited(string id)
+        private int GetMaxCountAllowed()
         {
-            return battleData[id].Traits.Contains("LimitChara") || !FF13Flags.Other.EnemyNoLimit.Enabled;
+            switch (FF13Flags.Other.EnemyVariety.SelectedIndex)
+            {
+                case 0:
+                    return 0;
+                case 1:
+                    return 16;
+                case 2:
+                    return 30;
+                case 3:
+                    return 44;
+                default:
+                    return 16;
+            }
         }
 
         public override HTMLPage GetDocumentation()

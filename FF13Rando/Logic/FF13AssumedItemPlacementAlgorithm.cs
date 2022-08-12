@@ -29,17 +29,34 @@ namespace FF13Rando
             return false;
         }
 
-        public override bool IsValid(string location, string replacement, string area, Dictionary<string, int> items, List<string> areasAvailable)
+        public override bool IsValid(string location, string replacement, Dictionary<string, int> items, List<string> areasAvailable)
         {
             return ItemLocations[location].IsValid(items) &&
                 FF13RandoHelpers.AreCrystariumReqsMet(ItemLocations[location], items) &&
-                (area == null || ItemLocations[location].Areas.Contains(area)) &&
+                ItemLocations[location].Areas.Intersect(areasAvailable).Count() > 0 &&
                 IsAllowed(location, replacement);
         }
 
         public override void RemoveHint(string hint, string location)
         {
             ItemLocations[location].Areas.ForEach(l => HintsByLocationsCount[l]++);
+        }
+        public override void RemoveLikeItemsFromRemaining(string replacement, List<string> remaining)
+        {
+            if (treasureRando.IsShop(replacement) && FF13Flags.Items.KeyShops.Enabled)
+                remaining.RemoveAll(rem => treasureRando.IsShop(rem));
+            else if ((treasureRando.IsInitRole(replacement) || treasureRando.IsOtherRole(replacement)) && FF13Flags.Items.KeyInitRoles.Enabled && FF13Flags.Items.KeyRoles.Enabled)
+                remaining.RemoveAll(rem => treasureRando.IsInitRole(rem) || treasureRando.IsOtherRole(rem));
+            else if (treasureRando.IsInitRole(replacement) && FF13Flags.Items.KeyInitRoles.Enabled)
+                remaining.RemoveAll(rem => treasureRando.IsInitRole(rem));
+            else if (treasureRando.IsOtherRole(replacement) && FF13Flags.Items.KeyRoles.Enabled)
+                remaining.RemoveAll(rem => treasureRando.IsOtherRole(rem));
+            else if (treasureRando.IsStage(replacement) && FF13Flags.Items.KeyStages.Enabled)
+                remaining.RemoveAll(rem => treasureRando.IsStage(rem));
+            else if (treasureRando.IsEidolon(replacement) && FF13Flags.Items.KeyEidolith.Enabled)
+                remaining.RemoveAll(rem => treasureRando.IsEidolon(rem));
+            else
+                remaining.Remove(replacement);
         }
 
         public override bool RequiresDepthLogic(string location)
@@ -128,7 +145,12 @@ namespace FF13Rando
             if (ItemLocations[old].Traits.Contains("Repeatable"))
             {
                 if (!treasureRando.IsRepeatableAllowed(rep))
-                    return false;
+                {
+                    if (treasureRando.IsShop(rep))
+                        return !FF13Flags.Items.KeyPlaceTreasure.Enabled && !FF13Flags.Items.KeyPlaceMissions.Enabled;
+                    else
+                        return false;
+                }
             }
             if (ItemLocations[old].Traits.Contains("Mission"))
             {

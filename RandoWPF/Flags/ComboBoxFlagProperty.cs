@@ -37,6 +37,8 @@ namespace Bartz24.RandoWPF
             }
         }
 
+        public int SelectedIndex { get => Values.IndexOf(SelectedValue); }
+
         public override void Deserialize(dynamic data)
         {
             base.Deserialize((object)data);

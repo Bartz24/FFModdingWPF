@@ -29,7 +29,7 @@ namespace LRRando
                     if (h.Requirements.GetPossibleRequirements().Contains(replacement))
                         return false;
                     return true;
-                }).ToList().Shuffle().OrderByDescending(h =>
+                }).Shuffle().OrderByDescending(h =>
                 {
                     if (LRFlags.Other.HintsDepth.Enabled)
                     {
@@ -92,10 +92,10 @@ namespace LRRando
             return false;
         }
 
-        public override bool IsValid(string location, string replacement, string area, Dictionary<string, int> items, List<string> areasAvailable)
+        public override bool IsValid(string location, string replacement, Dictionary<string, int> items, List<string> areasAvailable)
         {
             return ItemLocations[location].IsValid(items) &&
-                (area == null || ItemLocations[location].Areas.Contains(area)) &&
+                ItemLocations[location].Areas.Intersect(areasAvailable).Count() > 0 &&
                 IsAllowed(location, replacement);
         }
 

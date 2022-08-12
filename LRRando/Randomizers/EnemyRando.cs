@@ -106,7 +106,7 @@ namespace LRRando
             if (list.Count > 0)
                 list.RemoveAt(0);
             if (list.Count == 0)
-                list.AddRange(equipRando.items.Keys.Where(s => s.StartsWith("mat_z")).ToList().Shuffle());
+                list.AddRange(equipRando.items.Keys.Where(s => s.StartsWith("mat_z")).Shuffle());
             RandomNum.ClearRand();
         }
 

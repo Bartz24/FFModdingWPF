@@ -130,8 +130,8 @@ namespace LRRando
 
             Randomizers.SetProgressFunc("Loading Treasure Data...", 80, 100);
             LRFlags.Items.Treasures.SetRand();
-            List<string> locations = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList().Shuffle().ToList();
-            List<string> libraItems = hintsNotesLocations.Keys.ToList().Shuffle().ToList();
+            List<string> locations = itemLocations.Values.SelectMany(t => t.Areas).Distinct().Shuffle();
+            List<string> libraItems = hintsNotesLocations.Keys.Shuffle();
             for (int i = 0; i < locations.Count; i++)
             {
                 hintsNotesLocations[libraItems[i]] = locations[i];
@@ -178,7 +178,7 @@ namespace LRRando
                 RandomAdorn = RandomAdorn.Distinct().ToList();
                 RemainingAdorn = new List<string>(RandomAdorn);
 
-                List<string> keys = itemLocations.Keys.ToList().Shuffle().ToList();
+                List<string> keys = itemLocations.Keys.Shuffle();
 
                 Dictionary<string, double> areaMults = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
                 if (!placementAlgo.Randomize(new List<string>(), areaMults))
@@ -209,13 +209,13 @@ namespace LRRando
                     };
                     if (RandomEquip.Contains(PlacementAlgo.GetLocationItem(key, false).Item1))
                     {
-                        string next = RemainingEquip.Where(s => !isSame || sameCheck(s, PlacementAlgo.GetLocationItem(key, false).Item1)).ToList().Shuffle().First();
+                        string next = RemainingEquip.Where(s => !isSame || sameCheck(s, PlacementAlgo.GetLocationItem(key, false).Item1)).Shuffle().First();
                         RemainingEquip.Remove(next);
                         PlacementAlgo.SetLocationItem(key, next, 1);
                     }
                     if (RandomAdorn.Contains(PlacementAlgo.GetLocationItem(key, false).Item1))
                     {
-                        string next = RemainingAdorn.Where(s => !isSame || sameCheck(s, PlacementAlgo.GetLocationItem(key, false).Item1)).ToList().Shuffle().First();
+                        string next = RemainingAdorn.Where(s => !isSame || sameCheck(s, PlacementAlgo.GetLocationItem(key, false).Item1)).Shuffle().First();
                         RemainingAdorn.Remove(next);
                         PlacementAlgo.SetLocationItem(key, next, 1);
                     }

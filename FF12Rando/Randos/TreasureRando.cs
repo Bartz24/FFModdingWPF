@@ -141,13 +141,13 @@ namespace FF12Rando
                 }
 
                 int respawnIndex = 0;
-                itemLocations.Values.ToList().Shuffle().ForEach(l =>
+                itemLocations.Values.Shuffle().ForEach(l =>
                 {
                     if (PlacementAlgo.GetKeysAllowed().Contains(l.ID))
                     {
                         if (IsEmpty(l.ID))
                         {
-                            string rep = PlacementAlgo.Placement.Keys.Where(s => IsExtra(s) && PlacementAlgo.GetLocationItem(s, false) != null && !IsImportantKeyItem(PlacementAlgo.Placement[s]) && PlacementAlgo.IsAllowed(l.ID, PlacementAlgo.Placement[s])).ToList().Shuffle().First();
+                            string rep = PlacementAlgo.Placement.Keys.Where(s => IsExtra(s) && PlacementAlgo.GetLocationItem(s, false) != null && !IsImportantKeyItem(PlacementAlgo.Placement[s]) && PlacementAlgo.IsAllowed(l.ID, PlacementAlgo.Placement[s])).Shuffle().First();
                             Tuple<string, int> item = PlacementAlgo.GetLocationItem(rep, false);
                             PlacementAlgo.SetLocationItem(l.ID, item.Item1, item.Item2);
                             PlacementAlgo.Placement.Add(l.ID, PlacementAlgo.Placement[rep]);
@@ -343,7 +343,7 @@ namespace FF12Rando
                 }
             });
 
-            foreach (TreasureData l in itemLocations.Values.Where(l => l is TreasureData && !treasuresToPlace.Contains(l.ID)).Select(l => (TreasureData)l).ToList().Shuffle())
+            foreach (TreasureData l in itemLocations.Values.Where(l => l is TreasureData && !treasuresToPlace.Contains(l.ID)).Select(l => (TreasureData)l).Shuffle())
             {
                 DataStoreTreasure t = ebpAreasOrig[((TreasureData)l).MapID].TreasureList[l.Index];
                 if (t.Respawn == 255 || !usedRespawnIDs.Contains(t.Respawn))
@@ -356,7 +356,7 @@ namespace FF12Rando
                 }
             }
 
-            treasuresAllowed = itemLocations.Values.Where(l => l is TreasureData && !l.Traits.Contains("Missable")).Select(l => l.ID).ToList().Shuffle().Take(255).ToList();
+            treasuresAllowed = itemLocations.Values.Where(l => l is TreasureData && !l.Traits.Contains("Missable")).Select(l => l.ID).Shuffle().Take(255).ToList();
         }
 
         private bool IsEmpty(string id)

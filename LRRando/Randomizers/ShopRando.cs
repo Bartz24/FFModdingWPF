@@ -94,7 +94,7 @@ namespace LRRando
                 Dictionary<string, List<string>> uniqueShops = new Dictionary<string, List<string>>();
                 uniqueShops.Add("shop_ptl", new List<string>());
                 uniqueShops.Add("shop_equ_wd00", new List<string>());
-                shops.Values.Where(s => s.u3Category == (int)ShopCategory.Forge).ToList().Shuffle().Take(3).ForEach(s => uniqueShops.Add(s.name, new List<string>()));
+                shops.Values.Where(s => s.u3Category == (int)ShopCategory.Forge).Shuffle().Take(3).ForEach(s => uniqueShops.Add(s.name, new List<string>()));
 
                 Dictionary<string, List<string>> shopsDict = new Dictionary<string, List<string>>();
 
@@ -112,7 +112,7 @@ namespace LRRando
                         (shopsOrig[k].u3Category == (int)ShopCategory.Ark || shopsOrig[k].u3Category == (int)ShopCategory.Items ? 6 : 18) - shopsDict[k].Count)
                 );
                 List<string> libraMaterials = new List<string>();
-                shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra).ForEach(_ => libraMaterials.AddRange(equipRando.items.Keys.Where(i => i.StartsWith("mat_z")).ToList().Shuffle()));
+                shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra).ForEach(_ => libraMaterials.AddRange(equipRando.items.Keys.Where(i => i.StartsWith("mat_z")).Shuffle()));
 
                 for (int n = 4; n <= 8; n++)
                 {
@@ -121,7 +121,7 @@ namespace LRRando
 
                 foreach (string equip in treasureRando.RemainingEquip)
                 {
-                    string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && IsValid(equip, (ShopCategory)shopsOrig[k].u3Category)).ToList().Shuffle().First();
+                    string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && IsValid(equip, (ShopCategory)shopsOrig[k].u3Category)).Shuffle().First();
                     shopsDict[next].Add(equip);
                     string unique = uniqueShops.Keys.Where(k => next.StartsWith(k)).FirstOrDefault();
                     if (!string.IsNullOrEmpty(unique))
@@ -129,7 +129,7 @@ namespace LRRando
                 }
                 foreach (string adorn in treasureRando.RemainingAdorn)
                 {
-                    string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && IsValid(adorn, (ShopCategory)shopsOrig[k].u3Category)).ToList().Shuffle().First();
+                    string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && IsValid(adorn, (ShopCategory)shopsOrig[k].u3Category)).Shuffle().First();
                     shopsDict[next].Add(adorn);
                     string unique = uniqueShops.Keys.Where(k => next.StartsWith(k)).FirstOrDefault();
                     if (!string.IsNullOrEmpty(unique))
@@ -142,7 +142,7 @@ namespace LRRando
                 possibleItems.AddRange(treasureRando.RemainingEquip);
                 possibleItems.AddRange(treasureRando.RemainingAdorn);
                 possibleItems.AddRange(GetItems());
-                foreach (string shop in shopsDict.Keys.ToList().Shuffle().OrderBy(s => s != "shop_ptl_pt00"))
+                foreach (string shop in shopsDict.Keys.Shuffle().OrderBy(s => s != "shop_ptl_pt00"))
                 {
                     string unique = uniqueShops.Keys.Where(k => shop.StartsWith(k)).FirstOrDefault();
                     while (shopsDict[shop].Count < maxSizes[shop])
@@ -151,7 +151,7 @@ namespace LRRando
                             IsValid(i, (ShopCategory)shopsOrig[shop].u3Category)
                             && !shopsDict[shop].Contains(i)
                             && (uniqueShops.Keys.Where(k => shop.StartsWith(k)).Count() == 0 && !uniqueShops.Values.SelectMany(l => l).Contains(i) || uniqueShops.Keys.Where(k => shop.StartsWith(k)).Count() > 0)
-                        ).ToList().Shuffle();
+                        ).Shuffle();
                         if (possible.Count() == 0)
                             break;
                         string next = possible.First();

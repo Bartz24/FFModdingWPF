@@ -237,7 +237,7 @@ namespace LRRando
                             && e.Class != "Boss"
                             || e.Class == oldEnemy.Class)
                             .Where(e => !e.ID.EndsWith("tuto") || LRFlags.Enemies.Prologue.Enabled)
-                            .ToList().Shuffle().First();
+                            .Shuffle().First();
                             newEnemies.Add(next);
                         }
 

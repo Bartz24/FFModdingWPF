@@ -52,8 +52,21 @@ namespace Bartz24.RandoWPF
 
             return preset;
         }
+        public static void Init()
+        {
+            PresetsList.Clear();
+            LoadPresets();
 
-        public static void LoadPresets()
+            new Preset()
+            {
+                Name = "Custom (Modified)",
+                CustomModified = true
+            }.Register();
+
+            Selected = PresetsList[0];
+        }
+
+        private static void LoadPresets()
         {
             Directory.GetFiles(@"data\presets", "*.json").ToList().ForEach(f =>
             {

@@ -234,7 +234,7 @@ namespace FF13_2Rando
                             if (newMapping == null)
                             {
                                 newMapping = allowed.Where(sameRank ? predSame : pred)
-                                .ToList().Shuffle().First().ID;
+                                .Shuffle().First().ID;
                             }
 
                             newEnemies.Add(enemyData[newMapping]);
@@ -248,12 +248,12 @@ namespace FF13_2Rando
                         {
                             if (attempts > 20)
                             {
-                                newEnemies.Add(newEnemies.ToList().Shuffle().First());
+                                newEnemies.Add(newEnemies.Shuffle().First());
                             }
                             else if (newEnemies.Where(sameRank ? predSame : pred).Count() > 0)
                             {
                                 newEnemies.Add(newEnemies.Where(sameRank ? predSame : pred)
-                            .ToList().Shuffle().First());
+                            .Shuffle().First());
                             }
                             else
                             {
@@ -265,7 +265,7 @@ namespace FF13_2Rando
                         else
                         {
                             EnemyData next = allowed.Where(sameRank ? predSame : pred)
-                            .ToList().Shuffle().First();
+                            .Shuffle().First();
                             newEnemies.Add(next);
                         }
 
