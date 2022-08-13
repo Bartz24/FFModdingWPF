@@ -102,8 +102,10 @@ namespace FF13Rando
                                   return true;
                               if (enemyData[oldEnemy].Traits.Contains("Flying"))
                                   return enemyData[next].Traits.Contains("Flying");
+                              else if (enemyData[oldEnemy].Traits.Contains("Turtle"))
+                                  return enemyData[next].Traits.Contains("Turtle");
                               else
-                                  return !enemyData[next].Traits.Contains("Flying");
+                                  return !enemyData[next].Traits.Contains("Flying") && !enemyData[next].Traits.Contains("Turtle");
                           }).Where(next =>
                           {
                               return enemyData[next].Rank >= enemyData[oldEnemy].Rank - FF13Flags.Other.EnemyRank.Value && enemyData[next].Rank <= enemyData[oldEnemy].Rank + FF13Flags.Other.EnemyRank.Value;
