@@ -124,9 +124,9 @@ m182,Hoplite,,7
 m183,Stikini,,6
 m184,Succubus,,3
 m185,Yakshini,,9
-m186,Adamantoise,,17
-m186a,Adamantortoise,,17
-m187,Adamanchelid,,14
+m186,Adamantoise,Turtle,17
+m186a,Adamantortoise,Turtle,17
+m187,Adamanchelid,Turtle,14
 m189,Ochu,,14
 m190,Microchu,,8
 m191,Bituitus,Flying|Event,12
@@ -183,7 +183,7 @@ m417,Ugallu,,11
 m418,Penanggalan,,13
 m419,Ectopudding,,9
 m420,Gelatitan,,13
-m421,Shaolong Gui,,18
-m422,Long Gui,,19
+m421,Shaolong Gui,Turtle,18
+m422,Long Gui,Turtle,19
 m423,Picochu,,11
 m424,Cryptos,,8
