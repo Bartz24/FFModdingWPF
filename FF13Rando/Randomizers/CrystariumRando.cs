@@ -101,6 +101,12 @@ namespace FF13Rando
                 RandomizeInitialStats();
                 RandomNum.ClearRand();
             }
+
+            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 95, 100);
+            if (FF13Flags.Stats.ScaledCPCosts.FlagEnabled)
+            {
+                ScaledCPCosts();
+            }
         }
 
         private List<int[]> GetAverageStats()
@@ -434,6 +440,34 @@ namespace FF13Rando
             });
 
             return page;
+        }
+
+        private void ScaledCPCosts()
+        {
+            foreach (string chara in chars)
+            {
+                crystariums[chara].Values.ForEach(c =>
+                {
+                    if (c.iCPCost > 0)
+                    {
+                        int cpCost = (int)Math.Floor(c.iCPCost * Math.Max(0.5, Math.Min(1, 1.08684 * Math.Exp(-0.08664 * c.iStage))));
+                        int interval;
+                        if (cpCost < 100)
+                            interval = 5;
+                        else if (cpCost < 1000)
+                            interval = 10;
+                        else if (cpCost < 5000)
+                            interval = 500;
+                        else if (cpCost < 10000)
+                            interval = 1000;
+                        else if (cpCost < 50000)
+                            interval = 5000;
+                        else
+                            interval = 10000;
+                        c.iCPCost = Math.Max(1, (uint)MathHelpers.RoundToInterval(cpCost, interval));
+                    }
+                });
+            }
         }
 
         public override void Save()

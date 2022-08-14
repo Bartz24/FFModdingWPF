@@ -30,6 +30,11 @@
     {
       "FlagEnabled": true,
       "FlagProperties": [],
+      "FlagID": "ScaledCPCost"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
       "FlagID": "RandInitStats"
     },
     {
@@ -70,6 +75,10 @@
         {
           "SelectedValue": "Normal",
           "ID": "KeyDepth"
+        },
+        {
+          "Value": 0,
+          "ID": "DiffScale"
         }
       ],
       "FlagID": "Treasures"
@@ -95,7 +104,7 @@
       "FlagID": "Music"
     },
     {
-      "FlagEnabled": true,
+      "FlagEnabled": false,
       "FlagProperties": [
         {
           "SelectedValue": "Enemies Stay to the Same Area",

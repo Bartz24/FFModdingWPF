@@ -11,7 +11,7 @@ namespace FF13Rando
             int stage = items.GetValueOrDefault("cry_stage", 0) + 1;
             int roleCount = GetRoleCount(loc, items);
             int partySize = loc.Characters.Count();
-            switch (loc.Difficulty)
+            switch (Math.Max(0, loc.Difficulty - FF13Flags.Items.DifficultyScaling.Value))
             {
                 case 0:
                 case 1:
