@@ -72,7 +72,7 @@ namespace FF12Rando
                 return ebp;
             });
 
-            characters = MathExtensions.DecodeNaturalSequence(prices[0x76].Price, 6, 6).Select(l => (int)l).ToArray();
+            characters = MathHelpers.DecodeNaturalSequence(prices[0x76].Price, 6, 6).Select(l => (int)l).ToArray();
 
             areaMapping = File.ReadAllLines("data\\mapAreas.csv").ToDictionary(s => s.Split(',')[1], s => s.Split(',')[0]);
 
@@ -112,7 +112,7 @@ namespace FF12Rando
             {
                 FF12Flags.Other.Party.SetRand();
                 characters.SetSubArray(1, characters.SubArray(1, 5).Shuffle().ToArray());
-                prices[0x76].Price = (uint)MathExtensions.EncodeNaturalSequence(characters.Select(i => (long)i).ToArray(), 6);
+                prices[0x76].Price = (uint)MathHelpers.EncodeNaturalSequence(characters.Select(i => (long)i).ToArray(), 6);
                 RandomNum.ClearRand();
             }
 

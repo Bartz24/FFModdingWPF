@@ -56,7 +56,7 @@ namespace FF12Rando
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
 
             treasureRando.prices[0x77].Price = 0;
-            startingBoards = MathExtensions.DecodeNaturalSequence(treasureRando.prices[0x77].Price, 6, 13).Select(l => (int)l).ToArray();
+            startingBoards = MathHelpers.DecodeNaturalSequence(treasureRando.prices[0x77].Price, 6, 13).Select(l => (int)l).ToArray();
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -83,7 +83,7 @@ namespace FF12Rando
             {
                 FF12Flags.Other.StartingBoards.SetRand();
                 startingBoards = Enumerable.Range(1, 12).Shuffle().Take(6).ToArray();
-                treasureRando.prices[0x77].Price = (uint)MathExtensions.EncodeNaturalSequence(startingBoards.Select(i => (long)i).ToArray(), 13);
+                treasureRando.prices[0x77].Price = (uint)MathHelpers.EncodeNaturalSequence(startingBoards.Select(i => (long)i).ToArray(), 13);
                 RandomNum.ClearRand();
             }
         }

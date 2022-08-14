@@ -30,6 +30,11 @@
     {
       "FlagEnabled": true,
       "FlagProperties": [],
+      "FlagID": "ScaledCPCost"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
       "FlagID": "RandInitStats"
     },
     {
@@ -70,6 +75,10 @@
         {
           "SelectedValue": "Hard+++",
           "ID": "KeyDepth"
+        },
+        {
+          "Value": 5,
+          "ID": "DiffScale"
         }
       ],
       "FlagID": "Treasures"

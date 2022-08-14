@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Bartz24.Data
 {
-    public class MathExtensions
+    public class MathHelpers
     {
         // Sequence must only contain once of each value from [0, n)
         public static long EncodeNaturalSequence(long[] seq, int pow)
@@ -34,6 +34,14 @@ namespace Bartz24.Data
                 array[i]++;
             }
             return array;
+        }
+        public static int RoundToInterval(int i, int interval)
+        {
+            if (interval == 0)
+            {
+                throw new ArgumentException("The specified interval cannot be 0.", nameof(interval));
+            }
+            return ((int)Math.Round((double)i / (double)interval)) * interval;
         }
     }
 }

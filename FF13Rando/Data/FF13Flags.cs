@@ -17,7 +17,7 @@ namespace FF13Rando
         }
         public class Stats
         {
-            public static Flag RandCrystAbi, RandCrystStat, ShuffleCrystRole, RandInitStats;
+            public static Flag RandCrystAbi, RandCrystStat, ShuffleCrystRole, ScaledCPCosts, RandInitStats;
             public static ToggleFlagProperty RandCrystAbiAll, ShuffleCrystMisc;
 
             internal static void Init()
@@ -57,6 +57,13 @@ namespace FF13Rando
                     DescriptionFormat = "Randomizes the order of the crystarium nodes in each role. Abilities may be out of order in terms of pre-required abilities."
                 }.Register(FlagType.Stats);
 
+                ScaledCPCosts = new Flag()
+                {
+                    Text = "Scaled CP Costs",
+                    FlagID = "ScaledCPCost",
+                    DescriptionFormat = "CP Costs are reduced based on the stage from Stage 1 with 1x multiplier to Stage 9 and 10 0.5x multiplier."
+                }.Register(FlagType.Stats);
+
                 RandInitStats = new Flag()
                 {
                     Text = "Randomize Initial Stats",
@@ -70,6 +77,7 @@ namespace FF13Rando
             public static Flag Treasures, ShuffleRoles, ShuffleShops, StartingEquip;
             public static ToggleFlagProperty KeyRoles, KeyInitRoles, KeyStages, KeyEidolith, KeyShops, KeyReins, KeyPlaceTreasure, KeyPlaceMissions;
             public static ComboBoxFlagProperty KeyDepth;
+            public static NumberFlagProperty DifficultyScaling;
 
             internal static void Init()
             {
@@ -150,6 +158,16 @@ namespace FF13Rando
                     "    Hard++ - Each level of depth/difficulty increases likelyhood of that location by 1.50x.\n" +
                     "    Hard+++ - Locations of the highest depth/difficulty will tend to be preferred.",
                     Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
+                }.Register(Treasures);
+
+                DifficultyScaling = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "Difficulty Handicap",
+                    ID = "DiffScale",
+                    Description = "Item locations will be given a handicap to their difficulty to decrease the number of required roles and crystarium expansions used in logic. The higher the handicap, the less tools ",
+                    ValueText = "+",
+                    MinValue = 0,
+                    MaxValue = 5
                 }.Register(Treasures);
 
                 ShuffleRoles = new Flag()
