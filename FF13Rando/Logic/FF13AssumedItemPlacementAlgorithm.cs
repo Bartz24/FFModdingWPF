@@ -11,7 +11,7 @@ namespace FF13Rando
 
         public FF13AssumedItemPlacementAlgorithm(Dictionary<string, FF13ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
         {
-            treasureRando = randomizers.Get<TreasureRando>("Treasures");
+            treasureRando = randomizers.Get<TreasureRando>();
         }
         public override string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth)
         {
@@ -56,7 +56,7 @@ namespace FF13Rando
             else if (treasureRando.IsEidolon(replacement) && FF13Flags.Items.KeyEidolith.Enabled)
                 remaining.RemoveAll(rem => treasureRando.IsEidolon(rem));
             else
-                remaining.Remove(replacement);
+                base.RemoveLikeItemsFromRemaining(replacement, remaining);
         }
 
         public override bool RequiresDepthLogic(string location)
@@ -82,10 +82,10 @@ namespace FF13Rando
                 case TreasureRando.TreasureData t:
                     return t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
                 case TreasureRando.BattleData b:
-                    BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>("Battles");
+                    BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>();
                     return b.GetData(orig ? battleRando.btsceneOrig[key] : battleRando.btscene[key]);
                 case TreasureRando.EnemyData e:
-                    EnemyRando enemyRando = treasureRando.Randomizers.Get<EnemyRando>("Enemies");
+                    EnemyRando enemyRando = treasureRando.Randomizers.Get<EnemyRando>();
                     return e.GetData(orig ? enemyRando.charaSpecOrig[key] : enemyRando.charaSpec[key]);
                 default:
                     return base.GetLocationItem(key, orig);
@@ -100,11 +100,11 @@ namespace FF13Rando
                     t.SetData(treasureRando.treasures[key], item, count);
                     break;
                 case TreasureRando.BattleData b:
-                    BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>("Battles");
+                    BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>();
                     b.SetData(battleRando.btscene[key], item, count);
                     break;
                 case TreasureRando.EnemyData e:
-                    EnemyRando enemyRando = treasureRando.Randomizers.Get<EnemyRando>("Enemies");
+                    EnemyRando enemyRando = treasureRando.Randomizers.Get<EnemyRando>();
                     e.SetData(enemyRando.charaSpec[key], item, count);
                     e.LinkedIDs.ForEach(other => e.SetData(enemyRando.charaSpec[other], item, count));
                     break;

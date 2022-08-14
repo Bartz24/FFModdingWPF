@@ -15,7 +15,7 @@ namespace LRRando
 
         public LRAssumedItemPlacementAlgorithm(Dictionary<string, ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
         {
-            treasureRando = randomizers.Get<TreasureRando>("Treasures");
+            treasureRando = randomizers.Get<TreasureRando>();
         }
 
         public override string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth)
@@ -138,7 +138,7 @@ namespace LRRando
                 case TreasureRando.TreasureData t:
                     return t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
                 case TreasureRando.BattleDropData t:
-                    BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>("Battles");
+                    BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>();
                     return t.GetData(orig ? battleRando.btScenesOrig[key] : battleRando.btScenes[key]);
                 default:
                     return base.GetLocationItem(key, orig);
@@ -153,7 +153,7 @@ namespace LRRando
                     t.SetData(treasureRando.treasures[key], item, count);
                     break;
                 case TreasureRando.BattleDropData t:
-                    BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>("Battles");
+                    BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>();
                     t.SetData(battleRando.btScenes[key], item, count);
                     break;
                 default:

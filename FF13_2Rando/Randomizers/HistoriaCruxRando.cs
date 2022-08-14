@@ -24,11 +24,6 @@ namespace FF13_2Rando
 
         public HistoriaCruxRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Historia Crux";
-        }
-
         public override void Load()
         {
             gateTable.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
@@ -284,8 +279,9 @@ namespace FF13_2Rando
             return size < 5;
         }
 
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Historia Crux", "template/documentation.html");
 
             page.HTMLElements.Add(new Table("", (new string[] { "Original Gate", "New Location" }).ToList(), (new int[] { 60, 40 }).ToList(),
@@ -294,7 +290,8 @@ namespace FF13_2Rando
                   string id = gateTable[g.ID].sOpenHistoria1_string;
                   return new string[] { g.GateOriginal, areaData[id.Substring(0, id.Length - 2)].Name }.ToList();
               }).ToList()));
-            return page;
+            pages.Add("historia_crux", page);
+            return pages;
         }
 
         public override void Save()

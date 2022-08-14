@@ -14,11 +14,6 @@ namespace LRRando
 
         public EnemyRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Enemies";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Enemy Data...", -1, 100);
@@ -42,8 +37,8 @@ namespace LRRando
         public override void Randomize(Action<int> progressSetter)
         {
             Randomizers.SetProgressFunc("Randomizing Enemy Data...", -1, 100);
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
 
             if (LRFlags.Enemies.BhuniPlus.FlagEnabled)
                 treasureRando.treasures["ran_bhuni_p"].s11ItemResourceId_string = "true";

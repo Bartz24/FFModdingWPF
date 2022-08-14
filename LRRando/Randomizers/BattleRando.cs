@@ -22,11 +22,6 @@ namespace LRRando
 
         public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Battles";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Battle Data...", 0, 100);
@@ -63,7 +58,7 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
+            EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
             Randomizers.SetProgressFunc("Randomizing Battle Data...", -1, 100);
             if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
             {
@@ -150,8 +145,8 @@ namespace LRRando
 
         private void UpdateEnemyLists(DataStoreBtScene btScene, List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, Dictionary<string, string> shuffledBosses, List<EnemyData> allowed, int maxVariety)
         {
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
-            EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
+            TextRando textRando = Randomizers.Get<TextRando>();
+            EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
             newEnemies.Clear();
             charSpecs.Clear();
             if (oldEnemies[0].Class == "Boss")
@@ -305,9 +300,10 @@ namespace LRRando
                 return dict;
             }
         }
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
-            HTMLPage page = new HTMLPage("Battles", "template/documentation.html");
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
+            HTMLPage page = new HTMLPage("Bosses & Encounters", "template/documentation.html");
 
             page.HTMLElements.Add(new Table("Bosses", (new string[] { "Original Boss", "New Boss" }).ToList(), (new int[] { 50, 50 }).ToList(), shuffledBosses.Select(p =>
             {
@@ -319,8 +315,8 @@ namespace LRRando
                 List<string> names = b.GetCharSpecs().Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : (e + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
                 return new string[] { b.name, string.Join(",", names) }.ToList();
             }).ToList()));
-
-            return page;
+            pages.Add("encounters", page);
+            return pages;
         }
 
         public override void Save()
@@ -337,7 +333,7 @@ namespace LRRando
 
         private void TransferBattleDrops()
         {
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
             treasureRando.BattleDrops.Keys.ForEach(btscName =>
             {
                 btScenes[btscName].sDropItem0_string = treasureRando.BattleDrops[btscName];

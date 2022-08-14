@@ -311,7 +311,10 @@ namespace Bartz24.RandoWPF
         }
         public abstract string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth);
         public abstract void RemoveHint(string hint, string location);
-        public abstract void RemoveLikeItemsFromRemaining(string replacement, List<string> remaining);
+        public virtual void RemoveLikeItemsFromRemaining(string replacement, List<string> remaining)
+        {
+            remaining.Remove(replacement);
+        }
         public abstract void Clear();
 
         public virtual Tuple<string, int> GetLocationItem(string key, bool orig = true)

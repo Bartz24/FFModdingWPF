@@ -12,11 +12,6 @@ namespace FF13Rando
 
         public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Equip";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Equip/Item Data...", -1, 100);
@@ -44,8 +39,8 @@ namespace FF13Rando
         public override void Randomize(Action<int> progressSetter)
         {
             Randomizers.SetProgressFunc("Randomizing Equip/Item Data...", -1, 100);
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            TextRando textRando = Randomizers.Get<TextRando>();
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
             string[] chars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
             string[] charNames = new string[] { "Lightning", "Fang", "Hope", "Sazh", "Snow", "Vanille" };
             string[] roles = new string[] { "com", "rav", "sen", "syn", "sab", "med" };
@@ -98,7 +93,7 @@ namespace FF13Rando
 
         private string GetItemName(string itemID)
         {
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            TextRando textRando = Randomizers.Get<TextRando>();
             string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
             if (name.Contains("{End}"))
                 name = name.Substring(0, name.IndexOf("{End}"));

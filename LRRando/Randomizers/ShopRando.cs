@@ -18,11 +18,6 @@ namespace LRRando
 
         public ShopRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Shops";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Shop Data...", 0, 100);
@@ -36,7 +31,7 @@ namespace LRRando
                 shopData.Add(s.ID, s);
             }, FileHelpers.CSVFileHeader.HasHeader);
 
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
             equipRando.items["mat_z_000"].uPurchasePrice = 770;
             equipRando.items["mat_z_001"].uPurchasePrice = 1900;
             equipRando.items["mat_z_002"].uPurchasePrice = 770;
@@ -76,8 +71,8 @@ namespace LRRando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
 
             Randomizers.SetProgressFunc("Randomizing Shop Data...", 0, 100);
             equipRando.itemWeapons.Values.Where(i => equipRando.items.Keys.Contains(i.name) && (i.u4WeaponKind == (int)WeaponKind.Weapon && i.u4AccessoryPos == 0 || i.u4WeaponKind == (int)WeaponKind.Shield)).ForEach(i =>
@@ -233,11 +228,12 @@ namespace LRRando
             shops.SaveDB3(@"\db\resident\shop.wdb");
         }
 
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
-            AbilityRando abilityRando = Randomizers.Get<AbilityRando>("Abilities");
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            AbilityRando abilityRando = Randomizers.Get<AbilityRando>();
+            TextRando textRando = Randomizers.Get<TextRando>();
             HTMLPage page = new HTMLPage("Shops", "template/documentation.html");
 
             shopData.Keys.Select(s => shops[s]).Where(s => s.u3Category == (int)ShopCategory.Ark || s.u3Category == (int)ShopCategory.Forge || s.u3Category == (int)ShopCategory.Items || s.u3Category == (int)ShopCategory.Libra || s.u3Category == (int)ShopCategory.Outfitters).ForEach(shop =>
@@ -272,7 +268,8 @@ namespace LRRando
                        return (new string[] { name }).ToList();
                    }).ToList()));
                });
-            return page;
+            pages.Add("shops", page);
+            return pages;
         }
 
         public class ShopData

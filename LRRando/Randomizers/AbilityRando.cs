@@ -14,25 +14,20 @@ namespace LRRando
 
         public AbilityRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Abilities";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Ability Data...", 0, 100);
             abilities.LoadDB3("LR", @"\db\resident\bt_ability.wdb");
             Randomizers.SetProgressFunc("Loading Ability Data...", 50, 100);
             abilityGrowths.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb", false);
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
             Randomizers.SetProgressFunc("Loading Ability Data...", 80, 100);
             treasureRando.AddTreasure("ini_ba_abi", "", 1, "");
             treasureRando.AddTreasure("ini_ca_abi", "", 1, "");
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
 
             Randomizers.SetProgressFunc("Randomizing Ability Data...", 0, 100);
             if (LRFlags.StatsAbilities.EPAbilities.FlagEnabled)
@@ -87,7 +82,7 @@ namespace LRRando
             Randomizers.SetProgressFunc("Randomizing Ability Data...", 80, 100);
             if (LRFlags.StatsAbilities.AbilityPassives.FlagEnabled)
             {
-                EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+                EquipRando equipRando = Randomizers.Get<EquipRando>();
                 LRFlags.StatsAbilities.AbilityPassives.SetRand();
 
                 abilityGrowths.Values.ForEach(abi =>
@@ -142,8 +137,8 @@ namespace LRRando
 
         private void RandomizeInitAbility(string name)
         {
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
             List<DataStoreItem> enumerable = equipRando.GetAbilities(-1).Where(a => a.name.EndsWith("_00")).ToList();
             DataStoreItem random = enumerable.ElementAt(RandomNum.RandInt(0, enumerable.Count() - 1));
 

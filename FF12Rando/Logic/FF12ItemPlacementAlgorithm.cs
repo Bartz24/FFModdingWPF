@@ -14,7 +14,7 @@ namespace FF12Rando
 
         public FF12ItemPlacementAlgorithm(Dictionary<string, ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
         {
-            treasureRando = randomizers.Get<TreasureRando>("Treasures");
+            treasureRando = randomizers.Get<TreasureRando>();
         }
 
         public override List<string> GetKeysToPlace()

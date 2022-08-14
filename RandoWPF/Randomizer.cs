@@ -1,5 +1,6 @@
 ﻿using Bartz24.Docs;
 using System;
+using System.Collections.Generic;
 
 namespace Bartz24.RandoWPF
 {
@@ -27,14 +28,9 @@ namespace Bartz24.RandoWPF
 
         }
 
-        public virtual HTMLPage GetDocumentation()
+        public virtual Dictionary<string, HTMLPage> GetDocumentation()
         {
-            return null;
-        }
-
-        public virtual string GetID()
-        {
-            return "NONE";
+            return new Dictionary<string, HTMLPage>();
         }
     }
 }

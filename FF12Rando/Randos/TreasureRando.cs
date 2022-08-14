@@ -37,11 +37,6 @@ namespace FF12Rando
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Treasures";
-        }
-
         public override void Load()
         {
             rewards = new DataStoreBPSection<DataStoreReward>();
@@ -119,7 +114,7 @@ namespace FF12Rando
             randomizeItems = new List<string>();
             if (FF12Flags.Items.Treasures.FlagEnabled)
                 randomizeItems = randomizeItems.Concat(GetRandomizableItems()).Distinct().ToList();
-            ShopRando shopRando = Randomizers.Get<ShopRando>("Shops");
+            ShopRando shopRando = Randomizers.Get<ShopRando>();
             if (FF12Flags.Items.Shops.FlagEnabled)
                 randomizeItems = randomizeItems.Concat(shopRando.GetRandomizableShopItems()).Distinct().ToList();
             if (FF12Flags.Items.Bazaars.FlagEnabled)
@@ -175,7 +170,7 @@ namespace FF12Rando
                     }
                 });
 
-                EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+                EquipRando equipRando = Randomizers.Get<EquipRando>();
                 itemLocations.Values.ForEach(l =>
                 {
                     if (PlacementAlgo.Placement.ContainsKey(l.ID))
@@ -266,7 +261,7 @@ namespace FF12Rando
 
         private bool ShouldRemoveItem(string newItem)
         {
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
             if (newItem.StartsWith("00") || newItem.StartsWith("20") || newItem.StartsWith("21"))
                 return false;
             if (newItem.StartsWith("30") || newItem.StartsWith("40"))
@@ -566,8 +561,9 @@ namespace FF12Rando
         }
 
 
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
 
             page.HTMLElements.Add(new Button("document.getElementById(\"itemlocations\").classList.toggle(\"hide4\")", null, "Hide/Show Requirements"));
@@ -596,12 +592,13 @@ namespace FF12Rando
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
                 return new string[] { l.Name, display, l.Areas[0], reqsDisplay, l.Difficulty.ToString() }.ToList();
             }).Where(l => l != null).ToList(), "itemlocations"));
-            return page;
+            pages.Add("item_locations", page);
+            return pages;
         }
 
         public string GetItemName(string id)
         {
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            TextRando textRando = Randomizers.Get<TextRando>();
             if (id == "Gil")
                 return "Gil";
             try

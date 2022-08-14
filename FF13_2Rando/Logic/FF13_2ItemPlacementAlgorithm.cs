@@ -15,8 +15,8 @@ namespace FF13_2Rando
 
         public FF13_2ItemPlacementAlgorithm(Dictionary<string, FF13_2ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
         {
-            treasureRando = randomizers.Get<TreasureRando>("Treasures");
-            cruxRando = randomizers.Get<HistoriaCruxRando>("Historia Crux");
+            treasureRando = randomizers.Get<TreasureRando>();
+            cruxRando = randomizers.Get<HistoriaCruxRando>();
         }
 
         public override string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth)

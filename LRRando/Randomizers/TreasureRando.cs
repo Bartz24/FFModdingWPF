@@ -35,11 +35,6 @@ namespace LRRando
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Treasures";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Treasure Data...", 0, 100);
@@ -160,8 +155,8 @@ namespace LRRando
 
         public override void Randomize(Action<int> progressSetter)
         {
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
-            ShopRando shopRando = Randomizers.Get<ShopRando>("Shops");
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            ShopRando shopRando = Randomizers.Get<ShopRando>();
 
             Randomizers.SetProgressFunc("Randomizing Treasure Data...", 0, 100);
             if (LRFlags.Items.Treasures.FlagEnabled)
@@ -365,9 +360,9 @@ namespace LRRando
 
         private void SaveHints()
         {
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
-            AbilityRando abilityRando = Randomizers.Get<AbilityRando>("Abilities");
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            AbilityRando abilityRando = Randomizers.Get<AbilityRando>();
+            TextRando textRando = Randomizers.Get<TextRando>();
 
             if (LRFlags.Items.Treasures.FlagEnabled && LRFlags.Other.HintsMain.FlagEnabled)
             {
@@ -429,10 +424,11 @@ namespace LRRando
             }
         }
 
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            TextRando textRando = Randomizers.Get<TextRando>();
             OrigBattleDrops.Keys.ForEach(name =>
             {
                 treasures[name].s11ItemResourceId_string = OrigBattleDrops[name];
@@ -440,8 +436,6 @@ namespace LRRando
             });
 
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
-
-            page.HTMLElements.Add(new Button("document.getElementById(\"itemlocations\").classList.toggle(\"hide4\")", null, "Hide/Show Requirements"));
 
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Location", "Requirements", "'Difficulty'" }).ToList(), (new int[] { 30, 20, 10, 35, 5 }).ToList(), itemLocations.Values.Select(t =>
             {
@@ -452,31 +446,39 @@ namespace LRRando
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
                 return (new string[] { t.Name, $"{name} x {PlacementAlgo.GetLocationItem(t.ID, false).Item2}", t.Areas[0], reqsDisplay, $"{t.Difficulty}" }).ToList();
             }).ToList(), "itemlocations"));
+            pages.Add("item_locations", page);
 
-            if (LRFlags.Items.Treasures.FlagEnabled && LRFlags.Other.HintsMain.FlagEnabled)
+            if (LRFlags.Items.Treasures.FlagEnabled && (LRFlags.Other.HintsMain.FlagEnabled || LRFlags.Other.HintsNotes.FlagEnabled))
             {
-                page.HTMLElements.Add(new Table("Main Quest Hints", (new string[] { "Main Quest", "Hint" }).ToList(), (new int[] { 20, 80 }).ToList(), hintsMain.Keys.Select(h =>
+                HTMLPage hintsPage = new HTMLPage("Hints", "template/documentation.html");
+
+                if (LRFlags.Other.HintsMain.FlagEnabled)
                 {
-                    return new string[] { hintData[h].Name, textRando.mainSysUS["$" + h].Replace("{Text NewLine}", "\n") }.ToList();
-                }).ToList()));
+                    hintsPage.HTMLElements.Add(new Table("Main Quest Hints", (new string[] { "Main Quest", "Hint" }).ToList(), (new int[] { 20, 80 }).ToList(), hintsMain.Keys.Select(h =>
+                    {
+                        return new string[] { hintData[h].Name, textRando.mainSysUS["$" + h].Replace("{Text NewLine}", "\n") }.ToList();
+                    }).ToList()));
+                }
+
+                if (LRFlags.Other.HintsNotes.FlagEnabled)
+                {
+                    hintsPage.HTMLElements.Add(new Table("Libra Note Hints", (new string[] { "Libra Note", "Hint" }).ToList(), (new int[] { 20, 80 }).ToList(), hintsNotesLocations.Keys.Where(note => hintsNotesLocations[note] != null).Select(i =>
+                    {
+                        return new string[] { GetItemName(i), textRando.mainSysUS[equipRando.items[i].sHelpStringId_string] }.ToList();
+                    }).ToList()));
+                }
+
+                pages.Add("hints", hintsPage);
             }
 
-            if (LRFlags.Items.Treasures.FlagEnabled && LRFlags.Other.HintsNotes.FlagEnabled)
-            {
-                page.HTMLElements.Add(new Table("Libra Note Hints", (new string[] { "Libra Note", "Hint" }).ToList(), (new int[] { 20, 80 }).ToList(), hintsNotesLocations.Keys.Where(note => hintsNotesLocations[note] != null).Select(i =>
-                {
-                    return new string[] { GetItemName(i), textRando.mainSysUS[equipRando.items[i].sHelpStringId_string] }.ToList();
-                }).ToList()));
-            }
-
-            return page;
+            return pages;
         }
 
         private string GetItemName(string itemID)
         {
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
-            AbilityRando abilityRando = Randomizers.Get<AbilityRando>("Abilities");
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            AbilityRando abilityRando = Randomizers.Get<AbilityRando>();
+            TextRando textRando = Randomizers.Get<TextRando>();
             string name;
             if (itemID == "")
                 name = "Gil";
@@ -527,7 +529,7 @@ namespace LRRando
 
             public bool HasEP(Dictionary<string, int> items)
             {
-                QuestRando questRando = rando.Randomizers.Get<QuestRando>("Quests");
+                QuestRando questRando = rando.Randomizers.Get<QuestRando>();
 
                 foreach (DataStoreRQuest quest in questRando.questRewards.Values.Where(q => q.iMaxGp > 0))
                 {

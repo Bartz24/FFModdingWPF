@@ -22,11 +22,6 @@ namespace FF12Rando
 
         public LicenseBoardRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "License Boards";
-        }
-
         public override void Load()
         {
             boards = Enumerable.Range(0, 12).Select(i =>
@@ -53,15 +48,15 @@ namespace FF12Rando
                 rightSplitBoards.Add(name, board);
             });
 
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
 
             treasureRando.prices[0x77].Price = 0;
             startingBoards = MathHelpers.DecodeNaturalSequence(treasureRando.prices[0x77].Price, 6, 13).Select(l => (int)l).ToArray();
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+            TextRando textRando = Randomizers.Get<TextRando>();
 
             if (FF12Flags.Other.LicenseBoards.FlagEnabled)
             {

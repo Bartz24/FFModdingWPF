@@ -18,12 +18,6 @@ namespace FF12Rando
         Dictionary<int, ShopData> shopData = new Dictionary<int, ShopData>();
 
         public ShopRando(RandomizerManager randomizers) : base(randomizers) { }
-
-        public override string GetID()
-        {
-            return "Shops";
-        }
-
         public override void Load()
         {
             shops = new DataStoreBPShop();
@@ -42,8 +36,8 @@ namespace FF12Rando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
 
             if (FF12Flags.Items.Bazaars.FlagEnabled)
             {
@@ -172,7 +166,7 @@ namespace FF12Rando
 
         private bool ShouldRemoveItem(string newItem)
         {
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
             if (newItem.StartsWith("00") || newItem.StartsWith("20") || newItem.StartsWith("21"))
                 return false;
             if (newItem.StartsWith("30") || newItem.StartsWith("40"))
@@ -225,10 +219,11 @@ namespace FF12Rando
                 }).Where(s => s != null).Distinct().ToList();
         }
 
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+            TextRando textRando = Randomizers.Get<TextRando>();
             HTMLPage page = new HTMLPage("Shops", "template/documentation.html");
 
             shopData.Values.ForEach(s =>
@@ -262,7 +257,8 @@ namespace FF12Rando
                 return (new string[] { string.Join(", ", reqs), string.Join(", ", items) }).ToList();
             }).ToList()));
 
-            return page;
+            pages.Add("shops", page);
+            return pages;
         }
 
         public override void Save()

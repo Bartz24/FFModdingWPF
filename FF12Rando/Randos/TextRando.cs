@@ -15,11 +15,6 @@ namespace FF12Rando
         public DataStoreBinText TextAbilityHelp = new DataStoreBinText(true);
         public TextRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Text";
-        }
-
         public override void Load()
         {
             TextAbilities.Load("data\\text\\abilities.txt");

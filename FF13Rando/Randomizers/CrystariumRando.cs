@@ -21,11 +21,6 @@ namespace FF13Rando
 
         public CrystariumRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Crystarium";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Crystarium Data...", 0, 100);
@@ -263,7 +258,7 @@ namespace FF13Rando
 
         private void RandomizeStatValues()
         {
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
             string[] shortChars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
             foreach (string c in shortChars)
             {
@@ -319,7 +314,7 @@ namespace FF13Rando
 
         private void RandomizeInitialStats()
         {
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
             string[] shortChars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
             int avgHP = (int)treasureRando.treasuresOrig.Values.Where(t => t.ID.StartsWith("z_ini_") && t.ID.EndsWith("_hp")).Select(t => (int)t.iItemCount).Average();
             int avgSTR = (int)treasureRando.treasuresOrig.Values.Where(t => t.ID.StartsWith("z_ini_") && t.ID.EndsWith("_str")).Select(t => (int)t.iItemCount).Average();
@@ -367,11 +362,12 @@ namespace FF13Rando
 
         private string GetFirstRole(string c)
         {
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
             return treasureRando.treasures.Values.First(t => t.ID.StartsWith("z_ran_" + c) && treasureRando.itemLocations[t.ID].Traits.Contains("Same")).sItemResourceId_string.Substring($"rol_{c}_".Length);
         }
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Crystarium", "template/documentation.html");
 
             chars.ForEach(name =>
@@ -439,7 +435,8 @@ namespace FF13Rando
                     .ToList(), name, false));
             });
 
-            return page;
+            pages.Add("crystarium", page);
+            return pages;
         }
 
         private void ScaledCPCosts()
