@@ -22,11 +22,6 @@ namespace FF13_2Rando
 
         public CrystariumRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Crystarium";
-        }
-
         public override void Load()
         {
             crystSerah.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_grow_pc008.wdb", false);

@@ -29,11 +29,6 @@ namespace FF13Rando
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Treasures";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Treasure Data...", -1, 100);
@@ -285,8 +280,9 @@ namespace FF13Rando
             treasures.SaveWDB(@"\db\resident\treasurebox.wdb");
         }
 
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
 
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Location", "Requirements" }).ToList(), (new int[] { 30, 25, 15, 30 }).ToList(), itemLocations.Values.Select(t =>
@@ -300,13 +296,14 @@ namespace FF13Rando
                 return (new string[] { location, $"{name} x {PlacementAlgo.GetLocationItem(t.ID, false).Item2}", t.Areas[0], reqsDisplay }).ToList();
             }).ToList(), "itemlocations"));
 
-            return page;
+            pages.Add("item_locations", page);
+            return pages;
         }
 
         private string GetItemName(string itemID)
         {
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            TextRando textRando = Randomizers.Get<TextRando>();
             string name;
             if (itemID == "")
                 name = "Gil";

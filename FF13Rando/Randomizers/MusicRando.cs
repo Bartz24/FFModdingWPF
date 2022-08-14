@@ -15,11 +15,6 @@ namespace FF13Rando
 
         public MusicRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Music";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Music Data...", -1, 100);

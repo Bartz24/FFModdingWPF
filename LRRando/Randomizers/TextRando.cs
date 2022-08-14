@@ -14,11 +14,6 @@ namespace LRRando
 
         public TextRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Text";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Text Data...", 0, 100);
@@ -68,7 +63,7 @@ namespace LRRando
 
             LRFlags.Other.HintsPilgrim.SetRand();
 
-            //EquipRando equipRando = randomizers.Get<EquipRando>("Equip");
+            //EquipRando equipRando = randomizers.Get<EquipRando>();
             RandomizeWords(mainSysUS.Keys.Where(k => k.StartsWith("$sns")).ToList());
 
             RandomNum.ClearRand();

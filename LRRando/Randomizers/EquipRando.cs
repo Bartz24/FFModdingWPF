@@ -25,11 +25,6 @@ namespace LRRando
 
         public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Equip";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Equip Data...", 0, 100);
@@ -136,7 +131,7 @@ namespace LRRando
 
         private string RandomizeAbility(string name, int forceType)
         {
-            AbilityRando abilityRando = Randomizers.Get<AbilityRando>("Abilities");
+            AbilityRando abilityRando = Randomizers.Get<AbilityRando>();
             if (name != "")
             {
                 List<string> possible = GetGarbAbilities(forceType);
@@ -356,8 +351,9 @@ namespace LRRando
             passiveAbilities.DeleteDB3(@"\db\resident\_wdbpack.bin\r_pasv_ablty.db3");
         }
 
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
             itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
 
@@ -408,7 +404,8 @@ namespace LRRando
             itemWeapons.Values.Where(w => w.i16AtbSpeedModVal < 0).ForEach(w => w.i16AtbSpeedModVal += 65536);
             itemWeapons.Values.Where(w => w.i16MagicModVal < 0).ForEach(w => w.i16MagicModVal += 65536);
 
-            return page;
+            pages.Add("equipment", page);
+            return pages;
         }
 
         private List<string> GetEquipPassivesDocs(DataStoreItemWeapon w)
@@ -433,7 +430,7 @@ namespace LRRando
 
         private string GetItemName(string itemID)
         {
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            TextRando textRando = Randomizers.Get<TextRando>();
             string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
             if (name.Contains("{End}"))
                 name = name.Substring(0, name.IndexOf("{End}"));
@@ -443,7 +440,7 @@ namespace LRRando
 
         private string GetPassiveName(string passiveID)
         {
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            TextRando textRando = Randomizers.Get<TextRando>();
             string name = "";
             if (autoAbilities[passiveID].sStringResId_string != "" && textRando.mainSysUS.Keys.Contains(autoAbilities[passiveID].sStringResId_string))
                 name = textRando.mainSysUS[autoAbilities[passiveID].sStringResId_string];
@@ -460,8 +457,8 @@ namespace LRRando
 
         private string GetAbilityName(string abilityID)
         {
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
-            AbilityRando abilityRando = Randomizers.Get<AbilityRando>("Abilities");
+            TextRando textRando = Randomizers.Get<TextRando>();
+            AbilityRando abilityRando = Randomizers.Get<AbilityRando>();
             string name = "";
             if (abilityRando.abilities.Keys.Contains(abilityID))
             {

@@ -26,11 +26,6 @@ namespace FF13_2Rando
 
         public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Battles";
-        }
-
         public override void Load()
         {
             btScenes.LoadDB3("13-2", @"\db\resident\bt_scene.wdb");
@@ -57,7 +52,7 @@ namespace FF13_2Rando
         }
         public override void Randomize(Action<int> progressSetter)
         {
-            EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
+            EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
             charaSetEnemyMappings = CharaSetMapping.Values.SelectMany(a => a).Distinct().ToDictionary(s => s, _ => new Dictionary<string, string>());
             if (FF13_2Flags.Enemies.EnemyLocations.FlagEnabled)
             {
@@ -133,7 +128,7 @@ namespace FF13_2Rando
 
         private void UpdateBossStats(BossData newBoss, BossData origBoss)
         {
-            EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
+            EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
             DataStoreBtCharaSpec newEnemy = enemyRando.GetEnemy(newBoss.ID);
             DataStoreBtCharaSpec origEnemy = enemyRando.GetEnemy(origBoss.ID, true);
 
@@ -178,7 +173,7 @@ namespace FF13_2Rando
             int maxVariety = 3;
             int attempts = 0;
 
-            EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
+            EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
             newEnemies.Clear();
             charSpecs.Clear();
             if (oldEnemies[0].Traits.Contains("Boss"))
@@ -398,8 +393,9 @@ namespace FF13_2Rando
             }
         }
 
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Encounters", "template/documentation.html");
 
             page.HTMLElements.Add(new Table("Bosses", (new string[] { "Original Boss", "New Boss", }).ToList(), (new int[] { 50, 50 }).ToList(), shuffledBosses.Select(p =>
@@ -412,7 +408,8 @@ namespace FF13_2Rando
                   List<string> names = b.GetCharSpecs().Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : (e + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
                   return new string[] { b.name, string.Join(",", names) }.ToList();
               }).ToList()));
-            return page;
+            pages.Add("encounters", page);
+            return pages;
         }
 
         public override void Save()

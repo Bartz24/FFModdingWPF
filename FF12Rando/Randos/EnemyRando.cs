@@ -15,11 +15,6 @@ namespace FF12Rando
 
         public EnemyRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Enemies";
-        }
-
         public override void Load()
         {
             Directory.GetFiles("data\\ps2data\\plan_master\\in", "*.ard", SearchOption.AllDirectories).ForEach(s =>

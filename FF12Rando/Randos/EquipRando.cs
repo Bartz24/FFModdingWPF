@@ -15,11 +15,6 @@ namespace FF12Rando
         public DataStoreBPEquip equip;
         public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Equip";
-        }
-
         public override void Load()
         {
             FileHelpers.ReadCSVFile(@"data\items.csv", row =>

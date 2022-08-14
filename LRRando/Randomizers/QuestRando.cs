@@ -16,11 +16,6 @@ namespace LRRando
 
         public QuestRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Quests";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Quest Data...", 0, 100);

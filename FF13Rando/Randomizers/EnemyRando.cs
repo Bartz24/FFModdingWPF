@@ -11,11 +11,6 @@ namespace FF13Rando
 
         public EnemyRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Enemies";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Enemy Data...", -1, 100);
@@ -25,8 +20,8 @@ namespace FF13Rando
         public override void Randomize(Action<int> progressSetter)
         {
             Randomizers.SetProgressFunc("Randomizing Enemy Data...", -1, 100);
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>("Treasures");
+            TextRando textRando = Randomizers.Get<TextRando>();
+            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
         }
 
         public override void Save()

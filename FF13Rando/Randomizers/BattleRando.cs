@@ -25,11 +25,6 @@ namespace FF13Rando
 
         public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Battles";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Battle Data...", 0, 100);
@@ -78,7 +73,7 @@ namespace FF13Rando
         public override void Randomize(Action<int> progressSetter)
         {
             Randomizers.SetProgressFunc("Randomizing Battle Data...", 0, 100);
-            EnemyRando enemyRando = Randomizers.Get<EnemyRando>("Enemies");
+            EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
             if (FF13Flags.Other.Enemies.FlagEnabled)
             {
                 FF13Flags.Other.Enemies.SetRand();
@@ -185,8 +180,9 @@ namespace FF13Rando
             }
         }
 
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Encounters", "template/documentation.html");
 
             page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID (Actual Location TBD)", "New Enemies" }).ToList(), (new int[] { 20, 80 }).ToList(), btscs.Keys.OrderBy(b => b).Select(b =>
@@ -194,7 +190,8 @@ namespace FF13Rando
                   List<string> names = btscs[b].Values.Where(e => !e.sEntryBtChSpec_string.StartsWith("pc")).Select(e => enemyData.ContainsKey(e.sEntryBtChSpec_string) ? enemyData[e.sEntryBtChSpec_string].Name : (e.sEntryBtChSpec_string + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
                   return new string[] { b, string.Join(",", names) }.ToList();
               }).ToList()));
-            return page;
+            pages.Add("encounters", page);
+            return pages;
         }
 
         public override void Save()

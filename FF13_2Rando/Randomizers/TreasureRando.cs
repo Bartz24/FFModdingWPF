@@ -33,11 +33,6 @@ namespace FF13_2Rando
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Treasures";
-        }
-
         public override void Load()
         {
             treasuresOrig.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
@@ -142,9 +137,9 @@ namespace FF13_2Rando
 
         private void SaveHints()
         {
-            HistoriaCruxRando cruxRando = Randomizers.Get<HistoriaCruxRando>("Historia Crux");
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            HistoriaCruxRando cruxRando = Randomizers.Get<HistoriaCruxRando>();
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            TextRando textRando = Randomizers.Get<TextRando>();
 
             if (FF13_2Flags.Items.Treasures.FlagEnabled)
             {
@@ -174,9 +169,10 @@ namespace FF13_2Rando
             search.SaveDB3(@"\db\resident\searchitem.wdb");
         }
 
-        public override HTMLPage GetDocumentation()
+        public override Dictionary<string, HTMLPage> GetDocumentation()
         {
-            HistoriaCruxRando cruxRando = Randomizers.Get<HistoriaCruxRando>("Historia Crux");
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
+            HistoriaCruxRando cruxRando = Randomizers.Get<HistoriaCruxRando>();
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
 
             page.HTMLElements.Add(new Button("document.getElementById(\"itemlocations\").classList.toggle(\"hide3\")", null, "Hide/Show Requirements"));
@@ -192,13 +188,14 @@ namespace FF13_2Rando
                 return (new string[] { location, $"{name} x {PlacementAlgo.GetLocationItem(t.ID, false).Item2}", reqsDisplay, GetMogLevelRequiredText(t.MogLevel) }).ToList();
             }).ToList(), "itemlocations"));
 
-            return page;
+            pages.Add("item_locations", page);
+            return pages;
         }
 
         private string GetItemName(string itemID)
         {
-            EquipRando equipRando = Randomizers.Get<EquipRando>("Equip");
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            TextRando textRando = Randomizers.Get<TextRando>();
             string name;
             if (itemID == "")
                 name = "Gil";

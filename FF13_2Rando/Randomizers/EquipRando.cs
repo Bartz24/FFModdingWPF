@@ -17,11 +17,6 @@ namespace FF13_2Rando
 
         public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Equip";
-        }
-
         public override void Load()
         {
             itemWeapons.LoadDB3("13-2", @"\db\resident\item_weapon.wdb");
@@ -83,7 +78,7 @@ namespace FF13_2Rando
 
         private void RandomizePassives()
         {
-            CrystariumRando crystariumRando = Randomizers.Get<CrystariumRando>("Crystarium");
+            CrystariumRando crystariumRando = Randomizers.Get<CrystariumRando>();
             List<AbilityData> filteredAbilities = crystariumRando.abilityData.Values.Where(a => a.Role == "" && !a.Traits.Contains("Mon")).ToList();
             foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility_string != ""))
             {
@@ -145,7 +140,7 @@ namespace FF13_2Rando
 
         private string GetItemName(string itemID)
         {
-            TextRando textRando = Randomizers.Get<TextRando>("Text");
+            TextRando textRando = Randomizers.Get<TextRando>();
             string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
             if (name.Contains("{End}"))
                 name = name.Substring(0, name.IndexOf("{End}"));

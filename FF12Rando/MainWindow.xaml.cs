@@ -3,6 +3,7 @@ using Bartz24.Docs;
 using Bartz24.RandoWPF;
 using Ookii.Dialogs.Wpf;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -166,11 +167,8 @@ namespace FF12Rando
                         docs.Settings.Name = "FF12 Randomizer";
                         for (int i = 0; i < randomizers.Count; i++)
                         {
-                            HTMLPage page = randomizers[i].GetDocumentation();
-                            if (page != null)
-                            {
-                                docs.AddPage(randomizers[i].GetID().ToLower(), page);
-                            }
+                            Dictionary<string, HTMLPage> pages = randomizers[i].GetDocumentation();
+                            pages.ForEach(p => docs.AddPage(p.Key, p.Value));
                         }
 
                         docs.Generate(@"docs\docs_latest", @"data\docs\template");

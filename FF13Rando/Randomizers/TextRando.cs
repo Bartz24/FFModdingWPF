@@ -11,11 +11,6 @@ namespace FF13Rando
 
         public TextRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Text";
-        }
-
         public override void Load()
         {
             Randomizers.SetProgressFunc("Loading Text Data...", -1, 100);

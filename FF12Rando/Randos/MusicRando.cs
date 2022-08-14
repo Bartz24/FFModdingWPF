@@ -15,11 +15,6 @@ namespace FF12Rando
 
         public MusicRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Music";
-        }
-
         public override void Load()
         {
             soundFiles.AddRange(File.ReadAllLines("data\\music12.csv"));

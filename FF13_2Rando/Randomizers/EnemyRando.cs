@@ -28,11 +28,6 @@ namespace FF13_2Rando
 
         public EnemyRando(RandomizerManager randomizers) : base(randomizers) { }
 
-        public override string GetID()
-        {
-            return "Enemies";
-        }
-
         public override void Load()
         {
             x000.ForEach(s =>

@@ -4,6 +4,7 @@ using Bartz24.RandoWPF;
 using MaterialDesignThemes.Wpf;
 using Ookii.Dialogs.Wpf;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -200,11 +201,8 @@ namespace FF13Rando
                             docs.Settings.Name = "FF13 Randomizer";
                             for (int i = 0; i < randomizers.Count; i++)
                             {
-                                HTMLPage page = randomizers[i].GetDocumentation();
-                                if (page != null)
-                                {
-                                    docs.AddPage(randomizers[i].GetID().ToLower(), page);
-                                }
+                                Dictionary<string, HTMLPage> pages = randomizers[i].GetDocumentation();
+                                pages.ForEach(p => docs.AddPage(p.Key, p.Value));
                             }
 
                             docs.Generate(@"packs\docs_latest", @"data\docs\template");
