@@ -111,7 +111,7 @@ m167,PSICOM Warlord,,5
 m168,PSICOM Reaver,,6
 m169,Sanctum Templar,,13
 m172,Phosphoric Ooze,,4
-m172l,Alchemic Ooze,,7
+m172m,Alchemic Ooze,,7
 m173,Garchimacera,,3
 m174,Rangda,,8
 m175,Amphisbaena,Flying,11
@@ -146,7 +146,6 @@ m213,Svarog,Flying,10
 m214,Circuitron,,5
 m215,Cryohedron,,7
 m216,Juggernaut,,14
-m222,Syphax,Event,14
 m229,PSICOM Bombardier,,4
 m230,PSICOM Destroyer,,6
 m231,Sanctum Celebrant,,9
