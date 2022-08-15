@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Bartz24.RandoWPF
 {
-    public abstract class AssumedItemPlacementAlgorithm<T> : ItemPlacementAlgorithm<T> where T : ItemLocation
+    public class AssumedItemPlacementAlgorithm<T> : ItemPlacementAlgorithm<T> where T : ItemLocation
     {
         public AssumedItemPlacementAlgorithm(Dictionary<string, T> itemLocations, List<string> hintsByLocations, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
         {
@@ -13,15 +13,15 @@ namespace Bartz24.RandoWPF
         protected override bool TryImportantPlacement(int attempt, List<string> locations, List<string> important, List<string> accessibleAreas)
         {
             List<string> remaining = important.Where(t => !Placement.ContainsValue(t)).Shuffle();
-            Dictionary<string, int> items = GetItemsAvailable(remaining.ToDictionary(l => l, l => l));
+            Dictionary<string, int> items = Logic.GetItemsAvailable(remaining.ToDictionary(l => l, l => l));
 
-            List<string> remainingLogic = remaining.Where(t => RequiresDepthLogic(t)).Shuffle();
+            List<string> remainingLogic = remaining.Where(t => Logic.RequiresDepthLogic(t)).Shuffle();
 
             remainingLogic = PrioritizeLockedItems(locations, remainingLogic, important);
             foreach (string rep in remainingLogic)
             {
                 UpdateProgress(attempt, Placement.Count, important.Count);
-                Tuple<string, int> nextItem = GetLocationItem(rep);
+                Tuple<string, int> nextItem = Logic.GetLocationItem(rep);
                 RemoveItems(locations, items, nextItem, rep);
                 if (nextItem == null)
                 {
@@ -33,18 +33,18 @@ namespace Bartz24.RandoWPF
                     }
                     continue;
                 }
-                List<string> newAccessibleAreas = GetNewAreasAvailable(items, new List<string>());
+                List<string> newAccessibleAreas = Logic.GetNewAreasAvailable(items, new List<string>());
 
-                List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && IsValid(t, rep, items, newAccessibleAreas)).Shuffle();
+                List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && Logic.IsValid(t, rep, items, newAccessibleAreas)).Shuffle();
                 int count = possible.Count;
                 if (possible.Count > 0)
                 {
-                    Tuple<string, int> nextPlacement = SelectNext(items, possible, rep);
+                    Tuple<string, int> nextPlacement = Logic.SelectNext(items, possible, rep);
                     string next = nextPlacement.Item1;
                     int depth = nextPlacement.Item2;
                     string hint = null;
-                    if (IsHintable(rep))
-                        hint = AddHint(items, next, rep, depth);
+                    if (Logic.IsHintable(rep))
+                        hint = Logic.AddHint(items, next, rep, depth);
                     Placement.Add(next, rep);
                     Depths.Add(next, depth);
                     if (Placement.Count == important.Count)
@@ -54,11 +54,11 @@ namespace Bartz24.RandoWPF
                     return false;
             }
 
-            List<string> remainingOther = remaining.Where(t => !RequiresDepthLogic(t)).Shuffle();
+            List<string> remainingOther = remaining.Where(t => !Logic.RequiresDepthLogic(t)).Shuffle();
             foreach (string rep in remainingOther)
             {
                 UpdateProgress(attempt, Placement.Count, important.Count);
-                Tuple<string, int> nextItem = GetLocationItem(rep);
+                Tuple<string, int> nextItem = Logic.GetLocationItem(rep);
                 RemoveItems(locations, items, nextItem, rep);
                 if (nextItem == null)
                 {
@@ -70,15 +70,15 @@ namespace Bartz24.RandoWPF
                     }
                     continue;
                 }
-                List<string> newAccessibleAreas = GetNewAreasAvailable(items, new List<string>());
+                List<string> newAccessibleAreas = Logic.GetNewAreasAvailable(items, new List<string>());
 
-                List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && IsAllowed(t, rep)).ToList();
+                List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && Logic.IsAllowed(t, rep)).ToList();
                 if (possible.Count > 0)
                 {
                     string next = possible[RandomNum.RandInt(0, possible.Count - 1)];
                     string hint = null;
-                    if (IsHintable(rep))
-                        hint = AddHint(items, next, rep, 0);
+                    if (Logic.IsHintable(rep))
+                        hint = Logic.AddHint(items, next, rep, 0);
                     Placement.Add(next, rep);
                     if (Placement.Count == important.Count)
                         return true;
@@ -93,13 +93,6 @@ namespace Bartz24.RandoWPF
         {
             if (nextItem != null)
                 items[nextItem.Item1] -= nextItem.Item2;
-        }
-
-        public override Tuple<string, int> SelectNext(Dictionary<string, int> items, List<string> possible, string rep)
-        {
-            Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
-            string next = RandomNum.SelectRandomWeighted(possible, s => 1);
-            return new Tuple<string, int>(next, possDepths[next]);
         }
 
         protected override void UpdateProgress(int i, int items, int maxItems)
