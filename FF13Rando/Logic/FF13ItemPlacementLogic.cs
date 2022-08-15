@@ -5,18 +5,18 @@ using System.Linq;
 
 namespace FF13Rando
 {
-    public class FF13ItemPlacementAlgorithm : ItemPlacementAlgorithm<FF13ItemLocation>
+    public class FF13ItemPlacementLogic : GameSpecificItemPlacementLogic<FF13ItemLocation>
     {
         TreasureRando treasureRando;
 
-        public FF13ItemPlacementAlgorithm(Dictionary<string, FF13ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
+        public FF13ItemPlacementLogic(ItemPlacementAlgorithm<FF13ItemLocation> algorithm, RandomizerManager randomizers) : base(algorithm)
         {
             treasureRando = randomizers.Get<TreasureRando>();
         }
 
         public override string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth)
         {
-            ItemLocations[location].Areas.ForEach(l => HintsByLocationsCount[l]--);
+            ItemLocations[location].Areas.ForEach(l => ItemPlacementAlgorithm.HintsByLocationsCount[l]--);
             return null;
         }
 
@@ -40,7 +40,7 @@ namespace FF13Rando
 
         public override void RemoveHint(string hint, string location)
         {
-            ItemLocations[location].Areas.ForEach(l => HintsByLocationsCount[l]++);
+            ItemLocations[location].Areas.ForEach(l => ItemPlacementAlgorithm.HintsByLocationsCount[l]++);
         }
         public override void RemoveLikeItemsFromRemaining(string replacement, List<string> remaining)
         {
@@ -179,30 +179,13 @@ namespace FF13Rando
             return true;
         }
 
-        public override Tuple<string, int> SelectNext(Dictionary<string, int> items, List<string> possible, string rep)
+        public override bool DoMaxPlacement()
         {
-            if (FF13Flags.Items.KeyDepth.SelectedValue == FF13Flags.Items.KeyDepth.Values[FF13Flags.Items.KeyDepth.Values.Count - 1])
-            {
-                IOrderedEnumerable<KeyValuePair<string, int>> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s)).OrderByDescending(p => p.Value);
-                KeyValuePair<string, int> pair = possDepths.First();
-                return new Tuple<string, int>(pair.Key, pair.Value);
-            }
-            else
-            {
-                int index = FF13Flags.Items.KeyDepth.Values.IndexOf(FF13Flags.Items.KeyDepth.SelectedValue);
-                float expBase = 1;
-                if (index == 0)
-                    expBase = 1;
-                if (index == 1)
-                    expBase = 1.05f;
-                if (index == 2)
-                    expBase = 1.1f;
-                if (index == 3)
-                    expBase = 1.25f;
-                Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
-                string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + GetAreaMult(s) * 16d));
-                return new Tuple<string, int>(next, possDepths[next]);
-            }
+            return FF13Flags.Items.KeyDepth.SelectedIndex == FF13Flags.Items.KeyDepth.Values.Count - 1;
+        }
+        public override int GetPlacementDifficultyIndex()
+        {
+            return FF13Flags.Items.KeyDepth.SelectedIndex;
         }
 
         public override void Clear()

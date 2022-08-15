@@ -164,7 +164,7 @@ namespace FF13Rando
                 {
                     Text = "Difficulty Handicap",
                     ID = "DiffScale",
-                    Description = "Item locations will be given a handicap to their difficulty to decrease the number of required roles and crystarium expansions used in logic. The higher the handicap, the less tools ",
+                    Description = "Item locations will be given a handicap to their difficulty to decrease the number of required roles and crystarium expansions used in logic. The higher the handicap, the less important key items will be forced to appear in easier locations.",
                     ValueText = "+",
                     MinValue = 0,
                     MaxValue = 5

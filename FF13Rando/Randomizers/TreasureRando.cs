@@ -21,8 +21,8 @@ namespace FF13Rando
         Dictionary<string, int> hintsNotesUniqueCount = new Dictionary<string, int>();
         Dictionary<string, int> hintsNotesSharedCount = new Dictionary<string, int>();
 
-        FF13AssumedItemPlacementAlgorithm placementAlgoNormal;
-        FF13ItemPlacementAlgorithm placementAlgoBackup;
+        AssumedItemPlacementAlgorithm<FF13ItemLocation> placementAlgoNormal;
+        ItemPlacementAlgorithm<FF13ItemLocation> placementAlgoBackup;
         private bool usingBackup = false;
 
         public ItemPlacementAlgorithm<FF13ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgoNormal; }
@@ -126,10 +126,18 @@ namespace FF13Rando
             List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
             List<string> locations = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
 
-            placementAlgoNormal = new FF13AssumedItemPlacementAlgorithm(itemLocations, locations, Randomizers, 3);
-            placementAlgoNormal.SetProgressFunc = Randomizers.SetProgressFunc;
-            placementAlgoBackup = new FF13ItemPlacementAlgorithm(itemLocations, locations, Randomizers, -1);
-            placementAlgoBackup.SetProgressFunc = Randomizers.SetProgressFunc;
+            placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13ItemLocation>(itemLocations, locations, 3)
+            {
+                SetProgressFunc = Randomizers.SetProgressFunc
+            };
+            placementAlgoNormal.Logic = new FF13ItemPlacementLogic(placementAlgoNormal, Randomizers);
+
+            placementAlgoBackup = new ItemPlacementAlgorithm<FF13ItemLocation>(itemLocations, locations, -1)
+            {
+                SetProgressFunc = Randomizers.SetProgressFunc
+            };
+            placementAlgoBackup.Logic = new FF13ItemPlacementLogic(placementAlgoBackup, Randomizers);
+
         }
 
         public void AddTreasure(string newName, string item, int count)
@@ -156,17 +164,17 @@ namespace FF13Rando
                 if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
                 {
                     usingBackup = true;
-                    placementAlgoBackup.Randomize(placementAlgoBackup.GetNewAreasAvailable(new Dictionary<string, int>(), new List<string>()), areaMults);
+                    placementAlgoBackup.Randomize(placementAlgoBackup.Logic.GetNewAreasAvailable(new Dictionary<string, int>(), new List<string>()), areaMults);
                 }
                 Randomizers.SetProgressFunc("Randomizing Treasure Data...", 60, 100);
 
                 // Update hints again to reflect actual numbers
                 PlacementAlgo.HintsByLocation.ForEach(l =>
                 {
-                    int uniqueCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas.Count == 1 && itemLocations[t].Areas[0] == l && PlacementAlgo.IsHintable(PlacementAlgo.Placement[t])).Count();
+                    int uniqueCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas.Count == 1 && itemLocations[t].Areas[0] == l && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
                     hintsNotesUniqueCount.Add(l, uniqueCount);
 
-                    int sharedCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas.Count > 1 && itemLocations[t].Areas.Contains(l) && PlacementAlgo.IsHintable(PlacementAlgo.Placement[t])).Count();
+                    int sharedCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas.Count > 1 && itemLocations[t].Areas.Contains(l) && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
                     hintsNotesSharedCount.Add(l, sharedCount);
                 });
 
@@ -184,11 +192,11 @@ namespace FF13Rando
                 {
                     string first = c == "saz" ? "rav" : RandomNum.SelectRandomWeighted(new List<string>() { "com", "rav" }, _ => 1);
                     List<string> rolesRemaining = roles.Where(r => r != first).Shuffle();
-                    PlacementAlgo.SetLocationItem(itemLocations.Values.First(t => t.ID.StartsWith("z_ran_" + c) && itemLocations[t.ID].Traits.Contains("Same")).ID, $"rol_{c}_{first}", 1);
+                    PlacementAlgo.Logic.SetLocationItem(itemLocations.Values.First(t => t.ID.StartsWith("z_ran_" + c) && itemLocations[t.ID].Traits.Contains("Same")).ID, $"rol_{c}_{first}", 1);
 
-                    itemLocations.Values.Where(t => PlacementAlgo.GetLocationItem(t.ID, false).Item1.StartsWith("rol_" + c) && !itemLocations[t.ID].Traits.Contains("Same")).ForEach(t =>
+                    itemLocations.Values.Where(t => PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1.StartsWith("rol_" + c) && !itemLocations[t.ID].Traits.Contains("Same")).ForEach(t =>
                     {
-                        PlacementAlgo.SetLocationItem(t.ID, $"rol_{c}_{rolesRemaining[0]}", 1);
+                        PlacementAlgo.Logic.SetLocationItem(t.ID, $"rol_{c}_{rolesRemaining[0]}", 1);
                         rolesRemaining.RemoveAt(0);
                     });
                 }
@@ -203,9 +211,9 @@ namespace FF13Rando
 
                 itemLocations.Values.Where(t => IsShop(t.ID, false)).ToList().Shuffle((l1, l2) =>
                 {
-                    Tuple<string, int> temp = PlacementAlgo.GetLocationItem(l1.ID, false);
-                    PlacementAlgo.SetLocationItem(l1.ID, PlacementAlgo.GetLocationItem(l2.ID, false).Item1, 1);
-                    PlacementAlgo.SetLocationItem(l2.ID, temp.Item1, 1);
+                    Tuple<string, int> temp = PlacementAlgo.Logic.GetLocationItem(l1.ID, false);
+                    PlacementAlgo.Logic.SetLocationItem(l1.ID, PlacementAlgo.Logic.GetLocationItem(l2.ID, false).Item1, 1);
+                    PlacementAlgo.Logic.SetLocationItem(l2.ID, temp.Item1, 1);
                 });
 
                 RandomNum.ClearRand();
@@ -225,16 +233,16 @@ namespace FF13Rando
 
         private void ShuffleEquip(string prefix)
         {
-            itemLocations.Values.Where(t => PlacementAlgo.GetLocationItem(t.ID, false).Item1.StartsWith(prefix)).ToList().Shuffle((l1, l2) =>
+            itemLocations.Values.Where(t => PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1.StartsWith(prefix)).ToList().Shuffle((l1, l2) =>
             {
-                Tuple<string, int> temp = PlacementAlgo.GetLocationItem(l1.ID, false);
-                PlacementAlgo.SetLocationItem(l1.ID, PlacementAlgo.GetLocationItem(l2.ID, false).Item1, 1);
-                PlacementAlgo.SetLocationItem(l2.ID, temp.Item1, 1);
+                Tuple<string, int> temp = PlacementAlgo.Logic.GetLocationItem(l1.ID, false);
+                PlacementAlgo.Logic.SetLocationItem(l1.ID, PlacementAlgo.Logic.GetLocationItem(l2.ID, false).Item1, 1);
+                PlacementAlgo.Logic.SetLocationItem(l2.ID, temp.Item1, 1);
             });
         }
         public bool IsRepeatableAllowed(string location)
         {
-            return IsInitRole(location) || IsOtherRole(location) || IsEidolon(location) || PlacementAlgo.GetLocationItem(location).Item1 == "key_ctool" || IsGysahlReins(location);
+            return IsInitRole(location) || IsOtherRole(location) || IsEidolon(location) || PlacementAlgo.Logic.GetLocationItem(location).Item1 == "key_ctool" || IsGysahlReins(location);
         }
 
         public bool IsImportantKeyItem(string location)
@@ -243,17 +251,17 @@ namespace FF13Rando
         }
         public bool IsInitRole(string t)
         {
-            return PlacementAlgo.GetLocationItem(t, true).Item1.StartsWith("rol") && itemLocations[t].Areas.Contains("Initial");
+            return PlacementAlgo.Logic.GetLocationItem(t, true).Item1.StartsWith("rol") && itemLocations[t].Areas.Contains("Initial");
         }
 
         public bool IsOtherRole(string t)
         {
-            return PlacementAlgo.GetLocationItem(t, true).Item1.StartsWith("rol") && !itemLocations[t].Areas.Contains("Initial");
+            return PlacementAlgo.Logic.GetLocationItem(t, true).Item1.StartsWith("rol") && !itemLocations[t].Areas.Contains("Initial");
         }
 
         public bool IsStage(string t, bool orig = true)
         {
-            return PlacementAlgo.GetLocationItem(t, orig).Item1 == "cry_stage";
+            return PlacementAlgo.Logic.GetLocationItem(t, orig).Item1 == "cry_stage";
         }
 
         public bool IsEidolon(string t, bool orig = true)
@@ -262,11 +270,11 @@ namespace FF13Rando
         }
         public bool IsShop(string t, bool orig = true)
         {
-            return PlacementAlgo.GetLocationItem(t, orig).Item1.StartsWith("key_shop") || PlacementAlgo.GetLocationItem(t, orig).Item1 == "key_ctool";
+            return PlacementAlgo.Logic.GetLocationItem(t, orig).Item1.StartsWith("key_shop") || PlacementAlgo.Logic.GetLocationItem(t, orig).Item1 == "key_ctool";
         }
         public bool IsGysahlReins(string t, bool orig = true)
         {
-            return PlacementAlgo.GetLocationItem(t, orig).Item1 == "key_field_00";
+            return PlacementAlgo.Logic.GetLocationItem(t, orig).Item1 == "key_field_00";
         }
 
         private void SaveHints()
@@ -287,13 +295,13 @@ namespace FF13Rando
 
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Location", "Requirements" }).ToList(), (new int[] { 30, 25, 15, 30 }).ToList(), itemLocations.Values.Select(t =>
             {
-                string itemID = PlacementAlgo.GetLocationItem(t.ID, false).Item1;
+                string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1;
                 string name = GetItemName(itemID);
                 string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
                 string location = $"{itemLocations[t.ID].Name}";
-                return (new string[] { location, $"{name} x {PlacementAlgo.GetLocationItem(t.ID, false).Item2}", t.Areas[0], reqsDisplay }).ToList();
+                return (new string[] { location, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}", t.Areas[0], reqsDisplay }).ToList();
             }).ToList(), "itemlocations"));
 
             pages.Add("item_locations", page);
