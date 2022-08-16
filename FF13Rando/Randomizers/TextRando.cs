@@ -36,6 +36,7 @@ namespace FF13Rando
                 mainSysUS["$am_100_00h"] = "Chapter 13";
                 mainSysUS["$am_110_00"] = "Cancel";
                 mainSysUS["$am_110_00h"] = "Return to the {Italic}Lindblum{Italic}";
+                mainSysUS["$chpt_save_ttl"] = "Return to the {Italic}Lindblum{Italic}?";
 
             }
         }
