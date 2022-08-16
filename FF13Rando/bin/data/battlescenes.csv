@@ -32,7 +32,6 @@ btsc02019,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,16
 btsc02006,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,16
 btsc02005,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,16
 btsc02028,,Pulse Vestige,chset_z017_def3|chset_z017_def4,,16
-btsc02007,,Pulse Vestige,chset_z017_def3,,16
 btsc02035,,Pulse Vestige,chset_z017_def3,,16
 btsc02029,,Pulse Vestige,chset_z017_def3,,16
 btsc02020,,Pulse Vestige,chset_z017_def3,,16
@@ -393,9 +392,9 @@ btsc10027,,Fifth Ark,chset_z018_040|chset_z018_045,,20
 btsc10028,,Fifth Ark,chset_z018_040|chset_z018_045,,20
 btsc10029,,Fifth Ark,chset_z018_040|chset_z018_045,,20
 btsc10030,,Fifth Ark,chset_z018_040|chset_z018_045,,20
-btsc10031,,Fifth Ark,chset_z018_045,,24
-btsc10032,,Fifth Ark,chset_z018_045,,24
-btsc10033,,Fifth Ark,chset_z018_045,,24
+btsc10031,,Fifth Ark,chset_z018_045,,20
+btsc10032,,Fifth Ark,chset_z018_045,,20
+btsc10033,,Fifth Ark,chset_z018_045,,20
 btsc10055,,Fifth Ark,chset_z018_080,,24
 btsc10036,,Fifth Ark,chset_z018_080,,24
 btsc10037,,Fifth Ark,chset_z018_080,,24
