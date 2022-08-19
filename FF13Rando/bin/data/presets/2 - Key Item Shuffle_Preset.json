@@ -4,41 +4,42 @@
   "flags": [
     {
       "FlagEnabled": true,
+      "FlagID": "RandCrystAbi",
       "FlagProperties": [
         {
           "Enabled": false,
           "ID": "AbiAll"
         }
-      ],
-      "FlagID": "RandCrystAbi"
+      ]
     },
     {
       "FlagEnabled": true,
+      "FlagID": "RandCrystStat",
       "FlagProperties": [
         {
           "Enabled": true,
           "ID": "ShuffleCrystMisc"
         }
-      ],
-      "FlagID": "RandCrystStat"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "ShuffleCrystRole"
+      "FlagID": "ShuffleCrystRole",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "ScaledCPCost"
+      "FlagID": "ScaledCPCost",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandInitStats"
+      "FlagID": "RandInitStats",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "Treasures",
       "FlagProperties": [
         {
           "Enabled": false,
@@ -79,32 +80,40 @@
         {
           "Value": 0,
           "ID": "DiffScale"
+        },
+        {
+          "Value": 3,
+          "ID": "JunkRange"
+        },
+        {
+          "Enabled": false,
+          "ID": "ReplaceJunkAny"
         }
-      ],
-      "FlagID": "Treasures"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "ShuffleRoles"
+      "FlagID": "ShuffleRoles",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "ShuffleShops"
+      "FlagID": "ShuffleShops",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "StartingEquip"
+      "FlagID": "StartingEquip",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "Music"
+      "FlagID": "Music",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": false,
+      "FlagID": "Enemies",
       "FlagProperties": [
         {
           "SelectedValue": "Enemies Stay to the Same Area",
@@ -114,8 +123,7 @@
           "Value": 0,
           "ID": "EnemyRank"
         }
-      ],
-      "FlagID": "Enemies"
+      ]
     }
   ]
 }

@@ -37,6 +37,7 @@ namespace FF13Rando
                 mainSysUS["$am_110_00"] = "Cancel";
                 mainSysUS["$am_110_00h"] = "Return to the {Italic}Lindblum{Italic}";
                 mainSysUS["$chpt_save_ttl"] = "Return to the {Italic}Lindblum{Italic}?";
+                mainSysUS["$flar_ttl_000"] = "FF13 Randomizer";
 
             }
         }

@@ -1,0 +1,425 @@
+﻿ID,Name,Category,Rank
+it_potion,Potion,Item,2
+it_phenxtal,Phoenix Down,Item,4
+it_libra,Librascope,Item,7
+it_antidote,Antidote,Item,1
+it_holywater,Holy Water,Item,1
+it_sedative,Painkiller,Item,1
+it_tonkati,Mallet,Item,1
+it_stinkwater,Foul Liquid,Item,1
+it_wax,Wax,Item,1
+it_elixir,Elixir,Item,15
+it_powersmoke,Fortisol,Item,8
+it_barsmoke,Aegisol,Item,8
+it_sneaksmoke,Deceptisol,Item,8
+it_tpsmoke,Ethersol,Item,10
+wea_lig_000,Godslayer,Weapon,21
+wea_lig_001,Blazefire Saber,Weapon,8
+wea_lig_002,Flamberge,Weapon,12
+wea_lig_017,Omega Weapon,Weapon,16
+wea_lig_003,Axis Blade,Weapon,7
+wea_lig_004,Enkindler,Weapon,11
+wea_lig_018,Omega Weapon,Weapon,15
+wea_lig_005,Edged Carbine,Weapon,8
+wea_lig_006,Razor Carbine,Weapon,12
+wea_lig_019,Omega Weapon,Weapon,16
+wea_lig_007,Lifesaber,Weapon,6
+wea_lig_008,Peacemaker,Weapon,10
+wea_lig_020,Omega Weapon,Weapon,14
+wea_lig_009,Gladius,Weapon,8
+wea_lig_010,Helterskelter,Weapon,12
+wea_lig_021,Omega Weapon,Weapon,16
+wea_lig_011,Organyx,Weapon,6
+wea_lig_012,Apocalypse,Weapon,10
+wea_lig_022,Omega Weapon,Weapon,14
+wea_lig_013,Hauteclaire,Weapon,8
+wea_lig_014,Durandal,Weapon,12
+wea_lig_023,Omega Weapon,Weapon,16
+wea_lig_015,Lionheart,Weapon,8
+wea_lig_016,Ultima Weapon,Weapon,12
+wea_lig_024,Omega Weapon,Weapon,16
+wea_saz_000,Death Penalties,Weapon,21
+wea_saz_001,Vega 42s,Weapon,8
+wea_saz_002,Altairs,Weapon,12
+wea_saz_017,Total Eclipses,Weapon,16
+wea_saz_003,Spica Defenders,Weapon,7
+wea_saz_004,Sirius Sidearms,Weapon,11
+wea_saz_018,Total Eclipses,Weapon,15
+wea_saz_005,Deneb Duellers,Weapon,8
+wea_saz_006,Canopus AMPs,Weapon,12
+wea_saz_019,Total Eclipses,Weapon,16
+wea_saz_007,Rigels,Weapon,8
+wea_saz_008,Polaris Specials,Weapon,12
+wea_saz_020,Total Eclipses,Weapon,16
+wea_saz_009,Aldebarans,Weapon,6
+wea_saz_010,Sadalmeliks,Weapon,10
+wea_saz_021,Total Eclipses,Weapon,14
+wea_saz_011,Pleiades Hi Powers,Weapon,9
+wea_saz_012,Hyades Magnums,Weapon,13
+wea_saz_022,Total Eclipses,Weapon,17
+wea_saz_013,Antares Deluxes,Weapon,8
+wea_saz_014,Fomalhaut Elites,Weapon,12
+wea_saz_023,Total Eclipses,Weapon,16
+wea_saz_015,Procyons,Weapon,8
+wea_saz_016,Betelgeuse Customs,Weapon,12
+wea_saz_024,Total Eclipses,Weapon,16
+wea_sno_000,Omnipotence,Weapon,21
+wea_sno_001,Wild Bear,Weapon,8
+wea_sno_002,Feral Pride,Weapon,12
+wea_sno_017,Save the Queen,Weapon,16
+wea_sno_003,Paladin,Weapon,7
+wea_sno_004,Winged Saint,Weapon,11
+wea_sno_018,Save the Queen,Weapon,15
+wea_sno_005,Rebel Heart,Weapon,7
+wea_sno_006,Warriors Emblem,Weapon,11
+wea_sno_019,Save the Queen,Weapon,15
+wea_sno_007,Power Circle,Weapon,8
+wea_sno_008,Battle Standard,Weapon,12
+wea_sno_020,Save the Queen,Weapon,16
+wea_sno_009,Feymark,Weapon,8
+wea_sno_010,Soul Blazer,Weapon,12
+wea_sno_021,Save the Queen,Weapon,16
+wea_sno_011,Sacrificial Circle,Weapon,7
+wea_sno_012,Indomitus,Weapon,11
+wea_sno_022,Save the Queen,Weapon,15
+wea_sno_013,Unsetting Sun,Weapon,8
+wea_sno_014,Midnight Sun,Weapon,12
+wea_sno_023,Save the Queen,Weapon,16
+wea_sno_015,Umbra,Weapon,7
+wea_sno_016,Solaris,Weapon,11
+wea_sno_024,Save the Queen,Weapon,15
+wea_hop_000,Rising Sun,Weapon,21
+wea_hop_001,Airwing,Weapon,8
+wea_hop_002,Skycutter,Weapon,12
+wea_hop_017,Nue,Weapon,16
+wea_hop_003,Hawkeye,Weapon,8
+wea_hop_004,Eagletalon,Weapon,12
+wea_hop_018,Nue,Weapon,16
+wea_hop_005,Otshirvani,Weapon,8
+wea_hop_006,Urubutsin,Weapon,12
+wea_hop_019,Nue,Weapon,16
+wea_hop_007,Ninurta,Weapon,8
+wea_hop_008,Jatayu,Weapon,12
+wea_hop_020,Nue,Weapon,16
+wea_hop_009,Vidofnir,Weapon,7
+wea_hop_010,Hresvelgr,Weapon,11
+wea_hop_021,Nue,Weapon,15
+wea_hop_011,Simurgh,Weapon,8
+wea_hop_012,Tezcatlipoca,Weapon,12
+wea_hop_022,Nue,Weapon,16
+wea_hop_013,Malphas,Weapon,7
+wea_hop_014,Naberius,Weapon,11
+wea_hop_023,Nue,Weapon,15
+wea_hop_015,Alicanto,Weapon,8
+wea_hop_016,Caladrius,Weapon,12
+wea_hop_024,Nue,Weapon,16
+wea_van_000,Faerie Tail,Weapon,21
+wea_van_001,Binding Rod,Weapon,8
+wea_van_002,Hunters Rod,Weapon,12
+wea_van_017,Nirvana,Weapon,16
+wea_van_003,Tigerclaw,Weapon,6
+wea_van_004,Wyrmfang,Weapon,10
+wea_van_018,Nirvana,Weapon,14
+wea_van_005,Healers Staff,Weapon,7
+wea_van_006,Physicians Staff,Weapon,11
+wea_van_019,Nirvana,Weapon,15
+wea_van_007,Pearlwing Staff,Weapon,8
+wea_van_008,Brightwing Staff,Weapon,12
+wea_van_020,Nirvana,Weapon,16
+wea_van_009,Rod of Thorns,Weapon,8
+wea_van_010,Orochi Rod,Weapon,12
+wea_van_021,Nirvana,Weapon,16
+wea_van_011,Mistilteinn,Weapon,8
+wea_van_012,Erinyes Cane,Weapon,12
+wea_van_022,Nirvana,Weapon,16
+wea_van_013,Belladonna Wand,Weapon,9
+wea_van_014,Malboro Wand,Weapon,13
+wea_van_023,Nirvana,Weapon,17
+wea_van_015,Heavenly Axis,Weapon,8
+wea_van_016,Abraxas,Weapon,12
+wea_van_024,Nirvana,Weapon,16
+wea_fan_000,Longinus,Weapon,21
+wea_fan_001,Bladed Lance,Weapon,8
+wea_fan_002,Glaive,Weapon,12
+wea_fan_017,Kain's Lance,Weapon,16
+wea_fan_003,Dragoon Lance,Weapon,8
+wea_fan_004,Dragonhorn,Weapon,12
+wea_fan_018,Kain's Lance,Weapon,16
+wea_fan_005,Partisan,Weapon,8
+wea_fan_006,Rhomphaia,Weapon,12
+wea_fan_019,Kain's Lance,Weapon,16
+wea_fan_007,Shamanic Spear,Weapon,8
+wea_fan_008,Heretics Halberd,Weapon,12
+wea_fan_020,Kain's Lance,Weapon,16
+wea_fan_009,Punisher,Weapon,7
+wea_fan_010,Banescissor Spear,Weapon,11
+wea_fan_021,Kain's Lance,Weapon,15
+wea_fan_011,Pandoran Spear,Weapon,8
+wea_fan_012,Calamity Spear,Weapon,12
+wea_fan_022,Kain's Lance,Weapon,16
+wea_fan_013,Taming Pole,Weapon,8
+wea_fan_014,Venus Gospel,Weapon,12
+wea_fan_023,Kain's Lance,Weapon,16
+wea_fan_015,Gae Bolg,Weapon,7
+wea_fan_016,Gungnir,Weapon,11
+wea_fan_024,Kain's Lance,Weapon,15
+acc_000_000,Iron Bangle,Accessory,1
+acc_000_001,Silver Bangle,Accessory,2
+acc_000_002,Tungsten Bangle,Accessory,3
+acc_000_003,Titanium Bangle,Accessory,4
+acc_000_004,Gold Bangle,Accessory,5
+acc_000_005,Mythril Bangle,Accessory,6
+acc_000_006,Platinum Bangle,Accessory,7
+acc_000_007,Diamond Bangle,Accessory,8
+acc_000_008,Adamant Bangle,Accessory,10
+acc_000_009,Wurtzite Bangle,Accessory,12
+acc_000_100,Power Wristband,Accessory,2
+acc_000_101,Brawlers Wristband,Accessory,5
+acc_000_102,Warriors Wristband,Accessory,8
+acc_000_103,Power Glove,Accessory,10
+acc_000_104,Kaiser Knuckles,Accessory,12
+acc_000_200,Magicians Mark,Accessory,2
+acc_000_201,Shamans Mark,Accessory,5
+acc_000_202,Sorcerers Mark,Accessory,8
+acc_000_203,Weirding Glyph,Accessory,10
+acc_000_204,Magistral Crest,Accessory,12
+acc_000_300,Black Belt,Accessory,3
+acc_000_301,Generals Belt,Accessory,6
+acc_000_302,Champions Belt,Accessory,9
+acc_000_400,Rune Bracelet,Accessory,3
+acc_000_401,Witchs Bracelet,Accessory,6
+acc_000_402,Maguss Bracelet,Accessory,9
+acc_000_500,Royal Armlet,Accessory,8
+acc_000_501,Imperial Armlet,Accessory,10
+acc_001_000,Ember Ring,Accessory,3
+acc_001_001,Blaze Ring,Accessory,6
+acc_001_002,Salamandrine Ring,Accessory,9
+acc_002_000,Frost Ring,Accessory,3
+acc_002_001,Icicle Ring,Accessory,6
+acc_002_002,Boreal Ring,Accessory,9
+acc_003_000,Spark Ring,Accessory,3
+acc_003_001,Fulmen Ring,Accessory,6
+acc_003_002,Raijin Ring,Accessory,9
+acc_004_000,Aqua Ring,Accessory,3
+acc_004_001,Riptide Ring,Accessory,6
+acc_004_002,Nereid Ring,Accessory,9
+acc_005_000,Zephyr Ring,Accessory,3
+acc_005_001,Gale Ring,Accessory,6
+acc_005_002,Sylphid Ring,Accessory,9
+acc_006_000,Clay Ring,Accessory,3
+acc_006_001,Siltstone Ring,Accessory,6
+acc_006_002,Gaian Ring,Accessory,9
+acc_009_000,Giants Glove,Accessory,2
+acc_009_001,Warlocks Glove,Accessory,4
+acc_010_000,Glass Buckle,Accessory,2
+acc_010_001,Tektite Buckle,Accessory,4
+acc_011_000,Metal Armband,Accessory,2
+acc_011_001,Ceramic Armband,Accessory,4
+acc_012_000,Serenity Sachet,Accessory,2
+acc_012_001,Safeguard Sachet,Accessory,4
+acc_013_000,Glass Orb,Accessory,2
+acc_013_001,Dragonfly Orb,Accessory,4
+acc_014_000,Star Pendant,Accessory,2
+acc_014_001,Starfall Pendant,Accessory,4
+acc_015_000,Pearl Necklace,Accessory,2
+acc_015_001,Gemstone Necklace,Accessory,4
+acc_016_000,Warding Talisman,Accessory,2
+acc_016_001,Hexbane Talisman,Accessory,4
+acc_017_000,Pain Dampener,Accessory,2
+acc_017_001,Pain Deflector,Accessory,4
+acc_018_000,White Cape,Accessory,2
+acc_018_001,Effulgent Cape,Accessory,4
+acc_019_000,Rainbow Anklet,Accessory,2
+acc_019_001,Moonbow Anklet,Accessory,4
+acc_020_000,Cherubs Crown,Accessory,2
+acc_020_001,Seraphs Crown,Accessory,4
+acc_025_000,Guardian Amulet,Accessory,3
+acc_025_001,Shield Talisman,Accessory,6
+acc_026_000,Auric Amulet,Accessory,3
+acc_026_001,Soulfont Talisman,Accessory,6
+acc_027_000,Watchmans Amulet,Accessory,3
+acc_027_001,Shrouding Talisman,Accessory,6
+acc_028_000,Heros Amulet,Accessory,4
+acc_028_001,Morale Talisman,Accessory,7
+acc_029_000,Saints Amulet,Accessory,4
+acc_029_001,Blessed Talisman,Accessory,7
+acc_035_000,Zealot Amulet,Accessory,3
+acc_035_001,Battle Talisman,Accessory,6
+acc_031_000,Flamebane Brooch,Accessory,2
+acc_031_001,Flameshield Earring,Accessory,4
+acc_032_000,Frostbane Brooch,Accessory,2
+acc_032_001,Frostshield Earring,Accessory,4
+acc_033_000,Sparkbane Brooch,Accessory,2
+acc_033_001,Sparkshield Earring,Accessory,4
+acc_034_000,Aquabane Brooch,Accessory,2
+acc_034_001,Aquashield Earring,Accessory,4
+acc_030_000,Hermes Sandals,Accessory,5
+acc_030_001,Sprint Shoes,Accessory,9
+acc_036_000,Tetradic Crown,Accessory,6
+acc_036_001,Tetradic Tiara,Accessory,10
+acc_037_000,Whistlewind Scarf,Accessory,3
+acc_037_001,Aurora Scarf,Accessory,5
+acc_038_000,Nimbletoe Boots,Accessory,3
+acc_040_000,Gold Watch,Accessory,8
+acc_040_001,Champions Badge,Accessory,3
+acc_040_002,Survivalist Catalog,Accessory,6
+acc_039_000,Collector Catalog,Accessory,4
+acc_039_001,Connoisseur Catalog,Accessory,8
+acc_041_000,Hunters Friend,Accessory,3
+acc_041_001,Speed Sash,Accessory,4
+acc_041_002,Energy Sash,Accessory,5
+acc_053_000,Doctors Code,Accessory,12
+acc_045_000,Growth Egg,Accessory,13
+acc_007_000,Entite Ring,Accessory,10
+acc_054_000,Goddess's Favor,Accessory,10
+acc_023_000,Ribbon,Accessory,7
+acc_023_001,Super Ribbon,Accessory,10
+acc_042_001,Genji Glove,Accessory,13
+acc_047_000,Fire Charm,Accessory,3
+acc_048_000,Ice Charm,Accessory,3
+acc_049_000,Lightning Charm,Accessory,3
+acc_050_000,Water Charm,Accessory,3
+acc_051_000,Wind Charm,Accessory,3
+acc_052_000,Earth Charm,Accessory,3
+acc_046_000,Twenty Sided Die,Accessory,6
+material_m000,Begrimed Claw,Organic,1
+material_m001,Bestial Claw,Organic,2
+material_m002,Gargantuan Claw,Organic,3
+material_m003,Hellish Talon,Organic,4
+material_m004,Shattered Bone,Organic,1
+material_m005,Sturdy Bone,Organic,2
+material_m006,Otherworldly Bone,Organic,3
+material_m007,Ancient Bone,Organic,4
+material_m009,Moistened Scale,Organic,1
+material_m010,Seapetal Scale,Organic,2
+material_m011,Abyssal Scale,Organic,3
+material_m012,Seakings Beard,Organic,4
+material_m013,Segmented Carapace,Organic,1
+material_m014,Iron Shell,Organic,2
+material_m015,Armored Shell,Organic,3
+material_m016,Regenerating Carapace,Organic,4
+material_m017,Chipped Fang,Organic,1
+material_m018,Wicked Fang,Organic,2
+material_m019,Monstrous Fang,Organic,3
+material_m020,Sinister Fang,Organic,4
+material_m021,Severed Wing,Organic,1
+material_m022,Scaled Wing,Organic,2
+material_m023,Abominable Wing,Organic,3
+material_m024,Menacing Wings,Organic,4
+material_m025,Molted Tail,Organic,1
+material_m026,Barbed Tail,Organic,2
+material_m027,Diabolic Tail,Organic,3
+material_m028,Entrancing Tail,Organic,4
+material_m029,Torn Leather,Organic,1
+material_m030,Thickened Hide,Organic,2
+material_m031,Smooth Hide,Organic,3
+material_m032,Supple Leather,Organic,4
+material_m033,Gummy Oil,Organic,1
+material_m034,Fragrant Oil,Organic,2
+material_m035,Medicinal Oil,Organic,3
+material_m036,Esoteric Oil,Organic,4
+material_m037,Scraggly Wool,Organic,1
+material_m038,Rough Wool,Organic,2
+material_m039,Thick Wool,Organic,3
+material_m040,Fluffy Wool,Organic,4
+material_m045,Murky Ooze,Organic,1
+material_m046,Vibrant Ooze,Organic,2
+material_m047,Transparent Ooze,Organic,3
+material_m048,Wonder Gel,Organic,4
+material_m049,Fractured Horn,Organic,1
+material_m050,Spined Horn,Organic,2
+material_m051,Fiendish Horn,Organic,3
+material_m052,Infernal Horn,Organic,4
+material_m053,Strange Fluid,Organic,1
+material_m054,Enigmatic Fluid,Organic,2
+material_m055,Mysterious Fluid,Organic,3
+material_m056,Ineffable Fluid,Organic,4
+material_m057,Cieth Tear,Organic,1
+material_m058,Tear of Frustration,Organic,2
+material_m059,Tear of Remorse,Organic,3
+material_m060,Tear of Woe,Organic,4
+material_m061,Chocobo Plume,Organic,2
+material_m062,Chocobo Tail Feather,Organic,3
+material_m063,Green Needle,Organic,7
+material_m064,Dawnlight Dew,Organic,4
+material_m065,Dusklight Dew,Organic,5
+material_m066,Gloomstalk,Organic,5
+material_m067,Sunpetal,Organic,5
+material_m068,Red Mycelium,Organic,1
+material_m069,Blue Mycelium,Organic,3
+material_m070,White Mycelium,Organic,4
+material_m071,Black Mycelium,Organic,5
+material_m072,Succulent Fruit,Organic,6
+material_m073,Malodorous Fruit,Organic,7
+material_m074,Moonblossom Seed,Organic,8
+material_m075,Starblossom Seed,Organic,9
+material_m076,Perfume,Organic,9
+material_j000,Insulated Cabling,Mechanical,2
+material_j001,Fibre Optic Cable,Mechanical,3
+material_j002,Liquid Crystal Lens,Mechanical,2
+material_j003,Ring Joint,Mechanical,3
+material_j004,Epicyclic Gear,Mechanical,2
+material_j005,Crankshaft,Mechanical,3
+material_j006,Electrolytic Capacitor,Mechanical,2
+material_j007,Flywheel,Mechanical,3
+material_j008,Sprocket,Mechanical,2
+material_j009,Actuator,Mechanical,3
+material_j010,Spark Plug,Mechanical,2
+material_j011,Iridium Plug,Mechanical,3
+material_j012,Needle Valve,Mechanical,2
+material_j013,Butterfly Valve,Mechanical,3
+material_m041,Bomb Ashes,Mechanical,1
+material_m042,Bomb Fragment,Mechanical,2
+material_m043,Bomb Shell,Mechanical,3
+material_m044,Bomb Core,Mechanical,4
+material_j014,Analog Circuit,Mechanical,1
+material_j015,Digital Circuit,Mechanical,2
+material_j016,Gyroscope,Mechanical,3
+material_j017,Electrode,Mechanical,4
+material_j018,Ceramic Armor,Mechanical,3
+material_j019,Chobham Armor,Mechanical,4
+material_j020,Radial Bearing,Mechanical,2
+material_j021,Thrust Bearing,Mechanical,3
+material_j022,Solenoid,Mechanical,2
+material_j023,Mobius Coil,Mechanical,4
+material_j024,Tungsten Tube,Mechanical,2
+material_j025,Titanium Tube,Mechanical,4
+material_j026,Passive Detector,Mechanical,2
+material_j027,Active Detector,Mechanical,4
+material_j028,Transformer,Mechanical,1
+material_j029,Amplifier,Mechanical,2
+material_j030,Carburetor,Mechanical,3
+material_j031,Supercharger,Mechanical,4
+material_j032,Piezoelectric Element,Mechanical,3
+material_j033,Crystal Oscillator,Mechanical,4
+material_j034,Paraffin Oil,Mechanical,1
+material_j035,Silicone Oil,Mechanical,2
+material_j036,Synthetic Muscle,Mechanical,3
+material_j037,Turboprop,Mechanical,4
+material_j038,Turbojet,Mechanical,2
+material_j039,Tesla Turbine,Mechanical,4
+material_j040,Polymer Emulsion,Mechanical,1
+material_j041,Ferroelectric Film,Mechanical,2
+material_j042,Superconductor,Mechanical,3
+material_j043,Perfect Conductor,Mechanical,4
+material_j044,Particle Accelerator,Mechanical,7
+material_j045,Ultracompact Reactor,Mechanical,10
+material_j046,Credit Chip,OtherComp,2
+material_j047,Incentive Chip,OtherComp,5
+material_j048,Cactuar Doll,OtherComp,6
+material_j049,Moogle Puppet,OtherComp,7
+material_j050,Tonberry Figurine,OtherComp,9
+material_j051,Plush Chocobo,OtherComp,9
+material_o010,Gold Dust,OtherComp,7
+material_o011,Gold Nugget,OtherComp,10
+material_o012,Platinum Ingot,OtherComp,15
+material_o000,Millerite,OtherComp,1
+material_o001,Rhodochrosite,OtherComp,2
+material_o002,Cobaltite,OtherComp,3
+material_o003,Perovskite,OtherComp,4
+material_o004,Uraninite,OtherComp,5
+material_o005,Mnar Stone,OtherComp,6
+material_o006,Scarletite,OtherComp,7
+material_o007,Adamantite,OtherComp,8
+material_o008,Dark Matter,OtherComp,10
+material_o009,Trapezohedron,OtherComp,15

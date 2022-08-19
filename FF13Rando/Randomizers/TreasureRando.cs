@@ -181,7 +181,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 80, 100);
+            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 70, 100);
             if (FF13Flags.Items.ShuffleRoles.FlagEnabled)
             {
                 FF13Flags.Items.ShuffleRoles.SetRand();
@@ -204,7 +204,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 90, 100);
+            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 80, 100);
             if (FF13Flags.Items.ShuffleShops.FlagEnabled)
             {
                 FF13Flags.Items.ShuffleShops.SetRand();
@@ -219,27 +219,63 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 95, 100);
-            if (FF13Flags.Items.StartingEquip.FlagEnabled)
+            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 90, 100);
+            if (FF13Flags.Items.Treasures.FlagEnabled)
             {
-                FF13Flags.Items.StartingEquip.SetRand();
+                FF13Flags.Items.Treasures.SetRand();
 
-                string[] chars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
-                chars.ForEach(c => ShuffleEquip($"wea_{c}_"));
+                EquipRando equipRando = Randomizers.Get<EquipRando>();
+
+                List<string> remainingWeapons = equipRando.itemData.Values.Where(i => i.Category == "Weapon").Select(i => i.ID).ToList();
+
+                itemLocations.Values.Where(t => (!t.ID.EndsWith("_wea") || FF13Flags.Items.StartingEquip.FlagEnabled) && equipRando.itemData.ContainsKey(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1)).ForEach(t =>
+                {
+                    Tuple<string, int> orig = PlacementAlgo.Logic.GetLocationItem(t.ID, false);
+                    string repItem = null;
+                    do
+                    {
+                        string category = equipRando.itemData[orig.Item1].Category;
+                        if (FF13Flags.Items.ReplaceAny.Enabled)
+                            category = equipRando.itemData.Values.Select(i => i.Category).Distinct().Shuffle().First();
+
+                        int rankRange = FF13Flags.Items.ReplaceRank.Value;
+                        IEnumerable<EquipRando.ItemData> possible = equipRando.itemData.Values.Where(i =>
+                            i.Category == category &&
+                            i.Rank >= equipRando.itemData[orig.Item1].Rank - rankRange &&
+                            i.Rank <= equipRando.itemData[orig.Item1].Rank + rankRange &&
+                            (i.Category != "Weapon" || remainingWeapons.Contains(i.ID)));
+
+                        if (t.ID.EndsWith("_wea"))
+                        {
+                            string prefix = orig.Item1.Substring(0, "wea_xxx_".Length);
+                            possible = possible.Where(i => i.ID.StartsWith(prefix));
+                        }
+
+                        if (possible.Count() == 0)
+                            continue;
+                        repItem = possible.Shuffle().Select(i => i.ID).First();
+                    } while (repItem == null);
+
+                    if (equipRando.itemData[repItem].Category == "Weapon")
+                        remainingWeapons.Remove(repItem);
+
+                    int repCount = equipRando.itemData[repItem].Category == "Weapon" ? 1 : orig.Item2;
+                    PlacementAlgo.Logic.SetLocationItem(t.ID, repItem, repCount);
+                });
+
+                itemLocations.Values.Where(t => PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1 == "" || equipRando.itemData.ContainsKey(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1)).ForEach(t =>
+                {
+                    Tuple<string, int> orig = PlacementAlgo.Logic.GetLocationItem(t.ID, false);
+                    if (orig.Item2 > 0)
+                    {
+                        PlacementAlgo.Logic.SetLocationItem(t.ID, orig.Item1, RandomNum.RandInt((int)Math.Round(Math.Max(1, orig.Item2 * 0.75)), (int)Math.Round(orig.Item2 * 1.25)));
+                    }
+                });
 
                 RandomNum.ClearRand();
             }
         }
 
-        private void ShuffleEquip(string prefix)
-        {
-            itemLocations.Values.Where(t => PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1.StartsWith(prefix)).ToList().Shuffle((l1, l2) =>
-            {
-                Tuple<string, int> temp = PlacementAlgo.Logic.GetLocationItem(l1.ID, false);
-                PlacementAlgo.Logic.SetLocationItem(l1.ID, PlacementAlgo.Logic.GetLocationItem(l2.ID, false).Item1, 1);
-                PlacementAlgo.Logic.SetLocationItem(l2.ID, temp.Item1, 1);
-            });
-        }
         public bool IsRepeatableAllowed(string location)
         {
             return IsInitRole(location) || IsOtherRole(location) || IsEidolon(location) || PlacementAlgo.Logic.GetLocationItem(location).Item1 == "key_ctool" || IsGysahlReins(location);
