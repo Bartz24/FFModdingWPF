@@ -1,4 +1,5 @@
-﻿using Bartz24.FF13;
+﻿using Bartz24.Data;
+using Bartz24.FF13;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace FF13Rando
     public class EquipRando : Randomizer
     {
         public DataStoreWDB<DataStoreItem> items = new DataStoreWDB<DataStoreItem>();
+        public Dictionary<string, ItemData> itemData = new Dictionary<string, ItemData>();
 
         public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
@@ -35,6 +37,12 @@ namespace FF13Rando
                 items.Copy("key_receiver", "chap_prog_" + i.ToString("00"));
                 items.Copy("key_receiver", "chap_comp_" + i.ToString("00"));
             }
+
+            FileHelpers.ReadCSVFile(@"data\items.csv", row =>
+            {
+                ItemData i = new ItemData(row);
+                itemData.Add(i.ID, i);
+            }, FileHelpers.CSVFileHeader.HasHeader);
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -99,6 +107,21 @@ namespace FF13Rando
                 name = name.Substring(0, name.IndexOf("{End}"));
 
             return name;
+        }
+
+        public class ItemData
+        {
+            public string ID { get; set; }
+            public string Name { get; set; }
+            public string Category { get; set; }
+            public int Rank { get; set; }
+            public ItemData(string[] row)
+            {
+                ID = row[0];
+                Name = row[1];
+                Category = row[2];
+                Rank = int.Parse(row[3]);
+            }
         }
     }
 }

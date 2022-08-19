@@ -75,9 +75,9 @@ namespace FF13Rando
         public class Items
         {
             public static Flag Treasures, ShuffleRoles, ShuffleShops, StartingEquip;
-            public static ToggleFlagProperty KeyRoles, KeyInitRoles, KeyStages, KeyEidolith, KeyShops, KeyReins, KeyPlaceTreasure, KeyPlaceMissions;
+            public static ToggleFlagProperty KeyRoles, KeyInitRoles, KeyStages, KeyEidolith, KeyShops, KeyReins, KeyPlaceTreasure, KeyPlaceMissions, ReplaceAny;
             public static ComboBoxFlagProperty KeyDepth;
-            public static NumberFlagProperty DifficultyScaling;
+            public static NumberFlagProperty DifficultyScaling, ReplaceRank;
 
             internal static void Init()
             {
@@ -168,6 +168,24 @@ namespace FF13Rando
                     ValueText = "+",
                     MinValue = 0,
                     MaxValue = 5
+                }.Register(Treasures);
+
+                ReplaceRank = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "Junk Item Rank Range",
+                    ID = "JunkRange",
+                    Description = "'Junk' items (consumables, weapons, accessories, and components) will be replaced by items within the specified value of its \"Rank\".",
+                    ValueText = "Item Rank +/-",
+                    MinValue = 0,
+                    MaxValue = 15
+                }.Register(Treasures);
+
+                ReplaceAny = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Replace Junk Items From Any Category",
+                    ID = "ReplaceJunkAny",
+                    Description = "Allow 'Junk' items (consumables, weapons, accessories, and components) to be replaced by items of other types.\n" +
+                    "Ex: Potions can be replaced with Turbojets."
                 }.Register(Treasures);
 
                 ShuffleRoles = new Flag()
