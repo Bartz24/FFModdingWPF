@@ -4,42 +4,41 @@
   "flags": [
     {
       "FlagEnabled": true,
-      "FlagID": "RandCrystAbi",
       "FlagProperties": [
         {
           "Enabled": true,
           "ID": "AbiAll"
         }
-      ]
+      ],
+      "FlagID": "RandCrystAbi"
     },
     {
       "FlagEnabled": true,
-      "FlagID": "RandCrystStat",
       "FlagProperties": [
         {
           "Enabled": true,
           "ID": "ShuffleCrystMisc"
         }
-      ]
+      ],
+      "FlagID": "RandCrystStat"
     },
     {
       "FlagEnabled": true,
-      "FlagID": "ShuffleCrystRole",
-      "FlagProperties": []
+      "FlagProperties": [],
+      "FlagID": "ShuffleCrystRole"
     },
     {
       "FlagEnabled": true,
-      "FlagID": "ScaledCPCost",
-      "FlagProperties": []
+      "FlagProperties": [],
+      "FlagID": "ScaledCPCost"
     },
     {
       "FlagEnabled": true,
-      "FlagID": "RandInitStats",
-      "FlagProperties": []
+      "FlagProperties": [],
+      "FlagID": "RandInitStats"
     },
     {
       "FlagEnabled": true,
-      "FlagID": "Treasures",
       "FlagProperties": [
         {
           "Enabled": true,
@@ -89,31 +88,45 @@
           "Enabled": true,
           "ID": "ReplaceJunkAny"
         }
-      ]
+      ],
+      "FlagID": "Treasures"
     },
     {
       "FlagEnabled": true,
-      "FlagID": "ShuffleRoles",
-      "FlagProperties": []
+      "FlagProperties": [],
+      "FlagID": "ShuffleRoles"
     },
     {
       "FlagEnabled": true,
-      "FlagID": "ShuffleShops",
-      "FlagProperties": []
+      "FlagProperties": [],
+      "FlagID": "ShuffleShops"
     },
     {
       "FlagEnabled": true,
-      "FlagID": "StartingEquip",
-      "FlagProperties": []
+      "FlagProperties": [],
+      "FlagID": "StartingEquip"
     },
     {
       "FlagEnabled": true,
-      "FlagID": "Music",
-      "FlagProperties": []
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "AnyShop"
+        },
+        {
+          "Enabled": true,
+          "ID": "ShopOrder"
+        }
+      ],
+      "FlagID": "ShopContents"
     },
     {
       "FlagEnabled": true,
-      "FlagID": "Enemies",
+      "FlagProperties": [],
+      "FlagID": "Music"
+    },
+    {
+      "FlagEnabled": true,
       "FlagProperties": [
         {
           "SelectedValue": "Allow Other Enemies - Low",
@@ -123,7 +136,8 @@
           "Value": 2,
           "ID": "EnemyRank"
         }
-      ]
+      ],
+      "FlagID": "Enemies"
     }
   ]
 }

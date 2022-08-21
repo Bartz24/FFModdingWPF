@@ -22,6 +22,11 @@ namespace Bartz24.FF13
             set { Data.SetUInt(0x8, value); }
         }
         public string sScriptId_string { get; set; }
+        public uint u16BuyPrice
+        {
+            get { return Data.ReadUInt(0xC); }
+            set { Data.SetUInt(0xC, value); }
+        }
 
         public override int GetDefaultLength()
         {

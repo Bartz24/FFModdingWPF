@@ -74,8 +74,8 @@ namespace FF13Rando
         }
         public class Items
         {
-            public static Flag Treasures, ShuffleRoles, ShuffleShops, StartingEquip;
-            public static ToggleFlagProperty KeyRoles, KeyInitRoles, KeyStages, KeyEidolith, KeyShops, KeyReins, KeyPlaceTreasure, KeyPlaceMissions, ReplaceAny;
+            public static Flag Treasures, ShuffleRoles, ShuffleShops, StartingEquip, ShopContents;
+            public static ToggleFlagProperty KeyRoles, KeyInitRoles, KeyStages, KeyEidolith, KeyShops, KeyReins, KeyPlaceTreasure, KeyPlaceMissions, ReplaceAny, AnyShop, ShopContentOrder;
             public static ComboBoxFlagProperty KeyDepth;
             public static NumberFlagProperty DifficultyScaling, ReplaceRank;
 
@@ -208,6 +208,27 @@ namespace FF13Rando
                     FlagID = "StartingEquip",
                     DescriptionFormat = "Randomizes starting equipment with other weapons found in treasures or rewards."
                 }.Register(FlagType.Items);
+
+                ShopContents = new Flag()
+                {
+                    Text = "Randomize Shop Contents",
+                    FlagID = "ShopContents",
+                    DescriptionFormat = "Randomizes shop contents within their expected shops. Items required for the Treasure Hunter achievement will be added to shops as well."
+                }.Register(FlagType.Items);
+
+                AnyShop = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Items Appear in Any Shop",
+                    ID = "AnyShop",
+                    Description = "Items can appear in other shops aside from their vanilla shops."
+                }.Register(ShopContents);
+
+                ShopContentOrder = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Late Shop Expansions Contain Better Items",
+                    ID = "ShopOrder",
+                    Description = "Items that are higher 'Rank' will appear in later shop expansions."
+                }.Register(ShopContents);
             }
         }
         public class Other

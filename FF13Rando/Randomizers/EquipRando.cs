@@ -41,8 +41,11 @@ namespace FF13Rando
             FileHelpers.ReadCSVFile(@"data\items.csv", row =>
             {
                 ItemData i = new ItemData(row);
+                i.SortIndex = itemData.Count;
                 itemData.Add(i.ID, i);
             }, FileHelpers.CSVFileHeader.HasHeader);
+
+            itemData.Values.Where(i => i.OverrideBuy != -1).ForEach(i => items[i.ID].u16BuyPrice = (uint)i.OverrideBuy);
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -115,12 +118,19 @@ namespace FF13Rando
             public string Name { get; set; }
             public string Category { get; set; }
             public int Rank { get; set; }
+            public string DefaultShop { get; set; }
+            public List<string> Traits { get; set; }
+            public int SortIndex { get; set; }
+            public int OverrideBuy { get; set; }
             public ItemData(string[] row)
             {
                 ID = row[0];
                 Name = row[1];
                 Category = row[2];
                 Rank = int.Parse(row[3]);
+                DefaultShop = row[4];
+                Traits = row[5].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
+                OverrideBuy = string.IsNullOrEmpty(row[6]) ? -1 : int.Parse(row[6]);
             }
         }
     }
