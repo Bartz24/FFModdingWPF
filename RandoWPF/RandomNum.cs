@@ -93,6 +93,38 @@ namespace Bartz24.RandoWPF
             return weightedList[i];
         }
 
+        /// <summary>
+        /// Shuffles based on a function where an object has a higher chance of replacing each index or object
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="weightFunc">indexFrom, objFrom, indexTo, objTo; return long</param>
+        /// <returns></returns>
+        public static List<T> ShuffleWeightedOrder<T>(List<T> list, Func<int, T, int, T, long> weightFunc)
+        {
+            CheckRand();
+            List<T> newList = new List<T>(list);
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = SelectRandomWeighted(Enumerable.Range(0, list.Count).ToList(), i => weightFunc(n, newList[n], i, newList[i]));
+                T value = newList[k];
+                newList[k] = newList[n];
+                newList[n] = value;
+            }
+            return newList;
+        }
+        public static List<T> ShuffleLocalized<T>(List<T> list, int distance)
+        {
+            return ShuffleWeightedOrder(list, (from, _, to, _) =>
+            {
+                if (to < from - distance || to > from + distance)
+                    return 0;
+                return 1;
+            });
+        }
+
         public static int GetIntSeed(string seed)
         {
             try

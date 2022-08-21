@@ -87,6 +87,7 @@ namespace FF13Rando
             randomizers.Add(new EquipRando(randomizers));
             randomizers.Add(new TreasureRando(randomizers));
             randomizers.Add(new CrystariumRando(randomizers));
+            randomizers.Add(new ShopRando(randomizers));
             randomizers.Add(new BattleRando(randomizers));
             randomizers.Add(new EnemyRando(randomizers));
             randomizers.Add(new MusicRando(randomizers));
