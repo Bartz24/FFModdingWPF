@@ -371,19 +371,19 @@ btsc10007,,Fifth Ark,chset_z018_020|chset_z018_030,,16
 btsc10005,,Fifth Ark,chset_z018_020|chset_z018_030,,16
 btsc10006,,Fifth Ark,chset_z018_020|chset_z018_030,,16
 btsc10008,,Fifth Ark,chset_z018_020|chset_z018_030,,16
-btsc10009,,Fifth Ark,chset_z018_030,,24
-btsc10010,,Fifth Ark,chset_z018_030,,24
-btsc10011,,Fifth Ark,chset_z018_030,,24
-btsc10014,,Fifth Ark,chset_z018_030,,24
-btsc10015,,Fifth Ark,chset_z018_030,,24
-btsc10016,,Fifth Ark,chset_z018_030,,24
-btsc10017,,Fifth Ark,chset_z018_030,,24
-btsc10013,,Fifth Ark,chset_z018_030,,24
-btsc10012,,Fifth Ark,chset_z018_030,,24
-btsc10018,,Fifth Ark,chset_z018_030,,24
-btsc10019,,Fifth Ark,chset_z018_030,,24
-btsc10057,,Fifth Ark,chset_z018_030|chset_z018_040,,20
-btsc10058,,Fifth Ark,chset_z018_030|chset_z018_040,,20
+btsc10009,,Fifth Ark,chset_z018_030,,16
+btsc10010,,Fifth Ark,chset_z018_030,,16
+btsc10011,,Fifth Ark,chset_z018_030,,16
+btsc10014,,Fifth Ark,chset_z018_030,,16
+btsc10015,,Fifth Ark,chset_z018_030,,16
+btsc10016,,Fifth Ark,chset_z018_030,,16
+btsc10017,,Fifth Ark,chset_z018_030,,16
+btsc10013,,Fifth Ark,chset_z018_030,,16
+btsc10012,,Fifth Ark,chset_z018_030,,16
+btsc10018,,Fifth Ark,chset_z018_030,,16
+btsc10019,,Fifth Ark,chset_z018_030,,16
+btsc10057,,Fifth Ark,chset_z018_030|chset_z018_040,,16
+btsc10058,,Fifth Ark,chset_z018_030|chset_z018_040,,16
 btsc10023,,Fifth Ark,chset_z018_040|chset_z018_045,,20
 btsc10024,,Fifth Ark,chset_z018_040|chset_z018_045,,20
 btsc10025,,Fifth Ark,chset_z018_040|chset_z018_045,,20
@@ -811,35 +811,35 @@ btsc14438,,Archylte Steppe,chset_z023_def3,,24
 btsc14444,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
 btsc14442,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
 btsc14458,,Archylte Steppe,chset_z023_def3,Mission,24
-btsc11836,,Faultwarrens,chset_z030_b2,Mission,24
-btsc11829,,Faultwarrens,chset_z030_b4,Mission,24
-btsc11814,,Faultwarrens,chset_z030_b5b,Mission,24
-btsc11828,,Faultwarrens,chset_z030_b8,Mission,24
-btsc11858,,Faultwarrens,chset_z030_b8,,24
-btsc11835,,Faultwarrens,chset_z030_b9f,Mission,24
-btsc11825,,Faultwarrens,chset_z030_b7,,24
-btsc11855,,Faultwarrens,chset_z030_b7,,24
-btsc11824,,Faultwarrens,chset_z030_b7,Mission,24
-btsc11853,,Faultwarrens,chset_z030_b7,,24
-btsc11852,,Faultwarrens,chset_z030_b7,,24
-btsc11832,,Faultwarrens,chset_z030_b9c,Mission,24
-btsc11837,,Faultwarrens,chset_z030_b9a,Mission,24
-btsc11812,,Faultwarrens,chset_z030_b6a,Mission,24
-btsc11818,,Faultwarrens,chset_z030_b5c,,24
-btsc11817,,Faultwarrens,chset_z030_b5c,,24
-btsc11845,,Faultwarrens,chset_z030_b5c,,24
-btsc11844,,Faultwarrens,chset_z030_b5c,,24
-btsc11823,,Faultwarrens,chset_z030_b5c,Mission,24
-btsc11833,,Faultwarrens,chset_z030_b9d,Mission,24
-btsc11831,,Faultwarrens,chset_z030_b9b,Mission,24
-btsc11801,,Faultwarrens,chset_z030_b3,Mission,24
-btsc11843,,Faultwarrens,chset_z030_b3,,24
-btsc11807,,Faultwarrens,chset_z030_b5a,Mission,24
-btsc11806,,Faultwarrens,chset_z030_b5a,,24
-btsc11859,,Faultwarrens,chset_z030_b6b,,24
-btsc11816,,Faultwarrens,chset_z030_b6b,Mission,24
-btsc11834,,Faultwarrens,chset_z030_b9e,Mission,24
-btsc11830,,Faultwarrens,chset_z030_b9g,Mission,24
+btsc11836,,Faultwarrens,chset_z030_b2,Mission,48
+btsc11829,,Faultwarrens,chset_z030_b4,Mission,48
+btsc11814,,Faultwarrens,chset_z030_b5b,Mission,48
+btsc11828,,Faultwarrens,chset_z030_b8,Mission,48
+btsc11858,,Faultwarrens,chset_z030_b8,,48
+btsc11835,,Faultwarrens,chset_z030_b9f,Mission,48
+btsc11825,,Faultwarrens,chset_z030_b7,,48
+btsc11855,,Faultwarrens,chset_z030_b7,,48
+btsc11824,,Faultwarrens,chset_z030_b7,Mission,48
+btsc11853,,Faultwarrens,chset_z030_b7,,48
+btsc11852,,Faultwarrens,chset_z030_b7,,48
+btsc11832,,Faultwarrens,chset_z030_b9c,Mission,48
+btsc11837,,Faultwarrens,chset_z030_b9a,Mission,48
+btsc11812,,Faultwarrens,chset_z030_b6a,Mission,48
+btsc11818,,Faultwarrens,chset_z030_b5c,,48
+btsc11817,,Faultwarrens,chset_z030_b5c,,48
+btsc11845,,Faultwarrens,chset_z030_b5c,,48
+btsc11844,,Faultwarrens,chset_z030_b5c,,48
+btsc11823,,Faultwarrens,chset_z030_b5c,Mission,48
+btsc11833,,Faultwarrens,chset_z030_b9d,Mission,48
+btsc11831,,Faultwarrens,chset_z030_b9b,Mission,48
+btsc11801,,Faultwarrens,chset_z030_b3,Mission,48
+btsc11843,,Faultwarrens,chset_z030_b3,,48
+btsc11807,,Faultwarrens,chset_z030_b5a,Mission,48
+btsc11806,,Faultwarrens,chset_z030_b5a,,48
+btsc11859,,Faultwarrens,chset_z030_b6b,,48
+btsc11816,,Faultwarrens,chset_z030_b6b,Mission,48
+btsc11834,,Faultwarrens,chset_z030_b9e,Mission,48
+btsc11830,,Faultwarrens,chset_z030_b9g,Mission,48
 btsc14441,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
 btsc11002,,Yaschas Massif,chset_z020_def3,Mission,24
 btsc14459,,Archylte Steppe,chset_z023_a018,Mission,48
