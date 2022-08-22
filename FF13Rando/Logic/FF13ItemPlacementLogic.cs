@@ -16,7 +16,7 @@ namespace FF13Rando
 
         public override string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth)
         {
-            ItemLocations[location].Areas.ForEach(l => ItemPlacementAlgorithm.HintsByLocationsCount[l]--);
+            ItemLocations[location].Areas.ForEach(l => Algorithm.HintsByLocationsCount[l]--);
             return null;
         }
 
@@ -40,7 +40,7 @@ namespace FF13Rando
 
         public override void RemoveHint(string hint, string location)
         {
-            ItemLocations[location].Areas.ForEach(l => ItemPlacementAlgorithm.HintsByLocationsCount[l]++);
+            ItemLocations[location].Areas.ForEach(l => Algorithm.HintsByLocationsCount[l]++);
         }
         public override void RemoveLikeItemsFromRemaining(string replacement, List<string> remaining)
         {
