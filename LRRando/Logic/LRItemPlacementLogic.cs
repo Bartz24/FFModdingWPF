@@ -7,20 +7,18 @@ using static LRRando.TreasureRando;
 
 namespace LRRando
 {
-    public class LRAssumedItemPlacementAlgorithm : AssumedItemPlacementAlgorithm<ItemLocation>
+    public class LRItemPlacementLogic : GameSpecificItemPlacementLogic<ItemLocation>
     {
         TreasureRando treasureRando;
 
-        Dictionary<string, int> AreaDepths = new Dictionary<string, int>();
-
-        public LRAssumedItemPlacementAlgorithm(Dictionary<string, ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
+        public LRItemPlacementLogic(ItemPlacementAlgorithm<ItemLocation> algorithm, RandomizerManager randomizers) : base(algorithm)
         {
             treasureRando = randomizers.Get<TreasureRando>();
         }
 
         public override string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth)
         {
-            ItemLocations[location].Areas.ForEach(l => HintsByLocationsCount[l]--);
+            ItemLocations[location].Areas.ForEach(l => Algorithm.HintsByLocationsCount[l]--);
 
             if (IsHintable(replacement))
             {
@@ -52,15 +50,15 @@ namespace LRRando
         {
             return req.GetPossibleRequirements().Select(item =>
             {
-                List<string> reqChecks = Placement.Keys.Where(t => GetLocationItem(Placement[t]).Item1 == item && !ItemLocations[t].Requirements.GetPossibleRequirements().Contains(item)).ToList();
-                return reqChecks.Select(t => Depths[t] + GetReqsMaxDepth(ItemLocations[t].Requirements)).DefaultIfEmpty(0).Max();
+                List<string> reqChecks = Algorithm.Placement.Keys.Where(t => GetLocationItem(Algorithm.Placement[t]).Item1 == item && !ItemLocations[t].Requirements.GetPossibleRequirements().Contains(item)).ToList();
+                return reqChecks.Select(t => Algorithm.Depths[t] + GetReqsMaxDepth(ItemLocations[t].Requirements)).DefaultIfEmpty(0).Max();
             }).DefaultIfEmpty(0).Max();
         }
 
         public override int GetNextDepth(Dictionary<string, int> items, string location)
         {
             int minItems = 8;
-            int keyItemsFound = Placement.Where(p => treasureRando.IsImportantKeyItem(p.Value)).Count();
+            int keyItemsFound = Algorithm.Placement.Where(p => treasureRando.IsImportantKeyItem(p.Value)).Count();
             // Early day/easier checks have higher "depths" as minItems is low to start chains
             float diffModifier = Math.Min(minItems, keyItemsFound) / (float)minItems;
             int maxDifficulty = ItemLocations.Values.Select(t => t.Difficulty).Max();
@@ -103,7 +101,7 @@ namespace LRRando
 
         public override void RemoveHint(string hint, string location)
         {
-            ItemLocations[location].Areas.ForEach(l => HintsByLocationsCount[l]++);
+            ItemLocations[location].Areas.ForEach(l => Algorithm.HintsByLocationsCount[l]++);
             treasureRando.hintsMain[hint].Remove(location);
         }
 
@@ -252,32 +250,15 @@ namespace LRRando
             return true;
         }
 
-
-        public override Tuple<string, int> SelectNext(Dictionary<string, int> items, List<string> possible, string rep)
+        public override bool DoMaxPlacement()
         {
-            if (LRFlags.Items.KeyDepth.SelectedValue == LRFlags.Items.KeyDepth.Values[LRFlags.Items.KeyDepth.Values.Count - 1])
-            {
-                IOrderedEnumerable<KeyValuePair<string, int>> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s)).OrderByDescending(p => p.Value);
-                KeyValuePair<string, int> pair = possDepths.First();
-                return new Tuple<string, int>(pair.Key, pair.Value);
-            }
-            else
-            {
-                int index = LRFlags.Items.KeyDepth.Values.IndexOf(LRFlags.Items.KeyDepth.SelectedValue);
-                float expBase = 1;
-                if (index == 0)
-                    expBase = 1;
-                if (index == 1)
-                    expBase = 1.1f;
-                if (index == 2)
-                    expBase = 1.2f;
-                if (index == 3)
-                    expBase = 1.5f;
-                Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
-                string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + GetAreaMult(s) * 16d));
-                return new Tuple<string, int>(next, possDepths[next]);
-            }
+            return LRFlags.Items.KeyDepth.SelectedIndex == LRFlags.Items.KeyDepth.Values.Count - 1;
         }
+        public override int GetPlacementDifficultyIndex()
+        {
+            return LRFlags.Items.KeyDepth.SelectedIndex;
+        }
+
         public override void Clear()
         {
             treasureRando.hintsMain.Values.ForEach(l => l.Clear());

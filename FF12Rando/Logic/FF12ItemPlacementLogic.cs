@@ -6,13 +6,11 @@ using System.Linq;
 
 namespace FF12Rando
 {
-    public class FF12ItemPlacementAlgorithm : ItemPlacementAlgorithm<ItemLocation>
+    public class FF12ItemPlacementLogic : GameSpecificItemPlacementLogic<ItemLocation>
     {
         TreasureRando treasureRando;
 
-        Dictionary<string, int> AreaDepths = new Dictionary<string, int>();
-
-        public FF12ItemPlacementAlgorithm(Dictionary<string, ItemLocation> itemLocations, List<string> hintsByLocations, RandomizerManager randomizers, int maxFail) : base(itemLocations, hintsByLocations, maxFail)
+        public FF12ItemPlacementLogic(ItemPlacementAlgorithm<ItemLocation> algorithm, RandomizerManager randomizers) : base(algorithm)
         {
             treasureRando = randomizers.Get<TreasureRando>();
         }
@@ -29,7 +27,7 @@ namespace FF12Rando
 
         public override string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth)
         {
-            ItemLocations[location].Areas.Where(l => HintsByLocationsCount.ContainsKey(l)).ForEach(l => HintsByLocationsCount[l]--);
+            ItemLocations[location].Areas.Where(l => Algorithm.HintsByLocationsCount.ContainsKey(l)).ForEach(l => Algorithm.HintsByLocationsCount[l]--);
 
             if (IsHintable(replacement))
             {
@@ -39,19 +37,10 @@ namespace FF12Rando
             }
             return null;
         }
-        private int GetReqsMaxDepth(ItemReq req)
-        {
-            return req.GetPossibleRequirements().Select(item =>
-            {
-                return Placement.Keys.Where(t => GetLocationItem(Placement[t]).Item1 == item).Select(t => Depths[t]).DefaultIfEmpty(0).Max();
-            }).DefaultIfEmpty(0).Max();
-        }
 
         public override int GetNextDepth(Dictionary<string, int> items, string location)
         {
-            int val = ItemLocations[location].Difficulty;
-
-            return RandomNum.RandInt(Math.Max(0, val - 2), val + 2);
+            return ItemLocations[location].Difficulty;
         }
 
         public override bool IsHintable(string location)
@@ -87,7 +76,7 @@ namespace FF12Rando
 
         public override void RemoveHint(string hint, string location)
         {
-            ItemLocations[location].Areas.Where(l => HintsByLocationsCount.ContainsKey(l)).ForEach(l => HintsByLocationsCount[l]++);
+            ItemLocations[location].Areas.Where(l => Algorithm.HintsByLocationsCount.ContainsKey(l)).ForEach(l => Algorithm.HintsByLocationsCount[l]++);
             int index = int.Parse(hint);
             treasureRando.hints[index].Remove(location);
         }
@@ -209,46 +198,29 @@ namespace FF12Rando
             return true;
         }
 
-
-        public override Tuple<string, int> SelectNext(Dictionary<string, int> items, List<string> possible, string rep)
+        public override bool DoMaxPlacement()
         {
-            if (FF12Flags.Items.KeyDepth.SelectedValue == FF12Flags.Items.KeyDepth.Values[FF12Flags.Items.KeyDepth.Values.Count - 1])
-            {
-                IOrderedEnumerable<KeyValuePair<string, int>> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s)).OrderByDescending(p => p.Value);
-                KeyValuePair<string, int> pair = possDepths.First();
-                return new Tuple<string, int>(pair.Key, pair.Value);
-            }
-            else
-            {
-                int index = FF12Flags.Items.KeyDepth.Values.IndexOf(FF12Flags.Items.KeyDepth.SelectedValue);
-                float expBase = 1;
-                if (index == 0)
-                    expBase = 1;
-                if (index == 1)
-                    expBase = 1.1f;
-                if (index == 2)
-                    expBase = 1.2f;
-                if (index == 3)
-                    expBase = 1.5f;
-                Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
-                string next = RandomNum.SelectRandomWeighted(possible, s => (long)Math.Pow(expBase, possDepths[s]));
-                return new Tuple<string, int>(next, possDepths[next]);
-            }
+            return FF12Flags.Items.KeyDepth.SelectedIndex == FF12Flags.Items.KeyDepth.Values.Count - 1;
         }
+        public override int GetPlacementDifficultyIndex()
+        {
+            return FF12Flags.Items.KeyDepth.SelectedIndex;
+        }
+
         public override void Clear()
         {
             treasureRando.hints.ForEach(l => l.Clear());
         }
 
-        private Dictionary<int, string> fakeItemTracking;
+        public Dictionary<int, string> FakeItemTracking { get; set; }
 
-        protected override Dictionary<string, int> GetItemsAvailable(Dictionary<string, string> placement)
+        public override Dictionary<string, int> GetItemsAvailable(Dictionary<string, string> placement)
         {
             Dictionary<string, int> dict = base.GetItemsAvailable(placement);
-            fakeItemTracking = new Dictionary<int, string>();
+            FakeItemTracking = new Dictionary<int, string>();
             placement.Keys.Where(l => ItemLocations[l] is TreasureRando.RewardData).Select(l => (TreasureRando.RewardData)ItemLocations[l]).ForEach(l =>
             {
-                if (!fakeItemTracking.ContainsKey(l.IntID))
+                if (!FakeItemTracking.ContainsKey(l.IntID))
                 {
                     l.FakeItems.ForEach(item =>
                     {
@@ -257,7 +229,7 @@ namespace FF12Rando
                         else
                             dict.Add(item, 1);
                     });
-                    fakeItemTracking.Add(l.IntID, l.ID);
+                    FakeItemTracking.Add(l.IntID, l.ID);
                 }
             });
 

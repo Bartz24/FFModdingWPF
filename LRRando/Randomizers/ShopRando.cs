@@ -97,7 +97,7 @@ namespace LRRando
                       s.u3Category == (int)ShopCategory.Inn ||
                       (s.u3Category == (int)ShopCategory.Libra && (
                                     !i.StartsWith("libra") ||
-                                    treasureRando.itemLocations.Values.Where(t => treasureRando.PlacementAlgo.GetLocationItem(t.ID, false).Item1 == i).Count() == 0)
+                                    treasureRando.itemLocations.Values.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1 == i).Count() == 0)
                       )).ToList())
                 );
 
