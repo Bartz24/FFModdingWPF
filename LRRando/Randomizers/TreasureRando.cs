@@ -27,11 +27,11 @@ namespace LRRando
         public List<string> RandomAdorn = new List<string>();
         public List<string> RemainingAdorn = new List<string>();
 
-        private LRAssumedItemPlacementAlgorithm placementAlgo;
-        private LRItemPlacementAlgorithm placementAlgoBackup;
+        ItemPlacementAlgorithm<ItemLocation> placementAlgoNormal;
+        ItemPlacementAlgorithm<ItemLocation> placementAlgoBackup;
         private bool usingBackup = false;
 
-        public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgo; }
+        public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgoNormal; }
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
 
@@ -133,10 +133,17 @@ namespace LRRando
             }
             RandomNum.ClearRand();
 
-            placementAlgo = new LRAssumedItemPlacementAlgorithm(itemLocations, locations, Randomizers, 3);
-            placementAlgo.SetProgressFunc = Randomizers.SetProgressFunc;
-            placementAlgoBackup = new LRItemPlacementAlgorithm(itemLocations, locations, Randomizers);
-            placementAlgoBackup.SetProgressFunc = Randomizers.SetProgressFunc;
+            placementAlgoNormal = new AssumedItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, 3)
+            {
+                SetProgressFunc = Randomizers.SetProgressFunc
+            };
+            placementAlgoNormal.Logic = new LRItemPlacementLogic(placementAlgoNormal, Randomizers);
+
+            placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, -1)
+            {
+                SetProgressFunc = Randomizers.SetProgressFunc
+            };
+            placementAlgoBackup.Logic = new LRItemPlacementLogic(placementAlgoBackup, Randomizers);
         }
 
         public void AddTreasure(string newName, string item, int count, string next)
@@ -176,7 +183,7 @@ namespace LRRando
                 List<string> keys = itemLocations.Keys.Shuffle();
 
                 Dictionary<string, double> areaMults = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
-                if (!placementAlgo.Randomize(new List<string>(), areaMults))
+                if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
                 {
                     usingBackup = true;
                     placementAlgoBackup.Randomize(new List<string>(), areaMults);
@@ -202,24 +209,24 @@ namespace LRRando
                             return true;
                         return false;
                     };
-                    if (RandomEquip.Contains(PlacementAlgo.GetLocationItem(key, false).Item1))
+                    if (RandomEquip.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Item1))
                     {
-                        string next = RemainingEquip.Where(s => !isSame || sameCheck(s, PlacementAlgo.GetLocationItem(key, false).Item1)).Shuffle().First();
+                        string next = RemainingEquip.Where(s => !isSame || sameCheck(s, PlacementAlgo.Logic.GetLocationItem(key, false).Item1)).Shuffle().First();
                         RemainingEquip.Remove(next);
-                        PlacementAlgo.SetLocationItem(key, next, 1);
+                        PlacementAlgo.Logic.SetLocationItem(key, next, 1);
                     }
-                    if (RandomAdorn.Contains(PlacementAlgo.GetLocationItem(key, false).Item1))
+                    if (RandomAdorn.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Item1))
                     {
-                        string next = RemainingAdorn.Where(s => !isSame || sameCheck(s, PlacementAlgo.GetLocationItem(key, false).Item1)).Shuffle().First();
+                        string next = RemainingAdorn.Where(s => !isSame || sameCheck(s, PlacementAlgo.Logic.GetLocationItem(key, false).Item1)).Shuffle().First();
                         RemainingAdorn.Remove(next);
-                        PlacementAlgo.SetLocationItem(key, next, 1);
+                        PlacementAlgo.Logic.SetLocationItem(key, next, 1);
                     }
 
-                    if (equipRando.items.Keys.Contains(PlacementAlgo.GetLocationItem(key, false).Item1) && equipRando.IsAbility(equipRando.items[PlacementAlgo.GetLocationItem(key, false).Item1]))
+                    if (equipRando.items.Keys.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Item1) && equipRando.IsAbility(equipRando.items[PlacementAlgo.Logic.GetLocationItem(key, false).Item1]))
                     {
-                        string lv = PlacementAlgo.GetLocationItem(key, false).Item1.Substring(PlacementAlgo.GetLocationItem(key, false).Item1.Length - 3);
+                        string lv = PlacementAlgo.Logic.GetLocationItem(key, false).Item1.Substring(PlacementAlgo.Logic.GetLocationItem(key, false).Item1.Length - 3);
                         string next = equipRando.GetAbilities(-1).Shuffle().First().sScriptId_string;
-                        PlacementAlgo.SetLocationItem(key, next + lv, 1);
+                        PlacementAlgo.Logic.SetLocationItem(key, next + lv, 1);
                     }
                 }
 
@@ -231,7 +238,7 @@ namespace LRRando
                     // Update hints again to reflect actual numbers
                     hintsNotesLocations.Keys.Where(note => hintsNotesLocations[note] != null).ForEach(note =>
                         {
-                            int locationCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas[0] == hintsNotesLocations[note] && PlacementAlgo.IsHintable(PlacementAlgo.Placement[t])).Count();
+                            int locationCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas[0] == hintsNotesLocations[note] && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
                             hintsNotesCount[hintsNotesLocations[note]] = locationCount;
                         });
                 }
@@ -247,7 +254,7 @@ namespace LRRando
 
         public bool IsEPAbility(string t, bool orig = true)
         {
-            return PlacementAlgo.GetLocationItem(t, orig).Item1.StartsWith("ti") || PlacementAlgo.GetLocationItem(t, orig).Item1 == "at900_00";
+            return PlacementAlgo.Logic.GetLocationItem(t, orig).Item1.StartsWith("ti") || PlacementAlgo.Logic.GetLocationItem(t, orig).Item1 == "at900_00";
         }
 
         public bool IsMainKeyItem(string t)
@@ -395,7 +402,7 @@ namespace LRRando
                 case 0:
                 default:
                     {
-                        return $"{t.Name} has {GetItemName(PlacementAlgo.GetLocationItem(t.ID, false).Item1)}";
+                        return $"{t.Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1)}";
                     }
                 case 1:
                     {
@@ -415,7 +422,7 @@ namespace LRRando
                     }
                 case 2:
                     {
-                        return $"{t.Areas[0]} has {GetItemName(PlacementAlgo.GetLocationItem(t.ID, false).Item1)}";
+                        return $"{t.Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1)}";
                     }
                 case 3:
                     {
@@ -439,12 +446,12 @@ namespace LRRando
 
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Location", "Requirements", "'Difficulty'" }).ToList(), (new int[] { 30, 20, 10, 35, 5 }).ToList(), itemLocations.Values.Select(t =>
             {
-                string itemID = PlacementAlgo.GetLocationItem(t.ID, false).Item1;
+                string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1;
                 string name = GetItemName(itemID);
                 string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
-                return (new string[] { t.Name, $"{name} x {PlacementAlgo.GetLocationItem(t.ID, false).Item2}", t.Areas[0], reqsDisplay, $"{t.Difficulty}" }).ToList();
+                return (new string[] { t.Name, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}", t.Areas[0], reqsDisplay, $"{t.Difficulty}" }).ToList();
             }).ToList(), "itemlocations"));
             pages.Add("item_locations", page);
 

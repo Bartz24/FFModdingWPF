@@ -7,14 +7,14 @@ namespace Bartz24.RandoWPF
 {
     public abstract class GameSpecificItemPlacementLogic<T> where T : ItemLocation
     {
-        protected ItemPlacementAlgorithm<T> ItemPlacementAlgorithm { get; set; }
+        protected ItemPlacementAlgorithm<T> Algorithm { get; set; }
         public GameSpecificItemPlacementLogic(ItemPlacementAlgorithm<T> algorithm)
         {
-            ItemPlacementAlgorithm = algorithm;
+            Algorithm = algorithm;
         }
 
-        public Dictionary<string, T> ItemLocations { get => ItemPlacementAlgorithm.ItemLocations; }
-        public Dictionary<string, double> AreaMults { get => ItemPlacementAlgorithm.AreaMults; }
+        public Dictionary<string, T> ItemLocations { get => Algorithm.ItemLocations; }
+        public Dictionary<string, double> AreaMults { get => Algorithm.AreaMults; }
 
         public virtual List<string> GetKeysAllowed()
         {
@@ -96,7 +96,7 @@ namespace Bartz24.RandoWPF
 
         public Dictionary<string, int> GetItemsAvailable()
         {
-            return GetItemsAvailable(ItemPlacementAlgorithm.Placement);
+            return GetItemsAvailable(Algorithm.Placement);
         }
 
         public virtual Dictionary<string, int> GetItemsAvailable(Dictionary<string, string> placement)

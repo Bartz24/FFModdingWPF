@@ -25,11 +25,11 @@ namespace FF13_2Rando
         Dictionary<string, int> hintsNotesUniqueCount = new Dictionary<string, int>();
         Dictionary<string, int> hintsNotesSharedCount = new Dictionary<string, int>();
 
-        FF13_2AssumedItemPlacementAlgorithm placementAlgo;
-        FF13_2ItemPlacementAlgorithm placementAlgoBackup;
+        ItemPlacementAlgorithm<FF13_2ItemLocation> placementAlgoNormal;
+        ItemPlacementAlgorithm<FF13_2ItemLocation> placementAlgoBackup;
         private bool usingBackup = false;
 
-        public ItemPlacementAlgorithm<FF13_2ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgo; }
+        public ItemPlacementAlgorithm<FF13_2ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgoNormal; }
 
         public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
 
@@ -84,8 +84,17 @@ namespace FF13_2Rando
 
             List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
 
-            placementAlgo = new FF13_2AssumedItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers, 10);
-            placementAlgoBackup = new FF13_2ItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers, -1);
+            placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13_2ItemLocation>(itemLocations, hintsNotesLocations, 3)
+            {
+                SetProgressFunc = Randomizers.SetProgressFunc
+            };
+            placementAlgoNormal.Logic = new FF13_2ItemPlacementLogic(placementAlgoNormal, Randomizers);
+
+            placementAlgoBackup = new ItemPlacementAlgorithm<FF13_2ItemLocation>(itemLocations, hintsNotesLocations, -1)
+            {
+                SetProgressFunc = Randomizers.SetProgressFunc
+            };
+            placementAlgoBackup.Logic = new FF13_2ItemPlacementLogic(placementAlgoBackup, Randomizers);
         }
 
         public void AddTreasure(string newName, string item, int count, string next)
@@ -109,7 +118,7 @@ namespace FF13_2Rando
                 FF13_2Flags.Items.Treasures.SetRand();
 
                 Dictionary<string, double> areaMults = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
-                if (!placementAlgo.Randomize(new List<string>(), areaMults))
+                if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
                 {
                     usingBackup = true;
                     placementAlgoBackup.Randomize(new List<string>(), areaMults);
@@ -118,10 +127,10 @@ namespace FF13_2Rando
                 // Update hints again to reflect actual numbers
                 PlacementAlgo.HintsByLocation.ForEach(l =>
                 {
-                    int uniqueCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas.Count == 1 && itemLocations[t].Areas[0] == l && PlacementAlgo.IsHintable(PlacementAlgo.Placement[t])).Count();
+                    int uniqueCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas.Count == 1 && itemLocations[t].Areas[0] == l && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
                     hintsNotesUniqueCount.Add(l, uniqueCount);
 
-                    int sharedCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas.Count > 1 && itemLocations[t].Areas.Contains(l) && PlacementAlgo.IsHintable(PlacementAlgo.Placement[t])).Count();
+                    int sharedCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas.Count > 1 && itemLocations[t].Areas.Contains(l) && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
                     hintsNotesSharedCount.Add(l, sharedCount);
                 });
 
@@ -179,13 +188,13 @@ namespace FF13_2Rando
 
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Requirements", "Mog Level Required" }).ToList(), (new int[] { 30, 25, 30, 15 }).ToList(), itemLocations.Values.Select(t =>
             {
-                string itemID = PlacementAlgo.GetLocationItem(t.ID, false).Item1;
+                string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1;
                 string name = GetItemName(itemID);
                 string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
                 string location = $"{string.Join("/", itemLocations[t.ID].Areas.Select(s => cruxRando.areaData[s].Name))} - {itemLocations[t.ID].Name}";
-                return (new string[] { location, $"{name} x {PlacementAlgo.GetLocationItem(t.ID, false).Item2}", reqsDisplay, GetMogLevelRequiredText(t.MogLevel) }).ToList();
+                return (new string[] { location, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}", reqsDisplay, GetMogLevelRequiredText(t.MogLevel) }).ToList();
             }).ToList(), "itemlocations"));
 
             pages.Add("item_locations", page);

@@ -24,10 +24,10 @@ namespace FF12Rando
         Dictionary<string, ItemLocation> itemLocations = new Dictionary<string, ItemLocation>();
         public Dictionary<string, string> missableTreasureLinks = new Dictionary<string, string>();
 
-        FF12AssumedItemPlacementAlgorithm placementAlgo;
-        FF12ItemPlacementAlgorithm placementAlgoBackup;
+        FF12AssumedItemPlacementAlgorithm placementAlgoNormal;
+        ItemPlacementAlgorithm<ItemLocation> placementAlgoBackup;
         private bool usingBackup = false;
-        public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgo; }
+        public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo { get => usingBackup ? placementAlgoBackup : placementAlgoNormal; }
 
         public List<string> treasuresToPlace = new List<string>();
         public List<string> treasuresAllowed = new List<string>();
@@ -98,8 +98,17 @@ namespace FF12Rando
 
             List<string> hintsNotesLocations = itemLocations.Values.SelectMany(l => l.Areas).Distinct().Where(l => l != "Fake").ToList();
 
-            placementAlgo = new FF12AssumedItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers, 3);
-            placementAlgoBackup = new FF12ItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers, -1);
+            placementAlgoNormal = new FF12AssumedItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers, 3)
+            {
+                SetProgressFunc = Randomizers.SetProgressFunc
+            };
+            placementAlgoNormal.Logic = new FF12ItemPlacementLogic(placementAlgoNormal, Randomizers);
+
+            placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(itemLocations, hintsNotesLocations, -1)
+            {
+                SetProgressFunc = Randomizers.SetProgressFunc
+            };
+            placementAlgoBackup.Logic = new FF12ItemPlacementLogic(placementAlgoBackup, Randomizers);
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -129,7 +138,7 @@ namespace FF12Rando
                 CollapseAndSelectTreasures();
 
                 Dictionary<string, double> areaMults = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
-                if (!placementAlgo.Randomize(new List<string>(), areaMults))
+                if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
                 {
                     usingBackup = true;
                     placementAlgoBackup.Randomize(new List<string>(), areaMults);
@@ -138,13 +147,13 @@ namespace FF12Rando
                 int respawnIndex = 0;
                 itemLocations.Values.Shuffle().ForEach(l =>
                 {
-                    if (PlacementAlgo.GetKeysAllowed().Contains(l.ID))
+                    if (PlacementAlgo.Logic.GetKeysAllowed().Contains(l.ID))
                     {
                         if (IsEmpty(l.ID))
                         {
-                            string rep = PlacementAlgo.Placement.Keys.Where(s => IsExtra(s) && PlacementAlgo.GetLocationItem(s, false) != null && !IsImportantKeyItem(PlacementAlgo.Placement[s]) && PlacementAlgo.IsAllowed(l.ID, PlacementAlgo.Placement[s])).Shuffle().First();
-                            Tuple<string, int> item = PlacementAlgo.GetLocationItem(rep, false);
-                            PlacementAlgo.SetLocationItem(l.ID, item.Item1, item.Item2);
+                            string rep = PlacementAlgo.Placement.Keys.Where(s => IsExtra(s) && PlacementAlgo.Logic.GetLocationItem(s, false) != null && !IsImportantKeyItem(PlacementAlgo.Placement[s]) && PlacementAlgo.Logic.IsAllowed(l.ID, PlacementAlgo.Placement[s])).Shuffle().First();
+                            Tuple<string, int> item = PlacementAlgo.Logic.GetLocationItem(rep, false);
+                            PlacementAlgo.Logic.SetLocationItem(l.ID, item.Item1, item.Item2);
                             PlacementAlgo.Placement.Add(l.ID, PlacementAlgo.Placement[rep]);
                             PlacementAlgo.Placement.Remove(rep);
                             hints.Where(list => list.Contains(rep)).ForEach(list =>
@@ -175,7 +184,7 @@ namespace FF12Rando
                 {
                     if (PlacementAlgo.Placement.ContainsKey(l.ID))
                     {
-                        Tuple<string, int> tuple = PlacementAlgo.GetLocationItem(l.ID, false);
+                        Tuple<string, int> tuple = PlacementAlgo.Logic.GetLocationItem(l.ID, false);
                         if (tuple != null && randomizeItems.Contains(tuple.Item1))
                         {
                             string newItem = RandomNum.SelectRandomWeighted(remainingRandomizeItems, item =>
@@ -192,13 +201,13 @@ namespace FF12Rando
                             });
                             if (newItem.StartsWith("30") || newItem.StartsWith("40"))
                             {
-                                PlacementAlgo.SetLocationItem(l.ID, newItem, 1);
+                                PlacementAlgo.Logic.SetLocationItem(l.ID, newItem, 1);
                                 if (!tuple.Item1.StartsWith("30") && !tuple.Item1.StartsWith("40"))
                                     hints.Where(list => list.Count() == hints.Select(list => list.Count()).Min()).First().Add(l.ID);
                             }
                             else
                             {
-                                PlacementAlgo.SetLocationItem(l.ID, newItem, tuple.Item2);
+                                PlacementAlgo.Logic.SetLocationItem(l.ID, newItem, tuple.Item2);
                                 if (tuple.Item1.StartsWith("30") || tuple.Item1.StartsWith("40"))
                                     hints.Where(list => list.Contains(l.ID)).ForEach(list => list.Remove(l.ID));
 
@@ -218,18 +227,18 @@ namespace FF12Rando
 
                 if (!FF12Flags.Items.KeyWrit.Enabled)
                 {
-                    itemLocations.Values.Where(l => PlacementAlgo.GetLocationItem(l.ID, false) != null && PlacementAlgo.GetLocationItem(l.ID, false).Item1 == "8070")
+                    itemLocations.Values.Where(l => PlacementAlgo.Logic.GetLocationItem(l.ID, false) != null && PlacementAlgo.Logic.GetLocationItem(l.ID, false).Item1 == "8070")
                         .ForEach(l =>
                         {
-                            PlacementAlgo.SetLocationItem(l.ID, "0000", 5);
+                            PlacementAlgo.Logic.SetLocationItem(l.ID, "0000", 5);
                             hints.Where(list => list.Contains(l.ID)).ForEach(list => list.Remove(l.ID));
                         });
                 }
 
                 missableTreasureLinks.ForEach(p =>
                 {
-                    Tuple<string, int> item = PlacementAlgo.GetLocationItem(p.Value, false);
-                    PlacementAlgo.SetLocationItem(p.Key, item.Item1, item.Item2);
+                    Tuple<string, int> item = PlacementAlgo.Logic.GetLocationItem(p.Value, false);
+                    PlacementAlgo.Logic.SetLocationItem(p.Key, item.Item1, item.Item2);
                     DataStoreTreasure tMiss = ebpAreas[((TreasureData)itemLocations[p.Key]).MapID].TreasureList[((TreasureData)itemLocations[p.Key]).Index];
                     DataStoreTreasure tLinked = ebpAreas[((TreasureData)itemLocations[p.Value]).MapID].TreasureList[((TreasureData)itemLocations[p.Value]).Index];
                     tMiss.Respawn = tLinked.Respawn;
@@ -249,9 +258,9 @@ namespace FF12Rando
                         else if (l is RewardData)
                         {
                             if (((RewardData)l).Index == 0)
-                                PlacementAlgo.SetLocationItem(l.ID, "Gil", 0);
+                                PlacementAlgo.Logic.SetLocationItem(l.ID, "Gil", 0);
                             else
-                                PlacementAlgo.SetLocationItem(l.ID, "FFFF", 255);
+                                PlacementAlgo.Logic.SetLocationItem(l.ID, "FFFF", 255);
                         }
                     }
                 });
@@ -385,7 +394,7 @@ namespace FF12Rando
 
         public bool IsAbility(string t, bool orig = true)
         {
-            return PlacementAlgo.GetLocationItem(t, orig) != null && (PlacementAlgo.GetLocationItem(t, orig).Item1.StartsWith("30") || PlacementAlgo.GetLocationItem(t, orig).Item1.StartsWith("40"));
+            return PlacementAlgo.Logic.GetLocationItem(t, orig) != null && (PlacementAlgo.Logic.GetLocationItem(t, orig).Item1.StartsWith("30") || PlacementAlgo.Logic.GetLocationItem(t, orig).Item1.StartsWith("40"));
         }
 
         public bool IsWoTItem(string t)
@@ -428,7 +437,7 @@ namespace FF12Rando
             return itemLocations.Values.Where(l => !(l is TreasureData) || treasuresToPlace.Contains(l.ID))
                 .Select(l =>
                 {
-                    Tuple<string, int> tuple = PlacementAlgo.GetLocationItem(l.ID);
+                    Tuple<string, int> tuple = PlacementAlgo.Logic.GetLocationItem(l.ID);
                     if (tuple != null && IsRandomizableItem(tuple.Item1))
                     {
                         return tuple.Item1;
@@ -483,7 +492,7 @@ namespace FF12Rando
                 case 0:
                 default:
                     {
-                        list.Add($"{itemLocations[l].Name} has {GetItemName(PlacementAlgo.GetLocationItem(l, false).Item1)}");
+                        list.Add($"{itemLocations[l].Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Item1)}");
                         list.Add("");
                         break;
                     }
@@ -504,7 +513,7 @@ namespace FF12Rando
                             type = "a Trophy";
                         if (IsWoTItem(PlacementAlgo.Placement[l]))
                             type = "the Writ of Transit";
-                        Tuple<string, int> item = PlacementAlgo.GetLocationItem(l, false);
+                        Tuple<string, int> item = PlacementAlgo.Logic.GetLocationItem(l, false);
                         if (item != null && (item.Item1.StartsWith("30") || item.Item1.StartsWith("40")))
                             type = "an Ability";
 
@@ -514,7 +523,7 @@ namespace FF12Rando
                     }
                 case 2:
                     {
-                        list.Add($"{itemLocations[l].Areas[0]} has {GetItemName(PlacementAlgo.GetLocationItem(l, false).Item1)}");
+                        list.Add($"{itemLocations[l].Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Item1)}");
                         list.Add("");
                         break;
                     }
