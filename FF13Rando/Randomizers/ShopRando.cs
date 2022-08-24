@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bartz24.Docs;
+using static FF13Rando.EquipRando;
 
 namespace FF13Rando
 {
@@ -54,7 +55,23 @@ namespace FF13Rando
                     newShopContents[shop].Add(i.ID);
                 });
 
-                equipRando.itemData.Values.Where(i => !i.Traits.Contains("Force")).Shuffle().Take(vanillaCount - newShopContents.Count).ForEach(i =>
+                List<ItemData> remaining = equipRando.itemData.Values.Where(i => !i.Traits.Contains("Force")).Shuffle().ToList();
+
+                shopIDs.ForEach(id =>
+                {
+                    int tiers = shops.Values.Where(s => s.ID.StartsWith(id)).Count();
+
+                    if (tiers > newShopContents[id].Count)
+                    {
+                        remaining.Where(i => FF13Flags.Items.AnyShop.Enabled || i.DefaultShop == id).Take(tiers - newShopContents[id].Count).ForEach(i =>
+                        {
+                            newShopContents[id].Add(i.ID);
+                            remaining.Remove(i);
+                        });
+                    }
+                });
+
+                remaining.Take((int)(vanillaCount * 1.5) - newShopContents.Values.Select(l => l.Count).Sum()).ForEach(i =>
                 {
                     string shop = FF13Flags.Items.AnyShop.Enabled ? RandomNum.SelectRandomWeighted(shopIDs, s => newShopContents[s].Count < 32 ? shopWeights[shopIDs.IndexOf(s)] : 0) : i.DefaultShop;
                     newShopContents[shop].Add(i.ID);
@@ -63,16 +80,16 @@ namespace FF13Rando
                 shopIDs.ForEach(id =>
                 {
                     int tiers = shops.Values.Where(s => s.ID.StartsWith(id)).Count();
-                    List<int> sizes = Enumerable.Range(1, newShopContents[id].Count - 1).Shuffle().Take(Math.Min(tiers, newShopContents[id].Count - 1)).OrderBy(i => i).ToList();
+                    List<int> sizes = Enumerable.Range(1, newShopContents[id].Count).Shuffle().Take(tiers).OrderBy(i => i).ToList();
                     sizes[sizes.Count - 1] = newShopContents[id].Count;
 
                     newShopContents[id] = newShopContents[id].Shuffle().ToList();
                     if (FF13Flags.Items.ShopContentOrder.Enabled)
-                        newShopContents[id] = RandomNum.ShuffleLocalized(newShopContents[id].OrderBy(item => equipRando.itemData[item].Rank).ToList(), 2);
+                        newShopContents[id] = RandomNum.ShuffleLocalized(newShopContents[id].OrderBy(item => item == "it_potion" || item == "it_phenxtal" ? 1 : equipRando.itemData[item].Rank).ToList(), 2);
 
                     for (int i = 0; i < tiers; i++)
                     {
-                        shops[$"{id}{i}"].SetItems(newShopContents[id].Take(i >= sizes.Count ? sizes.Last() : sizes[i]).OrderBy(item => equipRando.itemData[item].SortIndex).ToList());
+                        shops[$"{id}{i}"].SetItems(newShopContents[id].Take(sizes[i]).OrderBy(item => equipRando.itemData[item].SortIndex).ToList());
                     }
                 });
 
