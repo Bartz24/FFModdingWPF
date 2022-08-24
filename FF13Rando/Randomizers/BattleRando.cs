@@ -69,6 +69,15 @@ namespace FF13Rando
                 EnemyData e = new EnemyData(row);
                 enemyData.Add(e.ID, e);
             }, FileHelpers.CSVFileHeader.HasHeader);
+
+            charaSets.Values.Where(c => c.ID.Contains("z030")).ForEach(c =>
+            {
+                List<string> list = c.GetCharaSpecs();
+                list.Remove("m193");
+                list.Remove("m106");
+                list.Remove("m110");
+                c.SetCharaSpecs(list);
+            });
         }
         public override void Randomize(Action<int> progressSetter)
         {
