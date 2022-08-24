@@ -98,10 +98,12 @@ namespace FF13Rando
             }
 
             Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 95, 100);
+            ApplyCPCostModifiers();
             if (FF13Flags.Stats.ScaledCPCosts.FlagEnabled)
             {
                 ScaledCPCosts();
             }
+            RoundCPCosts();
         }
 
         private List<int[]> GetAverageStats()
@@ -215,29 +217,24 @@ namespace FF13Rando
 
         private void UpdateCPCosts()
         {
-            uint[] costs = new uint[] { 60, 90, 220, 230, 400, 1000, 740, 6000, 12000, 45000 };
+            uint[] costs = new uint[] { 25, 50, 100, 250, 500, 750, 1000, 4000, 10000, 30000 };
             UpdateNodeCPCost(GetFirstRole("lig"), "lightning", costs);
 
-            costs = new uint[] { 75, 90, 380, 145, 420, 1000, 970, 6000, 12000, 45000 };
             UpdateNodeCPCost(GetFirstRole("saz"), "sazh", costs);
 
-            costs = new uint[] { 80, 90, 130, 275, 480, 1080, 915, 6000, 12000, 45000 };
             UpdateNodeCPCost(GetFirstRole("hop"), "hope", costs);
 
-            costs = new uint[] { 70, 75, 320, 130, 400, 1040, 775, 6000, 12000, 45000 };
             UpdateNodeCPCost(GetFirstRole("van"), "vanille", costs);
 
-            costs = new uint[] { 40, 200, 200, 200, 400, 1050, 865, 6000, 12000, 45000 };
             UpdateNodeCPCost(GetFirstRole("sno"), "snow", costs);
 
-            costs = new uint[] { 70, 80, 350, 220, 450, 1200, 775, 6000, 12000, 45000 };
             UpdateNodeCPCost(GetFirstRole("fan"), "fang", costs);
         }
 
         private void UpdateNodeCPCost(string first, string chara, uint[] costs)
         {
             string[] roles = new string[] { "sen", "com", "rav", "syn", "sab", "med" };
-            crystariums[chara].Values.Where(c => c.iCPCost == 0 || !primaryRoles[chara].Contains(c.iRole)).ForEach(c =>
+            crystariums[chara].Values.ForEach(c =>
             {
                 if (c.iStage == 1)
                 {
@@ -334,7 +331,10 @@ namespace FF13Rando
             {
                 List<CrystariumType> types = new List<CrystariumType>() { CrystariumType.Accessory, CrystariumType.ATBLevel, CrystariumType.HP, CrystariumType.Strength, CrystariumType.Magic };
 
-                List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => types.Contains(c.iType) && c.iCPCost > 0).Shuffle();
+                if (FF13Flags.Stats.RandCrystAbiAll.Enabled)
+                    types.Add(CrystariumType.Ability);
+
+                List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => types.Contains(c.iType) && c.iCPCost > 0 && c != firstAbis[chara][c.iRole]).Shuffle();
                 nodes.Shuffle((c1, c2) => c1.SwapStatsAbilities(c2));
             }
         }
@@ -439,6 +439,27 @@ namespace FF13Rando
             return pages;
         }
 
+        private void ApplyCPCostModifiers()
+        {
+            foreach (string chara in chars)
+            {
+                crystariums[chara].Values.Where(c => c.IsSideNode || c.iType == CrystariumType.Ability || c.iType == CrystariumType.Accessory || c.iType == CrystariumType.ATBLevel || c.iType == CrystariumType.RoleLevel).ForEach(c =>
+                {
+                    c.iCPCost = (uint)(c.iCPCost * (c.iStage == 10 ? 2f : (1.2f + c.iStage * 0.07f)));
+                });
+
+                Enumerable.Range(1, 10).ForEach(stage =>
+                {
+                    Enumerable.Range((int)Role.Sentinel, 6).ForEach(role =>
+                    {
+                        IEnumerable<DataStoreCrystarium> enumerable = crystariums[chara].Values.Where(c => c.iStage == stage && c.iRole == (Role)role);
+                        if (enumerable.Count() == 1)
+                            enumerable.First().iCPCost *= 4;
+                    });
+                });
+            }
+        }
+
         private void ScaledCPCosts()
         {
             foreach (string chara in chars)
@@ -448,20 +469,33 @@ namespace FF13Rando
                     if (c.iCPCost > 0)
                     {
                         int cpCost = (int)Math.Floor(c.iCPCost * Math.Max(0.5, Math.Min(1, 1.08684 * Math.Exp(-0.08664 * c.iStage))));
+                    }
+                });
+            }
+        }
+
+        private void RoundCPCosts()
+        {
+            foreach (string chara in chars)
+            {
+                crystariums[chara].Values.ForEach(c =>
+                {
+                    if (c.iCPCost > 0)
+                    {
                         int interval;
-                        if (cpCost < 100)
+                        if (c.iCPCost < 100)
                             interval = 5;
-                        else if (cpCost < 1000)
+                        else if (c.iCPCost < 1000)
                             interval = 10;
-                        else if (cpCost < 5000)
+                        else if (c.iCPCost < 5000)
+                            interval = 250;
+                        else if (c.iCPCost < 10000)
                             interval = 500;
-                        else if (cpCost < 10000)
+                        else if (c.iCPCost < 50000)
                             interval = 1000;
-                        else if (cpCost < 50000)
-                            interval = 5000;
                         else
-                            interval = 10000;
-                        c.iCPCost = Math.Max(1, (uint)MathHelpers.RoundToInterval(cpCost, interval));
+                            interval = 5000;
+                        c.iCPCost = Math.Max(1, (uint)MathHelpers.RoundToInterval((int)c.iCPCost, interval));
                     }
                 });
             }

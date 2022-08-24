@@ -64,6 +64,11 @@ namespace Bartz24.FF13
             set { Data.SetByte(0xB, (byte)(iStage * 0x10 + (byte)value)); }
         }
 
+        public bool IsSideNode
+        {
+            get { return ID.Substring(ID.Length - 4) != "0000"; }
+        }
+
         public override int GetDefaultLength()
         {
             return 0xC;
