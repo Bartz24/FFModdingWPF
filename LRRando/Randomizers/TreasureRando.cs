@@ -574,7 +574,7 @@ namespace LRRando
             public override Tuple<string, int> GetData(dynamic obj)
             {
                 DataStoreRTreasurebox t = (DataStoreRTreasurebox)obj;
-                return new Tuple<string, int>(t.s11ItemResourceId_string, t.iItemCount);
+                return Tuple.Create(t.s11ItemResourceId_string, t.iItemCount);
             }
         }
 
@@ -618,7 +618,7 @@ namespace LRRando
             public override Tuple<string, int> GetData(dynamic obj)
             {
                 DataStoreBtScene b = (DataStoreBtScene)obj;
-                return new Tuple<string, int>(b.sDropItem0_string, b.u8NumDrop0);
+                return Tuple.Create(b.sDropItem0_string, b.u8NumDrop0);
             }
         }
 

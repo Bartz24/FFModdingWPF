@@ -69,14 +69,14 @@ namespace Bartz24.RandoWPF
             {
                 IOrderedEnumerable<KeyValuePair<string, int>> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s)).OrderByDescending(p => p.Value);
                 KeyValuePair<string, int> pair = possDepths.First();
-                return new Tuple<string, int>(pair.Key, pair.Value);
+                return Tuple.Create(pair.Key, pair.Value);
             }
             else
             {
                 float expBase = GetPlacementDifficultyMultiplier();
                 Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
                 string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + GetAreaMult(s) * 16d));
-                return new Tuple<string, int>(next, possDepths[next]);
+                return Tuple.Create(next, possDepths[next]);
             }
         }
         public virtual double GetAreaMult(string location)

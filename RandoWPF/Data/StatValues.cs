@@ -61,7 +61,7 @@ namespace Bartz24.RandoWPF
 
         public Tuple<int, int>[] GetVarianceBounds(int variance)
         {
-            return Enumerable.Range(0, Vals.Length).Select(i => new Tuple<int, int>(100 - variance, Int32.MaxValue)).ToArray();
+            return Enumerable.Range(0, Vals.Length).Select(i => Tuple.Create(100 - variance, Int32.MaxValue)).ToArray();
         }
         public long GetTotalPoints(Tuple<int, int>[] bounds)
         {

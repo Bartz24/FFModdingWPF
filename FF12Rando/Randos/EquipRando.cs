@@ -70,14 +70,14 @@ namespace FF12Rando
                 DataStoreAttribute attribute = equip.AttributeDataList[(int)weapon.AttributeOffset];
                 StatPoints statPoints;
                 Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(1, 255),
-                        new Tuple<int, int>(0, 50),
-                        new Tuple<int, int>(0, 5000),
-                        new Tuple<int, int>(0, 500),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99)
+                        Tuple.Create(1, 255),
+                        Tuple.Create(0, 50),
+                        Tuple.Create(0, 5000),
+                        Tuple.Create(0, 500),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99)
                     };
                 float[] weights = new float[] { weapon.Category == EquipCategory.Gun || weapon.Category == EquipCategory.Measure ? 4 : 1, 4, 2, 6, 4, 4, 8, 12 };
                 int[] zeros = new int[] { 0, 90, 97, 97, 90, 90, 90, 90 };
@@ -86,9 +86,9 @@ namespace FF12Rando
                 if (FF12Flags.Stats.EquipHiddenStats.Enabled)
                 {
                     Tuple<int, int>[] hiddenBounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(0, 100),
-                        new Tuple<int, int>(0, 100),
-                        new Tuple<int, int>(RandomNum.RandInt(RandomNum.RandInt(-100, -40), -20), 0)
+                        Tuple.Create(0, 100),
+                        Tuple.Create(0, 100),
+                        Tuple.Create(RandomNum.RandInt(RandomNum.RandInt(-100, -40), -20), 0)
                     };
                     float[] hiddenWeights = new float[] { 4, 4, 1 };
                     int[] hiddenZeros = new int[] { 50, 5, 0 };
@@ -133,14 +133,14 @@ namespace FF12Rando
                 DataStoreAttribute attribute = equip.AttributeDataList[(int)ammo.AttributeOffset];
                 StatPoints statPoints;
                 Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(1, 10),
-                        new Tuple<int, int>(0, 10),
-                        new Tuple<int, int>(0, 500),
-                        new Tuple<int, int>(0, 50),
-                        new Tuple<int, int>(0, 9),
-                        new Tuple<int, int>(0, 9),
-                        new Tuple<int, int>(0, 9),
-                        new Tuple<int, int>(0, 9)
+                        Tuple.Create(1, 10),
+                        Tuple.Create(0, 10),
+                        Tuple.Create(0, 500),
+                        Tuple.Create(0, 50),
+                        Tuple.Create(0, 9),
+                        Tuple.Create(0, 9),
+                        Tuple.Create(0, 9),
+                        Tuple.Create(0, 9)
                     };
                 float[] weights = new float[] { 1, 4, 3, 8, 6, 6, 10, 15 };
                 int[] zeros = new int[] { 0, 95, 99, 99, 95, 95, 95, 95 };
@@ -162,14 +162,14 @@ namespace FF12Rando
                 DataStoreAttribute attribute = equip.AttributeDataList[(int)shield.AttributeOffset];
                 StatPoints statPoints;
                 Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(0, 50),
-                        new Tuple<int, int>(0, 50),
-                        new Tuple<int, int>(0, 5000),
-                        new Tuple<int, int>(0, 500),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99)
+                        Tuple.Create(0, 50),
+                        Tuple.Create(0, 50),
+                        Tuple.Create(0, 5000),
+                        Tuple.Create(0, 500),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99)
                     };
                 float[] weights = new float[] { 4, 4, 1, 3, 8, 8, 6, 10 };
                 int[] zeros = new int[] { 50, 50, 90, 95, 97, 97, 90, 90 };
@@ -191,14 +191,14 @@ namespace FF12Rando
                 DataStoreAttribute attribute = equip.AttributeDataList[(int)armor.AttributeOffset];
                 StatPoints statPoints;
                 Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(0, 120),
-                        new Tuple<int, int>(0, 120),
-                        new Tuple<int, int>(0, 5000),
-                        new Tuple<int, int>(0, 500),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99)
+                        Tuple.Create(0, 120),
+                        Tuple.Create(0, 120),
+                        Tuple.Create(0, 5000),
+                        Tuple.Create(0, 500),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99)
                     };
                 float[] weights = new float[] { 8, 8, 1, 3, 20, 20, 15, 15 };
                 int[] zeros = new int[] { 50, 50, 90, 90, 90, 90, 90, 97 };
@@ -220,14 +220,14 @@ namespace FF12Rando
                 DataStoreAttribute attribute = equip.AttributeDataList[(int)armor.AttributeOffset];
                 StatPoints statPoints;
                 Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(0, 120),
-                        new Tuple<int, int>(0, 120),
-                        new Tuple<int, int>(0, 5000),
-                        new Tuple<int, int>(0, 500),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99),
-                        new Tuple<int, int>(0, 99)
+                        Tuple.Create(0, 120),
+                        Tuple.Create(0, 120),
+                        Tuple.Create(0, 5000),
+                        Tuple.Create(0, 500),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99),
+                        Tuple.Create(0, 99)
                     };
                 float[] weights = new float[] { 8, 8, 1, 3, 12, 12, 12, 15 };
                 int[] zeros = new int[] { 95, 95, 90, 90, 95, 95, 95, 90 };
@@ -268,14 +268,14 @@ namespace FF12Rando
             {
                 StatPoints statPoints;
                 Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(-1, 3),
-                        new Tuple<int, int>(-1, 3),
-                        new Tuple<int, int>(-1, 3),
-                        new Tuple<int, int>(-1, 3),
-                        new Tuple<int, int>(-1, 3),
-                        new Tuple<int, int>(-1, 3),
-                        new Tuple<int, int>(-1, 3),
-                        new Tuple<int, int>(-1, 3)
+                        Tuple.Create(-1, 3),
+                        Tuple.Create(-1, 3),
+                        Tuple.Create(-1, 3),
+                        Tuple.Create(-1, 3),
+                        Tuple.Create(-1, 3),
+                        Tuple.Create(-1, 3),
+                        Tuple.Create(-1, 3),
+                        Tuple.Create(-1, 3)
                     };
                 float[] weights = new float[] { 1, 1, 1, 1, 1, 1, 1, 1 };
                 int[] zeros = new int[] { 90, 90, 90, 90, 90, 90, 90, 90 };

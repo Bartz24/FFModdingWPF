@@ -713,11 +713,11 @@ namespace FF12Rando
                 DataStoreTreasure t = (DataStoreTreasure)obj;
                 if (t.GilChance == 100)
                 {
-                    return new Tuple<string, int>("Gil", t.GilCommon);
+                    return Tuple.Create("Gil", (int)t.GilCommon);
                 }
                 else
                 {
-                    return new Tuple<string, int>(t.CommonItem1ID.ToString("X4"), 1);
+                    return Tuple.Create(t.CommonItem1ID.ToString("X4"), 1);
                 }
             }
         }
@@ -787,19 +787,19 @@ namespace FF12Rando
                 {
                     if (r.Gil == 0)
                         return null;
-                    return new Tuple<string, int>("Gil", (int)r.Gil);
+                    return Tuple.Create("Gil", (int)r.Gil);
                 }
                 else if (Index == 1)
                 {
                     if (r.Item1ID == 0xFFFF)
                         return null;
-                    return new Tuple<string, int>(r.Item1ID.ToString("X4"), r.Item1Amount);
+                    return Tuple.Create(r.Item1ID.ToString("X4"), (int)r.Item1Amount);
                 }
                 else
                 {
                     if (r.Item2ID == 0xFFFF)
                         return null;
-                    return new Tuple<string, int>(r.Item2ID.ToString("X4"), r.Item2Amount);
+                    return Tuple.Create(r.Item2ID.ToString("X4"), (int)r.Item2Amount);
                 }
             }
         }

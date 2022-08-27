@@ -80,7 +80,7 @@ namespace FF13_2Rando
                 case TreasureRando.TreasureData t:
                     Tuple<string, int> tuple = t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
                     if (ItemLocations[key].Traits.Contains("Event") && tuple.Item1.StartsWith("frg"))
-                        return new Tuple<string, int>(tuple.Item1, 1);
+                        return Tuple.Create(tuple.Item1, 1);
 
                     return tuple;
                 case TreasureRando.SearchItemData s:

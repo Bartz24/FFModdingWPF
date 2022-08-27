@@ -42,6 +42,8 @@ namespace FF13_2Rando
                 db3.LoadDB3("13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
                 enemiesOrig.Add(s, db3);
             });
+
+            GetEnemies(e => e.u14DropProb2 > 0 && e.u14DropProb2 < 7500).ForEach(e => e.u14DropProb2 = Math.Min((int)(e.u14DropProb2 * 2.5), 7500));
         }
 
         public DataStoreBtCharaSpec GetEnemy(string id, bool orig = false)
@@ -52,6 +54,10 @@ namespace FF13_2Rando
         public bool HasEnemy(string id)
         {
             return enemies.Values.SelectMany(db3 => db3.Values.Where(e => e.name == id)).Count() > 0;
+        }
+        public IEnumerable<DataStoreBtCharaSpec> GetEnemies()
+        {
+            return GetEnemies(_ => true);
         }
         public IEnumerable<DataStoreBtCharaSpec> GetEnemies(Func<DataStoreBtCharaSpec, bool> predicate)
         {

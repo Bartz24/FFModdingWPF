@@ -281,7 +281,7 @@ namespace FF13_2Rando
             public override Tuple<string, int> GetData(dynamic obj)
             {
                 DataStoreRTreasurebox t = (DataStoreRTreasurebox)obj;
-                return new Tuple<string, int>(t.s11ItemResourceId_string, t.iItemCount);
+                return Tuple.Create(t.s11ItemResourceId_string, t.iItemCount);
             }
         }
 
@@ -330,7 +330,7 @@ namespace FF13_2Rando
                 DataStoreSearchItem s = (DataStoreSearchItem)obj;
                 int count = s.GetCount(Index);
                 int max = s.GetMax(Index);
-                return new Tuple<string, int>(s.GetItem(Index), max == 0 ? count : (count * max));
+                return Tuple.Create(s.GetItem(Index), max == 0 ? count : (count * max));
             }
         }
 
