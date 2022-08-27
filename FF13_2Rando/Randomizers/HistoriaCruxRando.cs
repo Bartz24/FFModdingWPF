@@ -89,7 +89,7 @@ namespace FF13_2Rando
             {
                 List<string> possible = openings.Where(o => !soFar.ContainsKey(o) && IsAllowed(o, soFar, available)).Shuffle();
                 if (possible.Count == 0)
-                    return new Tuple<bool, Dictionary<string, string>>(false, soFar);
+                    return Tuple.Create(false, soFar);
             }
 
             foreach (string rep in remaining)
@@ -100,7 +100,7 @@ namespace FF13_2Rando
                     string next = SelectNext(possible);
                     soFar.Add(next, rep);
                     if (soFar.Count == openings.Count)
-                        return new Tuple<bool, Dictionary<string, string>>(true, soFar);
+                        return Tuple.Create(true, soFar);
                     Tuple<bool, Dictionary<string, string>> result = GetPlacement(soFar, openings);
                     if (result.Item1)
                         return result;
@@ -111,7 +111,7 @@ namespace FF13_2Rando
                     }
                 }
             }
-            return new Tuple<bool, Dictionary<string, string>>(false, soFar);
+            return Tuple.Create(false, soFar);
         }
 
         private string SelectNext(List<string> possible)

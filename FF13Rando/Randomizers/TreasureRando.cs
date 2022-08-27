@@ -399,7 +399,7 @@ namespace FF13Rando
             public override Tuple<string, int> GetData(dynamic obj)
             {
                 DataStoreTreasurebox t = (DataStoreTreasurebox)obj;
-                return new Tuple<string, int>(t.sItemResourceId_string, (int)t.iItemCount);
+                return Tuple.Create(t.sItemResourceId_string, (int)t.iItemCount);
             }
         }
 
@@ -450,7 +450,7 @@ namespace FF13Rando
             public override Tuple<string, int> GetData(dynamic obj)
             {
                 DataStoreBtCharaSpec s = (DataStoreBtCharaSpec)obj;
-                return new Tuple<string, int>(Index == 0 ? s.sDropItem0_string : s.sDropItem1_string, s.u8NumDrop);
+                return Tuple.Create(Index == 0 ? s.sDropItem0_string : s.sDropItem1_string, (int)s.u8NumDrop);
             }
         }
 
@@ -492,7 +492,7 @@ namespace FF13Rando
             public override Tuple<string, int> GetData(dynamic obj)
             {
                 DataStoreBtScene s = (DataStoreBtScene)obj;
-                return new Tuple<string, int>(s.sDrop100Id_string, s.u8NumDrop100);
+                return Tuple.Create(s.sDrop100Id_string, (int)s.u8NumDrop100);
             }
         }
 

@@ -21,7 +21,7 @@ namespace Bartz24.RandoWPF
 
         public virtual Tiered<T> Add(int rank, T item)
         {
-            list.Add(new Tuple<int, T>(rank, item));
+            list.Add(Tuple.Create(rank, item));
             list.Sort((a, b) => a.Item1.CompareTo(b.Item1));
             return this;
         }
@@ -116,7 +116,7 @@ namespace Bartz24.RandoWPF
             if (anyRandom)
             {
                 Tuple<int, T> item = list[RandomNum.RandInt(0, list.Count - 1)];
-                return new List<Tuple<T, int>>() { new Tuple<T, int>(item.Item2, GetRandomCount(rank - item.Item1, count)) };
+                return new List<Tuple<T, int>>() { Tuple.Create(item.Item2, GetRandomCount(rank - item.Item1, count)) };
             }
             if (rank < LowBound || rank > HighBound)
                 return new List<Tuple<T, int>>();
@@ -128,7 +128,7 @@ namespace Bartz24.RandoWPF
                 if (anyRandom || (rank >= list[i].Item1 && rank <= upperBound && meetsReq.Invoke(list[i].Item2)))
                     validIndexes.Add(i);
             }
-            return validIndexes.Select(i => new Tuple<T, int>(list[i].Item2, GetRandomCount(rank - list[i].Item1, count))).ToList();
+            return validIndexes.Select(i => Tuple.Create(list[i].Item2, GetRandomCount(rank - list[i].Item1, count))).ToList();
         }
 
     }

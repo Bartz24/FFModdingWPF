@@ -34,11 +34,11 @@ namespace Bartz24.RandoWPF
                         modBounds = Enumerable.Range(0, Bounds.Length).Select(i =>
                         {
                             if (RandomNum.RandInt(0, 99) < ZeroChances[i])
-                                return new Tuple<int, int>(0, 0);
+                                return Tuple.Create(0, 0);
                             else if (RandomNum.RandInt(0, 99) >= NegChances[i])
-                                return new Tuple<int, int>(0, (int)(Bounds[i].Item2 * Weights[i]));
+                                return Tuple.Create(0, (int)(Bounds[i].Item2 * Weights[i]));
                             else
-                                return new Tuple<int, int>((int)(Bounds[i].Item1 * Weights[i]), (int)(Bounds[i].Item2 * Weights[i]));
+                                return Tuple.Create((int)(Bounds[i].Item1 * Weights[i]), (int)(Bounds[i].Item2 * Weights[i]));
                         }).ToArray();
                     } while (modBounds.Where(b => b.Item2 == 0).Count() == Bounds.Count());
 

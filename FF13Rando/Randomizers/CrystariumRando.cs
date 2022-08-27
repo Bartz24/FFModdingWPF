@@ -261,9 +261,9 @@ namespace FF13Rando
             {
                 StatPoints statPoints;
                 Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(20, 300),
-                        new Tuple<int, int>(20, 300),
-                        new Tuple<int, int>(20, 300)
+                        Tuple.Create(20, 300),
+                        Tuple.Create(20, 300),
+                        Tuple.Create(20, 300)
                     };
                 float[] weights = new float[] { 1, 1, 1 };
                 int[] zeros = new int[] { 0, 0, 0 };
@@ -282,9 +282,9 @@ namespace FF13Rando
                 Role role = (Role)r;
                 StatPoints statPoints;
                 Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(20, 300),
-                        new Tuple<int, int>(20, 300),
-                        new Tuple<int, int>(20, 300)
+                        Tuple.Create(20, 300),
+                        Tuple.Create(20, 300),
+                        Tuple.Create(20, 300)
                     };
                 float[] weights = new float[] { 1, 1, 1 };
                 int[] zeros = new int[] { 0, 0, 0 };

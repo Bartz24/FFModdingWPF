@@ -193,8 +193,8 @@ namespace LRRando
             foreach (DataStoreItemWeapon garb in itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Costume))
             {
                 Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                    new Tuple<int, int>(-75, 100),
-                    new Tuple<int, int>(0, 100)
+                    Tuple.Create(-75, 100),
+                    Tuple.Create(0, 100)
                 };
                 float[] weights = new float[] { 3, 1 };
                 int[] zeros = new int[] { 50, 5 };
@@ -223,11 +223,11 @@ namespace LRRando
                 do
                 {
                     Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(-2000, 5000),
-                        new Tuple<int, int>(-2000, 5000),
-                        new Tuple<int, int>(-5000, 20000),
-                        new Tuple<int, int>(-25, 50),
-                        new Tuple<int, int>(-90, 100)
+                        Tuple.Create(-2000, 5000),
+                        Tuple.Create(-2000, 5000),
+                        Tuple.Create(-5000, 20000),
+                        Tuple.Create(-25, 50),
+                        Tuple.Create(-90, 100)
                     };
                     float[] weights = new float[] { 2, 2, 3, 6, 4 };
                     int[] zeros = new int[] { 10, 10, 85, 60, 80 };
@@ -259,11 +259,11 @@ namespace LRRando
                 do
                 {
                     Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(-2000, 5000),
-                        new Tuple<int, int>(-2000, 5000),
-                        new Tuple<int, int>(-5000, 20000),
-                        new Tuple<int, int>(-25, 50),
-                        new Tuple<int, int>(0, 800)
+                        Tuple.Create(-2000, 5000),
+                        Tuple.Create(-2000, 5000),
+                        Tuple.Create(-5000, 20000),
+                        Tuple.Create(-25, 50),
+                        Tuple.Create(0, 800)
                     };
                     float[] weights = new float[] { 6, 6, 2, 4, 4 };
                     int[] zeros = new int[] { 90, 90, 40, 30, 20 };

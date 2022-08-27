@@ -122,7 +122,7 @@ namespace FF13Rando
                 {
                     string name = GetItemName(itemID);
                     int unlock = storesForID.IndexOf(storesForID.Where(s => s.GetItems().Contains(itemID)).First()) + 1;
-                    return new Tuple<string, int>(name, unlock);
+                    return Tuple.Create(name, unlock);
                 }).OrderBy(t => t.Item2).Select(t => new string[] { t.Item1, t.Item2.ToString() }.ToList()
                 ).ToList(), "shops"));
             });

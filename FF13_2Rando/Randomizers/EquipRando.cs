@@ -54,8 +54,8 @@ namespace FF13_2Rando
             {
                 StatPoints statPoints;
                 Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        new Tuple<int, int>(1, 300),
-                        new Tuple<int, int>(1, 300)
+                        Tuple.Create(1, 300),
+                        Tuple.Create(1, 300)
                     };
                 float[] weights = new float[] { 1, 1 };
                 int[] zeros = new int[] { 0, 0 };
