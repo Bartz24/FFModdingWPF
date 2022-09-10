@@ -153,8 +153,12 @@ namespace FF13Rando
                         return false;
                 }
             }
+
+            List<string> specialTraits = new List<string>();
+
             if (ItemLocations[old].Traits.Contains("Mission"))
             {
+                specialTraits.Add("Mission");
                 if (GetLocationItem(rep).Item1 == "")
                     return false;
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF13Flags.Items.KeyPlaceMissions.Enabled)
@@ -165,15 +169,15 @@ namespace FF13Rando
                 if (GetLocationItem(rep).Item1 == "")
                     return false;
             }
-            if (ItemLocations[old] is TreasureRando.EnemyData)
+            else if (ItemLocations[old] is TreasureRando.EnemyData)
             {
                 if (GetLocationItem(rep).Item1 == "")
                     return false;
             }
 
-            if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF13Flags.Items.KeyPlaceTreasure.Enabled)
+            if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF13Flags.Items.KeyPlaceTreasure.Enabled && specialTraits.Count == 0)
                 return false;
-            if (!treasureRando.IsImportantKeyItem(rep) && treasureRando.IsImportantKeyItem(old) && !FF13Flags.Items.KeyPlaceTreasure.Enabled)
+            if (!treasureRando.IsImportantKeyItem(rep) && treasureRando.IsImportantKeyItem(old) && !FF13Flags.Items.KeyPlaceTreasure.Enabled && specialTraits.Count == 0)
                 return false;
 
             return true;

@@ -408,7 +408,7 @@ namespace FF12Rando
 
         public bool IsImportantKeyItem(string location)
         {
-            return IsMainKeyItem(location) || IsSideKeyItem(location) || IsHuntKeyItem(location) || IsGrindyKeyItem(location) || IsBlackOrbKeyItem(location) || IsWoTItem(location) || IsHuntClubKeyItem(location) || IsAbility(location);
+            return (IsMainKeyItem(location) || IsSideKeyItem(location) || IsHuntKeyItem(location) || IsGrindyKeyItem(location) || IsBlackOrbKeyItem(location) || IsWoTItem(location) || IsHuntClubKeyItem(location)) && PlacementAlgo.Logic.GetLocationItem(location) != null && PlacementAlgo.Logic.GetLocationItem(location).Item1 != "Gil";
         }
 
         public bool IsAbility(string t, bool orig = true)

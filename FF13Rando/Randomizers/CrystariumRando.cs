@@ -17,7 +17,7 @@ namespace FF13Rando
         public Dictionary<string, AbilityData> abilityData = new Dictionary<string, AbilityData>();
 
         private string[] chars = new string[] { "lightning", "fang", "hope", "sazh", "snow", "vanille" };
-        public Dictionary<string, Dictionary<Role, DataStoreCrystarium>> firstAbis = new Dictionary<string, Dictionary<Role, DataStoreCrystarium>>();
+        public Dictionary<string, Dictionary<Role, string>> firstNodes = new Dictionary<string, Dictionary<Role, string>>();
 
         public CrystariumRando(RandomizerManager randomizers) : base(randomizers) { }
 
@@ -41,12 +41,55 @@ namespace FF13Rando
                 AbilityData a = new AbilityData(row);
                 abilityData.Add(a.ID, a);
             }, FileHelpers.CSVFileHeader.HasHeader);
+
+            firstNodes = chars.ToDictionary(c => c, c => new Role[] { Role.Commando, Role.Ravager, Role.Sentinel, Role.Saboteur, Role.Synergist, Role.Medic }.ToDictionary(r => r, _ => ""));
+            firstNodes["lightning"][Role.Commando] = "cr_ltat01910000";
+            firstNodes["lightning"][Role.Ravager] = "cr_ltbl01010000";
+            firstNodes["lightning"][Role.Sentinel] = "cr_ltdf01010000";
+            firstNodes["lightning"][Role.Saboteur] = "cr_ltja01010000";
+            firstNodes["lightning"][Role.Synergist] = "cr_lteh01010000";
+            firstNodes["lightning"][Role.Medic] = "cr_lthl03010000";
+
+            firstNodes["fang"][Role.Commando] = "cr_faat01910000";
+            firstNodes["fang"][Role.Ravager] = "cr_fabl01010000";
+            firstNodes["fang"][Role.Sentinel] = "cr_fadf01010000";
+            firstNodes["fang"][Role.Saboteur] = "cr_faja01010000";
+            firstNodes["fang"][Role.Synergist] = "cr_faeh01010000";
+            firstNodes["fang"][Role.Medic] = "cr_fahl01010000";
+
+            firstNodes["snow"][Role.Commando] = "cr_snat01010000";
+            firstNodes["snow"][Role.Ravager] = "cr_snbl01010000";
+            firstNodes["snow"][Role.Sentinel] = "cr_sndf01910000";
+            firstNodes["snow"][Role.Saboteur] = "cr_snja01010000";
+            firstNodes["snow"][Role.Synergist] = "cr_sneh01010000";
+            firstNodes["snow"][Role.Medic] = "cr_snhl01010000";
+
+            firstNodes["sazh"][Role.Commando] = "cr_szat03010000";
+            firstNodes["sazh"][Role.Ravager] = "cr_szbl01910000";
+            firstNodes["sazh"][Role.Sentinel] = "cr_szdf01010000";
+            firstNodes["sazh"][Role.Saboteur] = "cr_szja01010000";
+            firstNodes["sazh"][Role.Synergist] = "cr_szeh02010000";
+            firstNodes["sazh"][Role.Medic] = "cr_szhl01010000";
+
+            firstNodes["hope"][Role.Commando] = "cr_hpat01010000";
+            firstNodes["hope"][Role.Ravager] = "cr_hpbl01010000";
+            firstNodes["hope"][Role.Sentinel] = "cr_hpdf01010000";
+            firstNodes["hope"][Role.Saboteur] = "cr_hpja01010000";
+            firstNodes["hope"][Role.Synergist] = "cr_hpeh01910000";
+            firstNodes["hope"][Role.Medic] = "cr_hphl01010000";
+
+            firstNodes["vanille"][Role.Commando] = "cr_vaat01010000";
+            firstNodes["vanille"][Role.Ravager] = "cr_vabl01010000";
+            firstNodes["vanille"][Role.Sentinel] = "cr_vadf01010000";
+            firstNodes["vanille"][Role.Saboteur] = "cr_vaja02010000";
+            firstNodes["vanille"][Role.Synergist] = "cr_vaeh01010000";
+            firstNodes["vanille"][Role.Medic] = "cr_vahl01910000";
         }
         public override void Randomize(Action<int> progressSetter)
         {
             Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 0, 100);
             List<int[]> averageStats = GetAverageStats();
-            GetFirstAbilities();
+            MoveFirstAbilities();
             UpdateCPCosts();
 
             Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 10, 100);
@@ -122,17 +165,17 @@ namespace FF13Rando
             return list;
         }
 
-        private void GetFirstAbilities()
+        private void MoveFirstAbilities()
         {
-            chars.ForEach(c => firstAbis.Add(c, new Dictionary<Role, DataStoreCrystarium>()));
             foreach (string chara in chars)
             {
-                List<DataStoreCrystarium> abilityNodes = crystariums[chara].Values.Where(c => c.iType == CrystariumType.Ability).ToList();
 
                 for (int r = 1; r <= 6; r++)
                 {
-                    DataStoreCrystarium first = abilityNodes.First(c => c.iRole == (Role)r && abilityData[c.sAbility_string].Role != Role.None);
-                    firstAbis[chara].Add((Role)r, first);
+                    DataStoreCrystarium firstNode = crystariums[chara][firstNodes[chara][(Role)r]];
+                    List<DataStoreCrystarium> stageAbis = crystariums[chara].Values.Where(c => c.iType == CrystariumType.Ability && c.iStage == firstNode.iStage).ToList();
+                    DataStoreCrystarium abiNode = stageAbis.First(c => c.iRole == (Role)r && abilityData[c.sAbility_string].Role != Role.None);
+                    firstNode.SwapStatsAbilities(abiNode);
                 }
             }
         }
@@ -155,7 +198,7 @@ namespace FF13Rando
                     // Set the initial abilities
                     for (int r = 1; r <= 6; r++)
                     {
-                        DataStoreCrystarium first = firstAbis[chara][(Role)r];
+                        DataStoreCrystarium first = crystariums[chara][firstNodes[chara][(Role)r]];
                         string next;
                         do
                         {
@@ -240,7 +283,7 @@ namespace FF13Rando
                 {
                     if ((int)c.iRole - 1 == roles.ToList().IndexOf(first))
                     {
-                        if (crystariums[chara].Values.IndexOf(c) > crystariums[chara].Values.IndexOf(firstAbis[chara][c.iRole]) && c.iCPCost > 0)
+                        if (c.ID != firstNodes[chara][c.iRole])
                             c.iCPCost = costs[0];
                         else
                             c.iCPCost = 0;
@@ -334,7 +377,7 @@ namespace FF13Rando
                 if (FF13Flags.Stats.RandCrystAbiAll.Enabled)
                     types.Add(CrystariumType.Ability);
 
-                List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => types.Contains(c.iType) && c.iCPCost > 0 && c != firstAbis[chara][c.iRole]).Shuffle();
+                List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => types.Contains(c.iType) && c.iCPCost > 0 && c.ID != firstNodes[chara][c.iRole]).Shuffle();
                 nodes.Shuffle((c1, c2) => c1.SwapStatsAbilities(c2));
             }
         }
@@ -347,14 +390,11 @@ namespace FF13Rando
                 {
                     Role role = (Role)r;
 
-                    List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => c.iRole == role && c != firstAbis[chara][role] && c.iCPCost > 0).Shuffle();
+                    List<DataStoreCrystarium> nodes = crystariums[chara].Values.Where(c => c.iRole == role && c.ID != firstNodes[chara][role] && c.iCPCost > 0).Shuffle();
 
                     nodes.Shuffle((c1, c2) =>
                     {
-                        if (c1.iType == CrystariumType.RoleLevel && crystariums[chara].Values.IndexOf(c2) < crystariums[chara].Values.IndexOf(firstAbis[chara][c2.iRole]) || c2.iType == CrystariumType.RoleLevel && crystariums[chara].Values.IndexOf(c1) < crystariums[chara].Values.IndexOf(firstAbis[chara][c1.iRole]))
-                            return;
-                        else
-                            c1.SwapStatsAbilities(c2);
+                        c1.SwapStatsAbilities(c2);
                     });
                 }
             }

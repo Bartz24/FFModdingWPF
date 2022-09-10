@@ -196,8 +196,11 @@ namespace LRRando
                 if (!LRFlags.Items.EPMissable.Enabled && treasureRando.IsEPAbility(rep))
                     return false;
             }
+
+            List<string> specialTraits = new List<string>();
             if (ItemLocations[old].Traits.Contains("CoP"))
             {
+                specialTraits.Add("CoP");
                 if (treasureRando.IsEPAbility(rep))
                     return false;
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !LRFlags.Items.KeyPlaceCoP.Enabled)
@@ -205,16 +208,19 @@ namespace LRRando
             }
             if (ItemLocations[old].Traits.Contains("Grindy"))
             {
+                specialTraits.Add("CoP");
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !LRFlags.Items.KeyPlaceGrindy.Enabled)
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("Superboss"))
             {
+                specialTraits.Add("CoP");
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !LRFlags.Items.KeyPlaceSuperboss.Enabled)
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("Quest"))
             {
+                specialTraits.Add("CoP");
                 if (treasureRando.IsEPAbility(rep))
                     return false;
                 if (GetLocationItem(rep).Item1.StartsWith("it"))
@@ -243,9 +249,9 @@ namespace LRRando
                     return false;
             }
 
-            if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsPilgrimKeyItem(rep) && (!treasureRando.IsImportantKeyItem(old) || treasureRando.IsPilgrimKeyItem(old)) && !LRFlags.Items.KeyPlaceTreasure.Enabled)
+            if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsPilgrimKeyItem(rep) && (!treasureRando.IsImportantKeyItem(old) || treasureRando.IsPilgrimKeyItem(old)) && !LRFlags.Items.KeyPlaceTreasure.Enabled && specialTraits.Count == 0)
                 return false;
-            if ((!treasureRando.IsImportantKeyItem(rep) || treasureRando.IsPilgrimKeyItem(rep)) && treasureRando.IsImportantKeyItem(old) && !treasureRando.IsPilgrimKeyItem(old) && !LRFlags.Items.KeyPlaceTreasure.Enabled)
+            if ((!treasureRando.IsImportantKeyItem(rep) || treasureRando.IsPilgrimKeyItem(rep)) && treasureRando.IsImportantKeyItem(old) && !treasureRando.IsPilgrimKeyItem(old) && !LRFlags.Items.KeyPlaceTreasure.Enabled && specialTraits.Count == 0)
                 return false;
             return true;
         }

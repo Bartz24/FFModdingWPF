@@ -153,28 +153,36 @@ namespace FF12Rando
                 if (treasureRando.IsImportantKeyItem(rep) || treasureRando.IsAbility(rep))
                     return false;
             }
+
+            List<string> specialTraits = new List<string>();
+
             if (ItemLocations[old].Traits.Contains("Hunt"))
             {
+                specialTraits.Add("Hunt");
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceHunt.Enabled)
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("ClanRank"))
             {
+                specialTraits.Add("ClanRank");
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceClanRank.Enabled)
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("ClanBoss"))
             {
+                specialTraits.Add("ClanBoss");
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceClanBoss.Enabled)
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("ClanEsper"))
             {
+                specialTraits.Add("ClanEsper");
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceClanEsper.Enabled)
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("Grindy"))
             {
+                specialTraits.Add("Grindy");
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceGrindy.Enabled)
                     return false;
             }
@@ -191,9 +199,10 @@ namespace FF12Rando
                 if (GetLocationItem(rep).Item1 != "Gil" && GetLocationItem(rep).Item2 > 1)
                     return false;
             }
-            if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceTreasure.Enabled)
+
+            if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceTreasure.Enabled && specialTraits.Count == 0)
                 return false;
-            if (!treasureRando.IsImportantKeyItem(rep) && treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceTreasure.Enabled)
+            if (!treasureRando.IsImportantKeyItem(rep) && treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceTreasure.Enabled && specialTraits.Count == 0)
                 return false;
             return true;
         }

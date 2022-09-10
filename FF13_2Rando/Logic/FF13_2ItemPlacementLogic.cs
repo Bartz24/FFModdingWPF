@@ -194,16 +194,15 @@ namespace FF13_2Rando
                 return old == rep;
             if (!FF13_2Flags.Items.KeyGateSeal.Enabled && (IsGateSealKeyItem(rep) || IsGateSealKeyItem(old)))
                 return old == rep;
+
+            List<string> specialTraits = new List<string>();
             if (ItemLocations[old].Traits.Contains("Brain"))
             {
+                specialTraits.Add("Brain");
                 if (IsImportantKeyItem(rep) && !IsImportantKeyItem(old) && !FF13_2Flags.Items.KeyPlaceBrainBlast.Enabled)
                     return false;
             }
-            else
-            {
-                if (IsImportantKeyItem(rep) && !IsImportantKeyItem(old) && !FF13_2Flags.Items.KeyPlaceTreasure.Enabled)
-                    return false;
-            }
+
             if (ItemLocations[old] is TreasureRando.SearchItemData)
             {
                 if (IsImportantKeyItem(rep) && GetLocationItem(old).Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowCryst.Enabled)
@@ -211,6 +210,13 @@ namespace FF13_2Rando
                 if (IsImportantKeyItem(rep) && !GetLocationItem(old).Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowJunk.Enabled)
                     return false;
                 if (GetLocationItem(rep).Item1.StartsWith("frg"))
+                    return false;
+            }
+            else
+            {
+                if (IsImportantKeyItem(rep) && !IsImportantKeyItem(old) && !FF13_2Flags.Items.KeyPlaceTreasure.Enabled && specialTraits.Count == 0)
+                    return false;
+                if (!IsImportantKeyItem(rep) && IsImportantKeyItem(old) && !FF13_2Flags.Items.KeyPlaceTreasure.Enabled && specialTraits.Count == 0)
                     return false;
             }
             return true;
