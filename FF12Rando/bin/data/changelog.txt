@@ -1,9 +1,1 @@
-0.6.9 Changelog:
-
--Equipment stats have been rebalanced
--Improved treasure and trophy hints
--Fixed shops having a lot of the same items
--Fixed Loremaster board having an incorrect battle lore
--Fixed Omega Clan reward being set to the wrong reward
--Fixed some trophy rewards not being rando
--Fixed mimics not being interactable
+0.7.0 Changelog:

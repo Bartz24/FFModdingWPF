@@ -30,6 +30,10 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
 
     Write-Host "Creating 7z file..."
     Remove-Item -Recurse -Force "bin\publish\FF12OpenWorldRando$Version.7z" -ErrorAction Ignore
-    & "7z.exe" a -t7z "bin\publish\FF12OpenWorldRando$Version.7z" "bin\publish\rando" "bin\publish\scripts" "bin\publish\fomod"
+    Push-Location -Path "bin\publish"
+    & "7z.exe" a -t7z "FF12OpenWorldRando$Version.7z" "rando" "scripts" "fomod"
+    Pop-Location
+
+    Copy-Item -Path "bin\publish\FF12OpenWorldRando$Version.7z" -Destination "bin\build\FF12OpenWorldRandoPreview.7z" -Force
 }
 Read-Host -Prompt "Press Enter to exit"

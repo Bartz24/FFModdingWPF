@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace Bartz24.RandoWPF
 {
-    public abstract class GameSpecificItemPlacementLogic<T> where T : ItemLocation
+    public abstract class ItemPlacementLogic<T> where T : ItemLocation
     {
         protected ItemPlacementAlgorithm<T> Algorithm { get; set; }
-        public GameSpecificItemPlacementLogic(ItemPlacementAlgorithm<T> algorithm)
+        public ItemPlacementLogic(ItemPlacementAlgorithm<T> algorithm)
         {
             Algorithm = algorithm;
         }
@@ -44,8 +44,6 @@ namespace Bartz24.RandoWPF
         }
         public abstract void Clear();
 
-        public abstract bool DoMaxPlacement();
-
         public abstract int GetPlacementDifficultyIndex();
         public virtual float GetPlacementDifficultyMultiplier()
         {
@@ -60,24 +58,17 @@ namespace Bartz24.RandoWPF
                     return 1.1f;
                 case 3:
                     return 1.25f;
+                case 4:
+                    return 2f;
             }
         }
 
         public virtual Tuple<string, int> SelectNext(Dictionary<string, int> items, List<string> possible, string rep)
         {
-            if (DoMaxPlacement())
-            {
-                IOrderedEnumerable<KeyValuePair<string, int>> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s)).OrderByDescending(p => p.Value);
-                KeyValuePair<string, int> pair = possDepths.First();
-                return Tuple.Create(pair.Key, pair.Value);
-            }
-            else
-            {
-                float expBase = GetPlacementDifficultyMultiplier();
-                Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
-                string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + GetAreaMult(s) * 16d));
-                return Tuple.Create(next, possDepths[next]);
-            }
+            float expBase = GetPlacementDifficultyMultiplier();
+            Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
+            string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + GetAreaMult(s) * 16d));
+            return Tuple.Create(next, possDepths[next]);
         }
         public virtual double GetAreaMult(string location)
         {

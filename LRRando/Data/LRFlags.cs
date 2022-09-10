@@ -330,10 +330,10 @@ namespace LRRando
                     Description = "Key items and EP abilities will be more likely to appear in more difficult locations. CoP is less likely in general since there are so many.\n\n" +
                     "Depths:\n" +
                     "    Normal - Each location is equally likely.\n" +
-                    "    Hard - Each level of depth/difficulty increases likelyhood of that location by 1.1x.\n" +
-                    "    Hard+ - Each level of depth/difficulty increases likelyhood of that location by 1.20x.\n" +
-                    "    Hard++ - Each level of depth/difficulty increases likelyhood of that location by 1.50x.\n" +
-                    "    Hard+++ - Locations of the highest depth/difficulty will tend to be preferred.",
+                    "    Hard - Each level of depth/difficulty increases likelihood of that location by 1.1x.\n" +
+                    "    Hard+ - Each level of depth/difficulty increases likelihood of that location by 1.20x.\n" +
+                    "    Hard++ - Each level of depth/difficulty increases likelihood of that location by 1.50x.\n" +
+                    "    Hard+++ - Each level of depth/difficulty increases likelihood of that location by 2.00x.",
                     Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
                 }.Register(Treasures);
 

@@ -150,21 +150,21 @@ Clan Hall,Clan Boss: Hydro,904B,AND(I(8071)|I(8077)),5,ClanBoss,
 Clan Hall,Clan Boss: Humbaba Mistant,904C,AND(I(8071)|I(8081)|I(8084)),7,ClanBoss,
 Clan Hall,Clan Boss: Fury,904D,AND(I(8071)|I(8083)|I(8084)),7,ClanBoss,
 Clan Hall,Clan Boss: Omega Mark XII,905A,AND(OR(I(8077)|I(80B7))|I(8071)),8,ClanBoss,
-Fake,Belias,_1,,0,Fake,Esper|Belias
-Fake,Mateus,_2,OR(I(8077)|I(80B7)),0,Fake,Esper
-Fake,Adrammelech,_3,,0,Fake,Esper
-Fake,Zalera,_4,I(8093),0,Fake,Esper
-Fake,Shemhazai,_5,OR(I(8077)|I(80B7)),0,Fake,Esper
-Fake,Hashmal,_6,AND(I(8077)|I(2116|3)),0,Fake,Esper
-Fake,Cuchulainn,_7,I(80AF),0,Fake,Esper
-Fake,Zeromus,_8,AND(OR(I(8077)|I(80B7))|I(8085)),0,Fake,Esper
-Fake,Exodus,_9,,0,Fake,Esper
-Fake,Famfrit,_10,AND(I(8077)|I(2116|3)|OR(I(808B)|I(808C))|OR(AND(I(8078)|I(80AC))|AND(I(8078)|I(8089))|AND(I(8089)|I(80AC)))),0,Fake,Esper
-Fake,Chaos,_11,I(8082),0,Fake,Esper
-Fake,Ultima,_12,OR(I(8077)|I(80B7)),0,Fake,Esper
-Fake,Zodiark,_13,I(Esper|10),0,Fake,Esper
-Fake,Reddas,_14,AND(OR(I(2113|3)|I(2112))|I(809E)|I(808C)),0,Fake,Guest
-Fake,Basch,_15,I(8075),0,Fake,Basch
+Tomb of Raithwall,Belias,_1,,0,Fake,Esper|Belias
+Stilshrine of Miriam,Mateus,_2,OR(I(8077)|I(80B7)),0,Fake,Esper
+Zertinan Caverns,Adrammelech,_3,,0,Fake,Esper
+Barheim Passage,Zalera,_4,I(8093),0,Fake,Esper
+Giruvegan,Shemhazai,_5,OR(I(8077)|I(80B7)),0,Fake,Esper
+Pharos of Ridorana,Hashmal,_6,AND(I(8077)|I(2116|3)),0,Fake,Esper
+Garamsythe Waterway,Cuchulainn,_7,I(80AF),0,Fake,Esper
+Stilshrine of Miriam,Zeromus,_8,AND(OR(I(8077)|I(80B7))|I(8085)),0,Fake,Esper
+Mosphoran Highwaste,Exodus,_9,,0,Fake,Esper
+Pharos of Ridorana,Famfrit,_10,AND(I(8077)|I(2116|3)|OR(I(808B)|I(808C))|OR(AND(I(8078)|I(80AC))|AND(I(8078)|I(8089))|AND(I(8089)|I(80AC)))),0,Fake,Esper
+Necrohol of Nabudis,Chaos,_11,I(8082),0,Fake,Esper
+Giruvegan,Ultima,_12,OR(I(8077)|I(80B7)),0,Fake,Esper
+Henne Mines,Zodiark,_13,I(Esper|10),0,Fake,Esper
+Balfonheim,Reddas,_14,AND(OR(I(2113|3)|I(2112))|I(809E)|I(808C)),0,Fake,Guest
+Lowtown,Basch,_15,I(8075),0,Fake,Basch
 Clan Hall,Clan Esper: Control 1,904E,AND(I(8071)|I(Esper|1)),1,ClanEsper,
 Clan Hall,Clan Esper: Control 4,904F,AND(I(8071)|I(Esper|4)),3,ClanEsper,
 Clan Hall,Clan Esper: Control 8,9050,AND(I(8071)|I(Esper|8)),5,ClanEsper,
