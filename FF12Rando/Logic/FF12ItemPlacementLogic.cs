@@ -150,7 +150,7 @@ namespace FF12Rando
 
             if (ItemLocations[old].Traits.Contains("Missable"))
             {
-                if (treasureRando.IsImportantKeyItem(rep))
+                if (treasureRando.IsImportantKeyItem(rep) || treasureRando.IsAbility(rep))
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("Hunt"))
