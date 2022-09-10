@@ -214,7 +214,7 @@ namespace FF13_2Rando
             }
             else
             {
-                while (charSpecs.Count == 0 || charSpecs.Count > 5)
+                while (charSpecs.Count == 0 || charSpecs.Count > (FF13_2Flags.Enemies.LargeEnc.Enabled ? 10 : 5))
                 {
                     charSpecs.Clear();
                     newEnemies.Clear();

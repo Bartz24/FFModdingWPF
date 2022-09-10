@@ -201,10 +201,10 @@ namespace FF12Rando
         {
             if (treasureRando.IsBlackOrbKeyItem(replacement) && FF12Flags.Items.KeyOrb.Enabled)
                 remaining.RemoveAll(rem => treasureRando.IsBlackOrbKeyItem(rem));
-            else if (treasureRando.IsHuntClubKeyItem(replacement) && GetLocationItem(replacement).Item1 != "80B8" && FF12Flags.Items.KeyTrophy.Enabled)
-                remaining.RemoveAll(rem => treasureRando.IsHuntClubKeyItem(rem) && GetLocationItem(replacement).Item1 != "80B8");
-            else if (treasureRando.IsGrindyKeyItem(replacement) && GetLocationItem(replacement).Item1 == "2113" && FF12Flags.Items.KeyGrindy.Enabled)
-                remaining.RemoveAll(rem => treasureRando.IsGrindyKeyItem(replacement) && GetLocationItem(replacement).Item1 == "2113");
+            else if (treasureRando.IsHuntClubKeyItem(replacement) && GetLocationItem(replacement)?.Item1 != "80B8" && FF12Flags.Items.KeyTrophy.Enabled)
+                remaining.RemoveAll(rem => treasureRando.IsHuntClubKeyItem(rem) && GetLocationItem(replacement)?.Item1 != "80B8");
+            else if (treasureRando.IsGrindyKeyItem(replacement) && GetLocationItem(replacement)?.Item1 == "2113" && FF12Flags.Items.KeyGrindy.Enabled)
+                remaining.RemoveAll(rem => treasureRando.IsGrindyKeyItem(replacement) && GetLocationItem(replacement)?.Item1 == "2113");
             else
                 base.RemoveLikeItemsFromRemaining(replacement, remaining);
         }
