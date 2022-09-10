@@ -1,6 +1,6 @@
-$Version = Read-Host "Enter the version"
+$Version = $args[0]
 
-$Update = Read-Host "Update bin\data? (Y/N)"
+$Update = $args[1]
 if ( ($Update -eq "Y") -or ($Update -eq "y") )
 {
     Write-Host "Updating bin\data from Debug..."
@@ -10,7 +10,7 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
     Remove-Item -Recurse -Force "bin\data\tools" -ErrorAction Ignore
 }
 
-$Update = Read-Host "Publish and create 7z? (Y/N)"
+$Update = $args[2]
 if ( ($Update -eq "Y") -or ($Update -eq "y") )
 {
     dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true --output "bin\publish"
@@ -36,4 +36,3 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
 
     Copy-Item -Path "bin\publish\FF12OpenWorldRando$Version.7z" -Destination "bin\build\FF12OpenWorldRandoPreview.7z" -Force
 }
-Read-Host -Prompt "Press Enter to exit"
