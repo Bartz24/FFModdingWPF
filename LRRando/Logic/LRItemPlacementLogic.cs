@@ -7,7 +7,7 @@ using static LRRando.TreasureRando;
 
 namespace LRRando
 {
-    public class LRItemPlacementLogic : GameSpecificItemPlacementLogic<ItemLocation>
+    public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
     {
         TreasureRando treasureRando;
 
@@ -250,10 +250,6 @@ namespace LRRando
             return true;
         }
 
-        public override bool DoMaxPlacement()
-        {
-            return LRFlags.Items.KeyDepth.SelectedIndex == LRFlags.Items.KeyDepth.Values.Count - 1;
-        }
         public override int GetPlacementDifficultyIndex()
         {
             return LRFlags.Items.KeyDepth.SelectedIndex;

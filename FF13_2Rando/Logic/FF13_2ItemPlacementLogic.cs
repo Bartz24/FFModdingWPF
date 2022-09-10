@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace FF13_2Rando
 {
-    public class FF13_2ItemPlacementLogic : GameSpecificItemPlacementLogic<FF13_2ItemLocation>
+    public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
     {
         protected TreasureRando treasureRando;
         protected HistoriaCruxRando cruxRando;
@@ -240,10 +240,6 @@ namespace FF13_2Rando
             return ItemLocations[location].Traits.Contains("GateSeal");
         }
 
-        public override bool DoMaxPlacement()
-        {
-            return FF13_2Flags.Items.KeyDepth.SelectedIndex == FF13_2Flags.Items.KeyDepth.Values.Count - 1;
-        }
         public override int GetPlacementDifficultyIndex()
         {
             return FF13_2Flags.Items.KeyDepth.SelectedIndex;

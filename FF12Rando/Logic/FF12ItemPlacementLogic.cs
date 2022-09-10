@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace FF12Rando
 {
-    public class FF12ItemPlacementLogic : GameSpecificItemPlacementLogic<ItemLocation>
+    public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
     {
         TreasureRando treasureRando;
 
@@ -83,7 +83,7 @@ namespace FF12Rando
 
         public override bool RequiresDepthLogic(string location)
         {
-            return treasureRando.IsImportantKeyItem(location);
+            return treasureRando.IsImportantKeyItem(location) || ItemLocations[location].Traits.Contains("Fake");
         }
 
         public override bool RequiresLogic(string location)
@@ -197,11 +197,18 @@ namespace FF12Rando
                 return false;
             return true;
         }
-
-        public override bool DoMaxPlacement()
+        public override void RemoveLikeItemsFromRemaining(string replacement, List<string> remaining)
         {
-            return FF12Flags.Items.KeyDepth.SelectedIndex == FF12Flags.Items.KeyDepth.Values.Count - 1;
+            if (treasureRando.IsBlackOrbKeyItem(replacement) && FF12Flags.Items.KeyOrb.Enabled)
+                remaining.RemoveAll(rem => treasureRando.IsBlackOrbKeyItem(rem));
+            else if (treasureRando.IsHuntClubKeyItem(replacement) && GetLocationItem(replacement).Item1 != "80B8" && FF12Flags.Items.KeyTrophy.Enabled)
+                remaining.RemoveAll(rem => treasureRando.IsHuntClubKeyItem(rem) && GetLocationItem(replacement).Item1 != "80B8");
+            else if (treasureRando.IsGrindyKeyItem(replacement) && GetLocationItem(replacement).Item1 == "2113" && FF12Flags.Items.KeyGrindy.Enabled)
+                remaining.RemoveAll(rem => treasureRando.IsGrindyKeyItem(replacement) && GetLocationItem(replacement).Item1 == "2113");
+            else
+                base.RemoveLikeItemsFromRemaining(replacement, remaining);
         }
+
         public override int GetPlacementDifficultyIndex()
         {
             return FF12Flags.Items.KeyDepth.SelectedIndex;

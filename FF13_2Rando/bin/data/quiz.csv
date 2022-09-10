@@ -1,0 +1,45 @@
+Type,Question,Correct,Wrong 1,Wrong 2,Wrong 3
+Normal,Who's a dimmu?,Uridimmu,Ugallu,Mushussu,Edimmu
+Normal,Who is the best microchu?,Chichu,Chaochu,Nanochu,Mochu
+Normal,How much does the artefact sell for?,However much the cat sells for,1 gil,"999,999 gil","4,205,469 gil"
+Normal,Which woodwraith do Serah and Noel ride on in Sunleth Waterscape 300 AF?,Enlil,Enki,Bandersnatch,Jabberwocky
+Normal,What does RAC stand for?,Ready Animation Cancel,Release All Chichus,Risk Assessment Code,Request Altitude Change
+Normal,Which Eidolon is used by Lightning?,Odin,Bahamut,Brynhildr,Shiva
+Normal,Which Eidolon is used by Snow?,Shiva,Hecatoncheir,Odin,Alexander
+Normal,Which Eidolon is used by Sazh?,Brynhildr,Alexander,Hecatoncheir,Shiva
+Normal,Which Eidolon is used by Hope?,Alexander,Brynhildr,Odin,Bahamut
+Normal,Which Eidolon is used by Fang?,Bahamut,Brynhildr,Hecatoncheir,Alexander
+Normal,What was the name of the airship used by Lightning and the other l'Cie?,{Italic}Lindblum{Italic},{Italic}Proudclad{Italic},{Italic}Palamecia{Italic},{Italic}Leviathan{Italic}
+Normal,What is the name of the tower on Gran Pulse?,Taejin's Tower,Phoenix Tower,Augusta Tower,Tower of Zot
+Normal,What color are the moving platforms in Academia 4XX AF?,Blue,Red,Green,Gold
+Normal,What color are the moving platforms in Academia 400 AF?,Red,Blue,White,Black
+Normal,Which Final Fantasy is the best Final Fantasy?,"XIII-2, duh",VII,XIX,The Legend of Lonk
+Normal,What is Snow's unparalled attack?,Sovereign Fist,Dolphin Blow,Booya,Explosive Fist
+Normal,What is Fang's unparalled attack?,Highwind,Floor Tanking,High Jump,Gungnir
+Normal,Which of the following has not been observed in Academia?,Clock puzzles,Kids falling over,Cie'th apocalyse,Paradoxes
+Normal,Which of the following is not a unit of PSICOM?,Defender,Reaver,Ranger,Dragoon
+Normal,Which of the following is not a unit of Guardian Corps?,Watchman,Scavenger,Destroyer,Warden
+Normal,What is Lightning's ultimate weapon?,Omega Weapon,Ultima Weapon,Lionheart,Crimson Blitz
+Normal,What is Lightning's dummy weapon?,Godslayer,Omega Weapon,Excalibur,Apocalypse
+Normal,What is Sazh's ultimate weapon?,Total Eclipses,Pleiades Hi-Powers,Fomalhaut Elites,Canopus AMPs
+Normal,What is Sazh's dummy weapon?,Death Penalties,Antares Deluxes,Spica Defenders,Altairs
+Normal,What is Snow's ultimate weapon?,Save the Queen,Save the King,Feymark,Godhands
+Normal,What is Snow's dummy weapon?,Omnipotence,Paladin,Wild Bear,Kaiser Knuckles
+Normal,What is Hope's ultimate weapon?,Nue,Vidofnir,Tezcatlipoca,Eagletalon
+Normal,What is Hope's dummy weapon?,Rising Sun,Alicanto,Hresvelgr,Naberius
+Normal,What is Vanille's ultimate weapon?,Nirvana,Malboro Wand,Tigerclaw,Mistilteinn
+Normal,What is Vanille's dummy weapon?,Faerie Tail,Wyrmfang,Hresvelgr,Golden Staff
+Normal,What is Fang's ultimate weapon?,Kain's Lance,Highwind,Holy Lance,Dragonhorn
+Normal,What is Fang's dummy weapon?,Longinus,Gungnir,Dragoon Lance,Gae Bolg
+Normal,What is Noel's ultimate weapon?,In Paradisum,Sacred Cross,The Tower,True Muramasa
+Normal,What is Noel's dummy weapon?,Noel's Dummy Weapon,Shellbreaker,Romulus & Remus,Orochi
+Normal,What is Serah's ultimate weapon?,Arcus Chronica,Rune Feather,Indrajit,Sagittarius
+Normal,What is Serah's dummy weapon?,Serah's Dummy Weapon,Odinbolt,Gandiva,True Genji Bow
+Normal,What is Mission 54?,The Bigger They Are…,Spectral Haunt,Words Unspoken,"Attacus, the Soulless"
+Normal,What is Mission 18?,"So Close, Yet So Far",Defender of the Flock,Natural Defenses,"Mithridates, the Lone"
+Normal,What is Mission 42?,Antihero,Solar Power,A Toothy Grin,Indomitable Will
+Normal,What role is Gadot capable of?,Ravager,Commando,Paladin,Duelist
+EvenOdd,Cats or artefacts?,Cats,Artefacts,,
+EvenOdd,Strength or magic?,Strength,Magic,,
+PickHand,Pick the fastest elevator in the last section of Orphan's Cradle!,Right,Left,,
+PickHand,Pick a side! Is the cat an artefact today?,Yes,No,,

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FF13Rando
 {
-    public class FF13ItemPlacementLogic : GameSpecificItemPlacementLogic<FF13ItemLocation>
+    public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
     {
         TreasureRando treasureRando;
 
@@ -179,15 +179,10 @@ namespace FF13Rando
             return true;
         }
 
-        public override bool DoMaxPlacement()
-        {
-            return FF13Flags.Items.KeyDepth.SelectedIndex == FF13Flags.Items.KeyDepth.Values.Count - 1;
-        }
         public override int GetPlacementDifficultyIndex()
         {
             return FF13Flags.Items.KeyDepth.SelectedIndex;
         }
-
         public override void Clear()
         {
 

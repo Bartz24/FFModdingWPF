@@ -90,13 +90,28 @@ namespace FF12Rando
                 for (int i = 0; i < 3; i++)
                 {
                     RewardData r = new RewardData(row, i, fakeID);
-                    if (r.Traits.Contains("Fake") && i == 2)
-                        fakeID--;
+                    if (r.Traits.Contains("Fake"))
+                    {
+                        if (i == 0)
+                            fakeID--;
+                        else
+                            continue;
+                    }
+                    else if (r.FakeItems.Count > 0)
+                    {
+                        if (i == 0)
+                        {
+                            RewardData rFake = new RewardData(row, i, fakeID, true);
+                            fakeID--;
+                            itemLocations.Add(rFake.ID, rFake);
+                        }
+                        r.FakeItems.Clear();
+                    }
                     itemLocations.Add(r.ID, r);
                 }
             }, FileHelpers.CSVFileHeader.HasHeader);
 
-            List<string> hintsNotesLocations = itemLocations.Values.SelectMany(l => l.Areas).Distinct().Where(l => l != "Fake").ToList();
+            List<string> hintsNotesLocations = itemLocations.Values.SelectMany(l => l.Areas).Distinct().ToList();
 
             placementAlgoNormal = new FF12AssumedItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers, 3)
             {
@@ -151,16 +166,20 @@ namespace FF12Rando
                     {
                         if (IsEmpty(l.ID))
                         {
-                            string rep = PlacementAlgo.Placement.Keys.Where(s => IsExtra(s) && PlacementAlgo.Logic.GetLocationItem(s, false) != null && !IsImportantKeyItem(PlacementAlgo.Placement[s]) && PlacementAlgo.Logic.IsAllowed(l.ID, PlacementAlgo.Placement[s])).Shuffle().First();
-                            Tuple<string, int> item = PlacementAlgo.Logic.GetLocationItem(rep, false);
-                            PlacementAlgo.Logic.SetLocationItem(l.ID, item.Item1, item.Item2);
-                            PlacementAlgo.Placement.Add(l.ID, PlacementAlgo.Placement[rep]);
-                            PlacementAlgo.Placement.Remove(rep);
-                            hints.Where(list => list.Contains(rep)).ForEach(list =>
+                            List<string> list = PlacementAlgo.Placement.Keys.Where(s => IsExtra(s) && PlacementAlgo.Logic.GetLocationItem(s, false) != null && !IsImportantKeyItem(PlacementAlgo.Placement[s]) && PlacementAlgo.Logic.IsAllowed(l.ID, PlacementAlgo.Placement[s])).Shuffle();
+                            if (list.Count > 0)
                             {
-                                list.Remove(rep);
-                                list.Add(l.ID);
-                            });
+                                string rep = list.First();
+                                Tuple<string, int> item = PlacementAlgo.Logic.GetLocationItem(rep, false);
+                                PlacementAlgo.Logic.SetLocationItem(l.ID, item.Item1, item.Item2);
+                                PlacementAlgo.Placement.Add(l.ID, PlacementAlgo.Placement[rep]);
+                                PlacementAlgo.Placement.Remove(rep);
+                                hints.Where(list => list.Contains(rep)).ForEach(list =>
+                                {
+                                    list.Remove(rep);
+                                    list.Add(l.ID);
+                                });
+                            }
                         }
                         if (l is TreasureData)
                         {
@@ -734,16 +753,18 @@ namespace FF12Rando
             public override int Difficulty { get; }
             public List<string> FakeItems { get; }
 
-            public RewardData(string[] row, int index, int fakeID)
+            public RewardData(string[] row, int index, int fakeID, bool forceFake = false)
             {
                 Traits = row[5].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
+                if (forceFake && !Traits.Contains("Fake"))
+                    Traits.Add("Fake");
                 Areas = new List<string>() { row[0] };
                 Name = row[1];
                 if (!Traits.Contains("Fake"))
                     IntID = Convert.ToInt32(row[2], 16);
                 else
                     IntID = fakeID;
-                ID = row[2] + ":" + index;
+                ID = (forceFake ? "_" : "") + row[2] + ":" + index;
                 Index = index;
                 Requirements = ItemReq.Parse(row[3]);
                 Difficulty = int.Parse(row[4]);
