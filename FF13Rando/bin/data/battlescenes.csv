@@ -282,14 +282,15 @@ btsc07034,,Palumpolum,chset_z008_c150,,44
 btsc07038,,Palumpolum,chset_z008_c192,,44
 btsc07058,,Palumpolum,chset_z008_c192,,44
 btsc07057,,Palumpolum,chset_z008_c192,,44
-btsc08001,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
-btsc08002,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
-btsc08009,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
-btsc08003,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
-btsc08007,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
-btsc08004,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
-btsc08005,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
-btsc08006,,Nautilus,chset_z006_tok|chset_z006_tok2,,24
+btsc08001,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08002,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08009,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08003,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08007,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08004,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08005,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08006,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08008,,Nautilus,chset_z006_tok,,20
 btsc09050,,Palamecia,chset_z003_e070,,20
 btsc09001,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
 btsc09074,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
@@ -865,4 +866,3 @@ btsc11036,,Yaschas Massif,chset_z020_def6,,24
 btsc11038,,Yaschas Massif,chset_z020_def6,,24
 btsc11042,,Yaschas Massif,chset_z020_def6,,24
 btsc11041,,Yaschas Massif,chset_z020_def7,Mission,24
-btsc08008,,Nautilus,chset_z006_tok,,24
