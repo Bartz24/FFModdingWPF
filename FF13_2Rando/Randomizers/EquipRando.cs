@@ -19,12 +19,14 @@ namespace FF13_2Rando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Item/Equip Data...", 0, -1);
             itemWeapons.LoadDB3("13-2", @"\db\resident\item_weapon.wdb");
             FileHelpers.CopyFile(SetupData.OutputFolder + @"\db\resident\item_weapon.wdb", SetupData.OutputFolder + @"\db\resident\item_weapon.wdb.orig");
             items.LoadDB3("13-2", @"\db\resident\item.wdb");
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Item/Equip Data...", 0, -1);
             if (FF13_2Flags.Stats.EquipStats.FlagEnabled)
             {
                 FF13_2Flags.Stats.EquipStats.SetRand();
@@ -108,6 +110,7 @@ namespace FF13_2Rando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Item/Equip Data...", 0, -1);
             items.SaveDB3(@"\db\resident\item.wdb");
             itemWeapons.SaveDB3(@"\db\resident\item_weapon.wdb");
 

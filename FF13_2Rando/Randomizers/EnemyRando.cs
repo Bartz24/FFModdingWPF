@@ -30,6 +30,7 @@ namespace FF13_2Rando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Enemy Data...", 0, -1);
             x000.ForEach(s =>
             {
                 DataStoreDB3<DataStoreBtCharaSpec> db3 = new DataStoreDB3<DataStoreBtCharaSpec>();
@@ -78,6 +79,7 @@ namespace FF13_2Rando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Enemy Data...", 0, -1);
             x000.ForEach(s =>
             {
                 enemies[s].SaveDB3(@"\btscene\pack\wdb\_x000.bin\" + s + ".wdb");

@@ -17,12 +17,14 @@ namespace FF12Rando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Music Data...", 0, -1);
             soundFiles.AddRange(File.ReadAllLines("data\\music12.csv"));
 
             musicPackFiles.AddRange(Directory.GetFiles("data\\musicPacks", "*.mab", SearchOption.AllDirectories));
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Music Data...", 0, -1);
             if (FF12Flags.Other.Music.FlagEnabled)
             {
                 FF12Flags.Other.Music.SetRand();
@@ -41,6 +43,7 @@ namespace FF12Rando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Music Data...", 0, -1);
             Directory.CreateDirectory("outdata\\ps2data\\sound\\music\\magi_data\\win");
             for (int i = 0; i < Math.Min(soundFiles.Count, newSoundFiles.Count); i++)
             {

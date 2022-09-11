@@ -17,6 +17,7 @@ namespace FF12Rando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Item/Equip Data...", 0, -1);
             FileHelpers.ReadCSVFile(@"data\items.csv", row =>
             {
                 ItemData i = new ItemData(row);
@@ -34,6 +35,7 @@ namespace FF12Rando
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Item/Equip Data...", 0, -1);
             if (FF12Flags.Stats.EquipStats.FlagEnabled)
             {
                 FF12Flags.Stats.EquipStats.SetRand();
@@ -344,12 +346,12 @@ namespace FF12Rando
             foreach (DataStoreWeapon weapon in equip.EquipDataList.Where(w => w is DataStoreWeapon))
             {
                 int count = weapon.StatusEffects.EnumToList().Count;
-                List<Bartz24.FF12.Status> newStatus = Enum.GetValues(typeof(Bartz24.FF12.Status)).Cast<Bartz24.FF12.Status>().ToList();
+                List<Status> newStatus = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
                 weapon.StatusEffects = 0;
 
                 for (int i = 0; i < count; i++)
                 {
-                    Bartz24.FF12.Status next = RandomNum.SelectRandomWeighted(newStatus, StatusEffectWeightOnHit);
+                    Status next = RandomNum.SelectRandomWeighted(newStatus, StatusEffectWeightOnHit);
                     newStatus.Remove(next);
                     weapon.StatusEffects |= next;
                 }
@@ -357,12 +359,12 @@ namespace FF12Rando
             foreach (DataStoreAmmo ammo in equip.EquipDataList.Where(w => w is DataStoreAmmo))
             {
                 int count = ammo.StatusEffects.EnumToList().Count;
-                List<Bartz24.FF12.Status> newStatus = Enum.GetValues(typeof(Bartz24.FF12.Status)).Cast<Bartz24.FF12.Status>().ToList();
+                List<Status> newStatus = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
                 ammo.StatusEffects = 0;
 
                 for (int i = 0; i < count; i++)
                 {
-                    Bartz24.FF12.Status next = RandomNum.SelectRandomWeighted(newStatus, StatusEffectWeightOnHit);
+                    Status next = RandomNum.SelectRandomWeighted(newStatus, StatusEffectWeightOnHit);
                     newStatus.Remove(next);
                     ammo.StatusEffects |= next;
                 }
@@ -371,12 +373,12 @@ namespace FF12Rando
             {
                 DataStoreAttribute attribute = equip.AttributeDataList[id];
                 int countEquip = attribute.StatusEffectsOnEquip.EnumToList().Count;
-                List<Bartz24.FF12.Status> newStatus = Enum.GetValues(typeof(Bartz24.FF12.Status)).Cast<Bartz24.FF12.Status>().ToList();
+                List<Status> newStatus = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
                 attribute.StatusEffectsOnEquip = 0;
 
                 for (int i = 0; i < countEquip; i++)
                 {
-                    Bartz24.FF12.Status next = RandomNum.SelectRandomWeighted(newStatus, s => StatusEffectWeightOnEquip(s, id));
+                    Status next = RandomNum.SelectRandomWeighted(newStatus, s => StatusEffectWeightOnEquip(s, id));
                     newStatus.Remove(next);
                     attribute.StatusEffectsOnEquip |= next;
                 }
@@ -385,59 +387,60 @@ namespace FF12Rando
                 attribute.StatusEffectsImmune = 0;
                 for (int i = 0; i < countImmune; i++)
                 {
-                    Bartz24.FF12.Status next = RandomNum.SelectRandomWeighted(newStatus, StatusEffectWeightImmune);
+                    Status next = RandomNum.SelectRandomWeighted(newStatus, StatusEffectWeightImmune);
                     newStatus.Remove(next);
                     attribute.StatusEffectsImmune |= next;
                 }
             }
         }
 
-        private long StatusEffectWeightOnHit(Bartz24.FF12.Status status)
+        private long StatusEffectWeightOnHit(Status status)
         {
-            if (status == Bartz24.FF12.Status.Stone || status == Bartz24.FF12.Status.CriticalHP)
+            if (status == Status.Stone || status == Status.CriticalHP)
                 return 0;
-            if (status == Bartz24.FF12.Status.Death || status == Bartz24.FF12.Status.Petrify || status == Bartz24.FF12.Status.Stop || status == Bartz24.FF12.Status.Doom || status == Bartz24.FF12.Status.Disable || status == Bartz24.FF12.Status.Disease || status == Bartz24.FF12.Status.Bubble || status == Bartz24.FF12.Status.XZone)
+            if (status == Status.Death || status == Status.Petrify || status == Status.Stop || status == Status.Doom || status == Status.Disable || status == Status.Disease || status == Status.Bubble || status == Status.XZone)
                 return 1;
-            if (status == Bartz24.FF12.Status.Lure || status == Bartz24.FF12.Status.Protect || status == Bartz24.FF12.Status.Shell || status == Bartz24.FF12.Status.Haste || status == Bartz24.FF12.Status.Bravery || status == Bartz24.FF12.Status.Faith || status == Bartz24.FF12.Status.Reflect || status == Bartz24.FF12.Status.Berserk)
+            if (status == Status.Lure || status == Status.Protect || status == Status.Shell || status == Status.Haste || status == Status.Bravery || status == Status.Faith || status == Status.Reflect || status == Status.Berserk)
                 return 3;
-            if (status == Bartz24.FF12.Status.Sleep || status == Bartz24.FF12.Status.Confuse || status == Bartz24.FF12.Status.Sap || status == Bartz24.FF12.Status.Reverse || status == Bartz24.FF12.Status.Immobilize || status == Bartz24.FF12.Status.Libra)
+            if (status == Status.Sleep || status == Status.Confuse || status == Status.Sap || status == Status.Reverse || status == Status.Immobilize || status == Status.Libra)
                 return 4;
             return 10;
         }
 
-        private long StatusEffectWeightOnEquip(Bartz24.FF12.Status status, int id)
+        private long StatusEffectWeightOnEquip(Status status, int id)
         {
             if (id == 0 || id == 0x183)
             {
-                if (status == Bartz24.FF12.Status.Immobilize || status == Bartz24.FF12.Status.Confuse || status == Bartz24.FF12.Status.Sleep || status == Bartz24.FF12.Status.Disable || status == Bartz24.FF12.Status.Doom || status == Bartz24.FF12.Status.Stop || status == Bartz24.FF12.Status.Petrify || status == Bartz24.FF12.Status.Berserk)
+                if (status == Status.Immobilize || status == Status.Confuse || status == Status.Sleep || status == Status.Disable || status == Status.Doom || status == Status.Stop || status == Status.Petrify || status == Status.Berserk)
                     return 0;
             }
-            if (status == Bartz24.FF12.Status.Death || status == Bartz24.FF12.Status.Stone || status == Bartz24.FF12.Status.CriticalHP || status == Bartz24.FF12.Status.XZone)
+            if (status == Status.Death || status == Status.Stone || status == Status.CriticalHP || status == Status.XZone)
                 return 0;
-            if (status == Bartz24.FF12.Status.Petrify || status == Bartz24.FF12.Status.Doom || status == Bartz24.FF12.Status.Stop || status == Bartz24.FF12.Status.Reverse || status == Bartz24.FF12.Status.Disease)
+            if (status == Status.Petrify || status == Status.Doom || status == Status.Stop || status == Status.Reverse || status == Status.Disease)
                 return 1;
-            if (status == Bartz24.FF12.Status.Immobilize || status == Bartz24.FF12.Status.Confuse || status == Bartz24.FF12.Status.Sleep || status == Bartz24.FF12.Status.Disable || status == Bartz24.FF12.Status.Bubble)
+            if (status == Status.Immobilize || status == Status.Confuse || status == Status.Sleep || status == Status.Disable || status == Status.Bubble)
                 return 3;
-            if (status == Bartz24.FF12.Status.Sap || status == Bartz24.FF12.Status.Libra)
+            if (status == Status.Sap || status == Status.Libra)
                 return 4;
             return 10;
         }
 
-        private long StatusEffectWeightImmune(Bartz24.FF12.Status status)
+        private long StatusEffectWeightImmune(Status status)
         {
-            if (status == Bartz24.FF12.Status.Death || status == Bartz24.FF12.Status.Stone || status == Bartz24.FF12.Status.CriticalHP)
+            if (status == Status.Death || status == Status.Stone || status == Status.CriticalHP)
                 return 0;
-            if (status == Bartz24.FF12.Status.Lure || status == Bartz24.FF12.Status.Protect || status == Bartz24.FF12.Status.Shell || status == Bartz24.FF12.Status.Haste || status == Bartz24.FF12.Status.Bravery || status == Bartz24.FF12.Status.Faith || status == Bartz24.FF12.Status.Reflect || status == Bartz24.FF12.Status.Berserk || status == Bartz24.FF12.Status.Bubble)
+            if (status == Status.Lure || status == Status.Protect || status == Status.Shell || status == Status.Haste || status == Status.Bravery || status == Status.Faith || status == Status.Reflect || status == Status.Berserk || status == Status.Bubble)
                 return 1;
-            if (status == Bartz24.FF12.Status.Sap || status == Bartz24.FF12.Status.Libra)
+            if (status == Status.Sap || status == Status.Libra)
                 return 2;
-            if (status == Bartz24.FF12.Status.Immobilize || status == Bartz24.FF12.Status.Confuse || status == Bartz24.FF12.Status.Sleep || status == Bartz24.FF12.Status.Disable || status == Bartz24.FF12.Status.Petrify || status == Bartz24.FF12.Status.Doom || status == Bartz24.FF12.Status.Stop || status == Bartz24.FF12.Status.Reverse || status == Bartz24.FF12.Status.Disease || status == Bartz24.FF12.Status.XZone)
+            if (status == Status.Immobilize || status == Status.Confuse || status == Status.Sleep || status == Status.Disable || status == Status.Petrify || status == Status.Doom || status == Status.Stop || status == Status.Reverse || status == Status.Disease || status == Status.XZone)
                 return 4;
             return 10;
         }
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Item/Equip Data...", 0, -1);
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_013.bin", equip.Data);
         }
         public class ItemData

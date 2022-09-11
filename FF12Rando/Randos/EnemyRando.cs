@@ -17,6 +17,7 @@ namespace FF12Rando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Enemy Data...", 0, -1);
             Directory.GetFiles("data\\ps2data\\plan_master\\in", "*.ard", SearchOption.AllDirectories).ForEach(s =>
             {
                 string fileName = Path.GetFileName(s);
@@ -34,6 +35,7 @@ namespace FF12Rando
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Enemy Data...", 0, -1);
             ards.ForEach(pair =>
             {
                 enemyData.Values.Where(e => e.Area == pair.Key).ForEach(e =>
@@ -68,6 +70,7 @@ namespace FF12Rando
 
         public override void Save()
         {
+            Randomizers.SetProgressFunc("Saving Enemy Data...", 0, -1);
             ards.ForEach(p =>
             {
                 File.WriteAllBytes($"outdata\\ps2data\\plan_master\\in\\plan_map\\{p.Key}\\area\\{p.Key}.ard", p.Value.Data);
