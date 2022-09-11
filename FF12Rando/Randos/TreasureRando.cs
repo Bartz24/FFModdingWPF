@@ -39,6 +39,7 @@ namespace FF12Rando
 
         public override void Load()
         {
+            Randomizers.SetProgressFunc("Loading Treasure Data...", 0, -1);
             rewards = new DataStoreBPSection<DataStoreReward>();
             rewards.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin"));
             rewardsOrig = new DataStoreBPSection<DataStoreReward>();
@@ -127,6 +128,7 @@ namespace FF12Rando
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 0, -1);
             if (FF12Flags.Other.Party.FlagEnabled)
             {
                 FF12Flags.Other.Party.SetRand();
@@ -573,7 +575,7 @@ namespace FF12Rando
 
         public override void Save()
         {
-
+            Randomizers.SetProgressFunc("Saving Treasure Data...", 0, -1);
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin", rewards.Data);
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_028.bin", prices.Data);
 

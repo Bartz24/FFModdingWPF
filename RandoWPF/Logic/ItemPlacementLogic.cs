@@ -67,12 +67,12 @@ namespace Bartz24.RandoWPF
         {
             float expBase = GetPlacementDifficultyMultiplier();
             Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
-            string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + GetAreaMult(s) * 16d));
+            string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + GetAreaMult(s) * 32d));
             return Tuple.Create(next, possDepths[next]);
         }
         public virtual double GetAreaMult(string location)
         {
-            return Math.Max(0.01, ItemLocations[location].Areas.Select(a => AreaMults[a]).Average());
+            return Math.Max(0, ItemLocations[location].Areas.Select(a => AreaMults[a]).Average());
         }
 
         public virtual Tuple<string, int> GetLocationItem(string key, bool orig = true)

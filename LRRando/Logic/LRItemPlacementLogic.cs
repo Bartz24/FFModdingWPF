@@ -208,19 +208,19 @@ namespace LRRando
             }
             if (ItemLocations[old].Traits.Contains("Grindy"))
             {
-                specialTraits.Add("CoP");
+                specialTraits.Add("Grindy");
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !LRFlags.Items.KeyPlaceGrindy.Enabled)
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("Superboss"))
             {
-                specialTraits.Add("CoP");
+                specialTraits.Add("Superboss");
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !LRFlags.Items.KeyPlaceSuperboss.Enabled)
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("Quest"))
             {
-                specialTraits.Add("CoP");
+                specialTraits.Add("Quest");
                 if (treasureRando.IsEPAbility(rep))
                     return false;
                 if (GetLocationItem(rep).Item1.StartsWith("it"))
