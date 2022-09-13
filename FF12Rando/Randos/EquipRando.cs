@@ -81,8 +81,8 @@ namespace FF12Rando
                         Tuple.Create(0, 99),
                         Tuple.Create(0, 99)
                     };
-                float[] weights = new float[] { weapon.Category == EquipCategory.Gun || weapon.Category == EquipCategory.Measure ? 4 : 1, 4, 2, 6, 4, 4, 8, 12 };
-                int[] zeros = new int[] { 0, 90, 97, 97, 90, 90, 90, 90 };
+                float[] weights = new float[] { weapon.Category == EquipCategory.Gun || weapon.Category == EquipCategory.Measure ? 4 : 1, 2, 2, 6, 4, 4, 8, 12 };
+                int[] zeros = new int[] { 0, 70, 97, 97, 90, 90, 90, 90 };
                 int[] negs = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 
                 if (FF12Flags.Stats.EquipHiddenStats.Enabled)
@@ -92,8 +92,8 @@ namespace FF12Rando
                         Tuple.Create(0, 100),
                         Tuple.Create(RandomNum.RandInt(RandomNum.RandInt(-100, -40), -20), 0)
                     };
-                    float[] hiddenWeights = new float[] { 4, 4, 1 };
-                    int[] hiddenZeros = new int[] { 50, 5, 0 };
+                    float[] hiddenWeights = new float[] { 2, 5, 1 };
+                    int[] hiddenZeros = new int[] { 10, 5, 0 };
                     int[] hiddenNegs = new int[] { 0, 0, 100 };
 
                     bounds = bounds.Concat(hiddenBounds);
@@ -202,8 +202,8 @@ namespace FF12Rando
                         Tuple.Create(0, 99),
                         Tuple.Create(0, 99)
                     };
-                float[] weights = new float[] { 8, 8, 1, 3, 20, 20, 15, 15 };
-                int[] zeros = new int[] { 50, 50, 90, 90, 90, 90, 90, 97 };
+                float[] weights = new float[] { 8, 8, 1, 3, 15, 15, 15, 15 };
+                int[] zeros = new int[] { 50, 50, 70, 70, 70, 70, 70, 97 };
                 int[] negs = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
                 statPoints = new StatPoints(bounds, weights, zeros, negs);
                 statPoints.Randomize(new int[] { armor.Defense, armor.MagickResist, attribute.HP, attribute.MP, attribute.Strength, attribute.MagickPower, attribute.Vitality, attribute.Speed });
@@ -337,7 +337,10 @@ namespace FF12Rando
         {
             foreach (DataStoreArmor armor in equip.EquipDataList.Where(a => a is DataStoreArmor))
             {
-                armor.AugmentOffset = (byte)augmentData.Values.Where(a => a.Traits.Contains("Equip")).Shuffle().First().IntID;
+                if (RandomNum.RandInt(0, 99) < (armor.Category == EquipCategory.Accessory || armor.Category == EquipCategory.AccessoryCrown ? 95 : 20))
+                    armor.AugmentOffset = (byte)augmentData.Values.Where(a => a.Traits.Contains("Equip")).Shuffle().First().IntID;
+                else
+                    armor.AugmentOffset = 0xFF; // None
             }
         }
 
