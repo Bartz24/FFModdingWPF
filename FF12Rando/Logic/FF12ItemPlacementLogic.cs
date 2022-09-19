@@ -101,6 +101,9 @@ namespace FF12Rando
                     if (t.Traits.Contains("Fake"))
                         return null;
                     return t.GetData(orig ? treasureRando.rewardsOrig[t.IntID - 0x9000] : treasureRando.rewards[t.IntID - 0x9000]);
+                case TreasureRando.StartingInvData s:
+                    PartyRando partyRando = treasureRando.Randomizers.Get<PartyRando>();
+                    return s.GetData(orig ? partyRando.partyOrig[s.IntID] : partyRando.party[s.IntID]);
                 default:
                     return base.GetLocationItem(key, orig);
             }
@@ -117,6 +120,10 @@ namespace FF12Rando
                     if (t.Traits.Contains("Fake"))
                         break;
                     t.SetData(treasureRando.rewards[t.IntID - 0x9000], item, count);
+                    break;
+                case TreasureRando.StartingInvData s:
+                    PartyRando partyRando = treasureRando.Randomizers.Get<PartyRando>();
+                    s.SetData(partyRando.party[s.IntID], item, count);
                     break;
                 default:
                     base.SetLocationItem(key, item, count);
@@ -186,6 +193,12 @@ namespace FF12Rando
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceGrindy.Enabled)
                     return false;
             }
+            if (ItemLocations[old].Traits.Contains("Hidden"))
+            {
+                specialTraits.Add("Hidden");
+                if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceHidden.Enabled)
+                    return false;
+            }
             if (ItemLocations[old] is TreasureRando.RewardData)
             {
                 TreasureRando.RewardData reward = (TreasureRando.RewardData)ItemLocations[old];
@@ -197,6 +210,11 @@ namespace FF12Rando
             if (ItemLocations[old] is TreasureRando.TreasureData)
             {
                 if (GetLocationItem(rep).Item1 != "Gil" && GetLocationItem(rep).Item2 > 1)
+                    return false;
+            }
+            if (ItemLocations[old] is TreasureRando.StartingInvData)
+            {
+                if (GetLocationItem(rep).Item1 == "Gil")
                     return false;
             }
 
@@ -249,9 +267,10 @@ namespace FF12Rando
                 }
             });
 
-            int[] chars = treasureRando.characterMapping.Select(s => dict.ContainsKey(s) ? dict[s] : 0).ToArray();
-            treasureRando.characterMapping.Where(s => dict.ContainsKey(s)).ForEach(s => dict.Remove(s));
-            Enumerable.Range(0, 6).Where(i => chars[i] > 0).ForEach(i => dict.Add(treasureRando.characterMapping[treasureRando.characters[i]], chars[i]));
+            PartyRando partyRando = treasureRando.Randomizers.Get<PartyRando>();
+            int[] chars = partyRando.CharacterMapping.Select(s => dict.ContainsKey(s) ? dict[s] : 0).ToArray();
+            partyRando.CharacterMapping.Where(s => dict.ContainsKey(s)).ForEach(s => dict.Remove(s));
+            Enumerable.Range(0, 6).Where(i => chars[i] > 0).ForEach(i => dict.Add(partyRando.CharacterMapping[partyRando.Characters[i]], chars[i]));
 
 
             return dict;

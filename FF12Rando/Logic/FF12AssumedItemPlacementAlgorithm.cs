@@ -25,6 +25,7 @@ namespace FF12Rando
 
             base.RemoveItems(locations, items, nextItem, rep);
 
+            PartyRando partyRando = treasureRando.Randomizers.Get<PartyRando>();
             while (newPossible == null || newPossible.Count < possible.Count)
             {
                 newAccessibleAreas = Logic.GetNewAreasAvailable(items, new List<string>());
@@ -38,9 +39,9 @@ namespace FF12Rando
                 {
                     ((TreasureRando.RewardData)ItemLocations[s]).FakeItems.ForEach(item =>
                     {
-                        if (treasureRando.characterMapping.Contains(item))
+                        if (partyRando.CharacterMapping.Contains(item))
                         {
-                            string newChar = treasureRando.characterMapping[treasureRando.characters[treasureRando.characterMapping.ToList().IndexOf(item)]];
+                            string newChar = partyRando.CharacterMapping[partyRando.Characters[partyRando.CharacterMapping.ToList().IndexOf(item)]];
                             items[newChar] -= 1;
                         }
                         else

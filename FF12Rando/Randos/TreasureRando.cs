@@ -15,8 +15,6 @@ namespace FF12Rando
         public DataStoreBPSection<DataStorePrice> prices;
         public Dictionary<string, DataStoreEBP> ebpAreas = new Dictionary<string, DataStoreEBP>();
         public Dictionary<string, DataStoreEBP> ebpAreasOrig = new Dictionary<string, DataStoreEBP>();
-        public int[] characters = new int[6];
-        public string[] characterMapping = new string[] { "Vaan", "Ashe", "Fran", "Balthier", "Basch", "Penelo" };
 
         public List<List<string>> hints = Enumerable.Range(0, 35).Select(_ => new List<string>()).ToList();
 
@@ -68,7 +66,8 @@ namespace FF12Rando
                 return ebp;
             });
 
-            characters = MathHelpers.DecodeNaturalSequence(prices[0x76].Price, 6, 6).Select(l => (int)l).ToArray();
+            PartyRando partyRando = Randomizers.Get<PartyRando>();
+            partyRando.Characters = MathHelpers.DecodeNaturalSequence(prices[0x76].Price, 6, 6).Select(l => (int)l).ToArray();
 
             areaMapping = File.ReadAllLines("data\\mapAreas.csv").ToDictionary(s => s.Split(',')[1], s => s.Split(',')[0]);
 
@@ -112,6 +111,20 @@ namespace FF12Rando
                 }
             }, FileHelpers.CSVFileHeader.HasHeader);
 
+            if (FF12Flags.Items.KeyStartingInv.Enabled)
+            {
+                FileHelpers.ReadCSVFile(@"data\startingInvs.csv", row =>
+                {
+                    StartingInvData first = new StartingInvData(row, 0);
+                    itemLocations.Add(first.ID, first);
+                    for (int i = 1; i < partyRando.partyOrig[first.IntID].ItemIDs.Count; i++)
+                    {
+                        StartingInvData s = new StartingInvData(row, i);
+                        itemLocations.Add(s.ID, s);
+                    }
+                }, FileHelpers.CSVFileHeader.HasHeader);
+            }
+
             List<string> hintsNotesLocations = itemLocations.Values.SelectMany(l => l.Areas).Distinct().ToList();
 
             placementAlgoNormal = new FF12AssumedItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers, 3)
@@ -129,13 +142,6 @@ namespace FF12Rando
         public override void Randomize(Action<int> progressSetter)
         {
             Randomizers.SetProgressFunc("Randomizing Treasure Data...", 0, -1);
-            if (FF12Flags.Other.Party.FlagEnabled)
-            {
-                FF12Flags.Other.Party.SetRand();
-                characters.SetSubArray(1, characters.SubArray(1, 5).Shuffle().ToArray());
-                prices[0x76].Price = (uint)MathHelpers.EncodeNaturalSequence(characters.Select(i => (long)i).ToArray(), 6);
-                RandomNum.ClearRand();
-            }
 
             randomizeItems = new List<string>();
             if (FF12Flags.Items.Treasures.FlagEnabled)
@@ -593,6 +599,7 @@ namespace FF12Rando
 
         public override Dictionary<string, HTMLPage> GetDocumentation()
         {
+            PartyRando partyRando = Randomizers.Get<PartyRando>();
             Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
 
@@ -611,12 +618,22 @@ namespace FF12Rando
                 }
                 else if (l is RewardData)
                 {
-                    RewardData t = (RewardData)l;
-                    if (t.Index > 0 || t.Traits.Contains("Fake"))
+                    RewardData r = (RewardData)l;
+                    if (r.Index > 0 || r.Traits.Contains("Fake"))
                         return null;
-                    DataStoreReward reward = rewards[t.IntID - 0x9000];
+                    DataStoreReward reward = rewards[r.IntID - 0x9000];
                     display = GetRewardDisplay(reward);
                 }
+                else if (l is StartingInvData)
+                {
+                    StartingInvData s = (StartingInvData)l;
+                    if (s.Index > 0)
+                        return null;
+                    DataStorePartyMember chara = partyRando.party[s.IntID];
+                    display = GetPartyMemberDisplay(chara);
+                }
+                else
+                    throw new Exception("Unsupported item location type found");
                 string reqsDisplay = l.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
@@ -662,6 +679,17 @@ namespace FF12Rando
                 stringList.Add($"{GetItemName(reward.Item1ID.ToString("X4"))} x {reward.Item1Amount}");
             if (reward.Item2ID != 0xFFFF)
                 stringList.Add($"{GetItemName(reward.Item2ID.ToString("X4"))} x {reward.Item2Amount}");
+            return String.Join(", ", stringList);
+        }
+
+        private string GetPartyMemberDisplay(DataStorePartyMember chara, bool hintableOnly = false)
+        {
+            List<string> stringList = new List<string>();
+            for (int i = 0; i < chara.ItemIDs.Count; i++)
+            {
+                if (chara.ItemIDs[i] != 0xFFFF)
+                    stringList.Add($"{GetItemName(chara.ItemIDs[i].ToString("X4"))} x {chara.ItemAmounts[i]}");
+            }
             return String.Join(", ", stringList);
         }
 
@@ -824,6 +852,57 @@ namespace FF12Rando
                         return null;
                     return Tuple.Create(r.Item2ID.ToString("X4"), (int)r.Item2Amount);
                 }
+            }
+        }
+
+        public class StartingInvData : ItemLocation
+        {
+            public override string ID { get; }
+            public int IntID { get; }
+            public int Index { get; }
+            public override string Name { get; }
+            public override ItemReq Requirements { get; }
+            public override List<string> Traits { get; }
+            public override List<string> Areas { get; }
+            public override int Difficulty { get; }
+
+            public StartingInvData(string[] row, int index)
+            {
+                Areas = new List<string>() { row[0] };
+                Name = row[1];
+                IntID = Convert.ToInt32(row[2], 16);
+                ID = row[2] + "::" + index;
+                Index = index;
+                Requirements = ItemReq.Parse(row[3]);
+                Difficulty = int.Parse(row[4]);
+                Traits = row[5].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
+            }
+
+            public override bool IsValid(Dictionary<string, int> items)
+            {
+                if (!Requirements.IsValid(items))
+                    return false;
+                return true;
+            }
+
+            public override void SetData(dynamic obj, string newItem, int newCount)
+            {
+                DataStorePartyMember c = (DataStorePartyMember)obj;
+                List<ushort> itemIDs = c.ItemIDs;
+                List<byte> itemAmounts = c.ItemAmounts;
+
+                ushort id = Convert.ToUInt16(newItem, 16);
+                itemIDs[Index] = id;
+                itemAmounts[Index] = (byte)newCount;
+
+                c.ItemIDs = itemIDs;
+                c.ItemAmounts = itemAmounts;
+            }
+
+            public override Tuple<string, int> GetData(dynamic obj)
+            {
+                DataStorePartyMember c = (DataStorePartyMember)obj;
+                return Tuple.Create(c.ItemIDs[Index].ToString("X4"), (int)c.ItemAmounts[Index]);
             }
         }
     }
