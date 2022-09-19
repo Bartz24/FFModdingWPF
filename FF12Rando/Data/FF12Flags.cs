@@ -64,11 +64,12 @@ namespace FF12Rando
 
         public class Items
         {
-            public static Flag Treasures, Shops, Bazaars;
-            public static ToggleFlagProperty KeyMain, KeyHunt, KeyGrindy, KeySide, KeyOrb, KeyWrit, KeyTrophy, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, CharacterScale;
+            public static Flag Treasures, Shops, Bazaars, StartingTpStones;
+            public static ToggleFlagProperty KeyMain, KeyHunt, KeyGrindy, KeySide, KeyOrb, KeyWrit, KeyTrophy, KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale;
             public static ComboBoxFlagProperty KeyDepth;
             public static NumberFlagProperty ShopSize;
             public static ToggleFlagProperty ShopsShared;
+            public static NumberFlagProperty TpStoneCount;
 
             internal static void Init()
             {
@@ -136,6 +137,13 @@ namespace FF12Rando
                     "If turned off, this will be replaced with potions."
                 }.Register(Treasures);
 
+                KeyStartingInv = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Include Party Member Starting Items",
+                    ID = "KeyStartingInv",
+                    Description = "The items in the main party members' starting inventories will be included in the pool."
+                }.Register(Treasures);
+
                 KeyPlaceTreasure = (ToggleFlagProperty)new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Treasures",
@@ -177,6 +185,13 @@ namespace FF12Rando
                     ID = "KeyPlaceGrindy",
                     Description = "Key items are also allowed in grindy rewards.\n" +
                     "This includes: Ann's Sister Quest reward, Hunt Club owner rewards"
+                }.Register(Treasures);
+
+                KeyPlaceHidden = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Key Item Placement - Hidden Starting Items",
+                    ID = "KeyPlaceHidden",
+                    Description = "Key items are also allowed in main party member starting inventories."
                 }.Register(Treasures);
 
                 KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
@@ -231,6 +246,24 @@ namespace FF12Rando
                     FlagID = "Bazaars",
                     DescriptionFormat = "Randomize contents of bazaars. These items can appear in treasures or shops if those flags are on."
                 }.Register(FlagType.Items);
+
+                StartingTpStones = new Flag()
+                {
+                    Text = "Add Teleport Stones to Starting Inventory",
+                    FlagID = "StartingTpStone",
+                    DescriptionFormat = "Adds the specified number of teleport stones to the starting inventory."
+                }.Register(FlagType.Items);
+
+                TpStoneCount = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "",
+                    ID = "TpStoneCount",
+                    Description = "",
+                    ValueText = "",
+                    MinValue = 1,
+                    MaxValue = 99,
+                    StepSize = 1
+                }.Register(StartingTpStones);
             }
         }
         public class Other
@@ -246,9 +279,9 @@ namespace FF12Rando
             {
                 Party = new Flag()
                 {
-                    Text = "Randomize Main Party",
+                    Text = "Shuffle Main Party",
                     FlagID = "RandParty",
-                    DescriptionFormat = "Randomizes the main party members except for Vaan."
+                    DescriptionFormat = "Shuffles the main party members."
                 }.Register(FlagType.Other);
 
 

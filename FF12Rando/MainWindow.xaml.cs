@@ -86,6 +86,7 @@ namespace FF12Rando
         {
             RandomizerManager randomizers = new RandomizerManager();
             randomizers.SetProgressFunc = SetProgressBar;
+            randomizers.Add(new PartyRando(randomizers));
             randomizers.Add(new TreasureRando(randomizers));
             randomizers.Add(new EquipRando(randomizers));
             randomizers.Add(new LicenseBoardRando(randomizers));

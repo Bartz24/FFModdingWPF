@@ -142,6 +142,8 @@ namespace FF12Rando
                                     return 0;
                                 if (!s.Traits.Contains("Unique") && used.Count < treasureRando.remainingRandomizeItems.Count && used.Contains(item))
                                     return 0;
+                                if (item == "2000")
+                                    return 25;
                                 if (item.StartsWith("20") || item.StartsWith("21"))
                                     return 1;
                                 return 10;

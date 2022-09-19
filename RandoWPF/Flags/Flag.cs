@@ -108,7 +108,7 @@ namespace Bartz24.RandoWPF
 
         public static readonly Flag Empty = EmptyFlag();
         private bool flagEnabled;
-        private Visibility visibility;
+        //private Visibility visibility;
 
         private static Flag EmptyFlag()
         {
