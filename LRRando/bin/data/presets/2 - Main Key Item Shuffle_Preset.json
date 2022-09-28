@@ -1,6 +1,6 @@
 {
   "name": "2 - Main Key Item Shuffle",
-  "version": "0.7.3.0",
+  "version": "0.7.4.8",
   "flags": [
     {
       "FlagEnabled": true,
@@ -46,6 +46,10 @@
         {
           "Enabled": false,
           "ID": "EPZero"
+        },
+        {
+          "Value": 5,
+          "ID": "EPMax"
         },
         {
           "Value": 2,
@@ -190,6 +194,11 @@
         }
       ],
       "FlagID": "Music"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "LoadingText"
     },
     {
       "FlagEnabled": true,

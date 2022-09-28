@@ -64,7 +64,10 @@ namespace LRRando
             LRFlags.Other.HintsPilgrim.SetRand();
 
             //EquipRando equipRando = randomizers.Get<EquipRando>();
-            RandomizeWords(mainSysUS.Keys.Where(k => k.StartsWith("$sns")).ToList());
+            if (LRFlags.Other.LoadingText.FlagEnabled)
+            {
+                RandomizeWords(mainSysUS.Keys.Where(k => k.StartsWith("$sns")).ToList());
+            }
 
             RandomNum.ClearRand();
         }

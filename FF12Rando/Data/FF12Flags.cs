@@ -270,10 +270,10 @@ namespace FF12Rando
         {
             public static Flag Party, Music;
             public static Flag LicenseBoards, StartingBoards;
-            public static Flag ExpMult, LPMult;
+            public static Flag EXPMult, LPMult;
             public static Flag HintsMain, HintAbilities;
             public static ComboBoxFlagProperty HintsSpecific;
-            public static NumberFlagProperty EXPMultAmt, LPMultAmt;
+            public static NumberFlagProperty EXPMultAmt, LPMultAmt, EXPMultBossAmt, LPMultBossAmt;
 
             internal static void Init()
             {
@@ -338,37 +338,59 @@ namespace FF12Rando
                     Aesthetic = true
                 }.Register(FlagType.Other);
 
-                ExpMult = new Flag()
+                EXPMult = new Flag()
                 {
-                    Text = "EXP Multiplier",
+                    Text = "EXP Multipliers",
                     FlagID = "EXPMult",
-                    DescriptionFormat = "Set to the percentage to scale EXP.",
+                    DescriptionFormat = "Set to the percentages to scale EXP.",
                     Aesthetic = true
                 }.Register(FlagType.Other);
 
                 EXPMultAmt = (NumberFlagProperty)new NumberFlagProperty()
                 {
-                    Text = "",
+                    Text = "Normal and Rare Game Enemies",
                     ID = "EXPMultAmt",
                     Description = "",
                     ValueText = "EXP Mult (%):",
                     MinValue = 0,
                     MaxValue = 1000,
                     StepSize = 10
-                }.Register(ExpMult);
+                }.Register(EXPMult);
+
+                EXPMultBossAmt = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "Boss and Mark Enemies",
+                    ID = "EXPMultBossAmt",
+                    Description = "",
+                    ValueText = "EXP Mult (%):",
+                    MinValue = 0,
+                    MaxValue = 1000,
+                    StepSize = 10
+                }.Register(EXPMult);
 
                 LPMult = new Flag()
                 {
-                    Text = "LP Multiplier",
+                    Text = "LP Multipliers",
                     FlagID = "LPMult",
-                    DescriptionFormat = "Set to the percentage to scale LP.",
+                    DescriptionFormat = "Set to the percentages to scale LP.",
                     Aesthetic = true
                 }.Register(FlagType.Other);
 
                 LPMultAmt = (NumberFlagProperty)new NumberFlagProperty()
                 {
-                    Text = "",
+                    Text = "Normal and Rare Game Enemies",
                     ID = "LPMultAmt",
+                    Description = "",
+                    ValueText = "LP Mult (%):",
+                    MinValue = 0,
+                    MaxValue = 1000,
+                    StepSize = 10
+                }.Register(LPMult);
+
+                LPMultBossAmt = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "Boss and Mark Enemies",
+                    ID = "LPMultBossAmt",
                     Description = "",
                     ValueText = "LP Mult (%):",
                     MinValue = 0,

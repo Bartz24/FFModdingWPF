@@ -38,6 +38,7 @@ namespace FF12Rando
             Randomizers.SetProgressFunc("Randomizing Enemy Data...", 0, -1);
             ards.ForEach(pair =>
             {
+                List<DataStoreARDStats> bossStats = new List<DataStoreARDStats>();
                 enemyData.Values.Where(e => e.Area == pair.Key).ForEach(e =>
                 {
                     List<DataStoreARDStats> defaults;
@@ -56,16 +57,28 @@ namespace FF12Rando
                     {
                         defaults.ForEach(s => s.Experience = (uint)(BossScaling.EXPTable[Math.Min(BossScaling.EXPTable.Length, e.Rank)] * e.EXPLPScale / 100));
                         defaults.ForEach(s => s.LP = (byte)(BossScaling.LPTable[Math.Min(BossScaling.LPTable.Length, e.Rank)] * e.EXPLPScale / 100));
+                        bossStats.AddRange(defaults);
+                        bossStats.AddRange(levels);
                     }
                 });
-                float expMult = FF12Flags.Other.ExpMult.FlagEnabled ? FF12Flags.Other.EXPMultAmt.Value / 100f : 1;
-                pair.Value.DefaultStats.ForEach(s => s.Experience = (uint)(s.Experience * expMult));
-                pair.Value.LevelStats.ForEach(s => s.Experience = (uint)(s.Experience * expMult));
+                pair.Value.DefaultStats.ForEach(s => ApplyEXPMult(s, bossStats.Contains(s)));
+                pair.Value.LevelStats.ForEach(s => ApplyEXPMult(s, bossStats.Contains(s)));
 
-                float lpMult = FF12Flags.Other.LPMult.FlagEnabled ? FF12Flags.Other.LPMultAmt.Value / 100f : 1;
-                pair.Value.DefaultStats.ForEach(s => s.LP = (byte)Math.Min(s.LP * lpMult, 255));
-                pair.Value.LevelStats.ForEach(s => s.LP = (byte)Math.Min(s.LP * lpMult, 255));
+                pair.Value.DefaultStats.ForEach(s => ApplyLPMult(s, bossStats.Contains(s)));
+                pair.Value.LevelStats.ForEach(s => ApplyLPMult(s, bossStats.Contains(s)));
             });
+        }
+
+        private void ApplyEXPMult(DataStoreARDStats stats, bool isBoss)
+        {
+            float expMult = FF12Flags.Other.EXPMult.FlagEnabled ? (isBoss ? FF12Flags.Other.EXPMultBossAmt.Value : FF12Flags.Other.EXPMultAmt.Value) / 100f : 1;
+            stats.Experience = (uint)(stats.Experience * expMult);
+        }
+
+        private void ApplyLPMult(DataStoreARDStats stats, bool isBoss)
+        {
+            float lpMult = FF12Flags.Other.LPMult.FlagEnabled ? (isBoss ? FF12Flags.Other.LPMultBossAmt.Value : FF12Flags.Other.LPMultAmt.Value) / 100f : 1;
+            stats.LP = (byte)Math.Min(stats.LP * lpMult, 255);
         }
 
         public override void Save()
