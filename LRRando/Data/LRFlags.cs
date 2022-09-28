@@ -19,7 +19,7 @@ namespace LRRando
         {
             public static Flag EPAbilities, NerfOC, EPCosts;
             public static ToggleFlagProperty EPAbilitiesEscape, EPAbilitiesChrono, EPAbilitiesTp, EPCostsZero;
-            public static NumberFlagProperty EPCostsRange;
+            public static NumberFlagProperty EPCostsRange, EPCostMax;
             public static Flag EquipStats, GarbAbilities, EquipPassives, AbilityPassives;
             public static Flag Quests;
 
@@ -87,8 +87,7 @@ namespace LRRando
                     FlagID = "RandEPCost",
                     DescriptionFormat = "Randomize the EP costs of EP Abilities except Escape.\n" +
                     "Min of 1 on Normal for Esunada, Decoy, Army of One, Chronostasis.\n" +
-                    "Min of 2 on Normal for Curaga, Arise, Quake, Overclock, Teleport.\n" +
-                    "Max of 5 on Normal for all."
+                    "Min of 2 on Normal for Curaga, Arise, Quake, Overclock, Teleport."
                 }.Register(FlagType.StatsAbilities);
 
                 EPCostsZero = (ToggleFlagProperty)new ToggleFlagProperty()
@@ -101,6 +100,16 @@ namespace LRRando
                     "Min of 1 on Normal for Curaga, Arise, Quake, Overclock, Teleport.\n"
                 }.Register(EPCosts);
 
+                EPCostMax = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "Max EP Cost",
+                    ID = "EPMax",
+                    Description = "Set the max EP Cost possible.",
+                    ValueText = "Max EP Cost: ",
+                    MinValue = 3,
+                    MaxValue = 9
+                }.Register(EPCosts);
+
                 EPCostsRange = (NumberFlagProperty)new NumberFlagProperty()
                 {
                     Text = "EP Cost Range",
@@ -108,7 +117,7 @@ namespace LRRando
                     Description = "EP Costs can go up or down from their vanilla value by the specified value.",
                     ValueText = "EP Cost +/-",
                     MinValue = 1,
-                    MaxValue = 5
+                    MaxValue = 9
                 }.Register(EPCosts);
 
                 AbilityPassives = new Flag()
@@ -362,7 +371,7 @@ namespace LRRando
         }
         public class Other
         {
-            public static Flag Music;
+            public static Flag Music, LoadingText;
             public static Flag HintsMain, HintsNotes, HintsEP, HintsPilgrim;
             public static ComboBoxFlagProperty HintsSpecific;
             public static ToggleFlagProperty HintsDepth;
@@ -384,6 +393,14 @@ namespace LRRando
                     ID = "Fanfare",
                     Description = "Include the additional garb specific fanfares in the pool."
                 }.Register(Music);
+
+                LoadingText = new Flag()
+                {
+                    Text = "Randomize Loading Screen Text",
+                    FlagID = "LoadingText",
+                    DescriptionFormat = "Randomize the lore on loading screens.",
+                    Aesthetic = true
+                }.Register(FlagType.Other);
 
                 HintsMain = new Flag()
                 {

@@ -64,16 +64,17 @@ namespace LRRando
 
                 int min1 = LRFlags.StatsAbilities.EPCostsZero.Enabled ? 0 : 1;
                 int min2 = LRFlags.StatsAbilities.EPCostsZero.Enabled ? 1 : 2;
+                int max = LRFlags.StatsAbilities.EPCostMax.Value;
 
-                abilities["ti000_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti000_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti020_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti020_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti030_00"].i17AtbCount = RandomEPCost(min1, 5, abilities["ti030_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti500_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti500_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti600_00"].i17AtbCount = RandomEPCost(min1, 5, abilities["ti600_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti810_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti810_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti840_00"].i17AtbCount = RandomEPCost(min1, 5, abilities["ti840_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti900_00"].i17AtbCount = RandomEPCost(min2, 5, abilities["ti900_00"].i17AtbCount / 2000) * 2000;
-                abilities["at900_00"].i17AtbCount = RandomEPCost(min1, 5, abilities["at900_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti000_00"].i17AtbCount = RandomEPCost(min2, max, abilities["ti000_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti020_00"].i17AtbCount = RandomEPCost(min2, max, abilities["ti020_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti030_00"].i17AtbCount = RandomEPCost(min1, max, abilities["ti030_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti500_00"].i17AtbCount = RandomEPCost(min2, max, abilities["ti500_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti600_00"].i17AtbCount = RandomEPCost(min1, max, abilities["ti600_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti810_00"].i17AtbCount = RandomEPCost(min2, max, abilities["ti810_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti840_00"].i17AtbCount = RandomEPCost(min1, max, abilities["ti840_00"].i17AtbCount / 2000) * 2000;
+                abilities["ti900_00"].i17AtbCount = RandomEPCost(min2, max, abilities["ti900_00"].i17AtbCount / 2000) * 2000;
+                abilities["at900_00"].i17AtbCount = RandomEPCost(min1, max, abilities["at900_00"].i17AtbCount / 2000) * 2000;
 
                 RandomNum.ClearRand();
             }
