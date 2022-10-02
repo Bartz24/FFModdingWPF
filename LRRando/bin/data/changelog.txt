@@ -1,11 +1,7 @@
-0.7.3.0 Changelog:
--Added ability passive rando
--Added flag to allow disabling important items on superbosses
--Important items are now randomly distributed between areas
--Desmond now drops 4000 gil
--Improved documentation tables with search and sorting
--Improved randomization progress bars to give more details
--Included seed in modpack name in Nova (allows multiple seeds to be loaded into Nova at once)
--Fixed music rando not working
--Fixed occasional boss rando error
--Fixed occasional item placement error
+0.7.4 Changelog:
+-Added Max EP Cost flag up to 9 EP. EP Cost +/- Range now goes up to +/-9
+-The loading screen text is now enabled by a flag
+-Improved item placement distribution
+-Hard+++ is now 2x instead of max placement
+-Moved hints to their own documentation page
+-Fixed key item placement options not working sometimes
