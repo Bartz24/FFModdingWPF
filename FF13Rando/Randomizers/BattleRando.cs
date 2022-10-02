@@ -19,6 +19,8 @@ namespace FF13Rando
         DataStoreWDB<DataStoreCharaSet> charaSets = new DataStoreWDB<DataStoreCharaSet>();
         Dictionary<string, List<string>> charaSetsOrig = new Dictionary<string, List<string>>();
 
+        public DataStoreWDB<DataStoreBtConstant> battleConsts = new DataStoreWDB<DataStoreBtConstant>();
+
         public ConcurrentDictionary<string, DataStoreWDB<DataStoreBtSc>> btscs = new ConcurrentDictionary<string, DataStoreWDB<DataStoreBtSc>>();
         public Dictionary<string, List<string>> btscsOrig = new Dictionary<string, List<string>>();
 
@@ -35,6 +37,8 @@ namespace FF13Rando
             btsceneOrig.LoadWDB("13", @"\db\resident\bt_scene.wdb");
 
             charaSets.LoadWDB("13", @"\db\resident\charaset.wdb");
+
+            battleConsts.LoadWDB("13", @"\db\resident\bt_constants.wdb");
 
             string btscWDBPath = Nova.GetNovaFile("13", @"btscene\wdb\btsc_wdb.bin", SetupData.Paths["Nova"], SetupData.Paths["13"]);
             string btscWDBOutPath = SetupData.OutputFolder + @"\btscene\wdb\btsc_wdb.bin";
@@ -117,7 +121,7 @@ namespace FF13Rando
 
         public override void Randomize(Action<int> progressSetter)
         {
-            Randomizers.SetProgressFunc("Randomizing Battle Data...", 0, 100);
+            Randomizers.SetProgressFunc("Randomizing Battle Data...", -1, 100);
             EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
             if (FF13Flags.Other.Enemies.FlagEnabled)
             {
@@ -387,6 +391,57 @@ namespace FF13Rando
 
                 RandomNum.ClearRand();
             }
+
+            if (FF13Flags.Stats.RandTPBorders.FlagEnabled)
+            {
+                FF13Flags.Stats.RandTPBorders.SetRand();
+                int max = 21;
+                if (FF13Flags.Stats.RandTPMax.Enabled)
+                    max = RandomNum.RandInt(10, 40);
+                int[] newValues = new int[5];
+
+                string type = FF13Flags.Stats.TPBorderType.SelectedValue == "Random Type" ? FF13Flags.Stats.TPBorderType.Values.Take(FF13Flags.Stats.TPBorderType.Values.Count - 1).Shuffle().First() : FF13Flags.Stats.TPBorderType.SelectedValue;
+
+                if (type == "Equal")
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        newValues[i] = max * 100 / 5 * (i + 1);
+                    }
+                }
+                else
+                {
+                    List<int> vals = Enumerable.Range(1, max - 1).Shuffle().Take(5).OrderBy(i => i).ToList();
+                    vals[vals.Count - 1] = max;
+
+                    List<int> sizes = Enumerable.Range(0, 5).Select(i => i == 0 ? vals[i] : vals[i] - vals[i - 1]).ToList();
+                    switch (type)
+                    {
+                        case "Increasing":
+                            sizes = sizes.OrderBy(i => i).ToList();
+                            break;
+                        case "Decreasing":
+                            sizes = sizes.OrderByDescending(i => i).ToList();
+                            break;
+                        case "Random Borders":
+                            sizes = sizes.Shuffle();
+                            break;
+                    }
+                    int total = 0;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        newValues[i] = (sizes[i] + total) * 100;
+                        total += sizes[i];
+                    }
+                }
+
+                for (int i = 0; i < 5; i++)
+                {
+                    battleConsts[$"iTpBorder{i + 1}"].u16UintValue = (uint)newValues[i];
+                }
+
+                RandomNum.ClearRand();
+            }
         }
 
         private int GetMaxCountAllowed()
@@ -435,6 +490,8 @@ namespace FF13Rando
             btscene.SaveWDB(@"\db\resident\bt_scene.wdb");
 
             charaSets.SaveWDB(@"\db\resident\charaset.wdb");
+
+            battleConsts.SaveWDB(@"\db\resident\bt_constants.wdb");
 
             Randomizers.SetProgressFunc("Saving Battle Data...", 10, 100);
 

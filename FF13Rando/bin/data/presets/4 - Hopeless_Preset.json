@@ -1,6 +1,6 @@
 {
   "name": "4 - Hopeless",
-  "version": "0.7.4.0",
+  "version": "0.7.4.9",
   "flags": [
     {
       "FlagEnabled": true,
@@ -36,6 +36,20 @@
       "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "RandInitStats"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Enabled": true,
+          "ID": "RandTPMax"
+        },
+        {
+          "SelectedValue": "Random Type",
+          "ID": "TPBorderType"
+        }
+      ],
+      "FlagID": "RandTPBorder"
     },
     {
       "FlagEnabled": true,

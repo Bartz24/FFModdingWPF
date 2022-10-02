@@ -18,8 +18,9 @@ namespace FF13Rando
         }
         public class Stats
         {
-            public static Flag RandCrystAbi, RandCrystStat, ShuffleCrystRole, ScaledCPCosts, RandInitStats;
-            public static ToggleFlagProperty RandCrystAbiAll, ShuffleCrystMisc;
+            public static Flag RandCrystAbi, RandCrystStat, ShuffleCrystRole, ScaledCPCosts, RandInitStats, RandTPBorders;
+            public static ToggleFlagProperty RandCrystAbiAll, ShuffleCrystMisc, RandTPMax;
+            public static ComboBoxFlagProperty TPBorderType;
 
             internal static void Init()
             {
@@ -71,6 +72,34 @@ namespace FF13Rando
                     FlagID = "RandInitStats",
                     DescriptionFormat = "Randomizes the initial HP, Strength, and Magic."
                 }.Register(FlagType.Stats);
+
+                RandTPBorders = new Flag()
+                {
+                    Text = "Randomize TP Borders",
+                    FlagID = "RandTPBorder",
+                    DescriptionFormat = "Randomizes the borders where you get 1, 2, 3, 4, and 5 TP."
+                }.Register(FlagType.Stats);
+
+                RandTPMax = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Randomize Max TP Cost",
+                    ID = "RandTPMax",
+                    Description = "Randomizes the maximum needed to reach 5 TP."
+                }.Register(RandTPBorders);
+
+                TPBorderType = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                {
+                    Text = "TP Costs Type",
+                    ID = "TPBorderType",
+                    Description = "Determine how the TP borders are placed.\n\n" +
+                    "Types:\n" +
+                    "    Equal - All borders are equally spaced resulting in equal costs of each TP.\n" +
+                    "    Increasing - Each border is further away from the previous one like in the base game.\n" +
+                    "    Decreasing - Each border is closer to the previous one opposite of the base game.\n" +
+                    "    Random Borders - Each border is randomly placed.\n" +
+                    "    Random Type - One of the above types is randomly selected for the seed.",
+                    Values = new string[] { "Equal", "Increasing", "Decreasing", "Random Borders", "Random Type" }.ToList()
+                }.Register(RandTPBorders);
             }
         }
         public class Items
