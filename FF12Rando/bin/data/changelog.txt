@@ -1,1 +1,13 @@
-0.7.0 Changelog:
+0.7.4 Changelog:
+-Added Vaan to the party member shuffle pool
+-Added Starting inventory rando flag
+-Added Starting Teleport Stones flag
+-Separated the flags for EXP/LP mults between normal and boss-like enemies
+-Hard+++ is now 2x instead of max placement
+-Improved item placement distribution
+-Rebalanced equipment stats and chances for passives on armor
+-Fixed key item placement options not working sometimes
+-Fixed black orbs being sellable
+-Fixed item placement crashes
+-Fixed abilities showing up in missable locations
+-Fixed Ktjn and Jovy requirements causing potential softlocks

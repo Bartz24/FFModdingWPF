@@ -1,9 +1,14 @@
-0.7.3.0 Changelog:
--Increased enemy variety in most areas with experimental setting
--Reduced enemy variety in areas known to crash or have missing enemies (1 section of Ch5, 1 section of Ch9, and Archylte Steppe)
--Increased Snow's single stat node stages by 10x
--Added basic battle documentation for debug purposes
--Included seed in modpack name in Nova (allows multiple seeds to be loaded into Nova at once)
--Added seed and seed hash to title screen
--Fixed duplicate Dreadnought drops
--Fixed battle drops set to 1 count
+0.7.4 Changelog:
+-Added Scaled CP Cost, Difficulty Handicap, Junk Item Replacement, Shop Rando flags
+-Added checkpoints to chapters 2, 3, and 8
+-Adjusted CP costs (lower early game, higher late game)
+-Adjusted enemy ranks
+-Improved item placement distribution
+-Hard+++ is now 2x instead of max placement
+-Moved turtles to their own pool. Can still appear in some event battles
+-Increased enemy variety and removed a few Cie'th from the "vanilla" pool in Faultwarrens
+-Removed Syphax from the pool, fixed Alchemic Ooze not being in the pool, added Midlight Reaper to the pool
+-Fixed key item placement options not working sometimes
+-Fixed known enemy rando crashes (reduced enemy variety)
+-Fixed mission enemies not appearing in their own encounters
+-Fixed crashes and softlocks in chapters 2,8,3,10
