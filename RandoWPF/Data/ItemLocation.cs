@@ -7,6 +7,7 @@ namespace Bartz24.RandoWPF
     {
         public abstract string ID { get; }
         public abstract string Name { get; }
+        public abstract string LocationImagePath { get; }
         public abstract ItemReq Requirements { get; }
         public abstract List<string> Traits { get; }
         public abstract List<string> Areas { get; }

@@ -187,9 +187,7 @@ namespace FF13_2Rando
             HistoriaCruxRando cruxRando = Randomizers.Get<HistoriaCruxRando>();
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
 
-            page.HTMLElements.Add(new Button("document.getElementById(\"itemlocations\").classList.toggle(\"hide3\")", null, "Hide/Show Requirements"));
-
-            page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Requirements", "Mog Level Required" }).ToList(), (new int[] { 30, 25, 30, 15 }).ToList(), itemLocations.Values.Select(t =>
+            page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents" }).ToList(), (new int[] { 50, 50 }).ToList(), itemLocations.Values.Select(t =>
             {
                 string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1;
                 string name = GetItemName(itemID);
@@ -197,7 +195,25 @@ namespace FF13_2Rando
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
                 string location = $"{string.Join("/", itemLocations[t.ID].Areas.Select(s => cruxRando.areaData[s].Name))} - {itemLocations[t.ID].Name}";
-                return (new string[] { location, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}", reqsDisplay, GetMogLevelRequiredText(t.MogLevel) }).ToList();
+
+
+                TableCellMultiple nameCell = new TableCellMultiple(new List<string>());
+                nameCell.Elements.Add($"<div style=\"margin-right: auto\">{location}</div>");
+                if (reqsDisplay != ItemReq.Empty.GetDisplay() || t.MogLevel > 0)
+                {
+                    string disp = "";
+                    if (reqsDisplay != ItemReq.Empty.GetDisplay())
+                    {
+                        disp += "Requires: " + reqsDisplay;
+                        if (t.MogLevel > 0)
+                            disp += "<br>";
+                    }
+                    disp += "Mog Level: " + GetMogLevelRequiredText(t.MogLevel);
+
+                    nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", disp).ToString());
+                }
+
+                return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}" }).ToList();
             }).ToList(), "itemlocations"));
 
             pages.Add("item_locations", page);
@@ -248,6 +264,7 @@ namespace FF13_2Rando
         {
             public override string ID { get; }
             public override string Name { get; }
+            public override string LocationImagePath { get; }
             public override int MogLevel { get; }
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }
@@ -293,6 +310,7 @@ namespace FF13_2Rando
             public override string ID { get; }
             public int Index { get; }
             public override string Name { get; }
+            public override string LocationImagePath { get; }
             public override int MogLevel { get; }
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }

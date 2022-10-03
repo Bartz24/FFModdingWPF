@@ -603,9 +603,7 @@ namespace FF12Rando
             Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
 
-            page.HTMLElements.Add(new Button("document.getElementById(\"itemlocations\").classList.toggle(\"hide4\")", null, "Hide/Show Requirements"));
-
-            page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Location", "Requirements", "'Difficulty'" }).ToList(), (new int[] { 30, 20, 10, 35, 5 }).ToList(), itemLocations.Values.Select(l =>
+            page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Difficulty" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), itemLocations.Values.Select(l =>
             {
                 string display = "";
                 if (l is TreasureData)
@@ -637,7 +635,13 @@ namespace FF12Rando
                 string reqsDisplay = l.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
-                return new string[] { l.Name, display, l.Areas[0], reqsDisplay, l.Difficulty.ToString() }.ToList();
+
+                TableCellMultiple nameCell = new TableCellMultiple(new List<string>());
+                nameCell.Elements.Add($"<div style=\"margin-right: auto\">{l.Name}</div>");
+                if (reqsDisplay != ItemReq.Empty.GetDisplay())
+                    nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
+
+                return new object[] { nameCell, display, l.Difficulty.ToString() }.ToList();
             }).Where(l => l != null).ToList(), "itemlocations"));
             pages.Add("item_locations", page);
             return pages;
@@ -710,6 +714,7 @@ namespace FF12Rando
             public override string ID { get; }
             public int Index { get; }
             public override string Name { get; }
+            public override string LocationImagePath { get; }
             public string Subarea { get; }
             public string MapID { get; }
             public override ItemReq Requirements { get; }
@@ -777,6 +782,7 @@ namespace FF12Rando
             public int IntID { get; }
             public int Index { get; }
             public override string Name { get; }
+            public override string LocationImagePath { get; }
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }
             public override List<string> Areas { get; }
@@ -861,6 +867,7 @@ namespace FF12Rando
             public int IntID { get; }
             public int Index { get; }
             public override string Name { get; }
+            public override string LocationImagePath { get; }
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }
             public override List<string> Areas { get; }

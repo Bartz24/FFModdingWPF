@@ -10,9 +10,12 @@ namespace Bartz24.Docs
         private string HeaderName { get; }
         private List<string> ColumnNames { get; }
         private List<int> ColumnWidths { get; }
-        private List<List<string>> TableContents { get; }
+        private List<List<object>> TableContents { get; }
         private bool EncodeStrings { get; }
-        public Table(string header, List<string> columns, List<int> colWidths, List<List<string>> contents, string id = null, bool encode = true) : base("table", id == null ? header.Replace(" ", "").ToLower() : id)
+        public Table(string header, List<string> columns, List<int> colWidths, List<List<string>> contents, string id = null, bool encode = true) : this(header, columns, colWidths, contents.Select(l => l.Select(s => (object)s).ToList()).ToList(), id, encode)
+        {
+        }
+        public Table(string header, List<string> columns, List<int> colWidths, List<List<object>> contents, string id = null, bool encode = true) : base("table", id == null ? header.Replace(" ", "").ToLower() : id)
         {
             HeaderName = header;
             ColumnNames = columns;
@@ -39,8 +42,6 @@ namespace Bartz24.Docs
         {
             "table table-sm table-dark table-hover align-middle".Split(" ").ToList().ForEach(c => node.AddClass(c));
             node.SetAttributeValue("data-toggle", "table");
-            node.SetAttributeValue("data-search", "true");
-            node.SetAttributeValue("data-search-highlight", "true");
 
             HtmlNode colgroup = HtmlNode.CreateNode("<colgroup></colgroup>");
             foreach (int width in ColumnWidths)
@@ -64,12 +65,18 @@ namespace Bartz24.Docs
 
             HtmlNode body = HtmlNode.CreateNode("<tbody></tbody>");
 
-            foreach (List<string> row in TableContents)
+            foreach (List<object> row in TableContents)
             {
                 HtmlNode rowNode = HtmlNode.CreateNode("<tr></tr>");
-                foreach (string text in row)
+                foreach (object contents in row)
                 {
-                    HtmlNode thNode = HtmlNode.CreateNode($"<td style=\"white-space: pre-line\">{(EncodeStrings ? HtmlDocument.HtmlEncode(text) : text)}</td>");
+                    string innerHtml;
+                    if (contents is string && EncodeStrings)
+                        innerHtml = HtmlDocument.HtmlEncode(contents.ToString());
+                    else
+                        innerHtml = contents.ToString();
+
+                    HtmlNode thNode = HtmlNode.CreateNode($"<td style=\"white-space: pre-line\">{innerHtml}</td>");
                     rowNode.AppendChild(thNode);
                 }
                 body.AppendChild(rowNode);

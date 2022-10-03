@@ -6,8 +6,15 @@
     <link rel="stylesheet" href="common/main.css" />
     <title>TITLE</title>
     <script src="common/jquery-3.6.0.min.js"></script>
-    <script src="common/bootstrap.bundle.min.js"></script>
+    <script src="common/popper.min.js"></script>
+    <script src="common/bootstrap.min.js"></script>
     <script src="common/bootstrap-table.min.js"></script>
+    <script>
+      $(function refreshTooltips() {
+        $('[data-toggle="tooltip"]').tooltip();
+        setTimeout(refreshTooltips, 200);
+      });
+    </script>
   </head>
   <body>
     <div class="container" style="margin-top:50px">

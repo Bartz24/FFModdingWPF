@@ -37,3 +37,11 @@ table.hide5 tbody tr > *:nth-child(5) {
 table.hide6 tbody tr > *:nth-child(6) {
     display: none;
 }
+
+.tooltip-inner {
+    max-width: 100% !important;
+}
+
+.tooltip.show {
+    opacity: 1;
+}

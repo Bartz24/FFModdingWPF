@@ -329,7 +329,7 @@ namespace FF13Rando
             Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
 
-            page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Location", "Requirements" }).ToList(), (new int[] { 30, 25, 15, 30 }).ToList(), itemLocations.Values.Select(t =>
+            page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Difficulty" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), itemLocations.Values.Select(t =>
             {
                 string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1;
                 string name = GetItemName(itemID);
@@ -337,7 +337,13 @@ namespace FF13Rando
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
                 string location = $"{itemLocations[t.ID].Name}";
-                return (new string[] { location, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}", t.Areas[0], reqsDisplay }).ToList();
+
+                TableCellMultiple nameCell = new TableCellMultiple(new List<string>());
+                nameCell.Elements.Add($"<div style=\"margin-right: auto\">{t.Areas[0]} - {location}</div>");
+                if (reqsDisplay != ItemReq.Empty.GetDisplay())
+                    nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
+
+                return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}", t.Difficulty.ToString() }).ToList();
             }).ToList(), "itemlocations"));
 
             pages.Add("item_locations", page);
@@ -365,6 +371,7 @@ namespace FF13Rando
         {
             public override string ID { get; }
             public override string Name { get; }
+            public override string LocationImagePath { get; }
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }
             public override List<string> Areas { get; }
@@ -408,6 +415,7 @@ namespace FF13Rando
             public override string ID { get; }
             public int Index { get; }
             public override string Name { get; }
+            public override string LocationImagePath { get; }
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }
             public override List<string> Areas { get; }
@@ -458,6 +466,7 @@ namespace FF13Rando
         {
             public override string ID { get; }
             public override string Name { get; }
+            public override string LocationImagePath { get; }
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }
             public override List<string> Areas { get; }

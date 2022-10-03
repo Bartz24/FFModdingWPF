@@ -444,14 +444,22 @@ namespace LRRando
 
             HTMLPage page = new HTMLPage("Item Locations", "template/documentation.html");
 
-            page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Location", "Requirements", "'Difficulty'" }).ToList(), (new int[] { 30, 20, 10, 35, 5 }).ToList(), itemLocations.Values.Select(t =>
+            page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Difficulty" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), itemLocations.Values.Select(t =>
             {
                 string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1;
                 string name = GetItemName(itemID);
                 string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
-                return (new string[] { t.Name, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}", t.Areas[0], reqsDisplay, $"{t.Difficulty}" }).ToList();
+
+                TableCellMultiple nameCell = new TableCellMultiple(new List<string>());
+                nameCell.Elements.Add($"<div style=\"margin-right: auto\">{t.Areas[0]} - {t.Name}</div>");
+                if (!string.IsNullOrEmpty(t.LocationImagePath))
+                    nameCell.Elements.Add(new IconTooltip("common/images/map_white_48dp.svg", $"<img src='common/images/locations/{t.LocationImagePath}.jpg' height='200px'/>").ToString());
+                if (reqsDisplay != ItemReq.Empty.GetDisplay())
+                    nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
+
+                return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}", $"{t.Difficulty}" }).ToList();
             }).ToList(), "itemlocations"));
             pages.Add("item_locations", page);
 
@@ -505,6 +513,7 @@ namespace LRRando
         {
             public override string ID { get; }
             public override string Name { get; }
+            public override string LocationImagePath { get; }
             public override int Difficulty { get; }
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }
@@ -520,6 +529,7 @@ namespace LRRando
                 Traits = row[3].Split("|").ToList();
                 Requirements = ItemReq.Parse(row[4]);
                 Difficulty = int.Parse(row[5]);
+                LocationImagePath = row[6];
 
                 rando = treasureRando;
             }
@@ -582,6 +592,7 @@ namespace LRRando
         {
             public override string ID { get; }
             public override string Name { get; }
+            public override string LocationImagePath { get; }
             public override int Difficulty { get; }
             public override ItemReq Requirements { get; }
             public override List<string> Traits { get; }

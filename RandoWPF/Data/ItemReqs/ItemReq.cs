@@ -7,6 +7,7 @@ namespace Bartz24.RandoWPF
 {
     public class ItemReq
     {
+        public static readonly ItemReq Empty = new ItemReq();
         public virtual bool IsValid(Dictionary<string, int> itemsAvailable) { return true; }
 
         public virtual List<string> GetPossibleRequirements() { return new List<string>(); }
@@ -68,6 +69,11 @@ namespace Bartz24.RandoWPF
                         return Item(args[0], 1);
             }
             throw new Exception("Item Requirement parsed is not supported: " + s);
+        }
+
+        public string GetDisplay()
+        {
+            return GetDisplay(_ => "");
         }
 
         public virtual string GetDisplay(Func<string, string> itemNameFunc)
