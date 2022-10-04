@@ -208,7 +208,8 @@ namespace FF13_2Rando
                         if (t.MogLevel > 0)
                             disp += "<br>";
                     }
-                    disp += "Mog Level: " + GetMogLevelRequiredText(t.MogLevel);
+                    if (t.MogLevel > 0)
+                        disp += "Mog Level: " + GetMogLevelRequiredText(t.MogLevel);
 
                     nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", disp).ToString());
                 }

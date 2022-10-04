@@ -342,7 +342,7 @@ namespace FF13Rando
                                       List<string> list = charaSets[c].GetCharaSpecs();
 
                                       //Retrieve "randomised" enemy data (no changes currently)
-                                      string charaspec = enemyRando.charaSpec[e.sEntryBtChSpec_string].sCharaSpec_string;
+                                      string charaspec = enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string;
                                       //Add spec to the list if not already containing
                                       if (!list.Contains(charaspec))
                                           list.Add(charaspec);
@@ -378,7 +378,7 @@ namespace FF13Rando
                                   {
                                       List<string> list = charaSets[c].GetCharaSpecs();
 
-                                      string charaspec = enemyRando.charaSpec[e.sEntryBtChSpec_string].sCharaSpec_string;
+                                      string charaspec = enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string;
                                       if (!list.Contains(charaspec))
                                           list.Add(charaspec);
 

@@ -87,7 +87,7 @@ namespace FF13Rando
                     return b.GetData(orig ? battleRando.btsceneOrig[key] : battleRando.btscene[key]);
                 case TreasureRando.EnemyData e:
                     EnemyRando enemyRando = treasureRando.Randomizers.Get<EnemyRando>();
-                    return e.GetData(orig ? enemyRando.charaSpecOrig[key] : enemyRando.charaSpec[key]);
+                    return e.GetData(orig ? enemyRando.btCharaSpecOrig[key] : enemyRando.btCharaSpec[key]);
                 default:
                     return base.GetLocationItem(key, orig);
             }
@@ -106,8 +106,8 @@ namespace FF13Rando
                     break;
                 case TreasureRando.EnemyData e:
                     EnemyRando enemyRando = treasureRando.Randomizers.Get<EnemyRando>();
-                    e.SetData(enemyRando.charaSpec[key], item, count);
-                    e.LinkedIDs.ForEach(other => e.SetData(enemyRando.charaSpec[other], item, count));
+                    e.SetData(enemyRando.btCharaSpec[key], item, count);
+                    e.LinkedIDs.ForEach(other => e.SetData(enemyRando.btCharaSpec[other], item, count));
                     break;
                 default:
                     base.SetLocationItem(key, item, count);

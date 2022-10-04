@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.7.4.0",
+  "version": "0.7.5.2",
   "flags": [
     {
       "FlagEnabled": true,
@@ -36,6 +36,30 @@
       "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "RandInitStats"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [
+        {
+          "Enabled": false,
+          "ID": "RandTPMax"
+        },
+        {
+          "SelectedValue": "Equal",
+          "ID": "TPBorderType"
+        }
+      ],
+      "FlagID": "RandTPBorder"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Value": 115,
+          "ID": "RunSpeedVal"
+        }
+      ],
+      "FlagID": "RunSpeedMult"
     },
     {
       "FlagEnabled": true,

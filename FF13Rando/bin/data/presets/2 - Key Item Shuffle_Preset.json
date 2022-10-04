@@ -1,6 +1,6 @@
 {
   "name": "2 - Key Item Shuffle",
-  "version": "0.7.4.9",
+  "version": "0.7.5.2",
   "flags": [
     {
       "FlagEnabled": true,
@@ -50,6 +50,16 @@
         }
       ],
       "FlagID": "RandTPBorder"
+    },
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [
+        {
+          "Value": 115,
+          "ID": "RunSpeedVal"
+        }
+      ],
+      "FlagID": "RunSpeedMult"
     },
     {
       "FlagEnabled": true,

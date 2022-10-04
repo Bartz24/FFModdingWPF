@@ -18,9 +18,10 @@ namespace FF13Rando
         }
         public class Stats
         {
-            public static Flag RandCrystAbi, RandCrystStat, ShuffleCrystRole, ScaledCPCosts, RandInitStats, RandTPBorders;
+            public static Flag RandCrystAbi, RandCrystStat, ShuffleCrystRole, ScaledCPCosts, RandInitStats, RandTPBorders, RunSpeedMult;
             public static ToggleFlagProperty RandCrystAbiAll, ShuffleCrystMisc, RandTPMax;
             public static ComboBoxFlagProperty TPBorderType;
+            public static NumberFlagProperty RunSpeedMultValue;
 
             internal static void Init()
             {
@@ -100,6 +101,25 @@ namespace FF13Rando
                     "    Random Type - One of the above types is randomly selected for the seed.",
                     Values = new string[] { "Equal", "Increasing", "Decreasing", "Random Borders", "Random Type" }.ToList()
                 }.Register(RandTPBorders);
+
+                RunSpeedMult = new Flag()
+                {
+                    Text = "Run Speed Multiplier",
+                    FlagID = "RunSpeedMult",
+                    DescriptionFormat = "Increases the run speed all the main party members by the percentage specified.\n" +
+                    "Hope's run speed will match the others."
+                }.Register(FlagType.Stats);
+
+                RunSpeedMultValue = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "",
+                    ID = "RunSpeedVal",
+                    Description = "",
+                    ValueText = "(%): ",
+                    MinValue = 100,
+                    MaxValue = 200,
+                    StepSize = 5
+                }.Register(RunSpeedMult);
             }
         }
         public class Items
