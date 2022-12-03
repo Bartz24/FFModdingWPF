@@ -192,9 +192,9 @@ namespace LRRando
         {
             foreach (DataStoreItemWeapon garb in itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Costume))
             {
-                Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                    Tuple.Create(-75, 100),
-                    Tuple.Create(0, 100)
+                (int, int)[] bounds = {
+                    (-75, 100),
+                    (0, 100)
                 };
                 float[] weights = new float[] { 3, 1 };
                 int[] zeros = new int[] { 50, 5 };
@@ -222,12 +222,12 @@ namespace LRRando
                 StatPoints statPoints;
                 do
                 {
-                    Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        Tuple.Create(-2000, 5000),
-                        Tuple.Create(-2000, 5000),
-                        Tuple.Create(-5000, 20000),
-                        Tuple.Create(-25, 50),
-                        Tuple.Create(-90, 100)
+                    (int, int)[] bounds = {
+                        (-2000, 5000),
+                        (-2000, 5000),
+                        (-5000, 20000),
+                        (-25, 50),
+                        (-90, 100)
                     };
                     float[] weights = new float[] { 2, 2, 3, 6, 4 };
                     int[] zeros = new int[] { 10, 10, 85, 60, 80 };
@@ -258,12 +258,12 @@ namespace LRRando
                 StatPoints statPoints;
                 do
                 {
-                    Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        Tuple.Create(-2000, 5000),
-                        Tuple.Create(-2000, 5000),
-                        Tuple.Create(-5000, 20000),
-                        Tuple.Create(-25, 50),
-                        Tuple.Create(0, 800)
+                    (int, int)[] bounds = {
+                        (-2000, 5000),
+                        (-2000, 5000),
+                        (-5000, 20000),
+                        (-25, 50),
+                        (0, 800)
                     };
                     float[] weights = new float[] { 6, 6, 2, 4, 4 };
                     int[] zeros = new int[] { 90, 90, 40, 30, 20 };

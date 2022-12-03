@@ -32,12 +32,27 @@ namespace Bartz24.FF13_2_LR
             {
                 using (IDbConnection con = CreateConnection(path))
                 {
-                    int maxId = con.Query<int>($"select max(main_id) from \"{tableName}\"").First();
-                    List<T> insert = data.Where(p => p.Key > maxId).Select(p => p.Value).ToList();
-                    List<T> update = data.Where(p => p.Key <= maxId).Select(p => p.Value).ToList();
-                    con.Execute(GetUpdateQuery<T>(tableName), update);
-                    if (insert.Count > 0)
-                        con.Execute(GetInsertQuery<T>(tableName), insert);
+                    con.Open();
+                    using (IDbTransaction transaction = con.BeginTransaction())
+                    {
+                        int maxId = con.Query<int>($"select max(main_id) from \"{tableName}\"").First();
+                        List<T> insert = data.Where(p => p.Key > maxId).Select(p => p.Value).ToList();
+                        List<T> update = data.Where(p => p.Key <= maxId).Select(p => p.Value).ToList();
+
+                        // Batch the insert and update operations.
+                        const int batchSize = 1000;
+                        for (int i = 0; i < insert.Count; i += batchSize)
+                        {
+                            con.Execute(GetInsertQuery<T>(tableName), insert.Skip(i).Take(batchSize), transaction);
+                        }
+                        for (int i = 0; i < update.Count; i += batchSize)
+                        {
+                            con.Execute(GetUpdateQuery<T>(tableName), update.Skip(i).Take(batchSize), transaction);
+                        }
+
+                        // Commit the transaction.
+                        transaction.Commit();
+                    }
                 }
             }
             catch (Exception e)

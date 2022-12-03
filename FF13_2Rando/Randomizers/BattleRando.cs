@@ -17,12 +17,16 @@ namespace FF13_2Rando
     {
         public DataStoreDB3<DataStoreBtScene> btScenes = new DataStoreDB3<DataStoreBtScene>();
         DataStoreDB3<DataStoreRCharaSet> charaSets = new DataStoreDB3<DataStoreRCharaSet>();
+
+        public Dictionary<string, DataStoreDB3<DataStoreBtSTable>> btTables = new Dictionary<string, DataStoreDB3<DataStoreBtSTable>>();
+
         Dictionary<string, EnemyData> enemyData = new Dictionary<string, EnemyData>();
         Dictionary<string, Dictionary<string, BossData>> bossData = new Dictionary<string, Dictionary<string, BossData>>();
-
-        Dictionary<string, Dictionary<string, string>> charaSetEnemyMappings = new Dictionary<string, Dictionary<string, string>>();
+        public Dictionary<string, BattleData> battleData = new Dictionary<string, BattleData>();
 
         Dictionary<string, string> shuffledBosses = new Dictionary<string, string>();
+        public Dictionary<string, (int, int)> areaBounds = new Dictionary<string, (int, int)>();
+        Dictionary<string, (int, int)> areaBoundsOrig = new Dictionary<string, (int, int)>();
 
         public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
 
@@ -50,15 +54,48 @@ namespace FF13_2Rando
                 }
             }
 
+            FileHelpers.ReadCSVFile(@"data\battlescenes.csv", row =>
+            {
+                BattleData b = new BattleData(row);
+                battleData.Add(b.ID, b);
+            }, FileHelpers.CSVFileHeader.HasHeader);
+
+            HistoriaCruxRando historiaCruxRando = Randomizers.Get<HistoriaCruxRando>();
+            historiaCruxRando.areaData.Values.Where(a => !string.IsNullOrEmpty(a.BattleTableID)).ForEach(a =>
+            {
+                DataStoreDB3<DataStoreBtSTable> table = new DataStoreDB3<DataStoreBtSTable>();
+                table.LoadDB3("13-2", @"\db\btscenetable\" + a.BattleTableID + ".wdb");
+                btTables.Add(a.BattleTableID, table);
+            });
         }
         public override void Randomize(Action<int> progressSetter)
         {
             Randomizers.SetProgressFunc("Randomizing Battle Data...", 0, -1);
             EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
-            charaSetEnemyMappings = CharaSetMapping.Values.SelectMany(a => a).Distinct().ToDictionary(s => s, _ => new Dictionary<string, string>());
             if (FF13_2Flags.Enemies.EnemyLocations.FlagEnabled)
             {
                 FF13_2Flags.Enemies.EnemyLocations.SetRand();
+
+                areaBounds = GetAreaRankBounds();
+                areaBoundsOrig = new Dictionary<string, (int, int)>(areaBounds);
+
+                TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+                List<string> areaUnlockOrder = treasureRando.PlacementAlgo.Logic.GetPropValue<List<string>>("AreaUnlockOrder");
+                areaUnlockOrder = areaUnlockOrder.Where(a => areaBounds.ContainsKey(a)).ToList();
+                areaUnlockOrder.AddRange(areaBounds.Keys.Where(a => !areaUnlockOrder.Contains(a)));
+
+                RandomNum.ShuffleWeightedOrder(areaUnlockOrder, (i1, a1, i2, a2) => {
+                    if (i1 < 5 || i2 < 5)
+                        return 0;
+                    return Math.Abs(i1 - i2) < 3 ? 1 : 0;
+                });
+                List<int> newMins = areaBounds.Values.Select(t => t.Item1).OrderBy(i => i).ToList();
+                for (int i = 0; i < areaBounds.Count; i++)
+                {
+                    string area = areaUnlockOrder[i];
+                    areaBounds[area] = (newMins[i], (int)(newMins[i] * ((float)areaBounds[area].Item2 / areaBounds[area].Item1)));
+                }
+
                 if (FF13_2Flags.Enemies.Bosses.Enabled)
                 {
                     List<string> list = bossData.Keys.Where(g => !bossData[g].Values.First(b => b.Traits.Contains("Main")).Traits.Contains("NoShuffle")).ToList();
@@ -68,7 +105,9 @@ namespace FF13_2Rando
                     List<string> shuffled = list.Shuffle().ToList();
                     shuffledBosses = Enumerable.Range(0, list.Count).ToDictionary(i => list[i], i => shuffled[i]);
                 }
-                btScenes.Values.Where(b => !IgnoredBtScenes.Contains(b.name)).ForEach(b =>
+
+
+                btScenes.Values.ForEach(b =>
                 {
                     List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Select(s => enemyData[s]).ToList();
                     int count = oldEnemies.Count;
@@ -92,40 +131,68 @@ namespace FF13_2Rando
                     {
                         if (!oldEnemies[0].Traits.Contains("Boss") || FF13_2Flags.Enemies.Bosses.Enabled)
                         {
-                            List<EnemyData> newEnemies = new List<EnemyData>();
-                            List<string> charSpecs = new List<string>();
-
                             List<EnemyData> validEnemies = enemyData.Values.ToList();
-                            if (CharaSetMapping.ContainsKey(b.name))
+                            if (battleData.ContainsKey(b.name))
                             {
                                 validEnemies = validEnemies.Where(e => e.Parts.Count() == 0).ToList();
                             }
 
-                            UpdateEnemyLists(oldEnemies, newEnemies, charSpecs, validEnemies, b.name, b.name.StartsWith("btsc011"));
-
-                            if (newEnemies.Count > 0)
-                            {
-                                if (charSpecs.Count > newEnemies.Sum(e => e.Size))
-                                    b.u4BtChInitSetNum = newEnemies.Sum(e => e.Size);
-                                else
-                                    b.u4BtChInitSetNum = 0;
-                                b.SetCharSpecs(charSpecs);
-                                if (CharaSetMapping.ContainsKey(b.name))
-                                {
-                                    CharaSetMapping[b.name].ForEach(m =>
-                                    {
-                                        List<string> specs = charaSets[m].GetCharaSpecs();
-                                        specs.AddRange(charSpecs.Where(s => !specs.Contains(s)).Select(s => enemyRando.HasEnemy(s) ? enemyRando.GetEnemy(s).sCharaSpec_string : s));
-                                        specs = specs.Distinct().ToList();
-                                        charaSets[m].SetCharaSpecs(specs);
-                                    });
-                                }
-                            }
+                            UpdateEnemyLists(oldEnemies, validEnemies, b.name, b.name.StartsWith("btsc011"));
                         }
                     }
                 });
                 RandomNum.ClearRand();
             }
+        }
+
+        private Dictionary<string, (int, int)> GetAreaRankBounds()
+        {
+            Dictionary<string, (int, int)> areaBounds = new Dictionary<string, (int, int)>();
+            HistoriaCruxRando historiaCruxRando = Randomizers.Get<HistoriaCruxRando>();
+            historiaCruxRando.areaData.Values.ForEach(a =>
+            {
+                HashSet<int> ranks = new HashSet<int>();
+
+                if (!string.IsNullOrEmpty(a.BattleTableID))
+                {
+                    btTables[a.BattleTableID].Values
+                    .SelectMany(bt => bt.GetBattleIDs()
+                        .Where(id => btScenes.Keys.Contains($"btsc{id.ToString("D5")}"))
+                        .Select(id => btScenes[$"btsc{id.ToString("D5")}"]))
+                    .Distinct()
+                    .Select(b => GetBattleRank(b))
+                    .Where(i => i > 0)
+                    .ForEach(i => ranks.Add(i));
+                }
+
+                if (ranks.Count > 0)
+                    areaBounds.Add(a.ID, (ranks.Min(), ranks.Max()));
+            });
+            return areaBounds;
+        }
+
+        private int GetBattleRank(DataStoreBtScene b)
+        {
+            List<EnemyData> enemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Select(s => enemyData[s]).ToList();
+            return enemies.Count > 0 ? enemies.Select(e => e.Rank).Max() : 0;
+        }
+
+        private List<string> GetAreasWithBattle(string btsceneName)
+        {
+            HistoriaCruxRando historiaCruxRando = Randomizers.Get<HistoriaCruxRando>();
+            List<string> list = btTables.Keys
+                .Where(id => btTables[id].Values
+                    .SelectMany(bt => bt.GetBattleIDs()).Distinct()
+                    .Where(i => btsceneName == "btsc" + i.ToString("D5")).Count() > 0)
+                .Select(id => historiaCruxRando.areaData.Values.First(a => a.BattleTableID == id).ID)
+                .ToList();
+
+            if (battleData.ContainsKey(btsceneName) && !list.Contains(battleData[btsceneName].LocationID))
+            {
+                list.Add(battleData[btsceneName].LocationID);
+            }
+
+            return list;
         }
 
         private void UpdateBossStats(BossData newBoss, BossData origBoss)
@@ -170,14 +237,10 @@ namespace FF13_2Rando
             newEnemy.u14DropProb2 = origEnemy.u14DropProb2;
         }
 
-        private void UpdateEnemyLists(List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, List<EnemyData> allowed, string btsceneName, bool sameRank)
+        private void UpdateEnemyLists(List<EnemyData> oldEnemies, List<EnemyData> allowed, string btsceneName, bool sameRank)
         {
-            int maxVariety = 3;
-            int attempts = 0;
-
             EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
-            newEnemies.Clear();
-            charSpecs.Clear();
+            List<EnemyData> newEnemies = new List<EnemyData>();
             if (oldEnemies[0].Traits.Contains("Boss"))
             {
                 bool noEntry = true;
@@ -211,188 +274,144 @@ namespace FF13_2Rando
                         btScenes[btsceneName].s10BtChEntryId_string = "btsc_def_e00";
                         btScenes[btsceneName].s10PartyEntryId_string = "btsc_def_p00";
                     }
-                    charSpecs.AddRange(newEnemies.Select(e => e.ID));
                 }
             }
             else
             {
-                while (charSpecs.Count == 0 || charSpecs.Count > (FF13_2Flags.Enemies.LargeEnc.Enabled ? 10 : 5))
+                List<string> areas = GetAreasWithBattle(btsceneName);
+                if (areas.Count == 0)
+                    return;
+
+                int oldRankMin = areaBoundsOrig.Keys.Where(a => areas.Contains(a)).Select(a => areaBoundsOrig[a].Item1).Min();
+                int oldRankMax = areaBoundsOrig.Keys.Where(a => areas.Contains(a)).Select(a => areaBoundsOrig[a].Item2).Max();
+                int newRankMin = areaBounds.Keys.Where(a => areas.Contains(a)).Select(a => areaBounds[a].Item1).Min();
+                int newRankMax = areaBounds.Keys.Where(a => areas.Contains(a)).Select(a => areaBounds[a].Item2).Max();
+                newEnemies.Clear();
+
+                oldEnemies.ForEach(oldEnemy =>
                 {
-                    charSpecs.Clear();
-                    newEnemies.Clear();
-                    foreach (EnemyData oldEnemy in oldEnemies)
+
+                    bool canAdd = false;
+                    int attempts = -1;
+                    EnemyData newEnemy = null;
+
+                    List<string> ignored = new List<string>();
+
+                    do
                     {
-                        Func<EnemyData, bool> pred = e => e.Rank >= oldEnemy.Rank - 2 && e.Rank <= oldEnemy.Rank + 2 && !e.Traits.Contains("Boss");
-                        Func<EnemyData, bool> predSame = e => e.Rank == oldEnemy.Rank && !e.Traits.Contains("Boss");
 
-                        if (CharaSetMapping.ContainsKey(btsceneName))
-                        {
-                            string newMapping = CharaSetMapping[btsceneName].Where(c => charaSetEnemyMappings[c].ContainsKey(oldEnemy.ID)).Select(c => charaSetEnemyMappings[c][oldEnemy.ID]).FirstOrDefault();
-                            if (newMapping == null)
-                            {
-                                newMapping = allowed.Where(sameRank ? predSame : pred)
-                                .Shuffle().First().ID;
-                            }
-
-                            newEnemies.Add(enemyData[newMapping]);
-                            foreach (string charaset in CharaSetMapping[btsceneName])
-                            {
-                                if (!charaSetEnemyMappings[charaset].ContainsKey(oldEnemy.ID))
-                                    charaSetEnemyMappings[charaset].Add(oldEnemy.ID, newMapping);
-                            }
-                        }
-                        else if (maxVariety > 0 && newEnemies.Distinct().Count() >= maxVariety)
-                        {
-                            if (attempts > 20)
-                            {
-                                newEnemies.Add(newEnemies.Shuffle().First());
-                            }
-                            else if (newEnemies.Where(sameRank ? predSame : pred).Count() > 0)
-                            {
-                                newEnemies.Add(newEnemies.Where(sameRank ? predSame : pred)
-                            .Shuffle().First());
-                            }
-                            else
-                            {
-                                newEnemies.Clear();
-                                attempts++;
-                                break;
-                            }
-                        }
+                        attempts++;
+                        canAdd = false;
+                        int newRank;
+                        if (oldRankMax > oldRankMin)
+                            newRank = (int)Math.Round((oldEnemy.Rank - oldRankMin) * ((float)newRankMax - newRankMin) / ((float)oldRankMax - oldRankMin)) + newRankMin;
                         else
+                            newRank = (int)Math.Round((oldEnemy.Rank - oldRankMin) * ((float)newRankMax - newRankMin)) + newRankMin;
+
+                        int range = attempts + FF13_2Flags.Enemies.EnemyRank.Value;
+                        if (sameRank)
+                            range -= 2;
+                        List<string> possible = enemyData.Keys.Where(e => !ignored.Contains(e)).Where(newE =>
                         {
-                            EnemyData next = allowed.Where(sameRank ? predSame : pred)
-                            .Shuffle().First();
-                            newEnemies.Add(next);
+                            return enemyData[newE].Rank >= newRank - range && enemyData[newE].Rank <= newRank + range;
+                        }).ToList();
+
+                        if (possible.Count == 0)
+                        {
+                            continue;
                         }
 
+                        canAdd = true;
+                        newEnemy = enemyData[RandomNum.SelectRandomWeighted(possible, _ => 1)];
+                        if (oldEnemies.Contains(newEnemy))
+                        {
+                            break;
+                        }
+                        if (battleData.ContainsKey(btsceneName))
+                        {
+                            battleData[btsceneName].Charasets.ForEach(c =>
+                            {
+                                List<string> list = charaSets[c].GetCharaSpecs();
+
+                                string spec = enemyRando.HasEnemy(newEnemy.ID) ? enemyRando.GetEnemy(newEnemy.ID).sCharaSpec_string : newEnemy.ID;
+                                if (!list.Contains(spec))
+                                    list.Add(spec);
+                                newEnemy.Parts.ForEach(id =>
+                                {
+                                    string spec = enemyRando.HasEnemy(newEnemy.ID) ? enemyRando.GetEnemy(newEnemy.ID).sCharaSpec_string : newEnemy.ID;
+                                    if (!list.Contains(spec))
+                                        list.Add(spec);
+                                });
+
+                                if (list.Count > battleData[btsceneName].CharasetLimit && list.Count > charaSets[c].GetCharaSpecs().Count)
+                                {
+                                    canAdd = false;
+                                    ignored.Add(newEnemy.ID);
+                                    if (possible.Count == 0)
+                                    {
+                                        newEnemy = oldEnemy;
+                                    }
+                                }
+                            });
+                        }
+                    } while (!canAdd);
+
+                    if (newEnemy == null)
+                        throw new Exception("Failed to add an enemy to " + btsceneName);
+                    newEnemies.Add(newEnemy);
+                });
+            }
+
+            List<string> charaSpecs = newEnemies.Select(e => e.ID).ToList();
+            charaSpecs.AddRange(newEnemies.SelectMany(e => e.Parts).Distinct().Where(s => !charaSpecs.Contains(s)));
+            btScenes[btsceneName].SetCharSpecs(charaSpecs);
+
+            if (battleData.ContainsKey(btsceneName))
+            {
+                charaSpecs.Select(spec => enemyRando.HasEnemy(spec) ? enemyRando.GetEnemy(spec).sCharaSpec_string : spec).ForEach(spec =>
+                {
+                    battleData[btsceneName].Charasets.ForEach(c =>
+                    {
+                        List<string> list = charaSets[c].GetCharaSpecs();
+
+                        if (!list.Contains(spec))
+                            list.Add(spec);
+
+                        charaSets[c].SetCharaSpecs(list);
+                    });
+                });
+            }
+
+            if (charaSpecs.Count > newEnemies.Count)
+                btScenes[btsceneName].u4BtChInitSetNum = newEnemies.Sum(e => e.Size);
+            else
+                btScenes[btsceneName].u4BtChInitSetNum = 0;
+        }
+
+        public Dictionary<string, int> GetAreaDifficulties()
+        {
+            Dictionary<string, List<int>> diffs = new Dictionary<string, List<int>>();
+            btScenes.Keys.ForEach(id =>
+            {
+                List<string> areas = GetAreasWithBattle(id);
+                if (areas.Count > 0)
+                {
+                    List<EnemyData> oldEnemies = btScenes[id].GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Select(s => enemyData[s]).ToList();
+
+                    if (oldEnemies.Count > 0)
+                    {
+                        int diff = (int)(oldEnemies.Max(e => e.Rank) * Math.Pow(1.05, oldEnemies.Count));
+                        areas.ForEach(a =>
+                        {
+                            if (!diffs.ContainsKey(a))
+                                diffs.Add(a, new List<int>());
+                            diffs[a].Add(diff);
+                        });
                     }
-                    charSpecs.AddRange(newEnemies.Select(e => e.ID));
-                    newEnemies.Where(e => e.Parts.Count > 0).Distinct().ForEach(e => charSpecs.AddRange(e.Parts));
                 }
-            }
-        }
+            });
 
-        private List<string> IgnoredBtScenes
-        {
-            get
-            {
-                List<string> list = new List<string>();
-                list.Add("btsc08000");
-                list.Add("btsc08001");
-                list.Add("btsc08002");
-                list.Add("btsc08003");
-                list.Add("btsc08010");
-                list.Add("btsc08011");
-                list.Add("btsc08012");
-                list.Add("btsc08013");
-                list.Add("btsc08014");
-                list.Add("btsc08020");
-                list.Add("btsc08021");
-                list.Add("btsc08022");
-                list.Add("btsc08023");
-                list.Add("btsc08510");
-                list.Add("btsc08511");
-                list.Add("btsc08512");
-                list.Add("btsc08513");
-                list.Add("btsc08520");
-                list.Add("btsc08521");
-                list.Add("btsc08522");
-                list.Add("btsc08700");
-
-                return list;
-            }
-        }
-
-        private Dictionary<string, string[]> CharaSetMapping
-        {
-            get
-            {
-                Dictionary<string, string[]> dict = new Dictionary<string, string[]>();
-
-                dict.Add("btsc01110", new string[] { "chset_hmaa_001", "chset_hmaa_e025" });
-                dict.Add("btsc01120", new string[] { "chset_hmaa_001" });
-                dict.Add("btsc01130", new string[] { "chset_hmaa_001" });
-                dict.Add("btsc01140", new string[] { "chset_hmaa_001" });
-
-                dict.Add("btsc01900", new string[] { "chset_hmaa_e050" });
-                dict.Add("btsc01910", new string[] { "chset_hmaa_e130" });
-
-                dict.Add("btsc02050", new string[] { "chset_bjaa_tuto" });
-                dict.Add("btsc02001", new string[] { "chset_bjaa_tuto" });
-
-                dict.Add("btsc02810", new string[] { "chset_bjba_def" });
-
-                dict.Add("btsc03900", new string[] { "chset_gyaa_020" });
-
-                dict.Add("btsc04900", new string[] { "chset_gwca_def" });
-                dict.Add("btsc04909", new string[] { "chset_gwca_def" });
-
-                dict.Add("btsc05920", new string[] { "chset_snda_002" });
-                dict.Add("btsc05950", new string[] { "chset_snda_npc" });
-                dict.Add("btsc05960", new string[] { "chset_snda_npc" });
-
-                dict.Add("btsc05800", new string[] { "chset_snea_def", "chset_snea_load" });
-
-                dict.Add("btsc06100", new string[] { "chset_clzb_lig" });
-                dict.Add("btsc06110", new string[] { "chset_clzb_lig" });
-
-                dict.Add("btsc06500", new string[] { "chset_clzb_gil" });
-                dict.Add("btsc06510", new string[] { "chset_clzb_gil" });
-
-                dict.Add("btsc06600", new string[] { "chset_clzb_snw" });
-
-                dict.Add("btsc07800", new string[] { "chset_gdza_p2h" });
-                dict.Add("btsc07810", new string[] { "chset_gdza_p2s" });
-                dict.Add("btsc07820", new string[] { "chset_gdza_p3r" });
-                dict.Add("btsc07830", new string[] { "chset_gdza_p3t" });
-
-                dict.Add("btsc08000", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08001", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08002", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08003", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08510", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08511", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08512", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08020", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08021", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08022", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08023", new string[] { "chset_acea_001" });
-                dict.Add("btsc08032", new string[] { "chset_acea_001" });
-                dict.Add("btsc08040", new string[] { "chset_acea_001", "chset_acea_002" });
-
-                dict.Add("btsc08513", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08520", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08521", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08522", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08014", new string[] { "chset_acea_001", "chset_acea_002" });
-                dict.Add("btsc08050", new string[] { "chset_acea_002" });
-
-                dict.Add("btsc08700", new string[] { "chset_acea_e030" });
-                dict.Add("btsc08710", new string[] { "chset_acea_e060" });
-                dict.Add("btsc08720", new string[] { "chset_acea_e060" });
-
-                dict.Add("btsc09830", new string[] { "chset_gtca_def" });
-                dict.Add("btsc09900", new string[] { "chset_gtca_def" });
-                dict.Add("btsc09910", new string[] { "chset_gtca_def" });
-                dict.Add("btsc09920", new string[] { "chset_gtca_def" });
-
-                dict.Add("btsc11900", new string[] { "chset_spza_def" });
-                dict.Add("btsc11909", new string[] { "chset_spza_def" });
-
-                dict.Add("btsc11910", new string[] { "chset_acfa_e012" });
-
-                dict.Add("btsc13900", new string[] { "chset_ddha_e030" });
-                dict.Add("btsc13909", new string[] { "chset_ddha_e030" });
-                dict.Add("btsc13950", new string[] { "chset_ddha_e040" });
-
-                dict.Add("btsc15900", new string[] { "chset_lsza_d01a" });
-                dict.Add("btsc15910", new string[] { "chset_lsza_d01a" });
-                dict.Add("btsc15950", new string[] { "chset_lsza_d01a" });
-                dict.Add("btsc15990", new string[] { "chset_lsza_d03b" });
-
-                return dict;
-            }
+            return diffs.ToDictionary(p => p.Key, p => (int)Math.Ceiling(p.Value.Average()));
         }
 
         public override Dictionary<string, HTMLPage> GetDocumentation()
@@ -421,49 +440,78 @@ namespace FF13_2Rando
 
             charaSets.SaveDB3(@"\db\resident\_wdbpack.bin\r_charaset.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_charaset.wdb");
-        }
-        public class EnemyData
-        {
-            public string ID { get; set; }
-            public string Name { get; set; }
-            public List<string> Traits { get; set; }
-            public int Rank { get; set; }
-            public int Size { get; set; }
-            public List<string> Parts { get; set; }
-            public EnemyData(string[] row)
+
+            btTables.Keys.ForEach(id =>
             {
-                ID = row[0];
-                Name = row[1];
-                Traits = row[2].Split("|").ToList();
-                Rank = int.Parse(row[3]);
-                Size = int.Parse(row[4]);
-                Parts = row.Skip(5).Where(s => !String.IsNullOrEmpty(s)).ToList();
+                btTables[id].DeleteDB3(@"\db\btscenetable\" + id + ".db3");
+            });
+        }
+        public class EnemyData : CSVDataRow
+        {
+
+            [RowIndex(0)]
+            public string ID { get; set; }
+            [RowIndex(1)]
+            public string Name { get; set; }
+            [RowIndex(2)]
+            public List<string> Traits { get; set; }
+            [RowIndex(3)]
+            public int Rank { get; set; }
+            [RowIndex(4)]
+            public int Size { get; set; }
+            [RowIndex(5)]
+            public List<string> Parts { get; set; }
+
+            public EnemyData(string[] row) : base(row)
+            {
             }
         }
-        public class BossData
+        public class BossData : CSVDataRow
         {
+            [RowIndex(0)]
             public string Group { get; set; }
+            [RowIndex(1)]
             public int Rank { get; set; }
+            [RowIndex(2)]
             public string ID { get; set; }
+            [RowIndex(3)]
             public float HPMult { get; set; }
+            [RowIndex(4)]
             public float STRMult { get; set; }
+            [RowIndex(5)]
             public float MAGMult { get; set; }
+            [RowIndex(6)]
             public float StaggerPointMult { get; set; }
+            [RowIndex(7)]
             public float ChainResMult { get; set; }
+            [RowIndex(8)]
             public float CPGilMult { get; set; }
+            [RowIndex(9)]
             public List<string> Traits { get; set; }
-            public BossData(string[] row)
+
+            public BossData(string[] row) : base(row)
             {
-                Group = row[0];
-                Rank = int.Parse(row[1]);
-                ID = row[2];
-                HPMult = int.Parse(row[3]) == -1 ? -1 : int.Parse(row[3]) / 100f;
-                STRMult = int.Parse(row[4]) == -1 ? -1 : int.Parse(row[4]) / 100f;
-                MAGMult = int.Parse(row[5]) == -1 ? -1 : int.Parse(row[5]) / 100f;
-                StaggerPointMult = int.Parse(row[6]) == -1 ? -1 : int.Parse(row[6]) / 100f;
-                ChainResMult = int.Parse(row[7]) == -1 ? -1 : int.Parse(row[7]) / 100f;
-                CPGilMult = int.Parse(row[8]) == -1 ? -1 : int.Parse(row[8]) / 100f;
-                Traits = row[9].Split("|").ToList();
+            }
+        }
+
+        public class BattleData : CSVDataRow
+        {
+            [RowIndex(0)]
+            public string ID { get; set; }
+            [RowIndex(1)]
+            public string Name { get; set; }
+            [RowIndex(2)]
+            public string Location { get; set; }
+            [RowIndex(3)]
+            public string LocationID { get; set; }
+            [RowIndex(4)]
+            public List<string> Charasets { get; set; }
+            [RowIndex(5)]
+            public List<string> Traits { get; set; }
+            [RowIndex(6)]
+            public int CharasetLimit { get; set; }
+            public BattleData(string[] row) : base(row)
+            {
             }
         }
     }

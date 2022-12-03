@@ -1,0 +1,51 @@
+﻿Group,Rank,ID,HP,STR,MAG,Stagger,Chain Res,CP,LYB File,LYB Offsets,Traits
+Manasvin Warmech 1,0,m129,100,100,100,100,100,100,scene00016,79890,Main|Large
+Manasvin Warmech 2,0,m129_01,100,100,100,100,100,100,scene00016,79A08,Main|Large
+PSICOM Marauder,1,m166,100,100,100,100,100,100,,,Main
+Beta Behemoth,2,m016,100,100,100,100,100,100,,,Main
+Anima,3,m203,100,100,100,100,100,100,scene00017,6FEB8,Main
+Manasvin Warmech 3,4,m130,100,100,100,100,100,100,,,Main|Large
+Garuda Interceptor 1,5,m048,100,100,100,100,100,100,,,Main
+Garuda Interceptor 2,5,m048_s1,100,100,100,100,100,100,,,Main
+Garuda Interceptor 2,5,m048_s2,100,100,100,100,100,100,,,
+Dreadnought 1,6,m012,100,100,100,100,100,100,,,Main
+Dreadnought 2,7,m012_2,100,100,100,100,100,100,,,Main
+Aster Protoflorian,8,m097,100,100,100,100,100,100,,,Main
+Aster Protoflorian,8,m097_f,100,100,100,100,100,100,,,
+Aster Protoflorian,8,m097_i,100,100,100,100,100,100,,,
+Aster Protoflorian,8,m097_t,100,100,100,100,100,100,,,
+Aster Protoflorian,8,m097_w,100,100,100,100,100,100,,,
+Enlil,9,m233,50,50,50,50,50,50,,,Main
+Enki,9,m234,50,50,50,50,50,50,,,Main
+Ushumgal Subjugator 1,10,m019_x1,100,100,100,100,100,100,,,Main|Large
+Ushumgal Subjugator 1,10,m019_x1_berserk,100,100,100,100,100,100,,,Large
+Ushumgal Subjugator Hope,10,m019_hope,100,100,100,100,100,100,,,Main|Large
+Ushumgal Subjugator 2,11,m019,100,100,100,100,100,100,,,Main|Large
+Kalavinka Striker 1,12,m049,100,100,100,100,100,100,,,Main
+Kalavinka Striker 2,13,m049_2,100,100,100,100,100,100,,,Main
+Barthandelus 1,14,m300,100,100,100,100,100,100,,,Main|Large
+Barthandelus 1,14,m300_hard,100,100,100,100,100,100,,,Large
+Cid Raines,15,m232,100,100,100,100,100,100,,,Main
+Cid Raines,15,m232_atk,100,100,100,100,100,100,,,
+Cid Raines,15,m232_def,100,100,100,100,100,100,,,
+Cid Raines,15,m232_full,100,100,100,100,100,100,,,
+Cid Raines,15,m232_hlr,100,100,100,100,100,100,,,
+Dahaka,16,m210,100,100,100,100,100,100,,,Main|Large
+Dahaka,16,m210_f,100,100,100,100,100,100,,,Large
+Dahaka,16,m210_i,100,100,100,100,100,100,,,Large
+Dahaka,16,m210_x1,100,100,100,100,100,100,,,Large
+Dahaka,16,m210_z,100,100,100,100,100,100,,,Large
+Barthandelus 2,17,m310,100,100,100,100,100,100,,,Main|Large
+Barthandelus 2,17,m310_s1,100,100,100,100,100,100,,,Large
+Anavatapta Warmech,18,m131,100,100,100,100,100,100,,,Main|Large
+Anavatapta Warmech,18,m131_barrier,100,100,100,100,100,100,,,Large
+Proudclad 1,19,m154_ez,100,100,100,100,100,100,,,Main|Large
+Proudclad 1,19,m154_ez_pw,100,100,100,100,100,100,,,Large
+Proudclad 2,20,m154,100,100,100,100,100,100,,,Main|Large
+Proudclad 2,20,m154_pw,100,100,100,100,100,100,,,Large
+Proudclad 2,20,m154_x1,100,100,100,100,100,100,,,Large
+Proudclad 2,20,m154_x1_pw,100,100,100,100,100,100,,,Large
+Tiamat Eliminator,21,m137,100,100,100,100,100,100,,,Main|Large
+Barthandelus 3,22,m320,100,100,100,100,100,100,,,Main|Large
+Orphan 2,23,m360,100,100,100,100,100,100,,,Main
+Orphan 2,23,m360_brk,100,100,100,100,100,100,,,

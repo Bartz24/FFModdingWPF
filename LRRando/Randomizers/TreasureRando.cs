@@ -209,22 +209,22 @@ namespace LRRando
                             return true;
                         return false;
                     };
-                    if (RandomEquip.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Item1))
+                    if (RandomEquip.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1))
                     {
-                        string next = RemainingEquip.Where(s => !isSame || sameCheck(s, PlacementAlgo.Logic.GetLocationItem(key, false).Item1)).Shuffle().First();
+                        string next = RemainingEquip.Where(s => !isSame || sameCheck(s, PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1)).Shuffle().First();
                         RemainingEquip.Remove(next);
                         PlacementAlgo.Logic.SetLocationItem(key, next, 1);
                     }
-                    if (RandomAdorn.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Item1))
+                    if (RandomAdorn.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1))
                     {
-                        string next = RemainingAdorn.Where(s => !isSame || sameCheck(s, PlacementAlgo.Logic.GetLocationItem(key, false).Item1)).Shuffle().First();
+                        string next = RemainingAdorn.Where(s => !isSame || sameCheck(s, PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1)).Shuffle().First();
                         RemainingAdorn.Remove(next);
                         PlacementAlgo.Logic.SetLocationItem(key, next, 1);
                     }
 
-                    if (equipRando.items.Keys.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Item1) && equipRando.IsAbility(equipRando.items[PlacementAlgo.Logic.GetLocationItem(key, false).Item1]))
+                    if (equipRando.items.Keys.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1) && equipRando.IsAbility(equipRando.items[PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1]))
                     {
-                        string lv = PlacementAlgo.Logic.GetLocationItem(key, false).Item1.Substring(PlacementAlgo.Logic.GetLocationItem(key, false).Item1.Length - 3);
+                        string lv = PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1.Substring(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1.Length - 3);
                         string next = equipRando.GetAbilities(-1).Shuffle().First().sScriptId_string;
                         PlacementAlgo.Logic.SetLocationItem(key, next + lv, 1);
                     }
@@ -254,7 +254,7 @@ namespace LRRando
 
         public bool IsEPAbility(string t, bool orig = true)
         {
-            return PlacementAlgo.Logic.GetLocationItem(t, orig).Item1.StartsWith("ti") || PlacementAlgo.Logic.GetLocationItem(t, orig).Item1 == "at900_00";
+            return PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("ti") || PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1 == "at900_00";
         }
 
         public bool IsMainKeyItem(string t)
@@ -402,7 +402,7 @@ namespace LRRando
                 case 0:
                 default:
                     {
-                        return $"{t.Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1)}";
+                        return $"{t.Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1)}";
                     }
                 case 1:
                     {
@@ -422,7 +422,7 @@ namespace LRRando
                     }
                 case 2:
                     {
-                        return $"{t.Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1)}";
+                        return $"{t.Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1)}";
                     }
                 case 3:
                     {
@@ -446,7 +446,7 @@ namespace LRRando
 
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Difficulty" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), itemLocations.Values.Select(t =>
             {
-                string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1;
+                string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1;
                 string name = GetItemName(itemID);
                 string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
@@ -459,7 +459,7 @@ namespace LRRando
                 if (reqsDisplay != ItemReq.Empty.GetDisplay())
                     nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
 
-                return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}", $"{t.Difficulty}" }).ToList();
+                return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item2}", $"{t.Difficulty}" }).ToList();
             }).ToList(), "itemlocations"));
             pages.Add("item_locations", page);
 
@@ -581,10 +581,10 @@ namespace LRRando
                 t.iItemCount = newCount;
             }
 
-            public override Tuple<string, int> GetData(dynamic obj)
+            public override (string, int)? GetData(dynamic obj)
             {
                 DataStoreRTreasurebox t = (DataStoreRTreasurebox)obj;
-                return Tuple.Create(t.s11ItemResourceId_string, t.iItemCount);
+                return (t.s11ItemResourceId_string, t.iItemCount);
             }
         }
 
@@ -626,10 +626,10 @@ namespace LRRando
                 b.u8NumDrop0 = newCount;
             }
 
-            public override Tuple<string, int> GetData(dynamic obj)
+            public override (string, int)? GetData(dynamic obj)
             {
                 DataStoreBtScene b = (DataStoreBtScene)obj;
-                return Tuple.Create(b.sDropItem0_string, b.u8NumDrop0);
+                return (b.sDropItem0_string, b.u8NumDrop0);
             }
         }
 

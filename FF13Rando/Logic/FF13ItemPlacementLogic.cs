@@ -69,14 +69,14 @@ namespace FF13Rando
         {
             if (ItemLocations[location].Traits.Contains("Same"))
                 return true;
-            if (GetLocationItem(location).Item1 == "")
+            if (GetLocationItem(location).Value.Item1 == "")
                 return true;
             if (treasureRando.IsImportantKeyItem(location))
                 return true;
             return false;
         }
 
-        public override Tuple<string, int> GetLocationItem(string key, bool orig = true)
+        public override (string, int)? GetLocationItem(string key, bool orig = true)
         {
             switch (ItemLocations[key])
             {
@@ -159,19 +159,19 @@ namespace FF13Rando
             if (ItemLocations[old].Traits.Contains("Mission"))
             {
                 specialTraits.Add("Mission");
-                if (GetLocationItem(rep).Item1 == "")
+                if (GetLocationItem(rep).Value.Item1 == "")
                     return false;
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !FF13Flags.Items.KeyPlaceMissions.Enabled)
                     return false;
             }
             if (ItemLocations[old] is TreasureRando.BattleData)
             {
-                if (GetLocationItem(rep).Item1 == "")
+                if (GetLocationItem(rep).Value.Item1 == "")
                     return false;
             }
             else if (ItemLocations[old] is TreasureRando.EnemyData)
             {
-                if (GetLocationItem(rep).Item1 == "")
+                if (GetLocationItem(rep).Value.Item1 == "")
                     return false;
             }
 

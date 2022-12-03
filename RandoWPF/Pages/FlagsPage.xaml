@@ -69,8 +69,6 @@
                             </Button.Content>
                         </Button>
                         <Label Width="30" Height="30"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Button Click="LoadPreset_Click">Load Custom Preset (JSON)</Button>
                     </StackPanel>
                 </StackPanel>
@@ -86,8 +84,14 @@
         <ScrollViewer>
             <StackPanel Margin="5,10">
                 <ListBox x:Name="flagsListBox" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type local:FlagControl}">
+                        <DataTemplate DataType="{x:Type local:FlagControl}">                            
                             <local:FlagControl Flag="{Binding}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -97,6 +101,8 @@
                             BasedOn="{StaticResource MaterialDesignListBoxItem}">
                             <Setter Property="Focusable" Value="False"/>
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalContentAlignment" Value="Top"/>
+                            <Setter Property="MaxWidth" Value="1000px"/>
                             <Setter Property="materialDesign:ListBoxItemAssist.ShowSelection" Value="False" />
                         </Style>
                     </ListBox.ItemContainerStyle>

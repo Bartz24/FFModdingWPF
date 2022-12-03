@@ -21,7 +21,7 @@ namespace Bartz24.RandoWPF
             foreach (string rep in remainingLogic)
             {
                 UpdateProgress(attempt, Placement.Count, important.Count);
-                Tuple<string, int> nextItem = Logic.GetLocationItem(rep);
+                (string, int)? nextItem = Logic.GetLocationItem(rep);
                 RemoveItems(locations, items, nextItem, rep);
                 if (nextItem == null)
                 {
@@ -39,7 +39,7 @@ namespace Bartz24.RandoWPF
                 int count = possible.Count;
                 if (possible.Count > 0)
                 {
-                    Tuple<string, int> nextPlacement = Logic.SelectNext(items, possible, rep);
+                    (string, int) nextPlacement = Logic.SelectNext(items, possible, rep);
                     string next = nextPlacement.Item1;
                     int depth = nextPlacement.Item2;
                     string hint = null;
@@ -58,7 +58,7 @@ namespace Bartz24.RandoWPF
             foreach (string rep in remainingOther)
             {
                 UpdateProgress(attempt, Placement.Count, important.Count);
-                Tuple<string, int> nextItem = Logic.GetLocationItem(rep);
+                (string, int)? nextItem = Logic.GetLocationItem(rep);
                 RemoveItems(locations, items, nextItem, rep);
                 if (nextItem == null)
                 {
@@ -89,10 +89,10 @@ namespace Bartz24.RandoWPF
             return false;
         }
 
-        public virtual void RemoveItems(List<string> locations, Dictionary<string, int> items, Tuple<string, int> nextItem, string rep)
+        public virtual void RemoveItems(List<string> locations, Dictionary<string, int> items, (string, int)? nextItem, string rep)
         {
             if (nextItem != null)
-                items[nextItem.Item1] -= nextItem.Item2;
+                items[nextItem.Value.Item1] -= nextItem.Value.Item2;
         }
 
         protected override void UpdateProgress(int i, int items, int maxItems)

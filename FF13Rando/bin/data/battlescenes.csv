@@ -1,4 +1,6 @@
 ﻿ID,Name,Location,Charasets,Traits,Charaset Limit
+btsc01001,,Hanging Edge,chset_z016_def|chset_z016_defd,Boss,44
+btsc01016,,Hanging Edge,chset_z016_defd,Boss,44
 btsc01002,,Hanging Edge,chset_z016_def0,,44
 btsc01003,,Hanging Edge,chset_z016_def0,,44
 btsc01004,,Hanging Edge,chset_z016_def0,,44
@@ -56,8 +58,8 @@ btsc02036,,Pulse Vestige,chset_z017_def4,,20
 btsc02014,,Pulse Vestige,chset_z017_def2,,44
 btsc02015,,Pulse Vestige,chset_z017_def2,,44
 btsc02016,,Pulse Vestige,chset_z017_def2,,44
-btsc03001,Chapter 3 First Fight,Lake Bresha,chset_z002def_0,,44
-btsc03002,,Lake Bresha,chset_z002def_1,,20
+btsc02017,,Pulse Vestige,chset_z017_def5,Boss,44
+btsc03001,Chapter 3 First Fight,Lake Bresha,chset_z002def_0,,44btsc03002,,Lake Bresha,chset_z002def_1,,20
 btsc03003,,Lake Bresha,chset_z002def_1,,20
 btsc03004,,Lake Bresha,chset_z002def_1,,20
 btsc03005,,Lake Bresha,chset_z002def_1,,20

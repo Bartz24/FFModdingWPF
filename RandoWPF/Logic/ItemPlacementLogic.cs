@@ -63,19 +63,19 @@ namespace Bartz24.RandoWPF
             }
         }
 
-        public virtual Tuple<string, int> SelectNext(Dictionary<string, int> items, List<string> possible, string rep)
+        public virtual (string, int) SelectNext(Dictionary<string, int> items, List<string> possible, string rep)
         {
             float expBase = GetPlacementDifficultyMultiplier();
             Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
             string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + GetAreaMult(s) * 32d));
-            return Tuple.Create(next, possDepths[next]);
+            return (next, possDepths[next]);
         }
         public virtual double GetAreaMult(string location)
         {
             return Math.Max(0, ItemLocations[location].Areas.Select(a => AreaMults[a]).Average());
         }
 
-        public virtual Tuple<string, int> GetLocationItem(string key, bool orig = true)
+        public virtual (string, int)? GetLocationItem(string key, bool orig = true)
         {
             throw new NotImplementedException("The item location type for " + key + " is not implemented.");
         }
@@ -95,11 +95,11 @@ namespace Bartz24.RandoWPF
             Dictionary<string, int> dict = new Dictionary<string, int>();
             placement.ForEach(p =>
             {
-                Tuple<string, int> tuple = GetLocationItem(p.Value, false);
+                (string, int)? tuple = GetLocationItem(p.Value, false);
                 if (tuple != null)
                 {
-                    string item = tuple.Item1;
-                    int amount = tuple.Item2;
+                    string item = tuple.Value.Item1;
+                    int amount = tuple.Value.Item2;
                     if (dict.ContainsKey(item))
                         dict[item] += amount;
                     else

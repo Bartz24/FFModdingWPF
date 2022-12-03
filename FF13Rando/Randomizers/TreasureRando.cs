@@ -194,7 +194,7 @@ namespace FF13Rando
                     List<string> rolesRemaining = roles.Where(r => r != first).Shuffle();
                     PlacementAlgo.Logic.SetLocationItem(itemLocations.Values.First(t => t.ID.StartsWith("z_ran_" + c) && itemLocations[t.ID].Traits.Contains("Same")).ID, $"rol_{c}_{first}", 1);
 
-                    itemLocations.Values.Where(t => PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1.StartsWith("rol_" + c) && !itemLocations[t.ID].Traits.Contains("Same")).ForEach(t =>
+                    itemLocations.Values.Where(t => PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1.StartsWith("rol_" + c) && !itemLocations[t.ID].Traits.Contains("Same")).ForEach(t =>
                     {
                         PlacementAlgo.Logic.SetLocationItem(t.ID, $"rol_{c}_{rolesRemaining[0]}", 1);
                         rolesRemaining.RemoveAt(0);
@@ -211,8 +211,8 @@ namespace FF13Rando
 
                 itemLocations.Values.Where(t => IsShop(t.ID, false)).ToList().Shuffle((l1, l2) =>
                 {
-                    Tuple<string, int> temp = PlacementAlgo.Logic.GetLocationItem(l1.ID, false);
-                    PlacementAlgo.Logic.SetLocationItem(l1.ID, PlacementAlgo.Logic.GetLocationItem(l2.ID, false).Item1, 1);
+                    (string, int) temp = PlacementAlgo.Logic.GetLocationItem(l1.ID, false).Value;
+                    PlacementAlgo.Logic.SetLocationItem(l1.ID, PlacementAlgo.Logic.GetLocationItem(l2.ID, false).Value.Item1, 1);
                     PlacementAlgo.Logic.SetLocationItem(l2.ID, temp.Item1, 1);
                 });
 
@@ -228,9 +228,9 @@ namespace FF13Rando
 
                 List<string> remainingWeapons = equipRando.itemData.Values.Where(i => i.Category == "Weapon").Select(i => i.ID).ToList();
 
-                itemLocations.Values.Where(t => (!t.ID.EndsWith("_wea") || FF13Flags.Items.StartingEquip.FlagEnabled) && equipRando.itemData.ContainsKey(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1)).ForEach(t =>
+                itemLocations.Values.Where(t => (!t.ID.EndsWith("_wea") || FF13Flags.Items.StartingEquip.FlagEnabled) && equipRando.itemData.ContainsKey(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1)).ForEach(t =>
                 {
-                    Tuple<string, int> orig = PlacementAlgo.Logic.GetLocationItem(t.ID, false);
+                    (string, int) orig = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value;
                     string repItem = null;
                     do
                     {
@@ -263,9 +263,9 @@ namespace FF13Rando
                     PlacementAlgo.Logic.SetLocationItem(t.ID, repItem, repCount);
                 });
 
-                itemLocations.Values.Where(t => PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1 == "" || equipRando.itemData.ContainsKey(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1)).ForEach(t =>
+                itemLocations.Values.Where(t => PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 == "" || equipRando.itemData.ContainsKey(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1)).ForEach(t =>
                 {
-                    Tuple<string, int> orig = PlacementAlgo.Logic.GetLocationItem(t.ID, false);
+                    (string, int) orig = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value;
                     if (orig.Item2 > 0)
                     {
                         PlacementAlgo.Logic.SetLocationItem(t.ID, orig.Item1, RandomNum.RandInt((int)Math.Round(Math.Max(1, orig.Item2 * 0.75)), (int)Math.Round(orig.Item2 * 1.25)));
@@ -278,7 +278,7 @@ namespace FF13Rando
 
         public bool IsRepeatableAllowed(string location)
         {
-            return IsInitRole(location) || IsOtherRole(location) || IsEidolon(location) || PlacementAlgo.Logic.GetLocationItem(location).Item1 == "key_ctool" || IsGysahlReins(location);
+            return IsInitRole(location) || IsOtherRole(location) || IsEidolon(location) || PlacementAlgo.Logic.GetLocationItem(location).Value.Item1 == "key_ctool" || IsGysahlReins(location);
         }
 
         public bool IsImportantKeyItem(string location)
@@ -287,17 +287,17 @@ namespace FF13Rando
         }
         public bool IsInitRole(string t)
         {
-            return PlacementAlgo.Logic.GetLocationItem(t, true).Item1.StartsWith("rol") && itemLocations[t].Areas.Contains("Initial");
+            return PlacementAlgo.Logic.GetLocationItem(t, true).Value.Item1.StartsWith("rol") && itemLocations[t].Areas.Contains("Initial");
         }
 
         public bool IsOtherRole(string t)
         {
-            return PlacementAlgo.Logic.GetLocationItem(t, true).Item1.StartsWith("rol") && !itemLocations[t].Areas.Contains("Initial");
+            return PlacementAlgo.Logic.GetLocationItem(t, true).Value.Item1.StartsWith("rol") && !itemLocations[t].Areas.Contains("Initial");
         }
 
         public bool IsStage(string t, bool orig = true)
         {
-            return PlacementAlgo.Logic.GetLocationItem(t, orig).Item1 == "cry_stage";
+            return PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1 == "cry_stage";
         }
 
         public bool IsEidolon(string t, bool orig = true)
@@ -306,11 +306,11 @@ namespace FF13Rando
         }
         public bool IsShop(string t, bool orig = true)
         {
-            return PlacementAlgo.Logic.GetLocationItem(t, orig).Item1.StartsWith("key_shop") || PlacementAlgo.Logic.GetLocationItem(t, orig).Item1 == "key_ctool";
+            return PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("key_shop") || PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1 == "key_ctool";
         }
         public bool IsGysahlReins(string t, bool orig = true)
         {
-            return PlacementAlgo.Logic.GetLocationItem(t, orig).Item1 == "key_field_00";
+            return PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1 == "key_field_00";
         }
 
         private void SaveHints()
@@ -331,7 +331,7 @@ namespace FF13Rando
 
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Difficulty" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), itemLocations.Values.Select(t =>
             {
-                string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1;
+                string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1;
                 string name = GetItemName(itemID);
                 string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
@@ -343,7 +343,7 @@ namespace FF13Rando
                 if (reqsDisplay != ItemReq.Empty.GetDisplay())
                     nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
 
-                return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}", t.Difficulty.ToString() }).ToList();
+                return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item2}", t.Difficulty.ToString() }).ToList();
             }).ToList(), "itemlocations"));
 
             pages.Add("item_locations", page);
@@ -403,10 +403,10 @@ namespace FF13Rando
                 t.iItemCount = (uint)newCount;
             }
 
-            public override Tuple<string, int> GetData(dynamic obj)
+            public override (string, int)? GetData(dynamic obj)
             {
                 DataStoreTreasurebox t = (DataStoreTreasurebox)obj;
-                return Tuple.Create(t.sItemResourceId_string, (int)t.iItemCount);
+                return (t.sItemResourceId_string, (int)t.iItemCount);
             }
         }
 
@@ -455,10 +455,10 @@ namespace FF13Rando
                     s.u8NumDrop = (byte)newCount;
             }
 
-            public override Tuple<string, int> GetData(dynamic obj)
+            public override (string, int)? GetData(dynamic obj)
             {
                 DataStoreBtCharaSpec s = (DataStoreBtCharaSpec)obj;
-                return Tuple.Create(Index == 0 ? s.sDropItem0_string : s.sDropItem1_string, (int)s.u8NumDrop);
+                return (Index == 0 ? s.sDropItem0_string : s.sDropItem1_string, (int)s.u8NumDrop);
             }
         }
 
@@ -498,10 +498,10 @@ namespace FF13Rando
                 s.u8NumDrop100 = (byte)newCount;
             }
 
-            public override Tuple<string, int> GetData(dynamic obj)
+            public override (string, int)? GetData(dynamic obj)
             {
                 DataStoreBtScene s = (DataStoreBtScene)obj;
-                return Tuple.Create(s.sDrop100Id_string, (int)s.u8NumDrop100);
+                return (s.sDrop100Id_string, (int)s.u8NumDrop100);
             }
         }
 

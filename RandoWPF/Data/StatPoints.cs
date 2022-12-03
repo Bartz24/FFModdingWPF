@@ -6,12 +6,12 @@ namespace Bartz24.RandoWPF
     public class StatPoints
     {
         private StatValues Values { get; set; }
-        private Tuple<int, int>[] Bounds { get; set; }
+        private (int, int)[] Bounds { get; set; }
         private float[] Weights { get; set; }
         private int[] ZeroChances { get; set; }
         private int[] NegChances { get; set; }
         private float Rate { get; set; }
-        public StatPoints(Tuple<int, int>[] bounds, float[] weights, int[] zeroChances, int[] negChances, float rate = 0.2f)
+        public StatPoints((int, int)[] bounds, float[] weights, int[] zeroChances, int[] negChances, float rate = 0.2f)
         {
             Values = new StatValues(bounds.Length);
             Bounds = bounds;
@@ -23,7 +23,7 @@ namespace Bartz24.RandoWPF
 
         public void Randomize(int[] actual)
         {
-            Tuple<int, int>[] modBounds = null;
+            (int, int)[] modBounds = null;
             int total = -1;
             do
             {
@@ -35,11 +35,11 @@ namespace Bartz24.RandoWPF
                         modBounds = Enumerable.Range(0, Bounds.Length).Select(i =>
                         {
                             if (RandomNum.RandInt(0, 99) < ZeroChances[i] * (100 - attempts) / 100)
-                                return Tuple.Create(0, 0);
+                                return (0, 0);
                             else if (RandomNum.RandInt(0, 99) >= NegChances[i])
-                                return Tuple.Create(0, (int)(Bounds[i].Item2 * Weights[i]));
+                                return (0, (int)(Bounds[i].Item2 * Weights[i]));
                             else
-                                return Tuple.Create((int)(Bounds[i].Item1 * Weights[i]), (int)(Bounds[i].Item2 * Weights[i]));
+                                return ((int)(Bounds[i].Item1 * Weights[i]), (int)(Bounds[i].Item2 * Weights[i]));
                         }).ToArray();
                         attempts++;
                     } while (modBounds.Where(b => b.Item2 == 0).Count() == Bounds.Count());

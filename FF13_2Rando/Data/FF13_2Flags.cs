@@ -176,6 +176,7 @@ namespace FF13_2Rando
         public class Enemies
         {
             public static Flag EnemyLocations;
+            public static NumberFlagProperty EnemyRank;
             public static ToggleFlagProperty LargeEnc, Bosses, DLCBosses;
 
             internal static void Init()
@@ -192,7 +193,8 @@ namespace FF13_2Rando
                     Text = "Allow Larger Encounters",
                     ID = "LargeEnc",
                     Description = "[EXPERIMENTAL]\n" +
-                    "Allows encounters to have 5 enemies or more. Not recommended as this seems to be cause of some crashes with random enemies."
+                    "Allows encounters to have 5 enemies or more. Not recommended as this seems to be cause of some crashes with random enemies.",
+                    Experimental = true
                 }.Register(EnemyLocations);
 
 
@@ -209,6 +211,16 @@ namespace FF13_2Rando
                     Text = "Include DLC Bosses",
                     ID = "RandDLCBoss",
                     Description = "Include the following bosses for boss shuffling:\n" + "Lightning, Amodar, Snow, Gilgamesh (1 and 2)\n"
+                }.Register(EnemyLocations);
+
+                EnemyRank = (NumberFlagProperty)new NumberFlagProperty()
+                {
+                    Text = "Enemy Rank Range",
+                    ID = "EnemyRank",
+                    Description = "Enemies can be replaced by enemies by enemies within the specified value of its \"Rank\".",
+                    ValueText = "Enemy Rank +/-",
+                    MinValue = 0,
+                    MaxValue = 15
                 }.Register(EnemyLocations);
             }
         }

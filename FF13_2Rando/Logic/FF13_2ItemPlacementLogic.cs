@@ -12,6 +12,7 @@ namespace FF13_2Rando
         protected HistoriaCruxRando cruxRando;
 
         protected Dictionary<string, int> AreaDepths = new Dictionary<string, int>();
+        public List<string> AreaUnlockOrder { get; } = new List<string>();
 
         public FF13_2ItemPlacementLogic(ItemPlacementAlgorithm<FF13_2ItemLocation> algorithm, RandomizerManager randomizers) : base(algorithm)
         {
@@ -68,19 +69,19 @@ namespace FF13_2Rando
         {
             if (IsImportantKeyItem(location))
                 return true;
-            if (GetLocationItem(location).Item1.StartsWith("frg"))
+            if (GetLocationItem(location).Value.Item1.StartsWith("frg"))
                 return true;
             return false;
         }
 
-        public override Tuple<string, int> GetLocationItem(string key, bool orig = true)
+        public override (string, int)? GetLocationItem(string key, bool orig = true)
         {
             switch (ItemLocations[key])
             {
                 case TreasureRando.TreasureData t:
-                    Tuple<string, int> tuple = t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
-                    if (ItemLocations[key].Traits.Contains("Event") && tuple.Item1.StartsWith("frg"))
-                        return Tuple.Create(tuple.Item1, 1);
+                    (string, int)? tuple = t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
+                    if (ItemLocations[key].Traits.Contains("Event") && tuple.Value.Item1.StartsWith("frg"))
+                        return (tuple.Value.Item1, 1);
 
                     return tuple;
                 case TreasureRando.SearchItemData s:
@@ -180,7 +181,7 @@ namespace FF13_2Rando
 
                 list.Where(l => !AreaDepths.ContainsKey(l)).ForEach(l => AreaDepths.Add(l, prevMaxDepth + 1));
             }
-
+            AreaUnlockOrder.AddRange(list.Where(a => !AreaUnlockOrder.Contains(a)));
             return list;
         }
 
@@ -205,11 +206,11 @@ namespace FF13_2Rando
 
             if (ItemLocations[old] is TreasureRando.SearchItemData)
             {
-                if (IsImportantKeyItem(rep) && GetLocationItem(old).Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowCryst.Enabled)
+                if (IsImportantKeyItem(rep) && GetLocationItem(old).Value.Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowCryst.Enabled)
                     return false;
-                if (IsImportantKeyItem(rep) && !GetLocationItem(old).Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowJunk.Enabled)
+                if (IsImportantKeyItem(rep) && !GetLocationItem(old).Value.Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowJunk.Enabled)
                     return false;
-                if (GetLocationItem(rep).Item1.StartsWith("frg"))
+                if (GetLocationItem(rep).Value.Item1.StartsWith("frg"))
                     return false;
             }
             else

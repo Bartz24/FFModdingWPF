@@ -89,7 +89,7 @@ namespace FF13_2Rando
             {
                 SetProgressFunc = Randomizers.SetProgressFunc
             };
-            placementAlgoNormal.Logic = new FF13_2ItemPlacementLogic(placementAlgoNormal, Randomizers);
+            placementAlgoNormal.Logic = new FF13_2AssumedItemPlacementLogic(placementAlgoNormal, Randomizers);
 
             placementAlgoBackup = new ItemPlacementAlgorithm<FF13_2ItemLocation>(itemLocations, hintsNotesLocations, -1)
             {
@@ -189,7 +189,7 @@ namespace FF13_2Rando
 
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents" }).ToList(), (new int[] { 50, 50 }).ToList(), itemLocations.Values.Select(t =>
             {
-                string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1;
+                string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1;
                 string name = GetItemName(itemID);
                 string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
@@ -214,7 +214,7 @@ namespace FF13_2Rando
                     nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", disp).ToString());
                 }
 
-                return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item2}" }).ToList();
+                return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item2}" }).ToList();
             }).ToList(), "itemlocations"));
 
             pages.Add("item_locations", page);
@@ -299,10 +299,10 @@ namespace FF13_2Rando
                 t.iItemCount = newCount;
             }
 
-            public override Tuple<string, int> GetData(dynamic obj)
+            public override (string, int)? GetData(dynamic obj)
             {
                 DataStoreRTreasurebox t = (DataStoreRTreasurebox)obj;
-                return Tuple.Create(t.s11ItemResourceId_string, t.iItemCount);
+                return (t.s11ItemResourceId_string, t.iItemCount);
             }
         }
 
@@ -347,12 +347,12 @@ namespace FF13_2Rando
                 s.SetMax(Index, 1);
             }
 
-            public override Tuple<string, int> GetData(dynamic obj)
+            public override (string, int)? GetData(dynamic obj)
             {
                 DataStoreSearchItem s = (DataStoreSearchItem)obj;
                 int count = s.GetCount(Index);
                 int max = s.GetMax(Index);
-                return Tuple.Create(s.GetItem(Index), max == 0 ? count : (count * max));
+                return (s.GetItem(Index), max == 0 ? count : (count * max));
             }
         }
 

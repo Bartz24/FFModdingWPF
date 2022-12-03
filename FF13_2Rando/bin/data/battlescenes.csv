@@ -1,0 +1,66 @@
+﻿ID,Name,Location,Location ID,Charasets,Traits,Charaset Limit
+btsc01110,,Bodhum 3,h_hm_AD0003,chset_hmaa_001|chset_hmaa_e025,,44
+btsc01120,,Bodhum 3,h_hm_AD0003,chset_hmaa_001,,44
+btsc01130,,Bodhum 3,h_hm_AD0003,chset_hmaa_001,,44
+btsc01140,,Bodhum 3,h_hm_AD0003,chset_hmaa_001,,44
+btsc01900,,Bodhum 3,h_hm_AD0003,chset_hmaa_e050,,44
+btsc01910,,Bodhum 3,h_hm_AD0003,chset_hmaa_e130,,44
+btsc02050,,Bresha 5,h_bj_AD0005,chset_bjaa_tuto,,44
+btsc02001,,Bresha 5,h_bj_AD0005,chset_bjaa_tuto,,44
+btsc02810,,Bresha 100,h_bj_AD0100,chset_bjba_def,,44
+btsc03900,,Yaschas 10,h_gy_AD0010,chset_gyaa_020,,44
+btsc04900,,Oerba 200,h_gw_AD0200,chset_gwca_def,,44
+btsc04909,,Oerba 200,h_gw_AD0200,chset_gwca_def,,44
+btsc05920,,Sunleth 300,h_sn_AD0300,chset_snda_002,,44
+btsc05950,,Sunleth 300,h_sn_AD0300,chset_snda_npc,,44
+btsc05960,,Sunleth 300,h_sn_AD0300,chset_snda_npc,,44
+btsc05800,,Sunleth 400,h_sn_AD0400,chset_snea_def|chset_snea_load,,44
+btsc06100,,Coliseum DLC,h_cl_NA0001,chset_clzb_lig,,44
+btsc06110,,Coliseum DLC,h_cl_NA0001,chset_clzb_lig,,44
+btsc06500,,Coliseum DLC,h_cl_NA0001,chset_clzb_gil,,44
+btsc06510,,Coliseum DLC,h_cl_NA0001,chset_clzb_gil,,44
+btsc06600,,Coliseum DLC,h_cl_NA0001,chset_clzb_snw,,44
+btsc07800,,Archylte,h_gd_NA0000,chset_gdza_p2h,,44
+btsc07810,,Archylte,h_gd_NA0000,chset_gdza_p2s,,44
+btsc07820,,Archylte,h_gd_NA0000,chset_gdza_p3r,,44
+btsc07830,,Archylte,h_gd_NA0000,chset_gdza_p3t,,44
+btsc08000,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08001,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08002,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08003,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08510,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08511,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08512,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08020,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08021,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08022,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08023,,Academia 400,h_ac_AD0400,chset_acea_001,,44
+btsc08032,,Academia 400,h_ac_AD0400,chset_acea_001,,44
+btsc08040,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08513,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08520,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08521,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08522,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08010,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08011,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08012,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08013,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08014,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08050,,Academia 400,h_ac_AD0400,chset_acea_002,,44
+btsc08700,,Academia 400,h_ac_AD0400,chset_acea_e030,,44
+btsc08710,,Academia 400,h_ac_AD0400,chset_acea_e060,,44
+btsc08720,,Academia 400,h_ac_AD0400,chset_acea_e060,,44
+btsc09830,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09900,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09910,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09920,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc11900,,Void Beyond,h_sp_NA0001,chset_spza_def,,44
+btsc11909,,Void Beyond,h_sp_NA0001,chset_spza_def,,44
+btsc11910,,Academia 500,h_ac_AD0500,chset_acfa_e012,,44
+btsc13900,,Dying World,h_dd_AD0700,chset_ddha_e030,,44
+btsc13909,,Dying World,h_dd_AD0700,chset_ddha_e030,,44
+btsc13950,,Dying World,h_dd_AD0700,chset_ddha_e040,,44
+btsc15900,,Ending,h_ac_AD0500,chset_lsza_d01a,,44
+btsc15910,,Ending,h_ac_AD0500,chset_lsza_d01a,,44
+btsc15950,,Ending,h_ac_AD0500,chset_lsza_d01a,,44
+btsc15990,,Ending,h_ac_AD0500,chset_lsza_d03b,,44

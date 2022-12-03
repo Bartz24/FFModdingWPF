@@ -13,7 +13,7 @@ namespace Bartz24.RandoWPF
             return list.Where(t => rank >= t.LowBound && rank <= t.GetHighBound(count)).ToList();
         }
 
-        public Tuple<T, int> Get(int rank, int maxCount, Func<Tiered<T>, long> weightFunc = null, bool anyRandom = false)
+        public (T, int) Get(int rank, int maxCount, Func<Tiered<T>, long> weightFunc = null, bool anyRandom = false)
         {
             if (weightFunc == null)
                 weightFunc = t => t.Weight;
@@ -22,11 +22,11 @@ namespace Bartz24.RandoWPF
             return Get(rank, maxCount, tiered, null, anyRandom);
         }
 
-        public Tuple<T, int> Get(int rank, int maxCount, Tiered<T> tiered, Func<T, bool> meetsReq = null, bool anyRandom = false)
+        public (T, int) Get(int rank, int maxCount, Tiered<T> tiered, Func<T, bool> meetsReq = null, bool anyRandom = false)
         {
-            List<Tuple<T, int>> possible = tiered == null ? new List<Tuple<T, int>>() : tiered.Get(rank, maxCount, meetsReq, anyRandom);
+            List<(T, int)> possible = tiered == null ? new List<(T, int)>() : tiered.Get(rank, maxCount, meetsReq, anyRandom);
             if (possible.Count == 0)
-                return Tuple.Create(default(T), 0);
+                return (default(T), 0);
             return possible[RandomNum.RandInt(0, possible.Count - 1)];
         }
 

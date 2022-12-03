@@ -33,7 +33,7 @@ namespace Bartz24.RandoWPF
 
         public Tiered<T> Add(int rank, T item, T dependent)
         {
-            list.Add(Tuple.Create(rank, item));
+            list.Add((rank, item));
             list.Sort((a, b) => a.Item1.CompareTo(b.Item1));
             AddDep(item, dependent);
             return this;

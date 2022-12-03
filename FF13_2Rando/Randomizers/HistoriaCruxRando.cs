@@ -1,4 +1,5 @@
-﻿using Bartz24.Docs;
+﻿using Bartz24.Data;
+using Bartz24.Docs;
 using Bartz24.FF13_2;
 using Bartz24.FF13_2_LR;
 using Bartz24.RandoWPF;
@@ -39,15 +40,12 @@ namespace FF13_2Rando
                     gateData.Add(t.ID, t);
                 }
             }
-            areaData.Clear();
-            using (CsvParser csv = new CsvParser(new StreamReader(@"data\areas.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
+
+            FileHelpers.ReadCSVFile(@"data\areas.csv", row =>
             {
-                while (csv.Read())
-                {
-                    AreaData a = new AreaData(csv.Record);
-                    areaData.Add(a.ID, a);
-                }
-            }
+                AreaData a = new AreaData(row);
+                areaData.Add(a.ID, a);
+            }, FileHelpers.CSVFileHeader.HasHeader);
         }
         public override void Randomize(Action<int> progressSetter)
         {
@@ -82,7 +80,7 @@ namespace FF13_2Rando
             }
         }
 
-        private Tuple<bool, Dictionary<string, string>> GetPlacement(Dictionary<string, string> soFar, List<string> openings)
+        private (bool, Dictionary<string, string>) GetPlacement(Dictionary<string, string> soFar, List<string> openings)
         {
             List<string> available = GetAvailableLocations(soFar);
             List<string> remaining = openings.Where(t => !soFar.ContainsValue(t)).Shuffle();
@@ -91,7 +89,7 @@ namespace FF13_2Rando
             {
                 List<string> possible = openings.Where(o => !soFar.ContainsKey(o) && IsAllowed(o, soFar, available)).Shuffle();
                 if (possible.Count == 0)
-                    return Tuple.Create(false, soFar);
+                    return (false, soFar);
             }
 
             foreach (string rep in remaining)
@@ -102,8 +100,8 @@ namespace FF13_2Rando
                     string next = SelectNext(possible);
                     soFar.Add(next, rep);
                     if (soFar.Count == openings.Count)
-                        return Tuple.Create(true, soFar);
-                    Tuple<bool, Dictionary<string, string>> result = GetPlacement(soFar, openings);
+                        return (true, soFar);
+                    (bool, Dictionary<string, string>) result = GetPlacement(soFar, openings);
                     if (result.Item1)
                         return result;
                     else
@@ -113,7 +111,7 @@ namespace FF13_2Rando
                     }
                 }
             }
-            return Tuple.Create(false, soFar);
+            return (false, soFar);
         }
 
         private string SelectNext(List<string> possible)
@@ -121,9 +119,9 @@ namespace FF13_2Rando
             return possible[RandomNum.RandInt(0, possible.Count - 1)];
         }
 
-        public List<string> GetIDsForOpening(string open)
+        public List<string> GetIDsForOpening(string open, bool orig = true)
         {
-            return gateData.Keys.Where(id => gateTableOrig[id].sOpenHistoria1_string.StartsWith(open)).ToList();
+            return gateData.Keys.Where(id => (orig ? gateTableOrig[id] : gateTable[id]).sOpenHistoria1_string.StartsWith(open)).ToList();
         }
 
         private bool IsAllowed(string open, Dictionary<string, string> soFar, List<string> available)
@@ -286,11 +284,16 @@ namespace FF13_2Rando
             Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Historia Crux", "template/documentation.html");
 
-            page.HTMLElements.Add(new Table("", (new string[] { "Original Gate", "New Location" }).ToList(), (new int[] { 60, 40 }).ToList(),
+            BattleRando battleRando = Randomizers.Get<BattleRando>();
+
+            Dictionary<string, int> diffs = battleRando.GetAreaDifficulties();
+
+            page.HTMLElements.Add(new Table("", (new string[] { "Original Gate", "New Location", "Estimated Battle Difficulty of New Location" }).ToList(), (new int[] { 40, 40, 20 }).ToList(),
                 gateData.Values.Where(g => !g.Traits.Contains("Paradox")).Select(g =>
               {
                   string id = gateTable[g.ID].sOpenHistoria1_string;
-                  return new string[] { g.GateOriginal, areaData[id.Substring(0, id.Length - 2)].Name }.ToList();
+                  string shortID = id.Substring(0, id.Length - 2);
+                  return (new string[] { g.GateOriginal, areaData[shortID].Name, diffs.ContainsKey(shortID) ? diffs[shortID].ToString() : "-" }).ToList();
               }).ToList()));
             pages.Add("historia_crux", page);
             return pages;
@@ -326,10 +329,12 @@ namespace FF13_2Rando
         {
             public string ID { get; set; }
             public string Name { get; set; }
+            public string BattleTableID { get; set; }
             public AreaData(string[] row)
             {
                 ID = row[0];
                 Name = row[1];
+                BattleTableID = row[2];
             }
         }
     }

@@ -50,7 +50,7 @@ namespace LRRando
         {
             return req.GetPossibleRequirements().Select(item =>
             {
-                List<string> reqChecks = Algorithm.Placement.Keys.Where(t => GetLocationItem(Algorithm.Placement[t]).Item1 == item && !ItemLocations[t].Requirements.GetPossibleRequirements().Contains(item)).ToList();
+                List<string> reqChecks = Algorithm.Placement.Keys.Where(t => GetLocationItem(Algorithm.Placement[t]).Value.Item1 == item && !ItemLocations[t].Requirements.GetPossibleRequirements().Contains(item)).ToList();
                 return reqChecks.Select(t => Algorithm.Depths[t] + GetReqsMaxDepth(ItemLocations[t].Requirements)).DefaultIfEmpty(0).Max();
             }).DefaultIfEmpty(0).Max();
         }
@@ -81,11 +81,11 @@ namespace LRRando
                 return true;
             if (LRFlags.Items.KeyCoP.Enabled && treasureRando.IsCoPKeyItem(location))
                 return true;
-            if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled && GetLocationItem(location).Item1 == "ti830_00")
+            if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled && GetLocationItem(location).Value.Item1 == "ti830_00")
                 return false;
-            if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled && GetLocationItem(location).Item1 == "ti840_00")
+            if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled && GetLocationItem(location).Value.Item1 == "ti840_00")
                 return false;
-            if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled && GetLocationItem(location).Item1 == "ti810_00")
+            if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled && GetLocationItem(location).Value.Item1 == "ti810_00")
                 return false;
             if (LRFlags.Other.HintsEP.FlagEnabled && treasureRando.IsEPAbility(location))
                 return true;
@@ -116,20 +116,20 @@ namespace LRRando
                 return true;
             if (treasureRando.IsImportantKeyItem(location))
                 return true;
-            if (GetLocationItem(location).Item1.StartsWith("libra"))
+            if (GetLocationItem(location).Value.Item1.StartsWith("libra"))
                 return true;
             if (treasureRando.IsEPAbility(location))
                 return true;
-            if (GetLocationItem(location).Item1.StartsWith("it"))
+            if (GetLocationItem(location).Value.Item1.StartsWith("it"))
                 return true;
-            if (GetLocationItem(location).Item1 == "")
+            if (GetLocationItem(location).Value.Item1 == "")
                 return true;
-            if (GetLocationItem(location).Item2 > 1)
+            if (GetLocationItem(location).Value.Item2 > 1)
                 return true;
             return false;
         }
 
-        public override Tuple<string, int> GetLocationItem(string key, bool orig = true)
+        public override (string, int)? GetLocationItem(string key, bool orig = true)
         {
             switch (ItemLocations[key])
             {
@@ -177,11 +177,11 @@ namespace LRRando
                 return old == rep;
             if (!LRFlags.Items.EPLearns.Enabled && (treasureRando.IsEPAbility(rep) || treasureRando.IsEPAbility(old)))
                 return old == rep;
-            if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled && (GetLocationItem(rep).Item1 == "ti830_00" || GetLocationItem(old).Item1 == "ti830_00"))
+            if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled && (GetLocationItem(rep).Value.Item1 == "ti830_00" || GetLocationItem(old).Value.Item1 == "ti830_00"))
                 return old == rep;
-            if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled && (GetLocationItem(rep).Item1 == "ti840_00" || GetLocationItem(old).Item1 == "ti840_00"))
+            if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled && (GetLocationItem(rep).Value.Item1 == "ti840_00" || GetLocationItem(old).Value.Item1 == "ti840_00"))
                 return old == rep;
-            if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled && (GetLocationItem(rep).Item1 == "ti810_00" || GetLocationItem(old).Item1 == "ti810_00"))
+            if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled && (GetLocationItem(rep).Value.Item1 == "ti810_00" || GetLocationItem(old).Value.Item1 == "ti810_00"))
                 return old == rep;
 
             if (ItemLocations[rep].Traits.Contains("Same") || ItemLocations[old].Traits.Contains("Same"))
@@ -191,7 +191,7 @@ namespace LRRando
             {
                 if (treasureRando.IsImportantKeyItem(rep))
                     return false;
-                if (GetLocationItem(rep).Item1.StartsWith("libra"))
+                if (GetLocationItem(rep).Value.Item1.StartsWith("libra"))
                     return false;
                 if (!LRFlags.Items.EPMissable.Enabled && treasureRando.IsEPAbility(rep))
                     return false;
@@ -223,7 +223,7 @@ namespace LRRando
                 specialTraits.Add("Quest");
                 if (treasureRando.IsEPAbility(rep))
                     return false;
-                if (GetLocationItem(rep).Item1.StartsWith("it"))
+                if (GetLocationItem(rep).Value.Item1.StartsWith("it"))
                     return false;
                 if (treasureRando.IsImportantKeyItem(rep) && !treasureRando.IsImportantKeyItem(old) && !LRFlags.Items.KeyPlaceQuest.Enabled)
                     return false;
@@ -232,20 +232,20 @@ namespace LRRando
             {
                 if (treasureRando.IsEPAbility(rep))
                     return false;
-                if (GetLocationItem(rep).Item1.StartsWith("it"))
+                if (GetLocationItem(rep).Value.Item1.StartsWith("it"))
                     return false;
-                if (GetLocationItem(rep).Item2 > 1)
+                if (GetLocationItem(rep).Value.Item2 > 1)
                     return false;
-                if (GetLocationItem(rep).Item1 == "")
+                if (GetLocationItem(rep).Value.Item1 == "")
                     return false;
             }
             if (ItemLocations[old].Traits.Contains("Trade"))
             {
                 if (treasureRando.IsEPAbility(rep))
                     return false;
-                if (GetLocationItem(rep).Item2 > 1)
+                if (GetLocationItem(rep).Value.Item2 > 1)
                     return false;
-                if (GetLocationItem(rep).Item1 == "")
+                if (GetLocationItem(rep).Value.Item1 == "")
                     return false;
             }
 

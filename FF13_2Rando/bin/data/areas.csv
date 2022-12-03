@@ -1,31 +1,32 @@
-﻿h_hm_AD0003,Bodhum 3 AF
-h_bj_AD0005,Bresha 5 AF
-h_bj_AD0300,Bresha 300 AF
-h_gy_AD0010,Yaschas 10 AF
-h_gw_AD0200,Oerba 200 AF
-h_gh_AD0010,Yaschas 1X AF
-h_sn_AD0300,Sunleth 300 AF
-h_gd_NA0000,Archylte
-h_sp_NA0001,Void Beyond
-h_ac_AD0400,Academia 400 AF
-h_gy_AD0100,Yaschas 100 AF
-h_gt_AD0200,Augusta 200 AF
-h_gw_AD0300,Oerba 300 AF
-h_aa_AD0400,Academia 4XX AF
-h_dd_AD0700,Dying World 700 AF
-start,Start
-h_gy_AD0200,Yaschas 110 AF
-h_gt_AD0300,Augusta 300 AF
-h_cl_NA0000,Coliseum
-h_vp_AD0200,Vile Peaks 200 AF
-h_sn_AD0400,Sunleth 400 AF
-h_gw_AD0400,Oerba 400 AF
-h_vp_AD0010,Vile Peaks 10 AF
-h_ac_AD0500,Academia 500 AF
-h_bj_AD0100,Bresha 100 AF
-h_cs_NA0000,Serendipity
-h_hm_AD0700,Bodhum 700 AF
-h_zz_NA0950,Bodhum Void Beyond
-h_va_NA0001,Valhalla DLC
-h_cl_NA0001,Coliseum DLC
-h_cs_NA0001,Serendipity DLC
+﻿ID,Name,Battle Table
+h_hm_AD0003,Bodhum 3 AF,btstab00010
+h_bj_AD0005,Bresha 5 AF,btstab00020
+h_bj_AD0300,Bresha 300 AF,btstab00023
+h_gy_AD0010,Yaschas 10 AF,btstab00030
+h_gw_AD0200,Oerba 200 AF,btstab00052
+h_gh_AD0010,Yaschas 1X AF,btstab00180
+h_sn_AD0300,Sunleth 300 AF,btstab00043
+h_gd_NA0000,Archylte,btstab00080
+h_sp_NA0001,Void Beyond,btstab00060
+h_ac_AD0400,Academia 400 AF,btstab00114
+h_gy_AD0100,Yaschas 100 AF,btstab00031
+h_gt_AD0200,Augusta 200 AF,btstab00092
+h_gw_AD0300,Oerba 300 AF,btstab00053
+h_aa_AD0400,Academia 4XX AF,
+h_dd_AD0700,Dying World 700 AF,btstab00157
+start,Start,
+h_gy_AD0200,Yaschas 110 AF,btstab00032
+h_gt_AD0300,Augusta 300 AF,btstab00093
+h_cl_NA0000,Coliseum,
+h_vp_AD0200,Vile Peaks 200 AF,btstab00192
+h_sn_AD0400,Sunleth 400 AF,btstab00044
+h_gw_AD0400,Oerba 400 AF,btstab00054
+h_vp_AD0010,Vile Peaks 10 AF,btstab00191
+h_ac_AD0500,Academia 500 AF,btstab00115
+h_bj_AD0100,Bresha 100 AF,btstab00021
+h_cs_NA0000,Serendipity,
+h_hm_AD0700,Bodhum 700 AF,btstab00017
+h_zz_NA0950,Bodhum Void Beyond,btstab00170
+h_va_NA0001,Valhalla DLC,
+h_cl_NA0001,Coliseum DLC,
+h_cs_NA0001,Serendipity DLC,

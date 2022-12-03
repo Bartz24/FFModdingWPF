@@ -303,11 +303,11 @@ namespace FF13Rando
             foreach (string c in shortChars)
             {
                 StatPoints statPoints;
-                Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        Tuple.Create(20, 300),
-                        Tuple.Create(20, 300),
-                        Tuple.Create(20, 300)
-                    };
+                (int, int)[] bounds = {
+                    (20, 300),
+                    (20, 300),
+                    (20, 300)
+                };
                 float[] weights = new float[] { 1, 1, 1 };
                 int[] zeros = new int[] { 0, 0, 0 };
                 int[] negs = new int[] { 0, 0, 0 };
@@ -324,11 +324,11 @@ namespace FF13Rando
             {
                 Role role = (Role)r;
                 StatPoints statPoints;
-                Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        Tuple.Create(20, 300),
-                        Tuple.Create(20, 300),
-                        Tuple.Create(20, 300)
-                    };
+                (int, int)[] bounds = {
+                    (20, 300),
+                    (20, 300),
+                    (20, 300)
+                };
                 float[] weights = new float[] { 1, 1, 1 };
                 int[] zeros = new int[] { 0, 0, 0 };
                 int[] negs = new int[] { 0, 0, 0 };

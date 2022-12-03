@@ -55,10 +55,10 @@ namespace FF13_2Rando
             foreach (DataStoreItemWeapon weapon in itemWeapons.Values.Where(w => w.name.Contains("wea")))
             {
                 StatPoints statPoints;
-                Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                        Tuple.Create(1, 300),
-                        Tuple.Create(1, 300)
-                    };
+                (int, int)[] bounds = {
+                    (1, 300),
+                    (1, 300)
+                };
                 float[] weights = new float[] { 1, 1 };
                 int[] zeros = new int[] { 0, 0 };
                 int[] negs = new int[] { 0, 0 };

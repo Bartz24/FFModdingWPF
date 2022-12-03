@@ -4,6 +4,8 @@ using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace LRRando
 {
@@ -34,18 +36,18 @@ namespace LRRando
             {
                 LRFlags.StatsAbilities.EPAbilities.SetRand();
 
-                IEnumerable<ItemLocation> keys = treasureRando.itemLocations.Values.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1.StartsWith("ti") || treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1 == "at900_00");
+                IEnumerable<ItemLocation> keys = treasureRando.itemLocations.Values.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1.StartsWith("ti") || treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 == "at900_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled)
-                    keys = keys.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1 != "ti830_00");
+                    keys = keys.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 != "ti830_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled)
-                    keys = keys.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1 != "ti840_00");
+                    keys = keys.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 != "ti840_00");
                 if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled)
-                    keys = keys.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Item1 != "ti810_00");
+                    keys = keys.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 != "ti810_00");
 
                 keys.ToList().Shuffle((t1, t2) =>
                 {
-                    string value = treasureRando.PlacementAlgo.Logic.GetLocationItem(t1.ID, false).Item1;
-                    treasureRando.PlacementAlgo.Logic.SetLocationItem(t1.ID, treasureRando.PlacementAlgo.Logic.GetLocationItem(t2.ID, false).Item1, 1);
+                    string value = treasureRando.PlacementAlgo.Logic.GetLocationItem(t1.ID, false).Value.Item1;
+                    treasureRando.PlacementAlgo.Logic.SetLocationItem(t1.ID, treasureRando.PlacementAlgo.Logic.GetLocationItem(t2.ID, false).Value.Item1, 1);
                     treasureRando.PlacementAlgo.Logic.SetLocationItem(t2.ID, value, 1);
                 });
 
@@ -66,15 +68,15 @@ namespace LRRando
                 int min2 = LRFlags.StatsAbilities.EPCostsZero.Enabled ? 1 : 2;
                 int max = LRFlags.StatsAbilities.EPCostMax.Value;
 
-                abilities["ti000_00"].i17AtbCount = RandomEPCost(min2, max, abilities["ti000_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti020_00"].i17AtbCount = RandomEPCost(min2, max, abilities["ti020_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti030_00"].i17AtbCount = RandomEPCost(min1, max, abilities["ti030_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti500_00"].i17AtbCount = RandomEPCost(min2, max, abilities["ti500_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti600_00"].i17AtbCount = RandomEPCost(min1, max, abilities["ti600_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti810_00"].i17AtbCount = RandomEPCost(min2, max, abilities["ti810_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti840_00"].i17AtbCount = RandomEPCost(min1, max, abilities["ti840_00"].i17AtbCount / 2000) * 2000;
-                abilities["ti900_00"].i17AtbCount = RandomEPCost(min2, max, abilities["ti900_00"].i17AtbCount / 2000) * 2000;
-                abilities["at900_00"].i17AtbCount = RandomEPCost(min1, max, abilities["at900_00"].i17AtbCount / 2000) * 2000;
+                int[] minValues = { min2, min2, min1, min2, min1, min2, min1, min2, min1 };
+                string[] abilityIds = { "ti000_00", "ti020_00", "ti030_00", "ti500_00", "ti600_00", "ti810_00", "ti840_00", "ti900_00", "at900_00" };
+
+                for (int i = 0; i < abilityIds.Length; i++)
+                {
+                    string abilityId = abilityIds[i];
+                    int min = minValues[i];
+                    abilities[abilityId].i17AtbCount = RandomEPCost(min, max, abilities[abilityId].i17AtbCount / 2000) * 2000;
+                }
 
                 RandomNum.ClearRand();
             }
@@ -88,42 +90,22 @@ namespace LRRando
 
                 abilityGrowths.Values.ForEach(abi =>
                 {
-                    if (abi.sPasvAbility1_string != "" && abi.sPasvAbility1_string != "0")
-                        abi.sPasvAbility1_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility2_string != "" && abi.sPasvAbility2_string != "0")
-                        abi.sPasvAbility2_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility3_string != "" && abi.sPasvAbility3_string != "0")
-                        abi.sPasvAbility3_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility4_string != "" && abi.sPasvAbility4_string != "0")
-                        abi.sPasvAbility4_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility5_string != "" && abi.sPasvAbility5_string != "0")
-                        abi.sPasvAbility5_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility6_string != "" && abi.sPasvAbility6_string != "0")
-                        abi.sPasvAbility6_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility7_string != "" && abi.sPasvAbility7_string != "0")
-                        abi.sPasvAbility7_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility8_string != "" && abi.sPasvAbility8_string != "0")
-                        abi.sPasvAbility8_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility9_string != "" && abi.sPasvAbility9_string != "0")
-                        abi.sPasvAbility9_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility10_string != "" && abi.sPasvAbility10_string != "0")
-                        abi.sPasvAbility10_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility11_string != "" && abi.sPasvAbility11_string != "0")
-                        abi.sPasvAbility11_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility12_string != "" && abi.sPasvAbility12_string != "0")
-                        abi.sPasvAbility12_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility13_string != "" && abi.sPasvAbility13_string != "0")
-                        abi.sPasvAbility13_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility14_string != "" && abi.sPasvAbility14_string != "0")
-                        abi.sPasvAbility14_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility15_string != "" && abi.sPasvAbility15_string != "0")
-                        abi.sPasvAbility15_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                    if (abi.sPasvAbility16_string != "" && abi.sPasvAbility16_string != "0")
-                        abi.sPasvAbility16_string = RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList());
-                });
+                    // Get all properties of the abi object with the name "sPasvAbility[0-9]*_string"
+                    PropertyInfo[] pasvAbilityProperties = abi.GetType().GetProperties()
+                        .Where(p => Regex.IsMatch(p.Name, "sPasvAbility[0-9]*_string")).ToArray();
 
-                RandomNum.ClearRand();
+                    // Set the value of each property to a random ability name
+                    foreach (PropertyInfo pasvAbilityProp in pasvAbilityProperties)
+                    {
+                        string propertyValue = pasvAbilityProp.GetValue(abi) as string;
+                        if (!string.IsNullOrEmpty(propertyValue) && !propertyValue.Equals("0"))
+                        {
+                            pasvAbilityProp.SetValue(abi, RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList()));
+                        }
+                    }
+                });
             }
+
 
             LRFlags.StatsAbilities.EPAbilities.SetRand();
             RandomizeInitAbility("ini_ba_abi");

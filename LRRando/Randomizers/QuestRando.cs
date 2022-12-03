@@ -79,10 +79,10 @@ namespace LRRando
 
                 questRewards.Values.ForEach(q =>
                 {
-                    Tuple<int, int>[] bounds = new Tuple<int, int>[] {
-                    Tuple.Create(0, 10000),
-                    Tuple.Create(0, 1000),
-                    Tuple.Create(0, 1000)
+                    (int, int)[] bounds = {
+                    (0, 10000),
+                    (0, 1000),
+                    (0, 1000)
                     };
                     float[] weights = new float[] { 1, 10, 10 };
                     int[] zeros = new int[] { 15, 15, 15 };

@@ -178,8 +178,8 @@ namespace FF12Rando
                             if (list.Count > 0)
                             {
                                 string rep = list.First();
-                                Tuple<string, int> item = PlacementAlgo.Logic.GetLocationItem(rep, false);
-                                PlacementAlgo.Logic.SetLocationItem(l.ID, item.Item1, item.Item2);
+                                (string, int)? item = PlacementAlgo.Logic.GetLocationItem(rep, false);
+                                PlacementAlgo.Logic.SetLocationItem(l.ID, item.Value.Item1, item.Value.Item2);
                                 PlacementAlgo.Placement.Add(l.ID, PlacementAlgo.Placement[rep]);
                                 PlacementAlgo.Placement.Remove(rep);
                                 hints.Where(list => list.Contains(rep)).ForEach(list =>
@@ -211,8 +211,8 @@ namespace FF12Rando
                 {
                     if (PlacementAlgo.Placement.ContainsKey(l.ID))
                     {
-                        Tuple<string, int> tuple = PlacementAlgo.Logic.GetLocationItem(l.ID, false);
-                        if (tuple != null && randomizeItems.Contains(tuple.Item1))
+                        (string, int)? tuple = PlacementAlgo.Logic.GetLocationItem(l.ID, false);
+                        if (tuple != null && randomizeItems.Contains(tuple.Value.Item1))
                         {
                             string newItem = RandomNum.SelectRandomWeighted(remainingRandomizeItems, item =>
                             {
@@ -229,13 +229,13 @@ namespace FF12Rando
                             if (newItem.StartsWith("30") || newItem.StartsWith("40"))
                             {
                                 PlacementAlgo.Logic.SetLocationItem(l.ID, newItem, 1);
-                                if (!tuple.Item1.StartsWith("30") && !tuple.Item1.StartsWith("40"))
+                                if (!tuple.Value.Item1.StartsWith("30") && !tuple.Value.Item1.StartsWith("40"))
                                     hints.Where(list => list.Count() == hints.Select(list => list.Count()).Min()).First().Add(l.ID);
                             }
                             else
                             {
-                                PlacementAlgo.Logic.SetLocationItem(l.ID, newItem, tuple.Item2);
-                                if (tuple.Item1.StartsWith("30") || tuple.Item1.StartsWith("40"))
+                                PlacementAlgo.Logic.SetLocationItem(l.ID, newItem, tuple.Value.Item2);
+                                if (tuple.Value.Item1.StartsWith("30") || tuple.Value.Item1.StartsWith("40"))
                                     hints.Where(list => list.Contains(l.ID)).ForEach(list => list.Remove(l.ID));
 
                                 if (l is TreasureData && equipRando.itemData.ContainsKey(newItem) && equipRando.itemData[newItem].Upgrade != "")
@@ -254,7 +254,7 @@ namespace FF12Rando
 
                 if (!FF12Flags.Items.KeyWrit.Enabled)
                 {
-                    itemLocations.Values.Where(l => PlacementAlgo.Logic.GetLocationItem(l.ID, false) != null && PlacementAlgo.Logic.GetLocationItem(l.ID, false).Item1 == "8070")
+                    itemLocations.Values.Where(l => PlacementAlgo.Logic.GetLocationItem(l.ID, false) != null && PlacementAlgo.Logic.GetLocationItem(l.ID, false).Value.Item1 == "8070")
                         .ForEach(l =>
                         {
                             PlacementAlgo.Logic.SetLocationItem(l.ID, "0000", 5);
@@ -264,8 +264,8 @@ namespace FF12Rando
 
                 missableTreasureLinks.ForEach(p =>
                 {
-                    Tuple<string, int> item = PlacementAlgo.Logic.GetLocationItem(p.Value, false);
-                    PlacementAlgo.Logic.SetLocationItem(p.Key, item.Item1, item.Item2);
+                    (string, int)? item = PlacementAlgo.Logic.GetLocationItem(p.Value, false);
+                    PlacementAlgo.Logic.SetLocationItem(p.Key, item.Value.Item1, item.Value.Item2);
                     DataStoreTreasure tMiss = ebpAreas[((TreasureData)itemLocations[p.Key]).MapID].TreasureList[((TreasureData)itemLocations[p.Key]).Index];
                     DataStoreTreasure tLinked = ebpAreas[((TreasureData)itemLocations[p.Value]).MapID].TreasureList[((TreasureData)itemLocations[p.Value]).Index];
                     tMiss.Respawn = tLinked.Respawn;
@@ -416,12 +416,12 @@ namespace FF12Rando
 
         public bool IsImportantKeyItem(string location)
         {
-            return (IsMainKeyItem(location) || IsSideKeyItem(location) || IsHuntKeyItem(location) || IsGrindyKeyItem(location) || IsBlackOrbKeyItem(location) || IsWoTItem(location) || IsHuntClubKeyItem(location)) && PlacementAlgo.Logic.GetLocationItem(location) != null && PlacementAlgo.Logic.GetLocationItem(location).Item1 != "Gil";
+            return (IsMainKeyItem(location) || IsSideKeyItem(location) || IsHuntKeyItem(location) || IsGrindyKeyItem(location) || IsBlackOrbKeyItem(location) || IsWoTItem(location) || IsHuntClubKeyItem(location)) && PlacementAlgo.Logic.GetLocationItem(location) != null && PlacementAlgo.Logic.GetLocationItem(location).Value.Item1 != "Gil";
         }
 
         public bool IsAbility(string t, bool orig = true)
         {
-            return PlacementAlgo.Logic.GetLocationItem(t, orig) != null && (PlacementAlgo.Logic.GetLocationItem(t, orig).Item1.StartsWith("30") || PlacementAlgo.Logic.GetLocationItem(t, orig).Item1.StartsWith("40"));
+            return PlacementAlgo.Logic.GetLocationItem(t, orig) != null && (PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("30") || PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("40"));
         }
 
         public bool IsWoTItem(string t)
@@ -464,10 +464,10 @@ namespace FF12Rando
             return itemLocations.Values.Where(l => !(l is TreasureData) || treasuresToPlace.Contains(l.ID))
                 .Select(l =>
                 {
-                    Tuple<string, int> tuple = PlacementAlgo.Logic.GetLocationItem(l.ID);
-                    if (tuple != null && IsRandomizableItem(tuple.Item1))
+                    (string, int)? tuple = PlacementAlgo.Logic.GetLocationItem(l.ID);
+                    if (tuple != null && IsRandomizableItem(tuple.Value.Item1))
                     {
-                        return tuple.Item1;
+                        return tuple.Value.Item1;
                     }
                     return null;
                 }).Where(s => s != null).Distinct().ToList();
@@ -519,7 +519,7 @@ namespace FF12Rando
                 case 0:
                 default:
                     {
-                        list.Add($"{itemLocations[l].Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Item1)}");
+                        list.Add($"{itemLocations[l].Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Value.Item1)}");
                         list.Add("");
                         break;
                     }
@@ -540,8 +540,8 @@ namespace FF12Rando
                             type = "a Trophy";
                         if (IsWoTItem(PlacementAlgo.Placement[l]))
                             type = "the Writ of Transit";
-                        Tuple<string, int> item = PlacementAlgo.Logic.GetLocationItem(l, false);
-                        if (item != null && (item.Item1.StartsWith("30") || item.Item1.StartsWith("40")))
+                        (string, int)? item = PlacementAlgo.Logic.GetLocationItem(l, false);
+                        if (item != null && (item.Value.Item1.StartsWith("30") || item.Value.Item1.StartsWith("40")))
                             type = "an Ability";
 
                         list.Add($"{itemLocations[l].Name} has {type}");
@@ -550,7 +550,7 @@ namespace FF12Rando
                     }
                 case 2:
                     {
-                        list.Add($"{itemLocations[l].Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Item1)}");
+                        list.Add($"{itemLocations[l].Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Value.Item1)}");
                         list.Add("");
                         break;
                     }
@@ -762,16 +762,16 @@ namespace FF12Rando
                 }
             }
 
-            public override Tuple<string, int> GetData(dynamic obj)
+            public override (string, int)? GetData(dynamic obj)
             {
                 DataStoreTreasure t = (DataStoreTreasure)obj;
                 if (t.GilChance == 100)
                 {
-                    return Tuple.Create("Gil", (int)t.GilCommon);
+                    return ("Gil", (int)t.GilCommon);
                 }
                 else
                 {
-                    return Tuple.Create(t.CommonItem1ID.ToString("X4"), 1);
+                    return (t.CommonItem1ID.ToString("X4"), 1);
                 }
             }
         }
@@ -837,26 +837,26 @@ namespace FF12Rando
                 }
             }
 
-            public override Tuple<string, int> GetData(dynamic obj)
+            public override (string, int)? GetData(dynamic obj)
             {
                 DataStoreReward r = (DataStoreReward)obj;
                 if (Index == 0)
                 {
                     if (r.Gil == 0)
                         return null;
-                    return Tuple.Create("Gil", (int)r.Gil);
+                    return ("Gil", (int)r.Gil);
                 }
                 else if (Index == 1)
                 {
                     if (r.Item1ID == 0xFFFF)
                         return null;
-                    return Tuple.Create(r.Item1ID.ToString("X4"), (int)r.Item1Amount);
+                    return (r.Item1ID.ToString("X4"), (int)r.Item1Amount);
                 }
                 else
                 {
                     if (r.Item2ID == 0xFFFF)
                         return null;
-                    return Tuple.Create(r.Item2ID.ToString("X4"), (int)r.Item2Amount);
+                    return (r.Item2ID.ToString("X4"), (int)r.Item2Amount);
                 }
             }
         }
@@ -906,10 +906,10 @@ namespace FF12Rando
                 c.ItemAmounts = itemAmounts;
             }
 
-            public override Tuple<string, int> GetData(dynamic obj)
+            public override (string, int)? GetData(dynamic obj)
             {
                 DataStorePartyMember c = (DataStorePartyMember)obj;
-                return Tuple.Create(c.ItemIDs[Index].ToString("X4"), (int)c.ItemAmounts[Index]);
+                return (c.ItemIDs[Index].ToString("X4"), (int)c.ItemAmounts[Index]);
             }
         }
     }

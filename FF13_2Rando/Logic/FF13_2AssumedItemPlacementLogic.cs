@@ -9,6 +9,25 @@ namespace FF13_2Rando
     public class FF13_2AssumedItemPlacementLogic : FF13_2ItemPlacementLogic
     {
         List<string> WildGatesOpenOrder = new List<string>();
+        private List<string> AreaStart = new List<string>();
+        private List<string> AreaRemoveOrder = new List<string>();
+        public new List<string> AreaUnlockOrder
+        {
+            get
+            {
+                List<string> list = new List<string>(AreaRemoveOrder);
+                List<string> starting = AreaStart.Where(a => !list.Contains(a)).ToList();
+                starting = starting.OrderByDescending(a =>
+                {
+                    if (cruxRando.GetIDsForOpening(a, false).Select(g => cruxRando.gateData[g]).Where(g => g.Location == "start").Count() > 0)
+                        return 0;
+                    return 1;
+                }).ToList();
+                list.AddRange(starting);
+                list.Reverse();
+                return list;
+            }
+        }
         public FF13_2AssumedItemPlacementLogic(ItemPlacementAlgorithm<FF13_2ItemLocation> algorithm, RandomizerManager randomizers) : base(algorithm, randomizers)
         {
         }
@@ -92,6 +111,10 @@ namespace FF13_2Rando
 
                 list.Where(l => !AreaDepths.ContainsKey(l)).ForEach(l => AreaDepths.Add(l, prevMaxDepth + 1));
             }
+            if (AreaStart.Count == 0)
+                AreaStart.AddRange(list);
+            else if (AreaStart.Where(a => !list.Contains(a) && !AreaRemoveOrder.Contains(a)).Count() > 0)
+                AreaRemoveOrder.AddRange(AreaStart.Where(a => !list.Contains(a) && !AreaRemoveOrder.Contains(a)));
 
             return list;
         }

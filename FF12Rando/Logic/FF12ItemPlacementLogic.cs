@@ -91,7 +91,7 @@ namespace FF12Rando
             return true;
         }
 
-        public override Tuple<string, int> GetLocationItem(string key, bool orig = true)
+        public override (string, int)? GetLocationItem(string key, bool orig = true)
         {
             switch (ItemLocations[key])
             {
@@ -202,19 +202,19 @@ namespace FF12Rando
             if (ItemLocations[old] is TreasureRando.RewardData)
             {
                 TreasureRando.RewardData reward = (TreasureRando.RewardData)ItemLocations[old];
-                if (reward.Index == 0 && GetLocationItem(rep).Item1 != "Gil")
+                if (reward.Index == 0 && GetLocationItem(rep).Value.Item1 != "Gil")
                     return false;
-                if (reward.Index > 0 && GetLocationItem(rep).Item1 == "Gil")
+                if (reward.Index > 0 && GetLocationItem(rep).Value.Item1 == "Gil")
                     return false;
             }
             if (ItemLocations[old] is TreasureRando.TreasureData)
             {
-                if (GetLocationItem(rep).Item1 != "Gil" && GetLocationItem(rep).Item2 > 1)
+                if (GetLocationItem(rep).Value.Item1 != "Gil" && GetLocationItem(rep).Value.Item2 > 1)
                     return false;
             }
             if (ItemLocations[old] is TreasureRando.StartingInvData)
             {
-                if (GetLocationItem(rep).Item1 == "Gil")
+                if (GetLocationItem(rep).Value.Item1 == "Gil")
                     return false;
             }
 

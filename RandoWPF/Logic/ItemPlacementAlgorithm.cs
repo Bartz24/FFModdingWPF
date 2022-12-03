@@ -61,8 +61,8 @@ namespace Bartz24.RandoWPF
             foreach (string key in Placement.Keys.Where(l => !ItemLocations[l].Traits.Contains("Fake")))
             {
                 string repKey = Placement[key];
-                Tuple<string, int> orig = Logic.GetLocationItem(repKey);
-                Logic.SetLocationItem(key, orig.Item1, orig.Item2);
+                (string, int)? orig = Logic.GetLocationItem(repKey);
+                Logic.SetLocationItem(key, orig.Value.Item1, orig.Value.Item2);
             }
         }
 
@@ -161,7 +161,7 @@ namespace Bartz24.RandoWPF
                 while (remainingLogic.Count > 0)
                 {
                     string rep = remainingLogic[0];
-                    Tuple<string, int> nextItem = Logic.GetLocationItem(rep);
+                    (string, int)? nextItem = Logic.GetLocationItem(rep);
                     List<string> allowedLocations = HintsByLocationsCount.Keys.Shuffle();
 
                     // Remove inaccessible locations
@@ -188,7 +188,7 @@ namespace Bartz24.RandoWPF
                         List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && Logic.IsValid(t, rep, items, allowedLocations)).Shuffle();
                         while (possible.Count > 0)
                         {
-                            Tuple<string, int> nextPlacement = Logic.SelectNext(items, possible, rep);
+                            (string, int) nextPlacement = Logic.SelectNext(items, possible, rep);
                             string next = nextPlacement.Item1;
                             int depth = nextPlacement.Item2;
                             string hint = null;
@@ -221,7 +221,7 @@ namespace Bartz24.RandoWPF
                 while (remainingOther.Count > 0)
                 {
                     string rep = remainingOther[0];
-                    Tuple<string, int> nextItem = Logic.GetLocationItem(rep);
+                    (string, int)? nextItem = Logic.GetLocationItem(rep);
                     if (nextItem == null)
                     {
                         if (ItemLocations[rep].Traits.Contains("Fake"))
@@ -276,16 +276,16 @@ namespace Bartz24.RandoWPF
 
             foreach (string rep in remaining)
             {
-                Tuple<string, int> nextItem = Logic.GetLocationItem(rep);
+                (string, int)? nextItem = Logic.GetLocationItem(rep);
                 if (nextItem == null)
                     continue;
-                items[nextItem.Item1] -= nextItem.Item2;
+                items[nextItem.Value.Item1] -= nextItem.Value.Item2;
                 List<string> newAccessibleAreas = Logic.GetNewAreasAvailable(items, new List<string>());
 
                 int possibleCount = locations.Where(t => !Placement.ContainsKey(t) && Logic.IsValid(t, rep, items, newAccessibleAreas)).Count();
                 if (possibleCount == 1)
                     locked.Add(rep, ItemLocations[rep].Requirements.GetPossibleRequirementsCount());
-                items[nextItem.Item1] += nextItem.Item2;
+                items[nextItem.Value.Item1] += nextItem.Value.Item2;
             }
 
             return remaining.OrderByDescending(rep => locked.ContainsKey(rep) ? locked[rep] : -1).ToList();

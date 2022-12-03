@@ -6,7 +6,7 @@ namespace Bartz24.RandoWPF
 {
     public class Tiered<T>
     {
-        protected List<Tuple<int, T>> list = new List<Tuple<int, T>>();
+        protected List<(int, T)> list = new List<(int, T)>();
         protected int maxCount, weight;
         protected float countScale;
 
@@ -21,7 +21,7 @@ namespace Bartz24.RandoWPF
 
         public virtual Tiered<T> Add(int rank, T item)
         {
-            list.Add(Tuple.Create(rank, item));
+            list.Add((rank, item));
             list.Sort((a, b) => a.Item1.CompareTo(b.Item1));
             return this;
         }
@@ -69,14 +69,14 @@ namespace Bartz24.RandoWPF
 
         public int GetRank(T obj, int count)
         {
-            foreach (Tuple<int, T> t in list)
+            foreach ((int, T) t in list)
             {
                 if (!t.Item2.Equals(obj))
                     continue;
                 int minRank = LowBound, maxRank = HighBound;
                 for (int rank = LowBound; rank <= HighBound; rank++)
                 {
-                    List<Tuple<T, int>> tuples = Get(rank, maxCount);
+                    List<(T, int)> tuples = Get(rank, maxCount);
                     if (tuples.Where(tuple => tuple.Item1.Equals(obj) && tuple.Item2 >= count).Count() > 0)
                     {
                         minRank = rank;
@@ -85,7 +85,7 @@ namespace Bartz24.RandoWPF
                 }
                 for (int rank = HighBound - 1; rank >= minRank; rank--)
                 {
-                    List<Tuple<T, int>> tuples = Get(rank, maxCount);
+                    List<(T, int)> tuples = Get(rank, maxCount);
                     if (tuples.Where(tuple => tuple.Item1.Equals(obj) && tuple.Item2 <= count).Count() > 0)
                     {
                         maxRank = rank;
@@ -109,17 +109,17 @@ namespace Bartz24.RandoWPF
             return lower >= upper ? lower : RandomNum.RandInt(lower, upper - 1);
         }
 
-        public List<Tuple<T, int>> Get(int rank, int count, Func<T, bool> meetsReq = null, bool anyRandom = false)
+        public List<(T, int)> Get(int rank, int count, Func<T, bool> meetsReq = null, bool anyRandom = false)
         {
             if (meetsReq == null)
                 meetsReq = t => true;
             if (anyRandom)
             {
-                Tuple<int, T> item = list[RandomNum.RandInt(0, list.Count - 1)];
-                return new List<Tuple<T, int>>() { Tuple.Create(item.Item2, GetRandomCount(rank - item.Item1, count)) };
+                (int, T) item = list[RandomNum.RandInt(0, list.Count - 1)];
+                return new List<(T, int)>() { (item.Item2, GetRandomCount(rank - item.Item1, count)) };
             }
             if (rank < LowBound || rank > HighBound)
-                return new List<Tuple<T, int>>();
+                return new List<(T, int)>();
             List<int> validIndexes = new List<int>();
             for (int i = 0; i < list.Count; i++)
             {
@@ -128,7 +128,7 @@ namespace Bartz24.RandoWPF
                 if (anyRandom || (rank >= list[i].Item1 && rank <= upperBound && meetsReq.Invoke(list[i].Item2)))
                     validIndexes.Add(i);
             }
-            return validIndexes.Select(i => Tuple.Create(list[i].Item2, GetRandomCount(rank - list[i].Item1, count))).ToList();
+            return validIndexes.Select(i => (list[i].Item2, GetRandomCount(rank - list[i].Item1, count))).ToList();
         }
 
     }

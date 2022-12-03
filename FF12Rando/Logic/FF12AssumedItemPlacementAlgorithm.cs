@@ -17,7 +17,7 @@ namespace FF12Rando
             treasureRando = randomizers.Get<TreasureRando>();
         }
 
-        public override void RemoveItems(List<string> locations, Dictionary<string, int> items, Tuple<string, int> nextItem, string rep)
+        public override void RemoveItems(List<string> locations, Dictionary<string, int> items, (string, int)? nextItem, string rep)
         {
             List<string> possible, newPossible = null;
             List<string> newAccessibleAreas = Logic.GetNewAreasAvailable(items, new List<string>());

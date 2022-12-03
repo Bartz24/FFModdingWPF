@@ -15,6 +15,6 @@ namespace Bartz24.RandoWPF
         public abstract bool IsValid(Dictionary<string, int> items);
 
         public abstract void SetData(dynamic obj, string newItem, int newCount);
-        public abstract Tuple<string, int> GetData(dynamic obj);
+        public abstract (string, int)? GetData(dynamic obj);
     }
 }
