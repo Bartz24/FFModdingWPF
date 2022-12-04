@@ -131,7 +131,7 @@ namespace FF13_2Rando
                     {
                         if (!oldEnemies[0].Traits.Contains("Boss") || FF13_2Flags.Enemies.Bosses.Enabled)
                         {
-                            List<EnemyData> validEnemies = enemyData.Values.ToList();
+                            List<EnemyData> validEnemies = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).ToList();
                             if (battleData.ContainsKey(b.name))
                             {
                                 validEnemies = validEnemies.Where(e => e.Parts.Count() == 0).ToList();
@@ -311,9 +311,9 @@ namespace FF13_2Rando
                         int range = attempts + FF13_2Flags.Enemies.EnemyRank.Value;
                         if (sameRank)
                             range -= 2;
-                        List<string> possible = enemyData.Keys.Where(e => !ignored.Contains(e)).Where(newE =>
+                        List<EnemyData> possible = allowed.Where(e => !ignored.Contains(e.ID)).Where(newE =>
                         {
-                            return enemyData[newE].Rank >= newRank - range && enemyData[newE].Rank <= newRank + range;
+                            return newE.Rank >= newRank - range && newE.Rank <= newRank + range;
                         }).ToList();
 
                         if (possible.Count == 0)
@@ -322,7 +322,7 @@ namespace FF13_2Rando
                         }
 
                         canAdd = true;
-                        newEnemy = enemyData[RandomNum.SelectRandomWeighted(possible, _ => 1)];
+                        newEnemy = RandomNum.SelectRandomWeighted(possible, _ => 1);
                         if (oldEnemies.Contains(newEnemy))
                         {
                             break;
