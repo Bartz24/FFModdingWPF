@@ -6,11 +6,15 @@ using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Bartz24.FF13_2_LR
 {
     public class DB3Database
     {
+        public class DB3Ignore : Attribute
+        {
+        }
         public static Dictionary<int, T> GetEntries<T>(string path, string tableName) where T : DataStoreDB3Entry
         {
             try
@@ -65,7 +69,7 @@ namespace Bartz24.FF13_2_LR
         {
             SqlBuilder builder = new SqlBuilder()
                 .Where("main_id = @main_id");
-            typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).ForEach(p =>
+            typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => !Attribute.IsDefined(p, typeof(DB3Ignore))).ForEach(p =>
             {
                 builder = builder.Set($"{p.Name} = @{p.Name}");
             });

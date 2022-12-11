@@ -130,9 +130,9 @@ namespace LRRando
                                 {
                                     CharaSetMapping[b.name].ForEach(m =>
                                     {
-                                        List<string> specs = charaSets[m].GetCharaSpecs();
+                                        List<string> specs = charaSets[m].CharaSpecs;
                                         specs.AddRange(charSpecs.Where(s => !specs.Contains(s)).Select(s => enemyRando.enemies[s].sCharaSpec_string).Distinct());
-                                        charaSets[m].SetCharaSpecs(specs);
+                                        charaSets[m].CharaSpecs = specs;
                                     });
                                 }
                             }

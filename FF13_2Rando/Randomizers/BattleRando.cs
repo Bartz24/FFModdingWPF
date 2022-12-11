@@ -107,7 +107,7 @@ namespace FF13_2Rando
                 }
 
 
-                btScenes.Values.ForEach(b =>
+                btScenes.Values.Shuffle().ForEach(b =>
                 {
                     List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Select(s => enemyData[s]).ToList();
                     int count = oldEnemies.Count;
@@ -134,7 +134,7 @@ namespace FF13_2Rando
                             List<EnemyData> validEnemies = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).ToList();
                             if (battleData.ContainsKey(b.name))
                             {
-                                validEnemies = validEnemies.Where(e => e.Parts.Count() == 0).ToList();
+                                validEnemies = validEnemies.Where(e => e.Parts.Count() == 0 || oldEnemies.Contains(e)).ToList();
                             }
 
                             UpdateEnemyLists(oldEnemies, validEnemies, b.name, b.name.StartsWith("btsc011"));
@@ -187,9 +187,15 @@ namespace FF13_2Rando
                 .Select(id => historiaCruxRando.areaData.Values.First(a => a.BattleTableID == id).ID)
                 .ToList();
 
-            if (battleData.ContainsKey(btsceneName) && !list.Contains(battleData[btsceneName].LocationID))
+            if (battleData.ContainsKey(btsceneName))
             {
-                list.Add(battleData[btsceneName].LocationID);
+                foreach (string id in battleData[btsceneName].LocationIDs)
+                {
+                    if (!list.Contains(id))
+                    {
+                        list.Add(id);
+                    }
+                }
             }
 
             return list;
@@ -252,6 +258,9 @@ namespace FF13_2Rando
                     if (!shuffledBosses.ContainsKey(oldBoss.Group))
                         return;
                     string newGroup = shuffledBosses[oldBoss.Group];
+                    if (oldBoss.Group == newGroup)
+                        return;
+
                     if (oldBoss.Group != newGroup)
                     {
                         newEnemies.Add(enemyData[bossData[newGroup].Values.First(b => b.Traits.Contains("Main")).ID]);
@@ -331,7 +340,7 @@ namespace FF13_2Rando
                         {
                             battleData[btsceneName].Charasets.ForEach(c =>
                             {
-                                List<string> list = charaSets[c].GetCharaSpecs();
+                                List<string> list = charaSets[c].CharaSpecs;
 
                                 string spec = enemyRando.HasEnemy(newEnemy.ID) ? enemyRando.GetEnemy(newEnemy.ID).sCharaSpec_string : newEnemy.ID;
                                 if (!list.Contains(spec))
@@ -343,7 +352,7 @@ namespace FF13_2Rando
                                         list.Add(spec);
                                 });
 
-                                if (list.Count > battleData[btsceneName].CharasetLimit && list.Count > charaSets[c].GetCharaSpecs().Count)
+                                if (list.Count > battleData[btsceneName].CharasetLimit && list.Count > charaSets[c].CharaSpecs.Count)
                                 {
                                     canAdd = false;
                                     ignored.Add(newEnemy.ID);
@@ -372,12 +381,12 @@ namespace FF13_2Rando
                 {
                     battleData[btsceneName].Charasets.ForEach(c =>
                     {
-                        List<string> list = charaSets[c].GetCharaSpecs();
+                        List<string> list = charaSets[c].CharaSpecs;
 
                         if (!list.Contains(spec))
                             list.Add(spec);
 
-                        charaSets[c].SetCharaSpecs(list);
+                        charaSets[c].CharaSpecs = list;
                     });
                 });
             }
@@ -416,6 +425,7 @@ namespace FF13_2Rando
 
         public override Dictionary<string, HTMLPage> GetDocumentation()
         {
+            HistoriaCruxRando historiaCruxRando = Randomizers.Get<HistoriaCruxRando>();
             Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Encounters", "template/documentation.html");
 
@@ -424,10 +434,10 @@ namespace FF13_2Rando
                 return new string[] { p.Key, p.Value }.ToList();
             }).ToList()));
 
-            page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID (Actual Location TBD)", "New Enemies" }).ToList(), (new int[] { 60, 40 }).ToList(), btScenes.Values.Where(b => int.Parse(b.name.Substring(4)) >= 1100).Select(b =>
+            page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID", "Location", "New Enemies" }).ToList(), (new int[] { 20, 20, 60 }).ToList(), btScenes.Values.Where(b => GetAreasWithBattle(b.name).Count > 0).Select(b =>
               {
                   List<string> names = b.GetCharSpecs().Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : (e + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
-                  return new string[] { b.name, string.Join(",", names) }.ToList();
+                  return new string[] { b.name, string.Join("/", GetAreasWithBattle(b.name).Select(a => historiaCruxRando.areaData[a].Name)), string.Join(", ", names) }.ToList();
               }).ToList()));
             pages.Add("encounters", page);
             return pages;
@@ -503,7 +513,7 @@ namespace FF13_2Rando
             [RowIndex(2)]
             public string Location { get; set; }
             [RowIndex(3)]
-            public string LocationID { get; set; }
+            public List<string> LocationIDs { get; set; }
             [RowIndex(4)]
             public List<string> Charasets { get; set; }
             [RowIndex(5)]

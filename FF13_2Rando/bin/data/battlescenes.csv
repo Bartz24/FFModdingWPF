@@ -47,6 +47,9 @@ btsc08012,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
 btsc08013,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
 btsc08014,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
 btsc08050,,Academia 400,h_ac_AD0400,chset_acea_002,,44
+btsc08501,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08502,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
+btsc08503,,Academia 400,h_ac_AD0400,chset_acea_001|chset_acea_002,,44
 btsc08700,,Academia 400,h_ac_AD0400,chset_acea_e030,,44
 btsc08710,,Academia 400,h_ac_AD0400,chset_acea_e060,,44
 btsc08720,,Academia 400,h_ac_AD0400,chset_acea_e060,,44
@@ -64,3 +67,39 @@ btsc15900,,Ending,h_ac_AD0500,chset_lsza_d01a,,44
 btsc15910,,Ending,h_ac_AD0500,chset_lsza_d01a,,44
 btsc15950,,Ending,h_ac_AD0500,chset_lsza_d01a,,44
 btsc15990,,Ending,h_ac_AD0500,chset_lsza_d03b,,44
+btsc09002,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09004,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09011,,Augusta 200/300,h_gt_AD0200|h_gt_AD0300,chset_gtca_def|chset_gtda_def,,24
+btsc09012,,Augusta 200/300,h_gt_AD0200|h_gt_AD0300,chset_gtca_def|chset_gtda_def,,24
+btsc09021,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09022,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09030,,Augusta 200/300,h_gt_AD0200|h_gt_AD0300,chset_gtca_def|chset_gtda_def,,24
+btsc09031,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09041,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09042,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09051,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09052,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09070,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09080,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09100,,Augusta 300,h_gt_AD0300,chset_gtda_def,,24
+btsc09101,,Augusta 300,h_gt_AD0300,chset_gtda_def,,24
+btsc09110,,Augusta 300,h_gt_AD0300,chset_gtda_def,,24
+btsc09503,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09505,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09510,,Augusta 300,h_gt_AD0300,chset_gtda_def,,24
+btsc09511,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09515,,Augusta 300,h_gt_AD0300,chset_gtda_def,,24
+btsc09517,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09518,,Augusta 200/300,h_gt_AD0200|h_gt_AD0300,chset_gtca_def|chset_gtda_def,,24
+btsc09521,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09541,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09550,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09555,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09557,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09559,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09560,,Augusta 200,h_gt_AD0200,chset_gtca_def,,44
+btsc09600,,Augusta 300,h_gt_AD0300,chset_gtda_def,,24
+btsc09610,,Augusta 300,h_gt_AD0300,chset_gtda_def,,24
+btsc09620,,Augusta 300,h_gt_AD0300,chset_gtda_def,,24
+btsc09621,,Augusta 300,h_gt_AD0300,chset_gtda_def,,24
+btsc09622,,Augusta 300,h_gt_AD0300,chset_gtda_def,,24

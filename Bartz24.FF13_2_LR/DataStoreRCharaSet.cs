@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Bartz24.FF13_2_LR.DB3Database;
 
 namespace Bartz24.FF13_2_LR
 {
@@ -132,29 +133,30 @@ namespace Bartz24.FF13_2_LR
         public int u1PartyLoadRequestIndex4 { get; set; }
         public int u1PartyLoadRequestIndex5 { get; set; }
 
-
-
-        public void SetCharaSpecs(List<string> list)
+        [DB3Ignore]
+        public List<string> CharaSpecs
         {
-            if (list.Count > 58)
-                throw new Exception("Too many Chara Specs being added to " + name);
-            for (int i = 0; i < 58; i++)
+            get
             {
-                if (i < list.Count)
-                    this.SetPropValue($"sCharaSpecId{i}_string", list[i]);
-                else
-                    this.SetPropValue($"sCharaSpecId{i}_string", "");
+                List<string> list = new List<string>();
+                for (int i = 0; i < 58; i++)
+                {
+                    list.Add(this.GetPropValue<string>($"sCharaSpecId{i}_string"));
+                }
+                return list.Where(s => s != "").ToList();
             }
-        }
-
-        public List<string> GetCharaSpecs()
-        {
-            List<string> list = new List<string>();
-            for (int i = 0; i < 58; i++)
+            set
             {
-                list.Add(this.GetPropValue<string>($"sCharaSpecId{i}_string"));
+                if (value.Count > 58)
+                    throw new Exception("Too many Chara Specs being added to " + name);
+                for (int i = 0; i < 58; i++)
+                {
+                    if (i < value.Count)
+                        this.SetPropValue($"sCharaSpecId{i}_string", value[i]);
+                    else
+                        this.SetPropValue($"sCharaSpecId{i}_string", "");
+                }
             }
-            return list.Where(s => s != "").ToList();
         }
     }
 }

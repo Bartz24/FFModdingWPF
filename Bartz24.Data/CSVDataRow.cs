@@ -17,13 +17,23 @@ namespace Bartz24.Data
             Index = index;
         }
     }
+
     public class CSVDataRow
     {
+        private static Dictionary<Type, PropertyInfo[]> propertyCache = new Dictionary<Type, PropertyInfo[]>();
         public CSVDataRow(string[] row)
         {
             // Use reflection to initialize the properties using the values
             // in the row and the attributes defining the row index for each property
-            var properties = this.GetType().GetProperties();
+            PropertyInfo[] properties;
+            if (propertyCache.ContainsKey(this.GetType()))
+            {
+                properties = propertyCache[this.GetType()];
+            }
+            else
+            {
+                properties = this.GetType().GetProperties();
+            }
             foreach (var property in properties)
             {
                 var attribute = property.GetCustomAttribute<RowIndexAttribute>();
