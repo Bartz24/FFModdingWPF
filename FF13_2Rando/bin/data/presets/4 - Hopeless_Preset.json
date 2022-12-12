@@ -1,6 +1,6 @@
 {
   "name": "4 - Hopeless",
-  "version": "0.6.8",
+  "version": "0.7.5.6",
   "flags": [
     {
       "FlagEnabled": true,
@@ -87,12 +87,35 @@
           "ID": "LargeEnc"
         },
         {
-          "Enabled": true,
+          "SelectedValues": [
+            "Gogmagog Alpha",
+            "Gogmagog Beta",
+            "Aloeidai",
+            "Caius (Oerba)",
+            "Mutantomato",
+            "Caius (Void Beyond)",
+            "Caius (Dying World)",
+            "Gogmagog Gamma",
+            "Pacos Amethyst/Luvulite",
+            "Caius (Deck)",
+            "Caius (Beach)",
+            "Caius (Oerba Paradox)",
+            "Caius (Void Beyond Paradox)",
+            "Caius (Dying World Paradox)",
+            "Lightning",
+            "Amodar",
+            "Snow",
+            "Gilgamesh 1",
+            "Gilgamesh 2",
+            "Kalavinka",
+            "Ugallu",
+            "Gorgyra"
+          ],
           "ID": "RandBoss"
         },
         {
-          "Enabled": true,
-          "ID": "RandDLCBoss"
+          "Value": 0,
+          "ID": "EnemyRank"
         }
       ],
       "FlagID": "RandEne"

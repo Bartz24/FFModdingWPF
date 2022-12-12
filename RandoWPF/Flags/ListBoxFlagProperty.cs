@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Bartz24.RandoWPF
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class ComboBoxFlagProperty : FlagProperty
+    public class ListBoxFlagProperty : FlagProperty
     {
         public override FlagProperty Register(Flag parent)
         {
@@ -19,35 +21,35 @@ namespace Bartz24.RandoWPF
             Flag flag = (Flag)sender;
             if (e.PropertyName == nameof(flag.FlagEnabled) && !flag.FlagEnabled)
             {
-                SelectedValue = Values[0];
+                SelectedValues = new List<string>();
             }
         }
         public List<string> Values { get; set; } = new List<string>();
 
-        private string selectedValue;
+        private List<string> selectedValues;
         [JsonProperty]
-        public string SelectedValue
+        public IList SelectedValues
         {
-            get => selectedValue;
+            get => selectedValues;
             set
             {
-                selectedValue = value;
+                selectedValues = value.Cast<string>().ToList();
 
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedValue)));
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedValues)));
             }
         }
 
-        public int SelectedIndex { get => IndexOf(SelectedValue); }
+        public List<int> SelectedIndices { get => IndicesOf(selectedValues); }
 
         public override void Deserialize(dynamic data)
         {
-            base.Deserialize((object)data);
-            SelectedValue = data["SelectedValue"];
+            base.Deserialize((object)data);                       
+            SelectedValues = data["SelectedValues"] == null ? new List<string>() : data["SelectedValues"].ToObject(typeof(List<string>));
         }
 
-        public int IndexOf(string val)
+        public List<int> IndicesOf(List<string> vals)
         {
-            return Values.IndexOf(val);
+            return vals.Select(s => Values.IndexOf(s)).ToList();
         }
     }
 }

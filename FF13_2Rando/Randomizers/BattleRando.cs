@@ -96,12 +96,12 @@ namespace FF13_2Rando
                     areaBounds[area] = (newMins[i], (int)(newMins[i] * ((float)areaBounds[area].Item2 / areaBounds[area].Item1)));
                 }
 
-                if (FF13_2Flags.Enemies.Bosses.Enabled)
+                if (FF13_2Flags.Enemies.Bosses.SelectedValues.Count > 0)
                 {
-                    List<string> list = bossData.Keys.Where(g => !bossData[g].Values.First(b => b.Traits.Contains("Main")).Traits.Contains("NoShuffle")).ToList();
-                    // DLC fights require entry
-                    if (!FF13_2Flags.Enemies.DLCBosses.Enabled)
-                        list = list.Where(g => !bossData[g].Values.First(b => b.Traits.Contains("Main")).Traits.Contains("ForceEntry")).ToList();
+                    List<string> list = bossData.Keys
+                        .Where(g => FF13_2Flags.Enemies.Bosses.SelectedValues.Contains(g))
+                        .Where(g => !bossData[g].Values.First(b => b.Traits.Contains("Main")).Traits.Contains("NoShuffle"))
+                        .ToList();
                     List<string> shuffled = list.Shuffle().ToList();
                     shuffledBosses = Enumerable.Range(0, list.Count).ToDictionary(i => list[i], i => shuffled[i]);
                 }
@@ -129,7 +129,7 @@ namespace FF13_2Rando
                     }
                     if (count > 0)
                     {
-                        if (!oldEnemies[0].Traits.Contains("Boss") || FF13_2Flags.Enemies.Bosses.Enabled)
+                        if (!oldEnemies[0].Traits.Contains("Boss") || FF13_2Flags.Enemies.Bosses.SelectedValues.Count > 0)
                         {
                             List<EnemyData> validEnemies = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).ToList();
                             if (battleData.ContainsKey(b.name))

@@ -177,7 +177,8 @@ namespace FF13_2Rando
         {
             public static Flag EnemyLocations;
             public static NumberFlagProperty EnemyRank;
-            public static ToggleFlagProperty LargeEnc, Bosses, DLCBosses;
+            public static ToggleFlagProperty LargeEnc, DLCBosses;
+            public static ListBoxFlagProperty Bosses;
 
             internal static void Init()
             {
@@ -198,19 +199,36 @@ namespace FF13_2Rando
                 }.Register(EnemyLocations);
 
 
-                Bosses = (ToggleFlagProperty)new ToggleFlagProperty()
+                Bosses = (ListBoxFlagProperty)new ListBoxFlagProperty()
                 {
-                    Text = "Shuffle Bosses",
+                    Text = "Shuffled Bosses",
                     ID = "RandBoss",
-                    Description = "Shuffle the following bosses between each other:\n" +
-                    "Gogmagog (Alpha, Beta and Gamma), Aloedai, Caius (Oerba, Void Beyond, Dying World, Deck, Beach, and Paradoxes), Kalavinka, Ugallu, Gorgyra\n"
-                }.Register(EnemyLocations);
-
-                DLCBosses = (ToggleFlagProperty)new ToggleFlagProperty()
-                {
-                    Text = "Include DLC Bosses",
-                    ID = "RandDLCBoss",
-                    Description = "Include the following bosses for boss shuffling:\n" + "Lightning, Amodar, Snow, Gilgamesh (1 and 2)\n"
+                    Description = "Select the bosses to be shuffled. Unselected bosses will stay where they are.",
+                    Values =
+                    {
+                        "Gogmagog Alpha",
+                        "Gogmagog Beta",
+                        "Aloeidai",
+                        "Caius (Oerba)",
+                        "Mutantomato",
+                        "Caius (Void Beyond)",
+                        "Caius (Dying World)",
+                        "Gogmagog Gamma",
+                        "Pacos Amethyst/Luvulite",
+                        "Caius (Deck)",
+                        "Caius (Beach)",
+                        "Caius (Oerba Paradox)",
+                        "Caius (Void Beyond Paradox)",
+                        "Caius (Dying World Paradox)",
+                        "Lightning",
+                        "Amodar",
+                        "Snow",
+                        "Gilgamesh 1",
+                        "Gilgamesh 2",
+                        "Kalavinka",
+                        "Ugallu",
+                        "Gorgyra"
+                    }
                 }.Register(EnemyLocations);
 
                 EnemyRank = (NumberFlagProperty)new NumberFlagProperty()

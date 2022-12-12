@@ -1,7 +1,42 @@
 {
   "name": "1 - Simple",
-  "version": "0.5.3",
+  "version": "0.7.5.6",
   "flags": [
+    {
+      "FlagEnabled": true,
+      "FlagProperties": [],
+      "FlagID": "RandCrystAbi"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [
+        {
+          "Value": 500,
+          "ID": "InitCPAmt"
+        }
+      ],
+      "FlagID": "InitCP"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "RandEqStat"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [],
+      "FlagID": "RandPassive"
+    },
+    {
+      "FlagEnabled": false,
+      "FlagProperties": [
+        {
+          "Value": 0,
+          "ID": "AccWRange"
+        }
+      ],
+      "FlagID": "RandAccW"
+    },
     {
       "FlagEnabled": true,
       "FlagProperties": [
@@ -11,7 +46,7 @@
         },
         {
           "Enabled": false,
-          "ID": "KeyGrqaviton"
+          "ID": "KeyGraviton"
         },
         {
           "Enabled": false,
@@ -28,6 +63,18 @@
         {
           "Enabled": false,
           "ID": "KeyPlaceBrain"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyPlaceMogCryst"
+        },
+        {
+          "Enabled": false,
+          "ID": "KeyPlaceMogJunk"
+        },
+        {
+          "SelectedValue": "Normal",
+          "ID": "KeyDepth"
         }
       ],
       "FlagID": "Treasures"
@@ -40,20 +87,25 @@
           "ID": "LargeEnc"
         },
         {
-          "Enabled": true,
+          "SelectedValues": [
+            "Gogmagog Alpha",
+            "Gogmagog Beta",
+            "Aloeidai",
+            "Caius (Oerba)",
+            "Mutantomato",
+            "Caius (Void Beyond)",
+            "Caius (Dying World)",
+            "Gogmagog Gamma",
+            "Pacos Amethyst/Luvulite"
+          ],
           "ID": "RandBoss"
         },
         {
-          "Enabled": true,
-          "ID": "RandDLCBoss"
+          "Value": 0,
+          "ID": "EnemyRank"
         }
       ],
       "FlagID": "RandEne"
-    },
-    {
-      "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandCrystAbi"
     },
     {
       "FlagEnabled": true,
@@ -61,6 +113,10 @@
         {
           "SelectedValue": "Bodhum & Bresha",
           "ID": "ForcedStart"
+        },
+        {
+          "Enabled": false,
+          "ID": "RandDLCCrux"
         }
       ],
       "FlagID": "HistCrux"
@@ -69,16 +125,6 @@
       "FlagEnabled": true,
       "FlagProperties": [],
       "FlagID": "Music"
-    },
-    {
-      "FlagEnabled": false,
-      "FlagProperties": [
-        {
-          "Value": 500,
-          "ID": "InitCPAmt"
-        }
-      ],
-      "FlagID": "InitCP"
     }
   ]
 }
