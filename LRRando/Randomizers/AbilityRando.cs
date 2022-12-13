@@ -104,8 +104,8 @@ namespace LRRando
                         }
                     }
                 });
+                RandomNum.ClearRand();
             }
-
 
             LRFlags.StatsAbilities.EPAbilities.SetRand();
             RandomizeInitAbility("ini_ba_abi");
