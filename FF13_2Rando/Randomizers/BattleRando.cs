@@ -90,10 +90,12 @@ namespace FF13_2Rando
                     return Math.Abs(i1 - i2) < 3 ? 1 : 0;
                 });
                 List<int> newMins = areaBounds.Values.Select(t => t.Item1).OrderBy(i => i).ToList();
+                int enemyMaxRank = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).Max(e => e.Rank);
                 for (int i = 0; i < areaBounds.Count; i++)
                 {
                     string area = areaUnlockOrder[i];
-                    areaBounds[area] = (newMins[i], (int)(newMins[i] * ((float)areaBounds[area].Item2 / areaBounds[area].Item1)));
+                    int newMax = newMins[i] + areaBoundsOrig[area].Item2 - areaBoundsOrig[area].Item1;
+                    areaBounds[area] = (newMins[i], Math.Min(newMax, enemyMaxRank));
                 }
 
                 if (FF13_2Flags.Enemies.Bosses.SelectedValues.Count > 0)
@@ -147,28 +149,22 @@ namespace FF13_2Rando
 
         private Dictionary<string, (int, int)> GetAreaRankBounds()
         {
-            Dictionary<string, (int, int)> areaBounds = new Dictionary<string, (int, int)>();
-            HistoriaCruxRando historiaCruxRando = Randomizers.Get<HistoriaCruxRando>();
-            historiaCruxRando.areaData.Values.ForEach(a =>
+            Dictionary<string, HashSet<int>> areaRanks = new Dictionary<string, HashSet<int>>();
+            btScenes.Values.ForEach(b =>
             {
-                HashSet<int> ranks = new HashSet<int>();
-
-                if (!string.IsNullOrEmpty(a.BattleTableID))
+                int rank = GetBattleRank(b);
+                if (rank > 0)
                 {
-                    btTables[a.BattleTableID].Values
-                    .SelectMany(bt => bt.GetBattleIDs()
-                        .Where(id => btScenes.Keys.Contains($"btsc{id.ToString("D5")}"))
-                        .Select(id => btScenes[$"btsc{id.ToString("D5")}"]))
-                    .Distinct()
-                    .Select(b => GetBattleRank(b))
-                    .Where(i => i > 0)
-                    .ForEach(i => ranks.Add(i));
+                    List<string> areas = GetAreasWithBattle(b.name);
+                    areas.ForEach(a =>
+                    {
+                        if (!areaRanks.ContainsKey(a))
+                            areaRanks.Add(a, new HashSet<int>());
+                        areaRanks[a].Add(rank);
+                    });
                 }
-
-                if (ranks.Count > 0)
-                    areaBounds.Add(a.ID, (ranks.Min(), ranks.Max()));
             });
-            return areaBounds;
+            return areaRanks.ToDictionary(p => p.Key, p => (p.Value.Min(), p.Value.Max()));
         }
 
         private int GetBattleRank(DataStoreBtScene b)
@@ -179,6 +175,9 @@ namespace FF13_2Rando
 
         private List<string> GetAreasWithBattle(string btsceneName)
         {
+            // Dummy garuda battle
+            if (btsceneName == "btsc99000")
+                return new List<string>();
             HistoriaCruxRando historiaCruxRando = Randomizers.Get<HistoriaCruxRando>();
             List<string> list = btTables.Keys
                 .Where(id => btTables[id].Values
@@ -436,7 +435,7 @@ namespace FF13_2Rando
 
             page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID", "Location", "New Enemies" }).ToList(), (new int[] { 20, 20, 60 }).ToList(), btScenes.Values.Where(b => GetAreasWithBattle(b.name).Count > 0).Select(b =>
               {
-                  List<string> names = b.GetCharSpecs().Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : (e + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
+                  List<string> names = b.GetCharSpecs().Take(b.u4BtChInitSetNum > 0 ? b.u4BtChInitSetNum : int.MaxValue).Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : (e + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
                   return new string[] { b.name, string.Join("/", GetAreasWithBattle(b.name).Select(a => historiaCruxRando.areaData[a].Name)), string.Join(", ", names) }.ToList();
               }).ToList()));
             pages.Add("encounters", page);

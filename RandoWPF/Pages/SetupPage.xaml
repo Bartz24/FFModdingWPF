@@ -18,9 +18,9 @@
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="130px" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="200px" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -44,7 +44,7 @@
         </Grid>
         <Separator Margin="10"/>
         <TextBlock  FontSize="14" Margin="5">Load Previous Settings:</TextBlock>
-        <StackPanel Margin="40,0">
+        <StackPanel Margin="40,0" MaxWidth="400px">
             <StackPanel.Resources>
                 <Style TargetType="Border" >
                     <Setter Property="Padding" Value="1,5,1,5" />

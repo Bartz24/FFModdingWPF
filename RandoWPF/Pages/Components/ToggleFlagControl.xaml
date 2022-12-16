@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ToggleButton x:Name="flagCheckbox" Grid.Row="0" Grid.Column="0" Margin="5" IsChecked="{Binding Enabled}"></ToggleButton>
-        <TextBlock Visibility="{Binding TextVisibility}" FontSize="15" VerticalAlignment="Center" Margin="5, 0, 50, 0" TextWrapping="Wrap" MaxWidth="300px" Grid.Row="0" Grid.Column="1" Text="{Binding Text}"></TextBlock>
+        <TextBlock  HorizontalAlignment="Left" Visibility="{Binding TextVisibility}" FontSize="15" VerticalAlignment="Center" Margin="5, 0, 50, 0" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Text="{Binding Text}"></TextBlock>
         <materialDesign:PackIcon ToolTipService.InitialShowDelay="0" ToolTipService.ShowDuration="20000" Visibility="{Binding HelpVisibility}" Width="36" Height="36" Kind="InformationOutline" Grid.Row="0" Grid.Column="2" Foreground="{Binding HelpColor}" Background="Transparent">
             <materialDesign:PackIcon.ToolTip>
                 <ToolTip MaxWidth="400">
