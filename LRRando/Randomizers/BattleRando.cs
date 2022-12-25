@@ -253,7 +253,7 @@ namespace LRRando
                 //list.Add("btsc04901");
                 //list.Add("btsc01960");
                 //list.Add("btsc08600");
-                //list.Add("btsc08601");
+                list.Add("btsc08601");
                 list.Add("btsc02953");
                 list.Add("btsc02902");
                 //list.Add("btsc01040");
