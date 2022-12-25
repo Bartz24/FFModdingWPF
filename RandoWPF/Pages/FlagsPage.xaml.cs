@@ -51,7 +51,12 @@ namespace Bartz24.RandoWPF
 
         private bool FlagFilter(object item)
         {
-            return Flags.SelectedCategory == Flags.CategoryMap[-1] || Flags.SelectedCategory == Flags.CategoryMap[((Flag)item).FlagType];
+            Flag flag = (Flag)item;
+            if (flag.Debug)
+            {
+                return Flags.SelectedCategory == Flags.CategoryMap[flag.FlagType];
+            }
+            return Flags.SelectedCategory == Flags.CategoryMap[-1] || Flags.SelectedCategory == Flags.CategoryMap[flag.FlagType];
         }
 
         private void Flags_SelectedChanged(object sender, EventArgs e)

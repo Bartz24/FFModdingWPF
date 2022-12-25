@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Bartz24.RandoWPF
 {
@@ -38,10 +39,15 @@ namespace Bartz24.RandoWPF
 
         public bool Experimental { get; set; }
         public bool Aesthetic { get; set; }
+        public bool Debug { get; set; }
         public string DescriptionFormat { get; set; } = "";
         public string Description
         {
             get => (Experimental ? "[EXPERIMENTAL]\n" : "") + DescriptionFormatting.Apply(CurrentDescriptionFormat, this);
+        }
+        public Brush HelpColor
+        {
+            get => Debug ? Brushes.GreenYellow : (Experimental ? Brushes.PaleVioletRed : Brushes.SkyBlue);
         }
 
         public virtual string CurrentDescriptionFormat

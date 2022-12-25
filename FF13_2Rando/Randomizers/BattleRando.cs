@@ -331,12 +331,12 @@ namespace FF13_2Rando
 
                         canAdd = true;
                         newEnemy = RandomNum.SelectRandomWeighted(possible, _ => 1);
-                        if (oldEnemies.Contains(newEnemy))
-                        {
-                            break;
-                        }
                         if (battleData.ContainsKey(btsceneName))
                         {
+                            if (oldEnemies.Contains(newEnemy))
+                            {
+                                break;
+                            }
                             battleData[btsceneName].Charasets.ForEach(c =>
                             {
                                 List<string> list = charaSets[c].CharaSpecs;
@@ -362,6 +362,20 @@ namespace FF13_2Rando
                                 }
                             });
                         }
+                        else
+                        {
+                            List<EnemyData> enemies = new List<EnemyData>(newEnemies);
+                            enemies.Add(newEnemy);
+                            if (GetCharaSpecs(enemies).Distinct().Count() > 3)
+                            {
+                                canAdd = false;
+                                ignored.Add(newEnemy.ID);
+                                if (possible.Count == 0)
+                                {
+                                    newEnemy = oldEnemy;
+                                }
+                            }    
+                        }
                     } while (!canAdd);
 
                     if (newEnemy == null)
@@ -369,9 +383,7 @@ namespace FF13_2Rando
                     newEnemies.Add(newEnemy);
                 });
             }
-
-            List<string> charaSpecs = newEnemies.Select(e => e.ID).ToList();
-            charaSpecs.AddRange(newEnemies.SelectMany(e => e.Parts).Distinct().Where(s => !charaSpecs.Contains(s)));
+            List<string> charaSpecs = GetCharaSpecs(newEnemies);
             btScenes[btsceneName].SetCharSpecs(charaSpecs);
 
             if (battleData.ContainsKey(btsceneName))
@@ -394,6 +406,13 @@ namespace FF13_2Rando
                 btScenes[btsceneName].u4BtChInitSetNum = newEnemies.Sum(e => e.Size);
             else
                 btScenes[btsceneName].u4BtChInitSetNum = 0;
+        }
+
+        private static List<string> GetCharaSpecs(List<EnemyData> newEnemies)
+        {
+            List<string> charaSpecs = newEnemies.Select(e => e.ID).ToList();
+            charaSpecs.AddRange(newEnemies.SelectMany(e => e.Parts).Distinct().Where(s => !charaSpecs.Contains(s)));
+            return charaSpecs;
         }
 
         public Dictionary<string, int> GetAreaDifficulties()

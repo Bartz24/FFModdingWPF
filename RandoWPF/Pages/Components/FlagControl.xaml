@@ -22,7 +22,7 @@
                 </Grid.RowDefinitions>
                 <ToggleButton x:Name="flagCheckbox" Grid.Row="0" Grid.Column="0" Margin="5" IsChecked="{Binding FlagEnabled}"></ToggleButton>
                 <TextBlock FontSize="15" VerticalAlignment="Center" Margin="5, 0, 50, 0" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Text="{Binding Text}"></TextBlock>
-                <materialDesign:PackIcon ToolTipService.InitialShowDelay="0" ToolTipService.ShowDuration="20000" Width="36" Height="36" Kind="InformationOutline" Grid.Row="0" Grid.Column="2" Foreground="SkyBlue" Background="Transparent">
+                <materialDesign:PackIcon ToolTipService.InitialShowDelay="0" ToolTipService.ShowDuration="20000" Width="36" Height="36" Kind="InformationOutline" Grid.Row="0" Grid.Column="2" Foreground="{Binding HelpColor}" Background="Transparent">
                     <materialDesign:PackIcon.ToolTip>
                         <ToolTip MaxWidth="400">
                             <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />

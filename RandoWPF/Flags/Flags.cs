@@ -36,7 +36,7 @@ namespace Bartz24.RandoWPF
             {
                 seed = seed,
                 version = version,
-                flags = FlagsList
+                flags = FlagsList.Where(f => !f.Debug).ToList()
             });
             return o.ToString();
         }

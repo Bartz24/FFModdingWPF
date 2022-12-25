@@ -13,7 +13,8 @@ namespace FF13_2Rando
             Stats,
             Items,
             Enemies,
-            Other
+            Other,
+            Debug
         }
         public class Stats
         {
@@ -288,6 +289,21 @@ namespace FF13_2Rando
                 }.Register(FlagType.Other);
             }
         }
+        public class Debug
+        {
+            public static Flag HighStats;
+
+            internal static void Init()
+            {
+                HighStats = new Flag()
+                {
+                    Text = "[DEBUG] High Initial Stats",
+                    FlagID = "DbgStats",
+                    DescriptionFormat = "[DEBUG]\nSets Serah/Noel initial stats to HP:99999, STR/MAG:9999",
+                    Debug = true
+                }.Register(FlagType.Debug);
+            }
+        }
 
         public static void Init()
         {
@@ -296,6 +312,7 @@ namespace FF13_2Rando
             Items.Init();
             Enemies.Init();
             Other.Init();
+            Debug.Init();
             Flags.CategoryMap = ((FlagType[])Enum.GetValues(typeof(FlagType))).ToDictionary(f => (int)f, f => string.Join("/", Regex.Split(f.ToString(), @"(?<!^)(?=[A-Z])")));
             Flags.SelectedCategory = "All";
         }

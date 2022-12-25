@@ -44,7 +44,7 @@ namespace Bartz24.RandoWPF
         public override void Deserialize(dynamic data)
         {
             base.Deserialize((object)data);                       
-            SelectedValues = data["SelectedValues"] == null ? new List<string>() : data["SelectedValues"].ToObject(typeof(List<string>));
+            SelectedValues = data[nameof(SelectedValues)] == null ? new List<string>() : data[nameof(SelectedValues)].ToObject(typeof(List<string>));
         }
 
         public List<int> IndicesOf(List<string> vals)

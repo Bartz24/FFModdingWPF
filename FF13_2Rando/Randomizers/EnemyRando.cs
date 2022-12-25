@@ -67,14 +67,15 @@ namespace FF13_2Rando
 
         public override void Randomize(Action<int> progressSetter)
         {
-#if DEBUG
-            /*GetEnemy("pc008").u24MaxHp = 20000;
-            GetEnemy("pc010").u24MaxHp = 20000;
-            GetEnemy("pc008").u16StatusStr = 4000;
-            GetEnemy("pc010").u16StatusStr = 4000;
-            GetEnemy("pc008").u16StatusMgk = 4000;
-            GetEnemy("pc010").u16StatusMgk = 4000;*/
-#endif
+            if (FF13_2Flags.Debug.HighStats.FlagEnabled)
+            {
+                GetEnemy("pc008").u24MaxHp = 99999;
+                GetEnemy("pc010").u24MaxHp = 99999;
+                GetEnemy("pc008").u16StatusStr = 9999;
+                GetEnemy("pc010").u16StatusStr = 9999;
+                GetEnemy("pc008").u16StatusMgk = 9999;
+                GetEnemy("pc010").u16StatusMgk = 9999;
+            }
         }
 
         public override void Save()
