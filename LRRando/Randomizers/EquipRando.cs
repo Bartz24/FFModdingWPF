@@ -5,6 +5,7 @@ using Bartz24.LR;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using static Bartz24.FF13_2_LR.Enums;
 
@@ -19,9 +20,10 @@ namespace LRRando
         public DataStoreDB3<DataStoreRPassiveAbility> passiveAbilities = new DataStoreDB3<DataStoreRPassiveAbility>();
         public DataStoreDB3<DataStoreRItemAbi> itemAbilities = new DataStoreDB3<DataStoreRItemAbi>();
         public DataStoreDB3<DataStoreRItemAbi> itemAbilitiesOrig = new DataStoreDB3<DataStoreRItemAbi>();
+        public DataStoreDB3<DataStoreRBtUpgrade> upgrades = new DataStoreDB3<DataStoreRBtUpgrade>();
         Dictionary<string, AbilityData> abilityData = new Dictionary<string, AbilityData>();
 
-        List<string> passives = new List<string>();
+        Dictionary<string, PassiveData> passiveData = new Dictionary<string, PassiveData>();
 
         public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
@@ -31,20 +33,23 @@ namespace LRRando
             itemWeapons.LoadDB3("LR", @"\db\resident\item_weapon.wdb");
             Randomizers.SetProgressFunc("Loading Equip Data...", 10, 100);
             items.LoadDB3("LR", @"\db\resident\item.wdb");
-            Randomizers.SetProgressFunc("Loading Equip Data...", 30, 100);
+            Randomizers.SetProgressFunc("Loading Equip Data...", 20, 100);
             itemsOrig.LoadDB3("LR", @"\db\resident\item.wdb");
-            Randomizers.SetProgressFunc("Loading Equip Data...", 40, 100);
+            Randomizers.SetProgressFunc("Loading Equip Data...", 30, 100);
             autoAbilities.LoadDB3("LR", @"\db\resident\bt_auto_ability.wdb");
-            Randomizers.SetProgressFunc("Loading Equip Data...", 50, 100);
+            Randomizers.SetProgressFunc("Loading Equip Data...", 40, 100);
             itemAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
-            Randomizers.SetProgressFunc("Loading Equip Data...", 70, 100);
+            Randomizers.SetProgressFunc("Loading Equip Data...", 60, 100);
             itemAbilitiesOrig.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
-            Randomizers.SetProgressFunc("Loading Equip Data...", 80, 100);
+            Randomizers.SetProgressFunc("Loading Equip Data...", 70, 100);
             passiveAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_pasv_ablty.wdb", false);
+            Randomizers.SetProgressFunc("Loading Equip Data...", 80, 100);
+            upgrades.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb", false);
 
             FileHelpers.ReadCSVFile(@"data\passives.csv", row =>
             {
-                passives.Add(row[0]);
+                PassiveData p = new PassiveData(row);
+                passiveData.Add(p.ID, p);
             }, FileHelpers.CSVFileHeader.HasHeader);
 
             FileHelpers.ReadCSVFile(@"data\abilities.csv", row =>
@@ -70,6 +75,9 @@ namespace LRRando
             itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
             itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
 
+            upgrades.Values.Where(u => u.i16AtbSpdLimit >= 32768).ForEach(u => u.i16AtbSpdLimit -= 65536);
+            upgrades.Values.Where(u => u.i16BrkBonusLimit >= 32768).ForEach(u => u.i16BrkBonusLimit -= 65536);
+
             autoAbilities.Values.Where(a => a.i16AutoAblArgInt0 >= 32768).ForEach(a => a.i16AutoAblArgInt0 -= 65536);
             autoAbilities.Values.Where(a => a.i16AutoAblArgInt1 >= 32768).ForEach(a => a.i16AutoAblArgInt1 -= 65536);
 
@@ -83,7 +91,14 @@ namespace LRRando
             {
                 LRFlags.StatsAbilities.EquipStats.SetRand();
                 RandomizeStats();
+
+                // Clear vanilla upgrades as they don't matter
+                upgrades.Clear();
+
+                RandomizeUpgrades();
                 RandomNum.ClearRand();
+
+                itemWeapons.Values.Where(w => !upgrades.Keys.Contains(w.sUpgradeId_string)).ForEach(w => w.sUpgradeId_string = "");
             }
 
             Randomizers.SetProgressFunc("Randomizing Equip Data...", 40, 100);
@@ -99,6 +114,7 @@ namespace LRRando
             {
                 LRFlags.StatsAbilities.EquipPassives.SetRand();
                 RandomizePassives();
+                RandomizeUpgradePassives();
                 RandomNum.ClearRand();
             }
 
@@ -227,7 +243,7 @@ namespace LRRando
                         (-2000, 5000),
                         (-5000, 20000),
                         (-25, 50),
-                        (-90, 100)
+                        (-90, 75)
                     };
                     float[] weights = new float[] { 2, 2, 3, 6, 4 };
                     int[] zeros = new int[] { 10, 10, 85, 60, 80 };
@@ -286,6 +302,303 @@ namespace LRRando
             }
         }
 
+        private void RandomizeUpgrades()
+        {
+            int[] gilVals = { 20, 50, 100 };
+            // Shields first to be alphabetical order
+
+            foreach (DataStoreItemWeapon shield in itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Shield))
+            {
+                int[] bounds = {
+                    9999,
+                    9999,
+                    50000,
+                    100,
+                    1500 };
+
+                int[] baseStats = { 
+                    shield.i16AttackModVal, 
+                    shield.i16MagicModVal, 
+                    shield.i16HpModVal, 
+                    shield.i16AtbSpeedModVal, 
+                    shield.iGuardModVal };
+                int[] currentStats = baseStats.ToArray();
+
+                int[][] inc = {
+                    new int[] { 10, 25, 50 },
+                    new int[] { 10, 25, 50 },
+                    new int[] { 100, 100, 200 },
+                    new int[] { 1, 1, 1 },
+                    new int[] { 5, 5, 5 } };
+
+                DataStoreRBtUpgrade[] shieldUpgrades = GetAndRegisterBlankUpgrades(shield.name);
+                if (shield.u16UpgradeLimit < 10)
+                    shield.u16UpgradeLimit = 10;
+                int upgradesRemaining = shield.u16UpgradeLimit * RandomNum.RandInt(105, 150) / 100;
+
+                while (upgradesRemaining > 0)
+                {
+                    int type = upgradesRemaining > 125 ? 0 : (upgradesRemaining > 25 ? 1 : 2);
+
+                    int next = RandomNum.SelectRandomWeighted(Enumerable.Range(0, baseStats.Length).ToList(), i =>
+                    {
+                        int weight = 0;
+                        if (currentStats[i] + inc[i][type] > bounds[i] || (i < 2 && baseStats[i] <= 0))
+                        {
+                            weight = 0;
+                        }
+                        else if (baseStats[i] < 0)
+                        {
+                            weight = 5 + type * 10;
+                        }
+                        else
+                        {
+                            weight = (100 - Math.Abs(bounds[i] / 2 - currentStats[i]) * 100 / bounds[i]) + 1;
+                        }
+                        if (i >= 2)
+                            weight *= 4;
+                        return weight;
+                    });
+
+                    currentStats[next] += inc[next][type];
+                    for (int t = type; t < 3; t++)
+                    {
+                        switch (next)
+                        {
+                            case 0:
+                                shieldUpgrades[t].i16PhyAtkLimit += inc[next][type];
+                                break;
+                            case 1:
+                                shieldUpgrades[t].i16MagAtkLimit += inc[next][type];
+                                break;
+                            case 2:
+                                shieldUpgrades[t].i16MaxHpLimit += inc[next][type];
+                                break;
+                            case 3:
+                                shieldUpgrades[t].i16AtbSpdLimit += inc[next][type];
+                                break;
+                            case 4:
+                                shieldUpgrades[t].i16GuardLimit += inc[next][type];
+                                break;
+                        }
+                    }
+
+                    upgradesRemaining--;
+                }
+
+                string[] mats =
+                {
+                    "mat_cus_0_00",
+                    "mat_cus_0_02",
+                    currentStats[2] > currentStats[4] * 20 ? "mat_cus_0_05" : "mat_cus_0_06",
+                    "mat_cus_0_08"
+                };
+                if (currentStats[2] > 15000 || currentStats[3] > 40 || currentStats[4] > 500)
+                    mats = mats.TakeLast(shieldUpgrades.Length).ToArray();
+                else
+                    mats = mats.Take(shieldUpgrades.Length).ToArray();
+
+                for (int type = 0; type < shieldUpgrades.Length; type++)
+                {
+                    DataStoreRBtUpgrade upgrade = shieldUpgrades[type];
+                    if (currentStats[0] > baseStats[0])
+                    {
+                        upgrade.sPhyAtkItemId_string = mats[type];
+                        upgrade.uPhyAtkGil = gilVals[type];
+                        upgrade.i16PhyAtkLimit += baseStats[0];
+                        upgrade.u8PhyAtkItemCount = 1;
+                    }
+                    if (currentStats[1] > baseStats[1])
+                    {
+                        upgrade.sMagAtkItemId_string = mats[type];
+                        upgrade.uMagAtkGil = gilVals[type];
+                        upgrade.i16MagAtkLimit += baseStats[1];
+                        upgrade.u8MagAtkItemCount = 1;
+                    }
+                    if (currentStats[2] > baseStats[2])
+                    {
+                        upgrade.sMaxHpItemId_string = mats[type];
+                        upgrade.uMaxHpGil = gilVals[type];
+                        upgrade.i16MaxHpLimit += baseStats[2];
+                        upgrade.u8MaxHpItemCount = 1;
+                    }
+                    if (currentStats[3] > baseStats[3])
+                    {
+                        upgrade.sAtbSpdItemId_string = mats[type];
+                        upgrade.uAtbSpdGil = gilVals[type];
+                        upgrade.i16AtbSpdLimit += baseStats[3];
+                        upgrade.u8AtbSpdItemCount = 1;
+                    }
+                    if (currentStats[4] > baseStats[4])
+                    {
+                        upgrade.sGuardItemId_string = mats[type];
+                        upgrade.uGuardGil = gilVals[type];
+                        upgrade.i16GuardLimit += baseStats[4];
+                        upgrade.u8GuardItemCount = 1;
+                    }
+                }
+            }
+            foreach (DataStoreItemWeapon weapon in itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Weapon && w.u4AccessoryPos == 0))
+            {
+                int[] bounds = {
+                    9999,
+                    9999,
+                    50000,
+                    100,
+                    150 };
+
+                int[] baseStats = {
+                    weapon.i16AttackModVal,
+                    weapon.i16MagicModVal,
+                    weapon.i16HpModVal,
+                    weapon.i16AtbSpeedModVal,
+                    weapon.iBreakBonus };
+                int[] currentStats = baseStats.ToArray();
+
+                int[][] inc = {
+                    new int[] { 10, 25, 50 },
+                    new int[] { 10, 25, 50 },
+                    new int[] { 100, 100, 200 },
+                    new int[] { 1, 1, 1 },
+                    new int[] { 1, 1, 1 } };
+
+                DataStoreRBtUpgrade[] weaponUpgrades = GetAndRegisterBlankUpgrades(weapon.name);
+                if (weapon.u16UpgradeLimit < 10)
+                    weapon.u16UpgradeLimit = 10;
+                int upgradesRemaining = weapon.u16UpgradeLimit * RandomNum.RandInt(105, 150) / 100;
+
+                while (upgradesRemaining > 0)
+                {
+                    int type = upgradesRemaining > 125 ? 0 : (upgradesRemaining > 25 ? 1 : 2);
+
+                    int next = RandomNum.SelectRandomWeighted(Enumerable.Range(0, baseStats.Length).ToList(), i =>
+                    {
+                        int weight = 0;
+                        if (currentStats[i] + inc[i][type] > bounds[i] || (i >= 2 && baseStats[i] <= 0))
+                        {
+                            weight = 0;
+                        }
+                        else if (baseStats[i] < 0)
+                        {
+                            weight = 5 + type * 10;
+                        }
+                        else
+                        {
+                            weight = (100 - Math.Abs(bounds[i] / 2 - currentStats[i]) * 100 / bounds[i]) + 1;
+                        }
+                        if (i < 2)
+                            weight *= 4;
+                        return weight;
+                    });
+
+                    currentStats[next] += inc[next][type];
+                    for (int t = type; t < 3; t++)
+                    {
+                        switch (next)
+                        {
+                            case 0:
+                                weaponUpgrades[t].i16PhyAtkLimit += inc[next][type];
+                                break;
+                            case 1:
+                                weaponUpgrades[t].i16MagAtkLimit += inc[next][type];
+                                break;
+                            case 2:
+                                weaponUpgrades[t].i16MaxHpLimit += inc[next][type];
+                                break;
+                            case 3:
+                                weaponUpgrades[t].i16AtbSpdLimit += inc[next][type];
+                                break;
+                            case 4:
+                                weaponUpgrades[t].i16BrkBonusLimit += inc[next][type];
+                                break;
+                        }
+                    }
+
+                    upgradesRemaining--;
+                }
+
+                string[] mats =
+                {
+                    "mat_cus_0_00",
+                    "mat_cus_0_01",
+                    currentStats[1] > currentStats[0] * 1.25 ? "mat_cus_0_04" : "mat_cus_0_03",
+                    "mat_cus_0_07"
+                };
+                if (currentStats[0] > 4000 || currentStats[1] > 4000)
+                    mats = mats.TakeLast(weaponUpgrades.Length).ToArray();
+                else
+                    mats = mats.Take(weaponUpgrades.Length).ToArray();
+
+                for (int type = 0; type < weaponUpgrades.Length; type++)
+                {
+                    DataStoreRBtUpgrade upgrade = weaponUpgrades[type];
+                    if (currentStats[0] > baseStats[0])
+                    {
+                        upgrade.sPhyAtkItemId_string = mats[type];
+                        upgrade.uPhyAtkGil = gilVals[type];
+                        upgrade.i16PhyAtkLimit += baseStats[0];
+                        upgrade.u8PhyAtkItemCount = 1;
+                    }
+                    if (currentStats[1] > baseStats[1])
+                    {
+                        upgrade.sMagAtkItemId_string = mats[type];
+                        upgrade.uMagAtkGil = gilVals[type];
+                        upgrade.i16MagAtkLimit += baseStats[1];
+                        upgrade.u8MagAtkItemCount = 1;
+                    }
+                    if (currentStats[2] > baseStats[2])
+                    {
+                        upgrade.sMaxHpItemId_string = mats[type];
+                        upgrade.uMaxHpGil = gilVals[type];
+                        upgrade.i16MaxHpLimit += baseStats[2];
+                        upgrade.u8MaxHpItemCount = 1;
+                    }
+                    if (currentStats[3] > baseStats[3])
+                    {
+                        upgrade.sAtbSpdItemId_string = mats[type];
+                        upgrade.uAtbSpdGil = gilVals[type];
+                        upgrade.i16AtbSpdLimit += baseStats[3];
+                        upgrade.u8AtbSpdItemCount = 1;
+                    }
+                    if (currentStats[4] > baseStats[4])
+                    {
+                        upgrade.sBrkBonusItemId_string = mats[type];
+                        upgrade.uBrkBonusGil = gilVals[type];
+                        upgrade.i16BrkBonusLimit += baseStats[4];
+                        upgrade.u8BrkBonusItemCount = 1;
+                    }
+                }
+            }
+        }
+
+        private DataStoreRBtUpgrade[] GetAndRegisterBlankUpgrades(string name)
+        {
+            return Enumerable.Range(0, 3).Select(i =>
+            {
+                DataStoreRBtUpgrade upgrade = new DataStoreRBtUpgrade();
+                foreach (var property in typeof(DataStoreRBtUpgrade).GetProperties())
+                {
+                    if (property.PropertyType == typeof(string) && upgrade.GetPropValue<string>(property.Name) == null)
+                        upgrade.SetPropValue(property.Name, "");
+                }
+                    
+                upgrade.name = $"{name}_{i}";
+                if (i < 2)
+                {
+                    upgrade.sNextId_string = $"{name}_{i + 1}";
+                }
+                upgrade.u2Rank = i;
+
+                upgrades.Add(upgrade, 104);
+                if (i == 0)
+                {
+                    itemWeapons[name].sUpgradeId_string = upgrade.name;
+                }
+
+                return upgrade;
+            }).ToArray();
+        }
+
         private void RandomizePassives()
         {
             List<DataStoreBtAutoAbility> filteredAbilities = GetFilteredAbilities();
@@ -313,6 +626,108 @@ namespace LRRando
             }
         }
 
+        private void RandomizeUpgradePassives()
+        {
+            int[] gilVals = { 20, 50, 100 };
+            foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => upgrades.Keys.Contains(w.sUpgradeId_string)))
+            {
+                DataStoreRBtUpgrade next = upgrades[equip.sUpgradeId_string];
+                List<DataStoreRBtUpgrade> nextUpgrades = new List<DataStoreRBtUpgrade>();
+                do
+                {
+                    nextUpgrades.Add(next);
+                    next = upgrades.Keys.Contains(next.sNextId_string) ? upgrades[next.sNextId_string] : null;
+                } while (next != null);
+
+                if (equip.sAbility_string != "" && passiveData[equip.sAbility_string].UpgradeInto.Count > 0)
+                {
+                    List<(string, int)> abiVals = GetRandomPassiveUpgrades(equip.sAbility_string, nextUpgrades.Count);
+                    for(int i = 0; i < nextUpgrades.Count; i++)
+                    {
+                        nextUpgrades[i].i16Abi1Limit = abiVals[i].Item2;
+                        nextUpgrades[i].uAbi1Gil = gilVals[i];
+                        nextUpgrades[i].u8Abi1ItemCount = 1;
+                        nextUpgrades[i].sAbi1Id_string = abiVals[i].Item1;
+                        nextUpgrades[i].sAbi1ItemId_string = GetMaterialForUpgrade(nextUpgrades[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < nextUpgrades.Count; i++)
+                    {
+                        nextUpgrades[i].i16Abi1Limit = 0;
+                        nextUpgrades[i].uAbi1Gil = 0;
+                        nextUpgrades[i].u8Abi1ItemCount = 0;
+                        nextUpgrades[i].sAbi1Id_string = "";
+                        nextUpgrades[i].sAbi1ItemId_string = "";
+                    }
+                }
+
+                if (equip.sAbility2_string != "" && passiveData[equip.sAbility2_string].UpgradeInto.Count > 0)
+                {
+                    List<(string, int)> abiVals = GetRandomPassiveUpgrades(equip.sAbility2_string, nextUpgrades.Count);
+                    for (int i = 0; i < nextUpgrades.Count; i++)
+                    {
+                        nextUpgrades[i].i16Abi2Limit = abiVals[i].Item2;
+                        nextUpgrades[i].uAbi2Gil = gilVals[i];
+                        nextUpgrades[i].u8Abi2ItemCount = 1;
+                        nextUpgrades[i].sAbi2Id_string = abiVals[i].Item1;
+                        nextUpgrades[i].sAbi2ItemId_string = GetMaterialForUpgrade(nextUpgrades[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < nextUpgrades.Count; i++)
+                    {
+                        nextUpgrades[i].i16Abi2Limit = 0;
+                        nextUpgrades[i].uAbi2Gil = 0;
+                        nextUpgrades[i].u8Abi2ItemCount = 0;
+                        nextUpgrades[i].sAbi2Id_string = "";
+                        nextUpgrades[i].sAbi2ItemId_string = "";
+                    }
+                }
+            }
+        }
+
+        private List<(string, int)> GetRandomPassiveUpgrades(string start, int count)
+        {
+            List<string> upgrades = new List<string>();
+            string current = start;
+            for (int i = 0; i < count; i++)
+            {
+                if (passiveData[current].UpgradeInto.Count > 0)
+                {
+                    current = RandomNum.SelectRandom(passiveData[current].UpgradeInto);
+                    upgrades.Add(current);
+                }
+            }
+            while (upgrades.Count < count)
+            {
+                int index = RandomNum.RandInt(0, upgrades.Count - 1);
+                upgrades.Insert(index, upgrades[index]);
+            }
+
+            Dictionary<string, List<int>> distribution = upgrades.GroupBy(s => s, s => s).ToDictionary(g => g.Key, g =>
+            {
+                StatValues s = new StatValues(g.Count());
+                s.Randomize(Enumerable.Range(0, g.Count()).Select(_ => (0, 15)).ToArray(), 15);
+                return s.Vals.ToList();
+            });
+
+            return upgrades.Select(s =>
+            {
+                int val = distribution[s][0];
+                distribution[s].RemoveAt(0);
+                return (s, val);
+            }).ToList();
+        }
+
+        private string GetMaterialForUpgrade(DataStoreRBtUpgrade upgrade)
+        {
+            string[] mats = { upgrade.sAbi1ItemId_string, upgrade.sAbi2ItemId_string, upgrade.sAtbSpdItemId_string, upgrade.sBrkBonusItemId_string, upgrade.sGuardItemId_string, upgrade.sMagAtkItemId_string, upgrade.sMaxHpItemId_string, upgrade.sPhyAtkItemId_string };
+            return mats.First(s => s != "" && s.StartsWith("mat_cus"));
+        }
+
         private void RandomizeGarbPassive(string name)
         {
             if (name.StartsWith("abi_"))
@@ -329,13 +744,16 @@ namespace LRRando
 
         public List<DataStoreBtAutoAbility> GetFilteredAbilities()
         {
-            return autoAbilities.Values.Where(a => passives.Contains(a.name)).ToList();
+            return autoAbilities.Values.Where(a => passiveData.Keys.Contains(a.name)).ToList();
         }
 
         public override void Save()
         {
             itemWeapons.Values.Where(w => w.i16AtbSpeedModVal < 0).ForEach(w => w.i16AtbSpeedModVal += 65536);
             itemWeapons.Values.Where(w => w.i16MagicModVal < 0).ForEach(w => w.i16MagicModVal += 65536);
+
+            upgrades.Values.Where(u => u.i16AtbSpdLimit < 0).ForEach(u => u.i16AtbSpdLimit += 65536);
+            upgrades.Values.Where(u => u.i16BrkBonusLimit < 0).ForEach(u => u.i16BrkBonusLimit += 65536);
 
             itemAbilities.Values.Where(i => i.i8AtbDec < 0).ForEach(i => i.i8AtbDec += 256);
 
@@ -349,6 +767,31 @@ namespace LRRando
             Randomizers.SetProgressFunc("Saving Equip Data...", 80, 100);
             autoAbilities.DeleteDB3(@"\db\resident\bt_auto_ability.db3");
             passiveAbilities.DeleteDB3(@"\db\resident\_wdbpack.bin\r_pasv_ablty.db3");
+            Randomizers.SetProgressFunc("Saving Equip Data...", 90, 100);
+            upgrades.SaveDB3(@"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb");
+            SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_bt_upgrade.wdb");
+            TempSaveFix();
+        }
+
+        private void TempSaveFix()
+        {
+            byte[] data = File.ReadAllBytes(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb");
+
+            uint startUpgradeData = data.ReadUInt(0xE0);
+            if (data.ReadUInt(0x100) - startUpgradeData == 0x64)
+            {
+                List<DataStoreRBtUpgrade> values = upgrades.Values.ToList();
+                for (int i = 0; i < values.Count; i++)
+                {
+                    data.SetUInt(0xE0 + 0x20 * i, (uint)(startUpgradeData + 0x68 * i));
+                    data.SetUInt((int)startUpgradeData + 0x68 * i, (uint)values[i].sNextId_pointer);
+                    byte[] missingBytes = new byte[4];
+                    missingBytes.SetUInt(0, (uint)values[i].u8Abi2ItemCount);
+                    data = data.SubArray(0, (int)startUpgradeData + 0x68 * i + 0x64).Concat(missingBytes).Concat(data.SubArray((int)startUpgradeData + 0x68 * i + 0x64, data.Length - ((int)startUpgradeData + 0x68 * i + 0x64)));
+                }
+
+                File.WriteAllBytes(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb", data);
+            }
         }
 
         public override Dictionary<string, HTMLPage> GetDocumentation()
@@ -474,20 +917,35 @@ namespace LRRando
             return name;
         }
 
-        public class AbilityData
+        public class AbilityData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(1)]
             public int BasePower { get; set; }
+            [RowIndex(2)]
             public int HitMultiplier { get; set; }
+            [RowIndex(3)]
             public int ATBCost { get; set; }
+            [RowIndex(4)]
             public int MenuIcon { get; set; }
-            public AbilityData(string[] row)
+            public AbilityData(string[] row) : base(row)
             {
-                ID = row[0];
-                BasePower = int.Parse(row[1]);
-                HitMultiplier = int.Parse(row[2]);
-                ATBCost = int.Parse(row[3]);
-                MenuIcon = int.Parse(row[4]);
+            }
+        }
+
+        public class PassiveData : CSVDataRow
+        {
+            [RowIndex(0)]
+            public string ID { get; set; }
+
+            [RowIndex(1)]
+            public string Name { get; set; }
+
+            [RowIndex(2)]
+            public List<string> UpgradeInto { get; set; }
+            public PassiveData(string[] row) : base(row)
+            {
             }
         }
     }

@@ -9,16 +9,16 @@ namespace Bartz24.FF13_2_LR
 {
     public class DataStoreDB3<T> where T : DataStoreDB3SubEntry, new()
     {
-        Dictionary<string, T> Data;
-        Dictionary<int, DataStoreDB3EntryInfo> EntryInfoList;
+        Dictionary<string, T> Data = new Dictionary<string, T>();
+        Dictionary<int, DataStoreDB3EntryInfo> EntryInfoList = new Dictionary<int, DataStoreDB3EntryInfo>();
 
-        Dictionary<int, DataStoreDB3String> StringList;
+        Dictionary<int, DataStoreDB3String> StringList = new Dictionary<int, DataStoreDB3String>();
 
-        Dictionary<int, List<string>> StringArrayTable;
+        Dictionary<int, List<string>> StringArrayTable = new Dictionary<int, List<string>>();
 
-        Dictionary<int, DataStoreDB3StringArrayList> StringArrayList;
+        Dictionary<int, DataStoreDB3StringArrayList> StringArrayList = new Dictionary<int, DataStoreDB3StringArrayList>();
 
-        Dictionary<string, string> StringPointerMapping;
+        Dictionary<string, string> StringPointerMapping = new Dictionary<string, string>();
 
         public T this[string id]
         {
@@ -28,14 +28,19 @@ namespace Bartz24.FF13_2_LR
         public List<string> Keys { get => Data.Keys.ToList(); }
         public List<T> Values { get => Data.Values.ToList(); }
 
-        public void Add(string id, T data)
+        public void Add(T data, int forceSize = -1)
         {
-            Data.Add(id, data);
-        }
-        public void Add(T data)
-        {
-            data.main_id = Data.Values.Select(d => d.main_id).Max() + 1;
+            data.main_id = Data.Values.Count == 0 ? 6 : (Data.Values.Select(d => d.main_id).Max() + 1);
             Data.Add(data.name, data);
+            DataStoreDB3EntryInfo entry = new DataStoreDB3EntryInfo();
+            EntryInfoList[EntryInfoList.Keys.Max()].CopyPropertiesTo(entry);
+            entry.main_id = EntryInfoList[EntryInfoList.Keys.Max()].main_id + 1;
+            entry.name = data.name;
+            if (forceSize >= 0)
+            {
+                entry.size = forceSize;
+            }
+            EntryInfoList.Add(entry.main_id, entry);
         }
         public T Copy(string original, string newName)
         {
@@ -62,7 +67,7 @@ namespace Bartz24.FF13_2_LR
             Data[original].CopyPropertiesTo(newData);
             newData.name = newName;
             newData.main_id = entryId + 1;
-            Add(newName, newData);
+            Data.Add(newName, newData);
             DataStoreDB3EntryInfo entry = new DataStoreDB3EntryInfo();
             EntryInfoList[EntryInfoList.Keys.Max()].CopyPropertiesTo(entry);
             entry.main_id = entryId + 1;
@@ -192,28 +197,29 @@ namespace Bartz24.FF13_2_LR
                 {
                     string value = entry.GetPropValue<string>(p.Value);
                     int pointer = entry.GetPropValue<int>(p.Key);
+                    if (value == null)
+                    {
+                        value = "";
+                        entry.SetPropValue(p.Value, value);
+                    }
                     if (value != "")
                     {
-                        DataStoreDB3String match = StringList.Values.FirstOrDefault(s => s.name == value);
-                        if (match != null && match.pointer != pointer)
-                            entry.SetPropValue(p.Key, match.pointer);
-                        else if (match == null)
-                        {
-                            int maxId = StringList.Keys.Max();
-                            StringList.Add(maxId + 1, new DataStoreDB3String()
-                            {
-                                main_id = maxId + 1,
-                                name = value,
-                                pointer = StringList[maxId].pointer + StringList[maxId].GetStringLength() + 1
-                            });
-                            entry.SetPropValue(p.Key, StringList[maxId + 1].pointer);
-                        }
+                        AddValueToStringList(entry, p, value, pointer);
                     }
                     else
                     {
                         DataStoreDB3String match = StringList.Values.FirstOrDefault(s => s.pointer - 1 == pointer);
                         if (match == null)
-                            entry.SetPropValue(p.Key, StringList[1].pointer - 1);
+                        {
+                            if (StringList.Count < 2)
+                            {
+                                AddValueToStringList(entry, p, value, pointer);
+                            }
+                            else
+                            {
+                                entry.SetPropValue(p.Key, StringList[1].pointer - 1);
+                            }
+                        }
                     }
                     if (mapping.ContainsKey(p.Key))
                     {
@@ -224,6 +230,32 @@ namespace Bartz24.FF13_2_LR
                     }
                 });
             });
+        }
+
+        private void AddValueToStringList(T entry, KeyValuePair<string, string> p, string value, int pointer)
+        {
+            DataStoreDB3String match = StringList.Values.FirstOrDefault(s => s.name == value);
+            if (match != null && match.pointer != pointer)
+                entry.SetPropValue(p.Key, match.pointer);
+            else if (match == null)
+            {
+                int maxId = StringList.Count == 0 ? -1 : StringList.Keys.Max();
+                StringList.Add(maxId + 1, new DataStoreDB3String()
+                {
+                    main_id = maxId + 1,
+                    name = value,
+                    pointer = maxId == -1 ? 0 : (StringList[maxId].pointer + StringList[maxId].GetStringLength() + 1)
+                });
+                entry.SetPropValue(p.Key, StringList[maxId + 1].pointer);
+            }
+        }
+
+        public void Clear()
+        {
+            EntryInfoList = EntryInfoList.Where(p => p.Key < 6).ToDictionary(p => p.Key, p => p.Value);
+            Data.Clear();
+            StringArrayTable.Clear();
+            StringList.Clear();
         }
     }
 }

@@ -1,600 +1,600 @@
-﻿ID
-wear_uphp_70
-wear_uphp_30
-wear_uphp_lv1
-wear_uphp_lv2
-wear_upat_70
-wear_upat_30
-wear_st000
-wear_rgp_e
-wear_rgp_d
-wear_rgp_c
-wear_re010
-wear_re000
-wear_din_e
-wear_din_c
-wear_din_b
-wear_ch050
-wear_ch040
-wear_ch030
-wear_ch020
-wear_ch010
-wear_cg220
-wear_cg210
-wear_cg200
-wear_cg110
-wear_cg100
-wear_cg090
-wear_cg085
-wear_cg080
-wear_cg070
-wear_cg060
-wear_cg050
-wear_cg040
-wear_cg030
-wear_cg020
-wear_cg010
-wear_asp_e
-wear_asp_d
-wear_asp_c
-wear_asp_b
-awp_mg_fin1
-awp_mg_fin2
-awp_mg_fin3
-wear80_600
-wear80_601
-wear80_560
-wear80_570
-wear80_550
-wear80_540
-wear80_510
-wear80_511
-wear80_501
-wear80_500
-wear70_060
-spa_9000
-spa_7400
-spa_7401
-spa_7402
-spa_7300
-spa_7301
-spa_7302
-spa_7202
-spa_7201
-spa_7200
-spa_7100
-spa_7101
-spa_7102
-spa_6120
-spa_6121
-spa_6122
-shi_ca00_0
-shi_ca01_0
-shi_ca02_0
-shi_ca03_0
-shi_ca04_0
-shi_da00_0
-shi_da01_0
-shi_da02_0
-shi_da03_0
-shi_da04_0
-shi_ea00_0
-shi_ea01_0
-shi_ea02_0
-shi_ea03_0
-shi_ea04_0
-shi_ea08_0
-shi_fa00_0
-shi_fa01_0
-shi_fa02_0
-shi_fa03_0
-shi_fa04_0
-shi_ga00_0
-shi_ga01_0
-shi_ga02_0
-shi_ga03_0
-shi_ga04_0
-shi_ha00_0
-shi_ha01_0
-shi_ha02_0
-shi_ha03_0
-shi_ha04_0
-shi_ha05_0
-awp_wdef110_0
-awp_wdef111_0
-awp_wdef112_0
-awp_wdef113_0
-awp_wdef114_0
-awp_wdef104_0
-awp_wdef102_0
-awp_wdef100_0
-awp_wdef060_1
-awp_wdef061_1
-awp_wdef062_1
-awp_wdef060_0
-awp_wdef061_0
-awp_wdef062_0
-awp_wdef050_1
-awp_wdef051_1
-awp_wdef052_1
-awp_wdef050_0
-awp_wdef051_0
-awp_wdef052_0
-awp_wdef000_0
-awp_wdef001_0
-awp_wdef002_0
-awp_wdef010_0
-awp_wdef011_0
-awp_wdef012_0
-awp_wdef020_0
-awp_wdef021_0
-awp_wdef022_0
-wear_gdup0
-wear_gdup1
-wear_gdup2
-wear_gdup5
-wear_gdup6
-wear_gdup7
-awp_watt110_0
-awp_watt111_0
-awp_watt112_0
-awp_watt113_0
-awp_watt114_0
-awp_watt104_0
-awp_watt102_0
-awp_watt100_0
-awp_scene2
-awp_scene1
-awp_regen1
-awp_regen2
-awp_near_b
-awp_bulet2
-awp_bulet1
-awp_wdef201_0
-acc_b_9080
-awp_wdef200_0
-acc_b_9070
-acc_b_9010
-acc_b_9000
-acc_a_9190
-acc_a_9191
-acc_a_9192
-acc_a_8010
-acc_a_8011
-acc_a_8012
-acc_a_8000
-acc_a_8001
-acc_a_8002
-acc_a_8410
-acc_a_8411
-acc_a_8412
-acc_a_8400
-acc_a_8401
-acc_a_8402
-acc_a_8310
-acc_a_8311
-acc_a_8312
-acc_a_8300
-acc_a_8301
-acc_a_8302
-acc_a_8210
-acc_a_8211
-acc_a_8212
-acc_a_8200
-acc_a_8201
-acc_a_8202
-acc_a_8130
-acc_a_8131
-acc_a_8132
-acc_a_8120
-acc_a_8121
-acc_a_8122
-acc_b_7200
-acc_b_7110
-acc_b_7100
-acc_b_7020
-acc_b_7010
-acc_a_7000
-acc_b_6220
-acc_b_6210
-acc_b_6200
-spa_6210
-spa_6160
-spa_6161
-spa_6162
-spa_6155
-spa_6150
-spa_6151
-spa_6152
-spa_6145
-spa_6140
-spa_6141
-spa_6142
-spa_6135
-spa_6130
-spa_6131
-spa_6132
-acc_b_6120
-spa_6115
-acc_b_6110
-spa_6105
-acc_b_6100
-acc_b_6060
-acc_b_6050
-acc_b_6040
-acc_b_6030
-spa_6020
-spa_6021
-spa_6010
-spa_6011
-spa_6000
-spa_6001
-acc_a_4010
-acc_a_4011
-acc_a_4012
-acc_a_4013
-acc_a_4014
-spa_4010
-spa_4011
-spa_4012
-acc_a_4000
-acc_a_4001
-acc_a_4002
-acc_a_4003
-acc_a_4004
-acc_a_9180
-acc_a_9181
-acc_a_9182
-acc_b_4000
-acc_b_4001
-acc_b_4002
-spa_4000
-spa_4001
-spa_4002
-acc_b_3102
-acc_b_3101
-acc_b_3100
-acc_b_3002
-acc_b_3001
-acc_b_3000
-acc_a_2010
-acc_a_2011
-acc_a_2012
-spa_2010
-spa_2011
-spa_2012
-spa_2013
-acc_a_2000
-acc_a_2001
-acc_a_2002
-spa_2000
-spa_2001
-spa_2002
-acc_a_9170b
-acc_a_9171b
-acc_a_9172b
-acc_b_0130
-acc_b_0131
-acc_b_0132
-spa_0130
-spa_0131
-spa_0132
-spa_0133
-acc_a_9170
-acc_a_9171
-acc_a_9172
-acc_b_0120
-acc_b_0121
-acc_b_0122
-spa_0120
-spa_0121
-spa_0122
-spa_0123
-acc_a_9160b
-acc_a_9161b
-acc_a_9162b
-acc_b_0110
-acc_b_0111
-acc_b_0112
-spa_0110
-spa_0111
-spa_0112
-spa_0113
-acc_a_9160
-acc_a_9161
-acc_a_9162
-acc_b_0100
-acc_b_0101
-acc_b_0102
-spa_0100
-spa_0101
-spa_0102
-spa_0103
-aa_rat800_00
-aa_rat600_00
-aa_rat500_00
-aa_rat400_00
-aa_rat300_00
-aa_rat310_00
-aa_rat320_00
-aa_rat330_00
-aa_rat220_00
-aa_rat230_00
-aa_rat250_00
-aa_rat200_00
-aa_rat210_00
-aa_rat240_00
-aa_rat100_00
-aa_rat110_00
-aa_rat120_00
-aa_rat130_00
-aa_rat000_00
-awp_ws_down
-wear_so_14
-wear_so_13
-wear_so_12
-wear_so_11
-wear_so_10
-wear_so_09
-wear_so_08
-wear_so_07
-wear_so_06
-wear_so_05
-wear_so_04
-wear_so_03
-wear_so_02
-wear_so_01
-acc_b_4210
-acc_b_4200
-acc_b_4190
-acc_b_4180
-acc_b_4170
-acc_b_4160
-acc_b_4150
-acc_b_4140
-acc_b_4130
-acc_b_4120
-acc_b_4110
-acc_a_8200b
-acc_a_8201b
-acc_a_8202b
-acc_a_1010
-acc_a_1011
-acc_a_1012
-acc_a_9060
-acc_a_9100
-acc_a_9101
-acc_a_9102
-acc_a_9140
-acc_a_9141
-acc_a_9142
-acc_b_1010
-spa_1010
-spa_1011
-spa_1012
-acc_a_0010
-acc_a_0011
-acc_a_0012
-acc_a_9080
-acc_a_9081
-acc_a_9082
-acc_a_9120
-acc_a_9121
-acc_a_9122
-acc_b_0010
-acc_b_0011
-acc_b_0012
-spa_0010
-spa_0011
-spa_0012
-wear_mg10p
-wear_mg15p
-wear_mg20p
-wear_mg020
-wear_mg040
-wear_mg060
-wear_mg080
-wear_mg100
-wear_mg140
-wear_mg180
-wear_mg220
-wear_mg260
-wear_mg300
-wear_mg340
-wear_mg380
-wear_mg420
-wear_mg460
-wear_mg500
-acc_a_1120
-acc_a_1121
-acc_a_1122
-acc_a_9030
-acc_b_9040
-spa_1120
-spa_1121
-spa_1122
-acc_a_1110
-acc_a_1111
-acc_a_1112
-acc_a_9020
-acc_b_9030
-spa_1110
-spa_1111
-spa_1112
-acc_a_8120b
-acc_a_8121b
-acc_a_8122b
-acc_a_8300b
-acc_a_8301b
-acc_a_8302b
-awp_special_0
-acc_a_9210
-acc_a_9211
-acc_a_9212
-auto_hp_1000
-auto_hp_2500
-wear_hp0100
-wear_hp0150
-wear_hp0200
-wear_hp0300
-wear_hp0400
-wear_hp0500
-wear_hp0800
-wear_hp1000
-wear_hp1200
-wear_hp1500
-wear_hp2000
-wear_hp2500
-wear_hp3000
-wear_hp4000
-wear_hp5000
-acc_a_5000
-acc_a_5001
-acc_a_5002
-acc_a_9070b
-acc_a_9071b
-acc_a_9072b
-spa_5000
-spa_5001
-spa_5002
-wear_hp10p
-wear_hp15p
-wear_hp20p
-acc_a_1100
-acc_a_1101
-acc_a_1102
-acc_a_9010
-acc_b_9020
-spa_1100
-spa_1101
-spa_1102
-acc_a_9010b
-acc_a_9011b
-acc_a_9012b
-acc_a_4100
-acc_a_4101
-acc_a_4102
-acc_a_4105
-spa_4100
-spa_4101
-spa_4102
-wear_re025
-wear_re033
-acc_a_1020
-acc_a_1021
-acc_a_1022
-wear_sh010
-wear_sh015
-wear_sh020
-acc_a_8210b
-acc_a_8211b
-acc_a_8212b
-acc_a_1000
-acc_a_1001
-acc_a_1002
-acc_a_9050
-acc_a_9090
-acc_a_9091
-acc_a_9092
-acc_a_9130
-acc_a_9131
-acc_a_9132
-acc_b_1000
-spa_1000
-spa_1001
-spa_1002
-acc_a_8400b
-acc_a_8401b
-acc_a_8402b
-acc_a_0000
-acc_a_0001
-acc_a_0002
-acc_a_9070
-acc_a_9071
-acc_a_9072
-acc_a_9110
-acc_a_9111
-acc_a_9112
-acc_b_0000
-acc_b_0001
-acc_b_0002
-spa_0000
-spa_0001
-spa_0002
-wear_at10p
-wear_at15p
-wear_at20p
-wear_at020
-wear_at040
-wear_at060
-wear_at080
-wear_at100
-wear_at140
-wear_at180
-wear_at220
-wear_at260
-wear_at300
-wear_at340
-wear_at380
-wear_at420
-wear_at460
-wear_at500
-acc_a_5100
-acc_a_5101
-acc_a_5102
-wear_atbup_05
-wear_atbup_10
-wear_atbup_15
-acc_a_9000
-acc_a_9001
-acc_a_9002
-acc_a_8410b
-acc_a_8411b
-acc_a_8412b
-acc_a_5200
-acc_a_5201
-acc_a_5202
-acc_a_5300
-acc_a_5301
-acc_a_5302
-acc_a_9150
-acc_a_9151
-acc_a_9152
-acc_a_9200
-acc_a_9201
-acc_a_9202
-wear_sp005
-wear_sp010
-wear_sp015
-wear_sp020
-wear_sp025
-wear_sp030
-acc_a_0020
-acc_a_0021
-acc_a_0022
-acc_a_8000b
-acc_a_8001b
-acc_a_8002b
-wear_mx010
-wear_mx040
-wear_mx090
-wear_mx150
-wear_mx210
-wear_mx300
-acc_a_8010b
-acc_a_8011b
-acc_a_8012b
-acc_a_9050b
-acc_a_9051b
-acc_a_9052b
-acc_a_1130
-acc_a_1131
-acc_a_1132
-acc_a_9040
-acc_b_9050
-spa_1130
-spa_1131
-spa_1132
-acc_a_1140
-acc_a_1141
-acc_a_1142
+﻿ID,Name,Upgrade Into
+awp_scene1,Arsenal of One,awp_scene2
+awp_scene2,Arsenal of One+,
+aa_rat600_00,Artemis's Arrows,
+acc_a_8000,ATB Cost +10,acc_a_8010
+acc_a_8001,ATB Cost +10,acc_a_8010
+acc_a_8002,ATB Cost +10,acc_a_8010
+acc_a_8010,ATB Cost -5,
+acc_a_8011,ATB Cost -5,
+acc_a_8012,ATB Cost -5,
+acc_a_8410b,ATB Recovery -35,acc_a_8411b
+acc_a_8411b,ATB Recovery -30,acc_a_5300
+acc_a_8412b,ATB Recovery -30,acc_a_5300
+acc_a_5300,ATB Recovery +5,acc_a_5301
+wear_sp005,ATB Recovery +5,acc_a_5301
+acc_a_5301,ATB Recovery +7,acc_a_5302
+acc_a_5302,ATB Recovery +10,acc_a_9151
+acc_a_9150,ATB Recovery +10,acc_a_9151
+wear_sp010,ATB Recovery +10,acc_a_9151
+acc_a_9151,ATB Recovery +12,acc_a_5200
+acc_a_5200,ATB Recovery +15,acc_a_5201
+acc_a_9152,ATB Recovery +15,acc_a_5201
+wear_sp015,ATB Recovery +15,acc_a_5201
+acc_a_5201,ATB Recovery +17,acc_a_5202
+acc_a_5202,ATB Recovery +20,wear_sp025
+wear_sp020,ATB Recovery +20,wear_sp025
+wear_sp025,ATB Recovery +25,wear_sp030
+wear_sp030,ATB Recovery +30,acc_a_9200
+acc_a_9200,ATB Recovery +70,acc_a_9201
+acc_a_9201,ATB Recovery +100,acc_a_9202
+acc_a_9202,ATB Recovery +150,
+wear80_550,ATB Recycler,
+spa_6000,Auto Bravery (15 secs),spa_6001
+spa_6001,Auto Bravery (30 secs),
+acc_b_6060,Auto Enaero (60 secs),
+acc_b_6030,Auto Enfire (60 secs),
+acc_b_6040,Auto Enfrost (60 secs),
+acc_b_6050,Auto Enthunder (60 secs),
+spa_6010,Auto Faith (15 secs),spa_6011
+spa_6011,Auto Faith (30 secs),
+spa_6020,Auto Haste (15 secs),spa_6021
+spa_6021,Auto Haste (30 secs),
+awp_regen1,Auto-Regen (15 secs),awp_regen2
+awp_regen2,Auto-Regen (30 secs),
+aa_rat000_00,Blindside,
+wear_cg210,Blitz Ace,
+aa_rat200_00,Brave Thief,
+aa_rat210_00,Brave Thief,
+aa_rat240_00,Brave Thief,
+wear_cg030,Bravery Guard,
+spa_9000,Chance Reprieve,
+wear_upat_30,Climactic,
+acc_a_8400,Combo Crush,acc_a_8402
+acc_a_8401,Combo Crush,acc_a_8402
+acc_a_8402,Combo Crush+,
+wear80_560,Committal,
+acc_b_9080,Critical Barrier,awp_wdef201_0
+awp_wdef200_0,Critical Barrier,awp_wdef201_0
+awp_wdef201_0,Critical Barrier+,
+spa_6130,Critical Bravery (20 secs),spa_6131
+spa_6131,Critical Bravery (40 secs),spa_6132
+spa_6132,Critical Bravery (60 secs),spa_6135
+spa_6135,Critical Bravery + Haste (60 secs),
+spa_6140,Critical Faith (20 secs),spa_6141
+spa_6141,Critical Faith (40 secs),spa_6142
+spa_6142,Critical Faith (60 secs),spa_6145
+spa_6145,Critical Faith + Haste (60 secs),
+spa_6150,Critical Haste (20 secs),spa_6151
+spa_6151,Critical Haste (40 secs),spa_6152
+spa_6152,Critical Haste (60 secs),spa_6155|spa_6145|spa_6135
+spa_6155,Critical Haste + Vigilance (60 secs),
+spa_6105,Critical Protect + Regen (60 secs),
+spa_6120,Critical Regen (20 secs),spa_6121
+spa_6121,Critical Regen (30 secs),spa_6122
+spa_6122,Critical Regen (45 secs),spa_6115
+spa_6115,Critical Shell + Regen (60 secs),
+spa_6162,Critical Vigilance + Veil (180 secs),
+spa_6160,Critical Vigilance + Veil (45 secs),spa_6161
+spa_6161,Critical Vigilance + Veil (90 secs),spa_6162
+acc_a_8130,Cruel Healer,
+acc_a_8131,Cruel Healer,
+acc_a_8132,Cruel Healer,
+acc_b_3100,Defender Lv. 1,acc_b_3101
+acc_b_3101,Defender Lv. 2,acc_b_3102
+acc_b_3102,Defender Lv. 3,
+awp_wdef110_0,Defender's HP Restore 1%,awp_wdef112_0
+awp_wdef111_0,Defender's HP Restore 1%,awp_wdef112_0
+awp_wdef112_0,Defender's HP Restore 2%,awp_wdef114_0
+awp_wdef113_0,Defender's HP Restore 2%,awp_wdef114_0
+awp_wdef114_0,Defender's HP Restore 3%,
+wear70_060,Defensive Position,
+aa_rat100_00,Deprotect Chaser,
+aa_rat110_00,Deprotect Chaser,
+aa_rat120_00,Deprotect Chaser,
+aa_rat130_00,Deprotect Chaser,
+acc_a_1140,Element Resistance -33%,
+acc_a_1141,Element Resistance -36%,acc_a_1140
+acc_a_1142,Element Resistance -40%,acc_a_1141
+aa_rat300_00,Elemental Chaser,
+aa_rat310_00,Elemental Chaser,
+aa_rat320_00,Elemental Chaser,
+aa_rat330_00,Elemental Chaser,
+wear_upat_70,Energized,
+acc_b_7200,EP Conservation,
+wear_rgp_d,EP Vengeance,
+wear_cg080,Esuna Guard,
+wear_cg040,Faith Guard,
+awp_wdef050_0,Fire Guard +70%,awp_wdef051_0
+awp_wdef051_0,Fire Guard +80%,awp_wdef052_0
+awp_wdef052_0,Fire Guard +90%,acc_a_9010
+spa_0100,Fire-Attribute Attacks +10%,spa_0101
+spa_0101,Fire-Attribute Attacks +12%,spa_0102
+spa_0102,Fire-Attribute Attacks +15%,acc_a_9160
+acc_a_9160,Fire-Attribute Attacks +20%,acc_a_9161
+spa_0103,Fire-Attribute Attacks +20%,acc_a_9161
+acc_a_9161,Fire-Attribute Attacks +22%,acc_a_9162
+acc_a_9162,Fire-Attribute Attacks +25%,acc_b_0100
+acc_b_0100,Fire-Attribute Attacks +30%,acc_b_0101
+acc_b_0101,Fire-Attribute Attacks +32%,acc_b_0102
+acc_b_0102,Fire-Attribute Attacks +35%,
+acc_a_9190,Fixed Damage +10,acc_a_9191
+acc_a_9191,Fixed Damage +100,acc_a_9192
+acc_a_9192,Fixed Damage +1000,
+wear_cg220,Grace Guard,
+acc_b_9070,Grace Period,
+wear80_570,Grand Wizard,
+wear_cg090,Great Gospel,
+spa_7100,Group Defense +16%,spa_7101
+spa_7101,Group Defense +18%,spa_7102
+spa_7102,Group Defense +20%,
+wear_gdup0,Guard Efficiency +10%,wear_gdup5
+wear_gdup5,Guard Efficiency +14%,wear_gdup1
+wear_gdup1,Guard Efficiency +15%,wear_gdup6
+wear_gdup6,Guard Efficiency +18%,wear_gdup2
+wear_gdup2,Guard Efficiency +20%,wear_gdup7
+wear_gdup7,Guard Efficiency +22%,awp_wdef000_0
+awp_wdef000_0,Guard Efficiency +30%,awp_wdef001_0
+awp_wdef001_0,Guard Efficiency +35%,awp_wdef002_0
+awp_wdef002_0,Guard Efficiency +40%,awp_wdef010_0
+awp_wdef010_0,Guard Efficiency +60%,awp_wdef011_0
+awp_wdef011_0,Guard Efficiency +65%,awp_wdef012_0
+awp_wdef012_0,Guard Efficiency +70%,awp_wdef020_0
+awp_wdef020_0,Guard Efficiency +75%,awp_wdef021_0
+awp_wdef021_0,Guard Efficiency +80%,awp_wdef022_0
+awp_wdef022_0,Guard Efficiency +85%,
+shi_da00_0,Guard Efficiency +50,shi_da03_0
+shi_ea08_0,Guard Efficiency +50,shi_da03_0
+shi_fa00_0,Guard Efficiency +50,shi_da03_0
+shi_ga00_0,Guard Efficiency +50,shi_da03_0
+shi_ha00_0,Guard Efficiency +50,shi_da03_0
+shi_ha01_0,Guard Efficiency +50,shi_da03_0
+shi_da03_0,Guard Efficiency +65,shi_da01_0
+shi_ea02_0,Guard Efficiency +65,shi_da01_0
+shi_fa02_0,Guard Efficiency +65,shi_da01_0
+shi_ga02_0,Guard Efficiency +65,shi_da01_0
+shi_da01_0,Guard Efficiency +102,shi_ca00_0
+shi_ea01_0,Guard Efficiency +102,shi_ca00_0
+shi_fa03_0,Guard Efficiency +102,shi_ca00_0
+shi_ga01_0,Guard Efficiency +102,shi_ca00_0
+shi_ha02_0,Guard Efficiency +102,shi_ca00_0
+shi_ha03_0,Guard Efficiency +102,shi_ca00_0
+shi_ca00_0,Guard Efficiency +105,shi_ca03_0
+shi_ca03_0,Guard Efficiency +150,shi_da02_0
+shi_da02_0,Guard Efficiency +152,shi_da04_0
+shi_ea03_0,Guard Efficiency +152,shi_da04_0
+shi_fa04_0,Guard Efficiency +152,shi_da04_0
+shi_ga03_0,Guard Efficiency +152,shi_da04_0
+shi_da04_0,Guard Efficiency +202,shi_ca04_0
+shi_ea00_0,Guard Efficiency +202,shi_ca04_0
+shi_ea04_0,Guard Efficiency +202,shi_ca04_0
+shi_fa01_0,Guard Efficiency +202,shi_ca04_0
+shi_ga04_0,Guard Efficiency +202,shi_ca04_0
+shi_ha04_0,Guard Efficiency +202,shi_ca04_0
+shi_ha05_0,Guard Efficiency +202,shi_ca04_0
+shi_ca04_0,Guard Efficiency +205,shi_ca02_0
+shi_ca02_0,Guard Efficiency +325,shi_ca01_0
+shi_ca01_0,Guard Efficiency +417,
+acc_b_9000,Hand-to-Hand,
+acc_b_3000,Hard Hitter Lv. 1,acc_b_3001
+acc_b_3001,Hard Hitter Lv. 2,acc_b_3002
+acc_b_3002,Hard Hitter Lv. 3,
+wear_cg050,Haste Guard,
+acc_a_8410,Heavy Weapon,acc_a_8412
+acc_a_8411,Heavy Weapon,acc_a_8412
+acc_a_8412,Heavy Weapon+,
+wear_uphp_70,High Voltage,
+awp_wdef050_1,Ice Guard +70%,awp_wdef051_1
+awp_wdef051_1,Ice Guard +80%,awp_wdef052_1
+awp_wdef052_1,Ice Guard +90%,acc_a_9020
+spa_0110,Ice-Attribute Attacks +10%,spa_0111
+spa_0111,Ice-Attribute Attacks +12%,spa_0112
+spa_0112,Ice-Attribute Attacks +15%,acc_a_9160b
+acc_a_9160b,Ice-Attribute Attacks +20%,acc_a_9161b
+spa_0113,Ice-Attribute Attacks +20%,acc_a_9161b
+acc_a_9161b,Ice-Attribute Attacks +22%,acc_a_9162b
+acc_a_9162b,Ice-Attribute Attacks +25%,acc_b_0110
+acc_b_0110,Ice-Attribute Attacks +30%,acc_b_0111
+acc_b_0111,Ice-Attribute Attacks +32%,acc_b_0112
+acc_b_0112,Ice-Attribute Attacks +35%,
+acc_a_9000,Initial ATB +50%,acc_a_9001
+acc_a_9001,Initial ATB +75%,acc_a_9002
+acc_a_9002,Initial ATB +100%,
+acc_b_7020,Item Duration +25%,
+acc_b_7010,Item Efficacy +25%,
+aa_rat400_00,Jump,
+awp_wdef060_0,Lightning Guard +70%,awp_wdef061_0
+awp_wdef061_0,Lightning Guard +80%,awp_wdef062_0
+awp_wdef062_0,Lightning Guard +90%,acc_a_9030
+spa_0120,Lightning-Attribute Attacks +10%,spa_0121
+spa_0121,Lightning-Attribute Attacks +12%,spa_0122
+spa_0122,Lightning-Attribute Attacks +15%,acc_a_9170
+acc_a_9170,Lightning-Attribute Attacks +20%,acc_a_9171
+spa_0123,Lightning-Attribute Attacks +20%,acc_a_9171
+acc_a_9171,Lightning-Attribute Attacks +22%,acc_a_9172
+acc_a_9172,Lightning-Attribute Attacks +25%,acc_b_0120
+acc_b_0120,Lightning-Attribute Attacks +30%,acc_b_0121
+acc_b_0121,Lightning-Attribute Attacks +32%,acc_b_0122
+acc_b_0122,Lightning-Attribute Attacks +35%,
+acc_b_0010,Magic +5%,acc_b_0011
+acc_b_0011,Magic +6%,acc_b_0012
+acc_b_0012,Magic +7%,acc_a_9080
+acc_a_9080,Magic +10%,acc_a_9081
+spa_0010,Magic +10%,acc_a_9081
+wear_mg10p,Magic +10%,acc_a_9081
+acc_a_9081,Magic +12%,acc_a_0010
+acc_a_0010,Magic +15%,acc_a_0011
+acc_a_9082,Magic +15%,acc_a_0011
+acc_a_9120,Magic +15%,acc_a_0011
+wear_mg15p,Magic +15%,acc_a_0011
+acc_a_0011,Magic +18%,acc_a_0012
+acc_a_9121,Magic +18%,acc_a_0012
+acc_a_0012,Magic +20%,spa_0011
+acc_a_9122,Magic +20%,spa_0011
+wear_mg20p,Magic +20%,spa_0011
+spa_0011,Magic +25%,spa_0012
+spa_0012,Magic +45%,
+wear_mg020,Magic +20,wear_mg040
+wear_mg040,Magic +40,wear_mg060
+wear_mg060,Magic +60,wear_mg080
+wear_mg080,Magic +80,wear_mg100
+wear_mg100,Magic +100,wear_mg140
+wear_mg140,Magic +110,wear_mg180
+wear_mg180,Magic +120,wear_mg220
+wear_mg220,Magic +130,wear_mg260
+wear_mg260,Magic +140,wear_mg300
+wear_mg300,Magic +150,wear_mg340
+wear_mg340,Magic +160,wear_mg380
+wear_mg380,Magic +180,wear_mg420
+wear_mg420,Magic +200,wear_mg460
+wear_mg460,Magic +220,wear_mg500
+wear_mg500,Magic +250,
+acc_a_8202b,Magic Resistance 50%,acc_a_9100|wear_sh010
+acc_a_8201b,Magic Resistance 75%,acc_a_8202b
+acc_a_8200b,Magic Resistance 100%,acc_a_8201b
+wear_atbup_05,Maximum ATB +5,acc_a_5100
+acc_a_5100,Maximum ATB +10,acc_a_5101
+wear_atbup_10,Maximum ATB +10,acc_a_5101
+acc_a_5101,Maximum ATB +15,acc_a_5102
+wear_atbup_15,Maximum ATB +15,acc_a_5102
+acc_a_5102,Maximum ATB +20,
+acc_a_8122b,Maximum HP -25%,spa_5000
+acc_a_8121b,Maximum HP -30%,acc_a_8122b
+acc_a_8120b,Maximum HP -33%,acc_a_8121b
+acc_a_8301b,Maximum HP -50%,acc_a_8120b
+acc_a_8302b,Maximum HP -50%,acc_a_8301b
+acc_a_8300b,Maximum HP -66%,acc_a_8302b
+awp_special_0,Maximum HP -95%,acc_a_8300b
+spa_5000,Maximum HP +8%,acc_a_5000
+acc_a_5000,Maximum HP +10%,acc_a_5001
+acc_a_9070b,Maximum HP +10%,acc_a_5001
+wear_hp10p,Maximum HP +10%,acc_a_5001
+acc_a_5001,Maximum HP +12%,acc_a_5002
+acc_a_9071b,Maximum HP +12%,acc_a_5002
+acc_a_5002,Maximum HP +15%,spa_5001
+acc_a_9072b,Maximum HP +15%,spa_5001
+wear_hp15p,Maximum HP +15%,spa_5001
+spa_5001,Maximum HP +20%,spa_5002
+wear_hp20p,Maximum HP +20%,spa_5002
+spa_5002,Maximum HP +35%,
+wear_hp0100,Maximum HP +100,wear_hp0150
+wear_hp0150,Maximum HP +120,wear_hp0200
+wear_hp0200,Maximum HP +150,wear_hp0300
+wear_hp0300,Maximum HP +180,wear_hp0400
+wear_hp0400,Maximum HP +220,wear_hp0500
+wear_hp0500,Maximum HP +260,wear_hp0800
+wear_hp0800,Maximum HP +300,wear_hp1000
+wear_hp1000,Maximum HP +400,wear_hp1200
+wear_hp1200,Maximum HP +500,wear_hp1500
+wear_hp1500,Maximum HP +600,wear_hp2000
+wear_hp2000,Maximum HP +800,auto_hp_1000
+auto_hp_1000,Maximum HP +1000,wear_hp2500
+wear_hp2500,Maximum HP +1000,wear_hp3000
+wear_hp3000,Maximum HP +1250,wear_hp4000
+wear_hp4000,Maximum HP +1500,wear_hp5000
+wear_hp5000,Maximum HP +2000,auto_hp_2500
+auto_hp_2500,Maximum HP +2500,acc_a_9210
+acc_a_9210,Maximum HP +10000,acc_a_9211
+acc_a_9211,Maximum HP +20000,acc_a_9212
+acc_a_9212,Maximum HP +30000,
+awp_wdef100_0,Mog's Blessing Lv. 1,awp_wdef102_0
+awp_wdef102_0,Mog's Blessing Lv. 2,awp_wdef104_0
+awp_wdef104_0,Mog's Blessing Lv. 3,
+acc_a_8300,Multicast,acc_a_8302
+acc_a_8301,Multicast,acc_a_8302
+acc_a_8302,Multicast+,
+spa_7300,Multiple Targets +10%,spa_7301
+spa_7301,Multiple Targets +20%,spa_7302
+spa_7302,Multiple Targets +30%,
+awp_bulet1,Overclocking Manual,awp_bulet2
+awp_bulet2,Overclocking Manual+,
+acc_a_7000,Physical & Magic Damage -50,
+wear_sh010,Physical & Magic Resistance -10%,acc_a_1020
+acc_a_1020,Physical & Magic Resistance -15%,acc_a_1021
+wear_sh015,Physical & Magic Resistance -15%,acc_a_1021
+acc_a_1021,Physical & Magic Resistance -18%,acc_a_1022
+acc_a_1022,Physical & Magic Resistance -20%,
+wear_sh020,Physical & Magic Resistance -20%,
+acc_a_8212b,Physical Resistance 50%,acc_a_9090|wear_sh010
+acc_a_8211b,Physical Resistance 75%,acc_a_8212b
+acc_a_8210b,Physical Resistance 100%,acc_a_8211b
+wear_cg085,Planet's Protection,
+awp_watt100_0,Precise EP Restore Lv. 1,awp_watt102_0
+awp_watt102_0,Precise EP Restore Lv. 2,awp_watt104_0
+awp_watt104_0,Precise EP Restore Lv. 3,
+awp_watt110_0,Precise HP Restore +1%,awp_watt112_0
+awp_watt111_0,Precise HP Restore +1%,awp_watt112_0
+awp_watt112_0,Precise HP Restore +2%,awp_watt114_0
+awp_watt113_0,Precise HP Restore +2%,awp_watt114_0
+awp_watt114_0,Precise HP Restore +3%,
+wear_cg010,Protect Guard,
+aa_rat220_00,Protect Thief,
+aa_rat230_00,Protect Thief,
+aa_rat250_00,Protect Thief,
+awp_near_b,Quick Stagger 75%,
+acc_a_8310,Quickhitter,acc_a_8312
+acc_a_8311,Quickhitter,acc_a_8312
+acc_a_8312,Quickhitter+,
+wear_re000,Regen Revival,
+wear_re010,Reraise Revival,
+acc_b_4180,Resist Curse +100%,
+acc_b_4210,Resist Daze +100%,
+acc_b_4110,Resist Debrave +100%,
+acc_b_4120,Resist Defaith +100%,
+acc_b_4130,Resist Deprotect +100%,
+acc_b_4140,Resist Deshell +100%,
+spa_1100,Resist Fire Damage -20%,acc_b_9020
+acc_b_9020,Resist Fire Damage -25%,spa_1101
+spa_1101,Resist Fire Damage -35%,acc_a_1100
+acc_a_1100,Resist Fire Damage -50%,acc_a_1101
+acc_a_1101,Resist Fire Damage -55%,spa_1102
+spa_1102,Resist Fire Damage -60%,acc_a_1102
+acc_a_1102,Resist Fire Damage -66%,acc_a_9010
+acc_a_9010,Resist Fire Damage -90%,
+acc_b_4200,Resist Fog +100%,
+spa_1110,Resist Ice Damage -20%,acc_b_9030
+acc_b_9030,Resist Ice Damage -25%,spa_1111
+spa_1111,Resist Ice Damage -35%,acc_a_1110
+acc_a_1110,Resist Ice Damage -50%,acc_a_1111
+acc_a_1111,Resist Ice Damage -55%,spa_1112
+spa_1112,Resist Ice Damage -60%,acc_a_1112
+acc_a_1112,Resist Ice Damage -66%,acc_a_9020
+acc_a_9020,Resist Ice Damage -90%,
+acc_b_4170,Resist Imperil +100%,
+spa_1120,Resist Lightning Damage -20%,acc_b_9040
+acc_b_9040,Resist Lightning Damage -25%,spa_1121
+spa_1121,Resist Lightning Damage -35%,acc_a_1120
+acc_a_1120,Resist Lightning Damage -50%,acc_a_1121
+acc_a_1121,Resist Lightning Damage -55%,spa_1122
+spa_1122,Resist Lightning Damage -60%,acc_a_1122
+acc_a_1122,Resist Lightning Damage -66%,acc_a_9030
+acc_a_9030,Resist Lightning Damage -90%,
+acc_a_9100,Resist Magic Damage -10%,acc_a_9101
+acc_b_1010,Resist Magic Damage -10%,acc_a_9101
+spa_1010,Resist Magic Damage -10%,acc_a_9101
+acc_a_9101,Resist Magic Damage -12%,acc_a_9102
+acc_a_9102,Resist Magic Damage -15%,acc_a_9141
+acc_a_9140,Resist Magic Damage -15%,acc_a_9141
+acc_a_9141,Resist Magic Damage -18%,acc_a_1010
+acc_a_1010,Resist Magic Damage -20%,acc_a_1011
+acc_a_9142,Resist Magic Damage -20%,acc_a_1011
+acc_a_1011,Resist Magic Damage -22%,acc_a_1012
+acc_a_1012,Resist Magic Damage -25%,spa_1012
+spa_1011,Resist Magic Damage -25%,spa_1012
+spa_1012,Resist Magic Damage -45%,acc_a_9060
+acc_a_9060,Resist Magic Damage -75%,
+acc_b_4190,Resist Pain +100%,
+acc_a_9012b,Resist Physical & Magic Damage 90%,wear_sh010
+acc_a_9011b,Resist Physical & Magic Damage 95%,acc_a_9012b
+acc_a_9010b,Resist Physical & Magic Damage 100%,acc_a_9011b
+acc_a_9090,Resist Physical Damage -10%,acc_a_9091
+acc_b_1000,Resist Physical Damage -10%,acc_a_9091
+spa_1000,Resist Physical Damage -10%,acc_a_9091
+acc_a_9091,Resist Physical Damage -12%,acc_a_9092
+acc_a_9092,Resist Physical Damage -15%,acc_a_9131
+acc_a_9130,Resist Physical Damage -15%,acc_a_9131
+acc_a_9131,Resist Physical Damage -18%,acc_a_1000
+acc_a_1000,Resist Physical Damage -20%,acc_a_1001
+acc_a_9132,Resist Physical Damage -20%,acc_a_1001
+acc_a_1001,Resist Physical Damage -22%,acc_a_1002
+acc_a_1002,Resist Physical Damage -25%,spa_1002
+spa_1001,Resist Physical Damage -25%,spa_1002
+spa_1002,Resist Physical Damage -45%,acc_a_9050
+acc_a_9050,Resist Physical Damage -75%,
+acc_b_4160,Resist Poison +100%,
+acc_b_4150,Resist Slow +100%,
+spa_1130,Resist Wind Damage -20%,
+acc_b_9050,Resist Wind Damage -25%,spa_1130
+spa_1131,Resist Wind Damage -35%,acc_b_9050
+acc_a_1130,Resist Wind Damage -50%,spa_1131
+acc_a_1131,Resist Wind Damage -55%,acc_a_1130
+spa_1132,Resist Wind Damage -60%,acc_a_1131
+acc_a_1132,Resist Wind Damage -66%,spa_1132
+acc_a_9040,Resist Wind Damage -90%,acc_a_1132
+wear_cg110,Revenge Guard,
+acc_a_8120,Risky Guard,
+acc_a_8121,Risky Guard,
+acc_a_8122,Risky Guard,
+wear_cg100,Ruinga Guard,
+wear_din_b,Saboteur Drain,
+wear_asp_b,Saboteur Siphon,
+acc_b_7110,Self-sufficient,
+wear_cg020,Shell Guard,
+aa_rat800_00,Slayer,
+acc_b_9010,Sniper,
+wear_uphp_lv2,Sole Survivor,
+wear_cg200,Song of Prayer,
+wear_so_05,Soul of the Black Mage,
+wear_so_12,Soul of the Blue Mage,
+wear_so_08,Soul of the Dark Knight,
+wear_so_13,Soul of the Devil,
+wear_so_09,Soul of the Dragoon,
+wear_so_02,Soul of the Fighter,
+wear_so_14,Soul of the Holy Knight,
+wear_so_11,Soul of the Hunter,
+wear_so_07,Soul of the Knight,
+wear_so_10,Soul of the Ninja,
+wear_so_06,Soul of the Red Mage,
+wear_so_03,Soul of the Thief,
+wear_so_01,Soul of the Warrior,
+wear_so_04,Soul of the White Mage,
+wear80_540,Stagger Booster,
+acc_a_2000,Stagger Capability +10%,acc_a_2001
+acc_a_2001,Stagger Capability +11%,acc_a_2002
+acc_a_2002,Stagger Capability +12%,spa_2000
+spa_2000,Stagger Capability +15%,spa_2001
+spa_2001,Stagger Capability +20%,spa_2002
+spa_2002,Stagger Capability +25%,
+acc_a_8401b,Stagger Capability -25%,acc_a_2000
+acc_a_8402b,Stagger Capability -25%,acc_a_2000
+acc_a_8400b,Stagger Capability -30%,acc_a_8402b
+wear_din_c,Stagger Drain,
+spa_2010,Stagger Duration +3%,spa_2011
+spa_2011,Stagger Duration +5%,spa_2012
+spa_2012,Stagger Duration +7%,spa_2013
+spa_2013,Stagger Duration +10%,acc_a_2010
+acc_a_2010,Stagger Duration +20%,acc_a_2011
+acc_a_2011,Stagger Duration +23%,acc_a_2012
+acc_a_2012,Stagger Duration +26%,
+wear_asp_c,Stagger Siphon,
+wear_rgp_c,Stagger's Rush,
+wear80_500,Standby ATB Recovery,wear80_501
+wear80_501,Standby ATB Recovery+,
+acc_a_4001,Status Ailment Damage +100%,acc_a_9181
+acc_a_9180,Status Ailment Damage +100%,acc_a_9181
+acc_a_9181,Status Ailment Damage +120%,acc_a_4002
+acc_a_4002,Status Ailment Damage +150%,acc_a_4003
+acc_a_9182,Status Ailment Damage +150%,acc_a_4003
+acc_b_4000,Status Ailment Damage +20%,acc_b_4001
+spa_4000,Status Ailment Damage +20%,acc_b_4001
+acc_a_4003,Status Ailment Damage +200%,acc_a_4004
+acc_b_4001,Status Ailment Damage +21%,acc_b_4002
+acc_b_4002,Status Ailment Damage +22%,spa_4001
+spa_4001,Status Ailment Damage +25%,spa_4002
+acc_a_4004,Status Ailment Damage +250%,
+spa_4002,Status Ailment Damage +30%,acc_a_4000
+acc_a_4000,Status Ailment Damage +50%,acc_a_4001
+spa_4010,Status Ailment Duration +10%,spa_4011
+spa_4011,Status Ailment Duration +15%,acc_a_4010
+acc_a_4010,Status Ailment Duration +20%,acc_a_4011
+spa_4012,Status Ailment Duration +20%,acc_a_4011
+acc_a_4011,Status Ailment Duration +25%,acc_a_4012
+acc_a_4012,Status Ailment Duration +30%,acc_a_4013
+acc_a_4013,Status Ailment Duration +35%,acc_a_4014
+acc_a_4014,Status Ailment Duration +40%,
+spa_4100,Status Ailments Resistance +10%,acc_a_4105
+acc_a_4105,Status Ailments Resistance +25%,wear_re033
+spa_4101,Status Ailments Resistance +25%,wear_re033
+wear_re025,Status Ailments Resistance +25%,wear_re033
+wear_re033,Status Ailments Resistance +33%,spa_4102
+spa_4102,Status Ailments Resistance +45%,acc_a_4100
+acc_a_4100,Status Ailments Resistance +50%,acc_a_4101
+acc_a_4101,Status Ailments Resistance +66%,acc_a_4102
+acc_a_4102,Status Ailments Resistance +75%,
+acc_a_9050b,Strength & Magic -100%,acc_a_9051b
+acc_a_9051b,Strength & Magic -95%,acc_a_9052b
+acc_a_9052b,Strength & Magic -90%,acc_a_8010b
+acc_a_8010b,Strength & Magic -50%,acc_a_8011b
+acc_a_8011b,Strength & Magic -45%,acc_a_8012b
+acc_a_8012b,Strength & Magic -40%,acc_a_0020|wear_mx010|acc_b_0000|acc_b_0010|wear_mg020|wear_at020
+acc_a_0020,Strength & Magic +10%,acc_a_0021
+acc_a_0021,Strength & Magic +12%,acc_a_0022
+acc_a_0022,Strength & Magic +15%,acc_a_8000b
+acc_a_8000b,Strength & Magic +30%,acc_a_8001b
+acc_a_8001b,Strength & Magic +40%,acc_a_8002b
+acc_a_8002b,Strength & Magic +50%,
+wear_mx010,Strength & Magic +10,wear_mx040
+wear_mx040,Strength & Magic +30,wear_mx090
+wear_mx090,Strength & Magic +60,wear_mx150
+wear_mx150,Strength & Magic +100,wear_mx210
+wear_mx210,Strength & Magic +150,wear_mx300
+wear_mx300,Strength & Magic +200,
+awp_ws_down,Strength -50%,acc_b_0000
+acc_b_0000,Strength +5%,acc_b_0001
+acc_b_0001,Strength +6%,acc_b_0002
+acc_b_0002,Strength +7%,acc_a_9070
+acc_a_9070,Strength +10%,acc_a_9071
+spa_0000,Strength +10%,acc_a_9071
+wear_at10p,Strength +10%,acc_a_9071
+acc_a_9071,Strength +12%,acc_a_0000
+acc_a_0000,Strength +15%,acc_a_0001
+acc_a_9072,Strength +15%,acc_a_0001
+acc_a_9110,Strength +15%,acc_a_0001
+wear_at15p,Strength +15%,acc_a_0001
+acc_a_0001,Strength +18%,acc_a_0002
+acc_a_9111,Strength +18%,acc_a_0002
+acc_a_0002,Strength +20%,spa_0001
+acc_a_9112,Strength +20%,spa_0001
+wear_at20p,Strength +20%,spa_0001
+spa_0001,Strength +25%,spa_0002
+spa_0002,Strength +45%,
+wear_at020,Strength +20,wear_at040
+wear_at040,Strength +40,wear_at060
+wear_at060,Strength +60,wear_at080
+wear_at080,Strength +80,wear_at100
+wear_at100,Strength +100,wear_at140
+wear_at140,Strength +110,wear_at180
+wear_at180,Strength +120,wear_at220
+wear_at220,Strength +130,wear_at260
+wear_at260,Strength +140,wear_at300
+wear_at300,Strength +150,wear_at340
+wear_at340,Strength +160,wear_at380
+wear_at380,Strength +180,wear_at420
+wear_at420,Strength +200,wear_at460
+wear_at460,Strength +220,wear_at500
+wear_at500,Strength +250,
+spa_7400,Strength in Numbers +16%,spa_7401
+spa_7401,Strength in Numbers +18%,spa_7402
+spa_7402,Strength in Numbers +20%,
+wear_uphp_30,Strike Back,
+awp_mg_fin1,Strong Finale +10%,awp_mg_fin2
+awp_mg_fin2,Strong Finale +15%,awp_mg_fin3
+wear80_600,Strong Finale +15%,awp_mg_fin3
+awp_mg_fin3,Strong Finale +20%,wear80_601
+wear80_601,Strong Finale +25%,
+wear_uphp_lv1,Survival Instinct,wear_uphp_lv2
+wear80_510,Sweet Spot,
+wear80_511,Sweet Spot,
+acc_a_8210,Sworn to the Staff,
+acc_a_8211,Sworn to the Staff,
+acc_a_8212,Sworn to the Staff,
+acc_a_8200,Sworn to the Sword,
+acc_a_8201,Sworn to the Sword,
+acc_a_8202,Sworn to the Sword,
+acc_b_6200,Tithed Bravery,
+spa_6210,Tithed Bravery,
+acc_b_6210,Tithed Faith,
+acc_b_6220,Tithed Haste,
+acc_b_6100,Tithed Protect,
+acc_b_6110,Tithed Shell,
+acc_b_6120,Tithed Vigilance + Veil,
+wear_st000,Toxic,
+wear_ch030,Transform Bravery,
+wear_ch040,Transform Faith,
+wear_ch050,Transform Haste,
+wear_ch010,Transform Protect,
+wear_ch020,Transform Shell,
+spa_7200,Undaunted Lv. 1,spa_7201
+spa_7201,Undaunted Lv. 2,spa_7202
+spa_7202,Undaunted Lv. 3,
+acc_b_7100,Uneasy Rest,
+wear_cg070,Veil Guard,
+wear_asp_d,Vengeance Siphon,
+wear_din_e,Victor Drain,
+wear_asp_e,Victor Siphon,
+wear_rgp_e,Victor's Rush,
+wear_cg060,Vigilance Guard,
+aa_rat500_00,Whirlwind Kick,
+awp_wdef060_1,Wind Guard +70%,awp_wdef061_1
+awp_wdef061_1,Wind Guard +80%,awp_wdef062_1
+awp_wdef062_1,Wind Guard +90%,acc_a_9040
+spa_0130,Wind-Attribute Attacks +10%,spa_0131
+spa_0131,Wind-Attribute Attacks +12%,spa_0132
+spa_0132,Wind-Attribute Attacks +15%,acc_a_9170b
+acc_a_9170b,Wind-Attribute Attacks +20%,acc_a_9171b
+spa_0133,Wind-Attribute Attacks +20%,acc_a_9171b
+acc_a_9171b,Wind-Attribute Attacks +22%,acc_a_9172b
+acc_a_9172b,Wind-Attribute Attacks +25%,acc_b_0130
+acc_b_0130,Wind-Attribute Attacks +30%,acc_b_0131
+acc_b_0131,Wind-Attribute Attacks +32%,acc_b_0132
+acc_b_0132,Wind-Attribute Attacks +35%,

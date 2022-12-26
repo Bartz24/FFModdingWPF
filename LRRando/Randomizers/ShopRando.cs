@@ -113,6 +113,10 @@ namespace LRRando
                 {
                     shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra && shopsDict.ContainsKey(s.name)).ForEach(s => shopsDict[s.name].Add("mat_abi_0_0" + n));
                 }
+                for (int n = 3; n <= 8; n++)
+                {
+                    shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra && shopsDict.ContainsKey(s.name)).ForEach(s => shopsDict[s.name].Add("mat_cus_0_0" + n));
+                }
 
                 foreach (string equip in treasureRando.RemainingEquip)
                 {
