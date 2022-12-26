@@ -30,7 +30,7 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
     Write-Host "Creating 7z file..."
     Remove-Item -Recurse -Force "bin\publish\FF13_2Randomizer$Version.7z" -ErrorAction Ignore
     Push-Location -Path "bin\publish"
-    & "7z.exe" a -t7z "FF13_2Randomizer$Version.7z" "data" "README.pdf" "FF13_2Rando.exe"
+    & "7z.exe" a -t7z -mx=9 "FF13_2Randomizer$Version.7z" "data" "README.pdf" "FF13_2Rando.exe"
     Pop-Location
 
     Copy-Item -Path "bin\publish\FF13_2Randomizer$Version.7z" -Destination "bin\build\FF13_2RandomizerPreview.7z" -Force

@@ -30,7 +30,7 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
     Write-Host "Creating 7z file..."
     Remove-Item -Recurse -Force "bin\publish\LRRandomizer$Version.7z" -ErrorAction Ignore
     Push-Location -Path "bin\publish"
-    & "7z.exe" a -t7z "LRRandomizer$Version.7z" "data" "README.pdf" "LRRando.exe"
+    & "7z.exe" a -t7z -mx=9 "LRRandomizer$Version.7z" "data" "README.pdf" "LRRando.exe"
     Pop-Location
 
     Copy-Item -Path "bin\publish\LRRandomizer$Version.7z" -Destination "bin\build\LRRandomizerPreview.7z" -Force
