@@ -23,8 +23,7 @@ namespace Bartz24.Data
 
         public override void LoadData(byte[] data, int offset = 0)
         {
-            int size = data.FindIndexNextByte(offset, 0) - offset;
-            Data = data.SubArray(offset, size + 1);
+            Value = data.ReadString(offset);
         }
 
         public override int GetDefaultLength()

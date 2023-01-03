@@ -1,4 +1,5 @@
 ﻿using Bartz24.Data;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -115,9 +116,10 @@ namespace Bartz24.FF13
             SaveData(folderPath);
             SaveStringList(folderPath);
 
-            PreWorkaround(folderPath);
+            List<string> sortOrder = new List<string>();
+            PreWorkaround(folderPath, sortOrder);
             Nova.RepackWPD(path, novaPath);
-            PostWorkaround(path);
+            PostWorkaround(path, sortOrder);
         }
 
         private void UpdateStringPointers()
@@ -190,24 +192,23 @@ namespace Bartz24.FF13
             File.WriteAllBytes(filePath, StringList.Data);
         }
 
-        private void PreWorkaround(string path)
+        private void PreWorkaround(string path, List<string> sortOrder)
         {
-            Directory.GetFiles(path).Where(s => !Path.GetFileName(s).StartsWith("!!")).ForEach(s =>
+
+            Directory.GetFiles(path).Where(s => !Path.GetFileName(s).StartsWith("!!")).OrderBy(s => Path.GetFileName(s), StringComparer.Ordinal).ForEach(s =>
             {
-                string fixPath = Path.Combine(Path.GetDirectoryName(s), Path.GetFileName(s).Replace("_", "!"));
+                string fixPath = Path.Combine(Path.GetDirectoryName(s), "_" + sortOrder.Count.ToString("000000"));
                 File.Move(s, fixPath);
+                sortOrder.Add(Path.GetFileName(s));
             });
         }
-        private void PostWorkaround(string path)
+        private void PostWorkaround(string path, List<string> sortOrder)
         {
             byte[] bytes = File.ReadAllBytes(path);
             for (int i = 0x90; i < bytes.ReadUInt(0x20); i += 0x20)
             {
-                for (int c = 0; c < 16; c++)
-                {
-                    if (bytes[i + c] == 0x21)
-                        bytes[i + c] = 0x5F;
-                }
+                bytes.SetString(i, sortOrder[0], 16);
+                sortOrder.RemoveAt(0);
             }
             File.WriteAllBytes(path, bytes);
         }
