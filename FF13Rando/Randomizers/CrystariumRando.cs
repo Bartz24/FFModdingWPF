@@ -149,6 +149,7 @@ namespace FF13Rando
             RoundCPCosts();
         }
 
+        // This only uses primary roles??
         private List<int[]> GetAverageStats()
         {
             List<int[]> list = new List<int[]>();

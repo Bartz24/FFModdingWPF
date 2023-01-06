@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace FF13Rando
 {
@@ -236,6 +237,7 @@ namespace FF13Rando
             public static Flag Music, Enemies;
             public static NumberFlagProperty EnemyRank;
             public static ComboBoxFlagProperty EnemyVariety;
+            public static ToggleFlagProperty GroupShuffle;
 
             internal static void Init()
             {
@@ -273,6 +275,13 @@ namespace FF13Rando
                     ValueText = "Enemy Rank +/-",
                     MinValue = 0,
                     MaxValue = 15
+                }.Register(Enemies);
+
+                GroupShuffle = (ToggleFlagProperty)new ToggleFlagProperty()
+                {
+                    Text = "Shuffle enemies group-wise",
+                    ID = "EnemyGroupShuffle",
+                    Description = "Enemies are shuffled using charaspecs as a base rather than per encounter. More likely for individual fights to be randomised away from vanilla but some fights are more likely to have only vanilla enemies from the area",
                 }.Register(Enemies);
             }
         }
