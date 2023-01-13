@@ -31,7 +31,7 @@ namespace FF13Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Treasure Data...", -1, 100);
+            Randomizers.SetUIProgress("Loading Treasure Data...", -1, 100);
             treasuresOrig.LoadWDB("13", @"\db\resident\treasurebox.wdb");
             treasures.LoadWDB("13", @"\db\resident\treasurebox.wdb");
 
@@ -128,13 +128,13 @@ namespace FF13Rando
 
             placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13ItemLocation>(itemLocations, locations, 3)
             {
-                SetProgressFunc = Randomizers.SetProgressFunc
+                SetProgressFunc = Randomizers.SetUIProgress
             };
             placementAlgoNormal.Logic = new FF13ItemPlacementLogic(placementAlgoNormal, Randomizers);
 
             placementAlgoBackup = new ItemPlacementAlgorithm<FF13ItemLocation>(itemLocations, locations, -1)
             {
-                SetProgressFunc = Randomizers.SetProgressFunc
+                SetProgressFunc = Randomizers.SetUIProgress
             };
             placementAlgoBackup.Logic = new FF13ItemPlacementLogic(placementAlgoBackup, Randomizers);
 
@@ -153,9 +153,9 @@ namespace FF13Rando
             database[newName].iItemCount = (uint)count;
         }
 
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Treasure Data...", -0, 100);
+            Randomizers.SetUIProgress("Randomizing Treasure Data...", -0, 100);
             if (FF13Flags.Items.Treasures.FlagEnabled)
             {
                 FF13Flags.Items.Treasures.SetRand();
@@ -166,7 +166,7 @@ namespace FF13Rando
                     usingBackup = true;
                     placementAlgoBackup.Randomize(placementAlgoBackup.Logic.GetNewAreasAvailable(new Dictionary<string, int>(), new List<string>()), areaMults);
                 }
-                Randomizers.SetProgressFunc("Randomizing Treasure Data...", 60, 100);
+                Randomizers.SetUIProgress("Randomizing Treasure Data...", 60, 100);
 
                 // Update hints again to reflect actual numbers
                 PlacementAlgo.HintsByLocation.ForEach(l =>
@@ -181,7 +181,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 70, 100);
+            Randomizers.SetUIProgress("Randomizing Treasure Data...", 70, 100);
             if (FF13Flags.Items.ShuffleRoles.FlagEnabled)
             {
                 FF13Flags.Items.ShuffleRoles.SetRand();
@@ -204,7 +204,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 80, 100);
+            Randomizers.SetUIProgress("Randomizing Treasure Data...", 80, 100);
             if (FF13Flags.Items.ShuffleShops.FlagEnabled)
             {
                 FF13Flags.Items.ShuffleShops.SetRand();
@@ -219,7 +219,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 90, 100);
+            Randomizers.SetUIProgress("Randomizing Treasure Data...", 90, 100);
             if (FF13Flags.Items.Treasures.FlagEnabled)
             {
                 FF13Flags.Items.Treasures.SetRand();
@@ -319,7 +319,7 @@ namespace FF13Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Treasure Data...", -1, 100);
+            Randomizers.SetUIProgress("Saving Treasure Data...", -1, 100);
             SaveHints();
             treasures.SaveWDB(@"\db\resident\treasurebox.wdb");
         }

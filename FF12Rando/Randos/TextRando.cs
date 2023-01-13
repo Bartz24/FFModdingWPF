@@ -17,7 +17,7 @@ namespace FF12Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Text Data...", 0, -1);
+            Randomizers.SetUIProgress("Loading Text Data...", 0, -1);
             TextAbilities.Load("data\\text\\abilities.txt");
             TextEquipment.Load("data\\text\\equipment.txt");
             TextKeyItems.Load("data\\text\\keyitems.txt");
@@ -27,14 +27,14 @@ namespace FF12Rando
             TextMenuCommand.Load("outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\menu_command.bin.txt");
             TextAbilityHelp.Load("outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\listhelp_ability.bin.txt");
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Text Data...", 0, -1);
+            Randomizers.SetUIProgress("Randomizing Text Data...", 0, -1);
         }
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Text Data...", 0, -1);
+            Randomizers.SetUIProgress("Saving Text Data...", 0, -1);
             TextMenuMessage.Save("outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\menu_message.bin.txt");
             TextMenuCommand.Save("outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\menu_command.bin.txt");
             TextAbilityHelp.Save("outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\listhelp_ability.bin.txt");

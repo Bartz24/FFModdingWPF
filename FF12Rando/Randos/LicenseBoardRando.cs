@@ -24,7 +24,7 @@ namespace FF12Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading License Board Data...", 0, -1);
+            Randomizers.SetUIProgress("Loading License Board Data...", 0, -1);
             boards = Enumerable.Range(0, 12).Select(i =>
             {
                 DataStoreLicenseBoard board = new DataStoreLicenseBoard();
@@ -54,9 +54,9 @@ namespace FF12Rando
             treasureRando.prices[0x77].Price = 0;
             startingBoards = MathHelpers.DecodeNaturalSequence(treasureRando.prices[0x77].Price, 6, 13).Select(l => (int)l).ToArray();
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing License Board Data...", 0, -1);
+            Randomizers.SetUIProgress("Randomizing License Board Data...", 0, -1);
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
             TextRando textRando = Randomizers.Get<TextRando>();
 
@@ -101,7 +101,7 @@ namespace FF12Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving License Board Data...", 0, -1);
+            Randomizers.SetUIProgress("Saving License Board Data...", 0, -1);
             if (FF12Flags.Other.LicenseBoards.FlagEnabled)
             {
                 for (int i = 0; i < 12; i++)

@@ -18,7 +18,7 @@ namespace Bartz24.RandoWPF
 
         }
 
-        public virtual void Randomize(Action<int> progressSetter)
+        public virtual void Randomize()
         {
 
         }

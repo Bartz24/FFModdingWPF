@@ -16,7 +16,7 @@ namespace FF13Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Equip/Item Data...", -1, 100);
+            Randomizers.SetUIProgress("Loading Equip/Item Data...", -1, 100);
             items.LoadWDB("13", @"\db\resident\item.wdb");
 
             string[] chars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
@@ -47,9 +47,9 @@ namespace FF13Rando
 
             itemData.Values.Where(i => i.OverrideBuy != -1).ForEach(i => items[i.ID].u16BuyPrice = (uint)i.OverrideBuy);
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Equip/Item Data...", -1, 100);
+            Randomizers.SetUIProgress("Randomizing Equip/Item Data...", -1, 100);
             TextRando textRando = Randomizers.Get<TextRando>();
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
             string[] chars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
@@ -97,7 +97,7 @@ namespace FF13Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Equip/Item Data...", -1, 100);
+            Randomizers.SetUIProgress("Saving Equip/Item Data...", -1, 100);
             items.SaveWDB(@"\db\resident\item.wdb");
 
         }

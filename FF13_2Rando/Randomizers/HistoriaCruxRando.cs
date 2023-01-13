@@ -27,7 +27,7 @@ namespace FF13_2Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Historia Crux Data...", 0, -1);
+            Randomizers.SetUIProgress("Loading Historia Crux Data...", 0, -1);
             gateTable.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
             gateTableOrig.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
 
@@ -47,9 +47,9 @@ namespace FF13_2Rando
                 areaData.Add(a.ID, a);
             }, FileHelpers.CSVFileHeader.HasHeader);
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Historia Crux Data...", 0, -1);
+            Randomizers.SetUIProgress("Randomizing Historia Crux Data...", 0, -1);
             if (FF13_2Flags.Other.HistoriaCrux.FlagEnabled)
             {
                 FF13_2Flags.Other.HistoriaCrux.SetRand();
@@ -301,7 +301,7 @@ namespace FF13_2Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Historia Crux Data...", 0, -1);
+            Randomizers.SetUIProgress("Saving Historia Crux Data...", 0, -1);
             gateTable.SaveDB3(@"\db\resident\_wdbpack.bin\r_gatetab.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_gatetab.wdb");
         }

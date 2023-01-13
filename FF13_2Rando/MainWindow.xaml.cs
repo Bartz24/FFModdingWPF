@@ -83,7 +83,7 @@ namespace FF13_2Rando
         private async void generateButton_Click(object sender, RoutedEventArgs e)
         {
             RandomizerManager randomizers = new RandomizerManager();
-            randomizers.SetProgressFunc = SetProgressBar;
+            randomizers.SetUIProgress = SetProgressBar;
             randomizers.Add(new CrystariumRando(randomizers));
             randomizers.Add(new EquipRando(randomizers));
             randomizers.Add(new HistoriaCruxRando(randomizers));
@@ -191,7 +191,7 @@ namespace FF13_2Rando
                         randomizers.ForEach(r => r.Load());
                         randomizers.ForEach(r =>
                         {
-                            r.Randomize(v => ProgressBarValue = v);
+                            r.Randomize();
                         });
                         SetProgressBar("Saving Data...", -1);
                         randomizers.ForEach(r => r.Save());

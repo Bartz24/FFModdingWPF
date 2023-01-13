@@ -18,20 +18,20 @@ namespace LRRando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Ability Data...", 0, 100);
+            Randomizers.SetUIProgress("Loading Ability Data...", 0, 100);
             abilities.LoadDB3("LR", @"\db\resident\bt_ability.wdb");
-            Randomizers.SetProgressFunc("Loading Ability Data...", 50, 100);
+            Randomizers.SetUIProgress("Loading Ability Data...", 50, 100);
             abilityGrowths.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb", false);
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
-            Randomizers.SetProgressFunc("Loading Ability Data...", 80, 100);
+            Randomizers.SetUIProgress("Loading Ability Data...", 80, 100);
             treasureRando.AddTreasure("ini_ba_abi", "", 1, "");
             treasureRando.AddTreasure("ini_ca_abi", "", 1, "");
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
 
-            Randomizers.SetProgressFunc("Randomizing Ability Data...", 0, 100);
+            Randomizers.SetUIProgress("Randomizing Ability Data...", 0, 100);
             if (LRFlags.StatsAbilities.EPAbilities.FlagEnabled)
             {
                 LRFlags.StatsAbilities.EPAbilities.SetRand();
@@ -59,7 +59,7 @@ namespace LRRando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Ability Data...", 50, 100);
+            Randomizers.SetUIProgress("Randomizing Ability Data...", 50, 100);
             if (LRFlags.StatsAbilities.EPCosts.FlagEnabled)
             {
                 LRFlags.StatsAbilities.EPCosts.SetRand();
@@ -82,7 +82,7 @@ namespace LRRando
             }
 
 
-            Randomizers.SetProgressFunc("Randomizing Ability Data...", 80, 100);
+            Randomizers.SetUIProgress("Randomizing Ability Data...", 80, 100);
             if (LRFlags.StatsAbilities.AbilityPassives.FlagEnabled)
             {
                 EquipRando equipRando = Randomizers.Get<EquipRando>();
@@ -130,9 +130,9 @@ namespace LRRando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Ability Data...", 0, 100);
+            Randomizers.SetUIProgress("Saving Ability Data...", 0, 100);
             abilities.SaveDB3(@"\db\resident\bt_ability.wdb");
-            Randomizers.SetProgressFunc("Saving Ability Data...", 50, 100);
+            Randomizers.SetUIProgress("Saving Ability Data...", 50, 100);
             abilityGrowths.SaveDB3(@"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_bt_abi_grow.wdb");
         }

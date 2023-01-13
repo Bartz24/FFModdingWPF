@@ -5,7 +5,7 @@ namespace Bartz24.RandoWPF
 {
     public class RandomizerManager : List<Randomizer>
     {
-        public Action<string, int, int> SetProgressFunc { get; set; }
+        public Action<string, int, int> SetUIProgress { get; set; }
         public T Get<T>() where T : Randomizer
         {
             foreach (Randomizer randomizer in this)

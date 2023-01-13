@@ -20,7 +20,7 @@ namespace FF12Rando
         public ShopRando(RandomizerManager randomizers) : base(randomizers) { }
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Shop Data...", 0, -1);
+            Randomizers.SetUIProgress("Loading Shop Data...", 0, -1);
             shops = new DataStoreBPShop();
             shops.LoadData(File.ReadAllBytes($"data\\randoShops.bin"));
             shopsOrig = new DataStoreBPShop();
@@ -35,9 +35,9 @@ namespace FF12Rando
                 shopData.Add(s.ID, s);
             }, FileHelpers.CSVFileHeader.HasHeader);
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Shop Data...", 0, -1);
+            Randomizers.SetUIProgress("Randomizing Shop Data...", 0, -1);
             EquipRando equipRando = Randomizers.Get<EquipRando>();
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
 
@@ -267,7 +267,7 @@ namespace FF12Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Shop Data...", 0, -1);
+            Randomizers.SetUIProgress("Saving Shop Data...", 0, -1);
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_039.bin", shops.Data);
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_057.bin", bazaars.Data);
         }

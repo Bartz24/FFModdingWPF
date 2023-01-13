@@ -32,7 +32,7 @@ namespace FF13_2Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Battle Data...", 0, -1);
+            Randomizers.SetUIProgress("Loading Battle Data...", 0, -1);
             btScenes.LoadDB3("13-2", @"\db\resident\bt_scene.wdb");
             enemyData = File.ReadAllLines(@"data\enemies.csv").Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);
 
@@ -68,9 +68,9 @@ namespace FF13_2Rando
                 btTables.Add(a.BattleTableID, table);
             });
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Battle Data...", 0, -1);
+            Randomizers.SetUIProgress("Randomizing Battle Data...", 0, -1);
             EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
             if (FF13_2Flags.Enemies.EnemyLocations.FlagEnabled)
             {
@@ -463,7 +463,7 @@ namespace FF13_2Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Battle Data...", 0, -1);
+            Randomizers.SetUIProgress("Saving Battle Data...", 0, -1);
             btScenes.SaveDB3(@"\db\resident\bt_scene.wdb");
 
             charaSets.SaveDB3(@"\db\resident\_wdbpack.bin\r_charaset.wdb");

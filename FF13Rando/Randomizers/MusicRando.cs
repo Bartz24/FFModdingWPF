@@ -17,12 +17,12 @@ namespace FF13Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Music Data...", -1, 100);
+            Randomizers.SetUIProgress("Loading Music Data...", -1, 100);
             soundFiles.AddRange(File.ReadAllLines("data\\music13.csv"));
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Music Data...", -1, 100);
+            Randomizers.SetUIProgress("Randomizing Music Data...", -1, 100);
             if (FF13Flags.Other.Music.FlagEnabled)
             {
                 FF13Flags.Other.Music.SetRand();
@@ -40,7 +40,7 @@ namespace FF13Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Music Data...", -1, 100);
+            Randomizers.SetUIProgress("Saving Music Data...", -1, 100);
             for (int i = 0; i < Math.Min(soundFiles.Count, newSoundFiles.Count); i++)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName($"{SetupData.OutputFolder}\\{newSoundFiles[i]}"));

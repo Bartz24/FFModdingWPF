@@ -15,14 +15,14 @@ namespace FF13Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Enemy Data...", -1, 100);
+            Randomizers.SetUIProgress("Loading Enemy Data...", -1, 100);
             charaFamily.LoadWDB("13", @"\db\resident\charafamily.wdb");
             btCharaSpec.LoadWDB("13", @"\db\resident\bt_chara_spec.wdb");
             btCharaSpecOrig.LoadWDB("13", @"\db\resident\bt_chara_spec.wdb");
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Enemy Data...", -1, 100);
+            Randomizers.SetUIProgress("Randomizing Enemy Data...", -1, 100);
             TextRando textRando = Randomizers.Get<TextRando>();
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
 
@@ -35,7 +35,7 @@ namespace FF13Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Enemy Data...", -1, 100);
+            Randomizers.SetUIProgress("Saving Enemy Data...", -1, 100);
             charaFamily.SaveWDB(@"\db\resident\charafamily.wdb");
             btCharaSpec.SaveWDB(@"\db\resident\bt_chara_spec.wdb");
         }

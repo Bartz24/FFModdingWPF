@@ -23,7 +23,7 @@ namespace FF13Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Crystarium Data...", 0, 100);
+            Randomizers.SetUIProgress("Loading Crystarium Data...", 0, 100);
             primaryRoles.Add("lightning", new Role[] { Role.Commando, Role.Ravager, Role.Medic });
             primaryRoles.Add("fang", new Role[] { Role.Commando, Role.Sentinel, Role.Saboteur });
             primaryRoles.Add("snow", new Role[] { Role.Commando, Role.Ravager, Role.Sentinel });
@@ -35,7 +35,7 @@ namespace FF13Rando
             crystariums = chars.ToDictionary(c => c, c => new DataStoreWDB<DataStoreCrystarium>());
             chars.ForEach(c => crystariums[c].LoadWDB("13", @"\db\crystal\crystal_" + c + ".wdb"));
 
-            Randomizers.SetProgressFunc("Loading Crystarium Data...", 80, 100);
+            Randomizers.SetUIProgress("Loading Crystarium Data...", 80, 100);
             FileHelpers.ReadCSVFile(@"data\abilities.csv", row =>
             {
                 AbilityData a = new AbilityData(row);
@@ -85,14 +85,14 @@ namespace FF13Rando
             firstNodes["vanille"][Role.Synergist] = "cr_vaeh01010000";
             firstNodes["vanille"][Role.Medic] = "cr_vahl01910000";
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 0, 100);
+            Randomizers.SetUIProgress("Randomizing Crystarium Data...", 0, 100);
             List<int[]> averageStats = GetAverageStats();
             MoveFirstAbilities();
             UpdateCPCosts();
 
-            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 10, 100);
+            Randomizers.SetUIProgress("Randomizing Crystarium Data...", 10, 100);
             if (FF13Flags.Stats.RandCrystAbi.FlagEnabled)
             {
                 FF13Flags.Stats.RandCrystAbi.SetRand();
@@ -100,7 +100,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 20, 100);
+            Randomizers.SetUIProgress("Randomizing Crystarium Data...", 20, 100);
             if (FF13Flags.Stats.RandCrystStat.FlagEnabled)
             {
                 FF13Flags.Stats.RandCrystStat.SetRand();
@@ -108,7 +108,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 40, 100);
+            Randomizers.SetUIProgress("Randomizing Crystarium Data...", 40, 100);
             if (FF13Flags.Stats.ShuffleCrystMisc.Enabled)
             {
                 FF13Flags.Stats.RandInitStats.SetRand();
@@ -116,7 +116,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 50, 100);
+            Randomizers.SetUIProgress("Randomizing Crystarium Data...", 50, 100);
             if (FF13Flags.Stats.ShuffleCrystRole.FlagEnabled)
             {
                 FF13Flags.Stats.ShuffleCrystRole.SetRand();
@@ -124,7 +124,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 80, 100);
+            Randomizers.SetUIProgress("Randomizing Crystarium Data...", 80, 100);
             if (FF13Flags.Stats.RandCrystStat.FlagEnabled)
             {
                 FF13Flags.Stats.RandCrystStat.SetRand();
@@ -132,7 +132,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 90, 100);
+            Randomizers.SetUIProgress("Randomizing Crystarium Data...", 90, 100);
             if (FF13Flags.Stats.RandInitStats.FlagEnabled)
             {
                 FF13Flags.Stats.RandInitStats.SetRand();
@@ -140,7 +140,7 @@ namespace FF13Rando
                 RandomNum.ClearRand();
             }
 
-            Randomizers.SetProgressFunc("Randomizing Crystarium Data...", 95, 100);
+            Randomizers.SetUIProgress("Randomizing Crystarium Data...", 95, 100);
             ApplyCPCostModifiers();
             if (FF13Flags.Stats.ScaledCPCosts.FlagEnabled)
             {
@@ -569,7 +569,7 @@ namespace FF13Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Crystarium Data...", -1, 100);
+            Randomizers.SetUIProgress("Saving Crystarium Data...", -1, 100);
             chars.ForEach(c => crystariums[c].SaveWDB(@"\db\crystal\crystal_" + c + ".wdb"));
 
         }

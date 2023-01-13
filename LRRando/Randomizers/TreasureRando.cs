@@ -37,9 +37,9 @@ namespace LRRando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Treasure Data...", 0, 100);
+            Randomizers.SetUIProgress("Loading Treasure Data...", 0, 100);
             treasuresOrig.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
-            Randomizers.SetProgressFunc("Loading Treasure Data...", 10, 100);
+            Randomizers.SetUIProgress("Loading Treasure Data...", 10, 100);
             treasures.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
 
             FileHelpers.ReadCSVFile(@"data\treasures.csv", row =>
@@ -123,7 +123,7 @@ namespace LRRando
             hintsNotesCount.Clear();
             treasuresOrig.Keys.Where(k => treasuresOrig[k].s11ItemResourceId_string.StartsWith("libra")).ForEach(k => hintsNotesLocations.Add(treasuresOrig[k].s11ItemResourceId_string, null));
 
-            Randomizers.SetProgressFunc("Loading Treasure Data...", 80, 100);
+            Randomizers.SetUIProgress("Loading Treasure Data...", 80, 100);
             LRFlags.Items.Treasures.SetRand();
             List<string> locations = itemLocations.Values.SelectMany(t => t.Areas).Distinct().Shuffle();
             List<string> libraItems = hintsNotesLocations.Keys.Shuffle();
@@ -135,13 +135,13 @@ namespace LRRando
 
             placementAlgoNormal = new AssumedItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, 3)
             {
-                SetProgressFunc = Randomizers.SetProgressFunc
+                SetProgressFunc = Randomizers.SetUIProgress
             };
             placementAlgoNormal.Logic = new LRItemPlacementLogic(placementAlgoNormal, Randomizers);
 
             placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, -1)
             {
-                SetProgressFunc = Randomizers.SetProgressFunc
+                SetProgressFunc = Randomizers.SetUIProgress
             };
             placementAlgoBackup.Logic = new LRItemPlacementLogic(placementAlgoBackup, Randomizers);
         }
@@ -160,12 +160,12 @@ namespace LRRando
             database[newName].iItemCount = count;
         }
 
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
             EquipRando equipRando = Randomizers.Get<EquipRando>();
             ShopRando shopRando = Randomizers.Get<ShopRando>();
 
-            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 0, 100);
+            Randomizers.SetUIProgress("Randomizing Treasure Data...", 0, 100);
             if (LRFlags.Items.Treasures.FlagEnabled)
             {
                 LRFlags.Items.Treasures.SetRand();
@@ -232,7 +232,7 @@ namespace LRRando
 
                 RandomNum.ClearRand();
 
-                Randomizers.SetProgressFunc("Randomizing Treasure Data...", 80, 100);
+                Randomizers.SetUIProgress("Randomizing Treasure Data...", 80, 100);
                 if (LRFlags.Other.HintsNotes.FlagEnabled)
                 {
                     // Update hints again to reflect actual numbers
@@ -297,7 +297,7 @@ namespace LRRando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Treasure Data...", -1, 100);
+            Randomizers.SetUIProgress("Saving Treasure Data...", -1, 100);
             SaveHints();
             SetAndClearBattleDrops();
             treasures.SaveDB3(@"\db\resident\_wdbpack.bin\r_treasurebox.wdb");

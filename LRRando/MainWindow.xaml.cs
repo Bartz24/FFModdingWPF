@@ -83,7 +83,7 @@ namespace LRRando
         private async void generateButton_Click(object sender, RoutedEventArgs e)
         {
             RandomizerManager randomizers = new RandomizerManager();
-            randomizers.SetProgressFunc = SetProgressBar;
+            randomizers.SetUIProgress = SetProgressBar;
             randomizers.Add(new QuestRando(randomizers));
             randomizers.Add(new TreasureRando(randomizers));
             randomizers.Add(new EquipRando(randomizers));
@@ -183,7 +183,7 @@ namespace LRRando
                         randomizers.ForEach(r => r.Load());
                         randomizers.ForEach(r =>
                         {
-                            r.Randomize(v => ProgressBarValue = v);
+                            r.Randomize();
                         });
                         SetProgressBar("Saving Data...", -1);
                         randomizers.ForEach(r => r.Save());

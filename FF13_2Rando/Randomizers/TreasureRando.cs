@@ -35,7 +35,7 @@ namespace FF13_2Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Treasure Data...", 0, -1);
+            Randomizers.SetUIProgress("Loading Treasure Data...", 0, -1);
             treasuresOrig.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
             treasures.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
             searchOrig.LoadDB3("13-2", @"\db\resident\searchitem.wdb");
@@ -87,13 +87,13 @@ namespace FF13_2Rando
 
             placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13_2ItemLocation>(itemLocations, hintsNotesLocations, 3)
             {
-                SetProgressFunc = Randomizers.SetProgressFunc
+                SetProgressFunc = Randomizers.SetUIProgress
             };
             placementAlgoNormal.Logic = new FF13_2AssumedItemPlacementLogic(placementAlgoNormal, Randomizers);
 
             placementAlgoBackup = new ItemPlacementAlgorithm<FF13_2ItemLocation>(itemLocations, hintsNotesLocations, -1)
             {
-                SetProgressFunc = Randomizers.SetProgressFunc
+                SetProgressFunc = Randomizers.SetUIProgress
             };
             placementAlgoBackup.Logic = new FF13_2ItemPlacementLogic(placementAlgoBackup, Randomizers);
         }
@@ -112,9 +112,9 @@ namespace FF13_2Rando
             database[newName].iItemCount = count;
         }
 
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 0, -1);
+            Randomizers.SetUIProgress("Randomizing Treasure Data...", 0, -1);
             if (FF13_2Flags.Items.Treasures.FlagEnabled)
             {
                 FF13_2Flags.Items.Treasures.SetRand();
@@ -174,7 +174,7 @@ namespace FF13_2Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Treasure Data...", 0, -1);
+            Randomizers.SetUIProgress("Saving Treasure Data...", 0, -1);
             SaveHints();
             treasures.SaveDB3(@"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_treasurebox.wdb");

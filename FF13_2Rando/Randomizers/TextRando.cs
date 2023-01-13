@@ -14,7 +14,7 @@ namespace FF13_2Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Text Data...", 0, -1);
+            Randomizers.SetUIProgress("Loading Text Data...", 0, -1);
             {
                 string path = Nova.GetNovaFile("13-2", @"txtres\resident\system\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
                 string outPath = SetupData.OutputFolder + @"\txtres\resident\system\txtres_us.ztr";
@@ -30,9 +30,9 @@ namespace FF13_2Rando
                 quizUS.Load(outPath, SetupData.Paths["Nova"]);
             }
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Text Data...", 0, -1);
+            Randomizers.SetUIProgress("Randomizing Text Data...", 0, -1);
         }
 
         private string GetHash()
@@ -79,7 +79,7 @@ namespace FF13_2Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Text Data...", -1, 100);
+            Randomizers.SetUIProgress("Saving Text Data...", -1, 100);
             string hash = GetHash();
 
             mainSysUS["$dif_conf_e"] = "{Icon Attention} Begin game in {Color Red}EASY MODE{Color SkyBlue}?{Text NewLine}" +

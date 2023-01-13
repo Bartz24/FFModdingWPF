@@ -17,13 +17,13 @@ namespace FF13Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Shop Data...", -1, 100);
+            Randomizers.SetUIProgress("Loading Shop Data...", -1, 100);
             shops.LoadWDB("13", @"\db\resident\shop.wdb");
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
             //TODO: add option to lock in high quality upgrading components?
-            Randomizers.SetProgressFunc("Randomizing Shop Data...", -1, 100);
+            Randomizers.SetUIProgress("Randomizing Shop Data...", -1, 100);
 
             if (FF13Flags.Items.ShopContents.FlagEnabled)
             {
@@ -151,7 +151,7 @@ namespace FF13Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Shop Data...", -1, 100);
+            Randomizers.SetUIProgress("Saving Shop Data...", -1, 100);
             shops.SaveWDB(@"\db\resident\shop.wdb");
         }
     }

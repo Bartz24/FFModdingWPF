@@ -37,7 +37,7 @@ namespace FF12Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Treasure Data...", 0, -1);
+            Randomizers.SetUIProgress("Loading Treasure Data...", 0, -1);
             rewards = new DataStoreBPSection<DataStoreReward>();
             rewards.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin"));
             rewardsOrig = new DataStoreBPSection<DataStoreReward>();
@@ -129,19 +129,19 @@ namespace FF12Rando
 
             placementAlgoNormal = new FF12AssumedItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers, 3)
             {
-                SetProgressFunc = Randomizers.SetProgressFunc
+                SetProgressFunc = Randomizers.SetUIProgress
             };
             placementAlgoNormal.Logic = new FF12ItemPlacementLogic(placementAlgoNormal, Randomizers);
 
             placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(itemLocations, hintsNotesLocations, -1)
             {
-                SetProgressFunc = Randomizers.SetProgressFunc
+                SetProgressFunc = Randomizers.SetUIProgress
             };
             placementAlgoBackup.Logic = new FF12ItemPlacementLogic(placementAlgoBackup, Randomizers);
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Treasure Data...", 0, -1);
+            Randomizers.SetUIProgress("Randomizing Treasure Data...", 0, -1);
 
             randomizeItems = new List<string>();
             if (FF12Flags.Items.Treasures.FlagEnabled)
@@ -581,7 +581,7 @@ namespace FF12Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Treasure Data...", 0, -1);
+            Randomizers.SetUIProgress("Saving Treasure Data...", 0, -1);
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin", rewards.Data);
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_028.bin", prices.Data);
 

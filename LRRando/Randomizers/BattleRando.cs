@@ -24,14 +24,14 @@ namespace LRRando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Battle Data...", 0, 100);
+            Randomizers.SetUIProgress("Loading Battle Data...", 0, 100);
             btScenesOrig.LoadDB3("LR", @"\db\resident\bt_scene.wdb");
-            Randomizers.SetProgressFunc("Loading Battle Data...", 20, 100);
+            Randomizers.SetUIProgress("Loading Battle Data...", 20, 100);
             btScenes.LoadDB3("LR", @"\db\resident\bt_scene.wdb");
-            Randomizers.SetProgressFunc("Loading Battle Data...", 50, 100);
+            Randomizers.SetUIProgress("Loading Battle Data...", 50, 100);
             charaSets.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
-            Randomizers.SetProgressFunc("Loading Battle Data...", 80, 100);
+            Randomizers.SetUIProgress("Loading Battle Data...", 80, 100);
             FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
             {
                 EnemyData e = new EnemyData(row);
@@ -56,10 +56,10 @@ namespace LRRando
 
             shuffledBosses.Clear();
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
             EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
-            Randomizers.SetProgressFunc("Randomizing Battle Data...", -1, 100);
+            Randomizers.SetUIProgress("Randomizing Battle Data...", -1, 100);
             if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
             {
                 LRFlags.Enemies.EnemyLocations.SetRand();
@@ -321,7 +321,7 @@ namespace LRRando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Battle Data...", -1, 100);
+            Randomizers.SetUIProgress("Saving Battle Data...", -1, 100);
             // Apply rando drops
             TransferBattleDrops();
 

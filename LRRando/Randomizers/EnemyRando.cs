@@ -16,7 +16,7 @@ namespace LRRando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Enemy Data...", -1, 100);
+            Randomizers.SetUIProgress("Loading Enemy Data...", -1, 100);
             string path = Nova.GetNovaFile("LR", @"db\resident\bt_chara_spec.wdb", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
             string outPath = SetupData.OutputFolder + @"\db\resident\bt_chara_spec.wdb";
             FileHelpers.CopyFile(path, outPath);
@@ -34,9 +34,9 @@ namespace LRRando
 
             enemies["m330"].u16DropGil = 4000;
         }
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
-            Randomizers.SetProgressFunc("Randomizing Enemy Data...", -1, 100);
+            Randomizers.SetUIProgress("Randomizing Enemy Data...", -1, 100);
             EquipRando equipRando = Randomizers.Get<EquipRando>();
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
 
@@ -157,7 +157,7 @@ namespace LRRando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Enemy Data...", -1, 100);
+            Randomizers.SetUIProgress("Saving Enemy Data...", -1, 100);
             string outPath = SetupData.OutputFolder + @"\db\resident\bt_chara_spec.wdb";
             enemies.Save(outPath, SetupData.Paths["Nova"]);
         }

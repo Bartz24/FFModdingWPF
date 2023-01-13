@@ -32,7 +32,7 @@ namespace FF13Rando
 
         public override void Load()
         {
-            Randomizers.SetProgressFunc("Loading Battle Data...", 0, 100);
+            Randomizers.SetUIProgress("Loading Battle Data...", 0, 100);
             btscene.LoadWDB("13", @"\db\resident\bt_scene.wdb");
             btsceneOrig.LoadWDB("13", @"\db\resident\bt_scene.wdb");
 
@@ -45,7 +45,7 @@ namespace FF13Rando
             FileHelpers.CopyFile(btscWDBPath, btscWDBOutPath);
             Nova.UnpackWPD(btscWDBOutPath, SetupData.Paths["Nova"]);
 
-            Randomizers.SetProgressFunc("Loading Battle Data...", 10, 100);
+            Randomizers.SetUIProgress("Loading Battle Data...", 10, 100);
 
             FileHelpers.ReadCSVFile(@"data\battlescenes.csv", row =>
             {
@@ -53,7 +53,7 @@ namespace FF13Rando
                 battleData.Add(b.ID, b);
             }, FileHelpers.CSVFileHeader.HasHeader);
 
-            Randomizers.SetProgressFunc("Loading Battle Data...", 20, 100);
+            Randomizers.SetUIProgress("Loading Battle Data...", 20, 100);
 
             if (FF13Flags.Other.Enemies.FlagEnabled)
             {
@@ -63,14 +63,14 @@ namespace FF13Rando
                 Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 8 }, path =>
                 {
                     count++;
-                    Randomizers.SetProgressFunc($"Loading Encounter... ({count} of {maxCount})", count, maxCount);
+                    Randomizers.SetUIProgress($"Loading Encounter... ({count} of {maxCount})", count, maxCount);
                     DataStoreWDB<DataStoreBtSc> btsc = new DataStoreWDB<DataStoreBtSc>();
                     btsc.Load("13", path, SetupData.Paths["Nova"]);
                     btscs.TryAdd(Path.GetFileNameWithoutExtension(path), btsc);
                 });
             }
 
-            Randomizers.SetProgressFunc("Loading Battle Data...", 90, 100);
+            Randomizers.SetUIProgress("Loading Battle Data...", 90, 100);
             FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
             {
                 EnemyData e = new EnemyData(row);
@@ -121,7 +121,7 @@ namespace FF13Rando
 
         public override void Randomize(Action<int> progressSetter)
         {
-            Randomizers.SetProgressFunc("Randomizing Battle Data...", -1, 100);
+            Randomizers.SetUIProgress("Randomizing Battle Data...", -1, 100);
             EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
             if (FF13Flags.Other.Enemies.FlagEnabled)
             {
@@ -486,14 +486,14 @@ namespace FF13Rando
 
         public override void Save()
         {
-            Randomizers.SetProgressFunc("Saving Battle Data...", 0, 100);
+            Randomizers.SetUIProgress("Saving Battle Data...", 0, 100);
             btscene.SaveWDB(@"\db\resident\bt_scene.wdb");
 
             charaSets.SaveWDB(@"\db\resident\charaset.wdb");
 
             battleConsts.SaveWDB(@"\db\resident\bt_constants.wdb");
 
-            Randomizers.SetProgressFunc("Saving Battle Data...", 10, 100);
+            Randomizers.SetUIProgress("Saving Battle Data...", 10, 100);
 
             if (FF13Flags.Other.Enemies.FlagEnabled)
             {
@@ -503,11 +503,11 @@ namespace FF13Rando
                 Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 8 }, path =>
                 {
                     count++;
-                    Randomizers.SetProgressFunc($"Saving Encounter... ({count} of {maxCount})", count, maxCount);
+                    Randomizers.SetUIProgress($"Saving Encounter... ({count} of {maxCount})", count, maxCount);
                     btscs[Path.GetFileNameWithoutExtension(path)].Save(path, SetupData.Paths["Nova"]);
                 });
             }
-            Randomizers.SetProgressFunc("Saving Battle Data...", 90, 100);
+            Randomizers.SetUIProgress("Saving Battle Data...", 90, 100);
             Nova.RepackWPD(SetupData.OutputFolder + @"\btscene\wdb\btsc_wdb.bin", SetupData.Paths["Nova"]);
         }
 
