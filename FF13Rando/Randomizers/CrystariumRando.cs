@@ -149,7 +149,6 @@ namespace FF13Rando
             RoundCPCosts();
         }
 
-        // This only uses primary roles??
         private List<int[]> GetAverageStats()
         {
             List<int[]> list = new List<int[]>();
@@ -413,14 +412,30 @@ namespace FF13Rando
 
             chars.ForEach(name =>
             {
+                Dictionary<Role, (int, int, int)> roleTotals = crystariums[name].Values.Where(c => !c.ID.StartsWith("!")).GroupBy(c => c.iRole).Where(g => g.Key != Role.None).OrderBy(g => g.Key).Select(roleGroup =>
+                {
+                    var hpTotal = roleGroup.Where(c => c.iType == CrystariumType.HP).Sum(c => c.iValue);
+                    var strengthTotal = roleGroup.Where(c => c.iType == CrystariumType.Strength).Sum(c => c.iValue);
+                    var magicTotal = roleGroup.Where(c => c.iType == CrystariumType.Magic).Sum(c => c.iValue);
+                    return (roleGroup.Key, (hpTotal, strengthTotal, magicTotal));
+                }).ToDictionary(kv => kv.Item1, kv => kv.Item2);
+                int charHpTotal = roleTotals.Values.Select(t => t.Item1).Sum();
+                int charStrTotal = roleTotals.Values.Select(t => t.Item2).Sum();
+                int charMagTotal = roleTotals.Values.Select(t => t.Item3).Sum();
+                Func<(int, int, int), string> writeStatsForDisplay = ((int, int, int) input) =>
+                    string.Join("<br/>", $"HP + {input.Item1}", $"Strength + {input.Item2}", $"Magic + {input.Item3}");
                 page.HTMLElements.Add(new Table(name[0].ToString().ToUpper() + name.Substring(1),
-                    new string[] { "Stage", "Commando", "Ravager", "Sentinel", "Synergist", "Saboteur", "Medic" }.ToList(),
-                    new int[] { 10, 15, 15, 15, 15, 15, 15 }.ToList(),
+                    new string[] { "Stage", "Commando", "Ravager", "Sentinel", "Synergist", "Saboteur", "Medic", "Totals" }.ToList(),
+                    new int[] { 4, 14, 14, 14, 14, 14, 14, 12 }.ToList(),
                     Enumerable.Range(1, 10).Select(stage =>
                     {
                         List<string> list = new List<string>();
                         list.Add(stage.ToString());
                         list.AddRange(new string[] { "", "", "", "", "", "" });
+                        int hpTotal = 0;
+                        int strengthTotal = 0;
+                        int magicTotal = 0;
+                        List<string> totalAdditions = new List<string>();
                         foreach (Role role in Enum.GetValues(typeof(Role)))
                         {
                             List<string> additions = new List<string>();
@@ -428,8 +443,11 @@ namespace FF13Rando
                                 continue;
                             List<DataStoreCrystarium> roleCrysts = crystariums[name].Values.Where(c => !c.ID.StartsWith("!") && c.iRole == role && c.iStage == stage).ToList();
                             int hp = roleCrysts.Where(c => c.iType == CrystariumType.HP).Sum(c => c.iValue);
+                            hpTotal += hp;
                             int strength = roleCrysts.Where(c => c.iType == CrystariumType.Strength).Sum(c => c.iValue);
+                            strengthTotal += strength;
                             int magic = roleCrysts.Where(c => c.iType == CrystariumType.Magic).Sum(c => c.iValue);
+                            magicTotal += magic;
                             int roleLevels = roleCrysts.Where(c => c.iType == CrystariumType.RoleLevel).Count();
                             int accessories = roleCrysts.Where(c => c.iType == CrystariumType.Accessory).Count();
                             int atbLevel = roleCrysts.Where(c => c.iType == CrystariumType.ATBLevel).Count();
@@ -469,9 +487,16 @@ namespace FF13Rando
                                     roleCol = 5;
                                     break;
                             }
-                            list[roleCol] = String.Join("<br>", additions);
+                            list[roleCol] = string.Join("<br/>", additions);
                         }
+                        //Stage total stats
+                        list.Add(writeStatsForDisplay((hpTotal, strengthTotal, magicTotal)));
                         return list;
+                    })
+                    .Append(new List<string>() { "Totals",
+                        writeStatsForDisplay(roleTotals[Role.Commando]), writeStatsForDisplay(roleTotals[Role.Ravager]), writeStatsForDisplay(roleTotals[Role.Sentinel]),
+                        writeStatsForDisplay(roleTotals[Role.Synergist]), writeStatsForDisplay(roleTotals[Role.Saboteur]), writeStatsForDisplay(roleTotals[Role.Medic]),
+                        "Overall Totals<br/>" + writeStatsForDisplay((charHpTotal, charStrTotal, charMagTotal))
                     })
                     .ToList(), name, false));
             });

@@ -7,7 +7,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace FF13Rando
@@ -92,6 +91,30 @@ namespace FF13Rando
             charaSetsOrig = charaSetOrigKeys.ToDictionary(k => k, k => charaSets[k].GetCharaSpecs());
             btscsOrig = btscs.ToDictionary(k => k.Key, k => k.Value.Values.Where(e => !e.sEntryBtChSpec_string.StartsWith("pc")).Select(e => enemyData.ContainsKey(e.sEntryBtChSpec_string) ? enemyData[e.sEntryBtChSpec_string].Name : (e.sEntryBtChSpec_string + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList());
         }
+
+        private List<string> resolvePossibleCandidates(string oldEnemy, IEnumerable<string> basePool)
+        {
+            var lookup = enemyData[oldEnemy];
+            var rangeMin = lookup.Rank - FF13Flags.Other.EnemyRank.Value;
+            var rangeMax = lookup.Rank + FF13Flags.Other.EnemyRank.Value;
+            return basePool.Where(next =>
+            {
+                if (enemyData[next].ID.StartsWith("w"))
+                    return false; //Ignore summoned weapons
+                if (lookup.Traits.Contains("Event"))
+                    return true;
+                if (lookup.Traits.Contains("Flying"))
+                    return enemyData[next].Traits.Contains("Flying");
+                else if (lookup.Traits.Contains("Turtle"))
+                    return enemyData[next].Traits.Contains("Turtle");
+                else
+                    return !enemyData[next].Traits.Contains("Flying") && !enemyData[next].Traits.Contains("Turtle");
+            }).Where(next =>
+            {
+                return enemyData[next].Rank >= rangeMin && enemyData[next].Rank <= rangeMax;
+            }).ToList();
+        }
+
         public override void Randomize(Action<int> progressSetter)
         {
             Randomizers.SetProgressFunc("Randomizing Battle Data...", 0, 100);
@@ -167,21 +190,7 @@ namespace FF13Rando
                             {
                                 return new List<string>();
                             }
-                            return enemyData.Keys
-                                .Where(next =>
-                                {
-                                    if (enemyData[key].Traits.Contains("Event"))
-                                        return true;
-                                    if (enemyData[key].Traits.Contains("Flying"))
-                                        return enemyData[next].Traits.Contains("Flying");
-                                    else if (enemyData[key].Traits.Contains("Turtle"))
-                                        return enemyData[next].Traits.Contains("Turtle");
-                                    else
-                                        return !enemyData[next].Traits.Contains("Flying") && !enemyData[next].Traits.Contains("Turtle");
-                                }).Where(next =>
-                                {
-                                    return enemyData[next].Rank >= enemyData[key].Rank - FF13Flags.Other.EnemyRank.Value && enemyData[next].Rank <= enemyData[key].Rank + FF13Flags.Other.EnemyRank.Value;
-                                }).ToList();
+                            return resolvePossibleCandidates(key, enemyData.Keys);
                         });
 
                         List<string> enemiesToAddToSet = new List<string>();
@@ -256,20 +265,7 @@ namespace FF13Rando
                             {
                                 // List the old enemy
                                 string oldEnemy = e.sEntryBtChSpec_string;
-                                List<string> possible = enemyData.Keys.Where(enemy => candidates.Contains(enemyRando.charaSpec[enemy].sCharaSpec_string)).Where(next =>
-                                {
-                                    if (enemyData[oldEnemy].Traits.Contains("Event"))
-                                        return true;
-                                    if (enemyData[oldEnemy].Traits.Contains("Flying"))
-                                        return enemyData[next].Traits.Contains("Flying");
-                                    else if (enemyData[oldEnemy].Traits.Contains("Turtle"))
-                                        return enemyData[next].Traits.Contains("Turtle");
-                                    else
-                                        return !enemyData[next].Traits.Contains("Flying") && !enemyData[next].Traits.Contains("Turtle");
-                                }).Where(next =>
-                                {
-                                    return enemyData[next].Rank >= enemyData[oldEnemy].Rank - FF13Flags.Other.EnemyRank.Value && enemyData[next].Rank <= enemyData[oldEnemy].Rank + FF13Flags.Other.EnemyRank.Value;
-                                }).ToList();
+                                List<string> possible = resolvePossibleCandidates(oldEnemy, enemyData.Keys.Where(enemy => candidates.Contains(enemyRando.charaSpec[enemy].sCharaSpec_string)));
 
                                 if (possible.Count > 0)
                                 {
@@ -295,20 +291,7 @@ namespace FF13Rando
                         {
                             // List the old enemy
                             string oldEnemy = e.sEntryBtChSpec_string;
-                            List<string> possible = enemyData.Keys.Where(enemy => intersectionGroup.Contains(enemyRando.charaSpec[enemy].sCharaSpec_string)).Where(next =>
-                            {
-                                if (enemyData[oldEnemy].Traits.Contains("Event"))
-                                    return true;
-                                if (enemyData[oldEnemy].Traits.Contains("Flying"))
-                                    return enemyData[next].Traits.Contains("Flying");
-                                else if (enemyData[oldEnemy].Traits.Contains("Turtle"))
-                                    return enemyData[next].Traits.Contains("Turtle");
-                                else
-                                    return !enemyData[next].Traits.Contains("Flying") && !enemyData[next].Traits.Contains("Turtle");
-                            }).Where(next =>
-                            {
-                                return enemyData[next].Rank >= enemyData[oldEnemy].Rank - FF13Flags.Other.EnemyRank.Value && enemyData[next].Rank <= enemyData[oldEnemy].Rank + FF13Flags.Other.EnemyRank.Value;
-                            }).ToList();
+                            List<string> possible = resolvePossibleCandidates(oldEnemy, enemyData.Keys.Where(enemy => intersectionGroup.Contains(enemyRando.charaSpec[enemy].sCharaSpec_string)));
 
                             if (possible.Count > 0)
                             {
@@ -336,20 +319,7 @@ namespace FF13Rando
                               string oldEnemy = e.sEntryBtChSpec_string;
                               bool canAdd = true; //Assume we can add something new
                                                   //Obtain list of possible enemies to replace it with based on rank and type
-                              List<string> possible = enemyData.Keys.Where(next =>
-                              {
-                                  if (enemyData[oldEnemy].Traits.Contains("Event"))
-                                      return true;
-                                  if (enemyData[oldEnemy].Traits.Contains("Flying"))
-                                      return enemyData[next].Traits.Contains("Flying");
-                                  else if (enemyData[oldEnemy].Traits.Contains("Turtle"))
-                                      return enemyData[next].Traits.Contains("Turtle");
-                                  else
-                                      return !enemyData[next].Traits.Contains("Flying") && !enemyData[next].Traits.Contains("Turtle");
-                              }).Where(next =>
-                              {
-                                  return enemyData[next].Rank >= enemyData[oldEnemy].Rank - FF13Flags.Other.EnemyRank.Value && enemyData[next].Rank <= enemyData[oldEnemy].Rank + FF13Flags.Other.EnemyRank.Value;
-                              }).ToList();
+                              List<string> possible = resolvePossibleCandidates(oldEnemy, enemyData.Keys);
 
                               do
                               {
@@ -441,17 +411,17 @@ namespace FF13Rando
             Dictionary<string, HTMLPage> pages = base.GetDocumentation();
             HTMLPage page = new HTMLPage("Encounters", "template/documentation.html");
 
-            //TODO: fix old/new docs by extracting original data up front and storing due to it being pointer nonsense
-            page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID (Actual Location TBD)", "New Enemies", "Old Enemies" }).ToList(), (new int[] { 20, 40, 40 }).ToList(), btscs.Keys.OrderBy(b => b).Select(b =>
+            page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID", "Region / Name (If known)", "New Enemies", "Old Enemies" }).ToList(), (new int[] { 5, 15, 40, 40 }).ToList(), btscs.Keys.OrderBy(b => b).Select(b =>
             {
                 List<string> names = btscs[b].Values.Where(e => !e.sEntryBtChSpec_string.StartsWith("pc")).Select(e => enemyData.ContainsKey(e.sEntryBtChSpec_string) ? enemyData[e.sEntryBtChSpec_string].Name : (e.sEntryBtChSpec_string + " (???)")).GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
                 List<string> oldNames = btscsOrig[b];
-                return new string[] { b, string.Join(", ", names), string.Join(", ", oldNames) }.ToList();
+                var region = battleData[b].Location + " - " + battleData[b].Name;
+                return new string[] { b, region, string.Join(", ", names), string.Join(", ", oldNames) }.ToList();
             }).ToList()));
 
             page.HTMLElements.Add(new Table("Charasets", (new string[] { "ID", "Original contents", "New contents" }).ToList(), (new int[] { 10, 50, 30 }).ToList(), charasetData.Keys.OrderBy(b => b).Select(b =>
             {
-                List<string> origContents = charaSetsOrig[b].Where(spec => enemyData.ContainsKey(spec)).Select(spec => enemyData[spec].Name).ToList(); ;
+                List<string> origContents = charaSetsOrig[b].Where(spec => enemyData.ContainsKey(spec)).Select(spec => enemyData[spec].Name).ToList();
                 List<string> newContents = charaSets[b].GetCharaSpecs().Where(c => !charaSetsOrig[b].Contains(c)).Where(spec => enemyData.ContainsKey(spec)).Select(spec => enemyData[spec].Name).ToList();
                 return new string[] { b, string.Join(", ", origContents), string.Join(", ", newContents) }.ToList();
             }).ToList()));
