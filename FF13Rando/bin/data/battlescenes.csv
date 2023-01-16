@@ -15,8 +15,8 @@ btsc01023,,Hanging Edge,chset_z016_def5,,44
 btsc01024,,Hanging Edge,chset_z016_def5,,44
 btsc01017,,Hanging Edge,chset_z016_def7,,44
 btsc01022,,Hanging Edge,chset_z016_def7,,44
-btsc01019,,Hanging Edge,chset_z016_defe,,44
-btsc01012,,Hanging Edge,chset_z016_def8,,44
+btsc01019,Beta Behemoth (mini-boss),Hanging Edge,chset_z016_defe,,44
+btsc01012,Myrmidon (mini-boss),Hanging Edge,chset_z016_def8,,44
 btsc01013,,Hanging Edge,chset_z016_def9,,44
 btsc01014,,Hanging Edge,chset_z016_def9,,44
 btsc02001,,Pulse Vestige,chset_z017_def1,,32
@@ -56,7 +56,7 @@ btsc02036,,Pulse Vestige,chset_z017_def4,,20
 btsc02014,,Pulse Vestige,chset_z017_def2,,44
 btsc02015,,Pulse Vestige,chset_z017_def2,,44
 btsc02016,,Pulse Vestige,chset_z017_def2,,44
-btsc03001,,Lake Bresha,chset_z002def_0,,44
+btsc03001,Chapter 3 First Fight,Lake Bresha,chset_z002def_0,,44
 btsc03002,,Lake Bresha,chset_z002def_1,,20
 btsc03003,,Lake Bresha,chset_z002def_1,,20
 btsc03004,,Lake Bresha,chset_z002def_1,,20
@@ -72,13 +72,13 @@ btsc03016,,Lake Bresha,chset_z002def_3,,24
 btsc03017,,Lake Bresha,chset_z002def_3,,24
 btsc03033,,Lake Bresha,chset_z002def_3,,24
 btsc03018,,Lake Bresha,chset_z002def_3,,24
-btsc03019,,Lake Bresha,chset_z002def_3,,24
+btsc03019,Chapter 3 Alpha Behemoth mini-boss(?),Lake Bresha,chset_z002def_3,,24
 btsc03042,,Lake Bresha,chset_z002def_3,,24
 btsc03041,,Lake Bresha,chset_z002def_3,,24
 btsc03021,,Lake Bresha,chset_z002def_3,,24
 btsc03020,,Lake Bresha,chset_z002def_3,,24
 btsc03034,,Lake Bresha,chset_z002def_3,,24
-btsc03022,,Lake Bresha,chset_z002def_5,,44
+btsc03022,Chapter 3 Alpha Behemoth mini-boss(?),Lake Bresha,chset_z002def_5,,44
 btsc03024,,Lake Bresha,chset_z002def_5,,44
 btsc03035,,Lake Bresha,chset_z002def_5,,44
 btsc03025,,Lake Bresha,chset_z002def_5,,44
@@ -119,13 +119,13 @@ btsc04027,,Vile Peaks,chset_z004_def4,,44
 btsc04028,,Vile Peaks,chset_z004_def6,,44
 btsc04051,,Vile Peaks,chset_z004_def6,,44
 btsc04029,,Vile Peaks,chset_z004_def6,,44
-btsc04030,,Vile Peaks,chset_z004_def6,,44
-btsc04031,,Vile Peaks,chset_z004_def6,,44
+btsc04030,Solo Uhlan,Vile Peaks,chset_z004_def6,,44
+btsc04031,Pre-minigame tracker x2 (?),Vile Peaks,chset_z004_def6,,44
 btsc04032,,Vile Peaks,chset_z004_def5,,44
 btsc04033,,Vile Peaks,chset_z004_def5,,44
 btsc04034,,Vile Peaks,chset_z004_def5,,44
 btsc04035,,Vile Peaks,chset_z004_def5,,44
-btsc04037,,Vile Peaks,chset_z004_def5,,44
+btsc04037,Gestalt Tutorial,Vile Peaks,chset_z004_def5,,44
 btsc04038,,Vile Peaks,chset_z004_def7,,44
 btsc04039,,Vile Peaks,chset_z004_def7,,44
 btsc04040,,Vile Peaks,chset_z004_def7,,44
@@ -197,10 +197,10 @@ btsc05008,,Sunleth Waterscape,chset_z010_def2,,32
 btsc05009,,Sunleth Waterscape,chset_z010_def2,,32
 btsc05010,,Sunleth Waterscape,chset_z010_def2,,32
 btsc05059,,Sunleth Waterscape,chset_z010_def2,,32
-btsc05011,,Sunleth Waterscape,chset_z010_def2,,32
-btsc05012,,Sunleth Waterscape,chset_z010_def2,,32
-btsc05013,,Sunleth Waterscape,chset_z010_def2,,32
-btsc05014,,Sunleth Waterscape,chset_z010_def2,,32
+btsc05011,Scalebeast 1,Sunleth Waterscape,chset_z010_def2,,32
+btsc05012,Scalebeast 2,Sunleth Waterscape,chset_z010_def2,,32
+btsc05013,Scalebeast 3,Sunleth Waterscape,chset_z010_def2,,32
+btsc05014,Scalebeast 4,Sunleth Waterscape,chset_z010_def2,,32
 btsc05015,,Sunleth Waterscape,chset_z010_def2,,32
 btsc05060,,Sunleth Waterscape,chset_z010_def2,,32
 btsc05026,,Sunleth Waterscape,chset_z010_def2,,32
@@ -242,7 +242,7 @@ btsc07051,,Palumpolum,chset_z008_def|chset_z008_c012,,44
 btsc07009,,Palumpolum,chset_z008_c012|chset_z008_c014,,44
 btsc07056,,Palumpolum,chset_z008_c012|chset_z008_c014,,44
 btsc07065,,Palumpolum,chset_z008_c012|chset_z008_c014,,44
-btsc07010,,Palumpolum,chset_z008_c020,,44
+btsc07010,Shiva Stadium,Palumpolum,chset_z008_c020,,44
 btsc07011,,Palumpolum,chset_z008_c030,,24
 btsc07012,,Palumpolum,chset_z008_c030,,24
 btsc07052,,Palumpolum,chset_z008_c030,,24
@@ -282,15 +282,15 @@ btsc07034,,Palumpolum,chset_z008_c150,,44
 btsc07038,,Palumpolum,chset_z008_c192,,44
 btsc07058,,Palumpolum,chset_z008_c192,,44
 btsc07057,,Palumpolum,chset_z008_c192,,44
-btsc08001,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
-btsc08002,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
-btsc08009,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
-btsc08003,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
-btsc08007,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
-btsc08004,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
-btsc08005,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
-btsc08006,,Nautilus,chset_z006_tok|chset_z006_tok2,,20
-btsc08008,,Nautilus,chset_z006_tok,,20
+btsc08001,The Mall - Gunner x6,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08002,The Mall - Gunner x3 + Orion,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08009,The Mall - Metrodroid x2,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08003,The Mall - Metrodroid x1 (guarding),Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08007,The Mall - Metrodroid x2 + Gunner x3,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08004,The Mall - Metrodroid x3 + Orion,Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08005,Clock Tower - Orion (guarding),Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08006,Clock Tower - Metrodroid x5 (guarding),Nautilus,chset_z006_tok|chset_z006_tok2,,20
+btsc08008,Midlight Reaper mini-boss,Nautilus,chset_z006_tok,,20
 btsc09050,,Palamecia,chset_z003_e070,,20
 btsc09001,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
 btsc09074,,Palamecia,chset_z003_e070|chset_z003_e080|chset_z003_e120,,20
@@ -363,7 +363,7 @@ btsc09047,,Palamecia,chset_z003_f220,,24
 btsc09049,,Palamecia,chset_z003_f220,,24
 btsc09073,,Palamecia,chset_z003_f220,,24
 btsc09048,,Palamecia,chset_z003_f220,,24
-btsc10034,,Fifth Ark,chset_z018_020,,24
+btsc10034,Secondary Role Unlock Fight,Fifth Ark,chset_z018_020,,24
 btsc10001,,Fifth Ark,chset_z018_020,,24
 btsc10002,,Fifth Ark,chset_z018_020,,24
 btsc10003,,Fifth Ark,chset_z018_020,,24
@@ -513,7 +513,7 @@ btsc12137,,Orphan's Cradle,chset_z029_def3,,24
 btsc12138,,Orphan's Cradle,chset_z029_def3,,24
 btsc11101,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
 btsc11102,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
-btsc11104,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
+btsc11104,Mission 3,Yaschas Massif,chset_z021_ev2|chset_z021_def2,Mission,24
 btsc11105,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
 btsc11106,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
 btsc11107,,Vallis Media,chset_z021_ev2|chset_z021_def2,,24
@@ -559,7 +559,7 @@ btsc11213,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset
 btsc11201,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
 btsc11251,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
 btsc11281,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
-btsc11250,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc11250,Archylte Adamantortoise,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
 btsc11210,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
 btsc11335,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
 btsc11209,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
@@ -653,9 +653,9 @@ btsc11606,,Taejin's Tower,chset_z026_2f,,24
 btsc11609,,Taejin's Tower,chset_z026_2f,,24
 btsc11607,,Taejin's Tower,chset_z026_2f,,24
 btsc11608,,Taejin's Tower,chset_z026_2f,,24
-btsc11611,,Taejin's Tower,chset_z026_2f,,24
-btsc11613,,Taejin's Tower,chset_z026_2f,,24
-btsc11612,,Taejin's Tower,chset_z026_2f,,24
+btsc11611,Mission 21,Taejin's Tower,chset_z026_2f,Mission,24
+btsc11613,Mission 22,Taejin's Tower,chset_z026_2f,Mission,24
+btsc11612,Mission 23,Taejin's Tower,chset_z026_2f,Mission,24
 btsc11610,,Taejin's Tower,chset_z026_2f,,24
 btsc11614,,Taejin's Tower,chset_z026_2f,,24
 btsc11615,,Taejin's Tower,chset_z026_2f,,24
@@ -667,11 +667,11 @@ btsc11624,,Taejin's Tower,chset_z026_4f,,24
 btsc11616,,Taejin's Tower,chset_z026_3f,,24
 btsc11638,,Taejin's Tower,chset_z026_4f,,24
 btsc11619,,Taejin's Tower,chset_z026_4f,,24
-btsc11620,,Taejin's Tower,chset_z026_4f,,24
+btsc11620,Mission 24,Taejin's Tower,chset_z026_4f,Mission,24
 btsc11625,,Taejin's Tower,chset_z026_4f,,24
-btsc11626,,Taejin's Tower,chset_z026_4f,,24
+btsc11626,Mission 25,Taejin's Tower,chset_z026_4f,Mission,24
 btsc11632,,Taejin's Tower,chset_z026_4f,,24
-btsc11627,,Taejin's Tower,chset_z026_4f,,24
+btsc11627,Mission 26,Taejin's Tower,chset_z026_4f,Mission,24
 btsc11631,,Taejin's Tower,chset_z026_4f,,24
 btsc11629,,Taejin's Tower,chset_z026_4f,,24
 btsc11633,,Taejin's Tower,chset_z026_4f,,24
@@ -699,8 +699,8 @@ btsc11705,,Oerba,chset_z027_def3,,24
 btsc11724,,Oerba,chset_z027_def3,,24
 btsc11706,,Oerba,chset_z027_def3,,24
 btsc11707,,Oerba,chset_z027_def3,,24
-btsc11455,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
-btsc14454,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc11455,Mission 10,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc14454,Mission 2,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
 btsc11109,,Vallis Media,chset_z021_def2,,24
 btsc11110,,Vallis Media,chset_z021_def2,,24
 btsc11001,,Yaschas Massif,chset_z020_def1,,24
@@ -722,8 +722,8 @@ btsc11019,,Yaschas Massif,chset_z020_def2,,24
 btsc11020,,Yaschas Massif,chset_z020_def2,,24
 btsc11021,,Yaschas Massif,chset_z020_def2,,24
 btsc11022,,Yaschas Massif,chset_z020_def2,,24
-btsc11023,,Yaschas Massif,chset_z020_def2,,24
-btsc11011,,Yaschas Massif,chset_z020_def1,,24
+btsc11023,Mission 4,Yaschas Massif,chset_z020_def2,Mission,24
+btsc11011,Mission 5,Yaschas Massif,chset_z020_def1,Mission,24
 btsc11024,,Yaschas Massif,chset_z020_def2,,24
 btsc11025,,Yaschas Massif,chset_z020_def2,,24
 btsc11026,,Yaschas Massif,chset_z020_def3,,24
@@ -733,42 +733,42 @@ btsc11032,,Yaschas Massif,chset_z020_def3,,24
 btsc11030,,Yaschas Massif,chset_z020_def3,,24
 btsc11028,,Yaschas Massif,chset_z020_def3,,24
 btsc11034,,Yaschas Massif,chset_z020_def3|chset_z020_def4,,24
-btsc11029,,Yaschas Massif,chset_z020_def3,,24
+btsc11029,Mission 6,Yaschas Massif,chset_z020_def3,Mission,24
 btsc11037,,Yaschas Massif,chset_z020_def4,,24
 btsc11039,,Yaschas Massif,chset_z020_def4,,24
 btsc11043,,Yaschas Massif,chset_z020_def4,,24
 btsc11040,,Yaschas Massif,chset_z020_def4,,24
-btsc11035,,Yaschas Massif,chset_z020_def5,,24
-btsc11130,,Vallis Media,chset_z021_def2,Mission,24
-btsc14455,,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
-btsc14453,,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
-btsc14437,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
-btsc14457,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
-btsc14452,,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
+btsc11035,Mission 7,Yaschas Massif,chset_z020_def5,Mission,24
+btsc11130,Mission 8,Vallis Media,chset_z021_def2,Mission,24
+btsc14455,Mission 1,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
+btsc14453,Mission 9,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
+btsc14437,Mission 10 maybe,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
+btsc14457,Mission 12,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
+btsc14452,Mission 11,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
 btsc14449,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
 btsc14450,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
 btsc14451,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
 btsc11448,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
 btsc14447,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,48
 btsc11457,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
-btsc14446,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
+btsc14446,Mission 13 maybe,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
 btsc11277,,Archylte Steppe,chset_z023_def1|chset_z023_def4,,48
 btsc11259,,Archylte Steppe,chset_z023_def4,,48
 btsc11258,,Archylte Steppe,chset_z023_def4,,48
 btsc11256,,Archylte Steppe,chset_z023_def4,,48
 btsc11257,,Archylte Steppe,chset_z023_def4,,48
 btsc11260,,Archylte Steppe,chset_z023_def4,,48
-btsc14456,,Archylte Steppe,chset_z023_a031,Mission,48
+btsc14456,Mission 14,Archylte Steppe,chset_z023_a031,Mission,48
 btsc11337,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
-btsc11445,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
-btsc14443,,Archylte Steppe,chset_z023_def4,Mission,48
-btsc14436,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
-btsc11456,,Mah'habara,chset_z022_def3,Mission,24
-btsc11508,,Sulyya Springs,chset_z024_def1,Mission,24
-btsc11637,,Taejin's Tower,chset_z026_o,Mission,24
-btsc11630,,Taejin's Tower,chset_z026_o,Mission,24
-btsc11722,,Oerba,chset_z027_def3,Mission,24
-btsc11639,,Taejin's Tower,chset_z026_o,Mission,24
+btsc11445,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
+btsc14443,Mission 16,Archylte Steppe,chset_z023_def4,Mission,48
+btsc14436,Mission 17,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc11456,Mission 18,Mah'habara,chset_z022_def3,Mission,24
+btsc11508,Mission 19,Sulyya Springs,chset_z024_def1,Mission,24
+btsc11637,Mission 20,Taejin's Tower,chset_z026_o,Mission,24
+btsc11630,Mission 27,Taejin's Tower,chset_z026_o,Mission,24
+btsc11722,Mission 28,Oerba,chset_z027_def3,Mission,24
+btsc11639,Mission 29,Taejin's Tower,chset_z026_o,Mission,24
 btsc11340,,Archylte Steppe,chset_z023_def2,,48
 btsc11220,,Archylte Steppe,chset_z023_def2,,48
 btsc11218,,Archylte Steppe,chset_z023_def2,,48
@@ -795,65 +795,65 @@ btsc11462,,Mah'habara,chset_z022_def6,,24
 btsc11463,,Mah'habara,chset_z022_def6,,24
 btsc11431,,Mah'habara,chset_z022_def6,,24
 btsc11432,,Mah'habara,chset_z022_def6,,24
-btsc11433,,Mah'habara,chset_z022_def6,Mission,24
+btsc11433,Mission 30,Mah'habara,chset_z022_def6,Mission,24
 btsc11261,,Archylte Steppe,chset_z023_def3,,24
 btsc11264,,Archylte Steppe,chset_z023_def3,,24
 btsc11265,,Archylte Steppe,chset_z023_def3,,24
 btsc11341,,Archylte Steppe,chset_z023_def3,,24
 btsc11347,,Archylte Steppe,chset_z023_def3,,24
 btsc11271,,Archylte Steppe,chset_z023_def3,,24
-btsc11262,,Archylte Steppe,chset_z023_def3,,24
-btsc11263,,Archylte Steppe,chset_z023_def3,,24
+btsc11262,Mission 13 maybe,Archylte Steppe,chset_z023_def3,,24
+btsc11263,Mission 13 maybe,Archylte Steppe,chset_z023_def3,,24
 btsc11267,,Archylte Steppe,chset_z023_def3,,24
 btsc11272,,Archylte Steppe,chset_z023_def3,,24
 btsc11268,,Archylte Steppe,chset_z023_def3,,24
 btsc11266,,Archylte Steppe,chset_z023_def3,,24
-btsc14438,,Archylte Steppe,chset_z023_def3,,24
-btsc14444,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
-btsc14442,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
-btsc14458,,Archylte Steppe,chset_z023_def3,Mission,24
-btsc11836,,Faultwarrens,chset_z030_b2,Mission,48
-btsc11829,,Faultwarrens,chset_z030_b4,Mission,48
-btsc11814,,Faultwarrens,chset_z030_b5b,Mission,48
-btsc11828,,Faultwarrens,chset_z030_b8,Mission,48
+btsc14438,Mission 31,Archylte Steppe,chset_z023_def3,Mission,24
+btsc14444,Mission 32,Archylte Steppe,chset_z023_de8b|chset_z023_def8,Mission,48
+btsc14442,Mission 33,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc14458,Mission 34,Archylte Steppe,chset_z023_def3,Mission,24
+btsc11836,Mission 35,Faultwarrens,chset_z030_b2,Mission,48
+btsc11829,Mission 37,Faultwarrens,chset_z030_b4,Mission,48
+btsc11814,Mission 40,Faultwarrens,chset_z030_b5b,Mission,48
+btsc11828,Mission 44,Faultwarrens,chset_z030_b8,Mission,48
 btsc11858,,Faultwarrens,chset_z030_b8,,48
-btsc11835,,Faultwarrens,chset_z030_b9f,Mission,48
+btsc11835,Mission 50,Faultwarrens,chset_z030_b9f,Mission,48
 btsc11825,,Faultwarrens,chset_z030_b7,,48
 btsc11855,,Faultwarrens,chset_z030_b7,,48
-btsc11824,,Faultwarrens,chset_z030_b7,Mission,48
+btsc11824,Mission 43,Faultwarrens,chset_z030_b7,Mission,48
 btsc11853,,Faultwarrens,chset_z030_b7,,48
 btsc11852,,Faultwarrens,chset_z030_b7,,48
-btsc11832,,Faultwarrens,chset_z030_b9c,Mission,48
-btsc11837,,Faultwarrens,chset_z030_b9a,Mission,48
-btsc11812,,Faultwarrens,chset_z030_b6a,Mission,48
+btsc11832,Mission 49,Faultwarrens,chset_z030_b9c,Mission,48
+btsc11837,Mission 48,Faultwarrens,chset_z030_b9a,Mission,48
+btsc11812,Mission 39 maybe,Faultwarrens,chset_z030_b6a,Mission,48
 btsc11818,,Faultwarrens,chset_z030_b5c,,48
 btsc11817,,Faultwarrens,chset_z030_b5c,,48
 btsc11845,,Faultwarrens,chset_z030_b5c,,48
 btsc11844,,Faultwarrens,chset_z030_b5c,,48
-btsc11823,,Faultwarrens,chset_z030_b5c,Mission,48
-btsc11833,,Faultwarrens,chset_z030_b9d,Mission,48
-btsc11831,,Faultwarrens,chset_z030_b9b,Mission,48
-btsc11801,,Faultwarrens,chset_z030_b3,Mission,48
+btsc11823,Mission 42,Faultwarrens,chset_z030_b5c,Mission,48
+btsc11833,Mission 47,Faultwarrens,chset_z030_b9d,Mission,48
+btsc11831,Mission 46,Faultwarrens,chset_z030_b9b,Mission,48
+btsc11801,Mission 36,Faultwarrens,chset_z030_b3,Mission,48
 btsc11843,,Faultwarrens,chset_z030_b3,,48
-btsc11807,,Faultwarrens,chset_z030_b5a,Mission,48
+btsc11807,Mission 38,Faultwarrens,chset_z030_b5a,Mission,48
 btsc11806,,Faultwarrens,chset_z030_b5a,,48
-btsc11859,,Faultwarrens,chset_z030_b6b,,48
-btsc11816,,Faultwarrens,chset_z030_b6b,Mission,48
-btsc11834,,Faultwarrens,chset_z030_b9e,Mission,48
-btsc11830,,Faultwarrens,chset_z030_b9g,Mission,48
-btsc14441,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
-btsc11002,,Yaschas Massif,chset_z020_def3,Mission,24
-btsc14459,,Archylte Steppe,chset_z023_a018,Mission,48
-btsc14439,,Archylte Steppe,chset_z023_def2,Mission,48
-btsc11033,,Yaschas Massif,chset_z020_def2,Mission,24
-btsc11131,,Vallis Media,chset_z021_def2,Mission,48
-btsc11465,,Mah'habara,chset_z022_def1,Mission,24
-btsc11510,,Sulyya Springs,chset_z024_def1,Mission,24
-btsc11647,,Taejin's Tower,chset_z026_5f,Mission,48
-btsc11723,,Oerba,chset_z027_def3,Mission,24
-btsc14435,,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
+btsc11859,Mission 39 maybe,Faultwarrens,chset_z030_b6b,,48
+btsc11816,Mission 41,Faultwarrens,chset_z030_b6b,Mission,48
+btsc11834,Mission 45,Faultwarrens,chset_z030_b9e,Mission,48
+btsc11830,Mission 51,Faultwarrens,chset_z030_b9g,Mission,48
+btsc14441,Mission 52,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc11002,Mission 53,Yaschas Massif,chset_z020_def3,Mission,24
+btsc14459,Mission 54,Archylte Steppe,chset_z023_a018,Mission,48
+btsc14439,Mission 55,Archylte Steppe,chset_z023_def2,Mission,48
+btsc11033,Mission 56,Yaschas Massif,chset_z020_def2,Mission,24
+btsc11131,Mission 57,Vallis Media,chset_z021_def2,Mission,48
+btsc11465,Mission 58,Mah'habara,chset_z022_def1,Mission,24
+btsc11510,Mission 59,Sulyya Springs,chset_z024_def1,Mission,24
+btsc11647,Mission 60,Taejin's Tower,chset_z026_5f,Mission,48
+btsc11723,Mission 61,Oerba,chset_z027_def3,Mission,24
+btsc14435,Mission 62,Archylte Steppe,chset_z023_def1|chset_z023_de1b,Mission,48
 btsc14431,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
-btsc14440,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
+btsc14440,Mission 63,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,Mission,48
 btsc14430,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
 btsc14427,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
 btsc14428,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,,48
@@ -865,4 +865,4 @@ btsc14426,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset
 btsc11036,,Yaschas Massif,chset_z020_def6,,24
 btsc11038,,Yaschas Massif,chset_z020_def6,,24
 btsc11042,,Yaschas Massif,chset_z020_def6,,24
-btsc11041,,Yaschas Massif,chset_z020_def7,Mission,24
+btsc11041,Mission 64,Yaschas Massif,chset_z020_def7,Mission,24

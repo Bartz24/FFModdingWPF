@@ -22,6 +22,7 @@ namespace FF13Rando
         }
         public override void Randomize(Action<int> progressSetter)
         {
+            //TODO: add option to lock in high quality upgrading components?
             Randomizers.SetProgressFunc("Randomizing Shop Data...", -1, 100);
 
             if (FF13Flags.Items.ShopContents.FlagEnabled)

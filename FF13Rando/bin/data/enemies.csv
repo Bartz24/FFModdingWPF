@@ -83,7 +83,7 @@ m126,Mud Frog,,4
 m127,Ceratosaur,,9
 m128,Ceratoraptor,,12
 m132,Midlight Reaper,Event,9
-m133,Megrim Thrasher,,25
+m133,Megrim Thresher,,25
 m139,PSICOM Aerial Recon,Flying,1
 m140,PSICOM Aerial Sniper,Flying,4
 m141,PSICOM Dragoon,Flying,6
@@ -147,6 +147,7 @@ m213,Svarog,Flying,14
 m214,Circuitron,,5
 m215,Cryohedron,,10
 m216,Juggernaut,,25
+m222,Syphax,,26
 m229,PSICOM Bombardier,,5
 m230,PSICOM Destroyer,,6
 m231,Sanctum Celebrant,,18
@@ -187,3 +188,8 @@ m421,Shaolong Gui,Turtle,30
 m422,Long Gui,Turtle,31
 m423,Picochu,,20
 m424,Cryptos,,8
+w633_2,Targeting Beacon (Tracker),,2
+w633_5,Targeting Beacon (Seraph),,15
+w661,Centurion Blade (Berserker),,10
+w662,Centurion Blade (Tyrant),,20
+w663,Centurion Blade (Immortal),,26
