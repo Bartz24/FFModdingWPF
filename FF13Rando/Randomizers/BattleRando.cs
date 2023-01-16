@@ -103,8 +103,8 @@ namespace FF13Rando
             var rangeMax = lookup.Rank + FF13Flags.Other.EnemyRank.Value;
             return basePool.Where(next =>
             {
-                if (enemyData[next].ID.StartsWith("w"))
-                    return false; //Ignore summoned weapons
+                if (enemyData[next].Traits.Contains("Ignore"))
+                    return false; //Ignore summoned weapons and Syphax
                 if (lookup.Traits.Contains("Event"))
                     return true;
                 if (lookup.Traits.Contains("Flying"))
@@ -119,7 +119,7 @@ namespace FF13Rando
             }).ToList();
         }
 
-        public override void Randomize(Action<int> progressSetter)
+        public override void Randomize()
         {
             Randomizers.SetUIProgress("Randomizing Battle Data...", -1, 100);
             EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
@@ -167,7 +167,7 @@ namespace FF13Rando
                         return availableSlots;
                     });
 
-                    Randomizers.SetProgressFunc("Randomizing battle character sets", 0, 3);
+                    Randomizers.SetUIProgress("Randomizing battle character sets", 0, 3);
                     //Step 1: shuffle all charasets regardless of shared fights
                     charasetWithAvailable.ForEach(charasetKVP =>
                     {
@@ -214,7 +214,7 @@ namespace FF13Rando
 
                         foreach (string enemyToAdd in enemiesToAddToSet)
                         {
-                            string charaspecToAdd = enemyRando.charaSpec[enemyToAdd].sCharaSpec_string;
+                            string charaspecToAdd = enemyRando.btCharaSpec[enemyToAdd].sCharaSpec_string;
                             if (!list.Contains(charaspecToAdd))
                                 list.Add(charaspecToAdd);
                         }
@@ -246,7 +246,7 @@ namespace FF13Rando
                             for(var i = availablePeerSlotsToFill; i > 0; i--)
                             {
                                 var peerEnemy = RandomNum.SelectRandom(enemiesToAddToSet);
-                                string charaspecToAdd = enemyRando.charaSpec[peerEnemy].sCharaSpec_string;
+                                string charaspecToAdd = enemyRando.btCharaSpec[peerEnemy].sCharaSpec_string;
                                 if (!peerList.Contains(peerEnemy))
                                     peerList.Add(peerEnemy);
                             }
@@ -257,7 +257,7 @@ namespace FF13Rando
                     });
 
                     //Step 2: shuffle single charaset fights
-                    Randomizers.SetProgressFunc("Randomizing single character set battles", 1, 3);
+                    Randomizers.SetUIProgress("Randomizing single character set battles", 1, 3);
                     charasets.ForEach(charaset =>
                     {
                         List<string> candidates = charaSets[charaset].GetCharaSpecs();
@@ -269,7 +269,7 @@ namespace FF13Rando
                             {
                                 // List the old enemy
                                 string oldEnemy = e.sEntryBtChSpec_string;
-                                List<string> possible = resolvePossibleCandidates(oldEnemy, enemyData.Keys.Where(enemy => candidates.Contains(enemyRando.charaSpec[enemy].sCharaSpec_string)));
+                                List<string> possible = resolvePossibleCandidates(oldEnemy, enemyData.Keys.Where(enemy => candidates.Contains(enemyRando.btCharaSpec[enemy].sCharaSpec_string)));
 
                                 if (possible.Count > 0)
                                 {
@@ -295,7 +295,7 @@ namespace FF13Rando
                         {
                             // List the old enemy
                             string oldEnemy = e.sEntryBtChSpec_string;
-                            List<string> possible = resolvePossibleCandidates(oldEnemy, enemyData.Keys.Where(enemy => intersectionGroup.Contains(enemyRando.charaSpec[enemy].sCharaSpec_string)));
+                            List<string> possible = resolvePossibleCandidates(oldEnemy, enemyData.Keys.Where(enemy => intersectionGroup.Contains(enemyRando.btCharaSpec[enemy].sCharaSpec_string)));
 
                             if (possible.Count > 0)
                             {
