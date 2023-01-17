@@ -12,8 +12,8 @@ btsc03900,,Yaschas 10,h_gy_AD0010,chset_gyaa_020,,39
 btsc04900,,Oerba 200,h_gw_AD0200,chset_gwca_def,,39
 btsc04909,,Oerba 200,h_gw_AD0200,chset_gwca_def,,39
 btsc05920,,Sunleth 300,h_sn_AD0300,chset_snda_002,,39
-btsc05950,,Sunleth 300,h_sn_AD0300,chset_snda_npc,,39
-btsc05960,,Sunleth 300,h_sn_AD0300,chset_snda_npc,,39
+btsc05950,,Sunleth 300,h_sn_AD0300,chset_snda_npc,,32
+btsc05960,,Sunleth 300,h_sn_AD0300,chset_snda_npc,,32
 btsc05800,,Sunleth 400,h_sn_AD0400,chset_snea_def|chset_snea_load,,39
 btsc06100,,Coliseum DLC,h_cl_NA0001,chset_clzb_lig,,39
 btsc06110,,Coliseum DLC,h_cl_NA0001,chset_clzb_lig,,39

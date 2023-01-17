@@ -366,7 +366,8 @@ namespace FF13_2Rando
                         {
                             List<EnemyData> enemies = new List<EnemyData>(newEnemies);
                             enemies.Add(newEnemy);
-                            if (GetCharaSpecs(enemies).Distinct().Count() > 3)
+                            // Variety limit is 3 or the vanilla variety + 1
+                            if (GetCharaSpecs(enemies).Distinct().Count() > Math.Min(3, GetCharaSpecs(oldEnemies).Distinct().Count() + 1))
                             {
                                 canAdd = false;
                                 ignored.Add(newEnemy.ID);
@@ -383,6 +384,10 @@ namespace FF13_2Rando
                     newEnemies.Add(newEnemy);
                 });
             }
+
+            if (newEnemies.Count == 0)
+                return;
+
             List<string> charaSpecs = GetCharaSpecs(newEnemies);
             btScenes[btsceneName].SetCharSpecs(charaSpecs);
 
