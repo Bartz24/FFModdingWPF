@@ -70,10 +70,10 @@ tre_gyaa_027,Pass of Paddra,h_gh_AD0010,0,,,SideKey
 tre_gyaa_028,Pass of Paddra,h_gh_AD0010,2,,,SideKey
 tre_gwca_reopt,Pass of Paddra,h_gh_AD0010,0,,,GateSeal
 tre_gyaa_010,Pass of Paddra,h_gy_AD0100,0,,,
-tre_gyaa_019,Pass of Paddra,h_gy_AD0100,0,,,SideKey
-tre_gyaa_020,Pass of Paddra,h_gy_AD0100,0,,,SideKey
-tre_gyaa_021,Pass of Paddra,h_gy_AD0100,2,,,SideKey
-tre_gyaa_022,Pass of Paddra,h_gy_AD0100,0,,,SideKey
+tre_gyaa_019,Pass of Paddra,h_gy_AD0100,1,,,SideKey
+tre_gyaa_020,Pass of Paddra,h_gy_AD0100,1,,,SideKey
+tre_gyaa_021,Pass of Paddra,h_gy_AD0100,1,,,SideKey
+tre_gyaa_022,Pass of Paddra,h_gy_AD0100,2,,,SideKey
 tre_gyaa_018,Pass of Paddra,h_gy_AD0200,1,,,SideKey
 tre_gyaa_024,Pass of Paddra,h_gy_AD0200,2,,,SideKey
 tre_gyaa_005,Paddreaean Archaeopolis,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,,
