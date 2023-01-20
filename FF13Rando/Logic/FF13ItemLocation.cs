@@ -5,6 +5,10 @@ namespace FF13Rando
 {
     public abstract class FF13ItemLocation : ItemLocation
     {
-        public abstract List<string> Characters { get; }
+        public FF13ItemLocation(string[] row) : base(row)
+        {
+        }
+
+        public abstract List<string> Characters { get; set; }
     }
 }

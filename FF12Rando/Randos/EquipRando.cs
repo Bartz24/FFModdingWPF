@@ -446,39 +446,38 @@ namespace FF12Rando
             Randomizers.SetUIProgress("Saving Item/Equip Data...", 0, -1);
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_013.bin", equip.Data);
         }
-        public class ItemData
+        public class ItemData : CSVDataRow
         {
+            [RowIndex(0)]
             public string Name { get; set; }
+            [RowIndex(1), FieldTypeOverride(FieldType.HexInt)]
             public int IntID { get; set; }
+            [RowIndex(1)]
             public string ID { get; set; }
+            [RowIndex(2)]
             public int Rank { get; set; }
+            [RowIndex(3), FieldTypeOverride(FieldType.HexInt)]
             public int IntUpgrade { get; set; }
+            [RowIndex(3)]
             public string Upgrade { get; set; }
-            public ItemData(string[] row)
+            public ItemData(string[] row) : base(row)
             {
-                Name = row[0];
-                IntID = Convert.ToInt32(row[1], 16);
-                ID = row[1];
-                Rank = int.Parse(row[2]);
-                Upgrade = row[3];
-                if (!string.IsNullOrEmpty(Upgrade))
-                    IntUpgrade = Convert.ToInt32(row[3], 16);
             }
         }
-        public class AugmentData
+        public class AugmentData : CSVDataRow
         {
+            [RowIndex(0)]
             public string Name { get; set; }
+            [RowIndex(1), FieldTypeOverride(FieldType.HexInt)]
             public int IntID { get; set; }
+            [RowIndex(1)]
             public string ID { get; set; }
+            [RowIndex(2)]
             public string Description { get; set; }
+            [RowIndex(3)]
             public List<string> Traits { get; set; }
-            public AugmentData(string[] row)
+            public AugmentData(string[] row) : base(row)
             {
-                Name = row[0];
-                IntID = Convert.ToInt32(row[1]);
-                ID = row[1];
-                Description = row[2];
-                Traits = row[3].Split("|").Where(s => !String.IsNullOrEmpty(s)).ToList();
             }
         }
     }

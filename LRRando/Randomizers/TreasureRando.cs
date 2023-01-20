@@ -511,26 +511,25 @@ namespace LRRando
 
         public class TreasureData : ItemLocation
         {
-            public override string ID { get; }
-            public override string Name { get; }
-            public override string LocationImagePath { get; }
-            public override int Difficulty { get; }
-            public override ItemReq Requirements { get; }
-            public override List<string> Traits { get; }
-            public override List<string> Areas { get; }
+            [RowIndex(0)]
+            public override string ID { get; set; }
+            [RowIndex(2)]
+            public override string Name { get; set; }
+            [RowIndex(6)]
+            public override string LocationImagePath { get; set; }
+            [RowIndex(5)]
+            public override int Difficulty { get; set; }
+            [RowIndex(4)]
+            public override ItemReq Requirements { get; set; }
+            [RowIndex(3)]
+            public override List<string> Traits { get; set; }
+            [RowIndex(1)]
+            public override List<string> Areas { get; set; }
 
             private TreasureRando rando;
 
-            public TreasureData(string[] row, TreasureRando treasureRando)
+            public TreasureData(string[] row, TreasureRando treasureRando) : base(row)
             {
-                ID = row[0];
-                Areas = new List<string>() { row[1] };
-                Name = row[2];
-                Traits = row[3].Split("|").ToList();
-                Requirements = ItemReq.Parse(row[4]);
-                Difficulty = int.Parse(row[5]);
-                LocationImagePath = row[6];
-
                 rando = treasureRando;
             }
 
@@ -590,25 +589,25 @@ namespace LRRando
 
         public class BattleDropData : ItemLocation
         {
-            public override string ID { get; }
-            public override string Name { get; }
-            public override string LocationImagePath { get; }
-            public override int Difficulty { get; }
-            public override ItemReq Requirements { get; }
-            public override List<string> Traits { get; }
-            public override List<string> Areas { get; }
+            [RowIndex(0)]
+            public override string ID { get; set; }
+            [RowIndex(2)]
+            public override string Name { get; set; }
+            public override string LocationImagePath { get; set; }
+            [RowIndex(5)]
+            public override int Difficulty { get; set; }
+            [RowIndex(4)]
+            public override ItemReq Requirements { get; set; }
+            [RowIndex(3)]
+            public override List<string> Traits { get; set; }
+            [RowIndex(1)]
+            public override List<string> Areas { get; set; }
 
             private TreasureRando rando;
 
-            public BattleDropData(string[] row, TreasureRando treasureRando)
+            public BattleDropData(string[] row, TreasureRando treasureRando) : base(row)
             {
-                ID = row[0];
-                Areas = new List<string>() { row[1] };
-                Name = row[2];
-                Traits = row[3].Split("|").ToList();
                 Traits.Add("Battle");
-                Requirements = ItemReq.Parse(row[4]);
-                Difficulty = int.Parse(row[5]);
 
                 rando = treasureRando;
             }
@@ -633,16 +632,16 @@ namespace LRRando
             }
         }
 
-        public class HintData
+        public class HintData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(1)]
             public string Name { get; set; }
+            [RowIndex(2)]
             public ItemReq Requirements { get; set; }
-            public HintData(string[] row)
+            public HintData(string[] row) : base(row)
             {
-                ID = row[0];
-                Name = row[1];
-                Requirements = ItemReq.Parse(row[2]);
             }
         }
     }

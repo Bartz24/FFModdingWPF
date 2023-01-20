@@ -511,48 +511,48 @@ namespace FF13Rando
             Nova.RepackWPD(SetupData.OutputFolder + @"\btscene\wdb\btsc_wdb.bin", SetupData.Paths["Nova"]);
         }
 
-        public class EnemyData
+        public class EnemyData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(1)]
             public string Name { get; set; }
+            [RowIndex(2)]
             public List<string> Traits { get; set; }
+            [RowIndex(3)]
             public int Rank { get; set; }
-            public EnemyData(string[] row)
+            public EnemyData(string[] row) : base(row)
             {
-                ID = row[0];
-                Name = row[1];
-                Traits = row[2].Split("|").Where(s => !String.IsNullOrEmpty(s)).ToList();
-                Rank = int.Parse(row[3]);
             }
         }
 
-        public class BattleData
+        public class BattleData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(1)]
             public string Name { get; set; }
+            [RowIndex(2)]
             public string Location { get; set; }
+            [RowIndex(3)]
             public List<string> Charasets { get; set; }
+            [RowIndex(4)]
             public List<string> Traits { get; set; }
+            [RowIndex(5)]
             public int CharasetLimit { get; set; }
-            public BattleData(string[] row)
+            public BattleData(string[] row) : base(row)
             {
-                ID = row[0];
-                Name = row[1];
-                Location = row[2];
-                Charasets = row[3].Split("|").Where(s => !String.IsNullOrEmpty(s)).ToList();
-                Traits = row[4].Split("|").ToList();
-                CharasetLimit = int.Parse(row[5]);
             }
         }
 
-        public class CharasetData
+        public class CharasetData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(1)]
             public int Limit { get; set; }
-            public CharasetData(string[] row)
+            public CharasetData(string[] row) : base(row)
             {
-                ID = row[0];
-                Limit = int.Parse(row[1]);
             }
         }
     }

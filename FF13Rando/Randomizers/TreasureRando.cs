@@ -369,23 +369,23 @@ namespace FF13Rando
 
         public class TreasureData : FF13ItemLocation
         {
-            public override string ID { get; }
-            public override string Name { get; }
-            public override string LocationImagePath { get; }
-            public override ItemReq Requirements { get; }
-            public override List<string> Traits { get; }
-            public override List<string> Areas { get; }
-            public override List<string> Characters { get; }
-            public override int Difficulty { get; }
+            [RowIndex(0)]
+            public override string ID { get; set; }
+            [RowIndex(1)]
+            public override string Name { get; set; }
+            public override string LocationImagePath { get; set; }
+            [RowIndex(3)]
+            public override ItemReq Requirements { get; set; }
+            [RowIndex(4)]
+            public override List<string> Traits { get; set; }
+            [RowIndex(2)]
+            public override List<string> Areas { get; set; }
+            public override List<string> Characters { get; set; }
+            [RowIndex(5)]
+            public override int Difficulty { get; set; }
 
-            public TreasureData(string[] row)
+            public TreasureData(string[] row) : base(row)
             {
-                ID = row[0];
-                Name = row[1];
-                Areas = new List<string>() { row[2] };
-                Requirements = ItemReq.Parse(row[3]);
-                Traits = row[4].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                Difficulty = int.Parse(row[5]);
                 Characters = FF13RandoHelpers.ParseReqCharas(row[6]);
             }
 
@@ -412,27 +412,27 @@ namespace FF13Rando
 
         public class EnemyData : FF13ItemLocation
         {
-            public override string ID { get; }
-            public int Index { get; }
-            public override string Name { get; }
-            public override string LocationImagePath { get; }
-            public override ItemReq Requirements { get; }
-            public override List<string> Traits { get; }
-            public override List<string> Areas { get; }
-            public override List<string> Characters { get; }
-            public List<string> LinkedIDs { get; }
-            public override int Difficulty { get; }
+            [RowIndex(0)]
+            public override string ID { get; set; }
+            [RowIndex(1)]
+            public int Index { get; set; }
+            [RowIndex(2)]
+            public override string Name { get; set; }
+            public override string LocationImagePath { get; set; }
+            [RowIndex(4)]
+            public override ItemReq Requirements { get; set; }
+            [RowIndex(5)]
+            public override List<string> Traits { get; set; }
+            [RowIndex(3)]
+            public override List<string> Areas { get; set; }
+            public override List<string> Characters { get; set; }
+            [RowIndex(6)]
+            public List<string> LinkedIDs { get; set; }
+            [RowIndex(7)]
+            public override int Difficulty { get; set; }
 
-            public EnemyData(string[] row)
+            public EnemyData(string[] row) : base(row)
             {
-                ID = row[0];
-                Index = int.Parse(row[1]);
-                Name = row[2];
-                Areas = new List<string>() { row[3] };
-                Requirements = ItemReq.Parse(row[4]);
-                Traits = row[5].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                LinkedIDs = row[6].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                Difficulty = int.Parse(row[7]);
                 Characters = FF13RandoHelpers.ParseReqCharas(row[8]);
             }
 
@@ -464,23 +464,23 @@ namespace FF13Rando
 
         public class BattleData : FF13ItemLocation
         {
-            public override string ID { get; }
-            public override string Name { get; }
-            public override string LocationImagePath { get; }
-            public override ItemReq Requirements { get; }
-            public override List<string> Traits { get; }
-            public override List<string> Areas { get; }
-            public override List<string> Characters { get; }
-            public override int Difficulty { get; }
+            [RowIndex(0)]
+            public override string ID { get; set; }
+            [RowIndex(1)]
+            public override string Name { get; set; }
+            public override string LocationImagePath { get; set; }
+            [RowIndex(3)]
+            public override ItemReq Requirements { get; set; }
+            [RowIndex(4)]
+            public override List<string> Traits { get; set; }
+            [RowIndex(2)]
+            public override List<string> Areas { get; set; }
+            public override List<string> Characters { get; set; }
+            [RowIndex(5)]
+            public override int Difficulty { get; set; }
 
-            public BattleData(string[] row)
+            public BattleData(string[] row) : base(row)
             {
-                ID = row[0];
-                Name = row[1];
-                Areas = new List<string>() { row[2] };
-                Requirements = ItemReq.Parse(row[3]);
-                Traits = row[4].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                Difficulty = int.Parse(row[5]);
                 Characters = FF13RandoHelpers.ParseReqCharas(row[6]);
             }
 
@@ -505,14 +505,14 @@ namespace FF13Rando
             }
         }
 
-        public class HintData
+        public class HintData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(1)]
             public List<string> Areas { get; set; }
-            public HintData(string[] row)
+            public HintData(string[] row) : base(row)
             {
-                ID = row[0];
-                Areas = row[1].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
             }
         }
     }

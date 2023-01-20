@@ -89,26 +89,26 @@ namespace FF12Rando
                 File.WriteAllBytes($"outdata\\ps2data\\plan_master\\in\\plan_map\\{p.Key}\\area\\{p.Key}.ard", p.Value.Data);
             });
         }
-        public class EnemyData
+        public class EnemyData : CSVDataRow
         {
+            [RowIndex(0)]
             public string Name { get; set; }
+            [RowIndex(1), FieldTypeOverride(FieldType.HexInt)]
             public int IntID { get; set; }
             public string ID { get; set; }
+            [RowIndex(2)]
             public int Rank { get; set; }
+            [RowIndex(3)]
             public string Area { get; set; }
+            [RowIndex(4)]
             public int Index { get; set; }
+            [RowIndex(5)]
             public int EXPLPScale { get; set; }
+            [RowIndex(6)]
             public List<string> Traits { get; set; }
-            public EnemyData(string[] row)
+            public EnemyData(string[] row) : base(row)
             {
-                Name = row[0];
-                IntID = Convert.ToInt32(row[1], 16);
                 ID = row[3] + ":" + row[1] + ":" + row[4];
-                Rank = int.Parse(row[2]);
-                Area = row[3];
-                Index = int.Parse(row[4]);
-                EXPLPScale = int.Parse(row[5]);
-                Traits = row[6].Split("|").Where(s => !String.IsNullOrEmpty(s)).ToList();
             }
         }
     }

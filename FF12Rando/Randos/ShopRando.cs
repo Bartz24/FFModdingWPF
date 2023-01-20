@@ -271,18 +271,18 @@ namespace FF12Rando
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_039.bin", shops.Data);
             File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_057.bin", bazaars.Data);
         }
-        public class ShopData
+        public class ShopData : CSVDataRow
         {
+            [RowIndex(0)]
             public string Name { get; set; }
+            [RowIndex(1)]
             public int ID { get; set; }
+            [RowIndex(2)]
             public string Area { get; set; }
+            [RowIndex(3)]
             public List<string> Traits { get; set; }
-            public ShopData(string[] row)
+            public ShopData(string[] row) : base(row)
             {
-                Name = row[0];
-                ID = int.Parse(row[1]);
-                Area = row[2];
-                Traits = row[3].Split("|").Where(s => !String.IsNullOrEmpty(s)).ToList();
             }
         }
     }

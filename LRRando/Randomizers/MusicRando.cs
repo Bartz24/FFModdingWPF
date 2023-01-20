@@ -57,14 +57,14 @@ namespace LRRando
             }
         }
 
-        public class MusicData
+        public class MusicData : CSVDataRow
         {
+            [RowIndex(0)]
             public string Path { get; set; }
+            [RowIndex(1)]
             public List<string> Traits { get; set; }
-            public MusicData(string[] row)
+            public MusicData(string[] row) : base(row)
             {
-                Path = row[0];
-                Traits = row[1].Split("|").ToList();
             }
         }
     }

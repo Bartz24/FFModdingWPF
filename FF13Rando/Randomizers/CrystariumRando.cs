@@ -573,26 +573,26 @@ namespace FF13Rando
             chars.ForEach(c => crystariums[c].SaveWDB(@"\db\crystal\crystal_" + c + ".wdb"));
 
         }
-        public class AbilityData
+        public class AbilityData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(0)]
             public string Name { get; set; }
             public Role Role { get; set; }
             public List<string> Characters { get; set; }
+            [RowIndex(4)]
             public List<string> Traits { get; set; }
+            [RowIndex(5)]
             public ItemReq Requirements { get; set; }
+            [RowIndex(6)]
             public List<string> Incompatible { get; set; }
 
             private string[] chars = new string[] { "lightning", "fang", "hope", "sazh", "snow", "vanille" };
-            public AbilityData(string[] row)
+            public AbilityData(string[] row) : base(row)
             {
-                ID = row[0];
-                Name = row[1];
                 Role = row[2] == "" ? Role.None : Enum.GetValues(typeof(Role)).Cast<Role>().First(r => r.ToString().Substring(0, 3).ToUpper() == row[2]);
                 Characters = row[3] == "" ? chars.ToList() : row[3].ToCharArray().Select(c => ToCharName(c)).ToList();
-                Traits = row[4].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                Requirements = ItemReq.Parse(row[5]);
-                Incompatible = row[6].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
             }
             public string ToCharName(char id)
             {

@@ -263,26 +263,26 @@ namespace FF13_2Rando
 
         public class TreasureData : FF13_2ItemLocation
         {
-            public override string ID { get; }
-            public override string Name { get; }
-            public override string LocationImagePath { get; }
-            public override int MogLevel { get; }
-            public override ItemReq Requirements { get; }
-            public override List<string> Traits { get; }
-            public override List<string> Areas { get; }
-            public override List<string> RequiredAreas { get; }
+            [RowIndex(0)]
+            public override string ID { get; set; }
+            [RowIndex(1)]
+            public override string Name { get; set; }
+            public override string LocationImagePath { get; set; }
+            [RowIndex(3)]
+            public override int MogLevel { get; set; }
+            [RowIndex(5)]
+            public override ItemReq Requirements { get; set; }
+            [RowIndex(6)]
+            public override List<string> Traits { get; set; }
+            [RowIndex(2)]
+            public override List<string> Areas { get; set; }
+            [RowIndex(4)]
+            public override List<string> RequiredAreas { get; set; }
 
-            public override int Difficulty => throw new NotImplementedException();
+            public override int Difficulty { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-            public TreasureData(string[] row)
+            public TreasureData(string[] row) : base(row)
             {
-                ID = row[0];
-                Name = row[1];
-                Areas = row[2].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                MogLevel = int.Parse(row[3]);
-                RequiredAreas = row[4].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                Requirements = ItemReq.Parse(row[5]);
-                Traits = row[6].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
             }
 
             public override bool IsValid(Dictionary<string, int> items)
@@ -308,28 +308,28 @@ namespace FF13_2Rando
 
         public class SearchItemData : FF13_2ItemLocation
         {
-            public override string ID { get; }
-            public int Index { get; }
-            public override string Name { get; }
-            public override string LocationImagePath { get; }
-            public override int MogLevel { get; }
-            public override ItemReq Requirements { get; }
-            public override List<string> Traits { get; }
-            public override List<string> Areas { get; }
-            public override List<string> RequiredAreas { get; }
+            public override string ID { get; set; }
+            [RowIndex(1)]
+            public int Index { get; set; }
+            [RowIndex(2)]
+            public override string Name { get; set; }
+            public override string LocationImagePath { get; set; }
+            public override int MogLevel { get; set; }
+            [RowIndex(5)]
+            public override ItemReq Requirements { get; set; }
+            [RowIndex(6)]
+            public override List<string> Traits { get; set; }
+            [RowIndex(3)]
+            public override List<string> Areas { get; set; }
+            [RowIndex(4)]
+            public override List<string> RequiredAreas { get; set; }
 
-            public override int Difficulty => throw new NotImplementedException();
+            public override int Difficulty { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-            public SearchItemData(string[] row)
+            public SearchItemData(string[] row) : base(row)
             {
                 ID = row[0] + ":" + row[1];
-                Index = int.Parse(row[1]);
-                Name = row[2];
-                Areas = row[3].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 MogLevel = 2;
-                RequiredAreas = row[4].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                Requirements = ItemReq.Parse(row[5]);
-                Traits = row[6].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
             }
 
             public override bool IsValid(Dictionary<string, int> items)
@@ -356,14 +356,14 @@ namespace FF13_2Rando
             }
         }
 
-        public class HintData
+        public class HintData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(1)]
             public List<string> Areas { get; set; }
-            public HintData(string[] row)
+            public HintData(string[] row) : base(row)
             {
-                ID = row[0];
-                Areas = row[1].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
             }
         }
     }

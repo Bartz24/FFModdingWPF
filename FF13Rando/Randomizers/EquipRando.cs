@@ -112,25 +112,25 @@ namespace FF13Rando
             return name;
         }
 
-        public class ItemData
+        public class ItemData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(1)]
             public string Name { get; set; }
+            [RowIndex(2)]
             public string Category { get; set; }
+            [RowIndex(3)]
             public int Rank { get; set; }
+            [RowIndex(4)]
             public string DefaultShop { get; set; }
+            [RowIndex(5)]
             public List<string> Traits { get; set; }
             public int SortIndex { get; set; }
+            [RowIndex(6)]
             public int OverrideBuy { get; set; }
-            public ItemData(string[] row)
+            public ItemData(string[] row) : base(row)
             {
-                ID = row[0];
-                Name = row[1];
-                Category = row[2];
-                Rank = int.Parse(row[3]);
-                DefaultShop = row[4];
-                Traits = row[5].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                OverrideBuy = string.IsNullOrEmpty(row[6]) ? -1 : int.Parse(row[6]);
             }
         }
     }

@@ -305,36 +305,36 @@ namespace FF13_2Rando
             gateTable.SaveDB3(@"\db\resident\_wdbpack.bin\r_gatetab.wdb");
             SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_gatetab.wdb");
         }
-        public class GateData
+        public class GateData : CSVDataRow
         {
+            [RowIndex(0)]
             public string Location { get; set; }
+            [RowIndex(1)]
             public string ID { get; set; }
+            [RowIndex(2)]
             public List<string> Traits { get; set; }
+            [RowIndex(3)]
             public List<string> Requirements { get; set; }
+            [RowIndex(4)]
             public int MinMogLevel { get; set; }
+            [RowIndex(5)]
             public string GateOriginal { get; set; }
+            [RowIndex(6)]
             public ItemReq ItemRequirements { get; set; }
-            public GateData(string[] row)
+            public GateData(string[] row) : base(row)
             {
-                Location = row[0];
-                ID = row[1];
-                Traits = row[2].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                Requirements = row[3].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                MinMogLevel = int.Parse(row[4]);
-                GateOriginal = row[5];
-                ItemRequirements = ItemReq.Parse(row[6]);
             }
         }
-        public class AreaData
+        public class AreaData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(1)]
             public string Name { get; set; }
+            [RowIndex(2)]
             public string BattleTableID { get; set; }
-            public AreaData(string[] row)
+            public AreaData(string[] row) : base(row)
             {
-                ID = row[0];
-                Name = row[1];
-                BattleTableID = row[2];
             }
         }
     }

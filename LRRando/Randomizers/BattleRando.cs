@@ -343,64 +343,64 @@ namespace LRRando
             });
         }
 
-        public class EnemyData
+        public class EnemyData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(1)]
             public string Name { get; set; }
+            [RowIndex(2)]
             public List<string> Traits { get; set; }
+            [RowIndex(3)]
             public string Class { get; set; }
+            [RowIndex(4)]
             public int Size { get; set; }
+            [RowIndex(5)]
             public List<string> Parts { get; set; }
-            public EnemyData(string[] row)
+            public EnemyData(string[] row) : base(row)
             {
-                ID = row[0];
-                Name = row[1];
-                Traits = row[2].Split("|").ToList();
-                Class = row[3];
-                Size = int.Parse(row[4]);
-                Parts = row.Skip(5).Where(s => !String.IsNullOrEmpty(s)).ToList();
             }
         }
-        public class BossData
+        public class BossData : CSVDataRow
         {
+            [RowIndex(0)]
             public string Group { get; set; }
+            [RowIndex(1)]
             public int Tier { get; set; }
+            [RowIndex(2)]
             public string ID { get; set; }
+            [RowIndex(3)]
             public string NameID { get; set; }
+            [RowIndex(4)]
             public string ScoreID { get; set; }
+            [RowIndex(5)]
             public string Name { get; set; }
-            public BossData(string[] row)
+            public BossData(string[] row) : base(row)
             {
-                Group = row[0];
-                Tier = int.Parse(row[1]);
-                ID = row[2];
-                NameID = row[3];
-                ScoreID = row[4];
-                Name = row[5];
             }
         }
-        public class BossStatsData
+        public class BossStatsData : CSVDataRow
         {
+            [RowIndex(0)]
             public string ID { get; set; }
+            [RowIndex(1)]
             public int Tier { get; set; }
+            [RowIndex(2)]
             public int HP { get; set; }
+            [RowIndex(3)]
             public int Strength { get; set; }
+            [RowIndex(4)]
             public int Magic { get; set; }
+            [RowIndex(5)]
             public int Keep { get; set; }
+            [RowIndex(6)]
             public int PhysicalRes { get; set; }
+            [RowIndex(7)]
             public int MagicRes { get; set; }
+            [RowIndex(8)]
             public int BreakPoint { get; set; }
-            public BossStatsData(string[] row)
+            public BossStatsData(string[] row) : base(row)
             {
-                ID = row[0];
-                Tier = int.Parse(row[1]);
-                HP = int.Parse(row[2]);
-                Strength = int.Parse(row[3]);
-                Magic = int.Parse(row[4]);
-                Keep = int.Parse(row[5]);
-                PhysicalRes = int.Parse(row[6]);
-                MagicRes = int.Parse(row[7]);
-                BreakPoint = int.Parse(row[8]);
             }
         }
     }

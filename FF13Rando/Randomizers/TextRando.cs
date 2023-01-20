@@ -21,6 +21,9 @@ namespace FF13Rando
 
                 mainSysUS.Load(outPath, SetupData.Paths["Nova"]);
 
+                mainSysUS["$acc_039_000"] = "Collector Catalog{End}{Many}Collector Catalogs{End}{Article}a";
+                mainSysUS["$acc_039_001"] = "Connoisseur Catalog{End}{Many}Connoisseur Catalogs{End}{Article}a";
+
                 mainSysUS["$am_000_00h"] = "Chapter 1";
                 mainSysUS["$am_010_00"] = "Chapter 2";
                 mainSysUS["$am_010_00h"] = "Chapter 3";

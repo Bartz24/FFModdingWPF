@@ -711,28 +711,28 @@ namespace FF12Rando
 
         public class TreasureData : ItemLocation
         {
-            public override string ID { get; }
-            public int Index { get; }
-            public override string Name { get; }
-            public override string LocationImagePath { get; }
-            public string Subarea { get; }
-            public string MapID { get; }
-            public override ItemReq Requirements { get; }
-            public override List<string> Traits { get; }
-            public override List<string> Areas { get; }
-            public override int Difficulty { get; }
+            public override string ID { get; set; }
+            public int Index { get; set; }
+            public override string Name { get; set; }
+            public override string LocationImagePath { get; set; }
+            [RowIndex(1)]
+            public string Subarea { get; set; }
+            [RowIndex(2)]
+            public string MapID { get; set; }
+            [RowIndex(5)]
+            public override ItemReq Requirements { get; set; }
+            [RowIndex(7)]
+            public override List<string> Traits { get; set; }
+            [RowIndex(0)]
+            public override List<string> Areas { get; set; }
+            [RowIndex(6)]
+            public override int Difficulty { get; set; }
 
-            public TreasureData(string[] row, int index)
+            public TreasureData(string[] row, int index) : base(row)
             {
-                Areas = new List<string>() { row[0] };
                 Name = row[0] + " - " + row[1] + " Treasure";
-                Subarea = row[1];
-                MapID = row[2];
                 ID = row[2] + ":" + index;
                 Index = index;
-                Requirements = ItemReq.Parse(row[5]);
-                Difficulty = int.Parse(row[6]);
-                Traits = row[7].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
             }
 
             public override bool IsValid(Dictionary<string, int> items)
@@ -778,33 +778,33 @@ namespace FF12Rando
 
         public class RewardData : ItemLocation
         {
-            public override string ID { get; }
-            public int IntID { get; }
-            public int Index { get; }
-            public override string Name { get; }
-            public override string LocationImagePath { get; }
-            public override ItemReq Requirements { get; }
-            public override List<string> Traits { get; }
-            public override List<string> Areas { get; }
-            public override int Difficulty { get; }
-            public List<string> FakeItems { get; }
+            public override string ID { get; set; }
+            public int IntID { get; set; }
+            public int Index { get; set; }
+            [RowIndex(1)]
+            public override string Name { get; set; }
+            public override string LocationImagePath { get; set; }
+            [RowIndex(3)]
+            public override ItemReq Requirements { get; set; }
+            [RowIndex(5)]
+            public override List<string> Traits { get; set; }
+            [RowIndex(0)]
+            public override List<string> Areas { get; set; }
+            [RowIndex(4)]
+            public override int Difficulty { get; set; }
+            [RowIndex(6)]
+            public List<string> FakeItems { get; set; }
 
-            public RewardData(string[] row, int index, int fakeID, bool forceFake = false)
+            public RewardData(string[] row, int index, int fakeID, bool forceFake = false) : base(row)
             {
-                Traits = row[5].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 if (forceFake && !Traits.Contains("Fake"))
                     Traits.Add("Fake");
-                Areas = new List<string>() { row[0] };
-                Name = row[1];
                 if (!Traits.Contains("Fake"))
                     IntID = Convert.ToInt32(row[2], 16);
                 else
                     IntID = fakeID;
                 ID = (forceFake ? "_" : "") + row[2] + ":" + index;
                 Index = index;
-                Requirements = ItemReq.Parse(row[3]);
-                Difficulty = int.Parse(row[4]);
-                FakeItems = row[6].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
             }
 
             public override bool IsValid(Dictionary<string, int> items)
@@ -863,26 +863,26 @@ namespace FF12Rando
 
         public class StartingInvData : ItemLocation
         {
-            public override string ID { get; }
-            public int IntID { get; }
-            public int Index { get; }
-            public override string Name { get; }
-            public override string LocationImagePath { get; }
-            public override ItemReq Requirements { get; }
-            public override List<string> Traits { get; }
-            public override List<string> Areas { get; }
-            public override int Difficulty { get; }
+            public override string ID { get; set; }
+            [RowIndex(2), FieldTypeOverride(FieldType.HexInt)]
+            public int IntID { get; set; }
+            public int Index { get; set; }
+            [RowIndex(1)]
+            public override string Name { get; set; }
+            public override string LocationImagePath { get; set; }
+            [RowIndex(3)]
+            public override ItemReq Requirements { get; set; }
+            [RowIndex(5)]
+            public override List<string> Traits { get; set; }
+            [RowIndex(0)]
+            public override List<string> Areas { get; set; }
+            [RowIndex(4)]
+            public override int Difficulty { get; set; }
 
-            public StartingInvData(string[] row, int index)
+            public StartingInvData(string[] row, int index) : base(row)
             {
-                Areas = new List<string>() { row[0] };
-                Name = row[1];
-                IntID = Convert.ToInt32(row[2], 16);
                 ID = row[2] + "::" + index;
                 Index = index;
-                Requirements = ItemReq.Parse(row[3]);
-                Difficulty = int.Parse(row[4]);
-                Traits = row[5].Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
             }
 
             public override bool IsValid(Dictionary<string, int> items)
