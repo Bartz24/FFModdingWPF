@@ -184,8 +184,8 @@ namespace FF13Rando
                         var singleSetFights = battles.Where(id => battleData[id].Charasets.Count == 1);
                         var sharedSetFights = battles.Where(id => battleData[id].Charasets.Count > 1);
 
-                        var standardFights = singleSetFights.Select(id => battleData[id].CharasetLimit);
-                        var peerCharasets = sharedSetFights.SelectMany(id => battleData[id].Charasets).Where(c => c!=charaset).ToList();
+                        var standardFights = singleSetFights.Select(id => battleData[id].Charasets.Min(c => charasetData[c].Limit));
+                        var peerCharasets = sharedSetFights.SelectMany(id => battleData[id].Charasets).Where(c => c != charaset).ToList();
                         
                         //For each enemy in the group, generate the list of available candidates to shuffle in.
                         Dictionary<string, List<string>> shuffleCandidates = vanillaEnemies.ToDictionary(key => key, key =>
@@ -348,7 +348,7 @@ namespace FF13Rando
                                           list.Add(charaspec);
 
                                       //Check if the number of things in the list is greater than the limit
-                                      if (list.Count > Math.Min(GetMaxCountAllowed(), battleData[id].CharasetLimit) && list.Count > charaSets[c].GetCharaSpecs().Count)
+                                      if (list.Count > Math.Min(GetMaxCountAllowed(), battleData[id].Charasets.Min(c => charasetData[c].Limit)) && list.Count > charaSets[c].GetCharaSpecs().Count)
                                       {
                                           canAdd = false;
                                           possible.Remove(e.sEntryBtChSpec_string); //Take it back out of the list
@@ -356,7 +356,7 @@ namespace FF13Rando
                                           {
                                               canAdd = true;
                                               // If it hit the soft cap, it's ok to add
-                                              if (FF13Flags.Other.EnemyVariety.SelectedIndex == FF13Flags.Other.EnemyVariety.Values.Count - 1 && battleData[id].CharasetLimit >= 44 && list.Count <= 48)
+                                              if (FF13Flags.Other.EnemyVariety.SelectedIndex == FF13Flags.Other.EnemyVariety.Values.Count - 1 && battleData[id].Charasets.Min(c => charasetData[c].Limit) >= 44 && list.Count <= 48)
                                               {
                                                   possible.Add(e.sEntryBtChSpec_string);
                                               }
@@ -538,8 +538,6 @@ namespace FF13Rando
             public List<string> Charasets { get; set; }
             [RowIndex(4)]
             public List<string> Traits { get; set; }
-            [RowIndex(5)]
-            public int CharasetLimit { get; set; }
             public BattleData(string[] row) : base(row)
             {
             }
