@@ -249,7 +249,7 @@ namespace LRRando
         }
         public bool IsImportantKeyItem(string location)
         {
-            return IsMainKeyItem(location) || IsSideKeyItem(location) || IsCoPKeyItem(location);
+            return !IsPilgrimKeyItem(location) && IsKeyItem(location);
         }
 
         public bool IsEPAbility(string t, bool orig = true)
@@ -257,24 +257,14 @@ namespace LRRando
             return PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("ti") || PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1 == "at900_00";
         }
 
-        public bool IsMainKeyItem(string t)
+        public bool IsKeyItem(string t, bool orig = true)
         {
-            return PlacementAlgo.ItemLocations[t].Traits.Contains("MainKey");
+            return LRFlags.Items.KeyItems.DictValues.Keys.Contains(PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1);
         }
 
-        public bool IsSideKeyItem(string t)
-        {
-            return PlacementAlgo.ItemLocations[t].Traits.Contains("SideKey");
-        }
-
-        public bool IsCoPKeyItem(string t)
-        {
-            return PlacementAlgo.ItemLocations[t].Traits.Contains("CoPKey");
-        }
-
-        public bool IsPilgrimKeyItem(string t)
-        {
-            return PlacementAlgo.ItemLocations[t].Traits.Contains("Pilgrim");
+        public bool IsPilgrimKeyItem(string t, bool orig = true)
+        {            
+            return PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1 == "key_d_key";
         }
 
         public List<string> GetRandomizableEquip()
@@ -407,12 +397,8 @@ namespace LRRando
                 case 1:
                     {
                         string type = "Other";
-                        if (IsMainKeyItem(PlacementAlgo.Placement[t.ID]))
-                            type = "a Story Key Item";
-                        if (IsSideKeyItem(PlacementAlgo.Placement[t.ID]))
-                            type = "a Side Key Item";
-                        if (IsCoPKeyItem(PlacementAlgo.Placement[t.ID]))
-                            type = "a CoP Key Item";
+                        if (IsKeyItem(PlacementAlgo.Placement[t.ID]))
+                            type = "a Key Item";
                         if (IsPilgrimKeyItem(PlacementAlgo.Placement[t.ID]))
                             type = "Pilgrim's Crux";
                         if (IsEPAbility(t.ID, false))
@@ -447,7 +433,7 @@ namespace LRRando
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Difficulty" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), itemLocations.Values.Select(t =>
             {
                 string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1;
-                string name = GetItemName(itemID);
+                string name = GetItemName(itemID) + $" ({itemID})";
                 string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);

@@ -1,6 +1,6 @@
 {
   "name": "2 - Main Key Item Shuffle",
-  "version": "0.7.4.8",
+  "version": "0.7.5.17",
   "flags": [
     {
       "FlagEnabled": true,
@@ -21,16 +21,15 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": false,
-          "ID": "EPAbiEsc"
-        },
-        {
-          "Enabled": true,
-          "ID": "EPAbiChr"
-        },
-        {
-          "Enabled": false,
-          "ID": "EPAbiTlp"
+          "SelectedValues": [
+            "Curaga",
+            "Arise",
+            "Esunada",
+            "Quake",
+            "Army of One",
+            "Decoy"
+          ],
+          "ID": "EPAbiPool"
         }
       ],
       "FlagID": "EPAbi"
@@ -84,20 +83,14 @@
           "ID": "RandProlo"
         },
         {
-          "Enabled": true,
+          "SelectedValues": [
+            "Prologue Zaltys",
+            "Noel Kreiss",
+            "Snow Villiers",
+            "Caius Ballad",
+            "Grendel/Parandus"
+          ],
           "ID": "RandBoss"
-        },
-        {
-          "Enabled": true,
-          "ID": "RandZaltys"
-        },
-        {
-          "Enabled": false,
-          "ID": "RandEresh"
-        },
-        {
-          "Enabled": false,
-          "ID": "RandAeronite"
         }
       ],
       "FlagID": "RandEne"
@@ -121,28 +114,30 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": true,
-          "ID": "Pilgrims"
-        },
-        {
-          "Enabled": true,
-          "ID": "LearnEP"
+          "SelectedValues": [
+            "Sneaking-In Special Ticket",
+            "ID Card",
+            "Serah's Pendant",
+            "Midnight Mauve",
+            "Crux Base",
+            "3 Tablets",
+            "Crux Body",
+            "Crux Tip",
+            "Main Story Gysahl Greens",
+            "Seedhunter Membership Card",
+            "Moogle Fragment",
+            "Beloved's Gift",
+            "Fragment of Mischief",
+            "Fragment of Courage",
+            "Fragment of Smiles",
+            "Fragment of Radiance",
+            "Fragment of Kindness"
+          ],
+          "ID": "KeyItems"
         },
         {
           "Enabled": false,
           "ID": "EPMiss"
-        },
-        {
-          "Enabled": true,
-          "ID": "KeyMain"
-        },
-        {
-          "Enabled": false,
-          "ID": "KeySide"
-        },
-        {
-          "Enabled": false,
-          "ID": "KeyCoP"
         },
         {
           "Enabled": false,

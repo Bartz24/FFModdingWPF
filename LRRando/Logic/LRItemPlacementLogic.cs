@@ -73,22 +73,17 @@ namespace LRRando
 
         public override bool IsHintable(string location)
         {
-            if (LRFlags.Items.Pilgrims.Enabled && LRFlags.Other.HintsPilgrim.FlagEnabled && treasureRando.IsPilgrimKeyItem(location))
+            if (LRFlags.Items.KeyItems.SelectedKeys.Contains("key_d_key") && LRFlags.Other.HintsPilgrim.FlagEnabled && treasureRando.IsPilgrimKeyItem(location))
                 return true;
-            if (LRFlags.Items.KeyMain.Enabled && treasureRando.IsMainKeyItem(location))
+            if (LRFlags.Items.KeyItems.SelectedKeys.Contains(GetLocationItem(location).Value.Item1) && treasureRando.IsImportantKeyItem(location))
                 return true;
-            if (LRFlags.Items.KeySide.Enabled && treasureRando.IsSideKeyItem(location))
-                return true;
-            if (LRFlags.Items.KeyCoP.Enabled && treasureRando.IsCoPKeyItem(location))
-                return true;
-            if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled && GetLocationItem(location).Value.Item1 == "ti830_00")
-                return false;
-            if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled && GetLocationItem(location).Value.Item1 == "ti840_00")
-                return false;
-            if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled && GetLocationItem(location).Value.Item1 == "ti810_00")
-                return false;
-            if (LRFlags.Other.HintsEP.FlagEnabled && treasureRando.IsEPAbility(location))
-                return true;
+            if (treasureRando.IsEPAbility(location))
+            {
+                if (!LRFlags.StatsAbilities.EPAbilities.FlagEnabled || !LRFlags.StatsAbilities.EPAbilitiesPool.SelectedKeys.Contains(GetLocationItem(location).Value.Item1))
+                    return false;
+                if (LRFlags.Other.HintsEP.FlagEnabled)
+                    return true;
+            }
             return false;
         }
 
@@ -167,22 +162,17 @@ namespace LRRando
 
         public override bool IsAllowed(string old, string rep, bool orig = true)
         {
-            if (!LRFlags.Items.Pilgrims.Enabled && (treasureRando.IsPilgrimKeyItem(rep) || treasureRando.IsPilgrimKeyItem(old)))
-                return old == rep;
-            if (!LRFlags.Items.KeyMain.Enabled && (treasureRando.IsMainKeyItem(rep) || treasureRando.IsMainKeyItem(old)))
-                return old == rep;
-            if (!LRFlags.Items.KeySide.Enabled && (treasureRando.IsSideKeyItem(rep) || treasureRando.IsSideKeyItem(old)))
-                return old == rep;
-            if (!LRFlags.Items.KeyCoP.Enabled && (treasureRando.IsCoPKeyItem(rep) || treasureRando.IsCoPKeyItem(old)))
-                return old == rep;
-            if (!LRFlags.Items.EPLearns.Enabled && (treasureRando.IsEPAbility(rep) || treasureRando.IsEPAbility(old)))
-                return old == rep;
-            if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled && (GetLocationItem(rep).Value.Item1 == "ti830_00" || GetLocationItem(old).Value.Item1 == "ti830_00"))
-                return old == rep;
-            if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled && (GetLocationItem(rep).Value.Item1 == "ti840_00" || GetLocationItem(old).Value.Item1 == "ti840_00"))
-                return old == rep;
-            if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled && (GetLocationItem(rep).Value.Item1 == "ti810_00" || GetLocationItem(old).Value.Item1 == "ti810_00"))
-                return old == rep;
+            foreach (string item in LRFlags.Items.KeyItems.DictValues.Keys)
+            {
+                if (!LRFlags.Items.KeyItems.SelectedKeys.Contains(item) && (GetLocationItem(rep).Value.Item1 == item || GetLocationItem(old).Value.Item1 == item))
+                    return old == rep;
+            }
+
+            foreach (string abi in LRFlags.StatsAbilities.EPAbilitiesPool.DictValues.Keys)
+            {
+                if ((!LRFlags.StatsAbilities.EPAbilities.FlagEnabled || !LRFlags.StatsAbilities.EPAbilitiesPool.SelectedKeys.Contains(abi)) && (GetLocationItem(rep).Value.Item1 == abi || GetLocationItem(old).Value.Item1 == abi))
+                    return old == rep;
+            }
 
             if (ItemLocations[rep].Traits.Contains("Same") || ItemLocations[old].Traits.Contains("Same"))
                 return old == rep;

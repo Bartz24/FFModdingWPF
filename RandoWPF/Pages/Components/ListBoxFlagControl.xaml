@@ -18,7 +18,7 @@
         <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="5, 0, 50, 0">
             <TextBlock Visibility="{Binding TextVisibility}" FontSize="15" TextWrapping="Wrap" Text="{Binding Text}"></TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <local:MultiSelectListBox MaxWidth="550px" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Values}" SelectedItemsList="{Binding SelectedValues, Mode=TwoWay}" SelectionMode="Multiple" MinWidth="250" HorizontalAlignment="Left" Background="{StaticResource MaterialDesignCardBackground}" Foreground="{StaticResource MaterialDesignDarkForeground}" Margin="0 10 0 0">
+                <local:MultiSelectListBox MaxWidth="550px" MaxHeight="300px" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Values}" SelectedItemsList="{Binding SelectedValues, Mode=TwoWay}" SelectionMode="Multiple" MinWidth="250" HorizontalAlignment="Left" Background="{StaticResource MaterialDesignCardBackground}" Foreground="{StaticResource MaterialDesignDarkForeground}" Margin="0 10 0 0">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal"/>

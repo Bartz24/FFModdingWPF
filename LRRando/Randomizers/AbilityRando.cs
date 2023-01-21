@@ -37,12 +37,8 @@ namespace LRRando
                 LRFlags.StatsAbilities.EPAbilities.SetRand();
 
                 IEnumerable<ItemLocation> keys = treasureRando.itemLocations.Values.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1.StartsWith("ti") || treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 == "at900_00");
-                if (!LRFlags.StatsAbilities.EPAbilitiesEscape.Enabled)
-                    keys = keys.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 != "ti830_00");
-                if (!LRFlags.StatsAbilities.EPAbilitiesChrono.Enabled)
-                    keys = keys.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 != "ti840_00");
-                if (!LRFlags.StatsAbilities.EPAbilitiesTp.Enabled)
-                    keys = keys.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 != "ti810_00");
+
+                keys = keys.Where(t => LRFlags.StatsAbilities.EPAbilitiesPool.SelectedKeys.Contains(treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1));
 
                 keys.ToList().Shuffle((t1, t2) =>
                 {

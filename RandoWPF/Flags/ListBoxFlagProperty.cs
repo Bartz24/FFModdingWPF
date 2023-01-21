@@ -24,9 +24,9 @@ namespace Bartz24.RandoWPF
                 SelectedValues = new List<string>();
             }
         }
-        public List<string> Values { get; set; } = new List<string>();
+        public virtual List<string> Values { get; set; } = new List<string>();
 
-        private List<string> selectedValues;
+        protected List<string> selectedValues;
         [JsonProperty]
         public IList SelectedValues
         {

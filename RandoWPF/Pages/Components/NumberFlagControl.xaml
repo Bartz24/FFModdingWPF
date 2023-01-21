@@ -22,7 +22,7 @@
                     <Label Content="{Binding ValueText}"/>
                     <Label Content="{Binding Value}"/>
                 </StackPanel>
-                <Slider Minimum="{Binding MinValue}" Maximum="{Binding MaxValue}" MinWidth="200px" MaxWidth="300px" Value="{Binding Value}"
+                <Slider Minimum="{Binding MinValue}" Maximum="{Binding MaxValue}" MinWidth="500px" Value="{Binding Value}"
                         Style="{StaticResource MaterialDesignDiscreteSlider}"
                           TickPlacement="BottomRight" TickFrequency="{Binding StepSize}" />                
             </StackPanel>

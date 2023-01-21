@@ -1,4 +1,5 @@
-﻿using Bartz24.RandoWPF;
+﻿using Bartz24.Data;
+using Bartz24.RandoWPF;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -18,7 +19,8 @@ namespace LRRando
         public class StatsAbilities
         {
             public static Flag EPAbilities, NerfOC, EPCosts;
-            public static ToggleFlagProperty EPAbilitiesEscape, EPAbilitiesChrono, EPAbilitiesTp, EPCostsZero;
+            public static ToggleFlagProperty EPCostsZero;
+            public static DictListBoxFlagProperty<string> EPAbilitiesPool;
             public static NumberFlagProperty EPCostsRange, EPCostMax;
             public static Flag EquipStats, GarbAbilities, EquipPassives, AbilityPassives;
             public static Flag Quests;
@@ -50,28 +52,26 @@ namespace LRRando
                 {
                     Text = "Shuffle EP Abilities",
                     FlagID = "EPAbi",
-                    DescriptionFormat = "Shuffles all EP abilities between each other except for Overclock and Escape, Chronostasis, and Teleport (last 3 requires the below flags)."
+                    DescriptionFormat = "Shuffles all selected EP abilities between each other."
                 }.Register(FlagType.StatsAbilities);
 
-                EPAbilitiesEscape = (ToggleFlagProperty)new ToggleFlagProperty()
+                EPAbilitiesPool = (DictListBoxFlagProperty<string>)new DictListBoxFlagProperty<string>()
                 {
-                    Text = "Include Escape",
-                    ID = "EPAbiEsc",
-                    Description = "Escape will be included in randomization."
-                }.Register(EPAbilities);
-
-                EPAbilitiesChrono = (ToggleFlagProperty)new ToggleFlagProperty()
-                {
-                    Text = "Include Chronostasis",
-                    ID = "EPAbiChr",
-                    Description = "Chronostasis will be included in randomization."
-                }.Register(EPAbilities);
-
-                EPAbilitiesTp = (ToggleFlagProperty)new ToggleFlagProperty()
-                {
-                    Text = "Include Teleport",
-                    ID = "EPAbiTlp",
-                    Description = "Teleport will be included in randomization."
+                    Text = "",
+                    ID = "EPAbiPool",
+                    Description = "",
+                    DictValues = new BiDictionary<string, string>
+                    {
+                        { "ti000_00", "Curaga" },
+                        { "ti020_00", "Arise" },
+                        { "ti030_00", "Esunada" },
+                        { "ti500_00", "Quake" },
+                        { "ti600_00", "Decoy" },
+                        { "ti810_00", "Teleport" },
+                        { "ti830_00", "Escape" },
+                        { "ti840_00", "Chronostasis" },
+                        { "at900_00", "Army of One" }
+                    }
                 }.Register(EPAbilities);
 
                 Quests = new Flag()
@@ -138,7 +138,8 @@ namespace LRRando
         public class Enemies
         {
             public static Flag EnemyLocations, BhuniPlus, MatDrops, AbiDrops;
-            public static ToggleFlagProperty EnemiesSize, EncounterSize, Bosses, Zaltys, Ereshkigal, Aeronite, Prologue;
+            public static ToggleFlagProperty EnemiesSize, EncounterSize, Prologue;
+            public static DictListBoxFlagProperty<string> Bosses;
 
             internal static void Init()
             {
@@ -173,37 +174,23 @@ namespace LRRando
                     "Enemies replacing prologue enemies are limited to selection of smaller enemies."
                 }.Register(EnemyLocations);
 
-                Bosses = (ToggleFlagProperty)new ToggleFlagProperty()
+                Bosses = (DictListBoxFlagProperty<string>)new DictListBoxFlagProperty<string>()
                 {
                     Text = "Shuffle Bosses",
                     ID = "RandBoss",
-                    Description = "Shuffle the following bosses between each other:\n" +
-                    "Noel Kreiss, Snow Villiers, Caius Ballad, and Grendel.\n" +
-                    "Bosses that have + versions will be based on their new random boss if the old boss has + versions.\n"
-                }.Register(EnemyLocations);
-
-                Zaltys = (ToggleFlagProperty)new ToggleFlagProperty()
-                {
-                    Text = "Include Prologue Zaltys",
-                    ID = "RandZaltys",
-                    Description = "Includes Prologue Zaltys in the pool. This boss scales up if randomized to a later boss.\n" +
-                    "Later bosses will scale down if replacing Prologue Zaltys."
-                }.Register(EnemyLocations);
-
-                Ereshkigal = (ToggleFlagProperty)new ToggleFlagProperty()
-                {
-                    Text = "Include Ereshkigal",
-                    ID = "RandEresh",
-                    Description = "Includes Ereshkigal in the pool. This boss scales down if randomized to a story boss.\n" +
-                    "Story bosses will scale up if replacing Ereshkigal."
-                }.Register(EnemyLocations);
-
-                Aeronite = (ToggleFlagProperty)new ToggleFlagProperty()
-                {
-                    Text = "Include Aeronite",
-                    ID = "RandAeronite",
-                    Description = "Includes Aeronite in the pool. This boss scales down if randomized to a story boss.\n" +
-                    "Story bosses will scale up if replacing Aeronite."
+                    Description = "Shuffle the selected bosses between each other.\n" +
+                    "Bosses will scale up or down depending on their placement.\n" +
+                    "Bosses that have + versions will be based on their new random boss if the old boss has + versions.",
+                    DictValues =
+                    {
+                        {"Zaltys", "Prologue Zaltys" },
+                        {"Noel", "Noel Kreiss" },
+                        {"Snow", "Snow Villiers" },
+                        {"Caius", "Caius Ballad" },
+                        {"Grendel", "Grendel/Parandus" },
+                        {"Ereshkigal", "Ereshkigal" },
+                        {"Aeronite", "Aeronite" }
+                    }
                 }.Register(EnemyLocations);
 
                 MatDrops = new Flag()
@@ -231,36 +218,101 @@ namespace LRRando
         public class Items
         {
             public static Flag Treasures;
-            public static ToggleFlagProperty Pilgrims, EPLearns, EPMissable, IDCardBuy, KeyMain, KeySide, KeyCoP, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy, KeyPlaceSuperboss;
-            public static ComboBoxFlagProperty KeyDepth;
             public static Flag Shops;
             public static Flag CoPReqs;
+            public static ToggleFlagProperty EPMissable, IDCardBuy, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy, KeyPlaceSuperboss;
+            public static ComboBoxFlagProperty KeyDepth;
+            public static DictListBoxFlagProperty<string> KeyItems;
 
             internal static void Init()
             {
 
                 Treasures = new Flag()
                 {
-                    Text = "Randomize Treasures, Quest Rewards, and Other Rewards",
+                    Text = "Randomize Item Locations",
                     FlagID = "Treasures",
-                    DescriptionFormat = "Randomize Treasures, Quest Rewards, Non-repeatable Pickups, Soul seed rewards, Non-repeatable Item Appraisal rewards\n" +
-                    "Does not include key items"
+                    DescriptionFormat = "Randomize treasures, quest rewards, battle rewards, non-repeatable pickups, soul seed rewards, non-repeatable item appraisal rewards, and shuffled EP abilities.\n" +
+                    "Does not include key items unless they are selected."
                 }.Register(FlagType.Items);
 
-                Pilgrims = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyItems = (DictListBoxFlagProperty<string>)new DictListBoxFlagProperty<string>()
                 {
-                    Text = "Include Pilgrim's Cruxes",
-                    ID = "Pilgrims",
-                    Description = "Pilgrim's Cruxes will be included in the pool with treasures, quests, etc.\n" +
-                    "Pilgrim's Cruxes will not appear in missable locations or from Day 10 and later."
-                }.Register(Treasures);
-
-                EPLearns = (ToggleFlagProperty)new ToggleFlagProperty()
-                {
-                    Text = "Include Learned EP Abilities",
-                    ID = "LearnEP",
-                    Description = "EP Abilities learned at the start of the game will be included in the pool with treasures, quests, etc.\n" +
-                    "This includes when Curaga, Escape, Chronostasis, and Teleport are normally learned."
+                    Text = "Include Key Items",
+                    ID = "KeyItems",
+                    Description = "Key items to be included in the item pool.\n" +
+                    "Key items will not appear in missable locations or from Day 10 and later.",
+                    DictValues =
+                    {
+                        {"key_y_ticket", "Sneaking-In Special Ticket" },
+                        {"key_y_id", "ID Card" },
+                        {"cos_fa00", "Midnight Mauve" },
+                        {"key_y_serap", "Serah's Pendant" },
+                        {"key_d_sekiban", "3 Tablets" },
+                        {"key_d_base", "Crux Base" },
+                        {"key_d_wing", "Crux Body" },
+                        {"key_d_top", "Crux Tip" },
+                        {"key_w_yasai_t", "Main Story Gysahl Greens" },
+                        {"key_soulcd", "Seedhunter Membership Card" },
+                        {"key_w_mogsoul", "Moogle Fragment" },
+                        {"key_s_okuri", "Beloved's Gift" },
+                        {"key_s_kairaku", "Fragment of Mischief" },
+                        {"key_s_kanki", "Fragment of Courage" },
+                        {"key_s_zyouai", "Fragment of Smiles" },
+                        {"key_s_hiai", "Fragment of Radiance" },
+                        {"key_s_hunnu", "Fragment of Kindness" },
+                        {"key_ball", "Rubber Ball" },
+                        {"key_kimochi", "Talbot's Gratitude" },
+                        {"key_l_pen", "Quill Pen" },
+                        {"key_kyu_pass", "Supply Sphere Password" },
+                        {"key_kb_g", "Green Carbuncle Doll" },
+                        {"key_kb_r", "Red Carbuncle Doll" },
+                        {"key_l_hana", "Phantom Rose" },
+                        {"key_j_kino", "Thunderclap Cap" },
+                        {"key_niku", "Shaolong Gui Shell" },
+                        {"key_ninjin", "Mandragora Root" },
+                        {"key_sp_bt", "Spectral Elixir" },
+                        {"key_behi_tume", "Cursed Dragon Claw" },
+                        {"key_l_kagi", "Service Entrance Key" },
+                        {"key_y_kagi1", "Musical Treasure Sphere Key" },
+                        {"key_y_kagi2", "Nostalgic Score: Chorus" },
+                        {"key_y_kagi3", "Nostalgic Score: Refrain" },
+                        {"key_y_rappa", "Nostalgic Score: Coda" },
+                        {"key_y_kaban", "Music Satchel" },
+                        {"key_y_bashira", "Civet Musk" },
+                        {"key_y_recipe", "Gordon Gourmet's Recipe" },
+                        {"key_y_cream", "Steak a la Civet" },
+                        {"key_y_letter", "Father's Letter" },
+                        {"key_d_key", "Pilgrim's Cruxes" },
+                        {"key_d_lupe", "Loupe" },
+                        {"key_d_keisan", "Arithmometer" },
+                        {"key_d_niku", "Monster Flesh" },
+                        {"key_w_moji1", "Goddess Glyphs" },
+                        {"key_w_moji2", "Chaos Glyphs" },
+                        {"key_w_buhin1", "Plate Metal Fragment" },
+                        {"key_w_buhin2", "Silvered Metal Fragment" },
+                        {"key_w_buhin3", "Golden Metal Fragment" },
+                        {"key_w_data", "Data Recorder" },
+                        {"key_w_apple", "3 Aryas Apples" },
+                        {"key_w_tamago", "Mystery Egg" },
+                        {"key_p_toppa", "Proof of Overcoming Limits" },
+                        {"key_l_kishin", "Proof of Legendary Title" },
+                        {"key_b_00", "Proof of Courage" },
+                        {"key_b_01", "Violet Amulet" },
+                        {"key_b_20", "Chocobo Girl's Phone No." },
+                        {"key_b_02", "Lapis Lazuli" },
+                        {"key_b_03", "Power Booster" },
+                        {"key_b_16", "Jade Hair Comb" },
+                        {"key_b_17", "Bronze Pocket Watch" },
+                        {"key_b_08", "Golden Scarab" },
+                        {"key_b_04", "Moogle Dust" },
+                        {"key_b_05", "Old-Fashioned Photo Frame" },
+                        {"key_b_06", "Etro's Forbidden Tome" },
+                        {"key_b_07", "Broken Gyroscope" },
+                        {"key_b_09", "Key to the Sand Gate" },
+                        {"key_b_10", "Key to the Green Gate" },
+                        {"key_b_11", "Bandit's Bloodseal" },
+                        {"key_b_12", "Oath of the Merchants Guild" },
+                    }
                 }.Register(Treasures);
 
                 EPMissable = (ToggleFlagProperty)new ToggleFlagProperty()
@@ -268,31 +320,6 @@ namespace LRRando
                     Text = "Allow EP Abilities in Missable Locations",
                     ID = "EPMiss",
                     Description = "EP Abilities will be allowed to appear in missable or late game locations Day 10 or later."
-                }.Register(Treasures);
-
-                KeyMain = (ToggleFlagProperty)new ToggleFlagProperty()
-                {
-                    Text = "Include Main Story Key Items",
-                    ID = "KeyMain",
-                    Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
-                    "The following key items will be included in the pool based on the set level:\n" +
-                    "5 Sazh Fragments, Moogle Fragment, Beloved's Gift, Sneaking-In Special Ticket, ID Card, Midnight Mauve, Serah's Pendant, Dead Dunes Tablets, Crux Pieces, Dr. Gysahl's Gysahl Greens, Seedhunter Membership Card"
-                }.Register(Treasures);
-                KeySide = (ToggleFlagProperty)new ToggleFlagProperty()
-                {
-                    Text = "Include Side Quest Key Items",
-                    ID = "KeySide",
-                    Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
-                    "The following key items will be included in the pool based on the set level:\n" +
-                    "Nostalgic Scores, Rubber Ball, Thunderclap Cap, Quill Pen, Loupe, Musical Sphere Treasure Key, Supply Sphere Password, Arithmometer, Red/Green Carbuncle Dolls, Phantom Rose, Shaolong Gui Shell, Mandragora Root, Spectral Elixir, Talbot's Gratitude, Service Entrance Key, Music Satchel, Civet Musk, Gordon Gourmet's Recipe, Steak a la Civet, Father's Letter, Goddess Glyphs, Chaos Glyphs, Metal Fragments, Data Recorder, Aryas Apples, Mystery Egg, Proof of Overcoming Limits, Cursed Dragon Claw, Monster Flesh"
-                }.Register(Treasures);
-                KeyCoP = (ToggleFlagProperty)new ToggleFlagProperty()
-                {
-                    Text = "Include Canvas of Prayers Key Items",
-                    ID = "KeyCoP",
-                    Description = "Key items will not appear in missable locations or from Day 10 and later.\n" +
-                    "The following key items will be included in the pool based on the set level:\n" +
-                    "Proof of Courage, Violet Amulet, Lapis Lazuli, Power Booster, Moogle Dust, Photo Frame, Etro's Forbidden Tome, Broken Gyroscope, Golden Scarab, Key to the Sand Gate, Key to the Green Gate, Bandit's Bloodseal, Oath of the Merchants Guild, Jade Hair Comb, Bronze Pocket Watch, Chocobo Girl's Phone No., Proof of Legendary Title"
                 }.Register(Treasures);
 
 
@@ -417,7 +444,7 @@ namespace LRRando
                     Description = "Set the specificity for the hints from main quests.\n\n" +
                     "Options:\n" +
                     "    Exact - Hints give the exact item in the exact location.\n" +
-                    "    Vague Type - Hints give the type ('Main Key Item'/'Side Key Item'/'CoP Key Item'/'Pilgrim's Crux'/'EP Ability'/'Other') in the exact location.\n" +
+                    "    Vague Type - Hints give the type ('Key Item'/'Pilgrim's Crux'/'EP Ability'/'Other') in the exact location.\n" +
                     "    Vague Area - Hints give the exact item in the area.\n" +
                     "    Unknown but Exact Location - Hints will hint that something ('?????') is in the exact location.\n" +
                     "    Random - Each hint will use one of the above rules.",

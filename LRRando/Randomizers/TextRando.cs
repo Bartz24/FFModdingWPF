@@ -55,10 +55,6 @@ namespace LRRando
                 mainSysUS["$m_806w"] += " (I may crash with {Key R2})";
                 mainSysUS["$m_821w"] += " (I may crash with {Key R2})";
                 mainSysUS["$m_896w"] += " (I may crash with {Key R2})";
-
-                if (LRFlags.Enemies.Bosses.Enabled)
-                {
-                }
             }
 
             LRFlags.Other.HintsPilgrim.SetRand();

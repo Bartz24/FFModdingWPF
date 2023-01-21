@@ -63,9 +63,9 @@ namespace LRRando
             if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
             {
                 LRFlags.Enemies.EnemyLocations.SetRand();
-                if (LRFlags.Enemies.Bosses.Enabled)
+                if (LRFlags.Enemies.Bosses.SelectedKeys.Count > 0)
                 {
-                    List<string> list = bossData.Keys.Where(k => (k != "Aeronite" || LRFlags.Enemies.Aeronite.Enabled) && (k != "Ereshkigal" || LRFlags.Enemies.Ereshkigal.Enabled) && (k != "Zaltys" || LRFlags.Enemies.Zaltys.Enabled)).ToList();
+                    List<string> list = bossData.Keys.Where(k => LRFlags.Enemies.Bosses.SelectedKeys.Contains(k)).ToList();
                     List<string> shuffled = list.Shuffle().ToList();
                     shuffledBosses = Enumerable.Range(0, list.Count).ToDictionary(i => list[i], i => shuffled[i]);
                 }
@@ -94,7 +94,7 @@ namespace LRRando
                     }
                     if (count > 0)
                     {
-                        if (oldEnemies[0].Class != "Boss" || LRFlags.Enemies.Bosses.Enabled && (oldEnemies[0].ID != "m375" || LRFlags.Enemies.Aeronite.Enabled) && (oldEnemies[0].ID != "m370" || LRFlags.Enemies.Ereshkigal.Enabled) && (oldEnemies[0].ID != "m352_tuto" || LRFlags.Enemies.Zaltys.Enabled))
+                        if (oldEnemies[0].Class != "Boss" || LRFlags.Enemies.Bosses.SelectedKeys.SelectMany(name => bossData[name].Values.Select(b=>b.ID)).Contains(oldEnemies[0].ID))
                         {
                             List<EnemyData> newEnemies = new List<EnemyData>();
                             List<string> charSpecs = new List<string>();

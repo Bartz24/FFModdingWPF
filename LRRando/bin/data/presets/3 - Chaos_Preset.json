@@ -1,6 +1,6 @@
 {
   "name": "3 - Chaos",
-  "version": "0.7.4.8",
+  "version": "0.7.5.17",
   "flags": [
     {
       "FlagEnabled": true,
@@ -21,16 +21,17 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": true,
-          "ID": "EPAbiEsc"
-        },
-        {
-          "Enabled": true,
-          "ID": "EPAbiChr"
-        },
-        {
-          "Enabled": true,
-          "ID": "EPAbiTlp"
+          "SelectedValues": [
+            "Curaga",
+            "Arise",
+            "Esunada",
+            "Quake",
+            "Decoy",
+            "Teleport",
+            "Chronostasis",
+            "Army of One"
+          ],
+          "ID": "EPAbiPool"
         }
       ],
       "FlagID": "EPAbi"
@@ -84,20 +85,16 @@
           "ID": "RandProlo"
         },
         {
-          "Enabled": true,
+          "SelectedValues": [
+            "Prologue Zaltys",
+            "Noel Kreiss",
+            "Snow Villiers",
+            "Caius Ballad",
+            "Grendel/Parandus",
+            "Ereshkigal",
+            "Aeronite"
+          ],
           "ID": "RandBoss"
-        },
-        {
-          "Enabled": true,
-          "ID": "RandZaltys"
-        },
-        {
-          "Enabled": true,
-          "ID": "RandEresh"
-        },
-        {
-          "Enabled": true,
-          "ID": "RandAeronite"
         }
       ],
       "FlagID": "RandEne"
@@ -121,28 +118,82 @@
       "FlagEnabled": true,
       "FlagProperties": [
         {
-          "Enabled": true,
-          "ID": "Pilgrims"
-        },
-        {
-          "Enabled": true,
-          "ID": "LearnEP"
+          "SelectedValues": [
+            "Sneaking-In Special Ticket",
+            "ID Card",
+            "Midnight Mauve",
+            "Serah's Pendant",
+            "3 Tablets",
+            "Crux Base",
+            "Crux Body",
+            "Crux Tip",
+            "Main Story Gysahl Greens",
+            "Seedhunter Membership Card",
+            "Moogle Fragment",
+            "Beloved's Gift",
+            "Fragment of Mischief",
+            "Fragment of Courage",
+            "Fragment of Smiles",
+            "Fragment of Radiance",
+            "Fragment of Kindness",
+            "Rubber Ball",
+            "Talbot's Gratitude",
+            "Quill Pen",
+            "Supply Sphere Password",
+            "Green Carbuncle Doll",
+            "Red Carbuncle Doll",
+            "Phantom Rose",
+            "Thunderclap Cap",
+            "Shaolong Gui Shell",
+            "Mandragora Root",
+            "Spectral Elixir",
+            "Cursed Dragon Claw",
+            "Service Entrance Key",
+            "Musical Treasure Sphere Key",
+            "Nostalgic Score: Chorus",
+            "Nostalgic Score: Refrain",
+            "Nostalgic Score: Coda",
+            "Music Satchel",
+            "Civet Musk",
+            "Gordon Gourmet's Recipe",
+            "Steak a la Civet",
+            "Father's Letter",
+            "Pilgrim's Cruxes",
+            "Loupe",
+            "Arithmometer",
+            "Monster Flesh",
+            "Goddess Glyphs",
+            "Chaos Glyphs",
+            "Plate Metal Fragment",
+            "Silvered Metal Fragment",
+            "Golden Metal Fragment",
+            "Data Recorder",
+            "3 Aryas Apples",
+            "Mystery Egg",
+            "Proof of Overcoming Limits",
+            "Proof of Legendary Title",
+            "Proof of Courage",
+            "Violet Amulet",
+            "Chocobo Girl's Phone No.",
+            "Lapis Lazuli",
+            "Power Booster",
+            "Jade Hair Comb",
+            "Bronze Pocket Watch",
+            "Golden Scarab",
+            "Moogle Dust",
+            "Old-Fashioned Photo Frame",
+            "Etro's Forbidden Tome",
+            "Broken Gyroscope",
+            "Key to the Sand Gate",
+            "Key to the Green Gate",
+            "Bandit's Bloodseal",
+            "Oath of the Merchants Guild"
+          ],
+          "ID": "KeyItems"
         },
         {
           "Enabled": false,
           "ID": "EPMiss"
-        },
-        {
-          "Enabled": true,
-          "ID": "KeyMain"
-        },
-        {
-          "Enabled": true,
-          "ID": "KeySide"
-        },
-        {
-          "Enabled": true,
-          "ID": "KeyCoP"
         },
         {
           "Enabled": true,
