@@ -87,9 +87,18 @@ namespace FF12Rando
             int fakeID = -1;
             FileHelpers.ReadCSVFile(@"data\rewards.csv", row =>
             {
+                RewardData parent = null;
                 for (int i = 0; i < 3; i++)
                 {
                     RewardData r = new RewardData(row, i, fakeID);
+                    if (i == 0)
+                    {
+                        parent = r;
+                    }
+                    else
+                    {
+                        r.Parent = parent;
+                    }
                     if (r.Traits.Contains("Fake"))
                     {
                         if (i == 0)
@@ -104,6 +113,8 @@ namespace FF12Rando
                             RewardData rFake = new RewardData(row, i, fakeID, true);
                             fakeID--;
                             itemLocations.Add(rFake.ID, rFake);
+                            parent = rFake;
+                            r.Parent = parent;
                         }
                         r.FakeItems.Clear();
                     }
@@ -416,7 +427,7 @@ namespace FF12Rando
 
         public bool IsImportantKeyItem(string location)
         {
-            return (IsMainKeyItem(location) || IsSideKeyItem(location) || IsHuntKeyItem(location) || IsGrindyKeyItem(location) || IsBlackOrbKeyItem(location) || IsWoTItem(location) || IsHuntClubKeyItem(location)) && PlacementAlgo.Logic.GetLocationItem(location) != null && PlacementAlgo.Logic.GetLocationItem(location).Value.Item1 != "Gil";
+            return (IsMainKeyItem(location) || IsSideKeyItem(location) || IsHuntKeyItem(location) || IsGrindyKeyItem(location) || IsBlackOrbKeyItem(location) || IsWoTItem(location) || IsHuntClubKeyItem(location)) && (PlacementAlgo.Logic.GetLocationItem(location) != null || PlacementAlgo.Iterations > PlacementAlgo.Placement.Count * 1.5f + 1) && (PlacementAlgo.Logic.GetLocationItem(location) == null || PlacementAlgo.Logic.GetLocationItem(location).Value.Item1 != "Gil");
         }
 
         public bool IsAbility(string t, bool orig = true)
@@ -795,6 +806,8 @@ namespace FF12Rando
             [RowIndex(6)]
             public List<string> FakeItems { get; set; }
 
+            public RewardData Parent { get; set; }
+
             public RewardData(string[] row, int index, int fakeID, bool forceFake = false) : base(row)
             {
                 if (forceFake && !Traits.Contains("Fake"))
@@ -805,6 +818,7 @@ namespace FF12Rando
                     IntID = fakeID;
                 ID = (forceFake ? "_" : "") + row[2] + ":" + index;
                 Index = index;
+                Parent = this;
             }
 
             public override bool IsValid(Dictionary<string, int> items)

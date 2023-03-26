@@ -35,9 +35,9 @@ namespace FF12Rando
                 newPossible = locations.Where(t => !Placement.ContainsKey(t) && Logic.IsValid(t, rep, items, newAccessibleAreas)).Shuffle();
 
                 List<string> removed = possible.Where(s => !newPossible.Contains(s)).ToList();
-                removed.Where(s => ((FF12ItemPlacementLogic)Logic).FakeItemTracking.ContainsValue(s)).ForEach(s =>
+                removed.Where(s => ItemLocations[s] is TreasureRando.RewardData).ForEach(s =>
                 {
-                    ((TreasureRando.RewardData)ItemLocations[s]).FakeItems.ForEach(item =>
+                    ((TreasureRando.RewardData)ItemLocations[s]).Parent.FakeItems.ForEach(item =>
                     {
                         if (partyRando.CharacterMapping.Contains(item))
                         {

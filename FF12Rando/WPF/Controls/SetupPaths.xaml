@@ -15,7 +15,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="130px" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="200px" />
+            <ColumnDefinition Width="250px" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -31,8 +31,12 @@
             <Label x:Name="ToolsTextLabel" VerticalAlignment="Center" Content="{Binding ToolsText, Mode=OneWay}" Foreground="{Binding ToolsTextColor, Mode=OneWay}"/>
         </Border>
         <Border Grid.Column="2" Grid.Row="0">
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="toolsDownloadButton" Click="toolsDownloadButton_Click" Margin="0 0 5 0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Grid.Row="0" x:Name="toolsDownloadButton" Click="toolsDownloadButton_Click" Margin="0 0 5 0">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Download"/>
@@ -40,14 +44,14 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button x:Name="toolsInstallButton" Click="toolsInstallButton_Click">
+                <Button Grid.Column="1" Grid.Row="0" x:Name="toolsInstallButton" Click="toolsInstallButton_Click">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="TrayArrowDown"/>
                             <Label Margin="0 -6">Install</Label>
                         </StackPanel>
                     </Button.Content></Button>
-            </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

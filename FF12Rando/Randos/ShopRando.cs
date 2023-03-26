@@ -268,8 +268,11 @@ namespace FF12Rando
         public override void Save()
         {
             Randomizers.SetUIProgress("Saving Shop Data...", 0, -1);
-            File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_039.bin", shops.Data);
-            File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_057.bin", bazaars.Data);
+            if (FF12Flags.Items.Shops.FlagEnabled)
+            {
+                File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_039.bin", shops.Data);
+                File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_057.bin", bazaars.Data);
+            }
         }
         public class ShopData : CSVDataRow
         {

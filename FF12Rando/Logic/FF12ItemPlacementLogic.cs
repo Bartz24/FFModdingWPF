@@ -222,6 +222,7 @@ namespace FF12Rando
                 return false;
             if (!treasureRando.IsImportantKeyItem(rep) && treasureRando.IsImportantKeyItem(old) && !FF12Flags.Items.KeyPlaceTreasure.Enabled && specialTraits.Count == 0)
                 return false;
+
             return true;
         }
         public override void RemoveLikeItemsFromRemaining(string replacement, List<string> remaining)
@@ -246,15 +247,12 @@ namespace FF12Rando
             treasureRando.hints.ForEach(l => l.Clear());
         }
 
-        public Dictionary<int, string> FakeItemTracking { get; set; }
-
         public override Dictionary<string, int> GetItemsAvailable(Dictionary<string, string> placement)
         {
             Dictionary<string, int> dict = base.GetItemsAvailable(placement);
-            FakeItemTracking = new Dictionary<int, string>();
             placement.Keys.Where(l => ItemLocations[l] is TreasureRando.RewardData).Select(l => (TreasureRando.RewardData)ItemLocations[l]).ForEach(l =>
             {
-                if (!FakeItemTracking.ContainsKey(l.IntID))
+                if (l.FakeItems.Count > 0 && l.Parent == l)
                 {
                     l.FakeItems.ForEach(item =>
                     {
@@ -263,7 +261,6 @@ namespace FF12Rando
                         else
                             dict.Add(item, 1);
                     });
-                    FakeItemTracking.Add(l.IntID, l.ID);
                 }
             });
 

@@ -28,6 +28,8 @@ namespace Bartz24.RandoWPF
             }
         }
 
+        public int Iterations { get; set; } = 0;
+
         protected int maxFailCount;
 
         public ItemPlacementAlgorithm(Dictionary<string, T> itemLocations, List<string> hintsByLocations, int maxFail = -1)
@@ -42,6 +44,7 @@ namespace Bartz24.RandoWPF
             AreaMults = areaMults;
             Placement.Clear();
             Depths.Clear();
+            Iterations = 0;
             List<string> allowed = Logic.GetKeysAllowed();
             List<string> place = Logic.GetKeysToPlace();
 
@@ -71,6 +74,7 @@ namespace Bartz24.RandoWPF
             List<string> newKeys = place.Where(k => !Placement.ContainsValue(k)).Shuffle();
             foreach (string k in allowed.Where(k => !Placement.ContainsKey(k)).Shuffle())
             {
+                Iterations++;
                 if (newKeys.Count == 0)
                     break;
                 Placement.Add(k, newKeys[0]);
@@ -126,13 +130,14 @@ namespace Bartz24.RandoWPF
                 Placement.Clear();
                 Depths.Clear();
                 Logic.Clear();
+                Iterations = 0;
             }
             return false;
         }
 
         protected virtual void UpdateProgress(int i, int items, int maxItems)
         {
-            SetProgressFunc($"Backup Item Placement Method Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}") + $" ({items} out of {maxItems} items placed)", items, maxItems);
+            SetProgressFunc($"Backup Item Placement Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}") + $" ({items} out of {maxItems} items placed, {Iterations} placement attempts made)", items, maxItems);
         }
 
         private List<string> locked = null;
@@ -143,11 +148,12 @@ namespace Bartz24.RandoWPF
                 locked = null;
             if (locked == null)
                 locked = PrioritizeLockedItems(locations, remaining, important);
-            return remaining.OrderBy(t => locked.IndexOf(t)).ToList();
+            return RandomNum.ShuffleLocalized(remaining.OrderBy(t => locked.IndexOf(t)).ToList(), 8);
         }
 
         protected virtual bool TryImportantPlacement(int attempt, List<string> locations, List<string> important, List<string> accessibleAreas)
         {
+            Iterations++;
             Dictionary<string, int> items = Logic.GetItemsAvailable();
             List<string> remaining = important.Where(t => !Placement.ContainsValue(t)).Shuffle();
             UpdateProgress(attempt, Placement.Count, important.Count);

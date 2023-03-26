@@ -20,7 +20,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="130px" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="200px" />
+                <ColumnDefinition Width="250px" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />

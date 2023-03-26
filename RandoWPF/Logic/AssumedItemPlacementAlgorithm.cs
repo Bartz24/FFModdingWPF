@@ -20,6 +20,7 @@ namespace Bartz24.RandoWPF
             remainingLogic = PrioritizeLockedItems(locations, remainingLogic, important);
             foreach (string rep in remainingLogic)
             {
+                Iterations++;
                 UpdateProgress(attempt, Placement.Count, important.Count);
                 (string, int)? nextItem = Logic.GetLocationItem(rep);
                 RemoveItems(locations, items, nextItem, rep);
@@ -57,6 +58,7 @@ namespace Bartz24.RandoWPF
             List<string> remainingOther = remaining.Where(t => !Logic.RequiresDepthLogic(t)).Shuffle();
             foreach (string rep in remainingOther)
             {
+                Iterations++;
                 UpdateProgress(attempt, Placement.Count, important.Count);
                 (string, int)? nextItem = Logic.GetLocationItem(rep);
                 RemoveItems(locations, items, nextItem, rep);
@@ -97,7 +99,7 @@ namespace Bartz24.RandoWPF
 
         protected override void UpdateProgress(int i, int items, int maxItems)
         {
-            SetProgressFunc($"Item Placement Method Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}") + $" ({items} out of {maxItems} items placed)", items, maxItems);
+            SetProgressFunc($"Item Placement Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}") + $" ({items} out of {maxItems} items placed)", items, maxItems);
         }
     }
 }
