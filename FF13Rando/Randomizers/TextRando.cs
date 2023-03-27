@@ -2,6 +2,7 @@
 using Bartz24.FF13Series;
 using Bartz24.RandoWPF;
 using System;
+using System.Linq;
 
 namespace FF13Rando
 {
@@ -41,6 +42,20 @@ namespace FF13Rando
                 mainSysUS["$am_110_00h"] = "Return to the {Italic}Lindblum{Italic}";
                 mainSysUS["$chpt_save_ttl"] = "Return to the {Italic}Lindblum{Italic}?";
                 mainSysUS["$flar_ttl_000"] = "FF13 Randomizer";
+
+                mainSysUS["$restart_00"] = "Retry|Softlock|Cancel";
+                mainSysUS["$restart_01"] = "Retry|Softlock";
+                mainSysUS["$pause_03"] = "{Key Select}Softlock   {Key Start}Resume";
+                mainSysUS["$restart_03"] = "{Icon Attention} The Quit function does not work yet in the randomizer.{Text NewLine}{Text NewLine}This will softlock your game for reasons that make the randomizer work.{Text NewLine}To exit the game, press the 'Esc' key.";
+                mainSysUS["$ask_end_title"] = "The Quit function does not work yet in the randomizer.{Text NewLine}{Text NewLine}This will softlock your game for reasons that make the randomizer work.{Text NewLine}To exit the game, press the 'Esc' key.{End}{Escape}";
+                
+                string[] randomLocs = { "Somewhere", "Unknown", "Nautilus Park?", "The {Italic}Lindblum{Italic}?", "The {Italic}Palamecia{Italic}?", "", "FINAL FANTASY XIII", "Totally a Hallway", "Before 000 AF", "Hi :)", "Why are you looking here?", "DELETED TEXT" };
+                RandomNum.SetRand(new Random(RandomNum.GetIntSeed(SetupData.Seed) + randomLocs.Length));
+                string mainLoc = randomLocs.Take(6).Shuffle().First();
+                mainSysUS.Keys.Where(s => s.StartsWith("$m_res_mn_m")).ForEach(s => {
+                    mainSysUS[s] = RandomNum.RandInt(0, 999) < 995 ? mainLoc : (randomLocs.Shuffle().First()) + "{End}{Escape}";
+                });
+                RandomNum.ClearRand();
 
             }
         }
