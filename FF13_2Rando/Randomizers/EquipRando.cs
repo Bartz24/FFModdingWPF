@@ -59,10 +59,11 @@ namespace FF13_2Rando
                     (1, 300),
                     (1, 300)
                 };
-                float[] weights = new float[] { 1, 1 };
-                int[] zeros = new int[] { 0, 0 };
-                int[] negs = new int[] { 0, 0 };
-                statPoints = new StatPoints(bounds, weights, zeros, negs);
+                float[] weights = { 1, 1 };
+                int[] chances = { 1, 1 };
+                int[] zeros = { 0, 0 };
+                int[] negs = { 0, 0 };
+                statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
                 statPoints.Randomize(new int[] { weapon.i16AttackModVal, weapon.i16MagicModVal });
 
                 weapon.i16AttackModVal = statPoints[0];

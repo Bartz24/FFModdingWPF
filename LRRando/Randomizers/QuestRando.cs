@@ -84,10 +84,11 @@ namespace LRRando
                     (0, 1000),
                     (0, 1000)
                     };
-                    float[] weights = new float[] { 1, 10, 10 };
-                    int[] zeros = new int[] { 15, 15, 15 };
-                    int[] negs = new int[] { 0, 0, 0 };
-                    StatPoints statPoints = new StatPoints(bounds, weights, zeros, negs);
+                    float[] weights = { 1, 10, 10 };
+                    int[] chances = { 33, 33, 33 };
+                    int[] zeros = { 15, 15, 15 };
+                    int[] negs = { 0, 0, 0 };
+                    StatPoints statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
                     statPoints.Randomize(new int[] { q.iMaxHp, q.iAtkPhy, q.iAtkMag });
 
                     q.iMaxHp = statPoints[0];

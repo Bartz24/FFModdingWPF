@@ -3,7 +3,7 @@
 
     public class BossScaling
     {
-        public static int[] EXPTable = new int[]
+        public static int[] EXPTable =
         {
             2000,
             7000,
@@ -16,7 +16,7 @@
             540000,
             3000000
         };
-        public static int[] LPTable = new int[]
+        public static int[] LPTable =
         {
             20,
             50,

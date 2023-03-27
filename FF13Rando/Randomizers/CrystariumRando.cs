@@ -276,7 +276,7 @@ namespace FF13Rando
 
         private void UpdateNodeCPCost(string first, string chara, uint[] costs)
         {
-            string[] roles = new string[] { "sen", "com", "rav", "syn", "sab", "med" };
+            string[] roles = { "sen", "com", "rav", "syn", "sab", "med" };
             crystariums[chara].Values.ForEach(c =>
             {
                 if (c.iStage == 1)
@@ -299,7 +299,7 @@ namespace FF13Rando
         private void RandomizeStatValues()
         {
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
-            string[] shortChars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
+            string[] shortChars = { "lig", "fan", "hop", "saz", "sno", "van" };
             foreach (string c in shortChars)
             {
                 StatPoints statPoints;
@@ -308,10 +308,11 @@ namespace FF13Rando
                     (20, 300),
                     (20, 300)
                 };
-                float[] weights = new float[] { 1, 1, 1 };
-                int[] zeros = new int[] { 0, 0, 0 };
-                int[] negs = new int[] { 0, 0, 0 };
-                statPoints = new StatPoints(bounds, weights, zeros, negs, 0.5f);
+                float[] weights = { 1, 1, 1 };
+                int[] chances = { 1, 1, 1 };
+                int[] zeros = { 0, 0, 0 };
+                int[] negs = { 0, 0, 0 };
+                statPoints = new StatPoints(bounds, weights, chances, zeros, negs, 0.5f);
                 statPoints.Randomize(new int[] { 100, 100, 100 });
                 charMults.Add(chars[shortChars.ToList().IndexOf(c)], Enumerable.Range(0, 3).Select(i => statPoints[i] / 100f).ToArray());
             }
@@ -329,10 +330,11 @@ namespace FF13Rando
                     (20, 300),
                     (20, 300)
                 };
-                float[] weights = new float[] { 1, 1, 1 };
-                int[] zeros = new int[] { 0, 0, 0 };
-                int[] negs = new int[] { 0, 0, 0 };
-                statPoints = new StatPoints(bounds, weights, zeros, negs, 0.5f);
+                float[] weights = { 1, 1, 1 };
+                int[] chances = { 1, 1, 1 };
+                int[] zeros = { 0, 0, 0 };
+                int[] negs = { 0, 0, 0 };
+                statPoints = new StatPoints(bounds, weights, chances, zeros, negs, 0.5f);
                 statPoints.Randomize(new int[] { 100, 100, 100 });
                 roleMults.Add(role, Enumerable.Range(0, 3).Select(i => statPoints[i] / 100f).ToArray());
             }
@@ -355,7 +357,7 @@ namespace FF13Rando
         private void RandomizeInitialStats()
         {
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
-            string[] shortChars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
+            string[] shortChars = { "lig", "fan", "hop", "saz", "sno", "van" };
             int avgHP = (int)treasureRando.treasuresOrig.Values.Where(t => t.ID.StartsWith("z_ini_") && t.ID.EndsWith("_hp")).Select(t => (int)t.iItemCount).Average();
             int avgSTR = (int)treasureRando.treasuresOrig.Values.Where(t => t.ID.StartsWith("z_ini_") && t.ID.EndsWith("_str")).Select(t => (int)t.iItemCount).Average();
             int avgMAG = (int)treasureRando.treasuresOrig.Values.Where(t => t.ID.StartsWith("z_ini_") && t.ID.EndsWith("_mag")).Select(t => (int)t.iItemCount).Average();
@@ -588,7 +590,7 @@ namespace FF13Rando
             [RowIndex(6)]
             public List<string> Incompatible { get; set; }
 
-            private string[] chars = new string[] { "lightning", "fang", "hope", "sazh", "snow", "vanille" };
+            private string[] chars = { "lightning", "fang", "hope", "sazh", "snow", "vanille" };
             public AbilityData(string[] row) : base(row)
             {
                 Role = row[2] == "" ? Role.None : Enum.GetValues(typeof(Role)).Cast<Role>().First(r => r.ToString().Substring(0, 3).ToUpper() == row[2]);

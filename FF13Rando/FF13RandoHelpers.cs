@@ -48,14 +48,14 @@ namespace FF13Rando
 
         public static int GetRoleCount(FF13ItemLocation loc, Dictionary<string, int> items)
         {
-            string[] roles = new string[] { "com", "rav", "sen", "syn", "sab", "med" };
+            string[] roles = { "com", "rav", "sen", "syn", "sab", "med" };
             int have = loc.Characters.Sum(c => items.Keys.Where(i => i.StartsWith($"rol_{c}_") && items[i] > 0).Count());
             return have;
         }
 
         public static List<string> ParseReqCharas(string charaStr)
         {
-            string[] chars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
+            string[] chars = { "lig", "fan", "hop", "saz", "sno", "van" };
             if (string.IsNullOrEmpty(charaStr))
                 return chars.ToList();
             List<string> list = new List<string>();

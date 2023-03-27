@@ -181,8 +181,8 @@ namespace LRRando
             return parts.ToArray();
         }
 
-        private string[] Punctuation { get; set; } = new string[] { " ", ".", ",", "{Text NewLine}", "!", "{", "(", ")", "?", ":", "-", "+" };
-        private string[] IgnoredWords { get; set; } = new string[] { "of", "the", "at", "a", "in", "on", "its", "an", "i", "i'm" };
+        private string[] Punctuation { get; set; } = { " ", ".", ",", "{Text NewLine}", "!", "{", "(", ")", "?", ":", "-", "+" };
+        private string[] IgnoredWords { get; set; } = { "of", "the", "at", "a", "in", "on", "its", "an", "i", "i'm" };
 
         private string GetHash()
         {

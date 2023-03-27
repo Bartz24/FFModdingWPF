@@ -13,7 +13,8 @@ namespace FF13_2Rando
         public Dictionary<string, DataStoreDB3<DataStoreBtCharaSpec>> enemies = new Dictionary<string, DataStoreDB3<DataStoreBtCharaSpec>>();
         public Dictionary<string, DataStoreDB3<DataStoreBtCharaSpec>> enemiesOrig = new Dictionary<string, DataStoreDB3<DataStoreBtCharaSpec>>();
 
-        string[] x000 = new string[] {
+        string[] x000 =
+        {
             "bt_chsp_x000_2",
             "bt_chsp_x000_3",
             "bt_chsp_x000_5",

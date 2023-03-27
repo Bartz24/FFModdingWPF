@@ -5,15 +5,15 @@ namespace Bartz24.RandoWPF
 {
     public class StatPoints
     {
-        private StatValues Values { get; set; }
+        private StatValuesChanceSelect Values { get; set; }
         private (int, int)[] Bounds { get; set; }
         private float[] Weights { get; set; }
         private int[] ZeroChances { get; set; }
         private int[] NegChances { get; set; }
         private float Rate { get; set; }
-        public StatPoints((int, int)[] bounds, float[] weights, int[] zeroChances, int[] negChances, float rate = 0.2f)
+        public StatPoints((int, int)[] bounds, float[] weights, int[] chances, int[] zeroChances, int[] negChances, float rate = 0.2f)
         {
-            Values = new StatValues(bounds.Length);
+            Values = new StatValuesChanceSelect(chances);
             Bounds = bounds;
             Weights = weights;
             ZeroChances = zeroChances;

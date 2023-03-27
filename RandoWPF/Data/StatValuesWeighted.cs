@@ -2,17 +2,17 @@
 
 namespace Bartz24.RandoWPF
 {
-    public class StatValuesWeighted : StatValues
+    public class StatValuesChanceSelect : StatValues
     {
-        private int[] weights;
-        public StatValuesWeighted(int[] weights) : base(weights.Length)
+        private int[] chances;
+        public StatValuesChanceSelect(int[] chances) : base(chances.Length)
         {
-            this.weights = weights;
+            this.chances = chances;
         }
 
         protected override int SelectNext()
         {
-            return RandomNum.SelectRandomWeighted(Enumerable.Range(0, weights.Length).ToList(), i => weights[i]);
+            return RandomNum.SelectRandomWeighted(Enumerable.Range(0, chances.Length).ToList(), i => chances[i]);
         }
     }
 }

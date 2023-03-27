@@ -44,7 +44,7 @@ namespace LRRando
                 treasureRando.treasures["ran_bhuni_p"].s11ItemResourceId_string = "true";
 
 
-            string[] types = new string[] { "drop0", "drop1", "dropCnd0", "dropCnd1", "dropCnd2" };
+            string[] types = { "drop0", "drop1", "dropCnd0", "dropCnd1", "dropCnd2" };
             List<string> matDrops = new List<string>();
             RemoveMatDrop(equipRando, matDrops);
             List<string> abiDrops = new List<string>();

@@ -15,10 +15,10 @@ namespace FF12Rando
         Dictionary<string, DataStoreLicenseBoard> rightSplitBoards = new Dictionary<string, DataStoreLicenseBoard>();
         int[] startingBoards = new int[6];
 
-        string[] LeftBoardNames = new string[] { "Astrologer", "Dark Bishop", "Elementalist", "Enchanter", "Gambler", "Innkeeper", "Loremaster", "Nightshade", "Red Mage", "Shaman", "Sorceror Supreme", "White Mage" };
-        string[] RightBoardNames = new string[] { "Black Belt", "Brawler", "Demolitionist", "Gladiator", "Hunter", "Ninja", "Ravager", "Rogue", "Samurai", "Valkyrie", "Viking", "Weaponmaster" };
-        string[] LeftBoardShort = new string[] { "AST", "DBP", "ELE", "ENC", "GMB", "INN", "LOR", "NSH", "RDM", "SMN", "SRC", "WHM" };
-        string[] RightBoardShort = new string[] { "BLT", "BWR", "DEM", "GLD", "HNT", "NIN", "RAV", "ROG", "SAM", "VAL", "VKG", "WPN" };
+        string[] LeftBoardNames = { "Astrologer", "Dark Bishop", "Elementalist", "Enchanter", "Gambler", "Innkeeper", "Loremaster", "Nightshade", "Red Mage", "Shaman", "Sorceror Supreme", "White Mage" };
+        string[] RightBoardNames = { "Black Belt", "Brawler", "Demolitionist", "Gladiator", "Hunter", "Ninja", "Ravager", "Rogue", "Samurai", "Valkyrie", "Viking", "Weaponmaster" };
+        string[] LeftBoardShort = { "AST", "DBP", "ELE", "ENC", "GMB", "INN", "LOR", "NSH", "RDM", "SMN", "SRC", "WHM" };
+        string[] RightBoardShort = { "BLT", "BWR", "DEM", "GLD", "HNT", "NIN", "RAV", "ROG", "SAM", "VAL", "VKG", "WPN" };
 
         public LicenseBoardRando(RandomizerManager randomizers) : base(randomizers) { }
 

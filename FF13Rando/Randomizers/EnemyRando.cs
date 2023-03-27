@@ -28,7 +28,7 @@ namespace FF13Rando
 
             if (FF13Flags.Stats.RunSpeedMult.FlagEnabled)
             {
-                string[] chars = new string[] { "fam_pc_light", "fam_pc_fang", "fam_pc_hope", "fam_pc_sazz", "fam_pc_snow", "fam_pc_vanira" };
+                string[] chars = { "fam_pc_light", "fam_pc_fang", "fam_pc_hope", "fam_pc_sazz", "fam_pc_snow", "fam_pc_vanira" };
                 chars.ForEach(c => charaFamily[c].u8RunSpeed = (byte)(0x60 * FF13Flags.Stats.RunSpeedMultValue.Value / 100));
             }
         }

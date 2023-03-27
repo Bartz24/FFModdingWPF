@@ -57,11 +57,11 @@ namespace FF13Rando
 
             hintData.Clear();
 
-            string[] chars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
-            string[] roles = new string[] { "com", "rav", "sen", "syn", "sab", "med" };
-            int[] hp = new int[] { 200, 390, 170, 220, 350, 350 };
-            int[] str = new int[] { 15, 28, 8, 12, 17, 23 };
-            int[] mag = new int[] { 15, 22, 20, 12, 7, 35 };
+            string[] chars = { "lig", "fan", "hop", "saz", "sno", "van" };
+            string[] roles = { "com", "rav", "sen", "syn", "sab", "med" };
+            int[] hp = { 200, 390, 170, 220, 350, 350 };
+            int[] str = { 15, 28, 8, 12, 17, 23 };
+            int[] mag = { 15, 22, 20, 12, 7, 35 };
 
             foreach (string c in chars)
             {
@@ -185,8 +185,8 @@ namespace FF13Rando
             if (FF13Flags.Items.ShuffleRoles.FlagEnabled)
             {
                 FF13Flags.Items.ShuffleRoles.SetRand();
-                string[] chars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
-                string[] roles = new string[] { "com", "rav", "sen", "syn", "sab", "med" };
+                string[] chars = { "lig", "fan", "hop", "saz", "sno", "van" };
+                string[] roles = { "com", "rav", "sen", "syn", "sab", "med" };
 
                 foreach (string c in chars)
                 {

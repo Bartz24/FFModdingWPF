@@ -212,10 +212,11 @@ namespace LRRando
                     (-75, 100),
                     (0, 100)
                 };
-                float[] weights = new float[] { 3, 1 };
-                int[] zeros = new int[] { 50, 5 };
-                int[] negs = new int[] { 50, 0 };
-                StatPoints statPoints = new StatPoints(bounds, weights, zeros, negs);
+                float[] weights = { 2, 1 };
+                int[] chances = { 20, 80 };
+                int[] zeros = { 50, 5 };
+                int[] negs = { 50, 0 };
+                StatPoints statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
                 statPoints.Randomize(new int[] { garb.i16AtbModVal, garb.i16AtbStartModVal });
 
                 garb.i16AtbModVal = statPoints[0];
@@ -241,14 +242,15 @@ namespace LRRando
                     (int, int)[] bounds = {
                         (-2000, 5000),
                         (-2000, 5000),
-                        (-5000, 20000),
+                        (-5000, 50000),
                         (-25, 50),
                         (-90, 75)
                     };
-                    float[] weights = new float[] { 2, 2, 3, 6, 4 };
-                    int[] zeros = new int[] { 10, 10, 85, 60, 80 };
-                    int[] negs = new int[] { 15, 15, 40, 10, 5 };
-                    statPoints = new StatPoints(bounds, weights, zeros, negs);
+                    float[] weights = { 1, 1, 1/200f, 10, 20 };
+                    int[] chances = { 40, 40, 5, 5, 10 };
+                    int[] zeros = { 10, 10, 85, 60, 80 };
+                    int[] negs = { 15, 15, 40, 10, 5 };
+                    statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
                     statPoints.Randomize(new int[] { weapon.i16AttackModVal, weapon.i16MagicModVal, weapon.i16HpModVal, weapon.i16AtbSpeedModVal, weapon.iBreakBonus });
                 }
                 while (starting && statPoints[0] < 50 && statPoints[1] < 50);
@@ -277,14 +279,15 @@ namespace LRRando
                     (int, int)[] bounds = {
                         (-2000, 5000),
                         (-2000, 5000),
-                        (-5000, 20000),
+                        (-5000, 50000),
                         (-25, 50),
-                        (0, 800)
+                        (0, 1000)
                     };
-                    float[] weights = new float[] { 6, 6, 2, 4, 4 };
-                    int[] zeros = new int[] { 90, 90, 40, 30, 20 };
-                    int[] negs = new int[] { 30, 30, 15, 5, 0 };
-                    statPoints = new StatPoints(bounds, weights, zeros, negs);
+                    float[] weights = { 1, 1, 1/200f, 10, 10 };
+                    int[] chances = { 5, 5, 30, 30, 30 };
+                    int[] zeros = { 90, 90, 40, 30, 20 };
+                    int[] negs = { 30, 30, 15, 5, 0 };
+                    statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
                     statPoints.Randomize(new int[] { shield.i16AttackModVal, shield.i16MagicModVal, shield.i16HpModVal, shield.i16AtbSpeedModVal, shield.iGuardModVal });
                 }
                 while (starting && (statPoints[0] < 0 || statPoints[1] < 0));
@@ -312,7 +315,7 @@ namespace LRRando
                 int[] bounds = {
                     9999,
                     9999,
-                    50000,
+                    75000,
                     100,
                     1500 };
 
@@ -443,7 +446,7 @@ namespace LRRando
                 int[] bounds = {
                     9999,
                     9999,
-                    50000,
+                    75000,
                     100,
                     150 };
 

@@ -433,7 +433,7 @@ namespace LRRando
             page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Difficulty" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), itemLocations.Values.Select(t =>
             {
                 string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1;
-                string name = GetItemName(itemID) + $" ({itemID})";
+                string name = GetItemName(itemID);
                 string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
                 if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
                     reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);

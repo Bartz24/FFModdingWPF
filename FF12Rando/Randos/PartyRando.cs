@@ -14,7 +14,7 @@ namespace FF12Rando
         public DataStoreBPSection<DataStorePartyMember> partyOrig = new DataStoreBPSection<DataStorePartyMember>();
 
         public int[] Characters = new int[6];
-        public string[] CharacterMapping = new string[] { "Vaan", "Ashe", "Fran", "Balthier", "Basch", "Penelo" };
+        public string[] CharacterMapping = { "Vaan", "Ashe", "Fran", "Balthier", "Basch", "Penelo" };
 
         public PartyRando(RandomizerManager randomizers) : base(randomizers) { }
 

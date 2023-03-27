@@ -81,9 +81,10 @@ namespace FF12Rando
                     (0, 99),
                     (0, 99)
                 };
-                float[] weights = new float[] { weapon.Category == EquipCategory.Gun || weapon.Category == EquipCategory.Measure ? 4 : 1, 2, 2, 6, 4, 4, 8, 12 };
-                int[] zeros = new int[] { 0, 70, 97, 97, 90, 90, 90, 90 };
-                int[] negs = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+                float[] weights = { weapon.Category == EquipCategory.Gun || weapon.Category == EquipCategory.Measure ? 4 : 1, 2, 1 / 10f, 1, 1, 1, 1, 2 };
+                int[] chances = { 70, 8, 3, 3, 4, 4, 3, 1 };
+                int[] zeros = { 0, 70, 97, 97, 90, 90, 90, 90 };
+                int[] negs = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
                 if (FF12Flags.Stats.EquipHiddenStats.Enabled)
                 {
@@ -92,23 +93,25 @@ namespace FF12Rando
                         (0, 100),
                         (RandomNum.RandInt(RandomNum.RandInt(-100, -40), -20), 0)
                     };
-                    float[] hiddenWeights = new float[] { 2, 5, 1 };
-                    int[] hiddenZeros = new int[] { 10, 5, 0 };
-                    int[] hiddenNegs = new int[] { 0, 0, 100 };
+                    float[] hiddenWeights = { 2, 2, 4 };
+                    int[] hiddenChances = { 30, 30, 200 };
+                    int[] hiddenZeros = { 10, 5, 0 };
+                    int[] hiddenNegs = { 0, 0, 100 };
 
                     bounds = bounds.Concat(hiddenBounds);
+                    chances = chances.Concat(hiddenChances);
                     weights = weights.Concat(hiddenWeights);
                     zeros = zeros.Concat(hiddenZeros);
                     negs = negs.Concat(hiddenNegs);
                 }
 
-                statPoints = new StatPoints(bounds, weights, zeros, negs);
+                statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
 
-                int[] stats = new int[] { weapon.AttackPower, weapon.Evade, attribute.HP, attribute.MP, attribute.Strength, attribute.MagickPower, attribute.Vitality, attribute.Speed };
+                int[] stats = { weapon.AttackPower, weapon.Evade, attribute.HP, attribute.MP, attribute.Strength, attribute.MagickPower, attribute.Vitality, attribute.Speed };
 
                 if (FF12Flags.Stats.EquipHiddenStats.Enabled)
                 {
-                    int[] newStats = new int[] { weapon.KnockbackChance, weapon.ComboChance, -weapon.ChargeTime };
+                    int[] newStats = { weapon.KnockbackChance, weapon.ComboChance, -weapon.ChargeTime };
                     stats = stats.Concat(newStats);
                 }
 
@@ -144,10 +147,11 @@ namespace FF12Rando
                     (0, 9),
                     (0, 9)
                 };
-                float[] weights = new float[] { 1, 4, 3, 8, 6, 6, 10, 15 };
-                int[] zeros = new int[] { 0, 95, 99, 99, 95, 95, 95, 95 };
-                int[] negs = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-                statPoints = new StatPoints(bounds, weights, zeros, negs);
+                float[] weights = { 1, 2, 1 / 10f, 1, 1, 1, 1, 2 };
+                int[] chances = { 90, 1, 2, 2, 3, 3, 2, 1 };
+                int[] zeros = { 0, 95, 99, 99, 95, 95, 95, 95 };
+                int[] negs = { 0, 0, 0, 0, 0, 0, 0, 0 };
+                statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
                 statPoints.Randomize(new int[] { ammo.AttackPower, ammo.Evade, attribute.HP, attribute.MP, attribute.Strength, attribute.MagickPower, attribute.Vitality, attribute.Speed });
 
                 ammo.AttackPower = (byte)statPoints[0];
@@ -173,10 +177,11 @@ namespace FF12Rando
                     (0, 99),
                     (0, 99)
                 };
-                float[] weights = new float[] { 4, 4, 1, 3, 8, 8, 6, 10 };
-                int[] zeros = new int[] { 50, 50, 90, 95, 97, 97, 90, 90 };
-                int[] negs = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-                statPoints = new StatPoints(bounds, weights, zeros, negs);
+                float[] weights = { 2, 2, 1/10f, 1, 1, 1, 1, 2 };
+                int[] chances = { 30, 30, 10, 10, 3, 3, 5, 5 };
+                int[] zeros = { 50, 50, 90, 95, 97, 97, 90, 90 };
+                int[] negs = { 0, 0, 0, 0, 0, 0, 0, 0 };
+                statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
                 statPoints.Randomize(new int[] { shield.Evade, shield.MagickEvade, attribute.HP, attribute.MP, attribute.Strength, attribute.MagickPower, attribute.Vitality, attribute.Speed });
 
                 shield.Evade = (byte)statPoints[0];
@@ -202,10 +207,11 @@ namespace FF12Rando
                     (0, 99),
                     (0, 99)
                 };
-                float[] weights = new float[] { 8, 8, 1, 3, 15, 15, 15, 15 };
-                int[] zeros = new int[] { 50, 50, 70, 70, 70, 70, 70, 97 };
-                int[] negs = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-                statPoints = new StatPoints(bounds, weights, zeros, negs);
+                float[] weights = { 1, 1, 1 / 10f, 1, 1, 1, 1, 2 };
+                int[] chances = { 30, 30, 10, 10, 10, 10, 10, 10 };
+                int[] zeros = { 50, 50, 70, 70, 70, 70, 70, 97 };
+                int[] negs = { 0, 0, 0, 0, 0, 0, 0, 0 };
+                statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
                 statPoints.Randomize(new int[] { armor.Defense, armor.MagickResist, attribute.HP, attribute.MP, attribute.Strength, attribute.MagickPower, attribute.Vitality, attribute.Speed });
 
                 armor.Defense = (byte)statPoints[0];
@@ -231,10 +237,11 @@ namespace FF12Rando
                     (0, 99),
                     (0, 99)
                 };
-                float[] weights = new float[] { 8, 8, 1, 3, 12, 12, 12, 15 };
-                int[] zeros = new int[] { 95, 95, 90, 90, 95, 95, 95, 90 };
-                int[] negs = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-                statPoints = new StatPoints(bounds, weights, zeros, negs);
+                float[] weights = { 1, 1, 1 / 10f, 1, 1, 1, 1, 2 };
+                int[] chances = { 5, 5, 20, 20, 20, 20, 20, 20 };
+                int[] zeros = { 95, 95, 90, 90, 95, 95, 95, 90 };
+                int[] negs = { 0, 0, 0, 0, 0, 0, 0, 0 };
+                statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
                 statPoints.Randomize(new int[] { armor.Defense, armor.MagickResist, attribute.HP, attribute.MP, attribute.Strength, attribute.MagickPower, attribute.Vitality, attribute.Speed });
 
                 armor.Defense = (byte)statPoints[0];
@@ -279,10 +286,11 @@ namespace FF12Rando
                     (-1, 3),
                     (-1, 3)
                 };
-                float[] weights = new float[] { 1, 1, 1, 1, 1, 1, 1, 1 };
-                int[] zeros = new int[] { 90, 90, 90, 90, 90, 90, 90, 90 };
-                int[] negs = new int[] { 10, 10, 10, 10, 10, 10, 10, 10 };
-                statPoints = new StatPoints(bounds, weights, zeros, negs);
+                float[] weights = { 1, 1, 1, 1, 1, 1, 1, 1 };
+                int[] chances = { 1, 1, 1, 1, 1, 1, 1, 1 };
+                int[] zeros = { 90, 90, 90, 90, 90, 90, 90, 90 };
+                int[] negs = { 10, 10, 10, 10, 10, 10, 10, 10 };
+                statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
 
                 List<Element> elements = Enum.GetValues(typeof(Element)).Cast<Element>().ToList();
 

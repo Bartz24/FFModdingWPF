@@ -19,8 +19,8 @@ namespace FF13Rando
             Randomizers.SetUIProgress("Loading Equip/Item Data...", -1, 100);
             items.LoadWDB("13", @"\db\resident\item.wdb");
 
-            string[] chars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
-            string[] roles = new string[] { "com", "rav", "sen", "syn", "sab", "med" };
+            string[] chars = { "lig", "fan", "hop", "saz", "sno", "van" };
+            string[] roles = { "com", "rav", "sen", "syn", "sab", "med" };
 
             foreach (string c in chars)
             {
@@ -52,10 +52,10 @@ namespace FF13Rando
             Randomizers.SetUIProgress("Randomizing Equip/Item Data...", -1, 100);
             TextRando textRando = Randomizers.Get<TextRando>();
             TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
-            string[] chars = new string[] { "lig", "fan", "hop", "saz", "sno", "van" };
-            string[] charNames = new string[] { "Lightning", "Fang", "Hope", "Sazh", "Snow", "Vanille" };
-            string[] roles = new string[] { "com", "rav", "sen", "syn", "sab", "med" };
-            string[] roleNames = new string[] { "Commando", "Ravager", "Sentinel", "Synergist", "Saboteur", "Medic" };
+            string[] chars = { "lig", "fan", "hop", "saz", "sno", "van" };
+            string[] charNames = { "Lightning", "Fang", "Hope", "Sazh", "Snow", "Vanille" };
+            string[] roles = { "com", "rav", "sen", "syn", "sab", "med" };
+            string[] roleNames = { "Commando", "Ravager", "Sentinel", "Synergist", "Saboteur", "Medic" };
 
             List<string> newNames = textRando.mainSysUS.Keys.Where(s => textRando.mainSysUS[s] == "Attack" && s.StartsWith("$m")).ToList();
 
