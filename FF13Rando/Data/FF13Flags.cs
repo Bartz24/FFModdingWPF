@@ -12,6 +12,7 @@ namespace FF13Rando
         {
             All = -1,
             Stats,
+            Equipment,
             Items,
             Enemies,
             Other
@@ -122,6 +123,49 @@ namespace FF13Rando
                 }.Register(RunSpeedMult);
             }
         }
+
+        public class Equip
+        {
+            public static Flag RandEquipPassives, RandEquipStats, RandEquipSynthGroup;
+            public static ComboBoxFlagProperty EquipSamePassiveCategory;
+
+            internal static void Init()
+            {
+                RandEquipStats = new Flag()
+                {
+                    Text = "Randomize Weapon Stats",
+                    FlagID = "RandEqStat",
+                    DescriptionFormat = "Randomizes weapon strength and magic."
+                }.Register(FlagType.Equipment);
+
+                RandEquipPassives = new Flag()
+                {
+                    Text = "Randomize Equipment Passives",
+                    FlagID = "RandEqPassive",
+                    DescriptionFormat = "Randomizes the passive abilities on weapons and accessories. The strength of numerical passives are based on the equipment's rank."
+                }.Register(FlagType.Equipment);
+
+                EquipSamePassiveCategory = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                {
+                    Text = "Upgraded Equipment Behavior",
+                    ID = "EqPassiveUpg",
+                    Description = "Determines what happens to passives when upgrading weapons and accessories.\n\n" +
+                    "Same Category Always - Each upgrade will be the upgraded version of the same category. Caps at the highest tier of passive.\n" +
+                    "Switch Category At Cap (Acc. Only) - Each upgrade for accessories will be the upgraded version of the same category until reaching the highest tier of the passive. The next upgrade after will change to a random category. Weapons will follow the logic for 'Same Category Always'. This is the most vanilla-like option.\n" +
+                    "Switch Category At Cap (All) - Each upgrade will be the upgraded version of the same category until reaching the highest tier of the passive. The next upgrade after will change to a random category.\n" +
+                    "Random Always - Each upgrade is completely random and can change category.",
+                    Values = new string[] { "Same Category Always", "Switch Category At Cap (Acc. Only)", "Switch Category At Cap (All)", "Random Always" }.ToList()
+                }.Register(RandEquipPassives);
+
+                RandEquipSynthGroup = new Flag()
+                {
+                    Text = "Randomize Equipment Synthesis Groups",
+                    FlagID = "RandEqSynth",
+                    DescriptionFormat = "Randomizes equipment synthesis groups. Does not modify the effects of synthesis groups themselves."
+                }.Register(FlagType.Equipment);
+            }
+        }
+
         public class Items
         {
             public static Flag Treasures, ShuffleRoles, ShuffleShops, StartingEquip, ShopContents;
@@ -339,6 +383,7 @@ namespace FF13Rando
         {
             Flags.FlagsList.Clear();
             Stats.Init();
+            Equip.Init();
             Items.Init();
             Other.Init();
             Flags.CategoryMap = ((FlagType[])Enum.GetValues(typeof(FlagType))).ToDictionary(f => (int)f, f => string.Join("/", Regex.Split(f.ToString(), @"(?<!^)(?=[A-Z])")));

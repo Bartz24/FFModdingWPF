@@ -12,7 +12,7 @@ namespace Bartz24.Data
         {
             if (bitIndex == 0 && bitLength == 8)
                 return data.ReadByte(byteIndex);
-            else if (bitIndex + bitLength < 8)
+            else if (bitIndex + bitLength <= 8)
             {
                 byte byteOut = data[byteIndex];
                 byteOut <<= bitIndex;
@@ -42,7 +42,7 @@ namespace Bartz24.Data
         {
             if (bitIndex == 0 && bitLength == 8)
                 data.SetByte(byteIndex, value);
-            else if (bitIndex + bitLength < 8)
+            else if (bitIndex + bitLength <= 8)
             {
                 byte newData = (byte)(value << 8 - bitLength);
                 newData >>= bitIndex;

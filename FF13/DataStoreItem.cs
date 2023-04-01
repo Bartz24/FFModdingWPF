@@ -27,6 +27,22 @@ namespace Bartz24.FF13
             get { return Data.ReadUInt(0xC); }
             set { Data.SetUInt(0xC, value); }
         }
+        public uint u16SellPrice
+        {
+            get { return Data.ReadUInt(0x10); }
+            set { Data.SetUInt(0x10, value); }
+        }
+        public byte SynthesisGroup
+        {
+            get { return Data.ReadByte(0x18); }
+            set { Data.SetByte(0x18, value); }
+        }
+
+        public byte Rank
+        {
+            get { return Data.ReadByte(0x19, 0, 4); }
+            set { Data.SetByte(0x19, value, 0, 4); }
+        }
 
         public override int GetDefaultLength()
         {

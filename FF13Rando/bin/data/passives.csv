@@ -1,0 +1,119 @@
+﻿Name,ID,Strength Mult,Magic Mult,Display Name ID,Help ID,Stat Initial,Stat Type 1,Stat Type 2,Max Value,b: b^(rank-1),p: p*(rank-1),Upgrade
+None,,1,1,,,0,0,0,0,1,0,
+Uncapped HP/Damage,slimit,0.6,0.6,,$limith,0,0,0,0,1,0,
+Attack ATB Charge,awp_c000_000,0.4,0.4,,$awp_c000_000h,0,0,0,0,1,0,Attack ATB Charge II
+Attack ATB Charge II,awp_c000_050,0.4,0.4,,$awp_c000_050h,0,0,0,0,1,0,
+Improved Raise,awp_c000_100,0.55,0.95,,$awp_c000_100h,0,0,0,0,1,0,Improved Raise II
+Improved Raise II,awp_c000_150,0.55,0.95,,$awp_c000_150h,0,0,0,0,1,0,
+Leadenstrike,awp_all_100,1.3,1.3,,$awp_all_100h,0,0,0,0,1,0,Ironstrike
+Ironstrike,awp_all_150,1.3,1.3,,$awp_all_150h,0,0,0,0,1,0,
+Stagger Lock,awp_all_000,0.9,0.9,,$awp_all_000h,0,0,0,0,1,0,
+Quick Stagger,awp_c000_200,0.6,0.6,,$awp_c000_200h,0,0,0,0,1,0,
+Augment Maintenance,awp_c002_000,0.8,0.8,,$awp_c002_000h,0,0,0,0,1,0,Augment Maintenance II
+Augment Maintenance II,awp_c002_050,0.8,0.8,,$awp_c002_050h,0,0,0,0,1,0,
+Paper Tiger,,2.4,2.4,$awp_all_400,$awp_all_400h,-60,3,1,-60,1,0,Silk Tiger
+Silk Tiger,,2.4,2.4,$awp_all_450,$awp_all_450h,-40,3,1,-40,1,0,
+Chain Bonus Boost,awp_c002_100,0.6,0.6,,$awp_c002_100h,0,0,0,0,1,0,Chain Bonus Boost II
+Chain Bonus Boost II,awp_c002_150,0.6,0.6,,$awp_c002_150h,0,0,0,0,1,0,
+Stagger Maintenance,awp_c002_200,0.4,0.4,,$awp_c002_200h,0,0,0,0,1,0,Stagger Maintenance II
+Stagger Maintenance II,awp_c002_250,0.4,0.4,,$awp_c002_250h,0,0,0,0,1,0,
+Improved Guard,awp_c001_000,0.85,0.65,,$awp_c001_000h,0,0,0,0,1,0,Improved Guard II
+Improved Guard II,awp_c001_050,0.85,0.65,,$awp_c001_050h,0,0,0,0,1,0,
+Critical Power Surge,awp_c001_100,0.6,0.6,,$awp_c001_100h,0,0,0,0,1,0,Critical Power Surge II
+Critical Power Surge II,awp_c001_150,0.6,0.6,,$awp_c001_150h,0,0,0,0,1,0,
+Enfeeblement,awp_all_200,0,1.5,,$awp_all_200h,0,0,0,0,1,0,Hindrance
+Hindrance,awp_all_250,0,1.5,,$awp_all_250h,0,0,0,0,1,0,
+Improved Ward,awp_c001_200,1.1,0.7,,$awp_c001_200h,0,0,0,0,1,0,Improved Ward II
+Improved Ward II,awp_c001_250,1.1,0.7,,$awp_c001_250h,0,0,0,0,1,0,
+Critical Shield,awp_c003_000,0.8,0.7,,$awp_c003_000h,0,0,0,0,1,0,Critical Shield II
+Critical Shield II,awp_c003_050,0.8,0.7,,$awp_c003_050h,0,0,0,0,1,0,
+Siphon Boost,awp_c003_100,0.75,0.75,,$awp_c003_100h,0,0,0,0,1,0,Siphon Boost II
+Siphon Boost II,awp_c003_150,0.75,0.75,,$awp_c003_150h,0,0,0,0,1,0,
+Defense Maintenance,awp_c003_200,0.8,0.8,,$awp_c003_200h,0,0,0,0,1,0,Defense Maintenance II
+Defense Maintenance II,awp_c003_250,0.8,0.8,,$awp_c003_250h,0,0,0,0,1,0,
+Stifled Magic,awp_all_300,1.5,0,,$awp_all_300h,0,0,0,0,1,0,Fettered Magic
+Fettered Magic,awp_all_350,1.5,0,,$awp_all_350h,0,0,0,0,1,0,
+Improved Cure,awp_c004_000,0.2,0.6,,$awp_c004_000h,0,0,0,0,1,0,Improved Cure II
+Improved Cure II,awp_c004_050,0.2,0.6,,$awp_c004_050h,0,0,0,0,1,0,
+Ally KO Power Surge,awp_c004_100,0.6,0.6,,$awp_c004_100h,0,0,0,0,1,0,Ally KO Power Surge II
+Ally KO Power Surge II,awp_c004_150,0.6,0.6,,$awp_c004_150h,0,0,0,0,1,0,
+Improved Debuffing,awp_c004_200,0.65,0.85,,$awp_c004_200h,0,0,0,0,1,0,Improved Debuffing II
+Improved Debuffing II,awp_c004_250,0.65,0.85,,$awp_c004_250h,0,0,0,0,1,0,
+Stagger TP Charge,awp_c005_000,0.9,0.9,,$awp_c005_000h,0,0,0,0,1,0,Stagger TP Charge II
+Stagger TP Charge II,awp_c005_050,0.9,0.9,,$awp_c005_050h,0,0,0,0,1,0,
+Improved Debilitation,awp_c005_100,0.65,0.85,,$awp_c005_100h,0,0,0,0,1,0,Improved Debilitation II
+Improved Debilitation II,awp_c005_150,0.65,0.85,,$awp_c005_150h,0,0,0,0,1,0,
+Improved Counter,awp_c005_200,1.1,0.3,,$awp_c005_200h,0,0,0,0,1,0,Improved Counter II
+Improved Counter II,awp_c005_250,1.1,0.3,,$awp_c005_250h,0,0,0,0,1,0,
+HP +X,,0.6,0.6,$auto_hp_01,$auto_hp_01h,50,2,1,99999,1.5,20,
+Strength +X,,1.1,0.3,$auto_att_00,$auto_att_00h,5,2,5,9999,1.2,20,
+Magic +X,,0.3,1.1,$auto_matt_00,$auto_matt_00h,5,2,6,9999,1.2,20,
+Resist Physical +X%,,0.7,0.5,$auto_def_00,$auto_def_00h,6,3,16,95,1.05,2,
+Resist Magic +X%,,0.5,0.7,$auto_mdef_00,$auto_mdef_00h,6,3,17,95,1.05,2,
+Resist Damage +X%,,0.5,0.5,$auto_def_s0,$auto_def_s0h,1,3,4368,95,1,1,
+Resist Fire +X%,,0.6,0.6,$auto_fdef_00,$auto_fdef_00h,8,3,18,95,1.1,5,
+Resist Ice +X%,,0.6,0.6,$auto_idef_00,$auto_idef_00h,8,3,19,95,1.1,5,
+Resist Lightning +X%,,0.6,0.6,$auto_ldef_00,$auto_ldef_00h,8,3,20,95,1.1,5,
+Resist Water +X%,,0.6,0.6,$auto_wdef_00,$auto_wdef_00h,8,3,21,95,1.1,5,
+Resist Wind +X%,,0.6,0.6,$auto_adef_00,$auto_adef_00h,8,3,22,95,1.1,5,
+Resist Earth +X%,,0.6,0.6,$auto_edef_00,$auto_edef_00h,8,3,23,95,1.1,5,
+Resist Debrave +X%,,0.8,0.6,$auto_sdef_00,$auto_sdef_00h,15,3,37,95,1.1,5,
+Resist Defaith +X%,,0.6,0.8,$auto_sdef_01,$auto_sdef_01h,15,3,38,95,1.1,5,
+Resist Deprotect +X%,,0.8,0.6,$auto_sdef_02,$auto_sdef_02h,15,3,32,95,1.1,5,
+Resist Deshell +X%,,0.6,0.8,$auto_sdef_03,$auto_sdef_03h,15,3,33,95,1.1,5,
+Resist Slow +X%,,0.7,0.7,$auto_sdef_04,$auto_sdef_04h,15,3,25,95,1.1,5,
+Resist Poison +X%,,0.7,0.7,$auto_sdef_05,$auto_sdef_05h,15,3,30,95,1.1,5,
+Resist Imperil +X%,,0.7,0.7,$auto_sdef_06,$auto_sdef_06h,15,3,26,95,1.1,5,
+Resist Curse +X%,,0.7,0.7,$auto_sdef_07,$auto_sdef_07h,15,3,28,95,1.1,5,
+Resist Pain +X%,,0.7,0.7,$auto_sdef_08,$auto_sdef_08h,15,3,27,95,1.1,5,
+Resist Fog +X%,,0.7,0.7,$auto_sdef_09,$auto_sdef_09h,15,3,24,95,1.1,5,
+Resist Daze +X%,,0.7,0.7,$auto_sdef_10,$auto_sdef_10h,15,3,29,95,1.1,5,
+Resist Death +X%,,0.7,0.7,$auto_sdef_11,$auto_sdef_11h,15,3,52,95,1.1,5,
+Critical Protect,auto_p_prot,0.8,0.6,,$auto_p_proth,0,0,0,0,1,0,Auto Protect
+Auto Protect,auto_prot,0.8,0.6,,$auto_proth,0,0,0,0,1,0,
+Critical Shell,auto_p_shel,0.6,0.8,,$auto_p_shelh,0,0,0,0,1,0,Auto Shell
+Auto Shell,auto_shel,0.6,0.8,,$auto_shelh,0,0,0,0,1,0,
+Critical Veil,auto_p_veil,0.7,0.7,,$auto_p_veilh,0,0,0,0,1,0,Auto Veil
+Auto Veil,auto_veil,0.7,0.7,,$auto_veilh,0,0,0,0,1,0,
+Critical Bravery,auto_p_brav,1.1,0.3,,$auto_p_bravh,0,0,0,0,1,0,Auto Bravery
+Auto Bravery,auto_brav,1.1,0.3,,$auto_bravh,0,0,0,0,1,0,
+Critical Faith,auto_p_fait,0.3,1.1,,$auto_p_faith,0,0,0,0,1,0,Auto Faith
+Auto Faith,auto_fait,0.3,1.1,,$auto_faith,0,0,0,0,1,0,
+Critical Vigilance,auto_p_forc,0.7,0.7,,$auto_p_forch,0,0,0,0,1,0,Auto Vigilance
+Auto Vigilance,auto_forc,0.7,0.7,,$auto_forch,0,0,0,0,1,0,
+Critical Barfire,auto_p_bafa,0.7,0.7,,$auto_p_bafah,0,0,0,0,1,0,Auto Barfire
+Auto Barfire,auto_bafa,0.7,0.7,,$auto_bafah,0,0,0,0,1,0,
+Critical Barfrost,auto_p_babl,0.7,0.7,,$auto_p_bablh,0,0,0,0,1,0,Auto Barfrost
+Auto Barfrost,auto_babl,0.7,0.7,,$auto_bablh,0,0,0,0,1,0,
+Critical Barthunder,auto_p_bali,0.7,0.7,,$auto_p_balih,0,0,0,0,1,0,Auto Barthunder
+Auto Barthunder,auto_bali,0.7,0.7,,$auto_balih,0,0,0,0,1,0,
+Critical Barwater,auto_p_bawa,0.7,0.7,,$auto_p_bawah,0,0,0,0,1,0,Auto Barwater
+Auto Barwater,auto_bawa,0.7,0.7,,$auto_bawah,0,0,0,0,1,0,
+Critical Haste,auto_p_hast ,0.6,0.6,,$auto_p_hasth,0,0,0,0,1,0,Auto Haste
+Auto Haste,auto_hast ,0.6,0.6,,$auto_hasth,0,0,0,0,1,0,
+Critical Tetradefense,auto_p_myte,0.6,0.6,,$auto_p_myteh,0,0,0,0,1,0,Auto Tetradefense
+Auto Tetradefense,auto_myte,0.6,0.6,,$auto_myteh,0,0,0,0,1,0,
+ATB Advantage,auto_00_0,0.9,0.9,,$auto_00_0h,0,0,0,0,1,0,First Strike
+First Strike,auto_00_1,0.9,0.9,,$auto_00_1h,0,0,0,0,1,0,Improved Evasion
+Improved Evasion,auto_evade,0.8,0.8,,$auto_evadeh,10,2,9,10,1,0,
+Time Extension,auto_evaluate,0.65,0.65,,$auto_evaluateh,0,0,0,0,1,0,Victory TP Charge
+Victory TP Charge,auto_tpbonus,0.75,0.75,,$auto_tpbonush,0,0,0,0,1,0,
+Shroud Scavenger,auto_helper,0.5,0.5,,$auto_helperh,0,0,0,0,1,0,Item Scavenger
+Item Scavenger,auto_drop_0,0.5,0.5,,$auto_drop_0h,0,0,0,0,1,0,Item Collector
+Item Collector,auto_drop_1,0.5,0.5,,$auto_drop_1h,0,0,0,0,1,0,
+Kill Libra,auto_b_libra,0.65,0.65,,$auto_b_librah,0,0,0,0,1,0,Kill ATB Charge
+Kill ATB Charge,auto_b_atb,0.8,0.8,,$auto_b_atbh,0,0,0,0,1,0,Kill TP Charge
+Kill TP Charge,auto_b_tp,0.8,0.8,,$auto_b_tph,0,0,0,0,1,0,
+Improved Potions,auto_medi,0.4,0.4,,$auto_medih,0,0,0,0,1,0,
+CP x2,auto_cp,0.4,0.4,,$auto_cph,0,0,0,0,1,0,
+Resist Elements +X%,,0.6,0.6,$auto_6def_00,$auto_6def_00h,4,3,60,95,1.1,1,
+Rapid Recovery,auto_shorten,0.8,0.8,,$auto_shortenh,0,0,0,0,1,0,
+Resilience +X%,,0.7,0.7,$auto_def_s1,$auto_def_s1h,7,3,10,95,1.1,1,
+Uncapped Damage,auto_sdlimit,0.7,0.7,,$auto_dlimith,0,0,0,0,1,0,Uncapped HP/Damage
+Random Fire Eater,auto_randf,0.9,0.9,,$auto_randfh,0,0,0,0,1,0,Random Nullify Damage
+Random Ice Eater,auto_randb,0.9,0.9,,$auto_randbh,0,0,0,0,1,0,Random Nullify Damage
+Random Lightning Eater,auto_randl,0.9,0.9,,$auto_randlh,0,0,0,0,1,0,Random Nullify Damage
+Random Water Eater,auto_randw,0.9,0.9,,$auto_randwh,0,0,0,0,1,0,Random Nullify Damage
+Random Wind Eater,auto_randa,0.9,0.9,,$auto_randah,0,0,0,0,1,0,Random Nullify Damage
+Random Earth Eater,auto_rande,0.9,0.9,,$auto_randeh,0,0,0,0,1,0,Random Nullify Damage
+Random Nullify Damage,auto_rand0,0.9,0.9,,$auto_rand0h,0,0,0,0,1,0,

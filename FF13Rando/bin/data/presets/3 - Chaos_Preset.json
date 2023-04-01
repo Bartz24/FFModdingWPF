@@ -1,44 +1,45 @@
 {
   "name": "3 - Chaos",
-  "version": "0.7.5.2",
+  "version": "0.7.5.22",
   "flags": [
     {
       "FlagEnabled": true,
+      "FlagID": "RandCrystAbi",
       "FlagProperties": [
         {
           "Enabled": true,
           "ID": "AbiAll"
         }
-      ],
-      "FlagID": "RandCrystAbi"
+      ]
     },
     {
       "FlagEnabled": true,
+      "FlagID": "RandCrystStat",
       "FlagProperties": [
         {
           "Enabled": true,
           "ID": "ShuffleCrystMisc"
         }
-      ],
-      "FlagID": "RandCrystStat"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "ShuffleCrystRole"
+      "FlagID": "ShuffleCrystRole",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "ScaledCPCost"
+      "FlagID": "ScaledCPCost",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandInitStats"
+      "FlagID": "RandInitStats",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "RandTPBorder",
       "FlagProperties": [
         {
           "Enabled": false,
@@ -48,21 +49,41 @@
           "SelectedValue": "Random Borders",
           "ID": "TPBorderType"
         }
-      ],
-      "FlagID": "RandTPBorder"
+      ]
     },
     {
       "FlagEnabled": true,
+      "FlagID": "RunSpeedMult",
       "FlagProperties": [
         {
           "Value": 115,
           "ID": "RunSpeedVal"
         }
-      ],
-      "FlagID": "RunSpeedMult"
+      ]
     },
     {
       "FlagEnabled": true,
+      "FlagID": "RandEqStat",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": true,
+      "FlagID": "RandEqPassive",
+      "FlagProperties": [
+        {
+          "SelectedValue": "Random Always",
+          "ID": "EqPassiveUpg"
+        }
+      ]
+    },
+    {
+      "FlagEnabled": true,
+      "FlagID": "RandEqSynth",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": true,
+      "FlagID": "Treasures",
       "FlagProperties": [
         {
           "Enabled": true,
@@ -112,26 +133,26 @@
           "Enabled": true,
           "ID": "ReplaceJunkAny"
         }
-      ],
-      "FlagID": "Treasures"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "ShuffleRoles"
+      "FlagID": "ShuffleRoles",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "ShuffleShops"
+      "FlagID": "ShuffleShops",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "StartingEquip"
+      "FlagID": "StartingEquip",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "ShopContents",
       "FlagProperties": [
         {
           "Enabled": true,
@@ -141,16 +162,16 @@
           "Enabled": true,
           "ID": "ShopOrder"
         }
-      ],
-      "FlagID": "ShopContents"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "Music"
+      "FlagID": "Music",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "Enemies",
       "FlagProperties": [
         {
           "SelectedValue": "Allow Other Enemies - Low",
@@ -159,9 +180,12 @@
         {
           "Value": 2,
           "ID": "EnemyRank"
+        },
+        {
+          "Enabled": false,
+          "ID": "EnemyGroupShuffle"
         }
-      ],
-      "FlagID": "Enemies"
+      ]
     }
   ]
 }
