@@ -579,7 +579,7 @@ namespace FF13Rando
         {
             [RowIndex(0)]
             public string ID { get; set; }
-            [RowIndex(0)]
+            [RowIndex(1)]
             public string Name { get; set; }
             public Role Role { get; set; }
             public List<string> Characters { get; set; }

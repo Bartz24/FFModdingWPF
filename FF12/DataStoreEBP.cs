@@ -7,15 +7,17 @@ namespace Bartz24.FF12
     public class DataStoreEBP : DataStore
     {
         private int treasureOffset, treasureCount;
+        private string ebpPath;
         protected byte[] header, footer;
         public DataStoreList<DataStoreTreasure> TreasureList { get; set; }
 
         public List<int> trapNonRespawnable = new List<int>();
 
-        public DataStoreEBP(int treasureOffset, int treasureCount)
+        public DataStoreEBP(int treasureOffset, int treasureCount, string ebpPath)
         {
             this.treasureOffset = treasureOffset;
             this.treasureCount = treasureCount;
+            this.ebpPath = ebpPath;
         }
 
         public override void LoadData(byte[] data, int offset = 0)

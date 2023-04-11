@@ -49,10 +49,11 @@ namespace FF12Rando
             {
                 string name = s.Split(',')[0];
                 string area = name.Substring(0, name.Length - 2);
-                int offset = Int32.Parse(s.Split(',')[1]);
-                int count = Int32.Parse(s.Split(',')[2]);
-                DataStoreEBP ebp = new DataStoreEBP(offset, count);
-                ebp.LoadData(File.ReadAllBytes($"data\\ps2data\\plan_master\\us\\plan_map\\{area}\\{name}\\global\\{name}.ebp"));
+                int offset = int.Parse(s.Split(',')[1]);
+                int count = int.Parse(s.Split(',')[2]);
+                string path = $"data\\ps2data\\plan_master\\us\\plan_map\\{area}\\{name}\\global\\{name}.ebp";
+                DataStoreEBP ebp = new DataStoreEBP(offset, count, path);
+                ebp.LoadData(File.ReadAllBytes(path));
                 return ebp;
             });
             ebpAreasOrig = File.ReadAllLines("data\\treasureAddresses.csv").ToDictionary(s => s.Split(',')[0], s =>
@@ -61,8 +62,9 @@ namespace FF12Rando
                 string area = name.Substring(0, name.Length - 2);
                 int offset = Int32.Parse(s.Split(',')[1]);
                 int count = Int32.Parse(s.Split(',')[2]);
-                DataStoreEBP ebp = new DataStoreEBP(offset, count);
-                ebp.LoadData(File.ReadAllBytes($"data\\ps2data\\plan_master\\us\\plan_map\\{area}\\{name}\\global\\{name}.ebp"));
+                string path = $"data\\ps2data\\plan_master\\us\\plan_map\\{area}\\{name}\\global\\{name}.ebp";
+                DataStoreEBP ebp = new DataStoreEBP(offset, count, path);
+                ebp.LoadData(File.ReadAllBytes(path));
                 return ebp;
             });
 

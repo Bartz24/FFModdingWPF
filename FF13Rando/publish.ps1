@@ -5,7 +5,7 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
 {
     Write-Host "Updating bin\data from Debug..."
     Remove-Item -Recurse -Force "bin\data" -ErrorAction Ignore
-    Copy-Item -Path "bin\Debug\net5.0-windows\data\" -Destination "bin\data" -Recurse -Force
+    Copy-Item -Path "bin\Debug\net6.0-windows\data\" -Destination "bin\data" -Recurse -Force
     Remove-Item -Recurse -Force "bin\data\RandoPaths.csv" -ErrorAction Ignore
 
     Write-Host "Updating versions in bin\data..."

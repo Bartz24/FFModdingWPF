@@ -289,7 +289,7 @@ namespace FF13Rando
         }
 
         private void NextStepButton_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             WindowTabs.SelectedIndex++;
         }
 
