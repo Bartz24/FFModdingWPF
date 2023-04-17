@@ -96,6 +96,9 @@ namespace FF13Rando
             */
             randomizers.Add(new TextRando(randomizers));
 
+            totalProgressBar.TotalSegments = randomizers.Count * 3 + 2;
+            totalProgressBar.SetProgress(0, 0);
+
             if (String.IsNullOrEmpty(SetupData.Paths["13"]) || !Directory.Exists(SetupData.Paths["13"]))
             {
                 MessageBox.Show("The path for FF13 is not valid. Setup the path in the '1. Setup' step.", "FF13 not found.");
@@ -167,17 +170,27 @@ namespace FF13Rando
                         RandoHelpers.UpdateSeedInFile(outFolder + "\\modconfig.ini", seed.ToString());
                         File.Move(outFolder + "\\Code\\patch.nccp", outFolder + $"\\Code\\FF13 Randomizer {seed}.nccp");
 
-                        SetProgressBar("Loading Data...", -1);
-
                         SetupData.WPDTracking.Clear();
 
-                        randomizers.ForEach(r => r.Load());
+                        totalProgressBar.IncrementProgress();
+
+                        randomizers.ForEach(r =>
+                        {
+                            r.Load();
+                            totalProgressBar.IncrementProgress();
+                        });
+
                         randomizers.ForEach(r =>
                         {
                             r.Randomize();
+                            totalProgressBar.IncrementProgress();
                         });
-                        SetProgressBar("Saving Data...", -1);
-                        randomizers.ForEach(r => r.Save());
+
+                        randomizers.ForEach(r =>
+                        {
+                            r.Save();
+                            totalProgressBar.IncrementProgress();
+                        });
 
                         SetProgressBar("Generating ModPack and documentation...", -1);
                         Task taskModpack = new Task(() =>
@@ -217,8 +230,7 @@ namespace FF13Rando
                         taskDocs.Start();
                         Task.WaitAll(taskModpack, taskDocs);
 
-                        SetProgressBar("Generating Documentation...", -1);
-
+                        totalProgressBar.IncrementProgress();
                         SetProgressBar($"Complete! Ready to install in Nova Chrysalia! The modpack 'FF13Rando_{seed}.ncmp' and documentation have been generated in the packs folder of this application.", 100);
                     });
                     this.IsEnabled = true;
@@ -259,6 +271,7 @@ namespace FF13Rando
                 ProgressBarIndeterminate = value < 0;
                 ProgressBarValue = value;
                 ProgressBarMaximum = maxValue;
+                totalProgressBar.SetProgress(totalProgressBar.GetProgress(), ProgressBarIndeterminate ? -1 : (float)ProgressBarValue / ProgressBarMaximum);
             });
         }
 

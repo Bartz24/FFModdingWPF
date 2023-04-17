@@ -94,6 +94,9 @@ namespace LRRando
             randomizers.Add(new MusicRando(randomizers));
             randomizers.Add(new TextRando(randomizers));
 
+            totalProgressBar.TotalSegments = randomizers.Count * 3 + 2;
+            totalProgressBar.SetProgress(0, 0);
+
             if (String.IsNullOrEmpty(SetupData.Paths["LR"]) || !Directory.Exists(SetupData.Paths["LR"]))
             {
                 MessageBox.Show("The path for LR is not valid. Setup the path in the '1. Setup' step.", "LR not found.");
@@ -164,8 +167,6 @@ namespace LRRando
                         CopyFromFolder(outFolder, "data\\modpack");
                         RandoHelpers.UpdateSeedInFile(outFolder + "\\modconfig.ini", seed.ToString());
 
-                        SetProgressBar("Loading Data...", -1);
-
                         string wdbpackPath = Nova.GetNovaFile("LR", @"db\resident\wdbpack.bin", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
                         string wdbpackOutPath = SetupData.OutputFolder + @"\db\resident\wdbpack.bin";
                         FileHelpers.CopyFile(wdbpackPath, wdbpackOutPath);
@@ -180,13 +181,25 @@ namespace LRRando
                         }
                         Directory.Delete(outFolder + "\\Data\\db\\resident\\_wdbpack.bin.rando", true);
 
-                        randomizers.ForEach(r => r.Load());
+                        totalProgressBar.IncrementProgress();
+
+                        randomizers.ForEach(r =>
+                        {
+                            r.Load();
+                            totalProgressBar.IncrementProgress();
+                        });
+
                         randomizers.ForEach(r =>
                         {
                             r.Randomize();
+                            totalProgressBar.IncrementProgress();
                         });
-                        SetProgressBar("Saving Data...", -1);
-                        randomizers.ForEach(r => r.Save());
+
+                        randomizers.ForEach(r =>
+                        {
+                            r.Save();
+                            totalProgressBar.IncrementProgress();
+                        });
 
                         Nova.CleanWPD(wdbpackOutPath, SetupData.WPDTracking[wdbpackOutPath]);
 
@@ -228,7 +241,7 @@ namespace LRRando
                         taskDocs.Start();
                         Task.WaitAll(taskModpack, taskDocs);
 
-                        SetProgressBar("Generating Documentation...", -1);
+                        totalProgressBar.IncrementProgress();
 
                         SetProgressBar($"Complete! Ready to install in Nova Chrysalia! The modpack 'LRRando_{seed}.ncmp' and documentation have been generated in the packs folder of this application.", 100);
                     });
@@ -270,6 +283,7 @@ namespace LRRando
                 ProgressBarIndeterminate = value < 0;
                 ProgressBarValue = value;
                 ProgressBarMaximum = maxValue;
+                totalProgressBar.SetProgress(totalProgressBar.GetProgress(), ProgressBarIndeterminate ? -1 : (float)ProgressBarValue / ProgressBarMaximum);
             });
         }
 

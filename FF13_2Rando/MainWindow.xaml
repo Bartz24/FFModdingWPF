@@ -59,6 +59,7 @@
                 <StackPanel Visibility="{Binding ProgressBarVisible,Mode=TwoWay}">
                     <TextBlock TextWrapping="Wrap" Text="{Binding ProgressBarText}"></TextBlock>
                     <ProgressBar x:Name="progressBar" Value="{Binding ProgressBarValue}" Maximum="{Binding ProgressBarMaximum}" IsIndeterminate="{Binding ProgressBarIndeterminate}"/>
+                    <rando:SegmentedProgressBar x:Name="totalProgressBar" TotalSegments="5" Margin="0 2" />
                 </StackPanel>
             </DockPanel>
             <Separator DockPanel.Dock="Bottom"/>

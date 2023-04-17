@@ -93,6 +93,9 @@ namespace FF13_2Rando
             randomizers.Add(new MusicRando(randomizers));
             randomizers.Add(new TextRando(randomizers));
 
+            totalProgressBar.TotalSegments = randomizers.Count * 3 + 2;
+            totalProgressBar.SetProgress(0, 0);
+
             if (String.IsNullOrEmpty(SetupData.Paths["13-2"]) || !Directory.Exists(SetupData.Paths["13-2"]))
             {
                 MessageBox.Show("The path for FF13-2 is not valid. Setup the path in the '1. Setup' step.", "FF13-2 not found.");
@@ -172,7 +175,6 @@ namespace FF13_2Rando
                         CopyFromTemplate(outFolder, "data\\modpack");
                         RandoHelpers.UpdateSeedInFile(outFolder + "\\modconfig.ini", seed.ToString());
 
-                        SetProgressBar("Loading Data...", -1);
 
                         string wdbpackPath = Nova.GetNovaFile("13-2", @"db\resident\wdbpack.bin", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
                         string wdbpackOutPath = SetupData.OutputFolder + @"\db\resident\wdbpack.bin";
@@ -188,13 +190,25 @@ namespace FF13_2Rando
                         Nova.UnpackWPD(wdbpackOutPath, SetupData.Paths["Nova"]);
                         Nova.UnpackWPD(x000OutPath, SetupData.Paths["Nova"]);
 
-                        randomizers.ForEach(r => r.Load());
+                        totalProgressBar.IncrementProgress();
+
+                        randomizers.ForEach(r =>
+                        {
+                            r.Load();
+                            totalProgressBar.IncrementProgress();
+                        });
+
                         randomizers.ForEach(r =>
                         {
                             r.Randomize();
+                            totalProgressBar.IncrementProgress();
                         });
-                        SetProgressBar("Saving Data...", -1);
-                        randomizers.ForEach(r => r.Save());
+
+                        randomizers.ForEach(r =>
+                        {
+                            r.Save();
+                            totalProgressBar.IncrementProgress();
+                        });
 
                         Nova.CleanWPD(wdbpackOutPath, SetupData.WPDTracking[wdbpackOutPath]);
                         Nova.CleanWPD(x000OutPath, SetupData.WPDTracking[x000OutPath]);
@@ -237,7 +251,7 @@ namespace FF13_2Rando
                         taskDocs.Start();
                         Task.WaitAll(taskModpack, taskDocs);
 
-                        SetProgressBar("Generating Documentation...", -1);
+                        totalProgressBar.IncrementProgress();
 
                         SetProgressBar($"Complete! Ready to install in Nova Chrysalia! The modpack 'FF13_2Rando_{seed}.ncmp' and documentation have been generated in the packs folder of this application.", 100);
                     });
@@ -279,6 +293,7 @@ namespace FF13_2Rando
                 ProgressBarIndeterminate = value < 0;
                 ProgressBarValue = value;
                 ProgressBarMaximum = maxValue;
+                totalProgressBar.SetProgress(totalProgressBar.GetProgress(), ProgressBarIndeterminate ? -1 : (float)ProgressBarValue / ProgressBarMaximum);
             });
         }
 

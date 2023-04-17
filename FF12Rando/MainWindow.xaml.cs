@@ -95,6 +95,9 @@ namespace FF12Rando
             randomizers.Add(new TextRando(randomizers));
             randomizers.Add(new MusicRando(randomizers));
 
+            totalProgressBar.TotalSegments = randomizers.Count * 3 + 2;
+            totalProgressBar.SetProgress(0, 0);
+
 #if !DEBUG
             if (!File.Exists("..\\FFXII_TZA.exe"))
             {
@@ -161,15 +164,25 @@ namespace FF12Rando
                         Directory.CreateDirectory(outFolder);
                         CopyFromTemplate(outFolder, "data\\ps2data");
 
-                        SetProgressBar("Loading Data...", -1);
+                        totalProgressBar.IncrementProgress();
 
-                        randomizers.ForEach(r => r.Load());
+                        randomizers.ForEach(r =>
+                        {
+                            r.Load();
+                            totalProgressBar.IncrementProgress();
+                        });
+
                         randomizers.ForEach(r =>
                         {
                             r.Randomize();
+                            totalProgressBar.IncrementProgress();
                         });
-                        SetProgressBar("Saving Data...", -1);
-                        randomizers.ForEach(r => r.Save());
+
+                        randomizers.ForEach(r =>
+                        {
+                            r.Save();
+                            totalProgressBar.IncrementProgress();
+                        });
 
                         SetProgressBar("Generating documentation...", -1);
                         Docs docs = new Docs();
@@ -189,6 +202,7 @@ namespace FF12Rando
 
                         File.WriteAllText("outdata\\rando.seed", "");
 
+                        totalProgressBar.IncrementProgress();
                         SetProgressBar($"Complete! Ready to play! The documentation has been generated in the docs folder of this application.", 100);
                     });
                     this.IsEnabled = true;
@@ -229,6 +243,7 @@ namespace FF12Rando
                 ProgressBarIndeterminate = value < 0;
                 ProgressBarValue = value;
                 ProgressBarMaximum = maxValue;
+                totalProgressBar.SetProgress(totalProgressBar.GetProgress(), ProgressBarIndeterminate ? -1 : (float)ProgressBarValue / ProgressBarMaximum);
             });
         }
 
