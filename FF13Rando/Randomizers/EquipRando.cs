@@ -1,4 +1,5 @@
 ﻿using Bartz24.Data;
+using Bartz24.Docs;
 using Bartz24.FF13;
 using Bartz24.RandoWPF;
 using System;
@@ -157,10 +158,10 @@ namespace FF13Rando
                     int strMagAvg = (int)((original.StrengthMult > 0 ? e.i8StrengthInitial / original.StrengthMult : 0) + (original.MagicMult > 0 ? e.i8MagicInitial / original.MagicMult : 0)) / 2;
                     int strMagIncreaseAvg = (int)((original.StrengthMult > 0 ? e.u8StrengthIncrease / original.StrengthMult : 0) + (original.MagicMult > 0 ? e.u8MagicIncrease / original.MagicMult : 0)) / 2;
 
-                    e.i8StrengthInitial = (short)(strMagAvg * newPassive.StrengthMult);
-                    e.u8StrengthIncrease = (ushort)(strMagIncreaseAvg * newPassive.StrengthMult);
-                    e.i8MagicInitial = (short)(strMagAvg * newPassive.MagicMult);
-                    e.u8MagicIncrease = (ushort)(strMagIncreaseAvg * newPassive.MagicMult);
+                    e.i8StrengthInitial = (short)Math.Ceiling(strMagAvg * newPassive.StrengthMult);
+                    e.u8StrengthIncrease = (ushort)Math.Ceiling(strMagIncreaseAvg * newPassive.StrengthMult);
+                    e.i8MagicInitial = (short)Math.Ceiling(strMagAvg * newPassive.MagicMult);
+                    e.u8MagicIncrease = (ushort)Math.Ceiling(strMagIncreaseAvg * newPassive.MagicMult);
 
                     e.sPassive_string = newPassive.ID;
                     e.sPassiveDisplayName_string = newPassive.DisplayNameID;
@@ -168,12 +169,19 @@ namespace FF13Rando
                     e.u1StatType1 = (byte)newPassive.StatType1;
                     e.u8StatType2 = (ushort)newPassive.StatType2;
                     e.i8StatInitial = (short)CalculateInitialFromRank(newPassive, items[e.ID].Rank, newPassive.StatInitial == newPassive.MaxValue ? newPassive.MaxValue : int.MinValue);
-                    int maxTarget = (int)Math.Min(CalculateInitialFromRank(newPassive, items[e.ID].Rank + 2, e.i8StatInitial), newPassive.MaxValue);
-                    e.u8StatIncrease = (ushort)((maxTarget - e.i8StatInitial) / e.u1MaxLevel);
+                    int maxTarget = (int)Math.Min(CalculateInitialFromRank(newPassive, items[e.ID].Rank + (2f + 0.01f * e.u1MaxLevel), e.i8StatInitial), newPassive.MaxValue);
+                    e.u8StatIncrease = (ushort)((maxTarget - e.i8StatInitial) / (e.u1MaxLevel - 1));
                     if (e.u8StatIncrease == 0 && e.i8StatInitial < newPassive.MaxValue)
                     {
-                        e.i8StatInitial = (short)RandomNum.RandInt(e.i8StatInitial, maxTarget);
-                        equipHitPassiveCap.Add(e);
+                        if ((e.u1MaxLevel - 1) + e.i8StatInitial < newPassive.MaxValue)
+                        {
+                            e.u8StatIncrease = 1;
+                        }
+                        else
+                        {
+                            e.i8StatInitial = (short)RandomNum.RandInt(e.i8StatInitial, maxTarget);
+                            equipHitPassiveCap.Add(e);
+                        }
                     }
                     else if (newPassive.StatInitial == newPassive.MaxValue && string.IsNullOrEmpty(newPassive.Upgrade))
                     {
@@ -198,12 +206,12 @@ namespace FF13Rando
                         {
                             (int, int)[] bounds =
                                 {
-                                (1, 99999),
-                                (1, 99999)
+                                (0, 99999),
+                                (0, 99999)
                             };
                             float[] weights = { passive.StrengthMult, passive.MagicMult };
                             int[] chances = { 1, 1 };
-                            int[] zeros = { 10, 10 };
+                            int[] zeros = { 5, 5 };
                             int[] negs = { 0, 0 };
                             StatPoints statPoints = new StatPoints(bounds, weights, chances, zeros, negs, 0.5f);
                             statPoints.Randomize(oldStats);
@@ -217,12 +225,12 @@ namespace FF13Rando
                             int strMagAvg = (e.i8StrengthInitial + e.i8MagicInitial) / 2;
                             int strMagParentAvg = (parent.i8StrengthInitial + parent.i8MagicInitial) / 2;
 
-                            e.i8StrengthInitial = (short)(strMagAvg * parent.i8StrengthInitial / strMagParentAvg);
-                            e.i8MagicInitial = (short)(strMagAvg * parent.i8MagicInitial / strMagParentAvg);
+                            e.i8StrengthInitial = (short)Math.Ceiling((double)strMagAvg * parent.i8StrengthInitial / strMagParentAvg);
+                            e.i8MagicInitial = (short)Math.Ceiling((double)strMagAvg * parent.i8MagicInitial / strMagParentAvg);
                         }
 
-                        e.u8StrengthIncrease = (ushort)(e.u8StrengthIncrease * (float)e.i8StrengthInitial / oldStats[0]);
-                        e.u8MagicIncrease = (ushort)(e.u8MagicIncrease * (float)e.i8MagicInitial / oldStats[1]);
+                        e.u8StrengthIncrease = (ushort)Math.Ceiling(e.u8StrengthIncrease * (float)e.i8StrengthInitial / oldStats[0]);
+                        e.u8MagicIncrease = (ushort)Math.Ceiling(e.u8MagicIncrease * (float)e.i8MagicInitial / oldStats[1]);
                     }
                     RandomNum.ClearRand();
                 }
@@ -275,6 +283,57 @@ namespace FF13Rando
                 .Max();
 
             return Math.Max(newDepth, maxDepth);
+        }
+
+        public override Dictionary<string, HTMLPage> GetDocumentation()
+        {
+            Dictionary<string, HTMLPage> pages = base.GetDocumentation();
+
+            HTMLPage page = new HTMLPage("Equipment", "template/documentation.html");
+
+            page.HTMLElements.Add(new Table("Weapons", (new string[] { "Name", "Strength", "Magic", "Passive", "Synthesis Group" }).ToList(), (new int[] { 20, 20, 20, 20, 20 }).ToList(), equip.Values.Where(w => itemData[w.ID].Category == "Weapon").Select(w =>
+            {
+                return GenerateRowContents(w);
+            }).ToList()));
+
+            page.HTMLElements.Add(new Table("Accessories", (new string[] { "Name", "Passive", "Synthesis Group" }).ToList(), (new int[] { 34, 33, 33 }).ToList(), equip.Values.Where(a => itemData[a.ID].Category == "Accessory").Select(a =>
+            {
+                return GenerateRowContents(a);
+            }).ToList()));
+
+            pages.Add("equipment", page);
+            return pages;
+
+            List<string> GenerateRowContents(DataStoreEquip e)
+            {
+                string name = itemData[e.ID].Name;
+                string strength = $"{e.i8StrengthInitial}";
+                if (e.u8StrengthIncrease > 0)
+                {
+                    strength += $"-{e.i8StrengthInitial + e.u8StrengthIncrease * (e.u1MaxLevel - 1)} (+{e.u8StrengthIncrease}/Lv)";
+                }
+                string magic = $"{e.i8MagicInitial}";
+                if (e.u8MagicIncrease > 0)
+                {
+                    magic += $"-{e.i8MagicInitial + e.u8MagicIncrease * (e.u1MaxLevel - 1)} (+{e.u8MagicIncrease}/Lv)";
+                }
+                string passive = GetEquipPassive(e).Name;
+                if (passive.Contains("X"))
+                {
+                    string statRange = e.i8StatInitial.ToString();
+                    if (e.u8StatIncrease > 0)
+                    {
+                        statRange += $"-{e.i8StatInitial + e.u8StatIncrease * (e.u1MaxLevel - 1)}";
+                        passive += $" (+{e.u8StatIncrease}/Lv)";
+                    }
+                    passive = passive.Replace("X", statRange);
+                }
+
+                if (itemData[e.ID].Category == "Accessory")
+                    return new string[] { name, passive, ((SynthesisGroup)(items[e.ID].SynthesisGroup)).ToString().SeparateWords() }.ToList();
+                else
+                    return new string[] { name, strength, magic, passive, ((SynthesisGroup)(items[e.ID].SynthesisGroup)).ToString().SeparateWords() }.ToList();
+            }
         }
 
         public override void Save()

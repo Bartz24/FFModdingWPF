@@ -252,5 +252,26 @@ namespace Bartz24.Data
             }
             return list;
         }
+        public static string SeparateWords(this string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return str;
+            }
+
+            string result = str[0].ToString();
+
+            for (int i = 1; i < str.Length; i++)
+            {
+                if (char.IsUpper(str[i]))
+                {
+                    result += " ";
+                }
+
+                result += str[i];
+            }
+
+            return result;
+        }
     }
 }
