@@ -6,7 +6,7 @@ namespace Bartz24.RandoWPF
     [JsonObject(MemberSerialization.OptIn)]
     public class NumberFlagProperty : FlagProperty
     {
-        public override FlagProperty Register(Flag parent)
+        public override NumberFlagProperty Register(Flag parent)
         {
             base.Register(parent);
             parent.PropertyChanged += Parent_PropertyChanged;

@@ -9,7 +9,8 @@ namespace FF12Rando
     {
         public enum FlagType
         {
-            All = -1,
+            Debug = Flags.FlagTypeDebug,
+            All = Flags.FlagTypeAll,
             Stats,
             Items,
             Other
@@ -28,7 +29,7 @@ namespace FF12Rando
                     "Also affects enemies."
                 }.Register(FlagType.Items);
 
-                EquipHiddenStats = (ToggleFlagProperty)new ToggleFlagProperty()
+                EquipHiddenStats = new ToggleFlagProperty()
                 {
                     Text = "Include Hidden Stats",
                     ID = "EquipHiddenStat",
@@ -81,7 +82,7 @@ namespace FF12Rando
                     "Any key items in the pool will by default be shuffled between themselves."
                 }.Register(FlagType.Items);
 
-                KeyMain = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyMain = new ToggleFlagProperty()
                 {
                     Text = "Include Main Key Items",
                     ID = "KeyMain",
@@ -89,7 +90,7 @@ namespace FF12Rando
                     "Clan Primer, Shadestone, Sunstone, Crescent Stone, Sword of the Order, No. 1 Brig Key, Systems Access Key, Manufacted Nethicite, Dawn Shard, Goddess's Magicite, Tube Fuse, Lente's Tear, Sword of Kings, Soul Ward Key, First 3 Pinewood Chops, Lab Access Card, Treaty-Blade, First 3 Black Orbs"
                 }.Register(Treasures);
 
-                KeySide = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeySide = new ToggleFlagProperty()
                 {
                     Text = "Include Side Key Items",
                     ID = "KeySide",
@@ -97,7 +98,7 @@ namespace FF12Rando
                     "Barheim Key, Stone of the Condemner, Wind Globe, Windvane, Sluice Gate Key, Merchant's Armband, Pilika's Diary, Site 3 Key, Site 11 Key, Dragon Scale, Ageworn Key, Dusty Letter, Blackened Fragment, Dull Fragment, Grimy Fragment, Moonsilver Fragment, Medallion of Bravery, Medallion of Love, Lusterless Medallion, Medallion of Might, Ann's Letter"
                 }.Register(Treasures);
 
-                KeyGrindy = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyGrindy = new ToggleFlagProperty()
                 {
                     Text = "Include Grindy Key Items",
                     ID = "KeyGrindy",
@@ -105,7 +106,7 @@ namespace FF12Rando
                     "Last 25 Pinewood Chops, Sandalwood Chop"
                 }.Register(Treasures);
 
-                KeyHunt = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyHunt = new ToggleFlagProperty()
                 {
                     Text = "Include Hunt Key Items",
                     ID = "KeyHunt",
@@ -113,7 +114,7 @@ namespace FF12Rando
                     "Cactus Flower, Broken Key, Errmonea Leaf, Rabbit Tail, Ring of the Toad, Rusted Scrap of Armor, Silent Urn, Stolen Articles, Ring of the Light, Serpentwyne Must, Viera Rucksack"
                 }.Register(Treasures);
 
-                KeyOrb = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyOrb = new ToggleFlagProperty()
                 {
                     Text = "Include Subterra Black Orbs",
                     ID = "KeyOrb",
@@ -122,14 +123,14 @@ namespace FF12Rando
                     "For reference, up to 8 can be found in Penumbra, up to 15 in Umbra, and up to 24 in Abyssal."
                 }.Register(Treasures);
 
-                KeyTrophy = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyTrophy = new ToggleFlagProperty()
                 {
                     Text = "Include Hunt Club Trophies",
                     ID = "KeyTrophy",
                     Description = "The 31 Hunt Club trophy drops from rare game will be included in the key item pool."
                 }.Register(Treasures);
 
-                KeyWrit = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyWrit = new ToggleFlagProperty()
                 {
                     Text = "Include Writ of Transit",
                     ID = "KeyWrit",
@@ -137,49 +138,49 @@ namespace FF12Rando
                     "If turned off, this will be replaced with potions."
                 }.Register(Treasures);
 
-                KeyStartingInv = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyStartingInv = new ToggleFlagProperty()
                 {
                     Text = "Include Party Member Starting Items",
                     ID = "KeyStartingInv",
                     Description = "The items in the main party members' starting inventories will be included in the pool."
                 }.Register(Treasures);
 
-                KeyPlaceTreasure = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceTreasure = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Treasures",
                     ID = "KeyPlaceTreas",
                     Description = "Key items are also allowed in treasures and misc rewards."
                 }.Register(Treasures);
 
-                KeyPlaceHunt = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceHunt = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Hunts",
                     ID = "KeyPlaceHunt",
                     Description = "Key items are also allowed in hunt rewards and Jovy's reward."
                 }.Register(Treasures);
 
-                KeyPlaceClanRank = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceClanRank = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Clan Rank",
                     ID = "KeyPlaceRank",
                     Description = "Key items are also allowed in clan rank rewards."
                 }.Register(Treasures);
 
-                KeyPlaceClanBoss = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceClanBoss = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Clan Boss",
                     ID = "KeyPlaceClanBoss",
                     Description = "Key items are also allowed in clan boss rewards."
                 }.Register(Treasures);
 
-                KeyPlaceClanEsper = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceClanEsper = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Clan Esper",
                     ID = "KeyPlaceClanEsper",
                     Description = "Key items are also allowed in clan esper rewards."
                 }.Register(Treasures);
 
-                KeyPlaceGrindy = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceGrindy = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Grindy",
                     ID = "KeyPlaceGrindy",
@@ -187,14 +188,14 @@ namespace FF12Rando
                     "This includes: Ann's Sister Quest reward, Hunt Club owner rewards"
                 }.Register(Treasures);
 
-                KeyPlaceHidden = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceHidden = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Hidden Starting Items",
                     ID = "KeyPlaceHidden",
                     Description = "Key items are also allowed in main party member starting inventories."
                 }.Register(Treasures);
 
-                KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                KeyDepth = new ComboBoxFlagProperty()
                 {
                     Text = "Item Difficulty Depth",
                     ID = "KeyDepth",
@@ -208,7 +209,7 @@ namespace FF12Rando
                     Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
                 }.Register(Treasures);
 
-                CharacterScale = (ToggleFlagProperty)new ToggleFlagProperty()
+                CharacterScale = new ToggleFlagProperty()
                 {
                     Text = "Character Scaled Depth",
                     ID = "KeyPlaceCharScale",
@@ -222,14 +223,14 @@ namespace FF12Rando
                     DescriptionFormat = "Randomize contents of shops. These items can appear in treasures or bazaars if those flags are on."
                 }.Register(FlagType.Items);
 
-                ShopsShared = (ToggleFlagProperty)new ToggleFlagProperty()
+                ShopsShared = new ToggleFlagProperty()
                 {
                     Text = "Same Shops in the Same Area",
                     ID = "ShopsSameArea",
                     Description = "Shops in the same area share the same contents."
                 }.Register(Shops);
 
-                ShopSize = (NumberFlagProperty)new NumberFlagProperty()
+                ShopSize = new NumberFlagProperty()
                 {
                     Text = "",
                     ID = "ShopSize",
@@ -254,7 +255,7 @@ namespace FF12Rando
                     DescriptionFormat = "Adds the specified number of teleport stones to the starting inventory."
                 }.Register(FlagType.Items);
 
-                TpStoneCount = (NumberFlagProperty)new NumberFlagProperty()
+                TpStoneCount = new NumberFlagProperty()
                 {
                     Text = "",
                     ID = "TpStoneCount",
@@ -308,7 +309,7 @@ namespace FF12Rando
                     Aesthetic = true
                 }.Register(FlagType.Other);
 
-                HintsSpecific = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                HintsSpecific = new ComboBoxFlagProperty()
                 {
                     Text = "Specificity",
                     ID = "HintsSpecific",
@@ -346,7 +347,7 @@ namespace FF12Rando
                     Aesthetic = true
                 }.Register(FlagType.Other);
 
-                EXPMultAmt = (NumberFlagProperty)new NumberFlagProperty()
+                EXPMultAmt = new NumberFlagProperty()
                 {
                     Text = "Normal and Rare Game Enemies",
                     ID = "EXPMultAmt",
@@ -357,7 +358,7 @@ namespace FF12Rando
                     StepSize = 10
                 }.Register(EXPMult);
 
-                EXPMultBossAmt = (NumberFlagProperty)new NumberFlagProperty()
+                EXPMultBossAmt = new NumberFlagProperty()
                 {
                     Text = "Boss and Mark Enemies",
                     ID = "EXPMultBossAmt",
@@ -376,7 +377,7 @@ namespace FF12Rando
                     Aesthetic = true
                 }.Register(FlagType.Other);
 
-                LPMultAmt = (NumberFlagProperty)new NumberFlagProperty()
+                LPMultAmt = new NumberFlagProperty()
                 {
                     Text = "Normal and Rare Game Enemies",
                     ID = "LPMultAmt",
@@ -387,7 +388,7 @@ namespace FF12Rando
                     StepSize = 10
                 }.Register(LPMult);
 
-                LPMultBossAmt = (NumberFlagProperty)new NumberFlagProperty()
+                LPMultBossAmt = new NumberFlagProperty()
                 {
                     Text = "Boss and Mark Enemies",
                     ID = "LPMultBossAmt",

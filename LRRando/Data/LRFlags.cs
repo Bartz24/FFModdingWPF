@@ -10,7 +10,8 @@ namespace LRRando
     {
         public enum FlagType
         {
-            All = -1,
+            Debug = Flags.FlagTypeDebug,
+            All = Flags.FlagTypeAll,
             StatsAbilities,
             Enemies,
             Items,
@@ -55,7 +56,7 @@ namespace LRRando
                     DescriptionFormat = "Shuffles all selected EP abilities between each other."
                 }.Register(FlagType.StatsAbilities);
 
-                EPAbilitiesPool = (DictListBoxFlagProperty<string>)new DictListBoxFlagProperty<string>()
+                EPAbilitiesPool = new DictListBoxFlagProperty<string>()
                 {
                     Text = "",
                     ID = "EPAbiPool",
@@ -90,7 +91,7 @@ namespace LRRando
                     "Min of 2 on Normal for Curaga, Arise, Quake, Overclock, Teleport."
                 }.Register(FlagType.StatsAbilities);
 
-                EPCostsZero = (ToggleFlagProperty)new ToggleFlagProperty()
+                EPCostsZero = new ToggleFlagProperty()
                 {
                     Text = "Lower Min EP Cost",
                     ID = "EPZero",
@@ -100,7 +101,7 @@ namespace LRRando
                     "Min of 1 on Normal for Curaga, Arise, Quake, Overclock, Teleport.\n"
                 }.Register(EPCosts);
 
-                EPCostMax = (NumberFlagProperty)new NumberFlagProperty()
+                EPCostMax = new NumberFlagProperty()
                 {
                     Text = "Max EP Cost",
                     ID = "EPMax",
@@ -110,7 +111,7 @@ namespace LRRando
                     MaxValue = 9
                 }.Register(EPCosts);
 
-                EPCostsRange = (NumberFlagProperty)new NumberFlagProperty()
+                EPCostsRange = new NumberFlagProperty()
                 {
                     Text = "EP Cost Range",
                     ID = "EPRange",
@@ -150,7 +151,7 @@ namespace LRRando
                     DescriptionFormat = "Randomize normal enemies between each other."
                 }.Register(FlagType.Enemies);
 
-                EnemiesSize = (ToggleFlagProperty)new ToggleFlagProperty()
+                EnemiesSize = new ToggleFlagProperty()
                 {
                     Text = "Between Any Size",
                     ID = "RandEneSize",
@@ -158,7 +159,7 @@ namespace LRRando
                     "If turned off, enemies will be randomized with enemies of the same size. Humans are considered mid."
                 }.Register(EnemyLocations);
 
-                EncounterSize = (ToggleFlagProperty)new ToggleFlagProperty()
+                EncounterSize = new ToggleFlagProperty()
                 {
                     Text = "Randomize Encounter Size",
                     ID = "RandEncCount",
@@ -166,7 +167,7 @@ namespace LRRando
                     "If turned off, encounters will remain the same size."
                 }.Register(EnemyLocations);
 
-                Prologue = (ToggleFlagProperty)new ToggleFlagProperty()
+                Prologue = new ToggleFlagProperty()
                 {
                     Text = "Include Prologue Tutorial",
                     ID = "RandProlo",
@@ -174,7 +175,7 @@ namespace LRRando
                     "Enemies replacing prologue enemies are limited to selection of smaller enemies."
                 }.Register(EnemyLocations);
 
-                Bosses = (DictListBoxFlagProperty<string>)new DictListBoxFlagProperty<string>()
+                Bosses = new DictListBoxFlagProperty<string>()
                 {
                     Text = "Shuffle Bosses",
                     ID = "RandBoss",
@@ -235,7 +236,7 @@ namespace LRRando
                     "Does not include key items unless they are selected."
                 }.Register(FlagType.Items);
 
-                KeyItems = (DictListBoxFlagProperty<string>)new DictListBoxFlagProperty<string>()
+                KeyItems = new DictListBoxFlagProperty<string>()
                 {
                     Text = "Include Key Items",
                     ID = "KeyItems",
@@ -315,7 +316,7 @@ namespace LRRando
                     }
                 }.Register(Treasures);
 
-                EPMissable = (ToggleFlagProperty)new ToggleFlagProperty()
+                EPMissable = new ToggleFlagProperty()
                 {
                     Text = "Allow EP Abilities in Missable Locations",
                     ID = "EPMiss",
@@ -323,7 +324,7 @@ namespace LRRando
                 }.Register(Treasures);
 
 
-                KeyPlaceTreasure = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceTreasure = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Treasures",
                     ID = "KeyPlaceTreas",
@@ -331,35 +332,35 @@ namespace LRRando
                 }.Register(Treasures);
 
 
-                KeyPlaceQuest = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceQuest = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Quests",
                     ID = "KeyPlaceQuest",
                     Description = "Key items are also allowed in side quests and Global Canvas of Prayers."
                 }.Register(Treasures);
 
-                KeyPlaceCoP = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceCoP = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Canvas of Prayers",
                     ID = "KeyPlaceCoP",
                     Description = "Key items are also allowed in non-global Canvas of Prayers."
                 }.Register(Treasures);
 
-                KeyPlaceSuperboss = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceSuperboss = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Superbosses",
                     ID = "KeyPlaceSuperboss",
                     Description = "Key items are also allowed on Aeronite and Ereshkigal drops and rewards."
                 }.Register(Treasures);
 
-                KeyPlaceGrindy = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceGrindy = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Grindy",
                     ID = "KeyPlaceGrindy",
                     Description = "Key items are also allowed in 20+ Soul Seed rewards and 10+ Unappraised Items."
                 }.Register(Treasures);
 
-                KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                KeyDepth = new ComboBoxFlagProperty()
                 {
                     Text = "Item Difficulty Depth",
                     ID = "KeyDepth",
@@ -373,7 +374,7 @@ namespace LRRando
                     Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
                 }.Register(Treasures);
 
-                IDCardBuy = (ToggleFlagProperty)new ToggleFlagProperty()
+                IDCardBuy = new ToggleFlagProperty()
                 {
                     Text = "Randomize Buyable ID Card",
                     ID = "BuyID",
@@ -414,7 +415,7 @@ namespace LRRando
                     Aesthetic = true
                 }.Register(FlagType.Other);
 
-                FanfareMusic = (ToggleFlagProperty)new ToggleFlagProperty()
+                FanfareMusic = new ToggleFlagProperty()
                 {
                     Text = "Include Additional Fanfares",
                     ID = "Fanfare",
@@ -437,7 +438,7 @@ namespace LRRando
                     Aesthetic = true
                 }.Register(FlagType.Other);
 
-                HintsSpecific = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                HintsSpecific = new ComboBoxFlagProperty()
                 {
                     Text = "Specificity",
                     ID = "HintsSpecific",
@@ -451,7 +452,7 @@ namespace LRRando
                     Values = new string[] { "Exact", "Vague Type", "Vague Area", "Unknown but Exact Location", "Random" }.ToList()
                 }.Register(HintsMain);
 
-                HintsDepth = (ToggleFlagProperty)new ToggleFlagProperty()
+                HintsDepth = new ToggleFlagProperty()
                 {
                     Text = "Hints at Earlier Locations",
                     ID = "HintsDepth",

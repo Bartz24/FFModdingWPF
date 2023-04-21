@@ -9,7 +9,7 @@ namespace Bartz24.RandoWPF
     [JsonObject(MemberSerialization.OptIn)]
     public class ListBoxFlagProperty : FlagProperty
     {
-        public override FlagProperty Register(Flag parent)
+        public override ListBoxFlagProperty Register(Flag parent)
         {
             base.Register(parent);
             parent.PropertyChanged += Parent_PropertyChanged;

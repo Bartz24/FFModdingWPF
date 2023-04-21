@@ -134,7 +134,17 @@ namespace Bartz24.RandoWPF
         {
             RandomNum.SetRand(Random);
         }
+        private List<FlagProperty> properties = new List<FlagProperty>();
         [JsonProperty]
-        public List<FlagProperty> FlagProperties { get; set; } = new List<FlagProperty>();
+        public List<FlagProperty> FlagProperties
+        {
+            get => properties.Where(f => !f.Debug).ToList(); 
+            set => properties = value;
+        }
+        public List<FlagProperty> FlagPropertiesDebugIncluded
+        {
+            get => properties;
+            set => properties = value;
+        }
     }
 }

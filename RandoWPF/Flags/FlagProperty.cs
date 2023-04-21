@@ -20,7 +20,7 @@ namespace Bartz24.RandoWPF
 
         public virtual FlagProperty Register(Flag parent)
         {
-            parent.FlagProperties.Add(this);
+            parent.FlagPropertiesDebugIncluded.Add(this);
             PropertyChanged += parent.Flag_PropertyChanged;
             return this;
         }
@@ -30,6 +30,7 @@ namespace Bartz24.RandoWPF
         public string ID { get; set; }
         public string Description { get; set; }
         public bool Experimental { get; set; }
+        public bool Debug { get; set; }
 
         public Visibility TextVisibility
         {
@@ -41,7 +42,7 @@ namespace Bartz24.RandoWPF
         }
         public Brush HelpColor
         {
-            get => Experimental ? Brushes.PaleVioletRed : Brushes.SkyBlue;
+            get => Debug ? Brushes.GreenYellow : (Experimental ? Brushes.PaleVioletRed : Brushes.SkyBlue);
         }
 
         protected void OnPropertyChanged(PropertyChangedEventArgs e)

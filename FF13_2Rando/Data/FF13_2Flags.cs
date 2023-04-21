@@ -9,12 +9,12 @@ namespace FF13_2Rando
     {
         public enum FlagType
         {
-            All = -1,
+            Debug = Flags.FlagTypeDebug,
+            All = Flags.FlagTypeAll,
             Stats,
             Items,
             Enemies,
-            Other,
-            Debug
+            Other
         }
         public class Stats
         {
@@ -102,28 +102,28 @@ namespace FF13_2Rando
                     "Does not include normal artefacts and event based items and fragments."
                 }.Register(FlagType.Items);
 
-                KeyWild = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyWild = new ToggleFlagProperty()
                 {
                     Text = "Include Wild Artefacts",
                     ID = "KeyWild",
                     Description = "Wild Artefacts will be included in the pool of key items."
                 }.Register(Treasures);
 
-                KeyGraviton = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyGraviton = new ToggleFlagProperty()
                 {
                     Text = "Include Graviton Core Fragments",
                     ID = "KeyGraviton",
                     Description = "The 7 Graviton Core fragments will be included in the pool of key items."
                 }.Register(Treasures);
 
-                KeyGateSeal = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyGateSeal = new ToggleFlagProperty()
                 {
                     Text = "Include Gate Seals",
                     ID = "KeySeal",
                     Description = "The gate seals will be included in the pool of key items."
                 }.Register(Treasures);
 
-                KeySide = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeySide = new ToggleFlagProperty()
                 {
                     Text = "Include Side Key Items",
                     ID = "KeySide",
@@ -131,35 +131,35 @@ namespace FF13_2Rando
                     "Medical Kit, Capsules, Holding Cell Key, Comm Device, Emerald Crystal, Ivory Crystal, Onyx Crystal, Service Manual, Fruit of Fenrir, Tablet of Paddra, Old Battery, Sealed Tablet, Army Comm Device, Recording Device, Picture Frame, Bulb of Hope, Terrorists' Mark, Weapon Material, Outdoor Watch, Personal Notes, Paradox Agent Type A-C, Supply Sphere Access Code"
                 }.Register(Treasures);
 
-                KeyPlaceTreasure = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceTreasure = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Treasures",
                     ID = "KeyPlaceTreas",
                     Description = "Key items are also allowed in treasures and fragment spots."
                 }.Register(Treasures);
 
-                KeyPlaceBrainBlast = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceBrainBlast = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Brain Blast",
                     ID = "KeyPlaceBrain",
                     Description = "Key items are also allowed in Brain Blast rewards."
                 }.Register(Treasures);
 
-                KeyPlaceThrowCryst = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceThrowCryst = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Improved Moogle Throw Monster Crystals",
                     ID = "KeyPlaceMogCryst",
                     Description = "Key items are also allowed to replace Improve Moogle Throw monster crystal locations."
                 }.Register(Treasures);
 
-                KeyPlaceThrowJunk = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceThrowJunk = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Improved Moogle Throw Junk",
                     ID = "KeyPlaceMogJunk",
                     Description = "Key items are also allowed to replace Improve Moogle Throw junk locations."
                 }.Register(Treasures);
 
-                KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                KeyDepth = new ComboBoxFlagProperty()
                 {
                     Text = "Item Difficulty Depth",
                     ID = "KeyDepth",
@@ -190,7 +190,7 @@ namespace FF13_2Rando
                     DescriptionFormat = "Randomize normal enemies between each other."
                 }.Register(FlagType.Enemies);
 
-                LargeEnc = (ToggleFlagProperty)new ToggleFlagProperty()
+                LargeEnc = new ToggleFlagProperty()
                 {
                     Text = "Allow Larger Encounters",
                     ID = "LargeEnc",
@@ -200,7 +200,7 @@ namespace FF13_2Rando
                 }.Register(EnemyLocations);
 
 
-                Bosses = (ListBoxFlagProperty)new ListBoxFlagProperty()
+                Bosses = new ListBoxFlagProperty()
                 {
                     Text = "Shuffled Bosses",
                     ID = "RandBoss",
@@ -232,7 +232,7 @@ namespace FF13_2Rando
                     }
                 }.Register(EnemyLocations);
 
-                EnemyRank = (NumberFlagProperty)new NumberFlagProperty()
+                EnemyRank = new NumberFlagProperty()
                 {
                     Text = "Enemy Rank Range",
                     ID = "EnemyRank",
@@ -260,7 +260,7 @@ namespace FF13_2Rando
                     Aesthetic = true
                 }.Register(FlagType.Other);
 
-                ForcedStart = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                ForcedStart = new ComboBoxFlagProperty()
                 {
                     Text = "Forced Start",
                     ID = "ForcedStart",
@@ -271,7 +271,7 @@ namespace FF13_2Rando
                     Values = new string[] { "None", "Bodhum", "Bodhum & Bresha" }.ToList()
                 }.Register(HistoriaCrux);
 
-                RandoDLC = (ToggleFlagProperty)new ToggleFlagProperty()
+                RandoDLC = new ToggleFlagProperty()
                 {
                     Text = "Include DLC Areas",
                     ID = "RandDLCCrux",

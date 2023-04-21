@@ -7,7 +7,7 @@ namespace Bartz24.RandoWPF
     [JsonObject(MemberSerialization.OptIn)]
     public class ComboBoxFlagProperty : FlagProperty
     {
-        public override FlagProperty Register(Flag parent)
+        public override ComboBoxFlagProperty Register(Flag parent)
         {
             base.Register(parent);
             parent.PropertyChanged += Parent_PropertyChanged;

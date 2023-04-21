@@ -30,7 +30,7 @@
                     </materialDesign:PackIcon.ToolTip>
                 </materialDesign:PackIcon>
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Margin="50,0,0,0" IsEnabled="{Binding FlagEnabled}">
-                    <ListBox Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource="{Binding FlagProperties, UpdateSourceTrigger=PropertyChanged}" AlternationCount="2">
+                    <ListBox x:Name="propertiesListBox" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource="{Binding FlagPropertiesDebugIncluded, UpdateSourceTrigger=PropertyChanged}" AlternationCount="2">
                         <ListBox.Resources>
                             <DataTemplate DataType="{x:Type local:ToggleFlagProperty}">
                                 <local:ToggleFlagControl FlagProperty="{Binding}" Margin="0,10"/>

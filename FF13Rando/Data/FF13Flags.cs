@@ -10,7 +10,8 @@ namespace FF13Rando
     {
         public enum FlagType
         {
-            All = -1,
+            Debug = Flags.FlagTypeDebug,
+            All = Flags.FlagTypeAll,
             Stats,
             Equipment,
             Items,
@@ -33,7 +34,7 @@ namespace FF13Rando
                     DescriptionFormat = "Randomizes the crystarium abilities in each role."
                 }.Register(FlagType.Stats);
 
-                RandCrystAbiAll = (ToggleFlagProperty)new ToggleFlagProperty()
+                RandCrystAbiAll = new ToggleFlagProperty()
                 {
                     Text = "Between All Roles",
                     ID = "AbiAll",
@@ -47,7 +48,7 @@ namespace FF13Rando
                     DescriptionFormat = "Randomizes the crystarium HP, Strength, and Magic."
                 }.Register(FlagType.Stats);
 
-                ShuffleCrystMisc = (ToggleFlagProperty)new ToggleFlagProperty()
+                ShuffleCrystMisc = new ToggleFlagProperty()
                 {
                     Text = "Shuffle Misc Crystarium Nodes",
                     ID = "ShuffleCrystMisc",
@@ -82,14 +83,14 @@ namespace FF13Rando
                     DescriptionFormat = "Randomizes the borders where you get 1, 2, 3, 4, and 5 TP."
                 }.Register(FlagType.Stats);
 
-                RandTPMax = (ToggleFlagProperty)new ToggleFlagProperty()
+                RandTPMax = new ToggleFlagProperty()
                 {
                     Text = "Randomize Max TP Cost",
                     ID = "RandTPMax",
                     Description = "Randomizes the maximum needed to reach 5 TP."
                 }.Register(RandTPBorders);
 
-                TPBorderType = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                TPBorderType = new ComboBoxFlagProperty()
                 {
                     Text = "TP Costs Type",
                     ID = "TPBorderType",
@@ -111,7 +112,7 @@ namespace FF13Rando
                     "Hope's run speed will match the others."
                 }.Register(FlagType.Stats);
 
-                RunSpeedMultValue = (NumberFlagProperty)new NumberFlagProperty()
+                RunSpeedMultValue = new NumberFlagProperty()
                 {
                     Text = "",
                     ID = "RunSpeedVal",
@@ -145,7 +146,7 @@ namespace FF13Rando
                     DescriptionFormat = "Randomizes the passive abilities on weapons and accessories. The strength of numerical passives are based on the equipment's rank."
                 }.Register(FlagType.Equipment);
 
-                EquipSamePassiveCategory = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                EquipSamePassiveCategory = new ComboBoxFlagProperty()
                 {
                     Text = "Upgraded Equipment Behavior",
                     ID = "EqPassiveUpg",
@@ -184,63 +185,63 @@ namespace FF13Rando
                     "Does not include roles, crystarium expansions, shops, or Gysahl Reins."
                 }.Register(FlagType.Items);
 
-                KeyInitRoles = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyInitRoles = new ToggleFlagProperty()
                 {
                     Text = "Include Starting Roles",
                     ID = "KeyInitRoles",
                     Description = "Starting roles given at the start of the game will be included in the pool of key items."
                 }.Register(Treasures);
 
-                KeyRoles = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyRoles = new ToggleFlagProperty()
                 {
                     Text = "Include Other Roles",
                     ID = "KeyRoles",
                     Description = "Other roles given throughout the game will be included in the pool of key items."
                 }.Register(Treasures);
 
-                KeyStages = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyStages = new ToggleFlagProperty()
                 {
                     Text = "Include Crystarium Expansions",
                     ID = "KeyStages",
                     Description = "The 9 crystarium expansions will be included in the pool of key items."
                 }.Register(Treasures);
 
-                KeyEidolith = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyEidolith = new ToggleFlagProperty()
                 {
                     Text = "Include Eidoliths",
                     ID = "KeyEidolith",
                     Description = "The eidoliths will be included in the pool of key items."
                 }.Register(Treasures);
 
-                KeyShops = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyShops = new ToggleFlagProperty()
                 {
                     Text = "Include Shops",
                     ID = "KeyShops",
                     Description = "The shops, shop upgrades and the Omni-kit will be included in the pool of key items."
                 }.Register(Treasures);
 
-                KeyReins = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyReins = new ToggleFlagProperty()
                 {
                     Text = "Include Gysahl Reins",
                     ID = "KeyReins",
                     Description = "The Gysahl Reins will be included in the pool of key items."
                 }.Register(Treasures);
 
-                KeyPlaceTreasure = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceTreasure = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Treasures",
                     ID = "KeyPlaceTreas",
                     Description = "Key items are also allowed in treasures and story rewards/drops."
                 }.Register(Treasures);
 
-                KeyPlaceMissions = (ToggleFlagProperty)new ToggleFlagProperty()
+                KeyPlaceMissions = new ToggleFlagProperty()
                 {
                     Text = "Key Item Placement - Missions",
                     ID = "KeyPlaceMissions",
                     Description = "Key items are also allowed in first time mission rewards."
                 }.Register(Treasures);
 
-                KeyDepth = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                KeyDepth = new ComboBoxFlagProperty()
                 {
                     Text = "Item Difficulty Depth",
                     ID = "KeyDepth",
@@ -254,7 +255,7 @@ namespace FF13Rando
                     Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
                 }.Register(Treasures);
 
-                DifficultyScaling = (NumberFlagProperty)new NumberFlagProperty()
+                DifficultyScaling = new NumberFlagProperty()
                 {
                     Text = "Difficulty Handicap",
                     ID = "DiffScale",
@@ -264,7 +265,7 @@ namespace FF13Rando
                     MaxValue = 5
                 }.Register(Treasures);
 
-                ReplaceRank = (NumberFlagProperty)new NumberFlagProperty()
+                ReplaceRank = new NumberFlagProperty()
                 {
                     Text = "Junk Item Rank Range",
                     ID = "JunkRange",
@@ -274,7 +275,7 @@ namespace FF13Rando
                     MaxValue = 15
                 }.Register(Treasures);
 
-                ReplaceAny = (ToggleFlagProperty)new ToggleFlagProperty()
+                ReplaceAny = new ToggleFlagProperty()
                 {
                     Text = "Replace Junk Items From Any Category",
                     ID = "ReplaceJunkAny",
@@ -310,14 +311,14 @@ namespace FF13Rando
                     DescriptionFormat = "Randomizes shop contents within their expected shops. Items required for the Treasure Hunter achievement will be added to shops as well."
                 }.Register(FlagType.Items);
 
-                AnyShop = (ToggleFlagProperty)new ToggleFlagProperty()
+                AnyShop = new ToggleFlagProperty()
                 {
                     Text = "Items Appear in Any Shop",
                     ID = "AnyShop",
                     Description = "Items can appear in other shops aside from their vanilla shops."
                 }.Register(ShopContents);
 
-                ShopContentOrder = (ToggleFlagProperty)new ToggleFlagProperty()
+                ShopContentOrder = new ToggleFlagProperty()
                 {
                     Text = "Late Shop Expansions Contain Better Items",
                     ID = "ShopOrder",
@@ -349,7 +350,7 @@ namespace FF13Rando
                     DescriptionFormat = "Randomizes enemies."
                 }.Register(FlagType.Other);
 
-                EnemyVariety = (ComboBoxFlagProperty)new ComboBoxFlagProperty()
+                EnemyVariety = new ComboBoxFlagProperty()
                 {
                     Text = "Enemy Variety",
                     ID = "EnemyVariety",
@@ -360,7 +361,7 @@ namespace FF13Rando
                     Values = new string[] { "Enemies Stay to the Same Area", "Allow Other Enemies - Low", "Allow Other Enemies - Medium [EXPERIMENTAL]", "Allow Other Enemies - Max [EXPERIMENTAL]" }.ToList()
                 }.Register(Enemies);
 
-                EnemyRank = (NumberFlagProperty)new NumberFlagProperty()
+                EnemyRank = new NumberFlagProperty()
                 {
                     Text = "Enemy Rank Range",
                     ID = "EnemyRank",
@@ -370,11 +371,12 @@ namespace FF13Rando
                     MaxValue = 15
                 }.Register(Enemies);
 
-                GroupShuffle = (ToggleFlagProperty)new ToggleFlagProperty()
+                GroupShuffle = new ToggleFlagProperty()
                 {
                     Text = "Shuffle enemies group-wise",
                     ID = "EnemyGroupShuffle",
-                    Description = "Enemies are shuffled using charaspecs as a base rather than per encounter. More likely for individual fights to be randomised away from vanilla but some fights are more likely to have only vanilla enemies from the area",
+                    Description = "[DEBUG] Currently errors out. Enemies are shuffled using charaspecs as a base rather than per encounter. More likely for individual fights to be randomised away from vanilla but some fights are more likely to have only vanilla enemies from the area",
+                    Debug = true // TODO: Remove and edit description once fixed
                 }.Register(Enemies);
             }
         }

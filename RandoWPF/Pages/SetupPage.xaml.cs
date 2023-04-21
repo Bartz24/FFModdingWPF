@@ -1,4 +1,5 @@
 using Ookii.Dialogs.Wpf;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -57,9 +58,9 @@ namespace Bartz24.RandoWPF
                     {
                         Seed = Flags.LoadSeed(path);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Failed to load the seed file.");
+                        MessageBox.Show("Failed to load the seed file.\n\n" + ex.StackTrace);
                     }
                 }
                 else
