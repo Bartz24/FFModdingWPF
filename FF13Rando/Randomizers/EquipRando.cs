@@ -249,7 +249,7 @@ namespace FF13Rando
             double center = newPassive.StatInitial * Math.Pow(newPassive.RankConstB, rank - 1) + newPassive.RankConstP * (rank - 1);
             int low = (int)Math.Max(Math.Round(center - Math.Abs(center) * 0.25), min);
             int high = (int)Math.Min(Math.Round(center + Math.Abs(center) * 0.25), newPassive.MaxValue);
-            if (high > min)
+            if (high < min)
                 throw new Exception($"Attempted to randomize stats for the passive {newPassive.Name} from [{low}, {high}]");
             return RandomNum.RandInt(low, high);
         }
