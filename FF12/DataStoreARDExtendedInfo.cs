@@ -1,17 +1,16 @@
 ﻿using Bartz24.Data;
 
-namespace Bartz24.FF12
+namespace Bartz24.FF12;
+
+public class DataStoreARDExtendedInfo : DataStore
 {
-    public class DataStoreARDExtendedInfo : DataStore
+    public uint Model
     {
-        public uint Model
-        {
-            get { return Data.ReadUInt(0x0); }
-            set { Data.SetUInt(0x0, value); }
-        }
-        public override int GetDefaultLength()
-        {
-            return 0x54;
-        }
+        get => Data.ReadUInt(0x0);
+        set => Data.SetUInt(0x0, value);
+    }
+    public override int GetDefaultLength()
+    {
+        return 0x54;
     }
 }

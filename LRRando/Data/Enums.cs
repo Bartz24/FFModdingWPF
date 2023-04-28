@@ -1,6 +1,5 @@
-﻿namespace LRRando.Data
+﻿namespace LRRando;
+
+public class Enums
 {
-    public class Enums
-    {
-    }
 }

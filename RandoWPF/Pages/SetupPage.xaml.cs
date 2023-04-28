@@ -7,109 +7,125 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 
-namespace Bartz24.RandoWPF
+namespace Bartz24.RandoWPF;
+
+/// <summary>
+/// Interaction logic for SetupPage.xaml
+/// </summary>
+[ContentProperty(nameof(Children))]
+public partial class SetupPage : UserControl
 {
-    /// <summary>
-    /// Interaction logic for SetupPage.xaml
-    /// </summary>
-    [ContentProperty(nameof(Children))]
-    public partial class SetupPage : UserControl
+    public static readonly DependencyPropertyKey ChildrenProperty = DependencyProperty.RegisterReadOnly(
+        nameof(Children),
+        typeof(UIElementCollection),
+        typeof(SetupPage),
+        new PropertyMetadata());
+    public string Seed
     {
-        public static readonly DependencyPropertyKey ChildrenProperty = DependencyProperty.RegisterReadOnly(
-            nameof(Children),
-            typeof(UIElementCollection),
-            typeof(SetupPage),
-            new PropertyMetadata());
-        public string Seed
+        get => SetupData.Seed;
+        set
         {
-            get => SetupData.Seed;
-            set
-            {
-                SetupData.Seed = value;
-                seedText.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
-            }
+            SetupData.Seed = value;
+            seedText.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
         }
+    }
 
-        public UIElementCollection Children
-        {
-            get { return (UIElementCollection)GetValue(ChildrenProperty.DependencyProperty); }
-            private set { SetValue(ChildrenProperty, value); }
-        }
-        public SetupPage()
-        {
-            InitializeComponent();
-            this.DataContext = this;
-            Children = PART_Host.Children;
-            Seed = RandomNum.RandSeed().ToString();
-        }
+    public UIElementCollection Children
+    {
+        get => (UIElementCollection)GetValue(ChildrenProperty.DependencyProperty);
+        private set => SetValue(ChildrenProperty, value);
+    }
+    public SetupPage()
+    {
+        InitializeComponent();
+        DataContext = this;
+        Children = PART_Host.Children;
+        Seed = RandomNum.RandSeed().ToString();
+    }
 
-        private void importJSONButton_Click(object sender, RoutedEventArgs e)
+    private void importJSONButton_Click(object sender, RoutedEventArgs e)
+    {
+        VistaOpenFileDialog dialog = new()
         {
-            VistaOpenFileDialog dialog = new VistaOpenFileDialog();
-            dialog.Title = "Please select a JSON seed.";
-            dialog.Multiselect = false;
-            dialog.Filter = "JSON|*.json";
-            if ((bool)dialog.ShowDialog())
+            Title = "Please select a JSON seed.",
+            Multiselect = false,
+            Filter = "JSON|*.json"
+        };
+        if ((bool)dialog.ShowDialog())
+        {
+            string path = dialog.FileName.Replace("/", "\\");
+            if (File.Exists(path))
             {
-                string path = dialog.FileName.Replace("/", "\\");
-                if (File.Exists(path))
+                try
                 {
-                    try
-                    {
-                        Seed = Flags.LoadSeed(path);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Failed to load the seed file.\n\n" + ex.StackTrace);
-                    }
+                    Seed = RandoFlags.LoadSeed(path);
                 }
-                else
-                    MessageBox.Show("Make sure the JSON file is a seed for rando.", "The selected file is not valid");
-            }
-        }
-
-        private void importHistoryButton_Click(object sender, RoutedEventArgs e)
-        {
-            VistaOpenFileDialog dialog = new VistaOpenFileDialog();
-            dialog.Title = "Please select a ZIP documentation.";
-            dialog.Multiselect = false;
-            dialog.Filter = "Zip|*.zip";
-            if ((bool)dialog.ShowDialog())
-            {
-                string path = dialog.FileName.Replace("/", "\\");
-                if (File.Exists(path))
+                catch (Exception ex)
                 {
-                    string outFolder = System.IO.Path.GetTempPath() + @"rando_temp";
-                    bool deleteTempFolder = !Directory.Exists(outFolder);
-                    if (!Directory.Exists(outFolder))
-                        Directory.CreateDirectory(outFolder);
-                    try
-                    {
-                        using (ZipArchive archive = ZipFile.OpenRead(path))
-                        {
-                            ZipArchiveEntry entry = archive.Entries.First(e => e.Name.EndsWith("_Seed.json"));
-                            entry.ExtractToFile(outFolder + @"\seed.json");
-                        }
-                        Seed = Flags.LoadSeed(outFolder + @"\seed.json");
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Failed to load the seed file.");
-                    }
-                    if (File.Exists(outFolder + @"\seed.json"))
-                        File.Delete(outFolder + @"\seed.json");
-                    if (deleteTempFolder && Directory.Exists(outFolder))
-                        Directory.Delete(outFolder);
-
+                    MessageBox.Show("Failed to load the seed file.\n\n" + ex.StackTrace);
                 }
-                else
-                    MessageBox.Show("Make sure the ZIP file is a docs folder for rando.", "The selected file is not valid");
+            }
+            else
+            {
+                MessageBox.Show("Make sure the JSON file is a seed for rando.", "The selected file is not valid");
             }
         }
+    }
 
-        private void seedButton_Click(object sender, RoutedEventArgs e)
+    private void importHistoryButton_Click(object sender, RoutedEventArgs e)
+    {
+        VistaOpenFileDialog dialog = new()
         {
-            Seed = RandomNum.RandSeed().ToString();
+            Title = "Please select a ZIP documentation.",
+            Multiselect = false,
+            Filter = "Zip|*.zip"
+        };
+        if ((bool)dialog.ShowDialog())
+        {
+            string path = dialog.FileName.Replace("/", "\\");
+            if (File.Exists(path))
+            {
+                string outFolder = System.IO.Path.GetTempPath() + @"rando_temp";
+                bool deleteTempFolder = !Directory.Exists(outFolder);
+                if (!Directory.Exists(outFolder))
+                {
+                    Directory.CreateDirectory(outFolder);
+                }
+
+                try
+                {
+                    using (ZipArchive archive = ZipFile.OpenRead(path))
+                    {
+                        ZipArchiveEntry entry = archive.Entries.First(e => e.Name.EndsWith("_Seed.json"));
+                        entry.ExtractToFile(outFolder + @"\seed.json");
+                    }
+
+                    Seed = RandoFlags.LoadSeed(outFolder + @"\seed.json");
+                }
+                catch
+                {
+                    MessageBox.Show("Failed to load the seed file.");
+                }
+
+                if (File.Exists(outFolder + @"\seed.json"))
+                {
+                    File.Delete(outFolder + @"\seed.json");
+                }
+
+                if (deleteTempFolder && Directory.Exists(outFolder))
+                {
+                    Directory.Delete(outFolder);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Make sure the ZIP file is a docs folder for rando.", "The selected file is not valid");
+            }
         }
+    }
+
+    private void seedButton_Click(object sender, RoutedEventArgs e)
+    {
+        Seed = RandomNum.RandSeed().ToString();
     }
 }

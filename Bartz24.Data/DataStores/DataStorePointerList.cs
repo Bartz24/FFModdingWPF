@@ -2,81 +2,77 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bartz24.Data
+namespace Bartz24.Data;
+
+public class DataStorePointerList<T> : DataStoreList<T> where T : DataStore, new()
 {
-    public class DataStorePointerList<T> : DataStoreList<T> where T : DataStore, new()
+    public readonly T NULL;
+    protected Dictionary<int, int> pointerToIndexDictionary = new();
+
+    public DataStorePointerList(T nullVal)
     {
-        public readonly T NULL;
-        protected Dictionary<int, int> pointerToIndexDictionary = new Dictionary<int, int>();
+        NULL = nullVal;
+    }
+    public override void LoadData(byte[] data, int offset = 0)
+    {
+        list.Clear();
+        while (offset < data.Length)
+        {
+            T val = new();
+            val.LoadData(data, offset);
+            Add(val, offset);
+            offset += val.Length;
+        }
+    }
 
-        public DataStorePointerList(T nullVal)
+    public Dictionary<int, int> GetNewPointers()
+    {
+        Dictionary<int, int> newDict = new();
+        int offset = 0;
+        pointerToIndexDictionary.Keys.ForEach(key =>
         {
-            NULL = nullVal;
-        }
-        public override void LoadData(byte[] data, int offset = 0)
-        {
-            list.Clear();
-            while (offset < data.Length)
-            {
-                T val = new T();
-                val.LoadData(data, offset);
-                Add(val, offset);
-                offset += val.Length;
-            }
-        }
+            newDict.Add(key, offset);
+            offset += this[key].Length;
+        });
+        return newDict;
+    }
 
-        public Dictionary<int, int> GetNewPointers()
+    public void UpdatePointers()
+    {
+        Dictionary<int, int> newPointers = GetNewPointers();
+        Dictionary<int, int> newDict = new();
+        pointerToIndexDictionary.Keys.ForEach(key =>
         {
-            Dictionary<int, int> newDict = new Dictionary<int, int>();
-            int offset = 0;
-            pointerToIndexDictionary.Keys.ForEach(key =>
-            {
-                newDict.Add(key, offset);
-                offset += this[key].Length;
-            });
-            return newDict;
-        }
+            newDict.Add(newPointers[key], pointerToIndexDictionary[key]);
+        });
+        pointerToIndexDictionary = newDict;
+    }
 
-        public void UpdatePointers()
+    public new T this[int i]
+    {
+        get => !pointerToIndexDictionary.ContainsKey(i) ? NULL : list[pointerToIndexDictionary[i]];
+        set
         {
-            Dictionary<int, int> newPointers = GetNewPointers();
-            Dictionary<int, int> newDict = new Dictionary<int, int>();
-            pointerToIndexDictionary.Keys.ForEach(key =>
-            {
-                newDict.Add(newPointers[key], pointerToIndexDictionary[key]);
-            });
-            pointerToIndexDictionary = newDict;
+            list[pointerToIndexDictionary[i]] = value;
+            UpdatePointers();
         }
+    }
 
-        public new T this[int i]
-        {
-            get
-            {
-                if (!pointerToIndexDictionary.ContainsKey(i))
-                    return NULL;
-                return list[pointerToIndexDictionary[i]];
-            }
-            set { list[pointerToIndexDictionary[i]] = value; UpdatePointers(); }
-        }
+    public override void Clear()
+    {
+        base.Clear();
+        pointerToIndexDictionary.Clear();
+    }
 
-        public override void Clear()
-        {
-            base.Clear();
-            pointerToIndexDictionary.Clear();
-        }
+    public override void Add(T obj, int i)
+    {
+        pointerToIndexDictionary.Add(i, list.Count);
+        base.Add(obj, list.Count);
+    }
 
-        public override void Add(T obj, int i)
-        {
-            pointerToIndexDictionary.Add(i, list.Count);
-            base.Add(obj, list.Count);
-        }
-
-        public override int IndexOf(T obj)
-        {
-            IEnumerable<int> values = pointerToIndexDictionary.Keys.Where(key => this[key].Equals(obj));
-            if (Contains(obj) && values.Count() == 0)
-                throw new Exception("Invalid check!");
-            return values.Count() > 0 ? values.First() : -1;
-        }
+    public override int IndexOf(T obj)
+    {
+        IEnumerable<int> values = pointerToIndexDictionary.Keys.Where(key => this[key].Equals(obj));
+        return Contains(obj) && values.Count() == 0 ? throw new Exception("Invalid check!") : values.Count() > 0 ? values.First() : -1;
     }
 }

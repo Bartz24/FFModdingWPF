@@ -1,164 +1,178 @@
-﻿using System;
+﻿using Bartz24.RandoWPF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Bartz24.RandoWPF
+namespace Bartz24.RandoWPF;
+
+public class RandomNum
 {
-    public class RandomNum
+    private static Random rand = null;
+
+    public static void SetRand(Random random)
     {
-        private static Random rand = null;
-
-        public static void SetRand(Random random)
+        if (rand != null)
         {
-            if (rand != null)
-                throw new NullReferenceException("Random has not been cleared yet!");
-            rand = random;
+            throw new NullReferenceException("Random has not been cleared yet!");
         }
 
-        public static void ClearRand()
+        rand = random;
+    }
+
+    public static void ClearRand()
+    {
+        rand = null;
+    }
+
+    /// <summary>
+    /// Gets a random number from (low, high)
+    /// </summary>
+    /// <param name="low"></param>
+    /// <param name="high"></param>
+    /// <returns></returns>
+    public static int RandInt(int low, int high)
+    {
+        CheckRand();
+        return rand.Next(low, high + 1);
+    }
+
+    /// <summary>
+    /// Gets a random number from (low, high)
+    /// </summary>
+    /// <param name="low"></param>
+    /// <param name="high"></param>
+    /// <returns></returns>
+    public static long RandLong(long low, long high)
+    {
+        CheckRand();
+        return rand.NextInt64(low, high + 1);
+    }
+
+    private static void CheckRand()
+    {
+        if (rand == null)
         {
-            rand = null;
+            throw new NullReferenceException("Random has not been set!");
+        }
+    }
+
+    public static int RandSeed()
+    {
+        SetRand(new Random());
+        int val = RandInt((int)1e8, (int)1e9 - 1);
+        ClearRand();
+        return val;
+    }
+
+    public static int RandIntNorm(double center, double std, int low, int high)
+    {
+        CheckRand();
+        double u1 = 1.0 - rand.NextDouble();
+        double u2 = 1.0 - rand.NextDouble();
+        double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+        double randNormal = center + (std * randStdNormal);
+        return Math.Min(high, Math.Max(low, (int)Math.Round(randNormal)));
+    }
+
+    public static T SelectRandom<T>(List<T> list)
+    {
+        return list[RandomNum.RandInt(0, list.Count - 1)];
+    }
+
+    public static T SelectRandomWeighted<T>(List<T> list, Func<T, long> weightFunc)
+    {
+        CheckRand();
+        List<T> weightedList = list.Where(t => weightFunc.Invoke(t) > 0).ToList();
+        if (weightedList.Count == 0)
+        {
+            return default;
         }
 
-        /// <summary>
-        /// Gets a random number from (low, high)
-        /// </summary>
-        /// <param name="low"></param>
-        /// <param name="high"></param>
-        /// <returns></returns>
-        public static int RandInt(int low, int high)
+        long totalWeight = weightedList.Sum(t => weightFunc.Invoke(t));
+        if (totalWeight == 0)
         {
-            CheckRand();
-            return rand.Next(low, high + 1);
+            throw new Exception("Total weight cannot be 0");
         }
 
-        /// <summary>
-        /// Gets a random number from (low, high)
-        /// </summary>
-        /// <param name="low"></param>
-        /// <param name="high"></param>
-        /// <returns></returns>
-        public static long RandLong(long low, long high)
+        int i = 0;
+        long index = RandLong(0, totalWeight - 1);
+        while (index >= weightFunc.Invoke(weightedList[i]))
         {
-            CheckRand();
-            return rand.NextInt64(low, high + 1);
+            index -= weightFunc.Invoke(weightedList[i]);
+            i++;
         }
 
-        private static void CheckRand()
+        return weightedList[i];
+    }
+
+    /// <summary>
+    /// Shuffles based on a function where an object has a higher chance of replacing each index or object
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"></param>
+    /// <param name="weightFunc">indexFrom, objFrom, indexTo, objTo; return long</param>
+    /// <returns></returns>
+    public static List<T> ShuffleWeightedOrder<T>(List<T> list, Func<int, T, int, T, long> weightFunc)
+    {
+        CheckRand();
+        List<T> newList = new(list);
+        int n = list.Count;
+        while (n > 1)
         {
-            if (rand == null)
-                throw new NullReferenceException("Random has not been set!");
+            n--;
+            int k = SelectRandomWeighted(Enumerable.Range(0, list.Count).ToList(), i => weightFunc(n, newList[n], i, newList[i]));
+            (newList[n], newList[k]) = (newList[k], newList[n]);
         }
 
-        public static int RandSeed()
+        return newList;
+    }
+    public static List<T> ShuffleLocalized<T>(List<T> list, int distance)
+    {
+        return ShuffleWeightedOrder(list, (from, _, to, _) =>
         {
-            SetRand(new Random());
-            int val = RandInt((int)1e8, (int)1e9 - 1);
-            ClearRand();
-            return val;
+            return to < from - distance || to > from + distance ? 0 : 1;
+        });
+    }
+
+    public static int GetIntSeed(string seed)
+    {
+        try
+        {
+            return int.Parse(seed.Trim());
+        }
+        catch (Exception)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(seed.Trim());
+            return (bytes.Sum(b => (int)Math.Pow(b + bytes[b % bytes.Length], 2.4)) * bytes.Length) - bytes.Length;
+        }
+    }
+
+    public static string GetHash(int length, int numBase = 10)
+    {
+        if (numBase is > 10 or < 1)
+        {
+            throw new Exception("Base not supported: " + numBase);
         }
 
-        public static int RandIntNorm(double center, double std, int low, int high)
+        int sum = 0;
+        foreach (Flag flag in RandoFlags.FlagsList)
         {
-            CheckRand();
-            double u1 = 1.0 - rand.NextDouble();
-            double u2 = 1.0 - rand.NextDouble();
-            double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
-            double randNormal = center + std * randStdNormal;
-            return Math.Min(high, Math.Max(low, (int)Math.Round(randNormal)));
-        }
-
-        public static T SelectRandom<T>(List<T> list)
-        {
-            return list[RandomNum.RandInt(0, list.Count - 1)];
-        }
-
-        public static T SelectRandomWeighted<T>(List<T> list, Func<T, long> weightFunc)
-        {
-            CheckRand();
-            List<T> weightedList = list.Where(t => weightFunc.Invoke(t) > 0).ToList();
-            if (weightedList.Count == 0)
-                return default(T);
-            long totalWeight = weightedList.Sum(t => weightFunc.Invoke(t));
-            if (totalWeight == 0)
-                throw new Exception("Total weight cannot be 0");
-            int i = 0;
-            long index = RandLong(0, totalWeight - 1);
-            while (index >= weightFunc.Invoke(weightedList[i]))
+            if (!flag.Aesthetic)
             {
-                index -= weightFunc.Invoke(weightedList[i]);
-                i++;
+                flag.SetRand();
+                sum = (sum + RandomNum.RandInt(0, 1000000)) % 10000000;
+                ClearRand();
             }
-            return weightedList[i];
         }
 
-        /// <summary>
-        /// Shuffles based on a function where an object has a higher chance of replacing each index or object
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="weightFunc">indexFrom, objFrom, indexTo, objTo; return long</param>
-        /// <returns></returns>
-        public static List<T> ShuffleWeightedOrder<T>(List<T> list, Func<int, T, int, T, long> weightFunc)
+        Random random = new(sum);
+        string s = "";
+        for (int i = 0; i < length; i++)
         {
-            CheckRand();
-            List<T> newList = new List<T>(list);
-            int n = list.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = SelectRandomWeighted(Enumerable.Range(0, list.Count).ToList(), i => weightFunc(n, newList[n], i, newList[i]));
-                T value = newList[k];
-                newList[k] = newList[n];
-                newList[n] = value;
-            }
-            return newList;
-        }
-        public static List<T> ShuffleLocalized<T>(List<T> list, int distance)
-        {
-            return ShuffleWeightedOrder(list, (from, _, to, _) =>
-            {
-                if (to < from - distance || to > from + distance)
-                    return 0;
-                return 1;
-            });
+            s += random.Next(0, numBase - 1).ToString();
         }
 
-        public static int GetIntSeed(string seed)
-        {
-            try
-            {
-                return Int32.Parse(seed.Trim());
-            }
-            catch (Exception)
-            {
-                byte[] bytes = Encoding.UTF8.GetBytes(seed.Trim());
-                return (int)bytes.Sum(b => (int)Math.Pow(b + bytes[b % bytes.Length], 2.4)) * (int)bytes.Length - (int)bytes.Length;
-            }
-        }
-
-        public static string GetHash(int length, int numBase = 10)
-        {
-            if (numBase > 10 || numBase < 1)
-                throw new Exception("Base not supported: " + numBase);
-            int sum = 0;
-            foreach (Flag flag in Flags.FlagsList)
-            {
-                if (!flag.Aesthetic)
-                {
-                    flag.SetRand();
-                    sum = (sum + RandomNum.RandInt(0, 1000000)) % 10000000;
-                    ClearRand();
-                }
-            }
-            Random random = new Random(sum);
-            string s = "";
-            for (int i = 0; i < length; i++)
-            {
-                s += random.Next(0, numBase - 1).ToString();
-            }
-            return s;
-        }
+        return s;
     }
 }

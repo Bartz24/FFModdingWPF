@@ -1,20 +1,17 @@
-﻿using HtmlAgilityPack;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
-namespace Bartz24.Docs
+namespace Bartz24.Docs;
+
+public class TableCellMultiple
 {
-    public class TableCellMultiple
+    public List<string> Elements { get; set; }
+    public TableCellMultiple(List<string> elements)
     {
-        public List<string> Elements { get; set; }
-        public TableCellMultiple(List<string> elements)
-        {
-            Elements = elements;
-        }
+        Elements = elements;
+    }
 
-        public override string ToString()
-        {
-            return $"<div style=\"display: flex; justify-content: flex-end\">{string.Join("", Elements)}</div>";
-        }
+    public override string ToString()
+    {
+        return $"<div style=\"display: flex; justify-content: flex-end\">{string.Join("", Elements)}</div>";
     }
 }

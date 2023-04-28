@@ -1,7 +1,6 @@
-﻿namespace Bartz24.Docs
+﻿namespace Bartz24.Docs;
+
+public class DocsSettings
 {
-    public class DocsSettings
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }

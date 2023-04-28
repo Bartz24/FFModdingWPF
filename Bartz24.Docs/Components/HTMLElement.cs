@@ -1,29 +1,28 @@
 ﻿using HtmlAgilityPack;
 using System.Collections.Generic;
 
-namespace Bartz24.Docs
+namespace Bartz24.Docs;
+
+public class HTMLElement
 {
-    public class HTMLElement
+    public string TagType { get; }
+    public string ID { get; }
+
+    public HTMLElement(string tagType, string id)
     {
-        public string TagType { get; }
-        public string ID { get; }
+        TagType = tagType;
+        ID = id;
+    }
 
-        public HTMLElement(string tagType, string id)
-        {
-            TagType = tagType;
-            ID = id;
-        }
+    public virtual List<HtmlNode> Generate()
+    {
+        string idInfo = ID == null ? "" : $" id=\"{ID}\"";
+        HtmlNode node = HtmlNode.CreateNode($"<{TagType}{idInfo}></{TagType}");
+        GenerateContent(node);
+        return new List<HtmlNode>() { node };
+    }
 
-        public virtual List<HtmlNode> Generate()
-        {
-            string idInfo = ID == null ? "" : $" id=\"{ID}\"";
-            HtmlNode node = HtmlNode.CreateNode($"<{TagType}{idInfo}></{TagType}");
-            GenerateContent(node);
-            return new List<HtmlNode>() { node };
-        }
-
-        protected virtual void GenerateContent(HtmlNode node)
-        {
-        }
+    protected virtual void GenerateContent(HtmlNode node)
+    {
     }
 }

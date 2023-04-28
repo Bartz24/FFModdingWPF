@@ -1,37 +1,39 @@
 ﻿using System.Text;
 
-namespace Bartz24.Data
+namespace Bartz24.Data;
+
+public class DataStoreID : DataStore
 {
-    public class DataStoreID : DataStore
+    public string ID
     {
-        public string ID
+        get => Encoding.UTF8.GetString(Data.SubArray(0, 0x10)).Replace("\0", "");
+        set
         {
-            get => Encoding.UTF8.GetString(Data.SubArray(0, 0x10)).Replace("\0", "");
-            set
+            byte[] bytes = Encoding.UTF8.GetBytes(value.ToCharArray(), 0, 0x10);
+            byte[] empty = new byte[0x10 - bytes.Length];
+            for (int i = 0; i < empty.Length; i++)
             {
-                byte[] bytes = Encoding.UTF8.GetBytes(value.ToCharArray(), 0, 0x10);
-                byte[] empty = new byte[0x10 - bytes.Length];
-                for (int i = 0; i < empty.Length; i++)
-                    empty[i] = 0;
-                Data.SetSubArray(0, bytes.Concat(empty));
+                empty[i] = 0;
             }
-        }
 
-        public int Offset
-        {
-            get => (int)Data.ReadUInt(0x10);
-            set => Data.SetUInt(0x10, (uint)value);
+            Data.SetSubArray(0, bytes.Concat(empty));
         }
+    }
 
-        public int DataSize
-        {
-            get => (int)Data.ReadUInt(0x14);
-            set => Data.SetUInt(0x14, (uint)value);
-        }
+    public int Offset
+    {
+        get => (int)Data.ReadUInt(0x10);
+        set => Data.SetUInt(0x10, (uint)value);
+    }
 
-        public override int GetDefaultLength()
-        {
-            return 0x20;
-        }
+    public int DataSize
+    {
+        get => (int)Data.ReadUInt(0x14);
+        set => Data.SetUInt(0x14, (uint)value);
+    }
+
+    public override int GetDefaultLength()
+    {
+        return 0x20;
     }
 }

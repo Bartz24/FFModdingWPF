@@ -1,6 +1,5 @@
-﻿namespace FF13_2Rando
+﻿namespace FF13_2Rando;
+
+public class Enums
 {
-    public class Enums
-    {
-    }
 }

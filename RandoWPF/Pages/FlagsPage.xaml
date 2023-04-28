@@ -75,7 +75,7 @@
                 <StackPanel Orientation="Horizontal" Margin="5,20" DockPanel.Dock="Right">
                     <TextBlock VerticalAlignment="Top" Text="Category Filter"/>
                     <ComboBox VerticalAlignment="Top" Margin="5,-3" Width="200" ItemsSource="{Binding Path=CategoryList, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Right"    
-                SelectedItem="{Binding Path=(local:Flags.SelectedCategory),Mode=TwoWay}"/>
+                SelectedItem="{Binding Path=(local:RandoFlags.SelectedCategory),Mode=TwoWay}"/>
                 </StackPanel>
                 <Label/>
             </DockPanel>

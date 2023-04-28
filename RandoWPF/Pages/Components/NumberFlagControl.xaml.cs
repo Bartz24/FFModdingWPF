@@ -1,25 +1,25 @@
-﻿using System.Windows;
+﻿using Bartz24.RandoWPF;
+using System.Windows;
 using System.Windows.Controls;
 
-namespace Bartz24.RandoWPF
+namespace Bartz24.RandoWPF;
+
+/// <summary>
+/// Interaction logic for NumberFlagControl.xaml
+/// </summary>
+public partial class NumberFlagControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for NumberFlagControl.xaml
-    /// </summary>
-    public partial class NumberFlagControl : UserControl
+    public static readonly DependencyProperty FlagPropertyProperty =
+    DependencyProperty.Register(nameof(FlagProperty), typeof(NumberFlagProperty), typeof(NumberFlagControl));
+
+    public NumberFlagProperty FlagProperty
     {
-        public static readonly DependencyProperty FlagPropertyProperty =
-        DependencyProperty.Register(nameof(FlagProperty), typeof(NumberFlagProperty), typeof(NumberFlagControl));
+        get => (NumberFlagProperty)GetValue(FlagPropertyProperty);
+        set => SetValue(FlagPropertyProperty, value);
+    }
 
-        public NumberFlagProperty FlagProperty
-        {
-            get => (NumberFlagProperty)GetValue(FlagPropertyProperty);
-            set => SetValue(FlagPropertyProperty, value);
-        }
-
-        public NumberFlagControl()
-        {
-            InitializeComponent();
-        }
+    public NumberFlagControl()
+    {
+        InitializeComponent();
     }
 }

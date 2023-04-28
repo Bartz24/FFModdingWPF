@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bartz24.RandoWPF
+namespace Bartz24.RandoWPF;
+
+public class RandomizerManager : List<Randomizer>
 {
-    public class RandomizerManager : List<Randomizer>
+    public Action<string, int, int> SetUIProgress { get; set; }
+    public T Get<T>() where T : Randomizer
     {
-        public Action<string, int, int> SetUIProgress { get; set; }
-        public T Get<T>() where T : Randomizer
+        foreach (Randomizer randomizer in this)
         {
-            foreach (Randomizer randomizer in this)
+            if (randomizer.GetType() == typeof(T))
             {
-                if (randomizer.GetType() == typeof(T))
-                    return (T)randomizer;
+                return (T)randomizer;
             }
-            return null;
         }
+
+        return null;
     }
 }

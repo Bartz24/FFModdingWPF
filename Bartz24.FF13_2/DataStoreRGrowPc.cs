@@ -1,14 +1,13 @@
 ﻿using Bartz24.FF13_2_LR;
 
-namespace Bartz24.FF13_2
+namespace Bartz24.FF13_2;
+
+public class DataStoreRGrowPc : DataStoreDB3SubEntry
 {
-    public class DataStoreRGrowPc : DataStoreDB3SubEntry
-    {
-        public int sAbilityId_pointer { get; set; }
-        public string sAbilityId_string { get; set; }
-        public int u4Role { get; set; }
-        public int u7Lv { get; set; }
-        public int u3Kind { get; set; }
-        public int u16Value { get; set; }
-    }
+    public int sAbilityId_pointer { get; set; }
+    public string sAbilityId_string { get; set; }
+    public int u4Role { get; set; }
+    public int u7Lv { get; set; }
+    public int u3Kind { get; set; }
+    public int u16Value { get; set; }
 }

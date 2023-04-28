@@ -1,21 +1,17 @@
-﻿using HtmlAgilityPack;
-using System.Collections.Generic;
+﻿namespace Bartz24.Docs;
 
-namespace Bartz24.Docs
+public class IconTooltip
 {
-    public class IconTooltip
+    private string ImageSrc { get; }
+    private string Title { get; }
+    public IconTooltip(string imageSrc, string title)
     {
-        private string ImageSrc { get; }
-        private string Title { get; }
-        public IconTooltip(string imageSrc, string title)
-        {
-            ImageSrc = imageSrc;
-            Title = title;
-        }
+        ImageSrc = imageSrc;
+        Title = title;
+    }
 
-        public override string ToString()
-        {
-            return $"<img src=\"{ImageSrc}\" height=\"22px\" data-toggle=\"tooltip\" data-html=\"true\" title=\"{Title}\"/>";
-        }
+    public override string ToString()
+    {
+        return $"<img src=\"{ImageSrc}\" height=\"22px\" data-toggle=\"tooltip\" data-html=\"true\" title=\"{Title}\"/>";
     }
 }

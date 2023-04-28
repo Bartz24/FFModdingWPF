@@ -1,36 +1,34 @@
 ﻿using Bartz24.Docs;
-using System;
 using System.Collections.Generic;
 
-namespace Bartz24.RandoWPF
+namespace Bartz24.RandoWPF;
+
+public class Randomizer
 {
-    public class Randomizer
+    public RandomizerManager Randomizers { get; }
+
+    public Randomizer(RandomizerManager randomizers)
     {
-        public RandomizerManager Randomizers { get; }
+        Randomizers = randomizers;
+    }
 
-        public Randomizer(RandomizerManager randomizers)
-        {
-            this.Randomizers = randomizers;
-        }
+    public virtual void Load()
+    {
 
-        public virtual void Load()
-        {
+    }
 
-        }
+    public virtual void Randomize()
+    {
 
-        public virtual void Randomize()
-        {
+    }
 
-        }
+    public virtual void Save()
+    {
 
-        public virtual void Save()
-        {
+    }
 
-        }
-
-        public virtual Dictionary<string, HTMLPage> GetDocumentation()
-        {
-            return new Dictionary<string, HTMLPage>();
-        }
+    public virtual Dictionary<string, HTMLPage> GetDocumentation()
+    {
+        return new Dictionary<string, HTMLPage>();
     }
 }

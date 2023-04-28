@@ -1,28 +1,27 @@
-﻿namespace Bartz24.Data
+﻿namespace Bartz24.Data;
+
+public class DataStoreIDList<T> : DataStoreList<T> where T : DataStoreID, new()
 {
-    public class DataStoreIDList<T> : DataStoreList<T> where T : DataStoreID, new()
+    public T this[string s] => list.Find(id => id.ID == s);
+
+    public void UpdateOffsets()
     {
-        public T this[string s]
+        for (int i = 1; i < Count; i++)
         {
-            get => list.Find(id => id.ID == s);
+            this[i].Offset = this[i - 1].Offset + this[i - 1].DataSize;
         }
+    }
 
-        public void UpdateOffsets()
+    public int IndexOf(string obj)
+    {
+        for (int i = 0; i < Count; i++)
         {
-            for (int i = 1; i < Count; i++)
+            if (this[i].ID == obj)
             {
-                this[i].Offset = this[i - 1].Offset + this[i - 1].DataSize;
+                return i;
             }
         }
 
-        public int IndexOf(string obj)
-        {
-            for (int i = 0; i < Count; i++)
-            {
-                if (this[i].ID == obj)
-                    return i;
-            }
-            return -1;
-        }
+        return -1;
     }
 }

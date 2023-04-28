@@ -1,25 +1,25 @@
-﻿using System.Windows;
+﻿using Bartz24.RandoWPF;
+using System.Windows;
 using System.Windows.Controls;
 
-namespace Bartz24.RandoWPF
+namespace Bartz24.RandoWPF;
+
+/// <summary>
+/// Interaction logic for ToggleFlagControl.xaml
+/// </summary>
+public partial class ToggleFlagControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for ToggleFlagControl.xaml
-    /// </summary>
-    public partial class ToggleFlagControl : UserControl
+    public static readonly DependencyProperty FlagPropertyProperty =
+    DependencyProperty.Register(nameof(FlagProperty), typeof(ToggleFlagProperty), typeof(ToggleFlagControl));
+
+    public ToggleFlagProperty FlagProperty
     {
-        public static readonly DependencyProperty FlagPropertyProperty =
-        DependencyProperty.Register(nameof(FlagProperty), typeof(ToggleFlagProperty), typeof(ToggleFlagControl));
+        get => (ToggleFlagProperty)GetValue(FlagPropertyProperty);
+        set => SetValue(FlagPropertyProperty, value);
+    }
 
-        public ToggleFlagProperty FlagProperty
-        {
-            get => (ToggleFlagProperty)GetValue(FlagPropertyProperty);
-            set => SetValue(FlagPropertyProperty, value);
-        }
-
-        public ToggleFlagControl()
-        {
-            InitializeComponent();
-        }
+    public ToggleFlagControl()
+    {
+        InitializeComponent();
     }
 }
