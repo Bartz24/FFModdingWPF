@@ -83,27 +83,30 @@ public class RandomNum
     public static T SelectRandomWeighted<T>(List<T> list, Func<T, long> weightFunc)
     {
         CheckRand();
-        List<T> weightedList = list.Where(t => weightFunc.Invoke(t) > 0).ToList();
-        if (weightedList.Count == 0)
+        long totalWeight = 0;
+        T selected = default;
+        foreach (var item in list)
         {
-            return default;
+            long weight = weightFunc(item);
+            if (weight < 0)
+            {
+                throw new Exception("Weight function cannot be negative");
+            }
+            if (weight == 0)
+            {
+                continue;
+            }
+            totalWeight += weight;
+            if (RandLong(0, totalWeight - 1) < weight)
+            {
+                selected = item;
+            }
         }
-
-        long totalWeight = weightedList.Sum(t => weightFunc.Invoke(t));
         if (totalWeight == 0)
         {
             throw new Exception("Total weight cannot be 0");
         }
-
-        int i = 0;
-        long index = RandLong(0, totalWeight - 1);
-        while (index >= weightFunc.Invoke(weightedList[i]))
-        {
-            index -= weightFunc.Invoke(weightedList[i]);
-            i++;
-        }
-
-        return weightedList[i];
+        return selected;
     }
 
     /// <summary>

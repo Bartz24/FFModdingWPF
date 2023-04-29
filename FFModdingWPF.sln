@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31605.320
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LRRando", "LRRando\LRRando.csproj", "{91BBD37E-CD3B-4730-BED6-6980518CFFAE}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -35,11 +35,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bartz24.FF12", "FF12\Bartz2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FF12Rando", "FF12Rando\FF12Rando.csproj", "{2D6B1AAE-961D-4458-A4D5-35EE6316BE36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FF13Rando", "FF13Rando\FF13Rando.csproj", "{4ED5E4F0-D802-49C6-8EBB-4167CA04BDC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FF13Rando", "FF13Rando\FF13Rando.csproj", "{4ED5E4F0-D802-49C6-8EBB-4167CA04BDC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bartz24.FF13", "FF13\Bartz24.FF13.csproj", "{D9D60656-B5C5-41EB-9297-5CD447792629}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bartz24.FF13", "FF13\Bartz24.FF13.csproj", "{D9D60656-B5C5-41EB-9297-5CD447792629}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bartz24.FF13Series", "Bartz24.FF13Series\Bartz24.FF13Series.csproj", "{9050F45F-1EA4-4DDA-A590-657FE5CF42C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bartz24.FF13Series", "Bartz24.FF13Series\Bartz24.FF13Series.csproj", "{9050F45F-1EA4-4DDA-A590-657FE5CF42C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdingUnitTests", "ModdingUnitTests\ModdingUnitTests.csproj", "{2F9F911E-4703-4CA9-AB78-5E12122FD900}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +105,10 @@ Global
 		{9050F45F-1EA4-4DDA-A590-657FE5CF42C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9050F45F-1EA4-4DDA-A590-657FE5CF42C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9050F45F-1EA4-4DDA-A590-657FE5CF42C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F9F911E-4703-4CA9-AB78-5E12122FD900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F9F911E-4703-4CA9-AB78-5E12122FD900}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F9F911E-4703-4CA9-AB78-5E12122FD900}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F9F911E-4703-4CA9-AB78-5E12122FD900}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

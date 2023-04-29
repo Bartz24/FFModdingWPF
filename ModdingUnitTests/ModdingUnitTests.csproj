@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.0.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.0.2" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bartz24.Data\Bartz24.Data.csproj" />
+    <ProjectReference Include="..\Bartz24.Docs\Bartz24.Docs.csproj" />
+    <ProjectReference Include="..\Bartz24.FF13Series\Bartz24.FF13Series.csproj" />
+    <ProjectReference Include="..\Bartz24.FF13_2\Bartz24.FF13_2.csproj" />
+    <ProjectReference Include="..\Bartz24.FF13_2_LR\Bartz24.FF13_2_LR.csproj" />
+    <ProjectReference Include="..\Bartz24.LR\Bartz24.LR.csproj" />
+    <ProjectReference Include="..\FF12Rando\FF12Rando.csproj" />
+    <ProjectReference Include="..\FF12\Bartz24.FF12.csproj" />
+    <ProjectReference Include="..\FF13Rando\FF13Rando.csproj" />
+    <ProjectReference Include="..\FF13\Bartz24.FF13.csproj" />
+    <ProjectReference Include="..\FF13_2Rando\FF13_2Rando.csproj" />
+    <ProjectReference Include="..\LRRando\LRRando.csproj" />
+    <ProjectReference Include="..\Multiworld\Multiworld.csproj" />
+    <ProjectReference Include="..\RandoWPF\Bartz24.RandoWPF.csproj" />
+  </ItemGroup>
+
+</Project>

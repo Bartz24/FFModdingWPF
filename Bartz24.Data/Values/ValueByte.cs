@@ -23,11 +23,9 @@ public static class ValueByte
         }
         else
         {
-            byte byte1 = data[byteIndex];
-            byte1 <<= bitIndex;
-            byte byte2 = data[byteIndex + 1];
-            byte2 >>= 8 - bitIndex;
-            byte byteOut = (byte)((byte1 + byte2) & 0xFF);
+            byte byte1 = (byte)((data[byteIndex] & (0xFF >> bitIndex)) << (bitIndex + bitLength - 8));
+            byte byte2 = (byte)((data[byteIndex + 1] & (0xFF << (8 - bitIndex))) >> (8 - bitIndex - bitLength + 8));
+            byte byteOut = (byte)(byte1 + byte2);
             return byteOut;
         }
     }
@@ -53,10 +51,10 @@ public static class ValueByte
         }
         else
         {
-            byte newDataLeft = (byte)(value >> bitIndex);
-            byte newDataRight = (byte)(value << (8 - bitIndex));
+            byte newDataLeft = (byte)(value >> (bitIndex + bitLength - 8));
+            byte newDataRight = (byte)(value << (8 - bitIndex - bitLength + 8));
             byte left = (byte)(data[byteIndex] & (0xFF << (8 - bitIndex)));
-            byte right = (byte)(data[byteIndex + 1] & (0xFF << (8 - (bitIndex + bitLength - 8))));
+            byte right = (byte)(data[byteIndex + 1] & (0xFF >> (bitIndex + bitLength - 8)));
             data.SetSubArray(byteIndex, new byte[] { (byte)(left + newDataLeft), (byte)(right + newDataRight) });
         }
     }
