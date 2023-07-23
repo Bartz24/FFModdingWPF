@@ -1,8 +1,8 @@
-0.7.4 Changelog:
--Added seed and seed hash to title screen
--Hard+++ is now 2x instead of max placement
--Increased monster crystal drop rates by up to 2.5x
--Improved item placement distribution
--Fixed mixed up Yaschas treasures causing potential softlocks
--Fixed key item placement options not working sometimes
--Fixed seed generation crash with large encounters
+0.7.5 Changelog:
+-Added enemy scaling flag
+-Improved boss selection for boss rando
+-Reduced enemy encounter crashes, mostly in Augusta, Academia, Sunleth
+-Locked Serendipity's Wild Artefact location to vanilla as it is not working as expected
+-Fixed more empty boss fights
+-Fixed Yaschas 100 chests getting mixed up softlocking certain seeds
+-Pressing enter to save custom presets is possible now

@@ -1,7 +1,8 @@
-0.7.4 Changelog:
--Added Max EP Cost flag up to 9 EP. EP Cost +/- Range now goes up to +/-9
--The loading screen text is now enabled by a flag
--Improved item placement distribution
--Hard+++ is now 2x instead of max placement
--Moved hints to their own documentation page
--Fixed key item placement options not working sometimes
+0.7.5 Changelog:
+-Added random equipment upgrading, available from the start
+-Added all upgrade materials to shops and reduced their prices
+-Improved equipment stat rando
+-Improved selection of key items and bosses for randomization
+-Reverted Final Day Sets fight to vanilla to avoid softlock
+-Fixed Saint's Crux softlock
+-Pressing enter to save custom presets is possible now
