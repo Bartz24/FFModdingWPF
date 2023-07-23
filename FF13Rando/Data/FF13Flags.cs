@@ -19,10 +19,10 @@ public class FF13Flags
     }
     public class Stats
     {
-        public static Flag RandCrystAbi, RandCrystStat, ShuffleCrystRole, ScaledCPCosts, RandInitStats, RandTPBorders, RunSpeedMult;
+        public static Flag RandCrystAbi, RandCrystStat, ShuffleCrystRole, RandInitStats, RandTPBorders, RunSpeedMult, ModifiedCPCosts, CPCostMult;
         public static ToggleFlagProperty RandCrystAbiAll, ShuffleCrystMisc, RandTPMax;
-        public static ComboBoxFlagProperty TPBorderType;
-        public static NumberFlagProperty RunSpeedMultValue;
+        public static ComboBoxFlagProperty TPBorderType, CPCostType;
+        public static NumberFlagProperty RunSpeedMultValue, CPCostMultValue;
 
         internal static void Init()
         {
@@ -61,12 +61,42 @@ public class FF13Flags
                 DescriptionFormat = "Randomizes the order of the crystarium nodes in each role. Abilities may be out of order in terms of pre-required abilities."
             }.Register(FlagType.Stats);
 
-            ScaledCPCosts = new Flag()
+            ModifiedCPCosts = new Flag()
             {
-                Text = "Scaled CP Costs",
-                FlagID = "ScaledCPCost",
-                DescriptionFormat = "CP Costs are reduced based on the stage from Stage 1 with 1x multiplier to Stage 9 and 10 0.5x multiplier."
+                Text = "CP Cost Type",
+                FlagID = "ModifyCPCosts",
+                DescriptionFormat = "Modify the CP Costs. Vanilla is the default option if this is turned off. CP costs will always be adjusted to work with how roles are obtained."
             }.Register(FlagType.Stats);
+
+            CPCostType = new ComboBoxFlagProperty()
+            {
+                Text = "",
+                ID = "CPCostTypeVal",
+                Description = "Types:\n" +
+                "    Vanilla-like - CP costs will aim to match vanilla CP costs for primary and secondary roles.\n" +
+                "    Lower Secondaries - CP costs will aim to match vanilla CP costs for primary but secondary costs will be lowered to primary costs.\n" +
+                "    Rebalanced - CP costs will scale up per stage and will be the same across all characters.",
+                Values = new string[] { "Vanilla-like", "Lower Secondaries", "Rebalanced" }.ToList()
+            }.Register(ModifiedCPCosts);
+
+            CPCostMult = new Flag()
+            {
+                Text = "CP Cost Multiplier",
+                FlagID = "CPCostMult",
+                DescriptionFormat = "CP Costs will be scaled by a percentage.\n" +
+                "CP costs will have a minimum CP cost of 5."
+            }.Register(FlagType.Stats);
+
+            CPCostMultValue = new NumberFlagProperty()
+            {
+                Text = "",
+                ID = "CPCostVal",
+                Description = "",
+                ValueText = "(%): ",
+                MinValue = 0,
+                MaxValue = 1000,
+                StepSize = 10
+            }.Register(CPCostMult);
 
             RandInitStats = new Flag()
             {

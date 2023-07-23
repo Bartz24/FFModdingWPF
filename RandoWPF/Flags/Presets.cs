@@ -106,16 +106,20 @@ public class Presets
 
         p.FlagSettings.ForEach(s =>
         {
-            Flag f = RandoFlags.FlagsList.First(f => f.FlagID == s["FlagID"].Value);
-            f.FlagEnabled = s["FlagEnabled"].Value;
-            ((JArray)s["FlagProperties"]).Select(o => (dynamic)o).ToList().ForEach(p =>
+            Flag f = RandoFlags.FlagsList.FirstOrDefault(f => f.FlagID == s["FlagID"].Value);
+
+            if (f != null)
             {
-                if (f.FlagProperties.Where(fp => fp.ID == p["ID"].Value).Count() > 0)
+                f.FlagEnabled = s["FlagEnabled"].Value;
+                ((JArray)s["FlagProperties"]).Select(o => (dynamic)o).ToList().ForEach(p =>
                 {
-                    FlagProperty prop = f.FlagProperties.First(fp => fp.ID == p["ID"].Value);
-                    prop.Deserialize(p);
-                }
-            });
+                    if (f.FlagProperties.Where(fp => fp.ID == p["ID"].Value).Count() > 0)
+                    {
+                        FlagProperty prop = f.FlagProperties.First(fp => fp.ID == p["ID"].Value);
+                        prop.Deserialize(p);
+                    }
+                });
+            }
         });
     }
 }

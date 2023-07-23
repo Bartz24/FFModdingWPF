@@ -21,6 +21,7 @@
                         Style="{StaticResource MaterialDesignFlatButton}"
                         Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                         HorizontalAlignment="Center"
+                        IsDefault="True"
                         Content="Ok">
                             <Button.CommandParameter>
                                 <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
