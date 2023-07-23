@@ -19,7 +19,7 @@ public class LicenseBoardRando : Randomizer
     private readonly string[] LeftBoardShort = { "AST", "DBP", "ELE", "ENC", "GMB", "INN", "LOR", "NSH", "RDM", "SMN", "SRC", "WHM" };
     private readonly string[] RightBoardShort = { "BLT", "BWR", "DEM", "GLD", "HNT", "NIN", "RAV", "ROG", "SAM", "VAL", "VKG", "WPN" };
 
-    public LicenseBoardRando(RandomizerManager randomizers) : base(randomizers) { }
+    public LicenseBoardRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

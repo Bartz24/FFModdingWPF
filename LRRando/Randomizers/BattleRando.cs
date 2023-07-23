@@ -20,7 +20,7 @@ public class BattleRando : Randomizer
     private readonly Dictionary<string, Dictionary<int, BossStatsData>> bossStatsData = new();
     private Dictionary<string, string> shuffledBosses = new();
 
-    public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
+    public BattleRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

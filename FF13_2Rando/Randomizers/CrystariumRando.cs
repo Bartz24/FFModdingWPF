@@ -20,7 +20,7 @@ public class CrystariumRando : Randomizer
 
     public Dictionary<string, AbilityData> abilityData = new();
 
-    public CrystariumRando(RandomizerManager randomizers) : base(randomizers) { }
+    public CrystariumRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

@@ -84,214 +84,34 @@ public partial class MainWindow : Window
 
     private async void generateButton_Click(object sender, RoutedEventArgs e)
     {
-        RandomizerManager randomizers = new()
+        LRSeedGenerator generator = new()
         {
-            SetUIProgress = SetProgressBar
+            SetUIProgress = SetProgressBar,
+            IncrementTotalProgress = totalProgressBar.IncrementProgress
         };
-        randomizers.Add(new QuestRando(randomizers));
-        randomizers.Add(new TreasureRando(randomizers));
-        randomizers.Add(new EquipRando(randomizers));
-        randomizers.Add(new ShopRando(randomizers));
-        randomizers.Add(new AbilityRando(randomizers));
-        randomizers.Add(new EnemyRando(randomizers));
-        randomizers.Add(new BattleRando(randomizers));
-        randomizers.Add(new MusicRando(randomizers));
-        randomizers.Add(new TextRando(randomizers));
 
-        totalProgressBar.TotalSegments = (randomizers.Count * 3) + 2;
+        totalProgressBar.TotalSegments = (generator.Randomizers.Count * 3) + 2;
         totalProgressBar.SetProgress(0, 0);
 
-        if (string.IsNullOrEmpty(SetupData.Paths["LR"]) || !Directory.Exists(SetupData.Paths["LR"]))
+        try
         {
-            MessageBox.Show("The path for LR is not valid. Setup the path in the '1. Setup' step.", "LR not found.");
-            return;
-        }
-
-        if (string.IsNullOrEmpty(SetupData.Paths["Nova"]) || !File.Exists(SetupData.Paths["Nova"]))
-        {
-            MessageBox.Show("NovaChrysalia.exe needs to be selected. Download Nova Chrysalia and setup the path in the '1. Setup' step.", "Nova Chrysalia not found.");
-            return;
-        }
-
-        if (!Nova.IsUnpacked("LR", @"db\resident\wdbpack.bin", SetupData.GetSteamPath("LR")))
-        {
-            MessageBox.Show("LR needs to be unpacked.\nOpen NovaChrysalia and 'Unpack Game Data' for LR.", "LR is not unpacked");
-            return;
-        }
-
-#if DEBUG
-        bool tests = false;
-        if (MessageBox.Show("Run tests?", "Tests", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-        {
-            tests = true;
-        }
-
-        for (int i = 0; i < (tests ? 10 : 1); i++)
-        {
-#endif
-            try
+            IsEnabled = false;
+            await Task.Run(() =>
             {
-
-                IsEnabled = false;
-                await Task.Run(() =>
-                {
-                    string outFolder = System.IO.Path.GetTempPath() + @"lr_rando_temp";
-                    SetupData.OutputFolder = outFolder + @"\Data";
-
-                    int seed = RandomNum.GetIntSeed(SetupData.Seed);
-#if DEBUG
-                    if (tests)
-                    {
-                        seed = RandomNum.RandSeed();
-                    }
-#endif
-
-                    foreach (Flag flag in RandoFlags.FlagsList)
-                    {
-                        flag.ResetRandom(seed);
-                    }
-#if DEBUG
-                    if (tests)
-                    {
-                        RandomNum.SetRand(new Random());
-                        foreach (Flag flag in RandoFlags.FlagsList)
-                        {
-                            flag.FlagEnabled = RandomNum.RandInt(0, 99) < 50;
-                        }
-                    }
-#endif
-
-                    RandomNum.ClearRand();
-
-                    SetProgressBar("Preparing data folder...", -1);
-                    if (Directory.Exists(outFolder))
-                    {
-                        Directory.Delete(outFolder, true);
-                    }
-
-                    Directory.CreateDirectory(outFolder);
-                    CopyFromFolder(outFolder, "data\\modpack");
-                    RandoHelpers.UpdateSeedInFile(outFolder + "\\modconfig.ini", seed.ToString());
-
-                    string wdbpackPath = Nova.GetNovaFile("LR", @"db\resident\wdbpack.bin", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
-                    string wdbpackOutPath = SetupData.OutputFolder + @"\db\resident\wdbpack.bin";
-                    FileHelpers.CopyFile(wdbpackPath, wdbpackOutPath);
-                    SetupData.WPDTracking.Clear();
-                    SetupData.WPDTracking.Add(wdbpackOutPath, new List<string>());
-                    Nova.UnpackWPD(wdbpackOutPath, SetupData.Paths["Nova"]);
-
-                    CopyFromFolder(outFolder + "\\Data\\db\\resident\\_wdbpack.bin", outFolder + "\\Data\\db\\resident\\_wdbpack.bin.rando");
-                    foreach (string file in Directory.GetFiles(outFolder + "\\Data\\db\\resident\\_wdbpack.bin.rando"))
-                    {
-                        SetupData.WPDTracking[wdbpackOutPath].Add(System.IO.Path.GetFileName(file));
-                    }
-
-                    Directory.Delete(outFolder + "\\Data\\db\\resident\\_wdbpack.bin.rando", true);
-
-                    totalProgressBar.IncrementProgress();
-
-                    randomizers.ForEach(r =>
-                    {
-                        r.Load();
-                        totalProgressBar.IncrementProgress();
-                    });
-
-                    randomizers.ForEach(r =>
-                    {
-                        r.Randomize();
-                        totalProgressBar.IncrementProgress();
-                    });
-
-                    randomizers.ForEach(r =>
-                    {
-                        r.Save();
-                        totalProgressBar.IncrementProgress();
-                    });
-
-                    Nova.CleanWPD(wdbpackOutPath, SetupData.WPDTracking[wdbpackOutPath]);
-
-                    SetProgressBar("Generating ModPack and documentation...", -1);
-                    Task taskModpack = new(() =>
-                    {
-#if DEBUG
-                        if (!tests)
-#endif
-                        {
-                            string zipName = $"packs\\LRRando_{seed}.ncmp";
-                            if (File.Exists(zipName))
-                            {
-                                File.Delete(zipName);
-                            }
-
-                            if (!Directory.Exists("packs"))
-                            {
-                                Directory.CreateDirectory("packs");
-                            }
-
-                            ZipFile.CreateFromDirectory(outFolder, zipName);
-
-                            Directory.Delete(outFolder, true);
-                        }
-                    });
-                    Task taskDocs = new(() =>
-                    {
-                        Docs docs = new();
-                        docs.Settings.Name = "LR FF13 Randomizer";
-                        for (int i = 0; i < randomizers.Count; i++)
-                        {
-                            Dictionary<string, HTMLPage> pages = randomizers[i].GetDocumentation();
-                            pages.ForEach(p => docs.AddPage(p.Key, p.Value));
-                        }
-
-                        docs.Generate(@"packs\docs_latest", @"data\docs\template");
-                        SaveSeedJSON(@"packs\docs_latest\LRRando_" + seed + "_Seed.json");
-                        string zipDocsName = $"packs\\LRRando_{seed}_Docs.zip";
-                        if (File.Exists(zipDocsName))
-                        {
-                            File.Delete(zipDocsName);
-                        }
-
-                        ZipFile.CreateFromDirectory(@"packs\docs_latest", zipDocsName);
-                    });
-                    taskModpack.Start();
-                    taskDocs.Start();
-                    Task.WaitAll(taskModpack, taskDocs);
-
-                    totalProgressBar.IncrementProgress();
-
-                    SetProgressBar($"Complete! Ready to install in Nova Chrysalia! The modpack 'LRRando_{seed}.ncmp' and documentation have been generated in the packs folder of this application.", 100);
-                });
-                IsEnabled = true;
-            }
-            catch (Exception ex)
+                generator.GenerateSeed();
+            });
+            IsEnabled = true;
+        }
+        catch (RandoException ex)
+        {
+            Exception innerMost = ex;
+            while (innerMost.InnerException != null)
             {
-                Exception innerMost = ex;
-                while (innerMost.InnerException != null)
-                {
-                    innerMost = innerMost.InnerException;
-                }
-
-                MessageBox.Show("Randomizer encountered an error:\n" + innerMost.Message + "\n\n" + innerMost.StackTrace, "Rando failed");
+                innerMost = innerMost.InnerException;
             }
-#if DEBUG
-        }
-#endif
-    }
 
-    private void CopyFromFolder(string mainFolder, string templateFolder)
-    {
-        //Now Create all of the directories
-        foreach (string dirPath in Directory.GetDirectories(templateFolder, "*",
-            SearchOption.AllDirectories))
-        {
-            Directory.CreateDirectory(dirPath.Replace(templateFolder, mainFolder));
-        }
-
-        //Copy all the files & Replaces any files with the same name
-        foreach (string newPath in Directory.GetFiles(templateFolder, "*.*",
-            SearchOption.AllDirectories))
-        {
-            File.Copy(newPath, newPath.Replace(templateFolder, mainFolder), true);
+            MessageBox.Show("Randomizer encountered an error.\n\n" + ex.Message + "\n\nStack trace:\n" + innerMost.StackTrace, ex.Title);
+            IsEnabled = true;
         }
     }
 
@@ -330,10 +150,10 @@ public partial class MainWindow : Window
 
     private void openModpackFolder_Click(object sender, RoutedEventArgs e)
     {
-        string dir = Directory.GetCurrentDirectory() + "\\docs";
+        string dir = Directory.GetCurrentDirectory() + "\\packs";
         if (!Directory.Exists(dir) || Directory.GetFiles(dir).Length == 0)
         {
-            MessageBox.Show("No docs seem to be generated. Generate a seed first first.", "No docs generated.");
+            MessageBox.Show("No packs seem to be generated. Generate a seed first first.", "No packs generated.");
         }
         else
         {
@@ -365,19 +185,12 @@ public partial class MainWindow : Window
         if ((bool)dialog.ShowDialog())
         {
             string path = dialog.FileName.Replace("/", "\\");
-            SaveSeedJSON(path);
+            RandoHelpers.SaveSeedJSON(path);
         }
     }
 
     private void shareSeedModpackFolder_Click(object sender, RoutedEventArgs e)
     {
 
-    }
-
-    private void SaveSeedJSON(string file)
-    {
-        int seed = RandomNum.GetIntSeed(SetupData.Seed);
-        string output = RandoFlags.Serialize(seed.ToString(), SetupData.Version);
-        File.WriteAllText(file, output);
     }
 }

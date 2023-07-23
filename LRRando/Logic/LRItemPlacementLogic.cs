@@ -12,7 +12,7 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 {
     private readonly TreasureRando treasureRando;
 
-    public LRItemPlacementLogic(ItemPlacementAlgorithm<ItemLocation> algorithm, RandomizerManager randomizers) : base(algorithm)
+    public LRItemPlacementLogic(ItemPlacementAlgorithm<ItemLocation> algorithm, SeedGenerator randomizers) : base(algorithm)
     {
         treasureRando = randomizers.Get<TreasureRando>();
     }

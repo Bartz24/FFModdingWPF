@@ -14,7 +14,7 @@ public class QuestRando : Randomizer
     public DataStoreDB3<DataStoreRQuest> questRewards = new();
     public DataStoreDB3<DataStoreRQuestCtrl> questRequirements = new();
 
-    public QuestRando(RandomizerManager randomizers) : base(randomizers) { }
+    public QuestRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

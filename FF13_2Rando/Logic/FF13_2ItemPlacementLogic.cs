@@ -13,7 +13,7 @@ public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
     protected Dictionary<string, int> AreaDepths = new();
     public List<string> AreaUnlockOrder { get; } = new List<string>();
 
-    public FF13_2ItemPlacementLogic(ItemPlacementAlgorithm<FF13_2ItemLocation> algorithm, RandomizerManager randomizers) : base(algorithm)
+    public FF13_2ItemPlacementLogic(ItemPlacementAlgorithm<FF13_2ItemLocation> algorithm, SeedGenerator randomizers) : base(algorithm)
     {
         treasureRando = randomizers.Get<TreasureRando>();
         cruxRando = randomizers.Get<HistoriaCruxRando>();

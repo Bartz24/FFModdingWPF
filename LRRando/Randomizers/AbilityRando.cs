@@ -15,7 +15,7 @@ public class AbilityRando : Randomizer
     public DataStoreDB3<DataStoreBtAbility> abilities = new();
     public DataStoreDB3<DataStoreRBtAbiGrow> abilityGrowths = new();
 
-    public AbilityRando(RandomizerManager randomizers) : base(randomizers) { }
+    public AbilityRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

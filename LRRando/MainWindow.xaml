@@ -141,7 +141,7 @@
                         <rando:FinishPage>
                             <Button Click="generateButton_Click"
                                     ToolTip="Generate a NCMP modpack to be installed in Nova Chrysalia.">Generate Modpack</Button>
-                            <Label Margin="2"/>
+                            <Label Margin="10"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />

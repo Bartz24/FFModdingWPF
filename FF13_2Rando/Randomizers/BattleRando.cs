@@ -26,7 +26,7 @@ public class BattleRando : Randomizer
     public Dictionary<string, (int, int)> areaBounds = new();
     private Dictionary<string, (int, int)> areaBoundsOrig = new();
 
-    public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
+    public BattleRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {
@@ -109,7 +109,7 @@ public class BattleRando : Randomizer
 
             btScenes.Values.Shuffle().ForEach(b =>
             {
-                List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Select(s => enemyData[s]).ToList();
+                List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.ContainsKey(s)).Select(s => enemyData[s]).ToList();
                 int count = oldEnemies.Count;
                 if (!FF13_2Flags.Enemies.LargeEnc.Enabled)
                 {
@@ -139,7 +139,7 @@ public class BattleRando : Randomizer
                         List<EnemyData> validEnemies = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).ToList();
                         if (battleData.ContainsKey(b.name))
                         {
-                            validEnemies = validEnemies.Where(e => e.Parts.Count() == 0 || oldEnemies.Contains(e)).ToList();
+                            validEnemies = validEnemies.Where(e => e.Parts.Count == 0 || oldEnemies.Contains(e)).ToList();
                         }
 
                         UpdateEnemyLists(oldEnemies, validEnemies, b.name, b.name.StartsWith("btsc011"));
@@ -175,7 +175,7 @@ public class BattleRando : Randomizer
 
     private int GetBattleRank(DataStoreBtScene b)
     {
-        List<EnemyData> enemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Select(s => enemyData[s]).ToList();
+        List<EnemyData> enemies = b.GetCharSpecs().Where(s => enemyData.ContainsKey(s)).Select(s => enemyData[s]).ToList();
         return enemies.Count > 0 ? enemies.Select(e => e.Rank).Max() : 0;
     }
 
@@ -191,7 +191,7 @@ public class BattleRando : Randomizer
         List<string> list = btTables.Keys
             .Where(id => btTables[id].Values
                 .SelectMany(bt => bt.GetBattleIDs()).Distinct()
-                .Where(i => btsceneName == "btsc" + i.ToString("D5")).Count() > 0)
+                .Where(i => btsceneName == "btsc" + i.ToString("D5")).Any())
             .Select(id => historiaCruxRando.areaData.Values.First(a => a.BattleTableID == id).ID)
             .ToList();
 
@@ -272,7 +272,7 @@ public class BattleRando : Randomizer
             bool noEntry = true;
             foreach (EnemyData e in oldEnemies)
             {
-                if (bossData.Values.SelectMany(d => d.Values).Where(b => b.ID == e.ID).Count() == 0)
+                if (!bossData.Values.SelectMany(d => d.Values).Where(b => b.ID == e.ID).Any())
                 {
                     continue;
                 }
@@ -477,7 +477,7 @@ public class BattleRando : Randomizer
             List<string> areas = GetAreasWithBattle(id);
             if (areas.Count > 0)
             {
-                List<EnemyData> oldEnemies = btScenes[id].GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Select(s => enemyData[s]).ToList();
+                List<EnemyData> oldEnemies = btScenes[id].GetCharSpecs().Where(s => enemyData.ContainsKey(s)).Select(s => enemyData[s]).ToList();
 
                 if (oldEnemies.Count > 0)
                 {

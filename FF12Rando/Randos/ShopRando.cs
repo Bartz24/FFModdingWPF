@@ -17,7 +17,7 @@ public class ShopRando : Randomizer
     public DataStoreBPSection<DataStoreBazaar> bazaars;
     private readonly Dictionary<int, ShopData> shopData = new();
 
-    public ShopRando(RandomizerManager randomizers) : base(randomizers) { }
+    public ShopRando(SeedGenerator randomizers) : base(randomizers) { }
     public override void Load()
     {
         Randomizers.SetUIProgress("Loading Shop Data...", 0, -1);

@@ -16,7 +16,7 @@ public class PartyRando : Randomizer
     public int[] Characters = new int[6];
     public string[] CharacterMapping = { "Vaan", "Ashe", "Fran", "Balthier", "Basch", "Penelo" };
 
-    public PartyRando(RandomizerManager randomizers) : base(randomizers) { }
+    public PartyRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

@@ -1,7 +1,9 @@
+using Bartz24.RandoWPF;
 using Ookii.Dialogs.Wpf;
 using SharpCompress.Archives.SevenZip;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,6 +15,7 @@ namespace FF12Rando;
 /// </summary>
 public partial class SetupPaths : UserControl
 {
+    public string FF12Path => SetupData.GetSteamPath("12");
     public string ToolsText { get; set; }
     public SolidColorBrush ToolsTextColor { get; set; }
 
@@ -21,7 +24,7 @@ public partial class SetupPaths : UserControl
         InitializeComponent();
         DataContext = this;
 
-        if (ToolsInstalled())
+        if (FF12SeedGenerator.ToolsInstalled())
         {
             ToolsText = "The required tools for editing scripts and text are installed.";
             ToolsTextColor = Brushes.White;
@@ -31,6 +34,41 @@ public partial class SetupPaths : UserControl
             ToolsText = "The required tools for editing scripts and text are not detected.\nDownload and then install the tools.";
             ToolsTextColor = Brushes.Red;
         }
+
+        SetupData.OutputFolder = @"outdata\ps2data";
+
+        SetupData.PathFileName = @"data\RandoPaths.csv";
+        SetupData.PathRegistrySearch.Add("12", @"\x64\FFXII_TZA.exe");
+
+        SetupData.PathRegistrySearch.Keys.ToList().ForEach(s => SetupData.Paths.Add(s, SetupData.GetSteamPath(s)));
+    }
+
+    private void steamPath12Button_Click(object sender, RoutedEventArgs e)
+    {
+        VistaFolderBrowserDialog dialog = new()
+        {
+            Description = "Please select the folder for FF12 Steam.",
+            UseDescriptionForTitle = true
+        };
+        if ((bool)dialog.ShowDialog())
+        {
+            string path = dialog.SelectedPath.Replace("/", "\\") + SetupData.PathRegistrySearch["12"];
+            if (File.Exists(path))
+            {
+                SetupData.Paths["12"] = dialog.SelectedPath.Replace("/", "\\");
+                SaveRandoPaths();
+                steamPath12Text.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
+            }
+            else
+            {
+                MessageBox.Show("Make sure the folder is something like 'FINAL FANTASY XII THE ZODIAC AGE'.", "The selected folder is not valid");
+            }
+        }
+    }
+
+    private void SaveRandoPaths()
+    {
+        File.WriteAllLines(SetupData.PathFileName, SetupData.Paths.Select(p => $"{p.Key};{p.Value + (SetupData.PathRegistrySearch.ContainsKey(p.Key) ? SetupData.PathRegistrySearch[p.Key] : "")}"));
     }
 
     private void toolsInstallButton_Click(object sender, RoutedEventArgs e)
@@ -80,7 +118,7 @@ public partial class SetupPaths : UserControl
                         }
                     }
 
-                    if (ToolsInstalled())
+                    if (FF12SeedGenerator.ToolsInstalled())
                     {
                         MessageBox.Show("Tools have been successfully installed.");
                     }
@@ -94,7 +132,7 @@ public partial class SetupPaths : UserControl
                     MessageBox.Show("Failed to install the tools when extracting the files.");
                 }
 
-                if (ToolsInstalled())
+                if (FF12SeedGenerator.ToolsInstalled())
                 {
                     ToolsText = "The required tools for editing scripts and text are installed.";
                     ToolsTextColor = Brushes.White;
@@ -113,11 +151,6 @@ public partial class SetupPaths : UserControl
                 MessageBox.Show("Make sure the selected file is a 7z file.", "The selected file is not valid");
             }
         }
-    }
-
-    private static bool ToolsInstalled()
-    {
-        return File.Exists("data\\tools\\ff12-text.exe") && File.Exists("data\\tools\\ff12-ebppack.exe") && File.Exists("data\\tools\\ff12-ebpunpack.exe");
     }
 
     private void toolsDownloadButton_Click(object sender, RoutedEventArgs e)

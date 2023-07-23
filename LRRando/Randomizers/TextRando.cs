@@ -13,7 +13,7 @@ public class TextRando : Randomizer
     public DataStoreZTRText zone100SysUS = new();
     public DataStoreZTRText mainSysUS = new();
 
-    public TextRando(RandomizerManager randomizers) : base(randomizers) { }
+    public TextRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

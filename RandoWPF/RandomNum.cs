@@ -68,11 +68,16 @@ public class RandomNum
     public static int RandIntNorm(double center, double std, int low, int high)
     {
         CheckRand();
-        double u1 = 1.0 - rand.NextDouble();
-        double u2 = 1.0 - rand.NextDouble();
-        double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
-        double randNormal = center + (std * randStdNormal);
-        return Math.Min(high, Math.Max(low, (int)Math.Round(randNormal)));
+        int randNormal = int.MinValue;
+        while (randNormal < low || randNormal > high)
+        {
+            double u1 = 1.0 - rand.NextDouble();
+            double u2 = 1.0 - rand.NextDouble();
+            double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+            randNormal = (int)Math.Round(center + (std * randStdNormal));
+        }
+
+        return randNormal;
     }
 
     public static T SelectRandom<T>(List<T> list)
@@ -97,20 +102,24 @@ public class RandomNum
             {
                 throw new Exception("Weight function cannot be negative");
             }
+
             if (weight == 0)
             {
                 continue;
             }
+
             totalWeight += weight;
             if (RandLong(0, totalWeight - 1) < weight)
             {
                 selected = item;
             }
         }
+
         if (totalWeight == 0)
         {
             throw new Exception("Total weight cannot be 0");
         }
+
         return selected;
     }
 

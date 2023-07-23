@@ -9,7 +9,7 @@ public class TextRando : Randomizer
     public DataStoreZTRText mainSysUS = new();
     public DataStoreZTRText quizUS = new();
 
-    public TextRando(RandomizerManager randomizers) : base(randomizers) { }
+    public TextRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

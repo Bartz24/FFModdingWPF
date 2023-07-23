@@ -83,201 +83,34 @@ public partial class MainWindow : Window
 
     private async void generateButton_Click(object sender, RoutedEventArgs e)
     {
-        RandomizerManager randomizers = new()
+        FF13SeedGenerator generator = new()
         {
-            SetUIProgress = SetProgressBar
+            SetUIProgress = SetProgressBar,
+            IncrementTotalProgress = totalProgressBar.IncrementProgress
         };
-        randomizers.Add(new EquipRando(randomizers));
-        randomizers.Add(new TreasureRando(randomizers));
-        randomizers.Add(new CrystariumRando(randomizers));
-        randomizers.Add(new ShopRando(randomizers));
-        randomizers.Add(new BattleRando(randomizers));
-        randomizers.Add(new EnemyRando(randomizers));
-        randomizers.Add(new MusicRando(randomizers));
-        /*
-        randomizers.Add(new HistoriaCruxRando(randomizers));
-        */
-        randomizers.Add(new TextRando(randomizers));
 
-        totalProgressBar.TotalSegments = (randomizers.Count * 3) + 2;
+        totalProgressBar.TotalSegments = (generator.Randomizers.Count * 3) + 2;
         totalProgressBar.SetProgress(0, 0);
 
-        if (string.IsNullOrEmpty(SetupData.Paths["13"]) || !Directory.Exists(SetupData.Paths["13"]))
+        try
         {
-            MessageBox.Show("The path for FF13 is not valid. Setup the path in the '1. Setup' step.", "FF13 not found.");
-            return;
-        }
-
-        if (string.IsNullOrEmpty(SetupData.Paths["Nova"]) || !File.Exists(SetupData.Paths["Nova"]))
-        {
-            MessageBox.Show("NovaChrysalia.exe needs to be selected. Download Nova Chrysalia and setup the path in the '1. Setup' step.", "Nova Chrysalia not found.");
-            return;
-        }
-
-        if (!Nova.IsUnpacked("13", @"db\resident\treasurebox.wdb", SetupData.GetSteamPath("13")))
-        {
-            MessageBox.Show("FF13 needs to be unpacked.\nOpen NovaChrysalia and 'Unpack Game Data' for FF13.", "FF13 is not unpacked");
-            return;
-        }
-
-#if DEBUG
-        bool tests = false;
-        if (MessageBox.Show("Run tests?", "Tests", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-        {
-            tests = true;
-        }
-
-        for (int i = 0; i < (tests ? 10 : 1); i++)
-        {
-#endif
-            try
+            IsEnabled = false;
+            await Task.Run(() =>
             {
-
-                IsEnabled = false;
-                await Task.Run(() =>
-                {
-                    string outFolder = System.IO.Path.GetTempPath() + @"ff13_rando_temp";
-                    SetupData.OutputFolder = outFolder + @"\Data";
-
-                    int seed = RandomNum.GetIntSeed(SetupData.Seed);
-#if DEBUG
-                    if (tests)
-                    {
-                        seed = RandomNum.RandSeed();
-                    }
-#endif
-
-                    foreach (Flag flag in RandoFlags.FlagsList)
-                    {
-                        flag.ResetRandom(seed);
-                    }
-#if DEBUG
-                    if (tests)
-                    {
-                        RandomNum.SetRand(new Random());
-                        foreach (Flag flag in RandoFlags.FlagsList)
-                        {
-                            flag.FlagEnabled = RandomNum.RandInt(0, 99) < 50;
-                        }
-                    }
-#endif
-
-                    RandomNum.ClearRand();
-
-                    SetProgressBar("Preparing data folder...", -1);
-                    if (Directory.Exists(outFolder))
-                    {
-                        Directory.Delete(outFolder, true);
-                    }
-
-                    Directory.CreateDirectory(outFolder);
-                    CopyFromTemplate(outFolder, "data\\modpack");
-                    RandoHelpers.UpdateSeedInFile(outFolder + "\\modconfig.ini", seed.ToString());
-                    File.Move(outFolder + "\\Code\\patch.nccp", outFolder + $"\\Code\\FF13 Randomizer {seed}.nccp");
-
-                    SetupData.WPDTracking.Clear();
-
-                    totalProgressBar.IncrementProgress();
-
-                    randomizers.ForEach(r =>
-                    {
-                        r.Load();
-                        totalProgressBar.IncrementProgress();
-                    });
-
-                    randomizers.ForEach(r =>
-                    {
-                        r.Randomize();
-                        totalProgressBar.IncrementProgress();
-                    });
-
-                    randomizers.ForEach(r =>
-                    {
-                        r.Save();
-                        totalProgressBar.IncrementProgress();
-                    });
-
-                    SetProgressBar("Generating ModPack and documentation...", -1);
-                    Task taskModpack = new(() =>
-                    {
-#if DEBUG
-                        if (!tests)
-#endif
-                        {
-                            string zipName = $"packs\\FF13Rando_{seed}.ncmp";
-                            if (File.Exists(zipName))
-                            {
-                                File.Delete(zipName);
-                            }
-
-                            if (!Directory.Exists("packs"))
-                            {
-                                Directory.CreateDirectory("packs");
-                            }
-
-                            ZipFile.CreateFromDirectory(outFolder, zipName);
-
-                            Directory.Delete(outFolder, true);
-                        }
-                    });
-                    Task taskDocs = new(() =>
-                    {
-                        Docs docs = new();
-                        docs.Settings.Name = "FF13 Randomizer";
-                        for (int i = 0; i < randomizers.Count; i++)
-                        {
-                            Dictionary<string, HTMLPage> pages = randomizers[i].GetDocumentation();
-                            pages.ForEach(p => docs.AddPage(p.Key, p.Value));
-                        }
-
-                        docs.Generate(@"packs\docs_latest", @"data\docs\template");
-                        SaveSeedJSON(@"packs\docs_latest\FF13Rando_" + seed + "_Seed.json");
-                        string zipDocsName = $"packs\\FF13Rando_{seed}_Docs.zip";
-                        if (File.Exists(zipDocsName))
-                        {
-                            File.Delete(zipDocsName);
-                        }
-
-                        ZipFile.CreateFromDirectory(@"packs\docs_latest", zipDocsName);
-                    });
-                    taskModpack.Start();
-                    taskDocs.Start();
-                    Task.WaitAll(taskModpack, taskDocs);
-
-                    totalProgressBar.IncrementProgress();
-                    SetProgressBar($"Complete! Ready to install in Nova Chrysalia! The modpack 'FF13Rando_{seed}.ncmp' and documentation have been generated in the packs folder of this application.", 100);
-                });
-                IsEnabled = true;
-            }
-            catch (Exception ex)
+                generator.GenerateSeed();
+            });
+            IsEnabled = true;
+        }
+        catch (RandoException ex)
+        {
+            Exception innerMost = ex;
+            while (innerMost.InnerException != null)
             {
-                Exception innerMost = ex;
-                while (innerMost.InnerException != null)
-                {
-                    innerMost = innerMost.InnerException;
-                }
-
-                MessageBox.Show("Randomizer encountered an error:\n" + innerMost.Message + "\n\n" + innerMost.StackTrace, "Rando failed");
+                innerMost = innerMost.InnerException;
             }
-#if DEBUG
-        }
-#endif
-    }
 
-    private void CopyFromTemplate(string mainFolder, string templateFolder)
-    {
-        //Now Create all of the directories
-        foreach (string dirPath in Directory.GetDirectories(templateFolder, "*",
-            SearchOption.AllDirectories))
-        {
-            Directory.CreateDirectory(dirPath.Replace(templateFolder, mainFolder));
-        }
-
-        //Copy all the files & Replaces any files with the same name
-        foreach (string newPath in Directory.GetFiles(templateFolder, "*.*",
-            SearchOption.AllDirectories))
-        {
-            File.Copy(newPath, newPath.Replace(templateFolder, mainFolder), true);
+            MessageBox.Show("Randomizer encountered an error.\n\n" + ex.Message + "\n\nStack trace:\n" + innerMost.StackTrace, ex.Title);
+            IsEnabled = true;
         }
     }
 
@@ -351,19 +184,12 @@ public partial class MainWindow : Window
         if ((bool)dialog.ShowDialog())
         {
             string path = dialog.FileName.Replace("/", "\\");
-            SaveSeedJSON(path);
+            RandoHelpers.SaveSeedJSON(path);
         }
     }
 
     private void shareSeedModpackFolder_Click(object sender, RoutedEventArgs e)
     {
 
-    }
-
-    private void SaveSeedJSON(string file)
-    {
-        int seed = RandomNum.GetIntSeed(SetupData.Seed);
-        string output = RandoFlags.Serialize(seed.ToString(), SetupData.Version);
-        File.WriteAllText(file, output);
     }
 }

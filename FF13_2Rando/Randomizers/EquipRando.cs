@@ -16,7 +16,7 @@ public class EquipRando : Randomizer
     public DataStoreDB3<DataStoreItemWeapon> itemWeapons = new();
     public DataStoreDB3<DataStoreItem> items = new();
 
-    public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
+    public EquipRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

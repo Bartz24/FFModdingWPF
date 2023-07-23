@@ -32,7 +32,7 @@ public class TreasureRando : Randomizer
     public List<string> randomizeItems = new();
     public List<string> remainingRandomizeItems = new();
 
-    public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
+    public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

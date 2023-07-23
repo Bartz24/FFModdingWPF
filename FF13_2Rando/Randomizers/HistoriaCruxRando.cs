@@ -22,7 +22,7 @@ public class HistoriaCruxRando : Randomizer
 
     public Dictionary<string, string> placement = new();
 
-    public HistoriaCruxRando(RandomizerManager randomizers) : base(randomizers) { }
+    public HistoriaCruxRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

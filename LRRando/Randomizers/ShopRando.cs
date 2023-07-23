@@ -16,7 +16,7 @@ public class ShopRando : Randomizer
     private readonly DataStoreDB3<DataStoreShop> shops = new();
     private readonly Dictionary<string, ShopData> shopData = new();
 
-    public ShopRando(RandomizerManager randomizers) : base(randomizers) { }
+    public ShopRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

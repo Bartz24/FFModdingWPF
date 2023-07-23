@@ -14,7 +14,7 @@ public class EnemyRando : Randomizer
     private readonly Dictionary<string, DataStoreARD> ards = new();
     private readonly Dictionary<string, EnemyData> enemyData = new();
 
-    public EnemyRando(RandomizerManager randomizers) : base(randomizers) { }
+    public EnemyRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

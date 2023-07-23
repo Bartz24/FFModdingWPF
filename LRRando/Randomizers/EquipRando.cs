@@ -29,7 +29,7 @@ public class EquipRando : Randomizer
     public List<string> RemainingEquip = new();
     public List<string> RemainingAdorn = new();
 
-    public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
+    public EquipRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

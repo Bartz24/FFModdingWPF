@@ -19,7 +19,7 @@ public class EquipRando : Randomizer
     public Dictionary<string, ItemData> itemData = new();
     public Dictionary<string, PassiveData> passiveData = new();
 
-    public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
+    public EquipRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

@@ -32,7 +32,7 @@ public class TreasureRando : Randomizer
 
     public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo => usingBackup ? placementAlgoBackup : placementAlgoNormal;
 
-    public TreasureRando(RandomizerManager randomizers) : base(randomizers) { }
+    public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

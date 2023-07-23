@@ -26,7 +26,7 @@ public class EnemyRando : Randomizer
         "bt_chsp_x000_108"
     };
 
-    public EnemyRando(RandomizerManager randomizers) : base(randomizers) { }
+    public EnemyRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

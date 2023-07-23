@@ -14,7 +14,7 @@ public class EquipRando : Randomizer
     public Dictionary<string, ItemData> itemData = new();
     public Dictionary<string, AugmentData> augmentData = new();
     public DataStoreBPEquip equip;
-    public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
+    public EquipRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

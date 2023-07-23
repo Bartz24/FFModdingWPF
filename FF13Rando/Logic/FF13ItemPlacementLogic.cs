@@ -8,7 +8,7 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
 {
     private readonly TreasureRando treasureRando;
 
-    public FF13ItemPlacementLogic(ItemPlacementAlgorithm<FF13ItemLocation> algorithm, RandomizerManager randomizers) : base(algorithm)
+    public FF13ItemPlacementLogic(ItemPlacementAlgorithm<FF13ItemLocation> algorithm, SeedGenerator randomizers) : base(algorithm)
     {
         treasureRando = randomizers.Get<TreasureRando>();
     }

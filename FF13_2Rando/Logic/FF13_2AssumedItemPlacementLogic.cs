@@ -26,7 +26,7 @@ public class FF13_2AssumedItemPlacementLogic : FF13_2ItemPlacementLogic
             return list;
         }
     }
-    public FF13_2AssumedItemPlacementLogic(ItemPlacementAlgorithm<FF13_2ItemLocation> algorithm, RandomizerManager randomizers) : base(algorithm, randomizers)
+    public FF13_2AssumedItemPlacementLogic(ItemPlacementAlgorithm<FF13_2ItemLocation> algorithm, SeedGenerator randomizers) : base(algorithm, randomizers)
     {
     }
 

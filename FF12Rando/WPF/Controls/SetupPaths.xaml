@@ -25,12 +25,21 @@
             <RowDefinition Height="*" />-->
         </Grid.RowDefinitions>
         <Border Grid.Column="0" Grid.Row="0">
-            <Label HorizontalAlignment="Right" VerticalAlignment="Center">FF12 VM Script Tools</Label>
+            <Label HorizontalAlignment="Right">FF12 Steam Path</Label>
         </Border>
         <Border Grid.Column="1" Grid.Row="0">
-            <Label x:Name="ToolsTextLabel" VerticalAlignment="Center" Content="{Binding ToolsText, Mode=OneWay}" Foreground="{Binding ToolsTextColor, Mode=OneWay}"/>
+            <TextBox x:Name="steamPath12Text" IsReadOnly="True" Text="{Binding FF12Path, Mode=OneWay}" Foreground="Gray"/>
         </Border>
         <Border Grid.Column="2" Grid.Row="0">
+            <Button x:Name="steamPath12Button" Click="steamPath12Button_Click" Content="Select FF12 Folder"/>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="1">
+            <Label HorizontalAlignment="Right" VerticalAlignment="Center">FF12 VM Script Tools</Label>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="1">
+            <Label x:Name="ToolsTextLabel" VerticalAlignment="Center" Content="{Binding ToolsText, Mode=OneWay}" Foreground="{Binding ToolsTextColor, Mode=OneWay}"/>
+        </Border>
+        <Border Grid.Column="2" Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

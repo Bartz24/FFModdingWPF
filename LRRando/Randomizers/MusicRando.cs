@@ -15,7 +15,7 @@ public class MusicRando : Randomizer
     private readonly Dictionary<string, string> names = new();
     private readonly Dictionary<string, MusicData> musicData = new();
 
-    public MusicRando(RandomizerManager randomizers) : base(randomizers) { }
+    public MusicRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

@@ -11,7 +11,7 @@ namespace FF13Rando;
 public class ShopRando : Randomizer
 {
     public DataStoreWDB<DataStoreShop> shops = new();
-    public ShopRando(RandomizerManager randomizers) : base(randomizers) { }
+    public ShopRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

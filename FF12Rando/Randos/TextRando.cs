@@ -12,7 +12,7 @@ public class TextRando : Randomizer
     public DataStoreBinText TextMenuMessage = new(true);
     public DataStoreBinText TextMenuCommand = new(true);
     public DataStoreBinText TextAbilityHelp = new(true);
-    public TextRando(RandomizerManager randomizers) : base(randomizers) { }
+    public TextRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

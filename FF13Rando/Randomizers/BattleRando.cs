@@ -35,7 +35,7 @@ public class BattleRando : Randomizer
     public Dictionary<string, EnemyData> enemyData = new();
     public Dictionary<string, CharasetData> charasetData = new();
 
-    public BattleRando(RandomizerManager randomizers) : base(randomizers) { }
+    public BattleRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

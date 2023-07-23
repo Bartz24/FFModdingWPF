@@ -34,4 +34,20 @@ public class FileHelpers
             }
         }
     }
+    public static void CopyFromFolder(string target, string from)
+    {
+        //Now Create all of the directories
+        foreach (string dirPath in Directory.GetDirectories(from, "*",
+            SearchOption.AllDirectories))
+        {
+            Directory.CreateDirectory(dirPath.Replace(from, target));
+        }
+
+        //Copy all the files & Replaces any files with the same name
+        foreach (string newPath in Directory.GetFiles(from, "*.*",
+            SearchOption.AllDirectories))
+        {
+            File.Copy(newPath, newPath.Replace(from, target), true);
+        }
+    }
 }

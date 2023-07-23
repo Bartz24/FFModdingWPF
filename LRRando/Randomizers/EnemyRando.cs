@@ -12,7 +12,7 @@ public class EnemyRando : Randomizer
 {
     public DataStoreDB3<DataStoreBtCharaSpec> enemies = new();
 
-    public EnemyRando(RandomizerManager randomizers) : base(randomizers) { }
+    public EnemyRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

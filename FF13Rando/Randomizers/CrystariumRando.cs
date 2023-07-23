@@ -20,7 +20,7 @@ public class CrystariumRando : Randomizer
     private readonly string[] chars = new string[] { "lightning", "fang", "hope", "sazh", "snow", "vanille" };
     public Dictionary<string, Dictionary<Role, string>> firstNodes = new();
 
-    public CrystariumRando(RandomizerManager randomizers) : base(randomizers) { }
+    public CrystariumRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {

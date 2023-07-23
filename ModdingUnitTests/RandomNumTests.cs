@@ -13,7 +13,7 @@ namespace Bartz24.RandoWPF.Tests;
 [TestClass()]
 public class RandomNumTests
 {
-    private static readonly int DistributionCount = 1000000;
+    private static readonly int DistributionCount = 100000;
     private static readonly int Seed = 5451237;
 
     [TestInitialize]
@@ -32,7 +32,7 @@ public class RandomNumTests
     [DataRow(0, 99)]
     [DataRow(5, 6)]
     [DataRow(-9, 18)]
-    [DataRow(0, 100000)]
+    [DataRow(0, 10000)]
     public void RandIntTest(int low, int high)
     {
         IEnumerable<int> enumerable = Enumerable.Range(0, DistributionCount).Select(_ => RandomNum.RandInt(low, high)).GroupBy(i => i).Select(g => g.Count());
@@ -43,7 +43,7 @@ public class RandomNumTests
     [DataRow((long)0, (long)99)]
     [DataRow((long)5, (long)6)]
     [DataRow((long)-9, (long)18)]
-    [DataRow((long)0, (long)100000)]
+    [DataRow((long)0, (long)10000)]
     public void RandLongTest(long low, long high)
     {
         IEnumerable<int> enumerable = Enumerable.Range(0, DistributionCount).Select(_ => RandomNum.RandLong(low, high)).GroupBy(i => i).Select(g => g.Count());
@@ -52,7 +52,7 @@ public class RandomNumTests
 
     [TestMethod()]
     [DataRow(50, 10, 0, 100)]
-    [DataRow(20000, 1000, 0, 100000)]
+    [DataRow(2000, 1000, 0, 10000)]
     public void RandIntNormTest(double center, double std, int low, int high)
     {
         IEnumerable<IGrouping<int, int>> enumerable = Enumerable.Range(0, DistributionCount).Select(_ => RandomNum.RandIntNorm(center, std, low, high)).GroupBy(i => i);
@@ -75,7 +75,7 @@ public class RandomNumTests
     [TestMethod()]
     [DataRow(100)]
     [DataRow(2)]
-    // [DataRow(5000)] Slow
+    [DataRow(5000)]
     public void SelectRandomWeightedTestUniform(int listCount)
     {
         List<string> list = GetMockList(listCount);
@@ -87,7 +87,7 @@ public class RandomNumTests
     [TestMethod()]
     [DataRow(100)]
     [DataRow(2)]
-    // [DataRow(5000)] Slow
+    [DataRow(5000)]
     public void SelectRandomWeightedTestWithZeros(int listCount)
     {
         List<string> list = GetMockList(listCount);

@@ -79,174 +79,39 @@ public partial class MainWindow : Window
             Directory.CreateDirectory("data\\musicPacks");
         }
     }
-    private static bool ToolsInstalled()
-    {
-        return File.Exists("data\\tools\\ff12-text.exe") && File.Exists("data\\tools\\ff12-ebppack.exe") && File.Exists("data\\tools\\ff12-ebpunpack.exe");
-    }
 
     private async void generateButton_Click(object sender, RoutedEventArgs e)
     {
-        RandomizerManager randomizers = new()
+        FF12SeedGenerator generator = new()
         {
-            SetUIProgress = SetProgressBar
+            SetUIProgress = SetProgressBar,
+            IncrementTotalProgress = totalProgressBar.IncrementProgress
         };
-        randomizers.Add(new PartyRando(randomizers));
-        randomizers.Add(new TreasureRando(randomizers));
-        randomizers.Add(new EquipRando(randomizers));
-        randomizers.Add(new LicenseBoardRando(randomizers));
-        randomizers.Add(new EnemyRando(randomizers));
-        randomizers.Add(new ShopRando(randomizers));
-        randomizers.Add(new TextRando(randomizers));
-        randomizers.Add(new MusicRando(randomizers));
 
-        totalProgressBar.TotalSegments = (randomizers.Count * 3) + 2;
+        totalProgressBar.TotalSegments = (generator.Randomizers.Count * 3) + 2;
         totalProgressBar.SetProgress(0, 0);
 
-#if !DEBUG
-        if (!File.Exists("..\\FFXII_TZA.exe"))
+        try
         {
-            MessageBox.Show("Can't detect FFXII_TZA.exe. Make sure to run the randomizer from the steam folder of FF12.", "Incorrect location.");
-            return;
-        }
-#endif
-
-        if (!ToolsInstalled())
-        {
-            MessageBox.Show("Text and script tools are not installed. Download and install them on 1. Setup.", "Tools missing.");
-            return;
-        }
-
-#if DEBUG
-        bool tests = false;
-        if (MessageBox.Show("Run tests?", "Tests", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-        {
-            tests = true;
-        }
-
-        for (int i = 0; i < (tests ? 10 : 1); i++)
-        {
-#endif
-            try
+            IsEnabled = false;
+            await Task.Run(() =>
             {
-
-                IsEnabled = false;
-                await Task.Run(() =>
-                {
-                    string outFolder = "outdata/ps2data";
-                    SetupData.OutputFolder = "outdata/ps2data";
-
-                    int seed = RandomNum.GetIntSeed(SetupData.Seed);
-#if DEBUG
-                    if (tests)
-                    {
-                        seed = RandomNum.RandSeed();
-                    }
-#endif
-
-                    foreach (Flag flag in RandoFlags.FlagsList)
-                    {
-                        flag.ResetRandom(seed);
-                    }
-#if DEBUG
-                    if (tests)
-                    {
-                        RandomNum.SetRand(new Random());
-                        foreach (Flag flag in RandoFlags.FlagsList)
-                        {
-                            flag.FlagEnabled = RandomNum.RandInt(0, 99) < 50;
-                        }
-                    }
-#endif
-
-                    RandomNum.ClearRand();
-
-                    SetProgressBar("Preparing data folder...", -1);
-                    if (Directory.Exists(outFolder))
-                    {
-                        Directory.Delete(outFolder, true);
-                    }
-
-                    Directory.CreateDirectory(outFolder);
-                    CopyFromTemplate(outFolder, "data\\ps2data");
-
-                    totalProgressBar.IncrementProgress();
-
-                    randomizers.ForEach(r =>
-                    {
-                        r.Load();
-                        totalProgressBar.IncrementProgress();
-                    });
-
-                    randomizers.ForEach(r =>
-                    {
-                        r.Randomize();
-                        totalProgressBar.IncrementProgress();
-                    });
-
-                    randomizers.ForEach(r =>
-                    {
-                        r.Save();
-                        totalProgressBar.IncrementProgress();
-                    });
-
-                    SetProgressBar("Generating documentation...", -1);
-                    Docs docs = new();
-                    docs.Settings.Name = "FF12 Randomizer";
-                    for (int i = 0; i < randomizers.Count; i++)
-                    {
-                        Dictionary<string, HTMLPage> pages = randomizers[i].GetDocumentation();
-                        pages.ForEach(p => docs.AddPage(p.Key, p.Value));
-                    }
-
-                    docs.Generate(@"docs\docs_latest", @"data\docs\template");
-                    SaveSeedJSON(@"docs\docs_latest\FF12Rando_" + seed + "_Seed.json");
-                    string zipDocsName = $"docs\\FF12Rando_{seed}_Docs.zip";
-                    if (File.Exists(zipDocsName))
-                    {
-                        File.Delete(zipDocsName);
-                    }
-
-                    ZipFile.CreateFromDirectory(@"docs\docs_latest", zipDocsName);
-
-                    File.WriteAllText("outdata\\rando.seed", "");
-
-                    totalProgressBar.IncrementProgress();
-                    SetProgressBar($"Complete! Ready to play! The documentation has been generated in the docs folder of this application.", 100);
-                });
-                IsEnabled = true;
-            }
-            catch (Exception ex)
+                generator.GenerateSeed();
+            });
+            IsEnabled = true;
+        }
+        catch (RandoException ex)
+        {
+            Exception innerMost = ex;
+            while (innerMost.InnerException != null)
             {
-                Exception innerMost = ex;
-                while (innerMost.InnerException != null)
-                {
-                    innerMost = innerMost.InnerException;
-                }
-
-                MessageBox.Show("Randomizer encountered an error:\n" + innerMost.Message, "Rando failed");
+                innerMost = innerMost.InnerException;
             }
-#if DEBUG
-        }
-#endif
-    }
 
-    private void CopyFromTemplate(string mainFolder, string templateFolder)
-    {
-        //Now Create all of the directories
-        foreach (string dirPath in Directory.GetDirectories(templateFolder, "*",
-            SearchOption.AllDirectories))
-        {
-            Directory.CreateDirectory(dirPath.Replace(templateFolder, mainFolder));
-        }
-
-        //Copy all the files & Replaces any files with the same name
-        foreach (string newPath in Directory.GetFiles(templateFolder, "*.*",
-            SearchOption.AllDirectories))
-        {
-            File.Copy(newPath, newPath.Replace(templateFolder, mainFolder), true);
+            MessageBox.Show("Randomizer encountered an error.\n\n" + ex.Message + "\n\nStack trace:\n" + innerMost.StackTrace, ex.Title);
+            IsEnabled = true;
         }
     }
-
     private void SetProgressBar(string text, int value, int maxValue = 100)
     {
         Dispatcher.Invoke(() =>
