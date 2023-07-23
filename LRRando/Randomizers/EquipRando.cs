@@ -255,7 +255,7 @@ public class EquipRando : Randomizer
                     (-25, 50),
                     (-90, 75)
                 };
-                float[] weights = { 1, 1, 1 / 200f, 10, 20 };
+                float[] weights = { 1, 1, 1 / 200f, 10, 5 };
                 int[] chances = { 40, 40, 5, 5, 10 };
                 int[] zeros = { 10, 10, 85, 60, 80 };
                 int[] negs = { 15, 15, 40, 10, 5 };
@@ -293,7 +293,7 @@ public class EquipRando : Randomizer
                     (-25, 50),
                     (0, 1000)
                 };
-                float[] weights = { 1, 1, 1 / 200f, 10, 10 };
+                float[] weights = { 1, 1, 1 / 150f, 8, 8 };
                 int[] chances = { 5, 5, 30, 30, 30 };
                 int[] zeros = { 90, 90, 40, 30, 20 };
                 int[] negs = { 30, 30, 15, 5, 0 };

@@ -53,7 +53,7 @@ public class StatPoints
 
                     return val;
                 }).Sum();
-            } while (StatValues.GetBoundsSum(modBounds) < total);
+            } while (StatValues.GetBoundsSum(modBounds) < total && total > 0);
 
             Values.Randomize(modBounds, total, Rate);
 

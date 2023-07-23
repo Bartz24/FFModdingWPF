@@ -197,6 +197,11 @@ public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
 
     public override bool IsAllowed(string old, string rep, bool orig = true)
     {
+        if (ItemLocations[old].Traits.Contains("Fixed") || ItemLocations[rep].Traits.Contains("Fixed"))
+        {
+            return old == rep;
+        }
+
         if (!FF13_2Flags.Items.KeyWild.Enabled && (IsWildArtefactKeyItem(rep) || IsWildArtefactKeyItem(old)))
         {
             return old == rep;

@@ -226,7 +226,7 @@ tre_gdza_reopt,Throne of the Goddess,h_sp_NA0001,2,h_gh_AD0010|h_sn_AD0300|h_gd_
 tre_spza_005,Walk of Time,h_sp_NA0001,0,h_dd_AD0700,I(opt_aaea_re|1),
 tre_csza_002,Temptation Plaza,h_cs_NA0000,0,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,,
 tre_ghaa_reopt,Temptation Plaza,h_cs_NA0000,0,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,,GateSeal
-tre_csza_opts1,Wild Artefact,h_cs_NA0000,0,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,,Wild
+tre_csza_opts1,Wild Artefact,h_cs_NA0000,0,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,,Wild|Fixed
 tre_ddha_008,Abyssal Fissure,h_dd_AD0700,0,,,
 tre_ddha_011,Abyssal Fissure,h_dd_AD0700,1,,,
 tre_ddha_013,Abyssal Fissure,h_dd_AD0700,0,,,

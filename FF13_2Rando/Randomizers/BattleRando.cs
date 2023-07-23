@@ -86,7 +86,7 @@ public class BattleRando : Randomizer
 
             areaUnlockOrder = RandomNum.ShuffleWeightedOrder(areaUnlockOrder, (i1, a1, i2, a2) =>
             {
-                return i1 < 5 || i2 < 5 ? 0 : Math.Abs(i1 - i2) < 3 ? 1 : 0;
+                return i1 == i2 ? 1 : (i1 < 5 || i2 < 5 ? 0 : Math.Abs(i1 - i2) < 3 ? 1 : 0);
             });
             List<int> newMins = areaBounds.Values.Select(t => t.Item1).OrderBy(i => i).ToList();
             int enemyMaxRank = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).Max(e => e.Rank);

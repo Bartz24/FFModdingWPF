@@ -65,6 +65,26 @@ public class ShopRando : Randomizer
         equipRando.items["mat_z_044"].uPurchasePrice = 8800;
         equipRando.items["mat_z_045"].uPurchasePrice = 4100;
 
+        equipRando.items["mat_abi_0_00"].uPurchasePrice = 400;
+        equipRando.items["mat_abi_0_01"].uPurchasePrice = 700;
+        equipRando.items["mat_abi_0_02"].uPurchasePrice = 1200;
+        equipRando.items["mat_abi_0_03"].uPurchasePrice = 2000;
+        equipRando.items["mat_abi_0_04"].uPurchasePrice = 4000;
+        equipRando.items["mat_abi_0_05"].uPurchasePrice = 9000;
+        equipRando.items["mat_abi_0_06"].uPurchasePrice = 15000;
+        equipRando.items["mat_abi_0_07"].uPurchasePrice = 28000;
+        equipRando.items["mat_abi_0_08"].uPurchasePrice = 54000;
+
+        equipRando.items["mat_cus_0_00"].uPurchasePrice = 100;
+        equipRando.items["mat_cus_0_01"].uPurchasePrice = 400;
+        equipRando.items["mat_cus_0_02"].uPurchasePrice = 1000;
+        equipRando.items["mat_cus_0_03"].uPurchasePrice = 2500;
+        equipRando.items["mat_cus_0_04"].uPurchasePrice = 6000;
+        equipRando.items["mat_cus_0_05"].uPurchasePrice = 10000;
+        equipRando.items["mat_cus_0_06"].uPurchasePrice = 15000;
+        equipRando.items["mat_cus_0_07"].uPurchasePrice = 22000;
+        equipRando.items["mat_cus_0_08"].uPurchasePrice = 36000;
+
         equipRando.items["it_reraise"].uPurchasePrice = 2520;
         equipRando.items["it_hero"].uPurchasePrice = 4340;
 

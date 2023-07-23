@@ -122,7 +122,12 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
                 }
 
                 int max = ItemLocations.Keys.Where(t => ItemLocations[t].Areas.Contains(loc) && !ItemLocations[t].Traits.Contains("Missable")).Count();
-                long val = (long)(100 * Math.Pow(1 - (HintsByLocationsCount[loc] / (float)max), 4));
+                if (max == 0)
+                {
+                    return 0;
+                }
+
+                long val = (long)(100 * Math.Max(0, Math.Pow(1 - (HintsByLocationsCount[loc] / (float)max), 4)));
 
                 if (loc.Contains("CoP"))
                 {
@@ -177,6 +182,10 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
     protected virtual bool TryImportantPlacement(int attempt, List<string> locations, List<string> important, List<string> accessibleAreas)
     {
         Iterations++;
+        if (Iterations > 2500)
+        {
+            return false;
+        }
         Dictionary<string, int> items = Logic.GetItemsAvailable();
         List<string> remaining = important.Where(t => !Placement.ContainsValue(t)).Shuffle();
         UpdateProgress(attempt, Placement.Count, important.Count);

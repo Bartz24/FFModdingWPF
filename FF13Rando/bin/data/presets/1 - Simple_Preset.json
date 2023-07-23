@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.7.5.22",
+  "version": "0.7.5.27",
   "flags": [
     {
       "FlagEnabled": true,
@@ -29,8 +29,23 @@
     },
     {
       "FlagEnabled": true,
-      "FlagID": "ScaledCPCost",
-      "FlagProperties": []
+      "FlagID": "ModifyCPCosts",
+      "FlagProperties": [
+        {
+          "SelectedValue": "Rebalanced",
+          "ID": "CPCostTypeVal"
+        }
+      ]
+    },
+    {
+      "FlagEnabled": true,
+      "FlagID": "CPCostMult",
+      "FlagProperties": [
+        {
+          "Value": 100,
+          "ID": "CPCostVal"
+        }
+      ]
     },
     {
       "FlagEnabled": true,
@@ -180,10 +195,6 @@
         {
           "Value": 0,
           "ID": "EnemyRank"
-        },
-        {
-          "Enabled": false,
-          "ID": "EnemyGroupShuffle"
         }
       ]
     }
