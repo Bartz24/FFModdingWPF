@@ -257,7 +257,7 @@ public class EquipRando : Randomizer
     private double CalculateInitialFromRank(PassiveData newPassive, float rank, int min)
     {
         double center = (newPassive.StatInitial * Math.Pow(newPassive.RankConstB, rank - 1)) + (newPassive.RankConstP * (rank - 1));
-        int low = (int)Math.Max(Math.Round(center - (Math.Abs(center) * 0.25)), min);
+        int low = (int)Math.Min(Math.Max(Math.Round(center - (Math.Abs(center) * 0.25)), min), newPassive.MaxValue);
         int high = (int)Math.Min(Math.Round(center + (Math.Abs(center) * 0.25)), newPassive.MaxValue);
         try
         {
