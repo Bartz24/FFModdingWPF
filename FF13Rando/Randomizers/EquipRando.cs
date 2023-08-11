@@ -3,6 +3,7 @@ using Bartz24.Docs;
 using Bartz24.FF13;
 using Bartz24.RandoWPF;
 using FF13Rando;
+using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -258,9 +259,14 @@ public class EquipRando : Randomizer
         double center = (newPassive.StatInitial * Math.Pow(newPassive.RankConstB, rank - 1)) + (newPassive.RankConstP * (rank - 1));
         int low = (int)Math.Max(Math.Round(center - (Math.Abs(center) * 0.25)), min);
         int high = (int)Math.Min(Math.Round(center + (Math.Abs(center) * 0.25)), newPassive.MaxValue);
-        return high < min
-            ? throw new Exception($"Attempted to randomize stats for the passive {newPassive.Name} from [{low}, {high}]")
-            : RandomNum.RandInt(low, high);
+        try
+        {
+            return RandomNum.RandInt(low, high);
+        }
+        catch
+        {
+            throw new Exception($"Attempted to randomize stats for the passive {newPassive.Name} from [{low}, {high}]");
+        }
     }
 
     private PassiveData GetEquipPassive(DataStoreEquip e)
