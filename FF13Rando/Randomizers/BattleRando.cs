@@ -184,6 +184,13 @@ public class BattleRando : Randomizer
                     int reservedCapacity = vanillaEnemies.Count;
 
                     IEnumerable<string> singleSetFights = battles.Where(id => battleData[id].Charasets.Count == 1);
+                    if(singleSetFights.Count() == 0)
+                    {
+                        //Add no new enemies to a group that only contains shared battles.
+                        //TODO: is this truly correct? If a group only contains shared battles then it can be shuffled, but the shuffle has to be applied to all sets.
+                        //Probably fine for now but could be improved.
+                        return;
+                    }
                     IEnumerable<string> sharedSetFights = battles.Where(id => battleData[id].Charasets.Count > 1);
 
                     IEnumerable<int> standardFights = singleSetFights.Select(id => battleData[id].Charasets.Min(c => charasetData[c].Limit));
@@ -198,28 +205,31 @@ public class BattleRando : Randomizer
                     List<string> enemiesToAddToSet = new();
                     //Only shuffle fights which actually have candidate enemies we can add to it.
                     List<string> fightsToShuffle = shuffleCandidates.Keys.Where(k => shuffleCandidates[k].Count > 0).ToList();
-                    for (int i = availableSlots; i > 0; i--)
+                    if (fightsToShuffle.Count > 0)
                     {
-                        //Select a new random enemy to add to the pool of enemies for this group.
-                        //TODO: need to take some care about enemy ranges here, probably have to do some kind of stepped distribution and select enemies in the relevant rank pools.
-                        string shuffleIdx = RandomNum.SelectRandom(fightsToShuffle);
-                        string newCandidateEnemy = RandomNum.SelectRandomWeighted(shuffleCandidates[shuffleIdx], enemy => vanillaEnemies.Contains(enemy) ? reservedCapacity : 2 * availableSlots);
-                        if (newCandidateEnemy != null)
+                        for (int i = availableSlots; i > 0; i--)
                         {
-                            enemiesToAddToSet.Add(newCandidateEnemy);
+                            //Select a new random enemy to add to the pool of enemies for this group.
+                            //TODO: need to take some care about enemy ranges here, probably have to do some kind of stepped distribution and select enemies in the relevant rank pools.
+                            string shuffleIdx = RandomNum.SelectRandom(fightsToShuffle);
+                            string newCandidateEnemy = RandomNum.SelectRandomWeighted(shuffleCandidates[shuffleIdx], enemy => vanillaEnemies.Contains(enemy) ? reservedCapacity : 2 * availableSlots);
+                            if (newCandidateEnemy != null)
+                            {
+                                enemiesToAddToSet.Add(newCandidateEnemy);
+                            }
                         }
+
+                        foreach (string enemyToAdd in enemiesToAddToSet)
+                        {
+                            string charaspecToAdd = enemyRando.btCharaSpec[enemyToAdd].sCharaSpec_string;
+                            if (!list.Contains(charaspecToAdd))
+                            {
+                                list.Add(charaspecToAdd);
+                            }
+                        }
+                        charaSets[charaset].SetCharaSpecs(list);
                     }
 
-                    foreach (string enemyToAdd in enemiesToAddToSet)
-                    {
-                        string charaspecToAdd = enemyRando.btCharaSpec[enemyToAdd].sCharaSpec_string;
-                        if (!list.Contains(charaspecToAdd))
-                        {
-                            list.Add(charaspecToAdd);
-                        }
-                    }
-
-                    charaSets[charaset].SetCharaSpecs(list);
                     processedCharasets.Add(charaset);
 
                     foreach (string peer in peerCharasets)
@@ -259,6 +269,46 @@ public class BattleRando : Randomizer
                     }
                 });
 
+                //Step 1b: shuffle sets only containing shared fights with the updated enemy pool
+                charasetWithAvailable.ForEach(charasetKVP =>
+                {
+                    string charaset = charasetKVP.Key;
+                    int availableSlots = charasetKVP.Value;
+                    List<string> list = charaSets[charaset].GetCharaSpecs();
+
+                    //Extract all battles for a given charaset.
+                    List<string> battles = battleData.Where(battle => battle.Value.Charasets.Contains(charaset)).Select(b => b.Key).ToList();
+                    //Extract all vanilla enemies across all battles for the charaset
+                    List<string> vanillaEnemies = battles.SelectMany(id => btscs[id].Values.Select(e => e.sEntryBtChSpec_string)).Distinct().ToList();
+                    int reservedCapacity = vanillaEnemies.Count;
+
+                    IEnumerable<string> singleSetFights = battles.Where(id => battleData[id].Charasets.Count == 1);
+                    if (singleSetFights.Count() > 0)
+                    {
+                        //Only perform this step if the set only contains shared fights
+                        return;
+                    }
+
+                    //Resolve all other peer charasets for this set
+                    IEnumerable<string> sharedSetFights = battles.Where(id => battleData[id].Charasets.Count > 1);
+
+                    List<string> peerCharasets = sharedSetFights.SelectMany(id => battleData[id].Charasets).Where(c => c != charaset).ToList();
+
+                    List<string> intersectionEnemies = peerCharasets.Select(id => charaSets[id].GetCharaSpecs()).Aggregate(null, (List<string>? prev, List<string> next) =>
+                    {
+                        if (prev == null)
+                        {
+                            return next;
+                        }
+                        return prev.Intersect(next).ToList();
+                    });
+                    if (intersectionEnemies.Count > 0)
+                    {
+                        Console.WriteLine($"Adding {intersectionEnemies.Count} enemies to charaset {charaset}");
+                        charaSets[charaset].SetCharaSpecs(list.Union(intersectionEnemies).ToList());
+                    }
+                });
+
                 //Step 2: shuffle single charaset fights
                 Randomizers.SetUIProgress("Randomizing single character set battles", 1, 3);
                 charasets.ForEach(charaset =>
@@ -287,6 +337,7 @@ public class BattleRando : Randomizer
                     });
                 });
 
+                Randomizers.SetUIProgress("Randomizing multiple character set battles", 2, 3);
                 List<string> multiCharasetBattles = battleData.Where(battle => battle.Value.Charasets.Count > 1).Select(battle => battle.Key).ToList();
                 multiCharasetBattles.Shuffle().ForEach(id =>
                 {
@@ -311,6 +362,21 @@ public class BattleRando : Randomizer
                             Console.WriteLine($"Unable to resolve possible enemy shuffle for encounter {id}");
                         }
                     });
+                });
+
+                //Step 3: Remove any unused enemies from the character set to reduce memory overhead.
+                Randomizers.SetUIProgress("Cleaning up unused enemies from character sets", 3, 3);
+                charasets.ForEach(charaset =>
+                {
+                    //TODO: Filter this to be non-battle characters only?
+                    List<string> original = charaSetsOrig[charaset];
+                    //Extract all battles for a given charaset.
+                    List<string> battles = battleData.Where(battle => battle.Value.Charasets.Contains(charaset)).Select(b => b.Key).ToList();
+                    //Extract all used enemies from battles
+                    List<string> used = battles.SelectMany(b => btscs[b].Values.Select(e => e.sEntryBtChSpec_string)).Distinct().ToList();
+                    //Union all required enemies from battles with the original contents of the character set
+                    //TODO: When we can update field models, this can be more aggressive to remove unused enemies.
+                    charaSets[charaset].SetCharaSpecs(used.Union(original).Distinct().ToList());
                 });
             }
             else
@@ -485,7 +551,7 @@ public class BattleRando : Randomizer
         page.HTMLElements.Add(new Table("Charasets", (new string[] { "ID", "Original contents", "New contents" }).ToList(), (new int[] { 10, 50, 30 }).ToList(), charasetData.Keys.OrderBy(b => b).Select(b =>
         {
             List<string> origContents = charaSetsOrig[b].Where(spec => enemyData.ContainsKey(spec)).Select(spec => enemyData[spec].Name).ToList();
-            List<string> newContents = charaSets[b].GetCharaSpecs().Where(c => !charaSetsOrig[b].Contains(c)).Where(spec => enemyData.ContainsKey(spec)).Select(spec => enemyData[spec].Name).ToList();
+            List<string> newContents = charaSets[b].GetCharaSpecs().Where(spec => enemyData.ContainsKey(spec)).Select(spec => enemyData[spec].Name).ToList();
             return new string[] { b, string.Join(", ", origContents), string.Join(", ", newContents) }.ToList();
         }).ToList()));
         pages.Add("encounters", page);
