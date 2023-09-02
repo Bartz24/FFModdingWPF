@@ -327,7 +327,7 @@ public class BattleRando : Randomizer
                             if (possible.Count > 0)
                             {
                                 //Select a new random enemy from the list
-                                e.sEntryBtChSpec_string = RandomNum.SelectRandomWeighted(possible, _ => 1);
+                                e.sEntryBtChSpec_string = RandomNum.SelectRandom(possible);
                             }
                             else
                             {
@@ -355,7 +355,7 @@ public class BattleRando : Randomizer
                         if (possible.Count > 0)
                         {
                             //Select a new random enemy from the list if we have any to save
-                            e.sEntryBtChSpec_string = RandomNum.SelectRandomWeighted(possible, _ => 1);
+                            e.sEntryBtChSpec_string = RandomNum.SelectRandom(possible);
                         }
                         else
                         {
@@ -400,7 +400,7 @@ public class BattleRando : Randomizer
                           {
                               canAdd = true;
                               //Select a new random enemy from the list
-                              e.sEntryBtChSpec_string = RandomNum.SelectRandomWeighted(possible, _ => 1);
+                              e.sEntryBtChSpec_string = RandomNum.SelectRandom(possible);
                               //If its in the vanilla set then we good, move on.
                               if (vanillaEnemies.Contains(e.sEntryBtChSpec_string))
                               {
