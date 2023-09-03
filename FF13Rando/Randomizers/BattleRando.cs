@@ -68,6 +68,8 @@ public class BattleRando : Randomizer
                 btsc.Load("13", path, SetupData.Paths["Nova"]);
                 btscs.TryAdd(Path.GetFileNameWithoutExtension(path), btsc);
             });
+            //Encounter containing chieftain and 4 _Display_ goblins - seems to be unused
+            btscs.Remove("btsc11457", out _);
         }
 
         Randomizers.SetUIProgress("Loading Battle Data...", 90, 100);
@@ -341,11 +343,16 @@ public class BattleRando : Randomizer
                 List<string> multiCharasetBattles = battleData.Where(battle => battle.Value.Charasets.Count > 1).Select(battle => battle.Key).ToList();
                 multiCharasetBattles.Shuffle().ForEach(id =>
                 {
+                    // Battle is unused and contains invalid data.
+                    if(id == "btsc11457")
+                    {
+                        return;
+                    }
                     BattleData data = battleData[id];
                     List<string> dataCharsets = data.Charasets;
                     //Resolve all modified charasets available for this battle and take the intersection as enemy candidates.
                     List<List<string>> charasetEnemyGroups = dataCharsets.Select(cs => charaSets[cs].GetCharaSpecs()).ToList();
-                    List<string> intersectionGroup = charasetEnemyGroups.Aggregate((IEnumerable<string>)charasetEnemyGroups[0], (a, b) => a.Intersect(b)).ToList();
+                    List<string> intersectionGroup = charasetEnemyGroups.Aggregate((IEnumerable<string>)charasetEnemyGroups[0], (a, b) => a.Intersect(b)).Where(e => enemyData.ContainsKey(e)).ToList();
                     btscs[id].Values.Shuffle().Where(e => intersectionGroup.Contains(enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string)).ForEach(e =>
                     {
                         // List the old enemy
