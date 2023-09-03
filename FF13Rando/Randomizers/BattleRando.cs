@@ -258,9 +258,9 @@ public class BattleRando : Randomizer
                         {
                             string peerEnemy = RandomNum.SelectRandom(enemiesToAddToSet);
                             string charaspecToAdd = enemyRando.btCharaSpec[peerEnemy].sCharaSpec_string;
-                            if (!peerList.Contains(peerEnemy))
+                            if (!peerList.Contains(charaspecToAdd))
                             {
-                                peerList.Add(peerEnemy);
+                                peerList.Add(charaspecToAdd);
                             }
                         }
                         // Make sure we update the available amount remaining for a peer fill
@@ -345,8 +345,8 @@ public class BattleRando : Randomizer
                     List<string> dataCharsets = data.Charasets;
                     //Resolve all modified charasets available for this battle and take the intersection as enemy candidates.
                     List<List<string>> charasetEnemyGroups = dataCharsets.Select(cs => charaSets[cs].GetCharaSpecs()).ToList();
-                    List<string> intersectionGroup = charasetEnemyGroups.Aggregate(charasetEnemyGroups[0], (a, b) => a.Intersect(b).ToList());
-                    btscs[id].Values.Shuffle().Where(e => intersectionGroup.Contains(e.sEntryBtChSpec_string)).ForEach(e =>
+                    List<string> intersectionGroup = charasetEnemyGroups.Aggregate((IEnumerable<string>)charasetEnemyGroups[0], (a, b) => a.Intersect(b)).ToList();
+                    btscs[id].Values.Shuffle().Where(e => intersectionGroup.Contains(enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string)).ForEach(e =>
                     {
                         // List the old enemy
                         string oldEnemy = e.sEntryBtChSpec_string;
@@ -373,7 +373,7 @@ public class BattleRando : Randomizer
                     //Extract all battles for a given charaset.
                     List<string> battles = battleData.Where(battle => battle.Value.Charasets.Contains(charaset)).Select(b => b.Key).ToList();
                     //Extract all used enemies from battles
-                    List<string> used = battles.SelectMany(b => btscs[b].Values.Select(e => e.sEntryBtChSpec_string)).Distinct().ToList();
+                    List<string> used = battles.SelectMany(b => btscs[b].Values.Select(e => enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string)).Distinct().ToList();
                     //Union all required enemies from battles with the original contents of the character set
                     //TODO: When we can update field models, this can be more aggressive to remove unused enemies.
                     charaSets[charaset].SetCharaSpecs(used.Union(original).Distinct().ToList());
