@@ -194,6 +194,15 @@
                         </rando:FinishPage>
                     </DockPanel>
                 </TabItem>
+                <TabItem Width="100" Height="50">
+                    <TabItem.Header>
+                        <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Plando"/>
+                        </Button>
+                    </TabItem.Header>
+                    <DockPanel x:Name="PlandoPanel">
+                    </DockPanel>
+                </TabItem>
             </TabControl>
         </DockPanel>
     </materialDesign:DialogHost>

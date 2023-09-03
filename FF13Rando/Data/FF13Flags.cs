@@ -412,6 +412,7 @@ public class FF13Flags
     public class Debug
     {
         public static Flag HighStats, LowEnemyHP;
+        public static Flag EnemyPlando;
 
         internal static void Init()
         {
@@ -428,6 +429,14 @@ public class FF13Flags
                 Text = "[DEBUG] Low Enemy HP",
                 FlagID = "DbgEnemyHP",
                 DescriptionFormat = "[DEBUG]\nSets enemy HP to 10",
+                Debug = true
+            }.Register(FlagType.Debug);
+
+            EnemyPlando = new Flag()
+            {
+                Text = "Enable battle plando",
+                FlagID = "BattlePlando",
+                DescriptionFormat = "[DEBUG] WIP PoC for Battle Plando",
                 Debug = true
             }.Register(FlagType.Debug);
         }

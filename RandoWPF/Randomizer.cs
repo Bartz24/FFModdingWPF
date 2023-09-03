@@ -1,5 +1,7 @@
 ﻿using Bartz24.Docs;
+using System;
 using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace Bartz24.RandoWPF;
 
@@ -31,4 +33,27 @@ public class Randomizer
     {
         return new Dictionary<string, HTMLPage>();
     }
+}
+
+public class Plandomizer: Randomizer
+{
+    public Plandomizer(RandomizerManager randomizers) : base(randomizers)
+    {
+    }
+
+    public virtual UserControl GetPlandoPage()
+    {
+        return null;
+    }
+
+    public virtual void SetState(object state)
+    {
+
+    }
+
+}
+
+public interface PlandoPage
+{
+    event Action<object> OnComplete;
 }

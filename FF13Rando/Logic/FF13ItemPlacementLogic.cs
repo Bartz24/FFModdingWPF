@@ -92,6 +92,11 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
                 return t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
             case TreasureRando.BattleData b:
                 BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>();
+                if(battleRando == null)
+                {
+                    BattlePlandomizer battlePlando = treasureRando.Randomizers.Get<BattlePlandomizer>();
+                    return b.GetData(orig ? battlePlando.btsceneOrig[key] : battlePlando.btscene[key]);
+                }
                 return b.GetData(orig ? battleRando.btsceneOrig[key] : battleRando.btscene[key]);
             case TreasureRando.EnemyData e:
                 EnemyRando enemyRando = treasureRando.Randomizers.Get<EnemyRando>();
@@ -110,6 +115,12 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
                 break;
             case TreasureRando.BattleData b:
                 BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>();
+                if (battleRando == null)
+                {
+                    BattlePlandomizer battlePlando = treasureRando.Randomizers.Get<BattlePlandomizer>();
+                    b.SetData(battlePlando.btscene[key], item, count);
+                    break;
+                }
                 b.SetData(battleRando.btscene[key], item, count);
                 break;
             case TreasureRando.EnemyData e:
