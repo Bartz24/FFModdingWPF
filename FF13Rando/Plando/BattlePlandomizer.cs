@@ -17,6 +17,7 @@ public struct BattleRandoState
 {
     public Dictionary<string, List<string>> charasets;
     public Dictionary<string, List<string>> btscs;
+    public Dictionary<string, string> btToCharaSpec;
 }
 
 //TODO: should this be a whole separate class or should plando behaviour be put into randos as an option directly. Separate for now to make testing faster/easier
@@ -70,7 +71,7 @@ public class BattlePlandomizer : Plandomizer
 
         Randomizers.SetUIProgress("Loading Battle Data...", 20, 100);
 
-        if (FF13Flags.Other.Enemies.FlagEnabled)
+        if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
         {
             IEnumerable<string> files = Directory.GetFiles(SetupData.OutputFolder + @"\btscene\wdb\_btsc_wdb.bin").Where(path => battleData.ContainsKey(Path.GetFileNameWithoutExtension(path)));
             int maxCount = files.Count();
@@ -114,8 +115,8 @@ public class BattlePlandomizer : Plandomizer
     private List<string> resolvePossibleCandidates(string oldEnemy, IEnumerable<string> basePool)
     {
         EnemyData lookup = enemyData[oldEnemy];
-        int rangeMin = lookup.Rank - FF13Flags.Other.EnemyRank.Value;
-        int rangeMax = lookup.Rank + FF13Flags.Other.EnemyRank.Value;
+        int rangeMin = lookup.Rank - FF13Flags.Enemies.EnemyRank.Value;
+        int rangeMax = lookup.Rank + FF13Flags.Enemies.EnemyRank.Value;
         return basePool.Where(next =>
         {
             if (enemyData[next].Traits.Contains("Ignore"))
@@ -235,7 +236,7 @@ public class BattlePlandomizer : Plandomizer
 
     private int GetMaxCountAllowed()
     {
-        return FF13Flags.Other.EnemyVariety.SelectedIndex switch
+        return FF13Flags.Enemies.EnemyVariety.SelectedIndex switch
         {
             0 => 0,
             1 => 16,
@@ -279,7 +280,7 @@ public class BattlePlandomizer : Plandomizer
 
         Randomizers.SetUIProgress("Saving Battle Data...", 10, 100);
 
-        if (FF13Flags.Other.Enemies.FlagEnabled)
+        if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
         {
             IEnumerable<string> files = Directory.GetFiles(SetupData.OutputFolder + @"\btscene\wdb\_btsc_wdb.bin").Where(path => battleData.ContainsKey(Path.GetFileNameWithoutExtension(path)));
             int maxCount = files.Count();
@@ -298,10 +299,18 @@ public class BattlePlandomizer : Plandomizer
 
     public override UserControl GetPlandoPage()
     {
+        if (!FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
+        {
+            return null;
+        }
+        EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
+        //Setup reverse mapping for all randomisable enemies
+        var btToCharaSpec = enemyRando.btCharaSpec.Entries.Where(kvp=>enemyData.ContainsKey(kvp.Key)).ToDictionary(kvp => kvp.Key, kvp => kvp.Value.sCharaSpec_string);
         plandoState = new BattleRandoState
         {
             btscs = btscsOrig,
-            charasets = charaSetsOrig
+            charasets = charaSetsOrig,
+            btToCharaSpec = btToCharaSpec
         };
         var battlePlandoPage = new BattlePlando();
         battlePlandoPage.Setup((BattleRandoState)plandoState, this);

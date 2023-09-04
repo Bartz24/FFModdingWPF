@@ -4,21 +4,35 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FF13Rando"
+      xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Name="BattlePlandoParent">
 
     <Grid Name="MainGrid" DataContext="{Binding ElementName=BattlePlandoParent}">
         <Label Content="Plando Text" HorizontalAlignment="Left" Margin="362,28,0,0" VerticalAlignment="Top" Background="Black"/>
-        <ListBox Name="Battles" HorizontalAlignment="Left" Height="304" Margin="66,0,0,0" VerticalAlignment="Center" Width="211" d:ItemsSource="{Binding battleNames, Mode=OneWay}" Background="#FF840707" SelectionChanged="Battles_SelectionChanged"/>
-        <ListBox Name="Scenes" d:ItemsSource="{Binding sceneNames, Mode=OneWay}" Margin="0,73,61,0" Background="#FF2776CE" SelectionChanged="Scenes_SelectionChanged" HorizontalAlignment="Right" Width="188" VerticalAlignment="Top" Height="126"/>
-        <Button x:Name="Export" Content="Export" HorizontalAlignment="Left" Margin="229,0,0,10" VerticalAlignment="Bottom" Click="Export_Click"/>
-        <Button x:Name="Import" Content="Import" HorizontalAlignment="Center" Margin="0,408,0,0" VerticalAlignment="Top" Click="Import_Click"/>
-        <Button x:Name="Complete" Content="Complete" HorizontalAlignment="Left" Margin="496,0,0,10" VerticalAlignment="Bottom" Click="Complete_Click"/>
-        <ListBox x:Name="SceneContents" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,225,61,84" Background="#FF615E04" HorizontalAlignment="Right" Width="188" VerticalAlignment="Bottom"/>
-        <ListBox x:Name="BattleContents" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,73,0,251" Background="#FF1C7B02" HorizontalAlignment="Center" Width="216" VerticalAlignment="Top"/>
-        <ComboBox x:Name="RegionSelector" HorizontalAlignment="Left" Margin="118,40,0,0" VerticalAlignment="Top" Width="159"/>
+        <ListBox Name="Battles" HorizontalAlignment="Left" Height="304" Margin="25,73,0,73" Width="211" Background="#FF840707" SelectionChanged="Battles_SelectionChanged"/>
+        <ListBox Name="Scenes" Margin="0,73,25,0" Background="#FF2776CE" SelectionChanged="Scenes_SelectionChanged" HorizontalAlignment="Right" Width="232" VerticalAlignment="Top" Height="126"/>
+        <Button x:Name="Export" Content="Export" HorizontalAlignment="Left" Margin="203,0,0,10" VerticalAlignment="Bottom" Click="Export_Click"/>
+        <Button x:Name="Import" Content="Import" HorizontalAlignment="Left" Margin="355,0,0,10" VerticalAlignment="Bottom" Click="Import_Click"/>
+        <Button x:Name="Complete" Content="Complete" HorizontalAlignment="Left" Margin="477,0,0,10" VerticalAlignment="Bottom" Click="Complete_Click"/>
+        <ListBox x:Name="SceneContents" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,225,25,73" Background="#FF615E04" HorizontalAlignment="Right" Width="187"/>
+        <DataGrid x:Name="BattleContents" Margin="266,73,0,0" Background="#FF1C7B02" HorizontalAlignment="Left" Width="216" VerticalAlignment="Top" Height="126">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="BattleContentsEnemy" Header="Enemy" Binding="{Binding Path=Enemy, diag:PresentationTraceSources.TraceLevel=High}"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="BattleContentsCount" Header="Count" Binding="{Binding Path=Count, diag:PresentationTraceSources.TraceLevel=High}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="NewBattleContents" Margin="266,225,0,0" Background="#FF1C7B02" HorizontalAlignment="Left" Width="216" VerticalAlignment="Top" Height="152">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="NewBattleContentsEnemy" Header="Enemy" Binding="{Binding Path=Enemy, diag:PresentationTraceSources.TraceLevel=High}"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="NewBattleContentsCount" Header="Count" Binding="{Binding Path=Count, diag:PresentationTraceSources.TraceLevel=High}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox x:Name="RegionSelector" HorizontalAlignment="Left" Margin="118,40,0,0" VerticalAlignment="Top" Width="159" SelectionChanged="RegionSelector_SelectionChanged"/>
         <Label Content="Region:" HorizontalAlignment="Left" Margin="66,40,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="494,227,0,0" VerticalAlignment="Top" Width="83" IsEnabled="False"/>
+        <Button x:Name="RemoveButton" Content="Remove" HorizontalAlignment="Left" Margin="494,285,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </UserControl>

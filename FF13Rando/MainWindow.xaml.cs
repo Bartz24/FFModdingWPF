@@ -96,7 +96,7 @@ public partial class MainWindow : Window
         randomizers.Add(new TreasureRando(randomizers));
         randomizers.Add(new CrystariumRando(randomizers));
         randomizers.Add(new ShopRando(randomizers));
-        if (FF13Flags.Other.EnemyPlando.Enabled)
+        if (FF13Flags.Debug.EnemyPlando.FlagEnabled)
         {
             randomizers.Add(new BattlePlandomizer(randomizers));
         }
