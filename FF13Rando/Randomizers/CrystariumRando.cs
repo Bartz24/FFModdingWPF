@@ -141,6 +141,13 @@ public class CrystariumRando : Randomizer
             RandomNum.ClearRand();
         }
 
+        if (FF13Flags.Debug.HighStats.FlagEnabled)
+        {
+            FF13Flags.Debug.HighStats.SetRand();
+            DebugInitStats();
+            RandomNum.ClearRand();
+        }
+
         Randomizers.SetUIProgress("Randomizing Crystarium Data...", 95, 100);
         ApplyCPCostModifiers();
 
@@ -387,6 +394,18 @@ public class CrystariumRando : Randomizer
             treasureRando.treasures[$"z_ini_{c}_hp"].iItemCount = (uint)(avgHP * charMults[fullName][0]);
             treasureRando.treasures[$"z_ini_{c}_str"].iItemCount = (uint)(avgSTR * charMults[fullName][1]);
             treasureRando.treasures[$"z_ini_{c}_mag"].iItemCount = (uint)(avgMAG * charMults[fullName][2]);
+        }
+    }
+
+    private void DebugInitStats()
+    {
+        TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+        string[] shortChars = { "lig", "fan", "hop", "saz", "sno", "van" };
+        foreach (string c in shortChars)
+        {
+            treasureRando.treasures[$"z_ini_{c}_hp"].iItemCount = 99999;
+            treasureRando.treasures[$"z_ini_{c}_str"].iItemCount = 9999;
+            treasureRando.treasures[$"z_ini_{c}_mag"].iItemCount = 9999;
         }
     }
 

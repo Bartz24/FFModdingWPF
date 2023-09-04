@@ -55,7 +55,7 @@ public class BattleRando : Randomizer
 
         Randomizers.SetUIProgress("Loading Battle Data...", 20, 100);
 
-        if (FF13Flags.Other.Enemies.FlagEnabled)
+        if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
         {
             IEnumerable<string> files = Directory.GetFiles(SetupData.OutputFolder + @"\btscene\wdb\_btsc_wdb.bin").Where(path => battleData.ContainsKey(Path.GetFileNameWithoutExtension(path)));
             int maxCount = files.Count();
@@ -101,8 +101,8 @@ public class BattleRando : Randomizer
     private List<string> resolvePossibleCandidates(string oldEnemy, IEnumerable<string> basePool)
     {
         EnemyData lookup = enemyData[oldEnemy];
-        int rangeMin = lookup.Rank - FF13Flags.Other.EnemyRank.Value;
-        int rangeMax = lookup.Rank + FF13Flags.Other.EnemyRank.Value;
+        int rangeMin = lookup.Rank - FF13Flags.Enemies.EnemyRank.Value;
+        int rangeMax = lookup.Rank + FF13Flags.Enemies.EnemyRank.Value;
         return basePool.Where(next =>
         {
             if (enemyData[next].Traits.Contains("Ignore"))
@@ -126,16 +126,16 @@ public class BattleRando : Randomizer
     {
         Randomizers.SetUIProgress("Randomizing Battle Data...", -1, 100);
         EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
-        if (FF13Flags.Other.Enemies.FlagEnabled)
+        if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
         {
-            FF13Flags.Other.Enemies.SetRand();
+            FF13Flags.Enemies.EnemiesFlag.SetRand();
 
             List<string> enemies = battleData.Keys.Select(id => btscs[id]).SelectMany(wdb => wdb.Values.Select(b => b.sEntryBtChSpec_string)).Distinct().Where(e => !enemyData.Keys.Contains(e)).ToList();
             enemies.Sort();
 
             //List<string> setEnemies = charaSets.Values.SelectMany(c => c.GetCharaSpecs()).Distinct().ToList();
             //setEnemies.Sort();
-            if (FF13Flags.Other.GroupShuffle.Enabled)
+            if (FF13Flags.Enemies.GroupShuffle.Enabled)
             {
                 /*
                 swap to per group rather than encounter.
@@ -436,7 +436,7 @@ public class BattleRando : Randomizer
                                       {
                                           canAdd = true;
                                           // If it hit the soft cap, it's ok to add
-                                          if (FF13Flags.Other.EnemyVariety.SelectedIndex == FF13Flags.Other.EnemyVariety.Values.Count - 1 && battleData[id].Charasets.Min(c => charasetData[c].Limit) >= 44 && list.Count <= 48)
+                                          if (FF13Flags.Enemies.EnemyVariety.SelectedIndex == FF13Flags.Enemies.EnemyVariety.Values.Count - 1 && battleData[id].Charasets.Min(c => charasetData[c].Limit) >= 44 && list.Count <= 48)
                                           {
                                               possible.Add(e.sEntryBtChSpec_string);
                                           }
@@ -532,7 +532,7 @@ public class BattleRando : Randomizer
 
     private int GetMaxCountAllowed()
     {
-        return FF13Flags.Other.EnemyVariety.SelectedIndex switch
+        return FF13Flags.Enemies.EnemyVariety.SelectedIndex switch
         {
             0 => 0,
             1 => 16,
@@ -576,7 +576,7 @@ public class BattleRando : Randomizer
 
         Randomizers.SetUIProgress("Saving Battle Data...", 10, 100);
 
-        if (FF13Flags.Other.Enemies.FlagEnabled)
+        if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
         {
             IEnumerable<string> files = Directory.GetFiles(SetupData.OutputFolder + @"\btscene\wdb\_btsc_wdb.bin").Where(path => battleData.ContainsKey(Path.GetFileNameWithoutExtension(path)));
             int maxCount = files.Count();

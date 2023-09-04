@@ -355,29 +355,21 @@ public class FF13Flags
             }.Register(ShopContents);
         }
     }
-    public class Other
+    public class Enemies
     {
-        public static Flag Music, Enemies;
+        public static Flag EnemiesFlag;
         public static NumberFlagProperty EnemyRank;
         public static ComboBoxFlagProperty EnemyVariety;
         public static ToggleFlagProperty GroupShuffle;
 
         internal static void Init()
         {
-            Music = new Flag()
-            {
-                Text = "Shuffle Music",
-                FlagID = "Music",
-                DescriptionFormat = "Shuffle music around.",
-                Aesthetic = true
-            }.Register(FlagType.Other);
-
-            Enemies = new Flag()
+            EnemiesFlag = new Flag()
             {
                 Text = "Randomize Enemies",
                 FlagID = "Enemies",
                 DescriptionFormat = "Randomizes enemies."
-            }.Register(FlagType.Other);
+            }.Register(FlagType.Enemies);
 
             EnemyVariety = new ComboBoxFlagProperty()
             {
@@ -388,7 +380,7 @@ public class FF13Flags
                 "Allow Other Enemies - Medium - Allows enemies from other areas but limits variety in some areas. This may cause crashes in areas less tested so use at your own risk.\n" +
                 "Allow Other Enemies - Max - Allows enemies from other areas but limits variety as least as possible to avoid known crashes. This may cause crashes in areas less tested so use at your own risk.",
                 Values = new string[] { "Enemies Stay to the Same Area", "Allow Other Enemies - Low", "Allow Other Enemies - Medium [EXPERIMENTAL]", "Allow Other Enemies - Max [EXPERIMENTAL]" }.ToList()
-            }.Register(Enemies);
+            }.Register(EnemiesFlag);
 
             EnemyRank = new NumberFlagProperty()
             {
@@ -398,15 +390,44 @@ public class FF13Flags
                 ValueText = "Enemy Rank +/-",
                 MinValue = 0,
                 MaxValue = 15
-            }.Register(Enemies);
+            }.Register(EnemiesFlag);
 
             GroupShuffle = new ToggleFlagProperty()
             {
                 Text = "Shuffle enemies group-wise",
                 ID = "EnemyGroupShuffle",
-                Description = "[DEBUG] Currently errors out. Enemies are shuffled using charaspecs as a base rather than per encounter. More likely for individual fights to be randomised away from vanilla but some fights are more likely to have only vanilla enemies from the area",
-                Debug = true // TODO: Remove and edit description once fixed
-            }.Register(Enemies);
+                Description = "Enemies are shuffled using charaspecs as a base rather than per encounter. More likely for individual fights to be randomised away from vanilla but some fights are more likely to have only vanilla enemies from the area"
+            }.Register(EnemiesFlag);
+        }
+    }
+    public class Other
+    {
+        public static Flag Music;
+
+        internal static void Init()
+        {
+            Music = new Flag()
+            {
+                Text = "Shuffle Music",
+                FlagID = "Music",
+                DescriptionFormat = "Shuffle music around.",
+                Aesthetic = true
+            }.Register(FlagType.Other);
+        }
+    }
+    public class Debug
+    {
+        public static Flag HighStats;
+
+        internal static void Init()
+        {
+            HighStats = new Flag()
+            {
+                Text = "[DEBUG] High Initial Stats",
+                FlagID = "DbgStats",
+                DescriptionFormat = "[DEBUG]\nSets initial stats to HP:99999, STR/MAG:9999",
+                Debug = true
+            }.Register(FlagType.Debug);
         }
     }
 
@@ -416,7 +437,9 @@ public class FF13Flags
         Stats.Init();
         Equip.Init();
         Items.Init();
+        Enemies.Init();
         Other.Init();
+        Debug.Init();
         RandoFlags.CategoryMap = ((FlagType[])Enum.GetValues(typeof(FlagType))).ToDictionary(f => (int)f, f => string.Join("/", Regex.Split(f.ToString(), @"(?<!^)(?=[A-Z])")));
         RandoFlags.SelectedCategory = "All";
     }
