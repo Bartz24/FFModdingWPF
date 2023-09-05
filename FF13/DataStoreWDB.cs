@@ -8,32 +8,36 @@ using System.Reflection;
 
 namespace Bartz24.FF13;
 
-public class DataStoreWDB<T> where T : DataStoreWDBEntry, new()
+public class DataStoreWDB<T> : DataStoreWDBEntry where T : DataStoreWDBEntry, new()
 {
-    private readonly Dictionary<string, T> Data = new();
+    private byte[] Header = new byte[0x10];
+    private byte[] StrTypeList = null;
+    private byte[] TypeList = null;
+    private byte[] Version = null;
+    private readonly Dictionary<string, T> Entries = new();
     private DataStoreStringPointerList StringList;
     private Dictionary<string, string> StringPointerMapping;
     private Dictionary<string, string> StringPointerEndingMapping;
 
-    public T this[string id] => Data[id];
+    public T this[string id] => Entries[id];
 
-    public List<string> Keys => Data.Keys.ToList();
-    public List<T> Values => Data.Values.ToList();
+    public List<string> Keys => Entries.Keys.ToList();
+    public List<T> Values => Entries.Values.ToList();
 
     public void Add(string id, T data)
     {
-        Data.Add(id, data);
+        Entries.Add(id, data);
     }
     public void Add(T data)
     {
-        Data.Add(data.ID, data);
+        Entries.Add(data.ID, data);
     }
     public T Copy(string original, string newName)
     {
         T newData = new();
-        newData.LoadData(new byte[Data[original].Data.Length]);
-        Data[original].CopyPropertiesTo(newData);
-        newData.LoadData(Data[original].Data.ToArray());
+        newData.LoadData(new byte[Entries[original].Data.Length]);
+        Entries[original].CopyPropertiesTo(newData);
+        newData.LoadData(Entries[original].Data.ToArray());
         newData.ID = newName;
         Add(newData);
 
@@ -42,49 +46,66 @@ public class DataStoreWDB<T> where T : DataStoreWDBEntry, new()
 
     public void Swap(string name1, string name2)
     {
-        Data.Swap(name1, name2);
-        Data[name1].ID = name2;
-        Data[name2].ID = name1;
+        Entries.Swap(name1, name2);
+        Entries[name1].ID = name2;
+        Entries[name2].ID = name1;
     }
 
     public void Rename(string name, string newName)
     {
         Copy(name, newName);
-        Data.Remove(name);
+        Entries.Remove(name);
     }
 
-    public void Load(string game, string path, string novaPath)
+    public void Load(string path)
     {
-        Nova.UnpackWPD(path, novaPath);
+        LoadData(File.ReadAllBytes(path));
+    }
 
-        string folderPath = Path.Combine(Path.GetDirectoryName(path), "_" + Path.GetFileName(path));
-
+    public override void LoadData(byte[] data, int wdbOffset = 0)
+    {
         FindStringMappings();
 
-        LoadStringList(folderPath);
-        LoadData(folderPath);
-    }
+        byte[] wdbData = data.SubArray(wdbOffset, data.Length - wdbOffset);
+        Header = wdbData.SubArray(0, 0x10);
 
-    private void LoadData(string path)
-    {
-        foreach (string filePath in Directory.GetFiles(path).Where(s => !Path.GetFileName(s).StartsWith("!!")))
+        uint count = Header.ReadUInt(0x04);
+
+        for (int i = 0; i < count; i++)
         {
-            T newEntry = new()
+            string id = wdbData.ReadString(0x10 + (i * 0x20));
+            uint offset = wdbData.ReadUInt(0x20 + (i * 0x20));
+            uint size = wdbData.ReadUInt(0x24 + (i * 0x20));
+
+            if (id == "!!string")
             {
-                ID = Path.GetFileName(filePath)
-            };
-            newEntry.LoadData(File.ReadAllBytes(filePath));
-            Add(newEntry);
+                StringList = new DataStoreStringPointerList(new DataStoreString() { Value = "" });
+                StringList.LoadData(wdbData.SubArray((int)offset, (int)size));
+            }
+            else if (id == "!!strtypelist")
+            {
+                StrTypeList = wdbData.SubArray((int)offset, (int)size);
+            }
+            else if (id == "!!typelist")
+            {
+                TypeList = wdbData.SubArray((int)offset, (int)size);
+            }
+            else if (id == "!!version")
+            {
+                Version = wdbData.SubArray((int)offset, (int)size);
+            }
+            else
+            {
+                T newEntry = new()
+                {
+                    ID = id
+                };
+                newEntry.LoadData(wdbData.SubArray((int)offset, (int)size));
+                Add(newEntry);
+            }
         }
 
         UpdateStringValues();
-    }
-    private void LoadStringList(string path)
-    {
-        string filePath = path + "\\!!string";
-
-        StringList = new DataStoreStringPointerList(new DataStoreString() { Value = "" });
-        StringList.LoadData(File.ReadAllBytes(filePath));
     }
 
     private void FindStringMappings()
@@ -107,18 +128,64 @@ public class DataStoreWDB<T> where T : DataStoreWDBEntry, new()
         }
     }
 
-    public void Save(string path, string novaPath)
+    public void Save(string path)
     {
-        UpdateStringPointers();
+        File.WriteAllBytes(path, Data);
+    }
+    
+    public override byte[] Data
+    {
+        get
+        {
+            UpdateStringPointers();
 
-        string folderPath = Path.Combine(Path.GetDirectoryName(path), "_" + Path.GetFileName(path));
-        SaveData(folderPath);
-        SaveStringList(folderPath);
+            byte[] newData = new byte[0];
 
-        List<string> sortOrder = new();
-        PreWorkaround(folderPath, sortOrder);
-        Nova.RepackWPD(path, novaPath);
-        PostWorkaround(path, sortOrder);
+            newData = newData.Concat(Header).ToArray();
+            newData.SetUInt(0x04, (uint)(Entries.Count + 4));
+
+            uint dataOffset = 0x10 + (uint)((Entries.Count + 4) * 0x20);
+
+            newData = newData.Concat(CreateDataEntry("!!string", dataOffset, (uint)StringList.Data.Length));
+            dataOffset += (uint)StringList.Data.Length;
+            newData = newData.Concat(CreateDataEntry("!!strtypelist", dataOffset, (uint)StrTypeList.Length));
+            dataOffset += (uint)StrTypeList.Length;
+            newData = newData.Concat(CreateDataEntry("!!typelist", dataOffset, (uint)TypeList.Length));
+            dataOffset += (uint)TypeList.Length;
+            newData = newData.Concat(CreateDataEntry("!!version", dataOffset, (uint)Version.Length));
+            dataOffset += (uint)Version.Length;
+
+            List<string> sorted = GetSortOrder();
+            for (int i = 0; i < Entries.Count; i++)
+            {
+                string id = sorted[i];
+                newData = newData.Concat(CreateDataEntry(id, dataOffset, (uint)Entries[id].Data.Length));
+                dataOffset += (uint)Entries[id].Data.Length;
+            }
+
+            newData = newData.Concat(StringList.Data);
+            newData = newData.Concat(StrTypeList);
+            newData = newData.Concat(TypeList);
+            newData = newData.Concat(Version);
+
+            for (int i = 0; i < Entries.Count; i++)
+            {
+                string id = sorted[i];
+                newData = newData.Concat(Entries[id].Data);
+            }
+
+            return newData;
+        }
+    }
+
+    private byte[] CreateDataEntry(string id, uint offset, uint size)
+    {
+        byte[] entry = new byte[0x20];
+        entry.SetString(0, id, 16);
+        entry.SetUInt(0x10, offset);
+        entry.SetUInt(0x14, size);
+
+        return entry;
     }
 
     private void UpdateStringPointers()
@@ -177,39 +244,8 @@ public class DataStoreWDB<T> where T : DataStoreWDBEntry, new()
         });
     }
 
-    private void SaveData(string path)
+    private List<string> GetSortOrder()
     {
-        Directory.GetFiles(path).Where(s => !Path.GetFileName(s).StartsWith("!!")).ForEach(s => File.Delete(s));
-        foreach (string id in Data.Keys)
-        {
-            File.WriteAllBytes(path + "\\" + id, Data[id].Data);
-        }
-    }
-    private void SaveStringList(string path)
-    {
-        string filePath = path + "\\!!string";
-        File.WriteAllBytes(filePath, StringList.Data);
-    }
-
-    private void PreWorkaround(string path, List<string> sortOrder)
-    {
-
-        Directory.GetFiles(path).Where(s => !Path.GetFileName(s).StartsWith("!!")).OrderBy(s => Path.GetFileName(s), StringComparer.Ordinal).ForEach(s =>
-        {
-            string fixPath = Path.Combine(Path.GetDirectoryName(s), "_" + sortOrder.Count.ToString("000000"));
-            File.Move(s, fixPath);
-            sortOrder.Add(Path.GetFileName(s));
-        });
-    }
-    private void PostWorkaround(string path, List<string> sortOrder)
-    {
-        byte[] bytes = File.ReadAllBytes(path);
-        for (int i = 0x90; i < bytes.ReadUInt(0x20); i += 0x20)
-        {
-            bytes.SetString(i, sortOrder[0], 16);
-            sortOrder.RemoveAt(0);
-        }
-
-        File.WriteAllBytes(path, bytes);
+        return Entries.Keys.OrderBy(s => s, StringComparer.Ordinal).ToList();
     }
 }

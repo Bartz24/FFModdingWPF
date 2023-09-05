@@ -65,7 +65,7 @@ public class BattleRando : Randomizer
                 count++;
                 Randomizers.SetUIProgress($"Loading Encounter... ({count} of {maxCount})", count, maxCount);
                 DataStoreWDB<DataStoreBtSc> btsc = new();
-                btsc.Load("13", path, SetupData.Paths["Nova"]);
+                btsc.Load(path);
                 btscs.TryAdd(Path.GetFileNameWithoutExtension(path), btsc);
             });
             //Encounter containing chieftain and 4 _Display_ goblins - seems to be unused
@@ -585,7 +585,7 @@ public class BattleRando : Randomizer
             {
                 count++;
                 Randomizers.SetUIProgress($"Saving Encounter... ({count} of {maxCount})", count, maxCount);
-                btscs[Path.GetFileNameWithoutExtension(path)].Save(path, SetupData.Paths["Nova"]);
+                btscs[Path.GetFileNameWithoutExtension(path)].Save(path);
             });
         }
 

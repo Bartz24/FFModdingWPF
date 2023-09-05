@@ -209,8 +209,8 @@ acc_005_002,Sylphid Ring,Accessory,14,shop_acc_c,,40000
 acc_006_000,Clay Ring,Accessory,5,shop_acc_b,Force,4000
 acc_006_001,Siltstone Ring,Accessory,9,shop_acc_b,,15000
 acc_006_002,Gaian Ring,Accessory,14,shop_acc_c,,40000
-acc_009_000,Giants Glove,Accessory,3,shop_acc_a,Force,
-acc_009_001,Warlocks Glove,Accessory,6,shop_acc_a,,11000
+acc_009_000,Giant's Glove,Accessory,3,shop_acc_a,Force,
+acc_009_001,Warlord's Glove,Accessory,6,shop_acc_a,,11000
 acc_010_000,Glass Buckle,Accessory,3,shop_acc_a,Force,
 acc_010_001,Tektite Buckle,Accessory,6,shop_acc_a,,11000
 acc_011_000,Metal Armband,Accessory,3,shop_acc_a,Force,

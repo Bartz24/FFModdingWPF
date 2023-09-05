@@ -16,12 +16,12 @@ public static class FF13RandoExtensions
             FileHelpers.CopyFile(path, outPath, true);
         }
 
-        dataStoreWDB.Load(game, outPath, SetupData.Paths["Nova"]);
+        dataStoreWDB.Load(path);
     }
     public static void SaveWDB<T>(this DataStoreWDB<T> dataStoreWDB, string relativePath) where T : DataStoreWDBEntry, new()
     {
         string outPath = SetupData.OutputFolder + relativePath;
-        dataStoreWDB.Save(outPath, SetupData.Paths["Nova"]);
+        dataStoreWDB.Save(outPath);
     }
     public static void DeleteWDB<T>(this DataStoreWDB<T> dataStoreWDB, string relativePath) where T : DataStoreWDBEntry, new()
     {
