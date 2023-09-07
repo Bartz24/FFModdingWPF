@@ -24,6 +24,7 @@ public enum FieldType
     FloatFromInt100,
     String,
     ListString,
+    ListInt,
     HexInt,
     ItemReq
 }
@@ -66,17 +67,34 @@ public class CSVDataRow
         FieldType? type = property.GetCustomAttribute<FieldTypeOverrideAttribute>()?.Value;
         if (type is null or FieldType.Undefined)
         {
-            type = property.PropertyType == typeof(int)
-                ? FieldType.Int
-                : property.PropertyType == typeof(float)
-                    ? FieldType.Float
-                    : property.PropertyType == typeof(string)
-                                    ? FieldType.String
-                                    : property.PropertyType == typeof(List<string>)
-                                                    ? FieldType.ListString
-                                                    : property.PropertyType == typeof(ItemReq)
-                                                                    ? (FieldType?)FieldType.ItemReq
-                                                                    : throw new Exception("Missing map for property type: " + property.PropertyType);
+            if (property.PropertyType == typeof(int))
+            {
+                type = (FieldType?)FieldType.Int;
+            }
+            else if (property.PropertyType == typeof(float))
+            {
+                type = (FieldType?)FieldType.Float;
+            }
+            else if (property.PropertyType == typeof(string))
+            {
+                type = (FieldType?)FieldType.String;
+            }
+            else if (property.PropertyType == typeof(List<string>))
+            {
+                type = (FieldType?)FieldType.ListString;
+            }
+            else if (property.PropertyType == typeof(List<int>))
+            {
+                type = (FieldType?)FieldType.ListInt;
+            }
+            else if (property.PropertyType == typeof(ItemReq))
+            {
+                type = (FieldType?)FieldType.ItemReq;
+            }
+            else
+            {
+                throw new Exception("Missing map for property type: " + property.PropertyType);
+            }
         }
 
         return type;
@@ -102,8 +120,12 @@ public class CSVDataRow
                 property.SetValue(this, value);
                 break;
             case FieldType.ListString:
-                List<string> values = value.Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
-                property.SetValue(this, values);
+                List<string> strings = value.Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
+                property.SetValue(this, strings);
+                break;
+            case FieldType.ListInt:
+                List<int> ints = value.Split("|").Where(s => !string.IsNullOrEmpty(s)).Select(s => int.Parse(s)).ToList();
+                property.SetValue(this, ints);
                 break;
             case FieldType.ItemReq:
                 property.SetValue(this, ItemReq.Parse(value));

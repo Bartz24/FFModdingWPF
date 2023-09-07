@@ -360,7 +360,7 @@ public class FF13Flags
         public static Flag EnemiesFlag;
         public static NumberFlagProperty EnemyRank;
         public static ComboBoxFlagProperty EnemyVariety;
-        public static ToggleFlagProperty GroupShuffle;
+        public static ToggleFlagProperty GroupShuffle, OneToOne;
 
         internal static void Init()
         {
@@ -371,15 +371,31 @@ public class FF13Flags
                 DescriptionFormat = "Randomizes enemies."
             }.Register(FlagType.Enemies);
 
+            OneToOne = new ToggleFlagProperty()
+            {
+                Text = "[EXPERIMENTAL] 1-to-1 Enemy Replacement",
+                ID = "EnemyOneToOne",
+                Description = "[EXPERIMENTAL] Each enemy per zone is replaced by another enemy. This will replace enemies on the field and change the base enemy pool for each zone. Softlocks, freezes, and crashes are currently expected.",
+                Experimental = true
+            }.Register(EnemiesFlag);
+
+            GroupShuffle = new ToggleFlagProperty()
+            {
+                Text = "Shuffle Enemies Group-wise",
+                ID = "EnemyGroupShuffle",
+                Description = "Enemies are shuffled using charaspecs as a base rather than per encounter. More likely for individual fights to be randomised away from vanilla but some fights are more likely to have only vanilla enemies from the area"
+            }.Register(EnemiesFlag);
+
             EnemyVariety = new ComboBoxFlagProperty()
             {
                 Text = "Enemy Variety",
                 ID = "EnemyVariety",
-                Description = "Enemies Stay to the Same Area - Each encounter will only contain enemies from the area.\n" +
-                "Allow Other Enemies - Low - Allows enemies from other areas but limits variety to avoid crashes. Most encounters will not contain new enemies.\n" +
-                "Allow Other Enemies - Medium - Allows enemies from other areas but limits variety in some areas. This may cause crashes in areas less tested so use at your own risk.\n" +
-                "Allow Other Enemies - Max - Allows enemies from other areas but limits variety as least as possible to avoid known crashes. This may cause crashes in areas less tested so use at your own risk.",
-                Values = new string[] { "Enemies Stay to the Same Area", "Allow Other Enemies - Low", "Allow Other Enemies - Medium [EXPERIMENTAL]", "Allow Other Enemies - Max [EXPERIMENTAL]" }.ToList()
+                Description = "1-to-1 Only - Encounters will be as they appear on the map, and encounters will be vanilla if the 1-to-1 Enemy Replacement option is off.\n\n" +
+                "Enemies Stay to the Same Area - Change the enemies individually in each encounter and only use enemies from the area.\n\n" +
+                "Allow Other Enemies - Low - Change the enemies individually in each encounter and allows enemies from other areas, but limits variety. Most encounters will not contain new enemies.\n\n" +
+                "Allow Other Enemies - Medium - Change the enemies individually in each encounter and allows enemies from other areas but limits variety.\n\n" +
+                "Allow Other Enemies - Max - Change the enemies individually in each encounter and allows enemies from other areas. This may cause crashes so use at your own risk.",
+                Values = new string[] { "1-to-1 Only", "Enemies Stay to the Same Area", "Allow Other Enemies - Low", "Allow Other Enemies - Medium", "Allow Other Enemies - Max [EXPERIMENTAL]" }.ToList()
             }.Register(EnemiesFlag);
 
             EnemyRank = new NumberFlagProperty()
@@ -390,13 +406,6 @@ public class FF13Flags
                 ValueText = "Enemy Rank +/-",
                 MinValue = 0,
                 MaxValue = 15
-            }.Register(EnemiesFlag);
-
-            GroupShuffle = new ToggleFlagProperty()
-            {
-                Text = "Shuffle enemies group-wise",
-                ID = "EnemyGroupShuffle",
-                Description = "Enemies are shuffled using charaspecs as a base rather than per encounter. More likely for individual fights to be randomised away from vanilla but some fights are more likely to have only vanilla enemies from the area"
             }.Register(EnemiesFlag);
         }
     }
@@ -417,7 +426,7 @@ public class FF13Flags
     }
     public class Debug
     {
-        public static Flag HighStats;
+        public static Flag HighStats, LowEnemyHP;
 
         internal static void Init()
         {
@@ -426,6 +435,14 @@ public class FF13Flags
                 Text = "[DEBUG] High Initial Stats",
                 FlagID = "DbgStats",
                 DescriptionFormat = "[DEBUG]\nSets initial stats to HP:99999, STR/MAG:9999",
+                Debug = true
+            }.Register(FlagType.Debug);
+
+            LowEnemyHP = new Flag()
+            {
+                Text = "[DEBUG] Low Enemy HP",
+                FlagID = "DbgEnemyHP",
+                DescriptionFormat = "[DEBUG]\nSets enemy HP to 10",
                 Debug = true
             }.Register(FlagType.Debug);
         }

@@ -1,193 +1,193 @@
-﻿ID,Name,Traits,Rank
-m001,Pantheron,,1
-m002,Silver Lobo,,4
-m003,Gorgonopsid,,8
-m004,Adamantheron,,14
-m005,Managarmr,,15
-m007,Rust Pudding,,12
-m007m,Ferruginous Pudding,,16
-m007l,Corrosive Custard,,21
-m008,Flandragora,,4
-m008l,Hybrid Flora,,14
-m010,Flanborg,,5
-m015,Feral Behemoth,,5
-m017,Corps Marksman,,3
-m018,Orion,,5
-m034,Skata'ne,,7
-m035,Incubus,,3
-m036,Yaksha,,11
-m037,Triffid,,8
-m038,Vespid,,4
-m039,Barbed Specter,,4
-m040,Vespid Soldier,,5
-m041,Gremlin,,2
-m042,Imp,,5
-m043,Zwerg Scandroid,,1
-m045,Leyak,,6
-m047,Alpha Behemoth,,5
-m050,Wyvern,Flying,6
-m054,Munchkin,,6
-m055,Borgbear,,21
-m056,Goblin Chieftain,,13
-m057,Munchkin Maestro,,12
-m058,Borgbear Hero,,24
-m059,Sahagin,,10
-m060,Orobon,,16
-m061,Dagonite,,18
-m062,Corps Watchman,,4
-m063,Pulsework Soldier,,4
-m064,Pulsework Knight,,7
-m065,Pulsework Gladiator,,9
-m066,Bomb,,2
-m069,Navidon,,19
-m070,Scalebeast,,6
-m071,Lucidon,,4
-m072,Thermadon,,7
-m075,Greater Behemoth,,9
-m077,Proto-Behemoth,,19
-m079,Flanitor,,3
-m080,PSICOM Predator,,4
-m081,PSICOM Ranger,,2
-m081_zo,PSICOM Ranger Solo Snow,,2
-m082,PSICOM Warden,,1
-m083,PSICOM Infiltrator,,5
-m084,Sanctum Archangel,,16
-m091,Flan,,7
-m091m,Dire Flan,,14
-m091l,Monstrous Flan,,18
-m094,Goblin,,11
-m098,Vernal Harvester,,23
-m099,Crawler,,3
-m100,Noctilucale,,5
-m101,Alraune,,6
-m102,Frag Leech,,3
-m104,Ghast,,2
-m105,Taxim,,15
-m106,Strigoi,,16
-m107,Vampire,,19
-m108,Wight,Flying,1
-m109,Nelapsi,Flying,10
-m110,Pijavica,Flying,14
-m111,Varcolaci,Flying,9
-m115,Uhlan,Flying,5
-m116,Bulwarker,Flying,18
-m117,Ciconia Velocycle,Flying,4
-m118,Milvus Velocycle,Flying,5
-m119,Falco Velocycle,Flying,5
-m120,Aquila Velocycle,Flying,22
-m123,Bloodfang Bass,,1
-m124,Breshan Bass,,3
-m125,Hedge Frog,,2
-m126,Mud Frog,,4
-m127,Ceratosaur,,9
-m128,Ceratoraptor,,12
-m132,Midlight Reaper,Event,9
-m133,Megrim Thresher,,25
-m139,PSICOM Aerial Recon,Flying,1
-m140,PSICOM Aerial Sniper,Flying,4
-m141,PSICOM Dragoon,Flying,6
-m144,PSICOM Huntress,,5
-m145,Sanctum Inquisitrix,,20
-m150,Thexteron,,3
-m151,Myrmidon,,2
-m151_hang,Myrmidon Hanging Edge,,2
-m152,Viking,,9
-m153,Watchdrone,,3
-m155,Corps Tranquifex,,4
-m156,Corps Pacifex,,4
-m157,Corps Gunner,,2
-m158,Corps Regular,,3
-m159,Corps Defender,,13
-m160,Corps Steward,,12
-m161,PSICOM Scavenger,,4
-m162,PSICOM Tracker,,2
-m162_zo,PSICOM Tracker Alt,,2
-m163,PSICOM Enforcer,,1
-m163_bhg,PSICOM Enforcer Alt,,1
-m164,PSICOM Raider,,6
-m165,Sanctum Seraph,,15
-m167,PSICOM Warlord,,6
-m168,PSICOM Reaver,,8
-m169,Sanctum Templar,,19
-m172,Phosphoric Ooze,,5
-m172m,Alchemic Ooze,,8
-m173,Garchimacera,,3
-m174,Rangda,,6
-m175,Amphisbaena,Flying,17
-m176,Behemoth King,,20
-m177,Berserker,,10
-m178,Tyrant,,20
-m179,Immortal,,26
-m180,Boxed Phalanx,,12
-m182,Hoplite,,9
-m183,Stikini,,6
-m184,Succubus,,2
-m185,Yakshini,,10
-m186,Adamantoise,Turtle,29
-m186a,Adamantortoise,Turtle,29
-m187,Adamanchelid,Turtle,23
-m189,Ochu,,26
-m190,Microchu,,13
-m191,Bituitus,Flying|Event,19
-m192,Chonchon,Flying,6
-m193,Seeker,,11
-m194,Ghoul,,2
-m195,Geiseric,Event,22
-m197,Attacus,Event,30
-m199,Vetala,,19
-m201,Vercingetorix,Flying|Event,31
-m205,Deckdrone,,5
-m206,Ahriman,,6
-m207,Pulsework Centurion,,11
-m211,Zwerg Metrodroid,,4
-m212,Megistotherian,,19
-m213,Svarog,Flying,14
-m214,Circuitron,,5
-m215,Cryohedron,,10
-m216,Juggernaut,,25
-m222,Syphax,Ignore,26
-m229,PSICOM Bombardier,,5
-m230,PSICOM Destroyer,,6
-m231,Sanctum Celebrant,,18
-m235,Bandersnatch,,24
-m236,Jabberwocky,,24
-m241,Numidia,Flying,14
-m242,Wladislaus,,24
-m243,Lodestar Behemoth,,6
-m250,Sacrifice,,20
-m253,Cactuar,,21
-m254,Tonberry,,24
-m256,Flowering Cactuar,,21
-m257,Gigantuar,Event,26
-m260,Crusader,,4
-m261,PSICOM Executioner,,3
-m400,Uridimmu,,10
-m401,Adroa,,9
-m402,Pulsework Champion,,21
-m403,Amam,,22
-m404,Rakshasa,,13
-m405,Neochu,,28
-m406,Gurangatch,,17
-m407,Kaiser Behemoth,,19
-m408,Zirnitra,Flying,28
-m409,Verdelet,,13
-m410,Edimmu,Flying,13
-m411,Mithridates,Flying|Event,27
-m412,Rafflesia,,17
-m413,Mushussu,,14
-m414,Raktavija,,27
-m415,Humbaba,,25
-m416,Ambling Bellows,,18
-m417,Ugallu,,15
-m418,Penanggalan,Flying,20
-m419,Ectopudding,,13
-m420,Gelatitan,,20
-m421,Shaolong Gui,Turtle,30
-m422,Long Gui,Turtle,31
-m423,Picochu,,20
-m424,Cryptos,,8
-w633_2,Targeting Beacon (Tracker),Ignore,2
-w633_5,Targeting Beacon (Seraph),Ignore,15
-w661,Centurion Blade (Berserker),Ignore,10
-w662,Centurion Blade (Tyrant),Ignore,20
-w663,Centurion Blade (Immortal),Ignore,26
+﻿ID,Name,Traits,Rank,LYBForced
+m001,Pantheron,,1,
+m002,Silver Lobo,,4,
+m003,Gorgonopsid,,8,
+m004,Adamantheron,,14,
+m005,Managarmr,,15,
+m007,Rust Pudding,,12,
+m007m,Ferruginous Pudding,,16,
+m007l,Corrosive Custard,,21,
+m008,Flandragora,,4,
+m008l,Hybrid Flora,,14,
+m010,Flanborg,,5,
+m015,Feral Behemoth,,5,
+m017,Corps Marksman,,3,
+m018,Orion,,5,
+m034,Skata'ne,,7,
+m035,Incubus,,3,
+m036,Yaksha,,11,
+m037,Triffid,,8,
+m038,Vespid,,4,
+m039,Barbed Specter,,4,
+m040,Vespid Soldier,,5,
+m041,Gremlin,,2,
+m042,Imp,,5,
+m043,Zwerg Scandroid,,1,
+m045,Leyak,,6,
+m047,Alpha Behemoth,,5,
+m050,Wyvern,Flying,6,
+m054,Munchkin,,6,
+m055,Borgbear,,21,
+m056,Goblin Chieftain,,13,
+m057,Munchkin Maestro,,12,
+m058,Borgbear Hero,,24,
+m059,Sahagin,,10,
+m060,Orobon,,16,
+m061,Dagonite,,18,
+m062,Corps Watchman,,4,
+m063,Pulsework Soldier,,4,
+m064,Pulsework Knight,,7,
+m065,Pulsework Gladiator,,9,
+m066,Bomb,,2,
+m069,Navidon,,19,
+m070,Scalebeast,,6,
+m071,Lucidon,,4,
+m072,Thermadon,,7,
+m075,Greater Behemoth,,9,
+m077,Proto-Behemoth,,19,
+m079,Flanitor,,3,
+m080,PSICOM Predator,,4,
+m081,PSICOM Ranger,,2,
+m081_zo,PSICOM Ranger Solo Snow,,2,
+m082,PSICOM Warden,,1,2
+m083,PSICOM Infiltrator,,5,
+m084,Sanctum Archangel,,16,
+m091,Flan,,7,
+m091m,Dire Flan,,14,
+m091l,Monstrous Flan,,18,
+m094,Goblin,,11,
+m098,Vernal Harvester,,23,
+m099,Crawler,,3,
+m100,Noctilucale,,5,
+m101,Alraune,,6,
+m102,Frag Leech,,3,
+m104,Ghast,,2,2
+m105,Taxim,,15,
+m106,Strigoi,,16,
+m107,Vampire,,19,
+m108,Wight,Flying,1,
+m109,Nelapsi,Flying,10,
+m110,Pijavica,Flying,14,
+m111,Varcolaci,Flying,9,
+m115,Uhlan,Flying,5,
+m116,Bulwarker,Flying,18,
+m117,Ciconia Velocycle,Flying,4,
+m118,Milvus Velocycle,Flying,5,
+m119,Falco Velocycle,Flying,5,
+m120,Aquila Velocycle,Flying,22,
+m123,Bloodfang Bass,,1,
+m124,Breshan Bass,,3,
+m125,Hedge Frog,,2,
+m126,Mud Frog,,4,
+m127,Ceratosaur,,9,
+m128,Ceratoraptor,,12,
+m132,Midlight Reaper,Event,9,
+m133,Megrim Thresher,,25,
+m139,PSICOM Aerial Recon,Flying,1,
+m140,PSICOM Aerial Sniper,Flying,4,
+m141,PSICOM Dragoon,Flying,6,
+m144,PSICOM Huntress,,5,
+m145,Sanctum Inquisitrix,,20,
+m150,Thexteron,,3,
+m151,Myrmidon,,2,
+m151_hang,Myrmidon Hanging Edge,,2,
+m152,Viking,,9,
+m153,Watchdrone,,3,
+m155,Corps Tranquifex,,4,
+m156,Corps Pacifex,,4,
+m157,Corps Gunner,,2,
+m158,Corps Regular,,3,
+m159,Corps Defender,,13,
+m160,Corps Steward,,12,
+m161,PSICOM Scavenger,,4,
+m162,PSICOM Tracker,,2,
+m162_zo,PSICOM Tracker Alt,,2,
+m163,PSICOM Enforcer,,1,
+m163_bhg,PSICOM Enforcer Alt,,1,
+m164,PSICOM Raider,,6,
+m165,Sanctum Seraph,,15,
+m167,PSICOM Warlord,,6,
+m168,PSICOM Reaver,,8,
+m169,Sanctum Templar,,19,
+m172,Phosphoric Ooze,,5,
+m172m,Alchemic Ooze,,8,
+m173,Garchimacera,,3,
+m174,Rangda,,6,
+m175,Amphisbaena,Flying,17,
+m176,Behemoth King,,20,
+m177,Berserker,,10,
+m178,Tyrant,,20,
+m179,Immortal,,26,
+m180,Boxed Phalanx,,12,
+m182,Hoplite,,9,
+m183,Stikini,,6,
+m184,Succubus,,2,
+m185,Yakshini,,10,
+m186,Adamantoise,Turtle,29,
+m186a,Adamantortoise,Turtle,29,
+m187,Adamanchelid,Turtle,23,
+m189,Ochu,,26,
+m190,Microchu,,13,
+m191,Bituitus,Flying|Event,19,
+m192,Chonchon,Flying,6,
+m193,Seeker,,11,
+m194,Ghoul,,2,
+m195,Geiseric,Event,22,
+m197,Attacus,Event,30,
+m199,Vetala,,19,
+m201,Vercingetorix,Flying|Event,31,
+m205,Deckdrone,,5,
+m206,Ahriman,,6,
+m207,Pulsework Centurion,,11,
+m211,Zwerg Metrodroid,,4,
+m212,Megistotherian,,19,
+m213,Svarog,Flying,14,
+m214,Circuitron,,5,
+m215,Cryohedron,,10,
+m216,Juggernaut,,25,
+m222,Syphax,Ignore,26,
+m229,PSICOM Bombardier,,5,
+m230,PSICOM Destroyer,,6,
+m231,Sanctum Celebrant,,18,
+m235,Bandersnatch,,24,
+m236,Jabberwocky,,24,
+m241,Numidia,Flying,14,
+m242,Wladislaus,,24,
+m243,Lodestar Behemoth,,6,
+m250,Sacrifice,,20,
+m253,Cactuar,,21,
+m254,Tonberry,,24,
+m256,Flowering Cactuar,,21,
+m257,Gigantuar,Event,26,
+m260,Crusader,,4,
+m261,PSICOM Executioner,,3,
+m400,Uridimmu,,10,
+m401,Adroa,,9,
+m402,Pulsework Champion,,21,
+m403,Amam,,22,
+m404,Rakshasa,,13,
+m405,Neochu,,28,
+m406,Gurangatch,,17,
+m407,Kaiser Behemoth,,19,
+m408,Zirnitra,Flying,28,
+m409,Verdelet,,13,
+m410,Edimmu,Flying,13,
+m411,Mithridates,Flying|Event,27,
+m412,Rafflesia,,17,
+m413,Mushussu,,14,
+m414,Raktavija,,27,
+m415,Humbaba,,25,
+m416,Ambling Bellows,,18,
+m417,Ugallu,,15,
+m418,Penanggalan,Flying,20,
+m419,Ectopudding,,13,
+m420,Gelatitan,,20,
+m421,Shaolong Gui,Turtle,30,
+m422,Long Gui,Turtle,31,
+m423,Picochu,,20,
+m424,Cryptos,,8,
+w633_2,Targeting Beacon (Tracker),Ignore,2,
+w633_5,Targeting Beacon (Seraph),Ignore,15,
+w661,Centurion Blade (Berserker),Ignore,10,
+w662,Centurion Blade (Tyrant),Ignore,20,
+w663,Centurion Blade (Immortal),Ignore,26,
