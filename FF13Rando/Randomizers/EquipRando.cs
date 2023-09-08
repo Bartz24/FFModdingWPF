@@ -133,12 +133,7 @@ public class EquipRando : Randomizer
             if (FF13Flags.Equip.RandEquipPassives.FlagEnabled)
             {
                 FF13Flags.Equip.RandEquipPassives.SetRand();
-                PassiveData original = GetEquipPassive(e);
-
-                if (original == null)
-                {
-                    throw new Exception("Unknown passive found");
-                }
+                PassiveData original = GetEquipPassive(e) ?? throw new Exception("Unknown passive found");
 
                 // Use a random parent for equipment that can have multiple parents
                 DataStoreEquip parent = GetRandomEquipParent(e);
@@ -147,7 +142,22 @@ public class EquipRando : Randomizer
                 PassiveData newPassive;
                 if (FF13Flags.Equip.EquipSamePassiveCategory.SelectedIndex == 3)
                 {
-                    newPassive = RandomNum.SelectRandomWeighted(passiveData.Values.ToList(), p => isAccessory && p.Name == "None" ? 0 : passiveDistribution[p]);
+                    newPassive = RandomNum.SelectRandomWeighted(passiveData.Values.ToList(), p =>
+                    {
+                        if (isAccessory)
+                        {
+                            if (p.Name == "None")
+                            {
+                                return 0;
+                            }
+                            else if (p.StatInitial == p.MaxValue)
+                            {
+                                return 1;
+                            }
+                        }
+
+                        return passiveDistribution[p];
+                    });
                 }
                 else if (parent == null || ((FF13Flags.Equip.EquipSamePassiveCategory.SelectedIndex == 2 || (FF13Flags.Equip.EquipSamePassiveCategory.SelectedIndex == 1 && isAccessory)) && equipHitPassiveCap.Contains(parent)))
                 {
