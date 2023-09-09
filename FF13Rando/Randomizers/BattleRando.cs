@@ -9,6 +9,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Input;
+using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 
 namespace FF13Rando;
 
@@ -20,10 +24,12 @@ public class BattleRando : Randomizer
     private Dictionary<string, List<string>> charaSetsOrig = new();
     public Dictionary<string, DataStoreLYB> lybs = new();
 
+    public DataStoreWDB<DataStoreMission> missions = new();
+
     public DataStoreWDB<DataStoreBtConstant> battleConsts = new();
 
-    public ConcurrentDictionary<string, DataStoreWDB<DataStoreBtSc>> btscs = new();
-    public Dictionary<string, List<string>> btscsOrig = new();
+    public Dictionary<string, DataStoreWDB<DataStoreBtSc>> btscs = new();
+    public Dictionary<string, DataStoreWDB<DataStoreBtSc>> btscsOrig = new();
 
     public Dictionary<string, BattleData> battleData = new();
     public Dictionary<string, EnemyData> enemyData = new();
@@ -38,6 +44,8 @@ public class BattleRando : Randomizer
         btsceneOrig.LoadWDB("13", @"\db\resident\bt_scene.wdb");
 
         charaSets.LoadWDB("13", @"\db\resident\charaset.wdb");
+
+        missions.LoadWDB("13", @"\db\resident\mission.wdb");
 
         battleConsts.LoadWDB("13", @"\db\resident\bt_constants.wdb");
 
@@ -56,26 +64,8 @@ public class BattleRando : Randomizer
 
         Randomizers.SetUIProgress("Loading Battle Data...", 20, 100);
 
-        if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
-        {
-            IEnumerable<string> files = Directory.GetFiles(SetupData.OutputFolder + @"\btscene\wdb\_btsc_wdb.bin").Where(path => battleData.ContainsKey(Path.GetFileNameWithoutExtension(path)));
-            int maxCount = files.Count();
-            int count = 0;
-            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 8 }, path =>
-            {
-                count++;
-                Randomizers.SetUIProgress($"Loading Encounter... ({count} of {maxCount})", count, maxCount);
-                DataStoreWDB<DataStoreBtSc> btsc = new()
-                {
-                    ID = Path.GetFileNameWithoutExtension(path)
-                };
-                btsc.Load(path);
-                btscs.TryAdd(Path.GetFileNameWithoutExtension(path), btsc);
-            });
-
-            //Encounter containing chieftain and 4 _Display_ goblins - seems to be unused
-            btscs.Remove("btsc11457", out _);
-        }
+        btscs = LoadBtscs();
+        btscsOrig = LoadBtscs();
 
         Randomizers.SetUIProgress("Loading Battle Data...", 90, 100);
         FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
@@ -98,9 +88,8 @@ public class BattleRando : Randomizer
             list.Remove("m110");
             c.SetCharaSpecs(list);
         });
-        List<string> charaSetOrigKeys = charaSets.Keys;
-        charaSetsOrig = charaSetOrigKeys.ToDictionary(k => k, k => charaSets[k].GetCharaSpecs());
-        btscsOrig = btscs.ToDictionary(k => k.Key, k => k.Value.Values.Where(e => !e.sEntryBtChSpec_string.StartsWith("pc")).Select(e => enemyData.ContainsKey(e.sEntryBtChSpec_string) ? enemyData[e.sEntryBtChSpec_string].Name : e.sEntryBtChSpec_string + " (???)").GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList());
+
+        charaSetsOrig = charaSets.Keys.ToDictionary(k => k, k => charaSets[k].GetCharaSpecs());
 
         charasetData.Keys
             .Where(c=>c.StartsWith("chset_z"))
@@ -118,23 +107,45 @@ public class BattleRando : Randomizer
         });
     }
 
+    private Dictionary<string, DataStoreWDB<DataStoreBtSc>> LoadBtscs()
+    {
+        IEnumerable<string> files = Directory.GetFiles(SetupData.OutputFolder + @"\btscene\wdb\_btsc_wdb.bin").Where(path => battleData.ContainsKey(Path.GetFileNameWithoutExtension(path)));
+        int maxCount = files.Count();
+        int count = 0;
+        ConcurrentDictionary<string, DataStoreWDB<DataStoreBtSc>> dict = new();
+        Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 8 }, path =>
+        {
+            count++;
+            Randomizers.SetUIProgress($"Loading Encounter... ({count} of {maxCount})", count, maxCount);
+            DataStoreWDB<DataStoreBtSc> btsc = new()
+            {
+                ID = Path.GetFileNameWithoutExtension(path)
+            };
+            btsc.Load(path);
+            dict.TryAdd(Path.GetFileNameWithoutExtension(path), btsc);
+        });
+
+        //Encounter containing chieftain and 4 _Display_ goblins - seems to be unused
+        dict.Remove("btsc11457", out _);
+        return dict.ToDictionary(p => p.Key, p => p.Value);
+    }
+
     private string GetLybId(string charasetId)
     {
         string num = charasetId.Substring(7, 3); // Get chset_z{023}...
         return $"scene00{num}";
     }
 
-    private List<string> ResolvePossibleCandidates(string oldEnemy, IEnumerable<string> basePool, bool forceRange = false)
+    private enum BattleType
+    {
+        NonEvent,
+        Event
+    }
+
+    private List<string> ResolvePossibleCandidates(string oldEnemy, IEnumerable<string> basePool, BattleType battleType)
     {
         EnemyData lookup = enemyData[oldEnemy];
-        int diff = 0;
-        // Only set the range if One to One is disabled or forced
-        // Otherwise, if One to one is enabled, the range will be used twice
-        if (forceRange || !FF13Flags.Enemies.OneToOne.Enabled)
-        {
-            diff = FF13Flags.Enemies.EnemyRank.Value;
-        }
-
+        int diff = FF13Flags.Enemies.EnemyRank.Value;
         int rangeMin = lookup.Rank - diff;
         int rangeMax = lookup.Rank + diff;
 
@@ -145,7 +156,7 @@ public class BattleRando : Randomizer
                 return false; //Ignore summoned weapons and Syphax
             }
 
-            return lookup.Traits.Contains("Event")
+            return battleType == BattleType.Event
 || (lookup.Traits.Contains("Flying")
                 ? enemyData[next].Traits.Contains("Flying")
                 : lookup.Traits.Contains("Turtle")
@@ -164,22 +175,11 @@ public class BattleRando : Randomizer
         {
             FF13Flags.Enemies.EnemiesFlag.SetRand();
 
-            if (FF13Flags.Enemies.OneToOne.Enabled)
-            {
-                // Don't need return value for anything yet as we update the btscs directly here
-                ReplaceLYBEnemies();
-            }
+            ReplaceLYBEnemies();
 
             if (FF13Flags.Enemies.EnemyVariety.SelectedIndex > 0)
             {
-                if (FF13Flags.Enemies.GroupShuffle.Enabled)
-                {
-                    RandomizeGroupShuffle();
-                }
-                else
-                {
-                    RandomizeOld();
-                }
+                RandomizeGroupShuffle();
             }
 
             RandomNum.ClearRand();
@@ -200,6 +200,7 @@ public class BattleRando : Randomizer
         Dictionary<string, Dictionary<string, string>> lybMappings = new();
         lybs.Keys.ForEach(lybId =>
         {
+            Randomizers.SetUIProgress($"Replacing enemies per zone ({lybs.Keys.ToList().IndexOf(lybId) + 1} out of {lybs.Count})", lybs.Keys.ToList().IndexOf(lybId) + 1, lybs.Count);
             List<DataStoreWDB<DataStoreBtSc>> btscsForLyb = btscs.Values.Where(
                             b => battleData[b.ID].Charasets.Where(
                                 c => GetLybId(c) == lybId).Any()).ToList();
@@ -219,11 +220,19 @@ public class BattleRando : Randomizer
                 mapping.Clear();
                 enemies.ForEach(e =>
                 {
-                    List<string> possible = ResolvePossibleCandidates(e, enemyData.Keys, true);
+                    List<string> possible = ResolvePossibleCandidates(e, enemyData.Keys.Where(id=>!mapping.Values.Contains(id)), btscsForLyb
+                        .Where(b => btscs[b.ID].Values.Select(e => e.sEntryBtChSpec_string).Contains(e))
+                        .All(b => battleData[b.ID].Traits.Contains("Event")) ? BattleType.Event : BattleType.NonEvent);
+
+                    if (possible.Count == 0)
+                    {
+                        return;
+                    }
+
                     string next = RandomNum.SelectRandom(possible);
                     mapping.Add(e, next);
                 });
-            } while (mapping.Values.Select(e => enemyRando.btCharaSpec[e].sCharaSpec_string).Distinct().Count() != mapping.Count());
+            } while (mapping.Count != enemies.Count || mapping.Values.Select(e => enemyRando.btCharaSpec[e].sCharaSpec_string).Distinct().Count() != mapping.Count());
 
             lybMappings.Add(lybId, mapping);
 
@@ -275,6 +284,28 @@ public class BattleRando : Randomizer
                 btsc.Values
                 .Where(spec => mapping.ContainsKey(spec.sEntryBtChSpec_string))
                 .ForEach(spec => spec.sEntryBtChSpec_string = mapping[spec.sEntryBtChSpec_string]);
+
+                if (battleData[btsc.ID].Traits.Contains("Mission"))
+                {
+                    List<string> notInCharasets = btsc.Values
+                        .Select(b => b.sEntryBtChSpec_string)
+                        .Where(e => !charaSets.Values
+                            .Where(c => battleData[btsc.ID].Charasets.Contains(c.ID))
+                            .SelectMany(c => c.GetCharaSpecs())
+                            .Distinct()
+                            .Contains(enemyRando.btCharaSpec[e].sCharaSpec_string))
+                        .Distinct()
+                        .Where(e => !e.StartsWith("pc"))
+                        .Select(e => enemyRando.btCharaSpec[e].sCharaSpec_string)
+                        .ToList();
+
+                    if (notInCharasets.Count > 4)
+                    {
+                        throw new Exception($"Mission {battleData[btsc.ID].MissionID} has more than 4 enemies not in charasets: {string.Join(", ", notInCharasets)}");
+                    }
+
+                    missions[battleData[btsc.ID].MissionID].SetCharaSpecs(notInCharasets);
+                }
             });
         });
 
@@ -333,95 +364,12 @@ public class BattleRando : Randomizer
         }
     }
 
-    private void RandomizeOld()
-    {
-        EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
-
-        //For each battle scene
-        battleData.Keys.Shuffle().ForEach(id =>
-        {
-            //Obtain vanilla enemy list from game battle scene internal data
-            List<string> vanillaEnemies = btscs[id].Values.Select(e => e.sEntryBtChSpec_string).ToList();
-            //For each enemy in the scene
-            btscs[id].Values.Shuffle().Where(e => enemyData.ContainsKey(e.sEntryBtChSpec_string)).ForEach(e =>
-            {
-                // List the old enemy
-                string oldEnemy = e.sEntryBtChSpec_string;
-                bool canAdd = true; //Assume we can add something new
-                                    //Obtain list of possible enemies to replace it with based on rank and type
-                List<string> possible = ResolvePossibleCandidates(oldEnemy, enemyData.Keys);
-
-                do
-                {
-                    canAdd = true;
-                    //Select a new random enemy from the list
-                    e.sEntryBtChSpec_string = RandomNum.SelectRandom(possible);
-                    //If its in the vanilla set then we good, move on.
-                    if (vanillaEnemies.Contains(e.sEntryBtChSpec_string))
-                    {
-                        break;
-                    }
-                    //Otherwise, check all the charasets this fight is a part of and iterate
-                    battleData[id].Charasets.ForEach(c =>
-                    {
-                        //Get the list of scene models for this set as modified so far
-                        List<string> list = charaSets[c].GetCharaSpecs();
-
-                        //Retrieve "randomised" enemy data (no changes currently)
-                        string charaspec = enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string;
-                        //Add spec to the list if not already containing
-                        if (!list.Contains(charaspec))
-                        {
-                            list.Add(charaspec);
-                        }
-
-                        //Check if the number of things in the list is greater than the limit
-                        if (list.Count > Math.Min(GetMaxCountAllowed(), battleData[id].Charasets.Min(c => charasetData[c].Limit)) && list.Count > charaSets[c].GetCharaSpecs().Count)
-                        {
-                            canAdd = false;
-                            possible.Remove(e.sEntryBtChSpec_string); //Take it back out of the list
-                            if (possible.Count == 0) //If there's no more enemies it can be...
-                            {
-                                canAdd = true;
-                                // If it hit the soft cap, it's ok to add
-                                if (FF13Flags.Enemies.EnemyVariety.SelectedIndex == FF13Flags.Enemies.EnemyVariety.Values.Count - 1 && battleData[id].Charasets.Min(c => charasetData[c].Limit) >= 44 && list.Count <= 48)
-                                {
-                                    possible.Add(e.sEntryBtChSpec_string);
-                                }
-                                else
-                                {
-                                    //Fallback to vanilla
-                                    e.sEntryBtChSpec_string = oldEnemy;
-                                }
-                            }
-                        }
-                    });
-                } while (!canAdd);
-
-                //Once we have a valid shuffled enemy
-                if (!vanillaEnemies.Contains(e.sEntryBtChSpec_string))
-                {
-                    //Ensure all charaspecs are added to the list
-                    battleData[id].Charasets.ForEach(c =>
-                    {
-                        List<string> list = charaSets[c].GetCharaSpecs();
-
-                        string charaspec = enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string;
-                        if (!list.Contains(charaspec))
-                        {
-                            list.Add(charaspec);
-                        }
-
-                        charaSets[c].SetCharaSpecs(list);
-                    });
-                }
-            });
-        });
-    }
-
     private void RandomizeGroupShuffle()
     {
         EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
+
+        // Save all charasets before group shuffle is ran
+        Dictionary<string, List<string>> preGroupShuffleCharasets = charaSets.Keys.ToDictionary(k => k, k => charaSets[k].GetCharaSpecs());
 
         /*
         swap to per group rather than encounter.
@@ -468,7 +416,7 @@ public class BattleRando : Randomizer
             //Extract all battles for a given charaset.
             List<string> battles = battleData.Where(battle => battle.Value.Charasets.Contains(charaset)).Select(b => b.Key).ToList();
             //Extract all vanilla enemies across all battles for the charaset
-            List<string> vanillaEnemies = battles.SelectMany(id => btscs[id].Values.Select(e => e.sEntryBtChSpec_string)).Distinct().ToList();
+            List<string> vanillaEnemies = battles.SelectMany(id => btscsOrig[id].Values.Select(e => e.sEntryBtChSpec_string)).Distinct().ToList();
             int reservedCapacity = vanillaEnemies.Count;
 
             IEnumerable<string> singleSetFights = battles.Where(id => battleData[id].Charasets.Count == 1);
@@ -487,7 +435,15 @@ public class BattleRando : Randomizer
             //For each enemy in the group, generate the list of available candidates to shuffle in.
             Dictionary<string, List<string>> shuffleCandidates = vanillaEnemies.ToDictionary(key => key, key =>
             {
-                return !enemyData.ContainsKey(key) ? new List<string>() : ResolvePossibleCandidates(key, enemyData.Keys);
+                if (!enemyData.ContainsKey(key))
+                {
+                    return new();
+                }
+
+                return ResolvePossibleCandidates(key, enemyData.Keys, 
+                    battles
+                        .Where(id => btscsOrig[id].Values.Select(e => e.sEntryBtChSpec_string).Contains(key))
+                        .All(id => battleData[id].Traits.Contains("Event")) ? BattleType.Event : BattleType.NonEvent);
             });
 
             List<string> enemiesToAddToSet = new();
@@ -606,11 +562,29 @@ public class BattleRando : Randomizer
             List<string> battles = battleData.Where(battle => battle.Value.Charasets.Contains(charaset)).Select(b => b.Key).ToList();
             battles.Where(id => battleData[id].Charasets.Count == 1).ForEach(id =>
             {
+                List<string> uniqueMissionEnemies = new();
                 btscs[id].Values.Shuffle().Where(e => enemyData.ContainsKey(e.sEntryBtChSpec_string)).ForEach(e =>
                 {
-                    // List the old enemy
-                    string oldEnemy = e.sEntryBtChSpec_string;
-                    List<string> possible = ResolvePossibleCandidates(oldEnemy, enemyData.Keys.Where(enemy => candidates.Contains(enemyRando.btCharaSpec[enemy].sCharaSpec_string)));
+                    IEnumerable<string> enemyPool = enemyData.Keys.Where(enemy => candidates.Contains(enemyRando.btCharaSpec[enemy].sCharaSpec_string));
+
+                    // If this is a mission battle, leave one of each unique enemy and randomize the rest
+                    if (battleData[id].Traits.Contains("Mission"))
+                    {
+                        if (!uniqueMissionEnemies.Contains(e.sEntryBtChSpec_string))
+                        {
+                            uniqueMissionEnemies.Add(e.sEntryBtChSpec_string);
+                            return;
+                        }
+
+                        // Add mission enemies to the pool
+                        enemyPool = enemyPool.Union(missions[battleData[id].MissionID].GetCharaSpecs()
+                            .Select(spec => enemyData.Keys.FirstOrDefault(missionEnemy => enemyRando.btCharaSpec[missionEnemy].sCharaSpec_string == spec))
+                            .Where(e => !string.IsNullOrEmpty(e)));
+                    }
+
+                    // Use the old vanilla enemy as its rank should be the center instead of the currently replaced enemy
+                    string oldEnemy = btscsOrig[id].Values.First(eOrig => eOrig.ID == e.ID).sEntryBtChSpec_string;
+                    List<string> possible = ResolvePossibleCandidates(oldEnemy, enemyPool, battleData[id].Traits.Contains("Event") ? BattleType.Event : BattleType.NonEvent);
 
                     if (possible.Count > 0)
                     {
@@ -639,11 +613,31 @@ public class BattleRando : Randomizer
             //Resolve all modified charasets available for this battle and take the intersection as enemy candidates.
             List<List<string>> charasetEnemyGroups = dataCharsets.Select(cs => charaSets[cs].GetCharaSpecs()).ToList();
             List<string> intersectionGroup = charasetEnemyGroups.Aggregate((IEnumerable<string>)charasetEnemyGroups[0], (a, b) => a.Intersect(b)).Where(e => enemyData.ContainsKey(e)).ToList();
+
+            List<string> uniqueMissionEnemies = new();
             btscs[id].Values.Shuffle().Where(e => intersectionGroup.Contains(enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string)).ForEach(e =>
             {
-                // List the old enemy
-                string oldEnemy = e.sEntryBtChSpec_string;
-                List<string> possible = ResolvePossibleCandidates(oldEnemy, enemyData.Keys.Where(enemy => intersectionGroup.Contains(enemyRando.btCharaSpec[enemy].sCharaSpec_string)));
+
+                IEnumerable<string> enemyPool = enemyData.Keys.Where(enemy => intersectionGroup.Contains(enemyRando.btCharaSpec[enemy].sCharaSpec_string));
+
+                // If this is a mission battle, leave one of each unique enemy and randomize the rest
+                if (battleData[id].Traits.Contains("Mission"))
+                {
+                    if (!uniqueMissionEnemies.Contains(e.sEntryBtChSpec_string))
+                    {
+                        uniqueMissionEnemies.Add(e.sEntryBtChSpec_string);
+                        return;
+                    }
+
+                    // Add mission enemies to the pool
+                    enemyPool = enemyPool.Union(missions[battleData[id].MissionID].GetCharaSpecs()
+                        .Select(spec => enemyData.Keys.FirstOrDefault(missionEnemy => enemyRando.btCharaSpec[missionEnemy].sCharaSpec_string == spec))
+                        .Where(e => !string.IsNullOrEmpty(e)));
+                }
+
+                // Use the old vanilla enemy as its rank should be the center instead of the currently replaced enemy
+                string oldEnemy = btscsOrig[id].Values.First(eOrig => eOrig.ID == e.ID).sEntryBtChSpec_string;
+                List<string> possible = ResolvePossibleCandidates(oldEnemy, enemyPool, battleData[id].Traits.Contains("Event") ? BattleType.Event : BattleType.NonEvent);
 
                 if (possible.Count > 0)
                 {
@@ -662,7 +656,7 @@ public class BattleRando : Randomizer
         charasets.ForEach(charaset =>
         {
             //TODO: Filter this to be non-battle characters only?
-            List<string> original = charaSetsOrig[charaset];
+            List<string> original = preGroupShuffleCharasets[charaset];
             //Extract all battles for a given charaset.
             List<string> battles = battleData.Where(battle => battle.Value.Charasets.Contains(charaset)).Select(b => b.Key).ToList();
             //Extract all used enemies from battles
@@ -691,10 +685,12 @@ public class BattleRando : Randomizer
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
         HTMLPage page = new("Encounters", "template/documentation.html");
 
+        Dictionary<string, List<string>> formattedOrig = btscsOrig.ToDictionary(k => k.Key, k => k.Value.Values.Where(e => !e.sEntryBtChSpec_string.StartsWith("pc")).Select(e => enemyData.ContainsKey(e.sEntryBtChSpec_string) ? enemyData[e.sEntryBtChSpec_string].Name : e.sEntryBtChSpec_string + " (???)").GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList());
+
         page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID", "Region / Name (If known)", "New Enemies", "Old Enemies" }).ToList(), (new int[] { 5, 15, 40, 40 }).ToList(), btscs.Keys.OrderBy(b => b).Select(b =>
         {
             List<string> names = btscs[b].Values.Where(e => !e.sEntryBtChSpec_string.StartsWith("pc")).Select(e => enemyData.ContainsKey(e.sEntryBtChSpec_string) ? enemyData[e.sEntryBtChSpec_string].Name : e.sEntryBtChSpec_string + " (???)").GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
-            List<string> oldNames = btscsOrig[b];
+            List<string> oldNames = formattedOrig[b];
             string region = battleData[b].Location + " - " + battleData[b].Name;
             return new string[] { b, region, string.Join(", ", names), string.Join(", ", oldNames) }.ToList();
         }).ToList()));
@@ -715,6 +711,8 @@ public class BattleRando : Randomizer
         btscene.SaveWDB(@"\db\resident\bt_scene.wdb");
 
         charaSets.SaveWDB(@"\db\resident\charaset.wdb");
+
+        missions.SaveWDB(@"\db\resident\mission.wdb");
 
         battleConsts.SaveWDB(@"\db\resident\bt_constants.wdb");
 
@@ -773,6 +771,8 @@ public class BattleRando : Randomizer
         [RowIndex(3)]
         public List<string> Charasets { get; set; }
         [RowIndex(4)]
+        public string MissionID { get; set; }
+        [RowIndex(5)]
         public List<string> Traits { get; set; }
         public BattleData(string[] row) : base(row)
         {
