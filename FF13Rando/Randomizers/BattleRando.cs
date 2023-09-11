@@ -28,8 +28,8 @@ public class BattleRando : Randomizer
 
     public DataStoreWDB<DataStoreBtConstant> battleConsts = new();
 
-    public Dictionary<string, DataStoreWDB<DataStoreBtSc>> btscs = new();
-    public Dictionary<string, DataStoreWDB<DataStoreBtSc>> btscsOrig = new();
+    public SortedDictionary<string, DataStoreWDB<DataStoreBtSc>> btscs = new();
+    public SortedDictionary<string, DataStoreWDB<DataStoreBtSc>> btscsOrig = new();
 
     public Dictionary<string, BattleData> battleData = new();
     public Dictionary<string, EnemyData> enemyData = new();
@@ -107,7 +107,7 @@ public class BattleRando : Randomizer
         });
     }
 
-    private Dictionary<string, DataStoreWDB<DataStoreBtSc>> LoadBtscs()
+    private SortedDictionary<string, DataStoreWDB<DataStoreBtSc>> LoadBtscs()
     {
         IEnumerable<string> files = Directory.GetFiles(SetupData.OutputFolder + @"\btscene\wdb\_btsc_wdb.bin").Where(path => battleData.ContainsKey(Path.GetFileNameWithoutExtension(path)));
         int maxCount = files.Count();
@@ -127,7 +127,7 @@ public class BattleRando : Randomizer
 
         //Encounter containing chieftain and 4 _Display_ goblins - seems to be unused
         dict.Remove("btsc11457", out _);
-        return dict.ToDictionary(p => p.Key, p => p.Value);
+        return new(dict);
     }
 
     private string GetLybId(string charasetId)
@@ -218,10 +218,10 @@ public class BattleRando : Randomizer
             do
             {
                 mapping.Clear();
-                enemies.ForEach(e =>
+                enemies.ForEach(enemyId =>
                 {
-                    List<string> possible = ResolvePossibleCandidates(e, enemyData.Keys.Where(id=>!mapping.Values.Contains(id)), btscsForLyb
-                        .Where(b => btscs[b.ID].Values.Select(e => e.sEntryBtChSpec_string).Contains(e))
+                    List<string> possible = ResolvePossibleCandidates(enemyId, enemyData.Keys.Where(id=>!mapping.Values.Contains(id)), btscsForLyb
+                        .Where(b => btscs[b.ID].Values.Select(e => e.sEntryBtChSpec_string).Contains(enemyId))
                         .All(b => battleData[b.ID].Traits.Contains("Event")) ? BattleType.Event : BattleType.NonEvent);
 
                     if (possible.Count == 0)
@@ -230,7 +230,7 @@ public class BattleRando : Randomizer
                     }
 
                     string next = RandomNum.SelectRandom(possible);
-                    mapping.Add(e, next);
+                    mapping.Add(enemyId, next);
                 });
             } while (mapping.Count != enemies.Count || mapping.Values.Select(e => enemyRando.btCharaSpec[e].sCharaSpec_string).Distinct().Count() != mapping.Count());
 
