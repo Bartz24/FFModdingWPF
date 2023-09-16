@@ -36,10 +36,10 @@ chset_z015_500,32
 chset_z015_700,32
 chset_z010_def,32
 chset_z010_def2,32
-chset_z008_def,44
-chset_z008_c012,44
-chset_z008_c014,44
-chset_z008_c020,44
+chset_z008_def,16
+chset_z008_c012,16
+chset_z008_c014,16
+chset_z008_c020,24
 chset_z008_c030,24
 chset_z008_c060,44
 chset_z008_c075,32
