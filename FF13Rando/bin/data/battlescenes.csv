@@ -745,11 +745,11 @@ btsc14453,Mission 9,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_d
 btsc14437,Mission 10,Archylte Steppe,chset_z023_de8b|chset_z023_def8,ms_n005,Mission
 btsc14457,Mission 12,Archylte Steppe,chset_z023_de8b|chset_z023_def8,ms_k002,Mission|Event
 btsc14452,Mission 11,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de1b|chset_z023_def1,ms_n006,Mission
-btsc14449,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,
-btsc14450,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,
-btsc14451,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,
-btsc11448,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,
-btsc14447,,Archylte Steppe,chset_z023_de8b|chset_z023_def8,,
+btsc14449,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de8b|chset_z023_def8,,
+btsc14450,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de8b|chset_z023_def8,,
+btsc14451,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de8b|chset_z023_def8,,
+btsc11448,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de8b|chset_z023_def8,,
+btsc14447,,Archylte Steppe,chset_z023_de6b|chset_z023_def6|chset_z023_de8b|chset_z023_def8,,
 btsc14446,Mission 13,Archylte Steppe,chset_z023_de8b|chset_z023_def8,ms_n008,Mission
 btsc11277,,Archylte Steppe,chset_z023_def1|chset_z023_def4,,
 btsc11259,,Archylte Steppe,chset_z023_def4,,

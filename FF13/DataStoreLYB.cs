@@ -32,7 +32,15 @@ public class DataStoreLYB : DataStore
 
             foreach (int i in Data.FindPattern("00 00 00 01 6D"))
             {
-                EnemyCharasets.Add(i + 4, baseData.ReadString(i + 4));
+                string charaset = baseData.ReadString(i + 4);
+
+                // Check that the string contains only a-Z, 0-9, and _.
+                if (charaset.Any(c => !((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '_')))
+                {
+                    continue;
+                }
+
+                EnemyCharasets.Add(i + 4, charaset);
             }
         }
     }
