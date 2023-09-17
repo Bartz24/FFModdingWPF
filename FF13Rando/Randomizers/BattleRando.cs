@@ -180,6 +180,8 @@ public class BattleRando : Randomizer
             if (FF13Flags.Enemies.EnemyVariety.SelectedIndex > 0)
             {
                 RandomizeGroupShuffle();
+
+                RemoveMissionOnlyCharasets();
             }
 
             RandomNum.ClearRand();
@@ -191,6 +193,39 @@ public class BattleRando : Randomizer
             RandomizeTPBorders();
             RandomNum.ClearRand();
         }
+    }
+
+    private void RemoveMissionOnlyCharasets()
+    {
+        EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
+
+        // Remove charaspecs that only appear in missions from charasets
+        charaSets.Values.ForEach(c =>
+        {
+            List<string> charaSpecs = c.GetCharaSpecs();
+            charaSpecs.RemoveAll(spec =>
+            {
+                // Skip specs not in enemy rando
+                if (!enemyRando.btCharaSpec.Values.Select(e => e.sCharaSpec_string).Contains(spec))
+                {
+                    return false;
+                }
+
+                // Get battles with enemies with this charaspec
+                List<string> battles = btscs.Values
+                .Where(btsc =>
+                    battleData[btsc.ID].Charasets.Contains(c.ID) &&
+                    btsc.Values
+                        .Select(e => enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string)
+                        .Contains(spec))
+                .Select(btsc => btsc.ID)
+                .ToList();
+
+                // If the battles list is not empty and all battles are missions which load the charaspec already, remove the charaspec
+                return battles.Count > 0 && battles.All(b => battleData[b].Traits.Contains("Mission") && missions[battleData[b].MissionID].GetCharaSpecs().Contains(spec));
+            });
+            c.SetCharaSpecs(charaSpecs);
+        });
     }
 
     private Dictionary<string, Dictionary<string, string>> ReplaceLYBEnemies()
