@@ -22,8 +22,12 @@ public class EquipRando : Randomizer
     public DataStoreDB3<DataStoreRItemAbi> itemAbilities = new();
     public DataStoreDB3<DataStoreRItemAbi> itemAbilitiesOrig = new();
     public DataStoreDB3<DataStoreRBtUpgrade> upgrades = new();
-    private readonly Dictionary<string, AbilityData> abilityData = new();
-    private readonly Dictionary<string, PassiveData> passiveData = new();
+    public readonly Dictionary<string, AbilityData> abilityData = new();
+    public readonly Dictionary<string, PassiveData> passiveData = new();
+    public readonly Dictionary<string, ItemData> itemData = new();
+
+    public List<string> RemainingEquip = new();
+    public List<string> RemainingAdorn = new();
 
     public EquipRando(RandomizerManager randomizers) : base(randomizers) { }
 
@@ -58,6 +62,12 @@ public class EquipRando : Randomizer
             abilityData.Add(a.ID, a);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
+        FileHelpers.ReadCSVFile(@"data\items.csv", row =>
+        {
+            ItemData i = new(row);
+            itemData.Add(i.ID, i);
+        }, FileHelpers.CSVFileHeader.HasHeader);
+
         /*
         items.InsertCopyAlphabetical("key_b_20", "key_r_kanki");
         items["key_r_kanki"].sItemNameStringId_string = "$m_001";
@@ -83,6 +93,12 @@ public class EquipRando : Randomizer
 
         itemAbilities.Values.Where(i => i.i8AtbDec >= 128).ForEach(i => i.i8AtbDec -= 256);
         itemAbilitiesOrig.Values.Where(i => i.i8AtbDec >= 128).ForEach(i => i.i8AtbDec -= 256);
+
+        itemData.Values.Where(i => i.OverrideBuyGil != -1).ForEach(i => items[i.ID].uPurchasePrice = i.OverrideBuyGil);
+        itemData.Values.Where(i => i.OverrideBuyEP != -1).ForEach(i => items[i.ID].uGpCost = i.OverrideBuyEP * 1000);
+
+        RemainingEquip = itemData.Values.Where(i => (i.Category == "Weapon" || i.Category == "Shield" || i.Category == "Garb") && !i.Traits.Contains("Key")).Select(i => i.ID).ToList();
+        RemainingAdorn = itemData.Values.Where(i => i.Category == "Adornment" && !i.Traits.Contains("Remove")).Select(i => i.ID).ToList();
     }
     public override void Randomize()
     {
@@ -1006,6 +1022,27 @@ public class EquipRando : Randomizer
         [RowIndex(2)]
         public List<string> UpgradeInto { get; set; }
         public PassiveData(string[] row) : base(row)
+        {
+        }
+    }
+
+    public class ItemData : CSVDataRow
+    {
+        [RowIndex(0)]
+        public string ID { get; set; }
+        [RowIndex(1)]
+        public string Name { get; set; }
+        [RowIndex(2)]
+        public string Category { get; set; }
+        [RowIndex(3)]
+        public int Rank { get; set; }
+        [RowIndex(4)]
+        public List<string> Traits { get; set; }
+        [RowIndex(5)]
+        public int OverrideBuyGil { get; set; }
+        [RowIndex(6)]
+        public int OverrideBuyEP { get; set; }
+        public ItemData(string[] row) : base(row)
         {
         }
     }

@@ -1,6 +1,6 @@
 {
   "name": "4 - Hopeless",
-  "version": "0.7.5.27",
+  "version": "0.7.6.9",
   "flags": [
     {
       "FlagEnabled": true,
@@ -181,15 +181,10 @@
     },
     {
       "FlagEnabled": true,
-      "FlagID": "Music",
-      "FlagProperties": []
-    },
-    {
-      "FlagEnabled": true,
       "FlagID": "Enemies",
       "FlagProperties": [
         {
-          "SelectedValue": "Allow Other Enemies - Low",
+          "SelectedValue": "Randomize Each Enemy",
           "ID": "EnemyVariety"
         },
         {
@@ -197,6 +192,21 @@
           "ID": "EnemyRank"
         }
       ]
+    },
+    {
+      "FlagEnabled": true,
+      "FlagID": "Music",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": false,
+      "FlagID": "DbgStats",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": false,
+      "FlagID": "DbgEnemyHP",
+      "FlagProperties": []
     }
   ]
 }

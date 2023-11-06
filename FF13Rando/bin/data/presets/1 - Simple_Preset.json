@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.7.5.27",
+  "version": "0.7.6.9",
   "flags": [
     {
       "FlagEnabled": true,
@@ -180,16 +180,11 @@
       ]
     },
     {
-      "FlagEnabled": true,
-      "FlagID": "Music",
-      "FlagProperties": []
-    },
-    {
       "FlagEnabled": false,
       "FlagID": "Enemies",
       "FlagProperties": [
         {
-          "SelectedValue": "Enemies Stay to the Same Area",
+          "SelectedValue": "1-to-1 Only",
           "ID": "EnemyVariety"
         },
         {
@@ -197,6 +192,21 @@
           "ID": "EnemyRank"
         }
       ]
+    },
+    {
+      "FlagEnabled": true,
+      "FlagID": "Music",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": false,
+      "FlagID": "DbgStats",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": false,
+      "FlagID": "DbgEnemyHP",
+      "FlagProperties": []
     }
   ]
 }

@@ -376,11 +376,9 @@ public class FF13Flags
                 ID = "EnemyVariety",
                 Description = "1-to-1 Only - Encounters will be as they appear on the map.\n\n\n" +
                 "NOTE: The following options will result in mismatched enemies between what appears in the map and in battle.\n\n" +
-                "Enemies Stay to the Same Area - Change the enemies using only enemies from the area.\n\n" +
-                "Allow Other Enemies - Low - Change the enemies using enemies from other areas with limited variety. Most encounters will not contain new enemies.\n\n" +
-                "Allow Other Enemies - Medium - Change the enemies using enemies from other areas with some limited variety.\n\n" +
-                "Allow Other Enemies - Max - Change the enemies using enemies from other areas. This may cause crashes so use at your own risk.",
-                Values = new string[] { "1-to-1 Only", "Enemies Stay to the Same Area", "Allow Other Enemies - Low", "Allow Other Enemies - Medium", "Allow Other Enemies - Max [EXPERIMENTAL]" }.ToList()
+                "Randomize Each Enemy - Change each enemies to an enemy also visible on the map.\n\n" +
+                "Randomize Each Enemy with New Enemies - Change each enemy and allow adding new enemies to the area. This may cause crashes so use at your own risk.",
+                Values = new string[] { "1-to-1 Only", "Randomize Each Enemy", "Randomize Each Enemy with New Enemies [EXPERIMENTAL]" }.ToList()
             }.Register(EnemiesFlag);
 
             EnemyRank = new NumberFlagProperty()

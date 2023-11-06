@@ -1,24 +1,25 @@
 {
   "name": "4 - Hopeless",
-  "version": "0.7.5.17",
+  "version": "0.7.6.9",
   "flags": [
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandEqStat"
+      "FlagID": "RandEqStat",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandGarbAbi"
+      "FlagID": "RandGarbAbi",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandPassive"
+      "FlagID": "RandPassive",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "EPAbi",
       "FlagProperties": [
         {
           "SelectedValues": [
@@ -34,16 +35,16 @@
           ],
           "ID": "EPAbiPool"
         }
-      ],
-      "FlagID": "EPAbi"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "Quests"
+      "FlagID": "Quests",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "RandEPCost",
       "FlagProperties": [
         {
           "Enabled": true,
@@ -57,21 +58,21 @@
           "Value": 9,
           "ID": "EPRange"
         }
-      ],
-      "FlagID": "RandEPCost"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "AbiPass"
+      "FlagID": "AbiPass",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "NerfOC"
+      "FlagID": "NerfOC",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "RandEne",
       "FlagProperties": [
         {
           "Enabled": true,
@@ -97,26 +98,26 @@
           ],
           "ID": "RandBoss"
         }
-      ],
-      "FlagID": "RandEne"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandMatDrops"
+      "FlagID": "RandMatDrops",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandAbiDrops"
+      "FlagID": "RandAbiDrops",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "BhuniPlus"
+      "FlagID": "BhuniPlus",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "Treasures",
       "FlagProperties": [
         {
           "SelectedValues": [
@@ -223,37 +224,45 @@
         {
           "Enabled": true,
           "ID": "BuyID"
+        },
+        {
+          "Value": 10,
+          "ID": "JunkRange"
+        },
+        {
+          "Enabled": true,
+          "ID": "ReplaceJunkAny"
         }
-      ],
-      "FlagID": "Treasures"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "Shops"
+      "FlagID": "Shops",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": false,
-      "FlagProperties": [],
-      "FlagID": "CoPReqs"
+      "FlagID": "CoPReqs",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "Music",
       "FlagProperties": [
         {
           "Enabled": true,
           "ID": "Fanfare"
         }
-      ],
-      "FlagID": "Music"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "LoadingText"
+      "FlagID": "LoadingText",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "HintsMain",
       "FlagProperties": [
         {
           "SelectedValue": "Random",
@@ -263,23 +272,22 @@
           "Enabled": false,
           "ID": "HintsDepth"
         }
-      ],
-      "FlagID": "HintsMain"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "HintsArea"
+      "FlagID": "HintsArea",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "HintsEP"
+      "FlagID": "HintsEP",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "HintsPilgrim"
+      "FlagID": "HintsPilgrim",
+      "FlagProperties": []
     }
   ]
 }

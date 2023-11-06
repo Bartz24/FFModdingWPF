@@ -31,63 +31,7 @@ public class ShopRando : Randomizer
             shopData.Add(s.ID, s);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
-        EquipRando equipRando = Randomizers.Get<EquipRando>();
-        equipRando.items["mat_z_000"].uPurchasePrice = 770;
-        equipRando.items["mat_z_001"].uPurchasePrice = 1900;
-        equipRando.items["mat_z_002"].uPurchasePrice = 770;
-        equipRando.items["mat_z_003"].uPurchasePrice = 840;
-        equipRando.items["mat_z_004"].uPurchasePrice = 2100;
-        equipRando.items["mat_z_007"].uPurchasePrice = 1500;
-        equipRando.items["mat_z_008"].uPurchasePrice = 2500;
-        equipRando.items["mat_z_009"].uPurchasePrice = 1300;
-        equipRando.items["mat_z_010"].uPurchasePrice = 2900;
-        equipRando.items["mat_z_011"].uPurchasePrice = 2700;
-        equipRando.items["mat_z_012"].uPurchasePrice = 2100;
-        equipRando.items["mat_z_013"].uPurchasePrice = 2700;
-        equipRando.items["mat_z_014"].uPurchasePrice = 6600;
-        equipRando.items["mat_z_015"].uPurchasePrice = 2100;
-        equipRando.items["mat_z_016"].uPurchasePrice = 3500;
-        equipRando.items["mat_z_017"].uPurchasePrice = 1600;
-        equipRando.items["mat_z_018"].uPurchasePrice = 4100;
-        equipRando.items["mat_z_019"].uPurchasePrice = 2700;
-        equipRando.items["mat_z_020"].uPurchasePrice = 2700;
-        equipRando.items["mat_z_021"].uPurchasePrice = 2900;
-        equipRando.items["mat_z_022"].uPurchasePrice = 4100;
-        equipRando.items["mat_z_024"].uPurchasePrice = 8800;
-        equipRando.items["mat_z_028"].uPurchasePrice = 8800;
-        equipRando.items["mat_z_029"].uPurchasePrice = 8800;
-        equipRando.items["mat_z_030"].uPurchasePrice = 8800;
-        equipRando.items["mat_z_031"].uPurchasePrice = 5800;
-        equipRando.items["mat_z_032"].uPurchasePrice = 5300;
-        equipRando.items["mat_z_033"].uPurchasePrice = 4800;
-        equipRando.items["mat_z_035"].uPurchasePrice = 8800;
-        equipRando.items["mat_z_036"].uPurchasePrice = 8800;
-        equipRando.items["mat_z_044"].uPurchasePrice = 8800;
-        equipRando.items["mat_z_045"].uPurchasePrice = 4100;
-
-        equipRando.items["mat_abi_0_00"].uPurchasePrice = 400;
-        equipRando.items["mat_abi_0_01"].uPurchasePrice = 700;
-        equipRando.items["mat_abi_0_02"].uPurchasePrice = 1200;
-        equipRando.items["mat_abi_0_03"].uPurchasePrice = 2000;
-        equipRando.items["mat_abi_0_04"].uPurchasePrice = 4000;
-        equipRando.items["mat_abi_0_05"].uPurchasePrice = 9000;
-        equipRando.items["mat_abi_0_06"].uPurchasePrice = 15000;
-        equipRando.items["mat_abi_0_07"].uPurchasePrice = 28000;
-        equipRando.items["mat_abi_0_08"].uPurchasePrice = 54000;
-
-        equipRando.items["mat_cus_0_00"].uPurchasePrice = 100;
-        equipRando.items["mat_cus_0_01"].uPurchasePrice = 400;
-        equipRando.items["mat_cus_0_02"].uPurchasePrice = 1000;
-        equipRando.items["mat_cus_0_03"].uPurchasePrice = 2500;
-        equipRando.items["mat_cus_0_04"].uPurchasePrice = 6000;
-        equipRando.items["mat_cus_0_05"].uPurchasePrice = 10000;
-        equipRando.items["mat_cus_0_06"].uPurchasePrice = 15000;
-        equipRando.items["mat_cus_0_07"].uPurchasePrice = 22000;
-        equipRando.items["mat_cus_0_08"].uPurchasePrice = 36000;
-
-        equipRando.items["it_reraise"].uPurchasePrice = 2520;
-        equipRando.items["it_hero"].uPurchasePrice = 4340;
-
+        
     }
     public override void Randomize()
     {
@@ -141,7 +85,7 @@ public class ShopRando : Randomizer
                 shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra && shopsDict.ContainsKey(s.name)).ForEach(s => shopsDict[s.name].Add("mat_cus_0_0" + n));
             }
 
-            foreach (string equip in treasureRando.RemainingEquip)
+            foreach (string equip in equipRando.RemainingEquip)
             {
                 string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && IsValid(equip, (ShopCategory)shopsOrig[k].u3Category)).Shuffle().First();
                 shopsDict[next].Add(equip);
@@ -152,7 +96,7 @@ public class ShopRando : Randomizer
                 }
             }
 
-            foreach (string adorn in treasureRando.RemainingAdorn)
+            foreach (string adorn in equipRando.RemainingAdorn)
             {
                 string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && IsValid(adorn, (ShopCategory)shopsOrig[k].u3Category)).Shuffle().First();
                 shopsDict[next].Add(adorn);
@@ -166,9 +110,9 @@ public class ShopRando : Randomizer
             Randomizers.SetUIProgress("Randomizing Shop Data...", 70, 100);
 
             List<string> possibleItems = new();
-            possibleItems.AddRange(treasureRando.RemainingEquip);
-            possibleItems.AddRange(treasureRando.RemainingAdorn);
-            possibleItems.AddRange(GetItems());
+            possibleItems.AddRange(equipRando.RemainingEquip);
+            possibleItems.AddRange(equipRando.RemainingAdorn);
+            possibleItems.AddRange(equipRando.itemData.Values.Where(i => i.Category == "Item").Select(i => i.ID));
             foreach (string shop in shopsDict.Keys.Shuffle().OrderBy(s => s != "shop_ptl_pt00"))
             {
                 string unique = uniqueShops.Keys.Where(k => shop.StartsWith(k)).FirstOrDefault();
@@ -215,57 +159,6 @@ public class ShopRando : Randomizer
 
             RandomNum.ClearRand();
         }
-    }
-    public List<string> GetRandomizableEquip()
-    {
-        if (!LRFlags.Items.Shops.FlagEnabled)
-        {
-            return new List<string>();
-        }
-
-        static bool isEquip(string s)
-        {
-            return s.StartsWith("cos") || s.StartsWith("wea") || s.StartsWith("shi");
-        }
-
-        List<string> list = new();
-        list.AddRange(shopsOrig.Values.SelectMany(s => s.GetItems().Where(i => isEquip(i))));
-
-        return list.Distinct().ToList();
-    }
-    public List<string> GetAdornments()
-    {
-        if (!LRFlags.Items.Shops.FlagEnabled)
-        {
-            return new List<string>();
-        }
-
-        static bool isAdorn(string s)
-        {
-            return s.StartsWith("e") && s.Length == 4;
-        }
-
-        List<string> list = new();
-        list.AddRange(shopsOrig.Values.SelectMany(s => s.GetItems().Where(i => isAdorn(i))));
-
-        return list.Distinct().ToList();
-    }
-    public List<string> GetItems()
-    {
-        if (!LRFlags.Items.Shops.FlagEnabled)
-        {
-            return new List<string>();
-        }
-
-        static bool isItem(string s)
-        {
-            return s.StartsWith("it");
-        }
-
-        List<string> list = new();
-        list.AddRange(shopsOrig.Values.SelectMany(s => s.GetItems().Where(i => isItem(i))));
-
-        return list.Distinct().ToList();
     }
 
     private bool IsValid(string item, ShopCategory shop)

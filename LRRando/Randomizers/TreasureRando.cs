@@ -4,8 +4,12 @@ using Bartz24.FF13_2_LR;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
 using LRRando;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
+using System.Windows.Input;
+using static LRRando.EquipRando;
 
 namespace LRRando;
 
@@ -22,10 +26,6 @@ public class TreasureRando : Randomizer
     public Dictionary<string, string> BattleDrops = new();
     public Dictionary<string, string> OrigBattleDrops = new();
 
-    public List<string> RandomEquip = new();
-    public List<string> RemainingEquip = new();
-    public List<string> RandomAdorn = new();
-    public List<string> RemainingAdorn = new();
     private ItemPlacementAlgorithm<ItemLocation> placementAlgoNormal;
     private ItemPlacementAlgorithm<ItemLocation> placementAlgoBackup;
     private bool usingBackup = false;
@@ -170,16 +170,6 @@ public class TreasureRando : Randomizer
         {
             LRFlags.Items.Treasures.SetRand();
 
-            RandomEquip = GetRandomizableEquip();
-            RandomEquip.AddRange(shopRando.GetRandomizableEquip());
-            RandomEquip = RandomEquip.Distinct().ToList();
-            RemainingEquip = new List<string>(RandomEquip);
-
-            RandomAdorn = GetAdornments();
-            RandomAdorn.AddRange(shopRando.GetAdornments());
-            RandomAdorn = RandomAdorn.Distinct().ToList();
-            RemainingAdorn = new List<string>(RandomAdorn);
-
             List<string> keys = itemLocations.Keys.Shuffle();
 
             Dictionary<string, double> areaMults = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
@@ -192,48 +182,114 @@ public class TreasureRando : Randomizer
             // Same treasures take priority
             keys = keys.OrderBy(k => !itemLocations[k].Traits.Contains("Same")).ToList();
 
+            static bool sameCheck(string rep, string orig)
+            {
+                if (rep.StartsWith("cos") && orig.StartsWith("cos") && rep != "cos_ba08" && rep != "cos_ca08")
+                {
+                    return true;
+                }
+
+                if (rep.StartsWith("wea") && orig.StartsWith("wea") && rep != "wea_ea00")
+                {
+                    return true;
+                }
+
+                return rep.StartsWith("shi") && orig.StartsWith("shi") && rep != "shi_ea00"
+                    || (rep.StartsWith("acc") && orig.StartsWith("acc"))
+                    || (rep.StartsWith("e") && orig.StartsWith("e") && rep.Length == 4 && orig.Length == 4);
+            }
+
+            Randomizers.SetUIProgress("Randomizing Treasure Data...", 40, 100);
+            itemLocations.Values.Where(t => equipRando.itemData.ContainsKey(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1) && !equipRando.itemData[PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1].Traits.Contains("Key")).ForEach(t =>
+            {
+                (string, int) orig = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value;
+
+
+                ItemData item = equipRando.itemData.GetValueOrDefault(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1);
+                if (item?.Category == "Adornment")
+                {
+                    string next;
+                    int count;
+                    if (item.Traits.Contains("Remove"))
+                    {
+                        // Replace removed adornments with equipment
+                        next = RandomNum.SelectRandom(equipRando.RemainingEquip);
+                        equipRando.RemainingEquip.Remove(next);
+                        count = 1;
+                    }
+                    else
+                    {
+                        next = RandomNum.SelectRandom(equipRando.itemData.Values.Where(i => i.Category == "Material")).ID;
+                        // Rank [1, 10] -> [5, 1] count
+                        count = (int)Math.Max((double)RandomNum.RandInt(100, 200) / 100.0 * Math.Pow(1.2, -(equipRando.itemData[next].Rank + 5)), 1);
+                    }
+
+                    PlacementAlgo.Logic.SetLocationItem(t.ID, next, count);
+                    return;
+                }
+
+                string repItem = null;
+                do
+                {
+                    string category = equipRando.itemData[orig.Item1].Category;
+                    if (LRFlags.Items.ReplaceAny.Enabled && !t.Traits.Contains("Same"))
+                    {
+                        // Do not include adornments (shops only)
+                        category = equipRando.itemData.Values.Select(i => i.Category).Where(c => c != "Adornment").Distinct().Shuffle().First();
+                    }
+
+                    int rankRange = LRFlags.Items.ReplaceRank.Value;
+                    IEnumerable<ItemData> possible = equipRando.itemData.Values.Where(i =>
+                        i.Category == category &&
+                        i.Rank >= equipRando.itemData[orig.Item1].Rank - rankRange &&
+                        i.Rank <= equipRando.itemData[orig.Item1].Rank + rankRange &&
+                        (!t.Traits.Contains("Same") || sameCheck(i.ID, PlacementAlgo.Logic.GetLocationItem(t.ID, true).Value.Item1)) &&
+                        !i.Traits.Contains("Key"));
+
+                    if (category == "Weapon" || category == "Shield" || category == "Garb" || category == "Accessory")
+                    {
+                        possible = possible.Where(i => equipRando.RemainingEquip.Contains(i.ID));
+                    }
+
+                    if (possible.Count() == 0)
+                    {
+                        continue;
+                    }
+
+                    repItem = possible.Shuffle().Select(i => i.ID).First();
+
+                    if (category == "Weapon" || category == "Shield" || category == "Garb" || category == "Accessory")
+                    {
+                        equipRando.RemainingEquip.Remove(repItem);
+                    }
+                } while (repItem == null);
+
+                equipRando.RemainingEquip.Remove(repItem);
+
+                int repCount = equipRando.itemData[repItem].Category == "Garb" || equipRando.itemData[repItem].Category == "Accessory" ? 1 : orig.Item2;
+                PlacementAlgo.Logic.SetLocationItem(t.ID, repItem, repCount);
+            });
+
+            Randomizers.SetUIProgress("Randomizing Treasure Data...", 70, 100);
             foreach (string key in keys)
             {
-                bool isSame = itemLocations[key].Traits.Contains("Same");
-
-                static bool sameCheck(string rep, string orig)
-                {
-                    if (rep.StartsWith("cos") && orig.StartsWith("cos") && rep != "cos_ba08" && rep != "cos_ca08")
-                    {
-                        return true;
-                    }
-
-                    if (rep.StartsWith("wea") && orig.StartsWith("wea") && rep != "wea_ea00")
-                    {
-                        return true;
-                    }
-
-                    return rep.StartsWith("shi") && orig.StartsWith("shi") && rep != "shi_ea00"
-|| (rep.StartsWith("acc") && orig.StartsWith("acc"))
-|| (rep.StartsWith("e") && orig.StartsWith("e") && rep.Length == 4 && orig.Length == 4);
-                }
-
-                if (RandomEquip.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1))
-                {
-                    string next = RemainingEquip.Where(s => !isSame || sameCheck(s, PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1)).Shuffle().First();
-                    RemainingEquip.Remove(next);
-                    PlacementAlgo.Logic.SetLocationItem(key, next, 1);
-                }
-
-                if (RandomAdorn.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1))
-                {
-                    string next = RemainingAdorn.Where(s => !isSame || sameCheck(s, PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1)).Shuffle().First();
-                    RemainingAdorn.Remove(next);
-                    PlacementAlgo.Logic.SetLocationItem(key, next, 1);
-                }
-
                 if (equipRando.items.Keys.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1) && equipRando.IsAbility(equipRando.items[PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1]))
                 {
-                    string lv = PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1.Substring(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1.Length - 3);
+                    int lv = int.Parse(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1.Substring(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1.Length - 2)) / 10 + 1;
+                    lv = RandomNum.RandInt(Math.Max(lv - 2, 1), Math.Min(lv + 2, 5));
                     string next = equipRando.GetAbilities(-1).Shuffle().First().sScriptId_string;
-                    PlacementAlgo.Logic.SetLocationItem(key, next + lv, 1);
+                    PlacementAlgo.Logic.SetLocationItem(key, $"{next}_{((lv - 1) * 10).ToString("00")}", 1);
                 }
             }
+
+            itemLocations.Values.Where(t => PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 == "" || equipRando.itemData.ContainsKey(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1)).ForEach(t =>
+            {
+                (string, int) orig = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value;
+                if (orig.Item2 > 0)
+                {
+                    PlacementAlgo.Logic.SetLocationItem(t.ID, orig.Item1, RandomNum.RandInt((int)Math.Round(Math.Max(1, orig.Item2 * 0.75)), (int)Math.Round(orig.Item2 * 1.25)));
+                }
+            });
 
             RandomNum.ClearRand();
 

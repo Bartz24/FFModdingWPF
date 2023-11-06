@@ -80,6 +80,11 @@ public class RandomNum
         return list[RandomNum.RandInt(0, list.Count - 1)];
     }
 
+    public static T SelectRandom<T>(IEnumerable<T> list)
+    {
+        return list.ElementAt(RandomNum.RandInt(0, list.Count() - 1));
+    }
+
     public static T SelectRandomWeighted<T>(List<T> list, Func<T, long> weightFunc)
     {
         CheckRand();

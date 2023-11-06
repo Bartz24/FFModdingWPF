@@ -221,9 +221,10 @@ public class LRFlags
         public static Flag Treasures;
         public static Flag Shops;
         public static Flag CoPReqs;
-        public static ToggleFlagProperty EPMissable, IDCardBuy, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy, KeyPlaceSuperboss;
+        public static ToggleFlagProperty EPMissable, IDCardBuy, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy, KeyPlaceSuperboss, ReplaceAny;
         public static ComboBoxFlagProperty KeyDepth;
         public static DictListBoxFlagProperty<string> KeyItems;
+        public static NumberFlagProperty ReplaceRank;
 
         internal static void Init()
         {
@@ -393,6 +394,24 @@ public class LRFlags
                 FlagID = "CoPReqs",
                 DescriptionFormat = "Reduce non-key item requirements for Canvas of Prayers by half (rounds up)."
             }.Register(FlagType.Items);
+
+            ReplaceRank = new NumberFlagProperty()
+            {
+                Text = "Junk Item Rank Range",
+                ID = "JunkRange",
+                Description = "'Junk' items (consumables, weapons, shields, garbs, accessories, and materials) will be replaced by items within the specified value of its \"Rank\".",
+                ValueText = "Item Rank +/-",
+                MinValue = 0,
+                MaxValue = 10
+            }.Register(Treasures);
+
+            ReplaceAny = new ToggleFlagProperty()
+            {
+                Text = "Replace Junk Items From Any Category",
+                ID = "ReplaceJunkAny",
+                Description = "Allow 'Junk' items (consumables, weapons, shields, garbs, accessories, and materials) to be replaced by items of other types.\n" +
+                "Ex: Potions can be replaced with Bronze Malistones."
+            }.Register(Treasures);
         }
     }
     public class Other

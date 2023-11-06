@@ -156,12 +156,18 @@ public class BattleRando : Randomizer
                 return false; //Ignore summoned weapons and Syphax
             }
 
-            return battleType == BattleType.Event
-|| (lookup.Traits.Contains("Flying")
-                ? enemyData[next].Traits.Contains("Flying")
-                : lookup.Traits.Contains("Turtle")
-                ? enemyData[next].Traits.Contains("Turtle")
-                : !enemyData[next].Traits.Contains("Flying") && !enemyData[next].Traits.Contains("Turtle"));
+            if (battleType == BattleType.Event)
+            {
+                return true; // Events can be replaced by anything
+            }
+
+            // Wyverns replaced by small flying enemies might be impossible to fight            
+            List<string> groups = new() { "Flying", "Turtle", "Wyvern" };
+
+            return groups.Intersect(lookup.Traits).Any()
+                ? groups.Intersect(enemyData[next].Traits).Intersect(lookup.Traits).Any()
+                : !groups.Intersect(enemyData[next].Traits).Any();
+
         }).Where(next =>
         {
             return enemyData[next].Rank >= rangeMin && enemyData[next].Rank <= rangeMax;
@@ -708,9 +714,7 @@ public class BattleRando : Randomizer
         {
             0 => 0,
             1 => 0,
-            2 => 16,
-            3 => 30,
-            4 => 44,
+            2 => 40,
             _ => 16,
         };
     }
