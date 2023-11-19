@@ -9,10 +9,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Input;
-using static System.Net.WebRequestMethods;
 using File = System.IO.File;
+using System.Windows.Controls;
 
 namespace FF13Rando;
 

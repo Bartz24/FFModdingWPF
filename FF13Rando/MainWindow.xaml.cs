@@ -2,14 +2,19 @@
 using Bartz24.Docs;
 using Bartz24.RandoWPF;
 using MaterialDesignThemes.Wpf;
+using Newtonsoft.Json;
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace FF13Rando;
 
@@ -91,7 +96,14 @@ public partial class MainWindow : Window
         randomizers.Add(new TreasureRando(randomizers));
         randomizers.Add(new CrystariumRando(randomizers));
         randomizers.Add(new ShopRando(randomizers));
-        randomizers.Add(new BattleRando(randomizers));
+        if (FF13Flags.Debug.EnemyPlando.FlagEnabled)
+        {
+            randomizers.Add(new BattlePlandomizer(randomizers));
+        }
+        else
+        {
+            randomizers.Add(new BattleRando(randomizers));
+        }
         randomizers.Add(new EnemyRando(randomizers));
         randomizers.Add(new MusicRando(randomizers));
         /*
@@ -134,8 +146,8 @@ public partial class MainWindow : Window
             {
 
                 IsEnabled = false;
-                await Task.Run(() =>
-                {
+                var worker = new BackgroundWorker();
+                await Task.Run(async () => {
                     string outFolder = System.IO.Path.GetTempPath() + @"ff13_rando_temp";
                     SetupData.OutputFolder = outFolder + @"\Data";
 
@@ -183,6 +195,40 @@ public partial class MainWindow : Window
                     {
                         r.Load();
                         totalProgressBar.IncrementProgress();
+                    });
+
+                    // Potentially should pop out a sub-window for plando pages rather than messign with the enabled state on main tab control?
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        this.WindowTabs.SelectedIndex = 3;
+                    });
+                    var plandos = randomizers.Where(r => r is Plandomizer);
+                    foreach (Plandomizer plando in plandos)
+                    {
+                        var tcs = new TaskCompletionSource();
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            var plandoPage = plando.GetPlandoPage();
+                            if (plandoPage is PlandoPage pp)
+                            {
+                                DockPanel panel = (DockPanel)FindName("PlandoPanel");
+                                panel.Children.Clear();
+                                panel.Children.Add(plandoPage);
+                                IsEnabled = true;
+                                pp.OnComplete += (state) => { IsEnabled = false; plando.SetState(state); tcs.SetResult(); };
+                            }
+                            else
+                            {
+                                tcs.SetResult();
+                            }
+                        });
+                        await tcs.Task;
+                    }
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        DockPanel panel = (DockPanel)FindName("PlandoPanel");
+                        panel.Children.Clear();
+                        this.WindowTabs.SelectedIndex = 2;
                     });
 
                     randomizers.ForEach(r =>
@@ -248,6 +294,10 @@ public partial class MainWindow : Window
                     SetProgressBar($"Complete! Ready to install in Nova Chrysalia! The modpack 'FF13Rando_{seed}.ncmp' and documentation have been generated in the packs folder of this application.", 100);
                 });
                 IsEnabled = true;
+                //var tcs = new TaskCompletionSource();
+                //worker.RunWorkerCompleted += (s, e) => tcs.SetResult();
+                //worker.RunWorkerAsync();
+                //await tcs.Task;
             }
             catch (Exception ex)
             {
