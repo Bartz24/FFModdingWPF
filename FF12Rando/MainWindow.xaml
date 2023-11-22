@@ -176,12 +176,6 @@
                             <TextBlock Margin="5"/>
                         </DockPanel>
                         <rando:FinishPage>
-                            <ListBox HorizontalAlignment="Center" Margin="0 0 0 3">
-                                <TextBlock FontWeight="Bold" FontSize="15" Margin="-5">Install Method</TextBlock>
-                                <RadioButton x:Name="radioInstallDirect" ToolTip="Install the seed into the steam folder directly. The seed will need to be uninstalled through this program." Margin="-5">Install Directly to Steam Folder</RadioButton>
-                                <RadioButton x:Name="radioInstallVortex" ToolTip="Generate a .zip modpack to be installed in Vortex mod manager." Margin="-5">Generate Vortex Modpack</RadioButton>
-                            </ListBox>
-                            <Label Margin="2"/>
                             <Button Click="generateButton_Click"
                                     ToolTip="Generate the rando files specific to this seed using the selected option above.">Generate Seed</Button>
                             <Label Margin="10"/>
@@ -195,7 +189,7 @@
                                 </Grid.RowDefinitions>
                                 <Button Margin="2" Grid.Column="0" Grid.Row="0" 
                                         Click="openModpackFolder_Click"
-                                        ToolTip="Open the folder containing the documentation spoiler logs.">Open Documentation and Vortex Modpack Folder</Button>
+                                        ToolTip="Open the folder containing the documentation spoiler logs.">Open Documentation Folder</Button>
                                 <Button Margin="2" Grid.Column="1" Grid.Row="0" 
                                         Click="shareSeedFolder_Click"
                                         ToolTip="Export the current seed and flags to a JSON file to share.">Share Current Seed with Flags (JSON)</Button>
@@ -205,9 +199,12 @@
                 </TabItem>
                 <TabItem Width="100" Height="50">
                     <TabItem.Header>
-                        <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5">
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Uninstall"/>
-                        </Button>
+                        <StackPanel Orientation="Vertical">
+                            <Separator/>
+                            <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5, 5, 5, 0">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Uninstall"/>
+                            </Button>
+                        </StackPanel>
                     </TabItem.Header>
                     <DockPanel>
                         

@@ -8,6 +8,7 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
     Copy-Item -Path "bin\Debug\net6.0-windows\data\" -Destination "bin\data" -Recurse -Force
     Remove-Item -Recurse -Force "bin\data\musicPacks" -ErrorAction Ignore
     Remove-Item -Recurse -Force "bin\data\tools" -ErrorAction Ignore
+    Remove-Item -Recurse -Force "bin\data\RandoPaths.csv" -ErrorAction Ignore
 }
 
 $Update = $args[2]
