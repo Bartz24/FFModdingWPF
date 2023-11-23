@@ -30,17 +30,17 @@ public class EnemyRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Enemy Data...", 0, -1);
+        Generator.SetUIProgress("Loading Enemy Data...", 0, -1);
         x000.ForEach(s =>
         {
             DataStoreDB3<DataStoreBtCharaSpec> db3 = new();
-            db3.LoadDB3("13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
+            db3.LoadDB3(Generator, "13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
             enemies.Add(s, db3);
         });
         x000.ForEach(s =>
         {
             DataStoreDB3<DataStoreBtCharaSpec> db3 = new();
-            db3.LoadDB3("13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
+            db3.LoadDB3(Generator, "13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
             enemiesOrig.Add(s, db3);
         });
 
@@ -80,11 +80,11 @@ public class EnemyRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Enemy Data...", 0, -1);
+        Generator.SetUIProgress("Saving Enemy Data...", 0, -1);
         x000.ForEach(s =>
         {
-            enemies[s].SaveDB3(@"\btscene\pack\wdb\_x000.bin\" + s + ".wdb");
-            SetupData.WPDTracking[SetupData.OutputFolder + @"\btscene\pack\wdb\x000.bin"].Add(s + ".wdb");
+            enemies[s].SaveDB3(Generator, @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb");
+            SetupData.WPDTracking[Generator.DataOutFolder + @"\btscene\pack\wdb\x000.bin"].Add(s + ".wdb");
         });
     }
 }

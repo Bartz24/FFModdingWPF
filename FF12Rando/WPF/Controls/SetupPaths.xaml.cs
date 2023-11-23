@@ -1,3 +1,4 @@
+using Bartz24.Data;
 using Bartz24.RandoWPF;
 using Ookii.Dialogs.Wpf;
 using SharpCompress.Archives.SevenZip;
@@ -15,32 +16,51 @@ namespace FF12Rando;
 /// </summary>
 public partial class SetupPaths : UserControl
 {
+    private const string ToolsInstalledText = "The tools for editing scripts and text are correctly installed.";
+    private const string ToolsNotInstalledText = "The required tools for editing scripts and text are not detected.\nDownload and then install the tools.";
+    private const string FileLoaderInstalledText = "The External File Loader is correctly installed.";
+    private const string FileLoaderNotInstalledText = "The required External File Loader files are not detected.\nEither download through the Vortex mod manger,\nor download and then install the loader directly with the buttons to the right.";
+    private const string LuaLoaderInstalledText = "The Lua Loader is correctly installed.";
+    private const string LuaLoaderNotInstalledText = "The required Lua Loader files are not detected.\nEither download through the Vortex mod manger,\nor download and then install the loader directly with the buttons to the right.";
+
     public string FF12Path => SetupData.GetSteamPath("12");
     public string ToolsText { get; set; }
     public SolidColorBrush ToolsTextColor { get; set; }
+    public string LoaderText { get; set; }
+    public SolidColorBrush LoaderTextColor { get; set; }
+    public string LuaLoaderText { get; set; }
+    public SolidColorBrush LuaLoaderTextColor { get; set; }
 
     public SetupPaths()
     {
         InitializeComponent();
         DataContext = this;
 
-        if (FF12SeedGenerator.ToolsInstalled())
-        {
-            ToolsText = "The required tools for editing scripts and text are installed.";
-            ToolsTextColor = Brushes.White;
-        }
-        else
-        {
-            ToolsText = "The required tools for editing scripts and text are not detected.\nDownload and then install the tools.";
-            ToolsTextColor = Brushes.Red;
-        }
-
-        SetupData.OutputFolder = @"outdata\ps2data";
-
         SetupData.PathFileName = @"data\RandoPaths.csv";
         SetupData.PathRegistrySearch.Add("12", @"\x64\FFXII_TZA.exe");
 
         SetupData.PathRegistrySearch.Keys.ToList().ForEach(s => SetupData.Paths.Add(s, SetupData.GetSteamPath(s)));
+
+        UpdateText();
+    }
+
+    public void UpdateText()
+    {
+        ToolsText = FF12SeedGenerator.ToolsInstalled() ? ToolsInstalledText : ToolsNotInstalledText;
+        ToolsTextColor = FF12SeedGenerator.ToolsInstalled() ? Brushes.LightGreen : Brushes.Orange;
+        ToolsTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
+        ToolsTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
+
+        LoaderText = FF12SeedGenerator.FileLoaderInstalled() ? FileLoaderInstalledText : FileLoaderNotInstalledText;
+        LoaderTextColor = FF12SeedGenerator.FileLoaderInstalled() ? Brushes.LightGreen : Brushes.Orange;
+        LoaderTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
+        LoaderTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
+
+        LuaLoaderText = FF12SeedGenerator.LuaLoaderInstalled() ? LuaLoaderInstalledText : LuaLoaderNotInstalledText;
+        LuaLoaderTextColor = FF12SeedGenerator.LuaLoaderInstalled() ? Brushes.LightGreen : Brushes.Orange;
+        LuaLoaderTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
+        LuaLoaderTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
+
     }
 
     private void steamPath12Button_Click(object sender, RoutedEventArgs e)
@@ -132,19 +152,7 @@ public partial class SetupPaths : UserControl
                     MessageBox.Show("Failed to install the tools when extracting the files.");
                 }
 
-                if (FF12SeedGenerator.ToolsInstalled())
-                {
-                    ToolsText = "The required tools for editing scripts and text are installed.";
-                    ToolsTextColor = Brushes.White;
-                }
-                else
-                {
-                    ToolsText = "The required tools for editing scripts and text are not detected.\nDownload and then install the tools.";
-                    ToolsTextColor = Brushes.Red;
-                }
-
-                ToolsTextLabel.GetBindingExpression(Label.ContentProperty).UpdateTarget();
-                ToolsTextLabel.GetBindingExpression(Label.ForegroundProperty).UpdateTarget();
+                UpdateText();
             }
             else
             {
@@ -166,6 +174,121 @@ public partial class SetupPaths : UserControl
             {
                 url = url.Replace("&", "^&");
                 Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+        }
+    }
+
+    private void loaderDownloadButton_Click(object sender, RoutedEventArgs e)
+    {
+        string url = "https://www.nexusmods.com/finalfantasy12/mods/170";
+        if (MessageBox.Show("This will open your default browser at the below link to download the External File Loader from NexusMods. Continue?\n" + url, "Download file loader", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                url = url.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+        }
+    }
+
+    private void loaderInstallButton_Click(object sender, RoutedEventArgs e)
+    {
+        VistaOpenFileDialog dialog = new()
+        {
+            Title = "Please select a compressed file of the file loader.",
+            Multiselect = false,
+            Filter = "7zip|*.7z"
+        };
+        if ((bool)dialog.ShowDialog())
+        {
+            string path = dialog.FileName.Replace("/", "\\");
+            if (File.Exists(path))
+            {
+                try
+                {
+                    FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(SetupData.Paths["12"], "x64"), "loader-multi\\x64");
+
+                    if (FF12SeedGenerator.FileLoaderInstalled())
+                    {
+                        MessageBox.Show("External File Loader has been successfully installed.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to install the External File Loader. Expected files are missing.");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Failed to install the External File Loader when extracting the files.");
+                }
+
+                UpdateText();
+            }
+            else
+            {
+                MessageBox.Show("Make sure the selected file is a 7z file.", "The selected file is not valid");
+            }
+        }
+    }
+
+    private void luaLoaderDownloadButton_Click(object sender, RoutedEventArgs e)
+    {
+        string url = "https://www.nexusmods.com/finalfantasy12/mods/171";
+        if (MessageBox.Show("This will open your default browser at the below link to download the Lua Loader from NexusMods. Continue?\n" + url, "Download file loader", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                url = url.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+        }
+    }
+
+    private void luaLoaderInstallButton_Click(object sender, RoutedEventArgs e)
+    {
+
+        VistaOpenFileDialog dialog = new()
+        {
+            Title = "Please select a compressed file of the lua loader.",
+            Multiselect = false,
+            Filter = "7zip|*.7z"
+        };
+        if ((bool)dialog.ShowDialog())
+        {
+            string path = dialog.FileName.Replace("/", "\\");
+            if (File.Exists(path))
+            {
+                try
+                {
+                    FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(SetupData.Paths["12"], "x64\\modules"), "modules");
+
+                    if (FF12SeedGenerator.LuaLoaderInstalled())
+                    {
+                        MessageBox.Show("Lua Loader has been successfully installed.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to install the Lua Loader. Expected files are missing.");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Failed to install the Lua Loader when extracting the files.");
+                }
+
+                UpdateText();
+            }
+            else
+            {
+                MessageBox.Show("Make sure the selected file is a 7z file.", "The selected file is not valid");
             }
         }
     }

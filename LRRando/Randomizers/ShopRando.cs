@@ -20,10 +20,10 @@ public class ShopRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Shop Data...", 0, 100);
-        shopsOrig.LoadDB3("LR", @"\db\resident\shop.wdb");
-        Randomizers.SetUIProgress("Loading Shop Data...", 50, 100);
-        shops.LoadDB3("LR", @"\db\resident\shop.wdb");
+        Generator.SetUIProgress("Loading Shop Data...", 0, 100);
+        shopsOrig.LoadDB3(Generator, "LR", @"\db\resident\shop.wdb");
+        Generator.SetUIProgress("Loading Shop Data...", 50, 100);
+        shops.LoadDB3(Generator, "LR", @"\db\resident\shop.wdb");
 
         FileHelpers.ReadCSVFile(@"data\shops.csv", row =>
         {
@@ -35,17 +35,17 @@ public class ShopRando : Randomizer
     }
     public override void Randomize()
     {
-        EquipRando equipRando = Randomizers.Get<EquipRando>();
-        TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+        EquipRando equipRando = Generator.Get<EquipRando>();
+        TreasureRando treasureRando = Generator.Get<TreasureRando>();
 
-        Randomizers.SetUIProgress("Randomizing Shop Data...", 0, 100);
+        Generator.SetUIProgress("Randomizing Shop Data...", 0, 100);
         equipRando.itemWeapons.Values.Where(i => equipRando.items.Keys.Contains(i.name) && ((i.u4WeaponKind == (int)WeaponKind.Weapon && i.u4AccessoryPos == 0) || i.u4WeaponKind == (int)WeaponKind.Shield)).ForEach(i =>
         {
             equipRando.items[i.name].uSellPrice = (int)(2 * equipRando.items[i.name].uSellPrice / Math.Log10(Math.Pow(equipRando.items[i.name].uSellPrice, 1.5) / 1.5));
             equipRando.items[i.name].uSellPrice = equipRando.items[i.name].uSellPrice.RoundToSignificantDigits((int)Math.Max(2, Math.Ceiling(Math.Log10(equipRando.items[i.name].uSellPrice) - 2)));
         });
 
-        Randomizers.SetUIProgress("Randomizing Shop Data...", 20, 100);
+        Generator.SetUIProgress("Randomizing Shop Data...", 20, 100);
         if (LRFlags.Items.Shops.FlagEnabled)
         {
             LRFlags.Items.Shops.SetRand();
@@ -107,7 +107,7 @@ public class ShopRando : Randomizer
                 AddToRandomShop(uniqueShops, shopsDict, adorn);
             }
 
-            Randomizers.SetUIProgress("Randomizing Shop Data...", 70, 100);
+            Generator.SetUIProgress("Randomizing Shop Data...", 70, 100);
 
             List<string> possibleItems = new();
             possibleItems.AddRange(equipRando.itemData.Values.Where(i => i.Category == "Item").Select(i => i.ID));
@@ -197,16 +197,16 @@ public class ShopRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Shop Data...", -1, 100);
-        shops.SaveDB3(@"\db\resident\shop.wdb");
+        Generator.SetUIProgress("Saving Shop Data...", -1, 100);
+        shops.SaveDB3(Generator, @"\db\resident\shop.wdb");
     }
 
     public override Dictionary<string, HTMLPage> GetDocumentation()
     {
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
-        EquipRando equipRando = Randomizers.Get<EquipRando>();
-        AbilityRando abilityRando = Randomizers.Get<AbilityRando>();
-        TextRando textRando = Randomizers.Get<TextRando>();
+        EquipRando equipRando = Generator.Get<EquipRando>();
+        AbilityRando abilityRando = Generator.Get<AbilityRando>();
+        TextRando textRando = Generator.Get<TextRando>();
         HTMLPage page = new("Shops", "template/documentation.html");
 
         shopData.Keys.Select(s => shops[s]).Where(s => s.u3Category is ((int)ShopCategory.Ark) or ((int)ShopCategory.Forge) or ((int)ShopCategory.Items) or ((int)ShopCategory.Libra) or ((int)ShopCategory.Outfitters)).ForEach(shop =>

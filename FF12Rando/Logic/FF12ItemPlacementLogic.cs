@@ -110,7 +110,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
                 return t.GetData(orig ? treasureRando.rewardsOrig[t.IntID - 0x9000] : treasureRando.rewards[t.IntID - 0x9000]);
             case TreasureRando.StartingInvData s:
-                PartyRando partyRando = treasureRando.Randomizers.Get<PartyRando>();
+                PartyRando partyRando = treasureRando.Generator.Get<PartyRando>();
                 return s.GetData(orig ? partyRando.partyOrig[s.IntID] : partyRando.party[s.IntID]);
             default:
                 return base.GetLocationItem(key, orig);
@@ -133,7 +133,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
                 t.SetData(treasureRando.rewards[t.IntID - 0x9000], item, count);
                 break;
             case TreasureRando.StartingInvData s:
-                PartyRando partyRando = treasureRando.Randomizers.Get<PartyRando>();
+                PartyRando partyRando = treasureRando.Generator.Get<PartyRando>();
                 s.SetData(partyRando.party[s.IntID], item, count);
                 break;
             default:
@@ -336,7 +336,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
             }
         });
 
-        PartyRando partyRando = treasureRando.Randomizers.Get<PartyRando>();
+        PartyRando partyRando = treasureRando.Generator.Get<PartyRando>();
         int[] chars = partyRando.CharacterMapping.Select(s => dict.ContainsKey(s) ? dict[s] : 0).ToArray();
         partyRando.CharacterMapping.Where(s => dict.ContainsKey(s)).ForEach(s => dict.Remove(s));
         Enumerable.Range(0, 6).Where(i => chars[i] > 0).ForEach(i => dict.Add(partyRando.CharacterMapping[partyRando.Characters[i]], chars[i]));

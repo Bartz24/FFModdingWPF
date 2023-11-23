@@ -30,11 +30,11 @@ public class BattleRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Battle Data...", 0, -1);
-        btScenes.LoadDB3("13-2", @"\db\resident\bt_scene.wdb");
+        Generator.SetUIProgress("Loading Battle Data...", 0, -1);
+        btScenes.LoadDB3(Generator, "13-2", @"\db\resident\bt_scene.wdb");
         enemyData = File.ReadAllLines(@"data\enemies.csv").Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);
 
-        charaSets.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
+        charaSets.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
         bossData.Clear();
         using (CsvParser csv = new(new StreamReader(@"data\bosses.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = true }))
@@ -60,18 +60,18 @@ public class BattleRando : Randomizer
             battleData.Add(b.ID, b);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
-        HistoriaCruxRando historiaCruxRando = Randomizers.Get<HistoriaCruxRando>();
+        HistoriaCruxRando historiaCruxRando = Generator.Get<HistoriaCruxRando>();
         historiaCruxRando.areaData.Values.Where(a => !string.IsNullOrEmpty(a.BattleTableID)).ForEach(a =>
         {
             DataStoreDB3<DataStoreBtSTable> table = new();
-            table.LoadDB3("13-2", @"\db\btscenetable\" + a.BattleTableID + ".wdb");
+            table.LoadDB3(Generator, "13-2", @"\db\btscenetable\" + a.BattleTableID + ".wdb");
             btTables.Add(a.BattleTableID, table);
         });
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Battle Data...", 0, -1);
-        EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
+        Generator.SetUIProgress("Randomizing Battle Data...", 0, -1);
+        EnemyRando enemyRando = Generator.Get<EnemyRando>();
         if (FF13_2Flags.Enemies.EnemyLocations.FlagEnabled)
         {
             FF13_2Flags.Enemies.EnemyLocations.SetRand();
@@ -79,7 +79,7 @@ public class BattleRando : Randomizer
             areaBounds = GetAreaRankBounds();
             areaBoundsOrig = new Dictionary<string, (int, int)>(areaBounds);
 
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+            TreasureRando treasureRando = Generator.Get<TreasureRando>();
             List<string> areaUnlockOrder = treasureRando.PlacementAlgo.Logic.GetPropValue<List<string>>("AreaUnlockOrder");
             areaUnlockOrder = areaUnlockOrder.Where(a => areaBounds.ContainsKey(a)).ToList();
             areaUnlockOrder.AddRange(areaBounds.Keys.Where(a => !areaUnlockOrder.Contains(a)));
@@ -187,7 +187,7 @@ public class BattleRando : Randomizer
             return new List<string>();
         }
 
-        HistoriaCruxRando historiaCruxRando = Randomizers.Get<HistoriaCruxRando>();
+        HistoriaCruxRando historiaCruxRando = Generator.Get<HistoriaCruxRando>();
         List<string> list = btTables.Keys
             .Where(id => btTables[id].Values
                 .SelectMany(bt => bt.GetBattleIDs()).Distinct()
@@ -211,7 +211,7 @@ public class BattleRando : Randomizer
 
     private void UpdateBossStats(BossData newBoss, BossData origBoss)
     {
-        EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
+        EnemyRando enemyRando = Generator.Get<EnemyRando>();
         DataStoreBtCharaSpec newEnemy = enemyRando.GetEnemy(newBoss.ID);
         DataStoreBtCharaSpec origEnemy = enemyRando.GetEnemy(origBoss.ID, true);
 
@@ -265,7 +265,7 @@ public class BattleRando : Randomizer
 
     private void UpdateEnemyLists(List<EnemyData> oldEnemies, List<EnemyData> allowed, string btsceneName, bool sameRank)
     {
-        EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
+        EnemyRando enemyRando = Generator.Get<EnemyRando>();
         List<EnemyData> newEnemies = new();
         if (oldEnemies[0].Traits.Contains("Boss"))
         {
@@ -500,7 +500,7 @@ public class BattleRando : Randomizer
 
     public override Dictionary<string, HTMLPage> GetDocumentation()
     {
-        HistoriaCruxRando historiaCruxRando = Randomizers.Get<HistoriaCruxRando>();
+        HistoriaCruxRando historiaCruxRando = Generator.Get<HistoriaCruxRando>();
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
         HTMLPage page = new("Encounters", "template/documentation.html");
 
@@ -520,15 +520,15 @@ public class BattleRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Battle Data...", 0, -1);
-        btScenes.SaveDB3(@"\db\resident\bt_scene.wdb");
+        Generator.SetUIProgress("Saving Battle Data...", 0, -1);
+        btScenes.SaveDB3(Generator, @"\db\resident\bt_scene.wdb");
 
-        charaSets.SaveDB3(@"\db\resident\_wdbpack.bin\r_charaset.wdb");
-        SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_charaset.wdb");
+        charaSets.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_charaset.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_charaset.wdb");
 
         btTables.Keys.ForEach(id =>
         {
-            btTables[id].DeleteDB3(@"\db\btscenetable\" + id + ".db3");
+            btTables[id].DeleteDB3(Generator, @"\db\btscenetable\" + id + ".db3");
         });
     }
     public class EnemyData : CSVDataRow

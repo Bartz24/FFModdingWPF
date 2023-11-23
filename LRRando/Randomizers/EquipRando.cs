@@ -33,22 +33,22 @@ public class EquipRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Equip Data...", 0, 100);
-        itemWeapons.LoadDB3("LR", @"\db\resident\item_weapon.wdb");
-        Randomizers.SetUIProgress("Loading Equip Data...", 10, 100);
-        items.LoadDB3("LR", @"\db\resident\item.wdb");
-        Randomizers.SetUIProgress("Loading Equip Data...", 20, 100);
-        itemsOrig.LoadDB3("LR", @"\db\resident\item.wdb");
-        Randomizers.SetUIProgress("Loading Equip Data...", 30, 100);
-        autoAbilities.LoadDB3("LR", @"\db\resident\bt_auto_ability.wdb");
-        Randomizers.SetUIProgress("Loading Equip Data...", 40, 100);
-        itemAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
-        Randomizers.SetUIProgress("Loading Equip Data...", 60, 100);
-        itemAbilitiesOrig.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
-        Randomizers.SetUIProgress("Loading Equip Data...", 70, 100);
-        passiveAbilities.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_pasv_ablty.wdb", false);
-        Randomizers.SetUIProgress("Loading Equip Data...", 80, 100);
-        upgrades.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb", false);
+        Generator.SetUIProgress("Loading Equip Data...", 0, 100);
+        itemWeapons.LoadDB3(Generator, "LR", @"\db\resident\item_weapon.wdb");
+        Generator.SetUIProgress("Loading Equip Data...", 10, 100);
+        items.LoadDB3(Generator, "LR", @"\db\resident\item.wdb");
+        Generator.SetUIProgress("Loading Equip Data...", 20, 100);
+        itemsOrig.LoadDB3(Generator, "LR", @"\db\resident\item.wdb");
+        Generator.SetUIProgress("Loading Equip Data...", 30, 100);
+        autoAbilities.LoadDB3(Generator, "LR", @"\db\resident\bt_auto_ability.wdb");
+        Generator.SetUIProgress("Loading Equip Data...", 40, 100);
+        itemAbilities.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
+        Generator.SetUIProgress("Loading Equip Data...", 60, 100);
+        itemAbilitiesOrig.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
+        Generator.SetUIProgress("Loading Equip Data...", 70, 100);
+        passiveAbilities.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_pasv_ablty.wdb", false);
+        Generator.SetUIProgress("Loading Equip Data...", 80, 100);
+        upgrades.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb", false);
 
         FileHelpers.ReadCSVFile(@"data\passives.csv", row =>
         {
@@ -81,7 +81,7 @@ public class EquipRando : Randomizer
         items["key_r_multi"].u16SortAllByKCategory = 101;
         items["key_r_multi"].u16SortCategoryByCategory = 151;
 
-        Randomizers.SetUIProgress("Loading Equip Data...", 90, 100);
+        Generator.SetUIProgress("Loading Equip Data...", 90, 100);
         itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
         itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
 
@@ -107,7 +107,7 @@ public class EquipRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Equip Data...", 0, 100);
+        Generator.SetUIProgress("Randomizing Equip Data...", 0, 100);
         if (LRFlags.StatsAbilities.EquipStats.FlagEnabled)
         {
             LRFlags.StatsAbilities.EquipStats.SetRand();
@@ -122,7 +122,7 @@ public class EquipRando : Randomizer
             itemWeapons.Values.Where(w => !upgrades.Keys.Contains(w.sUpgradeId_string)).ForEach(w => w.sUpgradeId_string = "");
         }
 
-        Randomizers.SetUIProgress("Randomizing Equip Data...", 40, 100);
+        Generator.SetUIProgress("Randomizing Equip Data...", 40, 100);
         if (LRFlags.StatsAbilities.GarbAbilities.FlagEnabled)
         {
             LRFlags.StatsAbilities.GarbAbilities.SetRand();
@@ -130,7 +130,7 @@ public class EquipRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Randomizers.SetUIProgress("Randomizing Equip Data...", 70, 100);
+        Generator.SetUIProgress("Randomizing Equip Data...", 70, 100);
         if (LRFlags.StatsAbilities.EquipPassives.FlagEnabled)
         {
             LRFlags.StatsAbilities.EquipPassives.SetRand();
@@ -173,7 +173,7 @@ public class EquipRando : Randomizer
 
     private string RandomizeAbility(string name, int forceType)
     {
-        AbilityRando abilityRando = Randomizers.Get<AbilityRando>();
+        AbilityRando abilityRando = Generator.Get<AbilityRando>();
         if (name != "")
         {
             List<string> possible = GetGarbAbilities(forceType);
@@ -798,25 +798,25 @@ public class EquipRando : Randomizer
 
         itemAbilities.Values.Where(i => i.i8AtbDec < 0).ForEach(i => i.i8AtbDec += 256);
 
-        Randomizers.SetUIProgress("Saving Equip Data...", 0, 100);
-        itemWeapons.SaveDB3(@"\db\resident\item_weapon.wdb");
-        Randomizers.SetUIProgress("Saving Equip Data...", 20, 100);
-        items.SaveDB3(@"\db\resident\item.wdb");
-        Randomizers.SetUIProgress("Saving Equip Data...", 40, 100);
-        itemAbilities.SaveDB3(@"\db\resident\_wdbpack.bin\r_item_abi.wdb");
-        SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_item_abi.wdb");
-        Randomizers.SetUIProgress("Saving Equip Data...", 80, 100);
-        autoAbilities.DeleteDB3(@"\db\resident\bt_auto_ability.db3");
-        passiveAbilities.DeleteDB3(@"\db\resident\_wdbpack.bin\r_pasv_ablty.db3");
-        Randomizers.SetUIProgress("Saving Equip Data...", 90, 100);
-        upgrades.SaveDB3(@"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb");
-        SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_bt_upgrade.wdb");
+        Generator.SetUIProgress("Saving Equip Data...", 0, 100);
+        itemWeapons.SaveDB3(Generator, @"\db\resident\item_weapon.wdb");
+        Generator.SetUIProgress("Saving Equip Data...", 20, 100);
+        items.SaveDB3(Generator, @"\db\resident\item.wdb");
+        Generator.SetUIProgress("Saving Equip Data...", 40, 100);
+        itemAbilities.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_item_abi.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_item_abi.wdb");
+        Generator.SetUIProgress("Saving Equip Data...", 80, 100);
+        autoAbilities.DeleteDB3(Generator, @"\db\resident\bt_auto_ability.db3");
+        passiveAbilities.DeleteDB3(Generator, @"\db\resident\_wdbpack.bin\r_pasv_ablty.db3");
+        Generator.SetUIProgress("Saving Equip Data...", 90, 100);
+        upgrades.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_bt_upgrade.wdb");
         TempSaveFix();
     }
 
     private void TempSaveFix()
     {
-        byte[] data = File.ReadAllBytes(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb");
+        byte[] data = File.ReadAllBytes(Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb");
 
         uint startUpgradeData = data.ReadUInt(0xE0);
         if (data.ReadUInt(0x100) - startUpgradeData == 0x64)
@@ -831,7 +831,7 @@ public class EquipRando : Randomizer
                 data = data.SubArray(0, (int)startUpgradeData + (0x68 * i) + 0x64).Concat(missingBytes).Concat(data.SubArray((int)startUpgradeData + (0x68 * i) + 0x64, data.Length - ((int)startUpgradeData + (0x68 * i) + 0x64)));
             }
 
-            File.WriteAllBytes(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb", data);
+            File.WriteAllBytes(Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb", data);
         }
     }
 
@@ -945,7 +945,7 @@ public class EquipRando : Randomizer
 
     private string GetItemName(string itemID)
     {
-        TextRando textRando = Randomizers.Get<TextRando>();
+        TextRando textRando = Generator.Get<TextRando>();
         string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
         if (name.Contains("{End}"))
         {
@@ -957,7 +957,7 @@ public class EquipRando : Randomizer
 
     private string GetPassiveName(string passiveID)
     {
-        TextRando textRando = Randomizers.Get<TextRando>();
+        TextRando textRando = Generator.Get<TextRando>();
         string name = "";
         if (autoAbilities[passiveID].sStringResId_string != "" && textRando.mainSysUS.Keys.Contains(autoAbilities[passiveID].sStringResId_string))
         {
@@ -982,8 +982,8 @@ public class EquipRando : Randomizer
 
     private string GetAbilityName(string abilityID)
     {
-        TextRando textRando = Randomizers.Get<TextRando>();
-        AbilityRando abilityRando = Randomizers.Get<AbilityRando>();
+        TextRando textRando = Generator.Get<TextRando>();
+        AbilityRando abilityRando = Generator.Get<AbilityRando>();
         string name = "";
         if (abilityRando.abilities.Keys.Contains(abilityID))
         {

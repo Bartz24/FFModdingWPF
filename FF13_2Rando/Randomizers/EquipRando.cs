@@ -20,14 +20,14 @@ public class EquipRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Item/Equip Data...", 0, -1);
-        itemWeapons.LoadDB3("13-2", @"\db\resident\item_weapon.wdb");
-        FileHelpers.CopyFile(SetupData.OutputFolder + @"\db\resident\item_weapon.wdb", SetupData.OutputFolder + @"\db\resident\item_weapon.wdb.orig");
-        items.LoadDB3("13-2", @"\db\resident\item.wdb");
+        Generator.SetUIProgress("Loading Item/Equip Data...", 0, -1);
+        itemWeapons.LoadDB3(Generator, "13-2", @"\db\resident\item_weapon.wdb");
+        FileHelpers.CopyFile(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb", Generator.DataOutFolder + @"\db\resident\item_weapon.wdb.orig");
+        items.LoadDB3(Generator, "13-2", @"\db\resident\item.wdb");
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Item/Equip Data...", 0, -1);
+        Generator.SetUIProgress("Randomizing Item/Equip Data...", 0, -1);
         if (FF13_2Flags.Stats.EquipStats.FlagEnabled)
         {
             FF13_2Flags.Stats.EquipStats.SetRand();
@@ -81,7 +81,7 @@ public class EquipRando : Randomizer
 
     private void RandomizePassives()
     {
-        CrystariumRando crystariumRando = Randomizers.Get<CrystariumRando>();
+        CrystariumRando crystariumRando = Generator.Get<CrystariumRando>();
         List<AbilityData> filteredAbilities = crystariumRando.abilityData.Values.Where(a => a.Role == "" && !a.Traits.Contains("Mon")).ToList();
         foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility_string != ""))
         {
@@ -113,16 +113,16 @@ public class EquipRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Item/Equip Data...", 0, -1);
-        items.SaveDB3(@"\db\resident\item.wdb");
-        itemWeapons.SaveDB3(@"\db\resident\item_weapon.wdb");
+        Generator.SetUIProgress("Saving Item/Equip Data...", 0, -1);
+        items.SaveDB3(Generator, @"\db\resident\item.wdb");
+        itemWeapons.SaveDB3(Generator, @"\db\resident\item_weapon.wdb");
 
         TempSaveFix();
     }
     private void TempSaveFix()
     {
-        byte[] origData = File.ReadAllBytes(SetupData.OutputFolder + @"\db\resident\item_weapon.wdb.orig");
-        byte[] data = File.ReadAllBytes(SetupData.OutputFolder + @"\db\resident\item_weapon.wdb");
+        byte[] origData = File.ReadAllBytes(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb.orig");
+        byte[] data = File.ReadAllBytes(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb");
 
         if (data.Length < origData.Length)
         {
@@ -139,15 +139,15 @@ public class EquipRando : Randomizer
                 data.SetUInt(0xE0 + (32 * i), (uint)(startQstData + (72 * i)));
             }
 
-            File.WriteAllBytes(SetupData.OutputFolder + @"\db\resident\item_weapon.wdb", data);
+            File.WriteAllBytes(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb", data);
         }
 
-        File.Delete(SetupData.OutputFolder + @"\db\resident\item_weapon.wdb.orig");
+        File.Delete(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb.orig");
     }
 
     private string GetItemName(string itemID)
     {
-        TextRando textRando = Randomizers.Get<TextRando>();
+        TextRando textRando = Generator.Get<TextRando>();
         string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
         if (name.Contains("{End}"))
         {

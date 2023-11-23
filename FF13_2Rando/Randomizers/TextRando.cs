@@ -13,10 +13,10 @@ public class TextRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Text Data...", 0, -1);
+        Generator.SetUIProgress("Loading Text Data...", 0, -1);
         {
             string path = Nova.GetNovaFile("13-2", @"txtres\resident\system\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
-            string outPath = SetupData.OutputFolder + @"\txtres\resident\system\txtres_us.ztr";
+            string outPath = Generator.DataOutFolder + @"\txtres\resident\system\txtres_us.ztr";
             FileHelpers.CopyFile(path, outPath);
 
             mainSysUS.Load(outPath, SetupData.Paths["Nova"]);
@@ -24,7 +24,7 @@ public class TextRando : Randomizer
 
         {
             string path = Nova.GetNovaFile("13-2", @"txtres\resident\game\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
-            string outPath = SetupData.OutputFolder + @"\txtres\resident\game\txtres_us.ztr";
+            string outPath = Generator.DataOutFolder + @"\txtres\resident\game\txtres_us.ztr";
             FileHelpers.CopyFile(path, outPath);
 
             quizUS.Load(outPath, SetupData.Paths["Nova"]);
@@ -32,7 +32,7 @@ public class TextRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Text Data...", 0, -1);
+        Generator.SetUIProgress("Randomizing Text Data...", 0, -1);
     }
 
     private string GetHash()
@@ -79,7 +79,7 @@ public class TextRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Text Data...", -1, 100);
+        Generator.SetUIProgress("Saving Text Data...", -1, 100);
         string hash = GetHash();
 
         mainSysUS["$dif_conf_e"] = "{Icon Attention} Begin game in {Color Red}EASY MODE{Color SkyBlue}?{Text NewLine}" +
@@ -93,12 +93,12 @@ public class TextRando : Randomizer
         TempTextCleanup(quizUS);
 
         {
-            string outPath = SetupData.OutputFolder + @"\txtres\resident\system\txtres_us.ztr";
+            string outPath = Generator.DataOutFolder + @"\txtres\resident\system\txtres_us.ztr";
             mainSysUS.Save("13-2", outPath, SetupData.Paths["Nova"]);
         }
 
         {
-            string outPath = SetupData.OutputFolder + @"\txtres\resident\game\txtres_us.ztr";
+            string outPath = Generator.DataOutFolder + @"\txtres\resident\game\txtres_us.ztr";
             quizUS.Save("13-2", outPath, SetupData.Paths["Nova"]);
         }
     }

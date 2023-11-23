@@ -16,6 +16,7 @@ public class SeedGenerator
     public string DataOutFolder { get; set; }
 
     public string OutFolder { get; set; }
+    public string DocsOutFolder { get; set; } = "packs";
     public string PackPrefixName { get; set; }
     public string DocsDisplayName { get; set; }
 
@@ -149,14 +150,14 @@ public class SeedGenerator
             pages.ForEach(p => docs.AddPage(p.Key, p.Value));
         });
 
-        docs.Generate(@"packs\docs_latest", @"data\docs\template");
-        RandoHelpers.SaveSeedJSON(@"packs\docs_latest\" + PackPrefixName + "_" + GetIntSeed() + "_Seed.json");
-        string zipDocsName = $"packs\\{PackPrefixName}_{GetIntSeed()}_Docs.zip";
+        docs.Generate($"{DocsOutFolder}\\docs_latest", @"data\docs\template");
+        RandoHelpers.SaveSeedJSON($"{DocsOutFolder}\\docs_latest\\{PackPrefixName}_{GetIntSeed()}_Seed.json");
+        string zipDocsName = $"{DocsOutFolder}\\{PackPrefixName}_{GetIntSeed()}_Docs.zip";
         if (File.Exists(zipDocsName))
         {
             File.Delete(zipDocsName);
         }
 
-        ZipFile.CreateFromDirectory(@"packs\docs_latest", zipDocsName);
+        ZipFile.CreateFromDirectory($"{DocsOutFolder}\\docs_latest", zipDocsName);
     }
 }

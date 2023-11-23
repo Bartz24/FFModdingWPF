@@ -16,9 +16,9 @@ public class EnemyRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Enemy Data...", -1, 100);
+        Generator.SetUIProgress("Loading Enemy Data...", -1, 100);
         string path = Nova.GetNovaFile("LR", @"db\resident\bt_chara_spec.wdb", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
-        string outPath = SetupData.OutputFolder + @"\db\resident\bt_chara_spec.wdb";
+        string outPath = Generator.DataOutFolder + @"\db\resident\bt_chara_spec.wdb";
         FileHelpers.CopyFile(path, outPath);
         enemies.Load("LR", outPath, SetupData.Paths["Nova"]);
         enemies["m375"].fBrkLoopTime3 = 1203982208;
@@ -36,9 +36,9 @@ public class EnemyRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Enemy Data...", -1, 100);
-        EquipRando equipRando = Randomizers.Get<EquipRando>();
-        TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+        Generator.SetUIProgress("Randomizing Enemy Data...", -1, 100);
+        EquipRando equipRando = Generator.Get<EquipRando>();
+        TreasureRando treasureRando = Generator.Get<TreasureRando>();
 
         if (LRFlags.Enemies.BhuniPlus.FlagEnabled)
         {
@@ -175,8 +175,8 @@ public class EnemyRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Enemy Data...", -1, 100);
-        string outPath = SetupData.OutputFolder + @"\db\resident\bt_chara_spec.wdb";
+        Generator.SetUIProgress("Saving Enemy Data...", -1, 100);
+        string outPath = Generator.DataOutFolder + @"\db\resident\bt_chara_spec.wdb";
         enemies.Save(outPath, SetupData.Paths["Nova"]);
     }
 }

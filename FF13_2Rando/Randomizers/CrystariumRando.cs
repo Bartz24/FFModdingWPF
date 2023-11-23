@@ -24,10 +24,10 @@ public class CrystariumRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Crystarium Data...", 0, -1);
-        crystSerah.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_grow_pc008.wdb", false);
-        crystNoel.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_grow_pc010.wdb", false);
-        crystMonster.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_grow_st.wdb", false);
+        Generator.SetUIProgress("Loading Crystarium Data...", 0, -1);
+        crystSerah.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_pc008.wdb", false);
+        crystNoel.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_pc010.wdb", false);
+        crystMonster.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_st.wdb", false);
 
         abilityData.Clear();
         using (CsvParser csv = new(new StreamReader(@"data\abilities.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
@@ -41,7 +41,7 @@ public class CrystariumRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Crystarium Data...", 0, -1);
+        Generator.SetUIProgress("Randomizing Crystarium Data...", 0, -1);
         if (FF13_2Flags.Stats.RandCrystAbi.FlagEnabled)
         {
             FF13_2Flags.Stats.RandCrystAbi.SetRand();
@@ -155,13 +155,13 @@ public class CrystariumRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Crystarium Data...", 0, -1);
-        crystSerah.SaveDB3(@"\db\resident\_wdbpack.bin\r_grow_pc008.wdb");
-        SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_pc008.wdb");
-        crystNoel.SaveDB3(@"\db\resident\_wdbpack.bin\r_grow_pc010.wdb");
-        SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_pc010.wdb");
-        crystMonster.SaveDB3(@"\db\resident\_wdbpack.bin\r_grow_st.wdb");
-        SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_st.wdb");
+        Generator.SetUIProgress("Saving Crystarium Data...", 0, -1);
+        crystSerah.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_grow_pc008.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_pc008.wdb");
+        crystNoel.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_grow_pc010.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_pc010.wdb");
+        crystMonster.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_grow_st.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_st.wdb");
     }
     public class AbilityData : CSVDataRow
     {

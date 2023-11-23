@@ -7,9 +7,9 @@ namespace FF13_2Rando;
 
 public static class FF13_2RandoExtensions
 {
-    public static void LoadDB3<T>(this DataStoreDB3<T> dataStoreDB3, string game, string relativePath, bool fromNovaOnly = true) where T : DataStoreDB3SubEntry, new()
+    public static void LoadDB3<T>(this DataStoreDB3<T> dataStoreDB3, SeedGenerator generator, string game, string relativePath, bool fromNovaOnly = true) where T : DataStoreDB3SubEntry, new()
     {
-        string outPath = SetupData.OutputFolder + relativePath;
+        string outPath = generator.DataOutFolder + relativePath;
         string path = Nova.GetNovaFile(game, relativePath, SetupData.Paths["Nova"], SetupData.Paths[game], !fromNovaOnly);
         if (fromNovaOnly || File.Exists(path))
         {
@@ -18,14 +18,14 @@ public static class FF13_2RandoExtensions
 
         dataStoreDB3.Load(game, outPath, SetupData.Paths["Nova"]);
     }
-    public static void SaveDB3<T>(this DataStoreDB3<T> dataStoreDB3, string relativePath) where T : DataStoreDB3SubEntry, new()
+    public static void SaveDB3<T>(this DataStoreDB3<T> dataStoreDB3, SeedGenerator generator, string relativePath) where T : DataStoreDB3SubEntry, new()
     {
-        string outPath = SetupData.OutputFolder + relativePath;
+        string outPath = generator.DataOutFolder + relativePath;
         dataStoreDB3.Save(outPath, SetupData.Paths["Nova"]);
     }
-    public static void DeleteDB3<T>(this DataStoreDB3<T> dataStoreDB3, string relativePath) where T : DataStoreDB3SubEntry, new()
+    public static void DeleteDB3<T>(this DataStoreDB3<T> dataStoreDB3, SeedGenerator generator, string relativePath) where T : DataStoreDB3SubEntry, new()
     {
-        string outPath = SetupData.OutputFolder + relativePath;
+        string outPath = generator.DataOutFolder + relativePath;
         File.Delete(outPath);
     }
 }

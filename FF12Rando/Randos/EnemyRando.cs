@@ -18,7 +18,7 @@ public class EnemyRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Enemy Data...", 0, -1);
+        Generator.SetUIProgress("Loading Enemy Data...", 0, -1);
         Directory.GetFiles("data\\ps2data\\plan_master\\in", "*.ard", SearchOption.AllDirectories).ForEach(s =>
         {
             string fileName = Path.GetFileName(s);
@@ -36,7 +36,7 @@ public class EnemyRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Enemy Data...", 0, -1);
+        Generator.SetUIProgress("Randomizing Enemy Data...", 0, -1);
         ards.ForEach(pair =>
         {
             List<DataStoreARDStats> bossStats = new();
@@ -85,10 +85,10 @@ public class EnemyRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Enemy Data...", 0, -1);
+        Generator.SetUIProgress("Saving Enemy Data...", 0, -1);
         ards.ForEach(p =>
         {
-            File.WriteAllBytes($"outdata\\ps2data\\plan_master\\in\\plan_map\\{p.Key}\\area\\{p.Key}.ard", p.Value.Data);
+            File.WriteAllBytes($"{Generator.DataOutFolder}\\plan_master\\in\\plan_map\\{p.Key}\\area\\{p.Key}.ard", p.Value.Data);
         });
     }
     public class EnemyData : CSVDataRow

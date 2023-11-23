@@ -20,7 +20,7 @@ public class ShopRando : Randomizer
     public ShopRando(SeedGenerator randomizers) : base(randomizers) { }
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Shop Data...", 0, -1);
+        Generator.SetUIProgress("Loading Shop Data...", 0, -1);
         shops = new DataStoreBPShop();
         shops.LoadData(File.ReadAllBytes($"data\\randoShops.bin"));
         shopsOrig = new DataStoreBPShop();
@@ -37,9 +37,9 @@ public class ShopRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Shop Data...", 0, -1);
-        EquipRando equipRando = Randomizers.Get<EquipRando>();
-        TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+        Generator.SetUIProgress("Randomizing Shop Data...", 0, -1);
+        EquipRando equipRando = Generator.Get<EquipRando>();
+        TreasureRando treasureRando = Generator.Get<TreasureRando>();
 
         if (FF12Flags.Items.Bazaars.FlagEnabled)
         {
@@ -185,7 +185,7 @@ public class ShopRando : Randomizer
 
     private bool ShouldRemoveItem(string newItem)
     {
-        EquipRando equipRando = Randomizers.Get<EquipRando>();
+        EquipRando equipRando = Generator.Get<EquipRando>();
         return !newItem.StartsWith("00") && !newItem.StartsWith("20") && !newItem.StartsWith("21")
 && (newItem.StartsWith("30") || newItem.StartsWith("40")
 || !equipRando.itemData.ContainsKey(newItem) || RandomNum.RandInt(0, 100) < Math.Pow(equipRando.itemData[newItem].Rank, 2));
@@ -237,8 +237,8 @@ public class ShopRando : Randomizer
     public override Dictionary<string, HTMLPage> GetDocumentation()
     {
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
-        TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
-        TextRando textRando = Randomizers.Get<TextRando>();
+        TreasureRando treasureRando = Generator.Get<TreasureRando>();
+        TextRando textRando = Generator.Get<TextRando>();
         HTMLPage page = new("Shops", "template/documentation.html");
 
         shopData.Values.ForEach(s =>
@@ -295,11 +295,11 @@ public class ShopRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Shop Data...", 0, -1);
+        Generator.SetUIProgress("Saving Shop Data...", 0, -1);
         if (FF12Flags.Items.Shops.FlagEnabled)
         {
-            File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_039.bin", shops.Data);
-            File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_057.bin", bazaars.Data);
+            File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_039.bin", shops.Data);
+            File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_057.bin", bazaars.Data);
         }
     }
     public class ShopData : CSVDataRow

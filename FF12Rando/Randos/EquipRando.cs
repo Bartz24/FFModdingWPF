@@ -18,7 +18,7 @@ public class EquipRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Item/Equip Data...", 0, -1);
+        Generator.SetUIProgress("Loading Item/Equip Data...", 0, -1);
         FileHelpers.ReadCSVFile(@"data\items.csv", row =>
         {
             ItemData i = new(row);
@@ -36,7 +36,7 @@ public class EquipRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Item/Equip Data...", 0, -1);
+        Generator.SetUIProgress("Randomizing Item/Equip Data...", 0, -1);
         if (FF12Flags.Stats.EquipStats.FlagEnabled)
         {
             FF12Flags.Stats.EquipStats.SetRand();
@@ -459,8 +459,8 @@ public class EquipRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Item/Equip Data...", 0, -1);
-        File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_013.bin", equip.Data);
+        Generator.SetUIProgress("Saving Item/Equip Data...", 0, -1);
+        File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_013.bin", equip.Data);
     }
     public class ItemData : CSVDataRow
     {

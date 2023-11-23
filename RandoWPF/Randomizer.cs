@@ -5,11 +5,11 @@ namespace Bartz24.RandoWPF;
 
 public class Randomizer
 {
-    public SeedGenerator Randomizers { get; }
+    public SeedGenerator Generator { get; }
 
-    public Randomizer(SeedGenerator randomizers)
+    public Randomizer(SeedGenerator generator)
     {
-        Randomizers = randomizers;
+        Generator = generator;
     }
 
     public virtual void Load()

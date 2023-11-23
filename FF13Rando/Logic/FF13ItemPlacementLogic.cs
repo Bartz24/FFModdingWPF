@@ -91,10 +91,10 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
             case TreasureRando.TreasureData t:
                 return t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
             case TreasureRando.BattleData b:
-                BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>();
+                BattleRando battleRando = treasureRando.Generator.Get<BattleRando>();
                 return b.GetData(orig ? battleRando.btsceneOrig[key] : battleRando.btscene[key]);
             case TreasureRando.EnemyData e:
-                EnemyRando enemyRando = treasureRando.Randomizers.Get<EnemyRando>();
+                EnemyRando enemyRando = treasureRando.Generator.Get<EnemyRando>();
                 return e.GetData(orig ? enemyRando.btCharaSpecOrig[key] : enemyRando.btCharaSpec[key]);
             default:
                 return base.GetLocationItem(key, orig);
@@ -109,11 +109,11 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
                 t.SetData(treasureRando.treasures[key], item, count);
                 break;
             case TreasureRando.BattleData b:
-                BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>();
+                BattleRando battleRando = treasureRando.Generator.Get<BattleRando>();
                 b.SetData(battleRando.btscene[key], item, count);
                 break;
             case TreasureRando.EnemyData e:
-                EnemyRando enemyRando = treasureRando.Randomizers.Get<EnemyRando>();
+                EnemyRando enemyRando = treasureRando.Generator.Get<EnemyRando>();
                 e.SetData(enemyRando.btCharaSpec[key], item, count);
                 e.LinkedIDs.ForEach(other => e.SetData(enemyRando.btCharaSpec[other], item, count));
                 break;

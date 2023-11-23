@@ -19,7 +19,7 @@ public class MusicRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Music Data...", -1, 100);
+        Generator.SetUIProgress("Loading Music Data...", -1, 100);
         musicData.Clear();
         FileHelpers.ReadCSVFile(@"data\musicLR.csv", row =>
         {
@@ -29,7 +29,7 @@ public class MusicRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Music Data...", -1, 100);
+        Generator.SetUIProgress("Randomizing Music Data...", -1, 100);
         if (LRFlags.Other.Music.FlagEnabled)
         {
             LRFlags.Other.Music.SetRand();
@@ -53,11 +53,11 @@ public class MusicRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Music Data...", -1, 100);
+        Generator.SetUIProgress("Saving Music Data...", -1, 100);
         for (int i = 0; i < Math.Min(soundFiles.Count, newSoundFiles.Count); i++)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName($"{SetupData.OutputFolder}\\{newSoundFiles[i]}"));
-            File.Copy($"{Nova.GetNovaFile("LR", soundFiles[i], SetupData.Paths["Nova"], SetupData.Paths["LR"])}", $"{SetupData.OutputFolder}\\{newSoundFiles[i]}", true);
+            Directory.CreateDirectory(Path.GetDirectoryName($"{Generator.DataOutFolder}\\{newSoundFiles[i]}"));
+            File.Copy($"{Nova.GetNovaFile("LR", soundFiles[i], SetupData.Paths["Nova"], SetupData.Paths["LR"])}", $"{Generator.DataOutFolder}\\{newSoundFiles[i]}", true);
         }
     }
 

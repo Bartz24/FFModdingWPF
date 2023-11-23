@@ -26,9 +26,9 @@ public class HistoriaCruxRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Historia Crux Data...", 0, -1);
-        gateTable.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
-        gateTableOrig.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
+        Generator.SetUIProgress("Loading Historia Crux Data...", 0, -1);
+        gateTable.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
+        gateTableOrig.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
 
         gateData.Clear();
         using (CsvParser csv = new(new StreamReader(@"data\historia.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
@@ -48,7 +48,7 @@ public class HistoriaCruxRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Historia Crux Data...", 0, -1);
+        Generator.SetUIProgress("Randomizing Historia Crux Data...", 0, -1);
         if (FF13_2Flags.Other.HistoriaCrux.FlagEnabled)
         {
             FF13_2Flags.Other.HistoriaCrux.SetRand();
@@ -390,7 +390,7 @@ public class HistoriaCruxRando : Randomizer
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
         HTMLPage page = new("Historia Crux", "template/documentation.html");
 
-        BattleRando battleRando = Randomizers.Get<BattleRando>();
+        BattleRando battleRando = Generator.Get<BattleRando>();
 
         Dictionary<string, int> diffs = battleRando.GetAreaDifficulties();
 
@@ -407,9 +407,9 @@ public class HistoriaCruxRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Historia Crux Data...", 0, -1);
-        gateTable.SaveDB3(@"\db\resident\_wdbpack.bin\r_gatetab.wdb");
-        SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_gatetab.wdb");
+        Generator.SetUIProgress("Saving Historia Crux Data...", 0, -1);
+        gateTable.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_gatetab.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_gatetab.wdb");
     }
     public class GateData : CSVDataRow
     {

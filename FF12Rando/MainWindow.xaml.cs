@@ -133,18 +133,6 @@ public partial class MainWindow : Window
         });
     }
 
-    private void openNovaButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (File.Exists(SetupData.GetSteamPath("Nova", false)))
-        {
-            Process.Start(SetupData.GetSteamPath("Nova", false));
-        }
-        else
-        {
-            MessageBox.Show("Cannot open Nova. Select the correct executable first.", "Nova Chrysalia does not exist.");
-        }
-    }
-
     private void openModpackFolder_Click(object sender, RoutedEventArgs e)
     {
         string dir = Directory.GetCurrentDirectory() + "\\docs";
@@ -186,15 +174,57 @@ public partial class MainWindow : Window
         }
     }
 
-    private void shareSeedModpackFolder_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
     private void SaveSeedJSON(string file)
     {
         int seed = RandomNum.GetIntSeed(SetupData.Seed);
         string output = RandoFlags.Serialize(seed.ToString(), SetupData.Version);
         File.WriteAllText(file, output);
+    }
+
+    private void uninstallButton_Click(object sender, RoutedEventArgs e)
+    {
+        FF12SeedGenerator gen = new ();
+        if (Directory.Exists(gen.OutFolder))
+        {
+            try
+            {
+                gen.RemoveLuaScripts();
+                Directory.Delete(gen.OutFolder, true);
+            }
+            catch
+            {
+                MessageBox.Show("Encountered an error while removing the current seed files.");
+                return;
+            }
+
+            MessageBox.Show("Seed uninstall complete.");
+        }
+        else
+        {
+            MessageBox.Show("No seed was installed to delete.");
+        }
+    }
+
+    private void uninstallLoadersButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (MessageBox.Show("Remove mod loader files?\nIf you installed the loaders through Vortex, click 'Cancel' and then uninstall them through Vortex.", "Remove mod loader files?", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+        {
+            try
+            {
+                FF12SeedGenerator.UninstallFileLoader();
+                FF12SeedGenerator.UninstallLuaLoader();
+            }
+            catch
+            {
+                MessageBox.Show("Encountered an error while removing mod loader files.");
+                return;
+            }
+
+            // Workaround since we can't set the name on this for some reason
+            SetupPaths setupPaths = (SetupPaths)this.GetByUid("setupPaths");
+            setupPaths.UpdateText();
+
+            MessageBox.Show("Removed any remaining mod loader files.");
+        }
     }
 }

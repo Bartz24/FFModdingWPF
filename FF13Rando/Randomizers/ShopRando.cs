@@ -15,13 +15,13 @@ public class ShopRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Shop Data...", -1, 100);
-        shops.LoadWDB("13", @"\db\resident\shop.wdb");
+        Generator.SetUIProgress("Loading Shop Data...", -1, 100);
+        shops.LoadWDB(Generator, "13", @"\db\resident\shop.wdb");
     }
     public override void Randomize()
     {
         //TODO: add option to lock in high quality upgrading components?
-        Randomizers.SetUIProgress("Randomizing Shop Data...", -1, 100);
+        Generator.SetUIProgress("Randomizing Shop Data...", -1, 100);
 
         if (FF13Flags.Items.ShopContents.FlagEnabled)
         {
@@ -49,7 +49,7 @@ public class ShopRando : Randomizer
             StatValues shopWeights = new(shopIDs.Count);
             shopWeights.Randomize(99);
 
-            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            EquipRando equipRando = Generator.Get<EquipRando>();
             equipRando.itemData.Values.Where(i => i.Traits.Contains("Force")).ForEach(i =>
             {
                 string shop = FF13Flags.Items.AnyShop.Enabled ? RandomNum.SelectRandomWeighted(shopIDs, s => newShopContents[s].Count < 32 ? shopWeights[shopIDs.IndexOf(s)] : 0) : i.DefaultShop;
@@ -138,8 +138,8 @@ public class ShopRando : Randomizer
 
     private string GetItemName(string itemID)
     {
-        EquipRando equipRando = Randomizers.Get<EquipRando>();
-        TextRando textRando = Randomizers.Get<TextRando>();
+        EquipRando equipRando = Generator.Get<EquipRando>();
+        TextRando textRando = Generator.Get<TextRando>();
         string name;
         if (itemID == "")
         {
@@ -159,7 +159,7 @@ public class ShopRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Shop Data...", -1, 100);
-        shops.SaveWDB(@"\db\resident\shop.wdb");
+        Generator.SetUIProgress("Saving Shop Data...", -1, 100);
+        shops.SaveWDB(Generator, @"\db\resident\shop.wdb");
     }
 }

@@ -17,12 +17,12 @@ public class MusicRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Music Data...", 0, -1);
+        Generator.SetUIProgress("Loading Music Data...", 0, -1);
         soundFiles.AddRange(File.ReadAllLines("data\\music13_2.csv"));
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Music Data...", 0, -1);
+        Generator.SetUIProgress("Randomizing Music Data...", 0, -1);
         if (FF13_2Flags.Other.Music.FlagEnabled)
         {
             FF13_2Flags.Other.Music.SetRand();
@@ -40,11 +40,11 @@ public class MusicRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Music Data...", 0, -1);
+        Generator.SetUIProgress("Saving Music Data...", 0, -1);
         for (int i = 0; i < Math.Min(soundFiles.Count, newSoundFiles.Count); i++)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName($"{SetupData.OutputFolder}\\{newSoundFiles[i]}"));
-            File.Copy($"{Nova.GetNovaFile("13-2", soundFiles[i], SetupData.Paths["Nova"], SetupData.Paths["13-2"])}", $"{SetupData.OutputFolder}\\{newSoundFiles[i]}", true);
+            Directory.CreateDirectory(Path.GetDirectoryName($"{Generator.DataOutFolder}\\{newSoundFiles[i]}"));
+            File.Copy($"{Nova.GetNovaFile("13-2", soundFiles[i], SetupData.Paths["Nova"], SetupData.Paths["13-2"])}", $"{Generator.DataOutFolder}\\{newSoundFiles[i]}", true);
         }
     }
 }

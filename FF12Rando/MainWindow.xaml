@@ -84,7 +84,7 @@
                             <TextBlock Margin="5"/>
                         </DockPanel>
                         <rando:SetupPage>
-                            <local:SetupPaths/>
+                            <local:SetupPaths x:Uid="setupPaths"/>
                         </rando:SetupPage>
                     </DockPanel>
                 </TabItem>
@@ -206,8 +206,24 @@
                             </Button>
                         </StackPanel>
                     </TabItem.Header>
-                    <DockPanel>
-                        
+                    <DockPanel VerticalAlignment="Center">
+                        <StackPanel Margin="40">
+                            <Button Click="uninstallButton_Click"
+                                    ToolTip="Remove the rando files specific to this seed.">Uninstall Seed</Button>
+                            <Label Margin="10"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Button Margin="2" Grid.Column="0" Grid.Row="0" 
+                                        Click="uninstallLoadersButton_Click"
+                                        ToolTip="Uninstalls mod loaders if they were installed by the randomizer.">Uninstall Mod Loaders</Button>
+                            </Grid>
+                        </StackPanel>
                     </DockPanel>
                 </TabItem>
             </TabControl>

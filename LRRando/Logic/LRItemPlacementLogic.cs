@@ -153,7 +153,7 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
             case TreasureData t:
                 return t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
             case BattleDropData t:
-                BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>();
+                BattleRando battleRando = treasureRando.Generator.Get<BattleRando>();
                 return t.GetData(orig ? battleRando.btScenesOrig[key] : battleRando.btScenes[key]);
             default:
                 return base.GetLocationItem(key, orig);
@@ -168,7 +168,7 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
                 t.SetData(treasureRando.treasures[key], item, count);
                 break;
             case BattleDropData t:
-                BattleRando battleRando = treasureRando.Randomizers.Get<BattleRando>();
+                BattleRando battleRando = treasureRando.Generator.Get<BattleRando>();
                 t.SetData(battleRando.btScenes[key], item, count);
                 break;
             default:

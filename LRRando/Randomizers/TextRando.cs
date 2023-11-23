@@ -17,10 +17,10 @@ public class TextRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Text Data...", 0, 100);
+        Generator.SetUIProgress("Loading Text Data...", 0, 100);
         {
             string path = Nova.GetNovaFile("LR", @"txtres\zone\z0100\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
-            string outPath = SetupData.OutputFolder + @"\txtres\zone\z0100\txtres_us.ztr";
+            string outPath = Generator.DataOutFolder + @"\txtres\zone\z0100\txtres_us.ztr";
             FileHelpers.CopyFile(path, outPath);
 
             zone100SysUS.Load(outPath, SetupData.Paths["Nova"]);
@@ -30,10 +30,10 @@ public class TextRando : Randomizer
         zone100SysUS["$sys_yu_noopn"] = "You need an {Color Gold}ID card{Color SkyBlue} and have to complete the Warehouse to open the gate.";
         zone100SysUS["$sys_yu_mq2"] = "You need {Color Gold}Serah's Pendant{Color SkyBlue} and have to check the table.";
 
-        Randomizers.SetUIProgress("Loading Text Data...", 50, 100);
+        Generator.SetUIProgress("Loading Text Data...", 50, 100);
         {
             string path = Nova.GetNovaFile("LR", @"txtres\resident\system\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
-            string outPath = SetupData.OutputFolder + @"\txtres\resident\system\txtres_us.ztr";
+            string outPath = Generator.DataOutFolder + @"\txtres\resident\system\txtres_us.ztr";
             FileHelpers.CopyFile(path, outPath);
 
             mainSysUS.Load(outPath, SetupData.Paths["Nova"]);
@@ -47,7 +47,7 @@ public class TextRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Text Data...", -1, 100);
+        Generator.SetUIProgress("Randomizing Text Data...", -1, 100);
         if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
         {
             mainSysUS["$m_355"] += " (I may crash with {Key R2})";
@@ -255,7 +255,7 @@ public class TextRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Text Data...", -1, 100);
+        Generator.SetUIProgress("Saving Text Data...", -1, 100);
         string hash = GetHash();
 
         mainSysUS["$dif_conf_e"] = "{Icon Attention} You have selected {Color Red}EASY MODE{Color SkyBlue}.{Text NewLine}" +
@@ -293,12 +293,12 @@ public class TextRando : Randomizer
         TempTextCleanup(mainSysUS);
 
         {
-            string outPath = SetupData.OutputFolder + @"\txtres\zone\z0100\txtres_us.ztr";
+            string outPath = Generator.DataOutFolder + @"\txtres\zone\z0100\txtres_us.ztr";
             zone100SysUS.Save("LR", outPath, SetupData.Paths["Nova"]);
         }
 
         {
-            string outPath = SetupData.OutputFolder + @"\txtres\resident\system\txtres_us.ztr";
+            string outPath = Generator.DataOutFolder + @"\txtres\resident\system\txtres_us.ztr";
             mainSysUS.Save("LR", outPath, SetupData.Paths["Nova"]);
         }
     }

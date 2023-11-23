@@ -24,14 +24,14 @@ public class BattleRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Battle Data...", 0, 100);
-        btScenesOrig.LoadDB3("LR", @"\db\resident\bt_scene.wdb");
-        Randomizers.SetUIProgress("Loading Battle Data...", 20, 100);
-        btScenes.LoadDB3("LR", @"\db\resident\bt_scene.wdb");
-        Randomizers.SetUIProgress("Loading Battle Data...", 50, 100);
-        charaSets.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
+        Generator.SetUIProgress("Loading Battle Data...", 0, 100);
+        btScenesOrig.LoadDB3(Generator, "LR", @"\db\resident\bt_scene.wdb");
+        Generator.SetUIProgress("Loading Battle Data...", 20, 100);
+        btScenes.LoadDB3(Generator, "LR", @"\db\resident\bt_scene.wdb");
+        Generator.SetUIProgress("Loading Battle Data...", 50, 100);
+        charaSets.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
-        Randomizers.SetUIProgress("Loading Battle Data...", 80, 100);
+        Generator.SetUIProgress("Loading Battle Data...", 80, 100);
         FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
         {
             EnemyData e = new(row);
@@ -64,8 +64,8 @@ public class BattleRando : Randomizer
     }
     public override void Randomize()
     {
-        EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
-        Randomizers.SetUIProgress("Randomizing Battle Data...", -1, 100);
+        EnemyRando enemyRando = Generator.Get<EnemyRando>();
+        Generator.SetUIProgress("Randomizing Battle Data...", -1, 100);
         if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
         {
             LRFlags.Enemies.EnemyLocations.SetRand();
@@ -154,8 +154,8 @@ public class BattleRando : Randomizer
 
     private void UpdateEnemyLists(DataStoreBtScene btScene, List<EnemyData> oldEnemies, List<EnemyData> newEnemies, List<string> charSpecs, Dictionary<string, string> shuffledBosses, List<EnemyData> allowed, int maxVariety)
     {
-        TextRando textRando = Randomizers.Get<TextRando>();
-        EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
+        TextRando textRando = Generator.Get<TextRando>();
+        EnemyRando enemyRando = Generator.Get<EnemyRando>();
         newEnemies.Clear();
         charSpecs.Clear();
         if (oldEnemies[0].Class == "Boss")
@@ -339,19 +339,19 @@ public class BattleRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Battle Data...", -1, 100);
+        Generator.SetUIProgress("Saving Battle Data...", -1, 100);
         // Apply rando drops
         TransferBattleDrops();
 
-        string outPath = SetupData.OutputFolder + @"\db\resident\bt_scene.wdb";
+        string outPath = Generator.DataOutFolder + @"\db\resident\bt_scene.wdb";
         btScenes.Save(outPath, SetupData.Paths["Nova"]);
-        charaSets.SaveDB3(@"\db\resident\_wdbpack.bin\r_charaset.wdb");
-        SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_charaset.wdb");
+        charaSets.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_charaset.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_charaset.wdb");
     }
 
     private void TransferBattleDrops()
     {
-        TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+        TreasureRando treasureRando = Generator.Get<TreasureRando>();
         treasureRando.BattleDrops.Keys.ForEach(btscName =>
         {
             btScenes[btscName].sDropItem0_string = treasureRando.BattleDrops[btscName];

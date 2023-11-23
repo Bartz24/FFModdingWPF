@@ -32,12 +32,12 @@ public class TreasureRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Treasure Data...", 0, -1);
-        treasuresOrig.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
-        treasures.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
-        searchOrig.LoadDB3("13-2", @"\db\resident\searchitem.wdb");
-        search.LoadDB3("13-2", @"\db\resident\searchitem.wdb");
-        fragments.LoadDB3("13-2", @"\db\resident\_wdbpack.bin\r_fragment.wdb", false);
+        Generator.SetUIProgress("Loading Treasure Data...", 0, -1);
+        treasuresOrig.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
+        treasures.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
+        searchOrig.LoadDB3(Generator, "13-2", @"\db\resident\searchitem.wdb");
+        search.LoadDB3(Generator, "13-2", @"\db\resident\searchitem.wdb");
+        fragments.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_fragment.wdb", false);
 
         itemLocations.Clear();
 
@@ -86,15 +86,15 @@ public class TreasureRando : Randomizer
 
         placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13_2ItemLocation>(itemLocations, hintsNotesLocations, 3)
         {
-            SetProgressFunc = Randomizers.SetUIProgress
+            SetProgressFunc = Generator.SetUIProgress
         };
-        placementAlgoNormal.Logic = new FF13_2AssumedItemPlacementLogic(placementAlgoNormal, Randomizers);
+        placementAlgoNormal.Logic = new FF13_2AssumedItemPlacementLogic(placementAlgoNormal, Generator);
 
         placementAlgoBackup = new ItemPlacementAlgorithm<FF13_2ItemLocation>(itemLocations, hintsNotesLocations, -1)
         {
-            SetProgressFunc = Randomizers.SetUIProgress
+            SetProgressFunc = Generator.SetUIProgress
         };
-        placementAlgoBackup.Logic = new FF13_2ItemPlacementLogic(placementAlgoBackup, Randomizers);
+        placementAlgoBackup.Logic = new FF13_2ItemPlacementLogic(placementAlgoBackup, Generator);
     }
 
     public void AddTreasure(string newName, string item, int count, string next)
@@ -113,7 +113,7 @@ public class TreasureRando : Randomizer
 
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Treasure Data...", 0, -1);
+        Generator.SetUIProgress("Randomizing Treasure Data...", 0, -1);
         if (FF13_2Flags.Items.Treasures.FlagEnabled)
         {
             FF13_2Flags.Items.Treasures.SetRand();
@@ -147,9 +147,9 @@ public class TreasureRando : Randomizer
 
     private void SaveHints()
     {
-        HistoriaCruxRando cruxRando = Randomizers.Get<HistoriaCruxRando>();
-        EquipRando equipRando = Randomizers.Get<EquipRando>();
-        TextRando textRando = Randomizers.Get<TextRando>();
+        HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
+        EquipRando equipRando = Generator.Get<EquipRando>();
+        TextRando textRando = Generator.Get<TextRando>();
 
         if (FF13_2Flags.Items.Treasures.FlagEnabled)
         {
@@ -173,17 +173,17 @@ public class TreasureRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Treasure Data...", 0, -1);
+        Generator.SetUIProgress("Saving Treasure Data...", 0, -1);
         SaveHints();
-        treasures.SaveDB3(@"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
-        SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_treasurebox.wdb");
-        search.SaveDB3(@"\db\resident\searchitem.wdb");
+        treasures.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_treasurebox.wdb");
+        search.SaveDB3(Generator, @"\db\resident\searchitem.wdb");
     }
 
     public override Dictionary<string, HTMLPage> GetDocumentation()
     {
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
-        HistoriaCruxRando cruxRando = Randomizers.Get<HistoriaCruxRando>();
+        HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
         HTMLPage page = new("Item Locations", "template/documentation.html");
 
         page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents" }).ToList(), (new int[] { 50, 50 }).ToList(), itemLocations.Values.Select(t =>
@@ -229,8 +229,8 @@ public class TreasureRando : Randomizer
 
     private string GetItemName(string itemID)
     {
-        EquipRando equipRando = Randomizers.Get<EquipRando>();
-        TextRando textRando = Randomizers.Get<TextRando>();
+        EquipRando equipRando = Generator.Get<EquipRando>();
+        TextRando textRando = Generator.Get<TextRando>();
         string name;
         if (itemID == "")
         {

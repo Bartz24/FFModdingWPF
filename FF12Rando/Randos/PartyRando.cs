@@ -20,7 +20,7 @@ public class PartyRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Party Data...", 0, -1);
+        Generator.SetUIProgress("Loading Party Data...", 0, -1);
         party = new DataStoreBPSection<DataStorePartyMember>();
         party.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_016.bin"));
         party.DataList.ForEach(c =>
@@ -54,12 +54,12 @@ public class PartyRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Party Data...", 0, -1);
+        Generator.SetUIProgress("Randomizing Party Data...", 0, -1);
         if (FF12Flags.Other.Party.FlagEnabled)
         {
             FF12Flags.Other.Party.SetRand();
             Characters = Characters.Shuffle().ToArray();
-            TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+            TreasureRando treasureRando = Generator.Get<TreasureRando>();
             treasureRando.prices[0x76].Price = (uint)MathHelpers.EncodeNaturalSequence(Characters.Select(i => (long)i).ToArray(), 6);
             RandomNum.ClearRand();
 
@@ -91,7 +91,7 @@ public class PartyRando : Randomizer
             c.ItemAmounts = itemAmounts;
         }
 
-        Randomizers.SetUIProgress("Saving Party Data...", 0, -1);
-        File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_016.bin", party.Data);
+        Generator.SetUIProgress("Saving Party Data...", 0, -1);
+        File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_016.bin", party.Data);
     }
 }

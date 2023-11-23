@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media;
+using System.Windows;
 
 namespace Bartz24.RandoWPF;
 
@@ -50,5 +52,19 @@ public static class RandoExtensions
         List<int> shuffled = Enumerable.Range(0, map.Count).Shuffle();
         list = Enumerable.Range(0, map.Count).Select(i => list[map[shuffled[i]]]).ToList();
         return list;
+    }
+
+    // Finds UI elements by UID when setting a name causes issues
+    public static UIElement GetByUid(this DependencyObject rootElement, string uid)
+    {
+        foreach (UIElement element in LogicalTreeHelper.GetChildren(rootElement).OfType<UIElement>())
+        {
+            if (element.Uid == uid)
+                return element;
+            UIElement resultChildren = GetByUid(element, uid);
+            if (resultChildren != null)
+                return resultChildren;
+        }
+        return null;
     }
 }

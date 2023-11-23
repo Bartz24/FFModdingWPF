@@ -10,6 +10,33 @@ using System.Threading.Tasks;
 namespace FF12Rando;
 public class FF12SeedGenerator : SeedGenerator
 {
+    private static List<string> ToolPaths
+    {
+        get => new()
+        {
+            "data\\tools\\ff12-text.exe",
+            "data\\tools\\ff12-ebppack.exe",
+            "data\\tools\\ff12-ebpunpack.exe"
+        };
+    }
+    private static List<string> FileLoaderPaths
+    {
+        get => new()
+        {
+            Path.Combine(SetupData.Paths["12"], "x64\\ff12-trampoline.dll"),
+            Path.Combine(SetupData.Paths["12"], "x64\\vcruntime140_1.dll"),
+            Path.Combine(SetupData.Paths["12"], "x64\\modules\\ff12-file-loader.dll"),
+            Path.Combine(SetupData.Paths["12"], "x64\\modules\\config\\ff12-file-loader.ini")
+        };
+    }
+    private static List<string> LuaLoaderPaths
+    {
+        get => new()
+        {
+            Path.Combine(SetupData.Paths["12"], "x64\\modules\\ff12-lua-loader.dll")
+        };
+    }
+
     public FF12SeedGenerator()
     {
         Randomizers = new()
@@ -24,12 +51,12 @@ public class FF12SeedGenerator : SeedGenerator
             new MusicRando(this)
         };
 
-        OutFolder = Path.GetTempPath() + @"ff12_rando_temp";
-        DataOutFolder = OutFolder + @"\Data";
-        SetupData.OutputFolder = DataOutFolder;
+        OutFolder = Path.Combine(SetupData.Paths["12"], "rando");
+        DataOutFolder = Path.Combine(OutFolder, "ps2data");
 
         PackPrefixName = "FF12Rando";
         DocsDisplayName = "FF12 Randomizer";
+        DocsOutFolder = "docs";
     }
 
     protected override void PrepareData()
@@ -45,21 +72,76 @@ public class FF12SeedGenerator : SeedGenerator
         }
 
         Directory.CreateDirectory(OutFolder);
-        FileHelpers.CopyFromFolder(OutFolder, "data\\modpack");
+        FileHelpers.CopyFromFolder(Path.Combine(OutFolder, "ps2data"), "data\\ps2data");
 
         SetupData.WPDTracking.Clear();
 
+        UpdateLoaderConfig();
+        CopyLuaScripts();
+
         base.PrepareData();
+    }
+
+    private void UpdateLoaderConfig()
+    {
+        string filePath = Path.Combine(SetupData.Paths["12"], "x64\\modules\\config\\ff12-file-loader.ini");
+        List<string> lines = File.ReadAllLines(filePath).ToList();
+
+        int pathsStart = lines.FindIndex(s => s.Trim() == "[Paths]");
+
+        lines = lines.Where(s => !s.Trim().StartsWith("rando=")).ToList();
+        lines.Insert(pathsStart + 1, "rando=rando");
+
+        File.WriteAllLines(filePath, lines);
+    }
+
+    private void CopyLuaScripts()
+    {
+        string scriptsFolder = Path.Combine(SetupData.Paths["12"], "x64\\scripts");
+
+        FileHelpers.CopyFromFolder(scriptsFolder, "data\\scripts");
+    }
+
+    public void RemoveLuaScripts()
+    {
+        string scriptsFolder = Path.Combine(SetupData.Paths["12"], "x64\\scripts");
+
+        Directory.GetFiles(scriptsFolder).Where(s => Path.GetFileName(s).StartsWith("Rando")).ForEach(s => File.Delete(s));
+    }
+
+    protected override void GeneratePack()
+    {
+        // No pack for FF12
     }
 
     protected override void GeneratePackAndDocs()
     {
         base.GeneratePackAndDocs();
 
-        SetUIProgress($"Complete! Ready to install in Nova Chrysalia! The modpack '{GetPackPath()}' and documentation have been generated in the packs folder of this application.", 100, 100);
+        SetUIProgress($"Complete! Ready to play! The documentation have been generated in the docs folder of this application.", 100, 100);
     }
     public static bool ToolsInstalled()
     {
-        return File.Exists("data\\tools\\ff12-text.exe") && File.Exists("data\\tools\\ff12-ebppack.exe") && File.Exists("data\\tools\\ff12-ebpunpack.exe");
+        return ToolPaths.All(s => File.Exists(s));
+    }
+
+    public static bool FileLoaderInstalled()
+    {
+        return FileLoaderPaths.All(s => File.Exists(s));
+    }
+
+    public static void UninstallFileLoader()
+    {
+        FileLoaderPaths.Where(s => File.Exists(s)).ForEach(s => File.Delete(s));
+    }
+
+    public static bool LuaLoaderInstalled()
+    {
+        return LuaLoaderPaths.All(s => File.Exists(s));
+    }
+
+    public static void UninstallLuaLoader()
+    {
+        LuaLoaderPaths.Where(s => File.Exists(s)).ForEach(s => File.Delete(s));
     }
 }

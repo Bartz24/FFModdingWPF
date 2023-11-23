@@ -26,7 +26,6 @@ public class FF13_2SeedGenerator : SeedGenerator
 
         OutFolder = Path.GetTempPath() + @"ff13_2_rando_temp";
         DataOutFolder = OutFolder + @"\Data";
-        SetupData.OutputFolder = DataOutFolder;
 
         PackPrefixName = "FF13_2Rando";
         DocsDisplayName = "FF13-2 Randomizer";
@@ -67,11 +66,11 @@ public class FF13_2SeedGenerator : SeedGenerator
         RandoHelpers.UpdateSeedInFile(OutFolder + "\\modconfig.ini", GetIntSeed().ToString());
 
         string wdbpackPath = Nova.GetNovaFile("13-2", @"db\resident\wdbpack.bin", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
-        string wdbpackOutPath = SetupData.OutputFolder + @"\db\resident\wdbpack.bin";
+        string wdbpackOutPath = DataOutFolder + @"\db\resident\wdbpack.bin";
         FileHelpers.CopyFile(wdbpackPath, wdbpackOutPath);
 
         string x000Path = Nova.GetNovaFile("13-2", @"btscene\pack\wdb\x000.bin", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
-        string x000OutPath = SetupData.OutputFolder + @"\btscene\pack\wdb\x000.bin";
+        string x000OutPath = DataOutFolder + @"\btscene\pack\wdb\x000.bin";
         FileHelpers.CopyFile(x000Path, x000OutPath);
 
         SetupData.WPDTracking.Clear();
@@ -93,8 +92,8 @@ public class FF13_2SeedGenerator : SeedGenerator
         base.Save();
 
 
-        string wdbpackOutPath = SetupData.OutputFolder + @"\db\resident\wdbpack.bin";
-        string x000OutPath = SetupData.OutputFolder + @"\btscene\pack\wdb\x000.bin";
+        string wdbpackOutPath = DataOutFolder + @"\db\resident\wdbpack.bin";
+        string x000OutPath = DataOutFolder + @"\btscene\pack\wdb\x000.bin";
         Nova.CleanWPD(wdbpackOutPath, SetupData.WPDTracking[wdbpackOutPath]);
         Nova.CleanWPD(x000OutPath, SetupData.WPDTracking[x000OutPath]);
     }

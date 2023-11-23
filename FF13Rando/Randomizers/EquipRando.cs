@@ -23,9 +23,9 @@ public class EquipRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Equip/Item Data...", -1, 100);
-        items.LoadWDB("13", @"\db\resident\item.wdb");
-        equip.LoadWDB("13", @"\db\resident\item_weapon.wdb");
+        Generator.SetUIProgress("Loading Equip/Item Data...", -1, 100);
+        items.LoadWDB(Generator, "13", @"\db\resident\item.wdb");
+        equip.LoadWDB(Generator, "13", @"\db\resident\item_weapon.wdb");
 
         string[] chars = { "lig", "fan", "hop", "saz", "sno", "van" };
         string[] roles = { "com", "rav", "sen", "syn", "sab", "med" };
@@ -71,9 +71,9 @@ public class EquipRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Equip/Item Data...", -1, 100);
-        TextRando textRando = Randomizers.Get<TextRando>();
-        TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+        Generator.SetUIProgress("Randomizing Equip/Item Data...", -1, 100);
+        TextRando textRando = Generator.Get<TextRando>();
+        TreasureRando treasureRando = Generator.Get<TreasureRando>();
         string[] chars = { "lig", "fan", "hop", "saz", "sno", "van" };
         string[] charNames = { "Lightning", "Fang", "Hope", "Sazh", "Snow", "Vanille" };
         string[] roles = { "com", "rav", "sen", "syn", "sab", "med" };
@@ -366,15 +366,15 @@ public class EquipRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Equip/Item Data...", -1, 100);
-        items.SaveWDB(@"\db\resident\item.wdb");
-        equip.SaveWDB(@"\db\resident\item_weapon.wdb");
+        Generator.SetUIProgress("Saving Equip/Item Data...", -1, 100);
+        items.SaveWDB(Generator, @"\db\resident\item.wdb");
+        equip.SaveWDB(Generator, @"\db\resident\item_weapon.wdb");
 
     }
 
     private string GetItemName(string itemID)
     {
-        TextRando textRando = Randomizers.Get<TextRando>();
+        TextRando textRando = Generator.Get<TextRando>();
         string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
         if (name.Contains("{End}"))
         {

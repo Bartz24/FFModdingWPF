@@ -18,14 +18,14 @@ public class MusicRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Music Data...", 0, -1);
+        Generator.SetUIProgress("Loading Music Data...", 0, -1);
         soundFiles.AddRange(File.ReadAllLines("data\\music12.csv"));
 
         musicPackFiles.AddRange(Directory.GetFiles("data\\musicPacks", "*.mab", SearchOption.AllDirectories));
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Music Data...", 0, -1);
+        Generator.SetUIProgress("Randomizing Music Data...", 0, -1);
         if (FF12Flags.Other.Music.FlagEnabled)
         {
             FF12Flags.Other.Music.SetRand();
@@ -44,11 +44,11 @@ public class MusicRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Music Data...", 0, -1);
-        Directory.CreateDirectory("outdata\\ps2data\\sound\\music\\magi_data\\win");
+        Generator.SetUIProgress("Saving Music Data...", 0, -1);
+        Directory.CreateDirectory($"{Generator.DataOutFolder}\\sound\\music\\magi_data\\win");
         for (int i = 0; i < Math.Min(soundFiles.Count, newSoundFiles.Count); i++)
         {
-            File.Copy(newSoundFiles[i], $"outdata\\ps2data\\sound\\music\\magi_data\\win\\{soundFiles[i]}", true);
+            File.Copy(newSoundFiles[i], $"{Generator.DataOutFolder}\\sound\\music\\magi_data\\win\\{soundFiles[i]}", true);
         }
     }
 }

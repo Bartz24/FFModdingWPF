@@ -26,7 +26,6 @@ public class LRSeedGenerator : SeedGenerator
 
         OutFolder = Path.GetTempPath() + @"lr_rando_temp";
         DataOutFolder = OutFolder + @"\Data";
-        SetupData.OutputFolder = DataOutFolder;
 
         PackPrefixName = "LRRando";
         DocsDisplayName = "LR Randomizer";
@@ -85,7 +84,7 @@ public class LRSeedGenerator : SeedGenerator
     {
         base.Save();
 
-        string wdbpackOutPath = SetupData.OutputFolder + @"\db\resident\wdbpack.bin";
+        string wdbpackOutPath = DataOutFolder + @"\db\resident\wdbpack.bin";
         Nova.CleanWPD(wdbpackOutPath, SetupData.WPDTracking[wdbpackOutPath]);
     }
 

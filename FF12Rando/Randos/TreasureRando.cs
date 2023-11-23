@@ -36,7 +36,7 @@ public class TreasureRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Treasure Data...", 0, -1);
+        Generator.SetUIProgress("Loading Treasure Data...", 0, -1);
         rewards = new DataStoreBPSection<DataStoreReward>();
         rewards.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin"));
         rewardsOrig = new DataStoreBPSection<DataStoreReward>();
@@ -67,7 +67,7 @@ public class TreasureRando : Randomizer
             return ebp;
         });
 
-        PartyRando partyRando = Randomizers.Get<PartyRando>();
+        PartyRando partyRando = Generator.Get<PartyRando>();
         partyRando.Characters = MathHelpers.DecodeNaturalSequence(prices[0x76].Price, 6, 6).Select(l => (int)l).ToArray();
 
         areaMapping = File.ReadAllLines("data\\mapAreas.csv").ToDictionary(s => s.Split(',')[1], s => s.Split(',')[0]);
@@ -146,21 +146,21 @@ public class TreasureRando : Randomizer
 
         List<string> hintsNotesLocations = itemLocations.Values.SelectMany(l => l.Areas).Distinct().ToList();
 
-        placementAlgoNormal = new FF12AssumedItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Randomizers, 3)
+        placementAlgoNormal = new FF12AssumedItemPlacementAlgorithm(itemLocations, hintsNotesLocations, Generator, 3)
         {
-            SetProgressFunc = Randomizers.SetUIProgress
+            SetProgressFunc = Generator.SetUIProgress
         };
-        placementAlgoNormal.Logic = new FF12ItemPlacementLogic(placementAlgoNormal, Randomizers);
+        placementAlgoNormal.Logic = new FF12ItemPlacementLogic(placementAlgoNormal, Generator);
 
         placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(itemLocations, hintsNotesLocations, -1)
         {
-            SetProgressFunc = Randomizers.SetUIProgress
+            SetProgressFunc = Generator.SetUIProgress
         };
-        placementAlgoBackup.Logic = new FF12ItemPlacementLogic(placementAlgoBackup, Randomizers);
+        placementAlgoBackup.Logic = new FF12ItemPlacementLogic(placementAlgoBackup, Generator);
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Treasure Data...", 0, -1);
+        Generator.SetUIProgress("Randomizing Treasure Data...", 0, -1);
 
         randomizeItems = new List<string>();
         if (FF12Flags.Items.Treasures.FlagEnabled)
@@ -168,7 +168,7 @@ public class TreasureRando : Randomizer
             randomizeItems = randomizeItems.Concat(GetRandomizableItems()).Distinct().ToList();
         }
 
-        ShopRando shopRando = Randomizers.Get<ShopRando>();
+        ShopRando shopRando = Generator.Get<ShopRando>();
         if (FF12Flags.Items.Shops.FlagEnabled)
         {
             randomizeItems = randomizeItems.Concat(shopRando.GetRandomizableShopItems()).Distinct().ToList();
@@ -234,7 +234,7 @@ public class TreasureRando : Randomizer
                 }
             });
 
-            EquipRando equipRando = Randomizers.Get<EquipRando>();
+            EquipRando equipRando = Generator.Get<EquipRando>();
             itemLocations.Values.ForEach(l =>
             {
                 if (PlacementAlgo.Placement.ContainsKey(l.ID))
@@ -332,7 +332,7 @@ public class TreasureRando : Randomizer
 
     private bool ShouldRemoveItem(string newItem)
     {
-        EquipRando equipRando = Randomizers.Get<EquipRando>();
+        EquipRando equipRando = Generator.Get<EquipRando>();
         return !newItem.StartsWith("00") && !newItem.StartsWith("20") && !newItem.StartsWith("21")
 && (newItem.StartsWith("30") || newItem.StartsWith("40")
 || !equipRando.itemData.ContainsKey(newItem) || RandomNum.RandInt(0, 100) < Math.Pow(equipRando.itemData[newItem].Rank, 2));
@@ -644,15 +644,15 @@ public class TreasureRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Treasure Data...", 0, -1);
-        File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin", rewards.Data);
-        File.WriteAllBytes($"outdata\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_028.bin", prices.Data);
+        Generator.SetUIProgress("Saving Treasure Data...", 0, -1);
+        File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin", rewards.Data);
+        File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_028.bin", prices.Data);
 
         ebpAreas.ForEach(p =>
         {
             string name = p.Key.Split(',')[0];
             string area = name.Substring(0, name.Length - 2);
-            File.WriteAllBytes($"outdata\\ps2data\\plan_master\\us\\plan_map\\{area}\\{name}\\global\\{name}.ebp", p.Value.Data);
+            File.WriteAllBytes($"{Generator.DataOutFolder}\\plan_master\\us\\plan_map\\{area}\\{name}\\global\\{name}.ebp", p.Value.Data);
         });
 
         SaveHints();
@@ -661,7 +661,7 @@ public class TreasureRando : Randomizer
 
     public override Dictionary<string, HTMLPage> GetDocumentation()
     {
-        PartyRando partyRando = Randomizers.Get<PartyRando>();
+        PartyRando partyRando = Generator.Get<PartyRando>();
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
         HTMLPage page = new("Item Locations", "template/documentation.html");
 
@@ -724,7 +724,7 @@ public class TreasureRando : Randomizer
 
     public string GetItemName(string id)
     {
-        TextRando textRando = Randomizers.Get<TextRando>();
+        TextRando textRando = Generator.Get<TextRando>();
         if (id == "Gil")
         {
             return "Gil";
@@ -732,6 +732,9 @@ public class TreasureRando : Randomizer
 
         try
         {
+            if (!uint.TryParse(id, out uint _))
+                return id;
+
             ushort intId = Convert.ToUInt16(id, 16);
             if (intId is >= 0x3000 and < 0x4000)
             {

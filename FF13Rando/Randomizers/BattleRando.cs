@@ -39,22 +39,22 @@ public class BattleRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Battle Data...", 0, 100);
-        btscene.LoadWDB("13", @"\db\resident\bt_scene.wdb");
-        btsceneOrig.LoadWDB("13", @"\db\resident\bt_scene.wdb");
+        Generator.SetUIProgress("Loading Battle Data...", 0, 100);
+        btscene.LoadWDB(Generator, "13", @"\db\resident\bt_scene.wdb");
+        btsceneOrig.LoadWDB(Generator, "13", @"\db\resident\bt_scene.wdb");
 
-        charaSets.LoadWDB("13", @"\db\resident\charaset.wdb");
+        charaSets.LoadWDB(Generator, "13", @"\db\resident\charaset.wdb");
 
-        missions.LoadWDB("13", @"\db\resident\mission.wdb");
+        missions.LoadWDB(Generator, "13", @"\db\resident\mission.wdb");
 
-        battleConsts.LoadWDB("13", @"\db\resident\bt_constants.wdb");
+        battleConsts.LoadWDB(Generator, "13", @"\db\resident\bt_constants.wdb");
 
         string btscWDBPath = Nova.GetNovaFile("13", @"btscene\wdb\btsc_wdb.bin", SetupData.Paths["Nova"], SetupData.Paths["13"]);
-        string btscWDBOutPath = SetupData.OutputFolder + @"\btscene\wdb\btsc_wdb.bin";
+        string btscWDBOutPath = Generator.DataOutFolder + @"\btscene\wdb\btsc_wdb.bin";
         FileHelpers.CopyFile(btscWDBPath, btscWDBOutPath);
         Nova.UnpackWPD(btscWDBOutPath, SetupData.Paths["Nova"]);
 
-        Randomizers.SetUIProgress("Loading Battle Data...", 10, 100);
+        Generator.SetUIProgress("Loading Battle Data...", 10, 100);
 
         FileHelpers.ReadCSVFile(@"data\battlescenes.csv", row =>
         {
@@ -62,12 +62,12 @@ public class BattleRando : Randomizer
             battleData.Add(b.ID, b);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
-        Randomizers.SetUIProgress("Loading Battle Data...", 20, 100);
+        Generator.SetUIProgress("Loading Battle Data...", 20, 100);
 
         btscs = LoadBtscs();
         btscsOrig = LoadBtscs();
 
-        Randomizers.SetUIProgress("Loading Battle Data...", 90, 100);
+        Generator.SetUIProgress("Loading Battle Data...", 90, 100);
         FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
         {
             EnemyData e = new(row);
@@ -98,7 +98,7 @@ public class BattleRando : Randomizer
         {
             string relative = @"scene\lay\" + lybId + @"\bin\" + lybId + ".win32.lyb";
             string path = Nova.GetNovaFile("13", relative, SetupData.Paths["Nova"], SetupData.Paths["13"]);
-            string outPath = SetupData.OutputFolder + "\\" + relative;
+            string outPath = Generator.DataOutFolder + "\\" + relative;
             FileHelpers.CopyFile(path, outPath);
 
             DataStoreLYB lyb = new ();
@@ -109,14 +109,14 @@ public class BattleRando : Randomizer
 
     private SortedDictionary<string, DataStoreWDB<DataStoreBtSc>> LoadBtscs()
     {
-        IEnumerable<string> files = Directory.GetFiles(SetupData.OutputFolder + @"\btscene\wdb\_btsc_wdb.bin").Where(path => battleData.ContainsKey(Path.GetFileNameWithoutExtension(path)));
+        IEnumerable<string> files = Directory.GetFiles(Generator.DataOutFolder + @"\btscene\wdb\_btsc_wdb.bin").Where(path => battleData.ContainsKey(Path.GetFileNameWithoutExtension(path)));
         int maxCount = files.Count();
         int count = 0;
         ConcurrentDictionary<string, DataStoreWDB<DataStoreBtSc>> dict = new();
         Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 8 }, path =>
         {
             count++;
-            Randomizers.SetUIProgress($"Loading Encounter... ({count} of {maxCount})", count, maxCount);
+            Generator.SetUIProgress($"Loading Encounter... ({count} of {maxCount})", count, maxCount);
             DataStoreWDB<DataStoreBtSc> btsc = new()
             {
                 ID = Path.GetFileNameWithoutExtension(path)
@@ -185,7 +185,7 @@ public class BattleRando : Randomizer
 
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Battle Data...", -1, 100);
+        Generator.SetUIProgress("Randomizing Battle Data...", -1, 100);
         if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
         {
             FF13Flags.Enemies.EnemiesFlag.SetRand();
@@ -212,7 +212,7 @@ public class BattleRando : Randomizer
 
     private void RemoveMissionOnlyCharasets()
     {
-        EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
+        EnemyRando enemyRando = Generator.Get<EnemyRando>();
 
         // Remove charaspecs that only appear in missions from charasets
         charaSets.Values.ForEach(c =>
@@ -245,12 +245,12 @@ public class BattleRando : Randomizer
 
     private Dictionary<string, Dictionary<string, string>> ReplaceLYBEnemies()
     {
-        EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
+        EnemyRando enemyRando = Generator.Get<EnemyRando>();
 
         Dictionary<string, Dictionary<string, string>> lybMappings = new();
         lybs.Keys.ForEach(lybId =>
         {
-            Randomizers.SetUIProgress($"Replacing enemies per zone ({lybs.Keys.ToList().IndexOf(lybId) + 1} out of {lybs.Count})", lybs.Keys.ToList().IndexOf(lybId) + 1, lybs.Count);
+            Generator.SetUIProgress($"Replacing enemies per zone ({lybs.Keys.ToList().IndexOf(lybId) + 1} out of {lybs.Count})", lybs.Keys.ToList().IndexOf(lybId) + 1, lybs.Count);
             List<DataStoreWDB<DataStoreBtSc>> btscsForLyb = btscs.Values.Where(
                             b => battleData[b.ID].Charasets.Where(
                                 c => GetLybId(c) == lybId).Any()).ToList();
@@ -416,7 +416,7 @@ public class BattleRando : Randomizer
 
     private void RandomizeGroupShuffle()
     {
-        EnemyRando enemyRando = Randomizers.Get<EnemyRando>();
+        EnemyRando enemyRando = Generator.Get<EnemyRando>();
 
         // Save all charasets before group shuffle is ran
         Dictionary<string, List<string>> preGroupShuffleCharasets = charaSets.Keys.ToDictionary(k => k, k => charaSets[k].GetCharaSpecs());
@@ -455,7 +455,7 @@ public class BattleRando : Randomizer
             return availableSlots;
         });
 
-        Randomizers.SetUIProgress("Randomizing battle character sets", 0, 3);
+        Generator.SetUIProgress("Randomizing battle character sets", 0, 3);
         //Step 1: shuffle all charasets regardless of shared fights
         charasetWithAvailable.ForEach(charasetKVP =>
         {
@@ -604,7 +604,7 @@ public class BattleRando : Randomizer
         });
 
         //Step 2: shuffle single charaset fights
-        Randomizers.SetUIProgress("Randomizing single character set battles", 1, 3);
+        Generator.SetUIProgress("Randomizing single character set battles", 1, 3);
         charasets.ForEach(charaset =>
         {
             List<string> candidates = charaSets[charaset].GetCharaSpecs();
@@ -649,7 +649,7 @@ public class BattleRando : Randomizer
             });
         });
 
-        Randomizers.SetUIProgress("Randomizing multiple character set battles", 2, 3);
+        Generator.SetUIProgress("Randomizing multiple character set battles", 2, 3);
         List<string> multiCharasetBattles = battleData.Where(battle => battle.Value.Charasets.Count > 1).Select(battle => battle.Key).ToList();
         multiCharasetBattles.Shuffle().ForEach(id =>
         {
@@ -702,7 +702,7 @@ public class BattleRando : Randomizer
         });
 
         //Step 3: Remove any unused enemies from the character set to reduce memory overhead.
-        Randomizers.SetUIProgress("Cleaning up unused enemies from character sets", 3, 3);
+        Generator.SetUIProgress("Cleaning up unused enemies from character sets", 3, 3);
         charasets.ForEach(charaset =>
         {
             //TODO: Filter this to be non-battle characters only?
@@ -755,37 +755,37 @@ public class BattleRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Battle Data...", 0, 100);
-        btscene.SaveWDB(@"\db\resident\bt_scene.wdb");
+        Generator.SetUIProgress("Saving Battle Data...", 0, 100);
+        btscene.SaveWDB(Generator, @"\db\resident\bt_scene.wdb");
 
-        charaSets.SaveWDB(@"\db\resident\charaset.wdb");
+        charaSets.SaveWDB(Generator, @"\db\resident\charaset.wdb");
 
-        missions.SaveWDB(@"\db\resident\mission.wdb");
+        missions.SaveWDB(Generator, @"\db\resident\mission.wdb");
 
-        battleConsts.SaveWDB(@"\db\resident\bt_constants.wdb");
+        battleConsts.SaveWDB(Generator, @"\db\resident\bt_constants.wdb");
 
-        Randomizers.SetUIProgress("Saving Battle Data...", 10, 100);
+        Generator.SetUIProgress("Saving Battle Data...", 10, 100);
 
         if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
         {
-            IEnumerable<string> files = Directory.GetFiles(SetupData.OutputFolder + @"\btscene\wdb\_btsc_wdb.bin").Where(path => battleData.ContainsKey(Path.GetFileNameWithoutExtension(path)));
+            IEnumerable<string> files = Directory.GetFiles(Generator.DataOutFolder + @"\btscene\wdb\_btsc_wdb.bin").Where(path => battleData.ContainsKey(Path.GetFileNameWithoutExtension(path)));
             int maxCount = files.Count();
             int count = 0;
             Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 8 }, path =>
             {
                 count++;
-                Randomizers.SetUIProgress($"Saving Encounter... ({count} of {maxCount})", count, maxCount);
+                Generator.SetUIProgress($"Saving Encounter... ({count} of {maxCount})", count, maxCount);
                 btscs[Path.GetFileNameWithoutExtension(path)].Save(path);
             });
         }
 
-        Randomizers.SetUIProgress("Saving Battle Data...", 90, 100);
-        Nova.RepackWPD(SetupData.OutputFolder + @"\btscene\wdb\btsc_wdb.bin", SetupData.Paths["Nova"]);
+        Generator.SetUIProgress("Saving Battle Data...", 90, 100);
+        Nova.RepackWPD(Generator.DataOutFolder + @"\btscene\wdb\btsc_wdb.bin", SetupData.Paths["Nova"]);
 
         lybs.Keys.ForEach(s =>
         {
             string relative = @"\scene\lay\" + s + @"\bin\" + s + ".win32.lyb";
-            string outPath = SetupData.OutputFolder + relative;
+            string outPath = Generator.DataOutFolder + relative;
 
             File.WriteAllBytes(outPath, lybs[s].Data);
         });

@@ -18,11 +18,11 @@ public class QuestRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Quest Data...", 0, 100);
-        questRewards.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_quest.wdb", false);
-        FileHelpers.CopyFile(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb", SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
-        Randomizers.SetUIProgress("Loading Quest Data...", 50, 100);
-        questRequirements.LoadDB3("LR", @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb", false);
+        Generator.SetUIProgress("Loading Quest Data...", 0, 100);
+        questRewards.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_quest.wdb", false);
+        FileHelpers.CopyFile(Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb", Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
+        Generator.SetUIProgress("Loading Quest Data...", 50, 100);
+        questRequirements.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb", false);
 
         questRewards["qst_062"].iMaxGp = 2000;
         questRewards["qst_046"].iItemBagSize = 1;
@@ -30,7 +30,7 @@ public class QuestRando : Randomizer
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Quest Data...", 0, 100);
+        Generator.SetUIProgress("Randomizing Quest Data...", 0, 100);
         if (LRFlags.StatsAbilities.Quests.FlagEnabled)
         {
             LRFlags.StatsAbilities.Quests.SetRand();
@@ -95,7 +95,7 @@ public class QuestRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Randomizers.SetUIProgress("Randomizing Quest Data...", 80, 100);
+        Generator.SetUIProgress("Randomizing Quest Data...", 80, 100);
         if (LRFlags.Items.CoPReqs.FlagEnabled)
         {
             questRequirements.Values.Where(q => q.iQuestIndex >= 1000).ForEach(q =>
@@ -120,19 +120,19 @@ public class QuestRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Quest Data...", 0, 100);
-        questRewards.SaveDB3(@"\db\resident\_wdbpack.bin\r_quest.wdb");
-        SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_quest.wdb");
-        Randomizers.SetUIProgress("Saving Quest Data...", 50, 100);
-        questRequirements.SaveDB3(@"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb");
-        SetupData.WPDTracking[SetupData.OutputFolder + @"\db\resident\wdbpack.bin"].Add("r_quest_ctrl.wdb");
+        Generator.SetUIProgress("Saving Quest Data...", 0, 100);
+        questRewards.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_quest.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_quest.wdb");
+        Generator.SetUIProgress("Saving Quest Data...", 50, 100);
+        questRequirements.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_quest_ctrl.wdb");
         TempSaveFix();
     }
 
     private void TempSaveFix()
     {
-        byte[] origData = File.ReadAllBytes(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
-        byte[] data = File.ReadAllBytes(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb");
+        byte[] origData = File.ReadAllBytes(Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
+        byte[] data = File.ReadAllBytes(Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb");
 
         if (data.Length < origData.Length)
         {
@@ -148,9 +148,9 @@ public class QuestRando : Randomizer
                 data = data.SubArray(0, startQstData + (72 * i) + 68).Concat(itembag2).Concat(data.SubArray(startQstData + (72 * i) + 68, data.Length - (startQstData + (72 * i) + 68)));
             }
 
-            File.WriteAllBytes(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb", data);
+            File.WriteAllBytes(Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb", data);
         }
 
-        File.Delete(SetupData.OutputFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
+        File.Delete(Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
     }
 }

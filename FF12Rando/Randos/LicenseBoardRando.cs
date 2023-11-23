@@ -23,7 +23,7 @@ public class LicenseBoardRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading License Board Data...", 0, -1);
+        Generator.SetUIProgress("Loading License Board Data...", 0, -1);
         boards = Enumerable.Range(0, 12).Select(i =>
         {
             DataStoreLicenseBoard board = new();
@@ -48,16 +48,16 @@ public class LicenseBoardRando : Randomizer
             rightSplitBoards.Add(name, board);
         });
 
-        TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+        TreasureRando treasureRando = Generator.Get<TreasureRando>();
 
         treasureRando.prices[0x77].Price = 0;
         startingBoards = MathHelpers.DecodeNaturalSequence(treasureRando.prices[0x77].Price, 6, 13).Select(l => (int)l).ToArray();
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing License Board Data...", 0, -1);
-        TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
-        TextRando textRando = Randomizers.Get<TextRando>();
+        Generator.SetUIProgress("Randomizing License Board Data...", 0, -1);
+        TreasureRando treasureRando = Generator.Get<TreasureRando>();
+        TextRando textRando = Generator.Get<TextRando>();
 
         if (FF12Flags.Other.LicenseBoards.FlagEnabled)
         {
@@ -101,13 +101,13 @@ public class LicenseBoardRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving License Board Data...", 0, -1);
+        Generator.SetUIProgress("Saving License Board Data...", 0, -1);
         if (FF12Flags.Other.LicenseBoards.FlagEnabled)
         {
             for (int i = 0; i < 12; i++)
             {
-                string path = $"outdata\\ps2data\\image\\ff12\\test_battle\\in\\binaryfile\\board_{i + 1}.bin";
-                Directory.CreateDirectory($"outdata\\ps2data\\image\\ff12\\test_battle\\in\\binaryfile");
+                string path = $"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\in\\binaryfile\\board_{i + 1}.bin";
+                Directory.CreateDirectory($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\in\\binaryfile");
                 File.WriteAllBytes(path, boards[i].Data);
             }
         }
@@ -115,7 +115,7 @@ public class LicenseBoardRando : Randomizer
         {
             for (int i = 0; i < 12; i++)
             {
-                string path = $"outdata\\ps2data\\image\\ff12\\test_battle\\in\\binaryfile\\board_{i + 1}.bin";
+                string path = $"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\in\\binaryfile\\board_{i + 1}.bin";
                 if (File.Exists(path))
                 {
                     File.Delete(path);

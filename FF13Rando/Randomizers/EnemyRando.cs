@@ -16,16 +16,16 @@ public class EnemyRando : Randomizer
 
     public override void Load()
     {
-        Randomizers.SetUIProgress("Loading Enemy Data...", -1, 100);
-        charaFamily.LoadWDB("13", @"\db\resident\charafamily.wdb");
-        btCharaSpec.LoadWDB("13", @"\db\resident\bt_chara_spec.wdb");
-        btCharaSpecOrig.LoadWDB("13", @"\db\resident\bt_chara_spec.wdb");
+        Generator.SetUIProgress("Loading Enemy Data...", -1, 100);
+        charaFamily.LoadWDB(Generator, "13", @"\db\resident\charafamily.wdb");
+        btCharaSpec.LoadWDB(Generator, "13", @"\db\resident\bt_chara_spec.wdb");
+        btCharaSpecOrig.LoadWDB(Generator, "13", @"\db\resident\bt_chara_spec.wdb");
     }
     public override void Randomize()
     {
-        Randomizers.SetUIProgress("Randomizing Enemy Data...", -1, 100);
-        TextRando textRando = Randomizers.Get<TextRando>();
-        TreasureRando treasureRando = Randomizers.Get<TreasureRando>();
+        Generator.SetUIProgress("Randomizing Enemy Data...", -1, 100);
+        TextRando textRando = Generator.Get<TextRando>();
+        TreasureRando treasureRando = Generator.Get<TreasureRando>();
 
         if (FF13Flags.Stats.RunSpeedMult.FlagEnabled)
         {
@@ -41,8 +41,8 @@ public class EnemyRando : Randomizer
 
     public override void Save()
     {
-        Randomizers.SetUIProgress("Saving Enemy Data...", -1, 100);
-        charaFamily.SaveWDB(@"\db\resident\charafamily.wdb");
-        btCharaSpec.SaveWDB(@"\db\resident\bt_chara_spec.wdb");
+        Generator.SetUIProgress("Saving Enemy Data...", -1, 100);
+        charaFamily.SaveWDB(Generator, @"\db\resident\charafamily.wdb");
+        btCharaSpec.SaveWDB(Generator, @"\db\resident\bt_chara_spec.wdb");
     }
 }

@@ -18,22 +18,14 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
 
     Write-Host "Copying data to bin\publish..."
 
-    Copy-Item -Path "bin\publish\FF12Rando.exe" -Destination "bin\publish\rando" -Force
-
-    Remove-Item -Recurse -Force "bin\publish\rando\data" -ErrorAction Ignore
-    Copy-Item -Path "bin\data\" -Destination "bin\publish\rando\data" -Recurse -Force
-
-    Remove-Item -Recurse -Force "bin\publish\scripts" -ErrorAction Ignore
-    Copy-Item -Path "bin\scripts\" -Destination "bin\publish\scripts" -Recurse -Force
-
-    Remove-Item -Recurse -Force "bin\publish\fomod" -ErrorAction Ignore
-    Copy-Item -Path "bin\fomod\" -Destination "bin\publish\fomod" -Recurse -Force
+    Remove-Item -Recurse -Force "bin\publish\data" -ErrorAction Ignore
+    Copy-Item -Path "bin\data\" -Destination "bin\publish\data" -Recurse -Force
 
     Write-Host "Creating 7z file..."
-    Remove-Item -Recurse -Force "bin\publish\FF12OpenWorldRando$Version.7z" -ErrorAction Ignore
+    Remove-Item -Recurse -Force "bin\publish\FF12Randomizer$Version.7z" -ErrorAction Ignore
     Push-Location -Path "bin\publish"
-    & "7z.exe" a -t7z -mx=9 "FF12OpenWorldRando$Version.7z" "rando" "scripts" "fomod"
+    & "7z.exe" a -t7z -mx=9 "FF12Randomizer$Version.7z" "data" "README.pdf" "FF12Rando.exe"
     Pop-Location
 
-    Copy-Item -Path "bin\publish\FF12OpenWorldRando$Version.7z" -Destination "bin\build\FF12OpenWorldRandoPreview.7z" -Force
+    Copy-Item -Path "bin\publish\FF12Randomizer$Version.7z" -Destination "bin\build\FF12RandomizerPreview.7z" -Force
 }

@@ -1,8 +1,13 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using SharpCompress.Archives;
+using SharpCompress.Archives.SevenZip;
+using SharpCompress.Common;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 
 namespace Bartz24.Data;
 
@@ -48,6 +53,31 @@ public class FileHelpers
             SearchOption.AllDirectories))
         {
             File.Copy(newPath, newPath.Replace(from, target), true);
+        }
+    }
+
+    public static void ExtractSubfolderFromArchive(string archiveFile, string outputFolderPath, string subfolderName)
+    {
+        subfolderName = subfolderName.Replace("\\", "/");
+        using (SevenZipArchive archive = SevenZipArchive.Open(archiveFile))
+        {
+            List<SevenZipArchiveEntry> entries = archive.Entries.Where(entry => entry.Key.StartsWith(subfolderName)).ToList();
+
+            foreach (SevenZipArchiveEntry entry in entries)
+            {
+                string relativePath = entry.Key.Substring(entry.Key.IndexOf(subfolderName) + subfolderName.Length);
+                string entryPath = Path.Combine(outputFolderPath, relativePath.Length > 0 ? relativePath.Substring(1) : relativePath);
+                if (entry.IsDirectory)
+                {
+                    Directory.CreateDirectory(entryPath);
+                }
+                else
+                {
+                    ExtractionOptions options = new();
+                    options.Overwrite = true;
+                    entry.WriteToFile(entryPath, options);
+                }
+            }
         }
     }
 }

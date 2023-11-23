@@ -25,7 +25,7 @@ public class FF12AssumedItemPlacementAlgorithm : AssumedItemPlacementAlgorithm<I
 
         base.RemoveItems(locations, items, nextItem, rep);
 
-        PartyRando partyRando = treasureRando.Randomizers.Get<PartyRando>();
+        PartyRando partyRando = treasureRando.Generator.Get<PartyRando>();
         while (newPossible == null || newPossible.Count < possible.Count)
         {
             newAccessibleAreas = Logic.GetNewAreasAvailable(items, new List<string>());

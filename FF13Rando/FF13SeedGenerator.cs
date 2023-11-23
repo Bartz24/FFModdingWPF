@@ -26,7 +26,6 @@ public class FF13SeedGenerator : SeedGenerator
 
         OutFolder = Path.GetTempPath() + @"ff13_rando_temp";
         DataOutFolder = OutFolder + @"\Data";
-        SetupData.OutputFolder = DataOutFolder;
 
         PackPrefixName = "FF13Rando";
         DocsDisplayName = "FF13 Randomizer";

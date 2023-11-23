@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bartz24.FF13", "FF13\Bartz2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bartz24.FF13Series", "Bartz24.FF13Series\Bartz24.FF13Series.csproj", "{9050F45F-1EA4-4DDA-A590-657FE5CF42C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdingUnitTests", "ModdingUnitTests\ModdingUnitTests.csproj", "{2F9F911E-4703-4CA9-AB78-5E12122FD900}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModdingUnitTests", "ModdingUnitTests\ModdingUnitTests.csproj", "{2F9F911E-4703-4CA9-AB78-5E12122FD900}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
