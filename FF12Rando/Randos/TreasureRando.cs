@@ -518,29 +518,32 @@ public class TreasureRando : Randomizer
 
     public void SaveHints()
     {
-        List<string> output = new();
-        for (int i = 0; i < hints.Count; i++)
+        TextRando textRando = Generator.Get<TextRando>();
+        if (hints.Select(l => l.Count).Sum() > 0)
         {
-            output.Add($"[Hint {i + 1}]");
-            if (hints[i].Count > 0)
+            for (int i = 0; i < hints.Count; i++)
             {
-                foreach (string l in hints[i])
+                List<string> lines = new();
+                if (hints[i].Count > 0)
                 {
-                    output.AddRange(GetHintText(l));
+                    foreach (string l in hints[i])
+                    {
+                        lines.Add(GetHintText(l));
+                    }
                 }
-            }
-            else
-            {
-                output.Add("Nothing to hint.");
+                else
+                {
+                    lines.Add("There is nothing left to hint.");
+                }
+
+                textRando.TextKeyDescriptions[352 + i].Text = string.Join("\n", lines);
             }
         }
-
-        File.WriteAllLines($"outdata\\hints.txt", output);
     }
 
-    private List<string> GetHintText(string l)
+    private string GetHintText(string l)
     {
-        List<string> list = new();
+        string val;
         int index = FF12Flags.Other.HintsSpecific.Values.IndexOf(FF12Flags.Other.HintsSpecific.SelectedValue);
         if (index == FF12Flags.Other.HintsSpecific.Values.Count - 1)
         {
@@ -554,8 +557,7 @@ public class TreasureRando : Randomizer
             case 0:
             default:
                 {
-                    list.Add($"{itemLocations[l].Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Value.Item1)}");
-                    list.Add("");
+                    val = $"{itemLocations[l].Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Value.Item1)}";
                     break;
                 }
             case 1:
@@ -602,25 +604,22 @@ public class TreasureRando : Randomizer
                         type = "an Ability";
                     }
 
-                    list.Add($"{itemLocations[l].Name} has {type}");
-                    list.Add("");
+                    val = $"{itemLocations[l].Name} has {type}";
                     break;
                 }
             case 2:
                 {
-                    list.Add($"{itemLocations[l].Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Value.Item1)}");
-                    list.Add("");
+                    val = $"{itemLocations[l].Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Value.Item1)}";
                     break;
                 }
             case 3:
                 {
-                    list.Add($"{itemLocations[l].Name} has ????");
-                    list.Add("");
+                    val = $"{itemLocations[l].Name} has ????";
                     break;
                 }
         }
 
-        return list;
+        return val;
     }
 
     public void SaveTreasureTracker()
@@ -639,7 +638,7 @@ public class TreasureRando : Randomizer
             areaRespawns[l.MapID].Add(t.Respawn);
         }
 
-        File.WriteAllLines($"outdata\\treasureTracker.txt", areaRespawns.Select(p => $"{areaMapping[p.Key]},{string.Join(",", p.Value)}"));
+        File.WriteAllLines($"{Generator.OutFolder}\\treasureTracker.txt", areaRespawns.Select(p => $"{areaMapping[p.Key]},{string.Join(",", p.Value)}"));
     }
 
     public override void Save()
@@ -730,46 +729,45 @@ public class TreasureRando : Randomizer
             return "Gil";
         }
 
+        ushort intId;
         try
         {
-            if (!uint.TryParse(id, out uint _))
-                return id;
-
-            ushort intId = Convert.ToUInt16(id, 16);
-            if (intId is >= 0x3000 and < 0x4000)
-            {
-                return textRando.TextAbilities[intId - 0x3000].Text;
-            }
-
-            if (intId is >= 0x4000 and < 0x5000)
-            {
-                return textRando.TextAbilities[intId - 0x4000 + 158].Text;
-            }
-
-            if (intId < 0x1000)
-            {
-                return textRando.TextAbilities[intId + 82].Text;
-            }
-
-            if (intId is >= 0x1000 and < 0x2000)
-            {
-                return textRando.TextEquipment[intId - 0x1000].Text;
-            }
-
-            if (intId is >= 0x2000 and < 0x3000)
-            {
-                return textRando.TextLoot[intId - 0x2000].Text;
-            }
-
-            if (intId is >= 0x8000 and < 0x9000)
-            {
-                return textRando.TextKeyItems[intId - 0x8000].Text;
-            }
+            intId = Convert.ToUInt16(id, 16);
         }
         catch
         {
+            return id;
         }
 
+        if (intId is >= 0x3000 and < 0x4000)
+        {
+            return textRando.TextAbilities[intId - 0x3000].Text;
+        }
+
+        if (intId is >= 0x4000 and < 0x5000)
+        {
+            return textRando.TextAbilities[intId - 0x4000 + 158].Text;
+        }
+
+        if (intId < 0x1000)
+        {
+            return textRando.TextAbilities[intId + 82].Text;
+        }
+
+        if (intId is >= 0x1000 and < 0x2000)
+        {
+            return textRando.TextEquipment[intId - 0x1000].Text;
+        }
+
+        if (intId is >= 0x2000 and < 0x3000)
+        {
+            return textRando.TextLoot[intId - 0x2000].Text;
+        }
+
+        if (intId is >= 0x8000 and < 0x9000)
+        {
+            return textRando.TextKeyItems[intId - 0x8000].Text;
+        }
         return id;
     }
 

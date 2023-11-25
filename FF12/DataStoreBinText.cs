@@ -7,15 +7,12 @@ namespace Bartz24.FF12;
 
 public class DataStoreBinText
 {
-    private Dictionary<int, StringData> Data;
+    private Dictionary<int, StringData> Data { get; set; } = new ();
 
     public string Format { get; set; }
 
-    private bool ReadFromTxt { get; set; }
-
-    public DataStoreBinText(bool readFromTxt)
+    public DataStoreBinText()
     {
-        ReadFromTxt = readFromTxt;
     }
 
     public StringData this[int id]
@@ -31,17 +28,16 @@ public class DataStoreBinText
     {
         Data.Add(id, data);
     }
-    public void Load(string path)
+    public virtual void Load(string path)
     {
-        if (!ReadFromTxt)
-        {
-            Tools.ExtractBINToTXT(path);
-            path += ".txt";
-        }
+        Tools.ConvertBinToTxt(path);
+        string[] lines = File.ReadAllLines(path + ".txt");
+        File.Delete(path + ".txt");
+        LoadFromLines(lines);
+    }
 
-        Data = new Dictionary<int, StringData>();
-
-        string[] lines = File.ReadAllLines(path);
+    protected void LoadFromLines(string[] lines)
+    {
         StringData currentStr = null;
 
         for (int i = 0; i < lines.Length; i++)
@@ -136,7 +132,15 @@ public class DataStoreBinText
         }
     }
 
-    public void Save(string path)
+    public virtual void Save(string path)
+    {
+        List<string> lines = GetLinesData();
+
+        File.WriteAllLines(path + ".txt", lines);
+        Tools.ConvertTxtToBin(path + ".txt");
+    }
+
+    protected List<string> GetLinesData()
     {
         List<string> lines = new()
         {
@@ -164,7 +168,16 @@ public class DataStoreBinText
                     attributes.Add("id=" + Values[id].ID);
                 }
 
-                lines.Add("{dialog " + id + " " + string.Join(", ", attributes) + "}");
+                string dialogHeader = "{dialog " + id;
+
+                if (attributes.Count > 0)
+                {
+                    dialogHeader += " " + string.Join(", ", attributes);
+                }
+
+                dialogHeader += "}";
+
+                lines.Add(dialogHeader);
                 lines.Add(Values[id].Text);
                 lines.Add("{/dialog}");
             }
@@ -187,8 +200,7 @@ public class DataStoreBinText
             lines.Add("");
         }
 
-        File.WriteAllLines(path, lines);
-        Tools.ConvertTXTToBIN(path);
+        return lines;
     }
 
     public class StringData

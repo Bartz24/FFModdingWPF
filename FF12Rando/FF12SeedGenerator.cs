@@ -47,8 +47,8 @@ public class FF12SeedGenerator : SeedGenerator
             new LicenseBoardRando(this),
             new EnemyRando(this),
             new ShopRando(this),
-            new TextRando(this),
-            new MusicRando(this)
+            new MusicRando(this),
+            new TextRando(this)
         };
 
         OutFolder = Path.Combine(SetupData.Paths["12"], "rando");
@@ -63,7 +63,17 @@ public class FF12SeedGenerator : SeedGenerator
     {
         if (!ToolsInstalled())
         {
-            throw new RandoException("Text and script tools are not installed. Download and install them on 1. Setup.", "Tools missing.");
+            throw new RandoException("Text and script tools are not properly installed. Download and install them on 1. Setup.", "Tools missing.");
+        }
+
+        if (!FileLoaderInstalled())
+        {
+            throw new RandoException("External File Loader is not properly installed. Download and install them on 1. Setup.", "External File Loader missing.");
+        }
+
+        if (!LuaLoaderInstalled())
+        {
+            throw new RandoException("Lua Loader is not properly installed. Download and install them on 1. Setup.", "Lua missing.");
         }
 
         if (Directory.Exists(OutFolder))

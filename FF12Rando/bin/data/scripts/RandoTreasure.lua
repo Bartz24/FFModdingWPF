@@ -25,9 +25,12 @@ local function checkTreasures()
                 count = count + 1
             end
         end
-
-        local text = message.convert((total - count) .. " treasure(s) remain")
-        message.print(text)
+        local remain = total - count
+        if remain == 1 then
+            message.print(message.convert("1 treasure remains"))
+        else
+            message.print(message.convert(remain .. " treasures remain"))
+        end
     end
     event.executeAfterMs(100, checkTreasures)
 end
@@ -49,7 +52,7 @@ end
 
 print("Rando Treasure Tracker: Applying patch.")
 
-local file = io.open("rando/outdata/treasureTracker.txt", "r")
+local file = io.open("../rando/treasureTracker.txt", "r")
 if file~=nil then 
     local fileContent = {}
     for line in file:lines() do

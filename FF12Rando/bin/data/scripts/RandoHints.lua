@@ -48,7 +48,7 @@ end
 
 print("Rando Hints: Applying patch.")
 
-local file = io.open("rando/outdata/hints.txt", "r")
+local file = io.open("../rando/hints.txt", "r")
 if file~=nil then 
     local fileContent = {}
     for line in file:lines() do
