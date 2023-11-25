@@ -18,10 +18,15 @@ public partial class SetupPaths : UserControl
 {
     private const string ToolsInstalledText = "The tools for editing scripts and text are correctly installed.";
     private const string ToolsNotInstalledText = "The required tools for editing scripts and text are not detected.\nDownload and then install the tools.";
+
     private const string FileLoaderInstalledText = "The External File Loader is correctly installed.";
-    private const string FileLoaderNotInstalledText = "The required External File Loader files are not detected.\nEither download through the Vortex mod manger,\nor download and then install the loader directly with the buttons to the right.";
+    private const string FileLoaderNotInstalledText = "The required External File Loader files are not detected.\nEither download through the Vortex mod manager,\nor download and then install the loader directly with the buttons to the right.";
+
     private const string LuaLoaderInstalledText = "The Lua Loader is correctly installed.";
-    private const string LuaLoaderNotInstalledText = "The required Lua Loader files are not detected.\nEither download through the Vortex mod manger,\nor download and then install the loader directly with the buttons to the right.";
+    private const string LuaLoaderNotInstalledText = "The required Lua Loader files are not detected.\nEither download through the Vortex mod manager,\nor download and then install the loader directly with the buttons to the right.";
+
+    private const string DescriptiveInstalledText = "The Insurgent's Descriptive Inventory is correctly installed.";
+    private const string DescriptiveNotInstalledText = "The OPTIONAL mod for improved equipment descriptions is not installed.\nEither download through the Vortex mod manager,\nor download and then install the loader directly with the buttons to the right.";
 
     public string FF12Path => SetupData.GetSteamPath("12");
     public string ToolsText { get; set; }
@@ -30,6 +35,8 @@ public partial class SetupPaths : UserControl
     public SolidColorBrush LoaderTextColor { get; set; }
     public string LuaLoaderText { get; set; }
     public SolidColorBrush LuaLoaderTextColor { get; set; }
+    public string DescriptiveText { get; set; }
+    public SolidColorBrush DescriptiveTextColor { get; set; }
 
     public SetupPaths()
     {
@@ -61,6 +68,10 @@ public partial class SetupPaths : UserControl
         LuaLoaderTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
         LuaLoaderTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
 
+        DescriptiveText = FF12SeedGenerator.DescriptiveInstalled() ? DescriptiveInstalledText : DescriptiveNotInstalledText;
+        DescriptiveTextColor = FF12SeedGenerator.DescriptiveInstalled() ? Brushes.LightGreen : Brushes.Yellow;
+        DescriptiveTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
+        DescriptiveTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
     }
 
     private void steamPath12Button_Click(object sender, RoutedEventArgs e)
@@ -291,5 +302,64 @@ public partial class SetupPaths : UserControl
                 MessageBox.Show("Make sure the selected file is a 7z file.", "The selected file is not valid");
             }
         }
+    }
+
+    private void descriptiveDownloadButton_Click(object sender, RoutedEventArgs e)
+    {
+        string url = "https://www.nexusmods.com/finalfantasy12/mods/319";
+        if (MessageBox.Show("This will open your default browser at the below link to download The Insurgent's Descriptive Inventory from NexusMods. Continue?\n" + url, "Download file loader", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                url = url.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+        }
+    }
+
+    private void descriptiveInstallButton_Click(object sender, RoutedEventArgs e)
+    {
+
+        VistaOpenFileDialog dialog = new()
+        {
+            Title = "Please select a compressed file of The Insurgent's Descriptive Inventory.",
+            Multiselect = false,
+            Filter = "7zip|*.7z"
+        };
+        if ((bool)dialog.ShowDialog())
+        {
+            string path = dialog.FileName.Replace("/", "\\");
+            if (File.Exists(path))
+            {
+                try
+                {
+                    FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(SetupData.Paths["12"], "x64\\scripts"), "data\\x64\\scripts");
+
+                    if (FF12SeedGenerator.LuaLoaderInstalled())
+                    {
+                        MessageBox.Show("The Insurgent's Descriptive Inventory has been successfully installed.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to install The Insurgent's Descriptive Inventory. Expected files are missing.");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Failed to install The Insurgent's Descriptive Inventory when extracting the files.");
+                }
+
+                UpdateText();
+            }
+            else
+            {
+                MessageBox.Show("Make sure the selected file is a 7z file.", "The selected file is not valid");
+            }
+        }
+
     }
 }

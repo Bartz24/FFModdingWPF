@@ -55,7 +55,7 @@ public class TextRando : Randomizer
     }
     private string GetHash()
     {
-        string numberForm = RandomNum.GetHash(6, 10);
+        string numberForm = RandomNum.GetHash(6, 9);
         string iconForm = "";
 
         foreach (char c in numberForm)
@@ -88,9 +88,6 @@ public class TextRando : Randomizer
                     break;
                 case '8':
                     iconForm += "{icon:17}";
-                    break;
-                case '9':
-                    iconForm += "{icon:21}";
                     break;
             }
         }

@@ -221,7 +221,10 @@
                                 </Grid.RowDefinitions>
                                 <Button Margin="2" Grid.Column="0" Grid.Row="0" 
                                         Click="uninstallLoadersButton_Click"
-                                        ToolTip="Uninstalls mod loaders if they were installed by the randomizer.">Uninstall Mod Loaders</Button>
+                                        ToolTip="Uninstalls mod loaders if they were installed. Do NOT uninstall here if it was previously installed through Vortex.">Uninstall Mod Loaders</Button>
+                                <Button Margin="2" Grid.Column="1" Grid.Row="0" 
+                                        Click="uninstallDescriptiveButton_Click"
+                                        ToolTip="Uninstalls The Insurgent's Descriptive Inventory if it was installed. Do NOT uninstall here if it was previously installed through Vortex.">Uninstall The Insurgent's Descriptive Inventory mod</Button>
                             </Grid>
                         </StackPanel>
                     </DockPanel>

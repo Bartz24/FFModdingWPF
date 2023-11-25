@@ -36,6 +36,15 @@ public class FF12SeedGenerator : SeedGenerator
             Path.Combine(SetupData.Paths["12"], "x64\\modules\\ff12-lua-loader.dll")
         };
     }
+    private static List<string> DescriptivePaths
+    {
+        get => new()
+        {
+            Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsDescriptiveInventory.lua"),
+            Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsDescriptiveInventory\\helpers.lua"),
+            Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig\\us.lua")
+        };
+    }
 
     public FF12SeedGenerator()
     {
@@ -87,6 +96,7 @@ public class FF12SeedGenerator : SeedGenerator
         SetupData.WPDTracking.Clear();
 
         UpdateLoaderConfig();
+        RemoveLuaScripts();
         CopyLuaScripts();
 
         base.PrepareData();
@@ -117,6 +127,12 @@ public class FF12SeedGenerator : SeedGenerator
         string scriptsFolder = Path.Combine(SetupData.Paths["12"], "x64\\scripts");
 
         Directory.GetFiles(scriptsFolder).Where(s => Path.GetFileName(s).StartsWith("Rando")).ForEach(s => File.Delete(s));
+
+        string descriptiveFolder = $"{SetupData.Paths["12"]}\\x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig";
+        if (File.Exists(Path.Combine(descriptiveFolder, "us.lua.before_rando")))
+        {
+            File.Move(Path.Combine(descriptiveFolder, "us.lua.before_rando"), Path.Combine(descriptiveFolder, "us.lua"), true);
+        }
     }
 
     protected override void GeneratePack()
@@ -153,5 +169,15 @@ public class FF12SeedGenerator : SeedGenerator
     public static void UninstallLuaLoader()
     {
         LuaLoaderPaths.Where(s => File.Exists(s)).ForEach(s => File.Delete(s));
+    }
+
+    public static bool DescriptiveInstalled()
+    {
+        return DescriptivePaths.All(s => File.Exists(s));
+    }
+
+    public static void UninstallDescriptive()
+    {
+        DescriptivePaths.Where(s => File.Exists(s)).ForEach(s => File.Delete(s));
     }
 }

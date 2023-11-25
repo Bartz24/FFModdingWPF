@@ -457,10 +457,397 @@ public class EquipRando : Randomizer
             : 10;
     }
 
+    private void GenerateDescriptionsFile()
+    {
+        string scriptFolder = $"{SetupData.Paths["12"]}\\x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig";
+        if (!File.Exists(Path.Combine(scriptFolder, "us.lua.before_rando")))
+        {
+            File.Move(Path.Combine(scriptFolder, "us.lua"), Path.Combine(scriptFolder, "us.lua.before_rando"), true);
+        }
+
+        List<string> linesPage1 = new()
+        {
+            "local function config(contents)",
+            "  local inventory = {",
+        };
+
+        List<string> linesPage2 = new()
+        {
+            "local function config(contents)",
+            "  local inventory = {",
+        };
+
+        foreach (DataStoreWeapon weapon in equip.EquipDataList.Where(w => w is DataStoreWeapon))
+        {
+            DataStoreAttribute attribute = equip.AttributeDataList[(int)weapon.AttributeOffset];
+
+            string info = "{" + GetEquipId(weapon);
+
+            string displayPage1 = "";
+            string displayPage2 = "";
+
+            displayPage1 += $"Attack: {weapon.AttackPower}\\t";
+            displayPage1 += $"Evade: {weapon.Evade}\\t";
+            if (weapon.Elements.EnumToList().Count > 0 || weapon.StatusEffects.EnumToList().Count > 0 && weapon.StatusChance > 0)
+            {
+                List<string> onhit = new()
+                {
+                    GetElementsDisplay(weapon.Elements.EnumToList()),
+                    weapon.StatusChance == 0 ? "" : $"{weapon.StatusChance}% {GetStatusDisplay(weapon.StatusEffects.EnumToList())}"
+                };
+                displayPage1 += $"On Hit: {string.Join(", ", onhit.Where(s => !string.IsNullOrEmpty(s)))}";
+            }
+
+            displayPage2 += displayPage1;
+
+            // Page 1 only
+            displayPage1 += "\\n";
+            displayPage1 += $"Knockback: {weapon.KnockbackChance}%\\t";
+            displayPage1 += $"Combo: {weapon.ComboChance}%\\t";
+            displayPage1 += $"CT: {weapon.ChargeTime}\\t";
+            displayPage1 += "\\n";
+            displayPage1 += GetAttributeStatDisplay(attribute);
+
+            linesPage1.Add($"    {info + ", \"" + displayPage1 + "\"}"},");
+
+            // Page 2 only
+
+            displayPage2 += GetElementAttributeDisplayLine(attribute);
+            displayPage2 += GetStatusDisplayLine(attribute);
+            displayPage2 += $"\\nLicense Needed: TODO";
+
+            linesPage2.Add($"    {info + ", \"" + displayPage2 + "\"}"},");
+        }
+
+        foreach (DataStoreShield shield in equip.EquipDataList.Where(s => s is DataStoreShield))
+        {
+            DataStoreAttribute attribute = equip.AttributeDataList[(int)shield.AttributeOffset];
+
+            string info = "{" + GetEquipId(shield);
+
+            string displayPage1 = "";
+            string displayPage2 = "";
+
+            displayPage1 += $"Evade: {shield.Evade}\\t";
+            displayPage1 += $"Magick Evade: {shield.MagickEvade}\\t";
+
+            displayPage2 += displayPage1;
+
+            // Page 1 only
+            if (!string.IsNullOrEmpty(GetAttributeStatDisplay(attribute)))
+            {
+                displayPage1 += "\\n";
+                displayPage1 += GetAttributeStatDisplay(attribute);
+            }
+
+            linesPage1.Add($"    {info + ", \"" + displayPage1 + "\"}"},");
+
+            // Page 2 only
+            displayPage2 += GetElementAttributeDisplayLine(attribute);
+            displayPage2 += GetStatusDisplayLine(attribute);
+            displayPage2 += $"\\nLicense Needed: TODO";
+
+            linesPage2.Add($"    {info + ", \"" + displayPage2 + "\"}"},");
+        }
+
+        foreach (DataStoreAmmo ammo in equip.EquipDataList.Where(w => w is DataStoreAmmo))
+        {
+            DataStoreAttribute attribute = equip.AttributeDataList[(int)ammo.AttributeOffset];
+
+            string info = "{" + GetEquipId(ammo);
+
+            string displayPage1 = "";
+            string displayPage2 = "";
+
+            displayPage1 += $"Attack: {ammo.AttackPower}\\t";
+
+            if (ammo.Evade > 0)
+            {
+                displayPage1 += $"Evade: {ammo.Evade}\\t";
+            }
+
+            if (ammo.Elements.EnumToList().Count > 0 || ammo.StatusEffects.EnumToList().Count > 0 && ammo.StatusChance > 0)
+            {
+                List<string> onhit = new()
+                {
+                    GetElementsDisplay(ammo.Elements.EnumToList()),
+                    ammo.StatusChance == 0 ? "" : $"{ammo.StatusChance}% {GetStatusDisplay(ammo.StatusEffects.EnumToList())}"
+                };
+                displayPage1 += $"On Hit: {string.Join(", ", onhit.Where(s => !string.IsNullOrEmpty(s)))}";
+            }
+
+            displayPage2 += displayPage1;
+
+            // Page 1 only
+            displayPage1 += "\\n";
+            displayPage1 += GetAttributeStatDisplay(attribute);
+
+            linesPage1.Add($"    {info + ", \"" + displayPage1 + "\"}"},");
+
+            // Page 2 only
+
+            displayPage2 += GetElementAttributeDisplayLine(attribute);
+            displayPage2 += GetStatusDisplayLine(attribute);
+
+            linesPage2.Add($"    {info + ", \"" + displayPage2 + "\"}"},");
+        }
+
+        foreach (DataStoreArmor armor in equip.EquipDataList.Where(a => a is DataStoreArmor && a.Category != EquipCategory.Accessory && a.Category != EquipCategory.AccessoryCrown))
+        {
+            DataStoreAttribute attribute = equip.AttributeDataList[(int)armor.AttributeOffset];
+
+            string info = "{" + GetEquipId(armor);
+
+            string displayPage1 = "";
+            string displayPage2 = "";
+
+            displayPage1 += $"Defense: {armor.Defense}\\t";
+            displayPage1 += $"Magick Resist: {armor.MagickResist}\\t";
+
+            displayPage2 += displayPage1;
+
+            // Page 1 only
+            if (!string.IsNullOrEmpty(GetAttributeStatDisplay(attribute)))
+            {
+                displayPage1 += "\\n";
+                displayPage1 += GetAttributeStatDisplay(attribute);
+            }
+
+            if (armor.AugmentOffset != 0xFF)
+            {
+                displayPage1 += "\\n";
+                displayPage1 += GetAugmentDescription(armor);
+            }
+
+            linesPage1.Add($"    {info + ", \"" + displayPage1 + "\"}"},");
+
+            // Page 2 only
+            displayPage2 += GetElementAttributeDisplayLine(attribute);
+            displayPage2 += GetStatusDisplayLine(attribute);
+            displayPage2 += $"\\nLicense Needed: TODO";
+
+            linesPage2.Add($"    {info + ", \"" + displayPage2 + "\"}"},");
+        }
+
+        foreach (DataStoreArmor armor in equip.EquipDataList.Where(a => a is DataStoreArmor && (a.Category == EquipCategory.Accessory || a.Category == EquipCategory.AccessoryCrown)))
+        {
+            DataStoreAttribute attribute = equip.AttributeDataList[(int)armor.AttributeOffset];
+
+            string info = "{" + GetEquipId(armor);
+
+            string displayPage1 = "";
+            string displayPage2 = "";
+
+            if (armor.Defense > 0)
+            {
+                displayPage1 += $"Defense: {armor.Defense}\\t";
+            }
+
+            if (armor.MagickResist > 0)
+            {
+                displayPage1 += $"Magick Resist: {armor.MagickResist}\\t";
+            }
+
+            displayPage2 += displayPage1;
+
+            // Page 1 only
+            if (!string.IsNullOrEmpty(GetAttributeStatDisplay(attribute)))
+            {
+                displayPage1 += "\\n";
+                displayPage1 += GetAttributeStatDisplay(attribute);
+            }
+
+            if (armor.AugmentOffset != 0xFF)
+            {
+                displayPage1 += "\\n";
+                displayPage1 += GetAugmentDescription(armor);
+            }
+
+            if (displayPage1.StartsWith("\\n"))
+            {
+                displayPage1 = displayPage1.Substring(2);
+            }
+
+            linesPage1.Add($"    {info + ", \"" + displayPage1 + "\"}"},");
+
+            // Page 2 only
+            displayPage2 += GetElementAttributeDisplayLine(attribute);
+            displayPage2 += GetStatusDisplayLine(attribute);
+            displayPage2 += $"\\nLicense Needed: TODO";
+
+            if (displayPage2.StartsWith("\\n"))
+            {
+                displayPage2 = displayPage2.Substring(2);
+            }
+
+            linesPage2.Add($"    {info + ", \"" + displayPage2 + "\"}"},");
+        }
+
+        List<string> footer = new()
+        {
+            "  }",
+            "",
+            "  return inventory",
+            "end",
+            "",
+            "return config"
+        };
+
+        linesPage1.AddRange(footer);
+        linesPage2.AddRange(footer);
+
+        File.WriteAllLines($"{scriptFolder}\\us.lua", linesPage1);
+        File.WriteAllLines($"{scriptFolder}\\us.lua.page1", linesPage1);
+        File.WriteAllLines($"{scriptFolder}\\us.lua.page2", linesPage2);
+    }
+
+    private string GetAugmentDescription(DataStoreArmor armor)
+    {
+        string desc = augmentData.Values.First(a => a.IntID == armor.AugmentOffset).Description;
+        if (desc.Length > 20)
+        {
+            desc.Insert(20, "\\n");
+        }
+
+        return desc;
+    }
+
+    private static string GetAttributeStatDisplay(DataStoreAttribute attribute)
+    {
+        string display = "";
+        if (attribute.HP > 0)
+        {
+            display += $"HP + {attribute.HP}\\t";
+        }
+
+        if (attribute.MP > 0)
+        {
+            display += $"MP + {attribute.MP}\\t";
+        }
+
+        if (attribute.Strength > 0)
+        {
+            display += $"STR + {attribute.Strength}\\t";
+        }
+
+        if (attribute.MagickPower > 0)
+        {
+            display += $"MAG + {attribute.MagickPower}\\t";
+        }
+
+        if (attribute.Vitality > 0)
+        {
+            display += $"VIT + {attribute.Vitality}\\t";
+        }
+
+        if (attribute.Speed > 0)
+        {
+            display += $"SPD + {attribute.Speed}\\t";
+        }
+
+        return display;
+    }
+
+    private string GetElementAttributeDisplayLine(DataStoreAttribute attribute)
+    {
+        string display = "";
+        if (attribute.ElementsBoost.EnumToList().Count > 0 || attribute.ElementsAbsorb.EnumToList().Count > 0 || attribute.ElementsImmune.EnumToList().Count > 0 || attribute.ElementsHalf.EnumToList().Count > 0 || attribute.ElementsWeak.EnumToList().Count > 0)
+        {
+            display += "\\n";
+            if (attribute.ElementsBoost.EnumToList().Count > 0)
+            {
+                display += $"Boost: {GetElementsDisplay(attribute.ElementsBoost.EnumToList())}\\t";
+            }
+
+            if (attribute.ElementsAbsorb.EnumToList().Count > 0)
+            {
+                display += $"Absorb: {GetElementsDisplay(attribute.ElementsAbsorb.EnumToList())}\\t";
+            }
+
+            if (attribute.ElementsImmune.EnumToList().Count > 0)
+            {
+                display += $"Immune: {GetElementsDisplay(attribute.ElementsImmune.EnumToList())}\\t";
+            }
+
+            if (attribute.ElementsHalf.EnumToList().Count > 0)
+            {
+                display += $"Half: {GetElementsDisplay(attribute.ElementsHalf.EnumToList())}\\t";
+            }
+
+            if (attribute.ElementsWeak.EnumToList().Count > 0)
+            {
+                display += $"Weak: {GetElementsDisplay(attribute.ElementsWeak.EnumToList())}\\t";
+            }
+        }
+
+        return display;
+    }
+
+    private string GetStatusDisplayLine(DataStoreAttribute attribute)
+    {
+        string display = "";
+        if (attribute.StatusEffectsOnEquip.EnumToList().Count > 0 || attribute.StatusEffectsImmune.EnumToList().Count > 0)
+        {
+            display += "\\n";
+            if (attribute.StatusEffectsOnEquip.EnumToList().Count > 0)
+            {
+                display += $"On Equip: {GetStatusDisplay(attribute.StatusEffectsOnEquip.EnumToList())}\\t";
+            }
+
+            if (attribute.StatusEffectsImmune.EnumToList().Count > 0)
+            {
+                display += $"Immune: {GetStatusDisplay(attribute.StatusEffectsImmune.EnumToList())}\\t";
+            }
+        }
+
+        return display;
+    }
+
+    private string GetElementsDisplay(List<Element> elements)
+    {
+        string elems = string.Join("", elements.Select(e => e switch
+        {
+            Element.Fire => "{icon:10}",
+            Element.Ice => "{icon:11}",
+            Element.Lightning => "{icon:12}",
+            Element.Water => "{icon:13}",
+            Element.Wind => "{icon:14}",
+            Element.Earth => "{icon:15}",
+            Element.Holy => "{icon:16}",
+            Element.Dark => "{icon:17}",
+            _ => ""
+        }));
+        if (!string.IsNullOrEmpty(elems))
+        {
+            elems = "{vpos:-2}" + elems + "{vpos:0}";
+        }
+        return elems;
+    }
+
+    private string GetStatusDisplay(List<Status> statuses)
+    {
+        return string.Join("", statuses.Select(s => s switch
+        {
+            Status.Death => "KO",
+            Status.CriticalHP => "Critical HP",
+            Status.XZone => "X-Zone",
+            _ => s.ToString()
+        }));
+    }
+
+    private int GetEquipId(DataStoreEquip equipment)
+    {
+        return equip.EquipDataList.IndexOf(equipment) + 4096;
+    }
+
     public override void Save()
     {
         Generator.SetUIProgress("Saving Item/Equip Data...", 0, -1);
         File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_013.bin", equip.Data);
+        if (FF12SeedGenerator.DescriptiveInstalled())
+        {
+            GenerateDescriptionsFile();
+        }
     }
     public class ItemData : CSVDataRow
     {
@@ -484,7 +871,7 @@ public class EquipRando : Randomizer
     {
         [RowIndex(0)]
         public string Name { get; set; }
-        [RowIndex(1), FieldTypeOverride(FieldType.HexInt)]
+        [RowIndex(1)]
         public int IntID { get; set; }
         [RowIndex(1)]
         public string ID { get; set; }

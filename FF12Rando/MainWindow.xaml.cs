@@ -227,4 +227,31 @@ public partial class MainWindow : Window
             MessageBox.Show("Removed any remaining mod loader files.");
         }
     }
+
+    private void uninstallDescriptiveButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (MessageBox.Show("Remove The Insurgent's Descriptive Inventory files?\nIf you installed the mod through Vortex, click 'Cancel' and then uninstall them through Vortex.", "Remove mod?", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+        {
+            try
+            {
+                FF12SeedGenerator.UninstallDescriptive();
+                string configFolder = Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig");
+                if (Directory.Exists(configFolder))
+                {
+                    Directory.Delete(configFolder, true);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Encountered an error while removing mod loader files.");
+                return;
+            }
+
+            // Workaround since we can't set the name on this for some reason
+            SetupPaths setupPaths = (SetupPaths)this.GetByUid("setupPaths");
+            setupPaths.UpdateText();
+
+            MessageBox.Show("Removed The Insurgent's Descriptive Inventory files.");
+        }
+    }
 }

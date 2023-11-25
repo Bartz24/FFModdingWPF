@@ -36,7 +36,7 @@ public class DataStoreBPEquip : DataStore
                 }
                 else if (EquipDataList[i].Category is EquipCategory.Arrow or EquipCategory.Shot or EquipCategory.Bolt or EquipCategory.Bomb)
                 {
-                    DataStoreShield d = new();
+                    DataStoreAmmo d = new();
                     d.LoadData(EquipDataList[i].Data);
                     EquipDataList[i] = d;
                 }
