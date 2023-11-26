@@ -169,7 +169,7 @@ public class HistoriaCruxRando : Randomizer
             // Hard code for Bresha 5 wild artefact if key items aren't rando
             if (!FF13_2Flags.Items.Treasures.FlagEnabled || !FF13_2Flags.Items.KeySide.Enabled || TooSmallOfPool())
             {
-                if (gateData[id].ItemRequirements.GetPossibleRequirementsImpl().Contains("key_lockjail") && 2 > GetMogLevel(available))
+                if (gateData[id].ItemRequirements.GetPossibleRequirements().Contains("key_lockjail") && 2 > GetMogLevel(available))
                 {
                     return false;
                 }

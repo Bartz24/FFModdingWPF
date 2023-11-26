@@ -22,13 +22,21 @@ public class FF12SeedGenerator : SeedGenerator
     }
     private static List<string> FileLoaderPaths
     {
-        get => new()
+        get
         {
-            Path.Combine(SetupData.Paths["12"], "x64\\ff12-trampoline.dll"),
-            Path.Combine(SetupData.Paths["12"], "x64\\vcruntime140_1.dll"),
-            Path.Combine(SetupData.Paths["12"], "x64\\modules\\ff12-file-loader.dll"),
-            Path.Combine(SetupData.Paths["12"], "x64\\modules\\config\\ff12-file-loader.ini")
-        };
+            if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+            {
+                throw new RandoException("Missing steam path", "Invalid path");
+            }
+
+            return new()
+            {
+                Path.Combine(SetupData.Paths["12"], "x64\\ff12-trampoline.dll"),
+                Path.Combine(SetupData.Paths["12"], "x64\\vcruntime140_1.dll"),
+                Path.Combine(SetupData.Paths["12"], "x64\\modules\\ff12-file-loader.dll"),
+                Path.Combine(SetupData.Paths["12"], "x64\\modules\\config\\ff12-file-loader.ini")
+            };
+        }
     }
     private static List<string> LuaLoaderPaths
     {
@@ -39,12 +47,20 @@ public class FF12SeedGenerator : SeedGenerator
     }
     private static List<string> DescriptivePaths
     {
-        get => new()
+        get
         {
-            Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsDescriptiveInventory.lua"),
-            Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsDescriptiveInventory\\helpers.lua"),
-            Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig\\us.lua")
-        };
+            if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+            {
+                throw new RandoException("Missing steam path", "Invalid path");
+            }
+
+            return new() 
+            {
+                Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsDescriptiveInventory.lua"),
+                Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsDescriptiveInventory\\helpers.lua"),
+                Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig\\us.lua")
+            };
+        }
     }
 
     public FF12SeedGenerator()
@@ -76,6 +92,11 @@ public class FF12SeedGenerator : SeedGenerator
         if (!ToolsInstalled())
         {
             throw new RandoException("Text and script tools are not properly installed. Download and install them on 1. Setup.", "Tools missing.");
+        }
+
+        if(!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+        {
+            throw new RandoException("Missing steam path", "Invalid path");
         }
 
         if (!FileLoaderInstalled())
@@ -156,6 +177,11 @@ public class FF12SeedGenerator : SeedGenerator
 
     public static bool FileLoaderInstalled()
     {
+        if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+        {
+            return false;
+        }
+
         return FileLoaderPaths.All(s => File.Exists(s));
     }
 
@@ -166,6 +192,11 @@ public class FF12SeedGenerator : SeedGenerator
 
     public static bool LuaLoaderInstalled()
     {
+        if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+        {
+            return false;
+        }
+
         return LuaLoaderPaths.All(s => File.Exists(s));
     }
 
@@ -176,6 +207,11 @@ public class FF12SeedGenerator : SeedGenerator
 
     public static bool DescriptiveInstalled()
     {
+        if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+        {
+            return false;
+        }
+
         return DescriptivePaths.All(s => File.Exists(s));
     }
 

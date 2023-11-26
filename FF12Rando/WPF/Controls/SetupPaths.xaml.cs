@@ -208,6 +208,12 @@ public partial class SetupPaths : UserControl
 
     private void loaderInstallButton_Click(object sender, RoutedEventArgs e)
     {
+        if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+        {
+            MessageBox.Show("The path for FF12 is not valid. Setup the Steam path in the '1. Setup' step. first", "FF12 not found.");
+            return;        
+        }
+
         VistaOpenFileDialog dialog = new()
         {
             Title = "Please select a compressed file of the file loader.",
@@ -265,6 +271,11 @@ public partial class SetupPaths : UserControl
 
     private void luaLoaderInstallButton_Click(object sender, RoutedEventArgs e)
     {
+        if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+        {
+            MessageBox.Show("The path for FF12 is not valid. Setup the Steam path in the '1. Setup' step. first", "FF12 not found.");
+            return;
+        }
 
         VistaOpenFileDialog dialog = new()
         {
@@ -323,6 +334,11 @@ public partial class SetupPaths : UserControl
 
     private void descriptiveInstallButton_Click(object sender, RoutedEventArgs e)
     {
+        if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+        {
+            MessageBox.Show("The path for FF12 is not valid. Setup the Steam path in the '1. Setup' step. first", "FF12 not found.");
+            return;
+        }
 
         VistaOpenFileDialog dialog = new()
         {
@@ -360,6 +376,5 @@ public partial class SetupPaths : UserControl
                 MessageBox.Show("Make sure the selected file is a 7z file.", "The selected file is not valid");
             }
         }
-
     }
 }
