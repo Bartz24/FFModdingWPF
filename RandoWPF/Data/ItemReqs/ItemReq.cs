@@ -7,11 +7,52 @@ namespace Bartz24.RandoWPF;
 
 public class ItemReq
 {
-    public static readonly ItemReq Empty = new();
-    public virtual bool IsValid(Dictionary<string, int> itemsAvailable) { return true; }
+    public static readonly BoolItemReq TRUE = new(true);
+    public static readonly BoolItemReq FALSE = new(false);
+    public bool IsValid(Dictionary<string, int> itemsAvailable)
+    {
+        // Return false if this has already been checked
+        if (ValidationStack.Any(s => s == this))
+        {
+            return false;
+        }
 
-    public virtual List<string> GetPossibleRequirements() { return new List<string>(); }
+        ValidationStack.Push(this);
+        bool valid = IsValidImpl(itemsAvailable);
+        ValidationStack.Pop();
+
+        return valid;
+    }
+    protected virtual bool IsValidImpl(Dictionary<string, int> itemsAvailable) { return true; }
+
+    public List<string> GetPossibleRequirements()
+    {
+        // Return empty list if this has already been checked
+        if (PossibleStack.Any(s => s == this))
+        {
+            return new List<string>();
+        }
+
+        PossibleStack.Push(this);
+        List<string> possible = GetPossibleRequirementsImpl();
+        PossibleStack.Pop();
+
+        return possible;
+    }
+
+    protected virtual List<string> GetPossibleRequirementsImpl() { return new List<string>(); }
     public virtual int GetPossibleRequirementsCount() { return 0; }
+
+    public static Stack<ItemReq> ValidationStack { get; set; } = new();
+    public static Stack<ItemReq> PossibleStack { get; set; } = new();
+
+    static ItemReq()
+    {
+        parseMapping.Add("AND", args => And(args.Select(s => Parse(s)).ToArray()));
+        parseMapping.Add("OR", args => Or(args.Select(s => Parse(s)).ToArray()));
+        parseMapping.Add("I", args => args.Count > 1 ? Item(args[0], int.Parse(args[1])) : Item(args[0], 1));
+        parseMapping.Add("SELECT", args => Select(int.Parse(args[0]), args.Skip(1).Select(s => Parse(s)).ToArray()));
+    }
 
     public static ItemReq Item(string item, int amount = 1)
     {
@@ -33,12 +74,23 @@ public class ItemReq
     {
         return new OrItemReq(reqs.ToList());
     }
+    public static ItemReq Select(int count, params ItemReq[] reqs)
+    {
+        return new SelectItemReq(count, reqs.ToList());
+    }
+
+    private static Dictionary<string, Func<List<string>, ItemReq>> parseMapping = new();
+
+    public static void RegisterMapping(string name, Func<List<string>, ItemReq> func)
+    {
+        parseMapping.Add(name, func);
+    }
 
     public static ItemReq Parse(string s)
     {
         if (string.IsNullOrEmpty(s))
         {
-            return new ItemReq();
+            return TRUE;
         }
 
         string name = s.Substring(0, s.IndexOf("("));
@@ -66,13 +118,14 @@ public class ItemReq
         }
 
         args.Add(argString);
-        return name switch
+        if (parseMapping.ContainsKey(name))
         {
-            "AND" => And(args.Select(s => Parse(s)).ToArray()),
-            "OR" => Or(args.Select(s => Parse(s)).ToArray()),
-            "I" => args.Count > 1 ? Item(args[0], int.Parse(args[1])) : Item(args[0], 1),
-            _ => throw new Exception("Item Requirement parsed is not supported: " + s),
-        };
+            return parseMapping[name](args);
+        }
+        else
+        {
+            throw new RandoException("Item Requirement parsed is not supported: " + s, "Invalid Item requirement");
+        }
     }
 
     public string GetDisplay()

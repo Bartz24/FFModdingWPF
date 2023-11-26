@@ -13,12 +13,12 @@ public class AmountItemReq : ItemReq
         this.item = item;
         this.amount = amount;
     }
-    public override bool IsValid(Dictionary<string, int> itemsAvailable)
+    protected override bool IsValidImpl(Dictionary<string, int> itemsAvailable)
     {
         return itemsAvailable.ContainsKey(item) && itemsAvailable[item] >= amount;
     }
 
-    public override List<string> GetPossibleRequirements()
+    protected override List<string> GetPossibleRequirementsImpl()
     {
         return new string[] { item }.ToList();
     }
@@ -26,6 +26,11 @@ public class AmountItemReq : ItemReq
 
     public override string GetDisplay(Func<string, string> itemNameFunc)
     {
+        if (amount == 1)
+        {
+            return itemNameFunc(item);
+        }
+
         return $"{itemNameFunc(item)} x {amount}";
     }
 }

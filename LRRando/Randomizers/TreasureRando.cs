@@ -527,7 +527,7 @@ public class TreasureRando : Randomizer
                 nameCell.Elements.Add(new IconTooltip("common/images/map_white_48dp.svg", $"<img src='common/images/locations/{t.LocationImagePath}.jpg' height='200px'/>").ToString());
             }
 
-            if (reqsDisplay != ItemReq.Empty.GetDisplay())
+            if (reqsDisplay != ItemReq.TRUE.GetDisplay())
             {
                 nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
             }

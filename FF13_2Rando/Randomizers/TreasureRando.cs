@@ -200,10 +200,10 @@ public class TreasureRando : Randomizer
 
             TableCellMultiple nameCell = new(new List<string>());
             nameCell.Elements.Add($"<div style=\"margin-right: auto\">{location}</div>");
-            if (reqsDisplay != ItemReq.Empty.GetDisplay() || t.MogLevel > 0)
+            if (reqsDisplay != ItemReq.TRUE.GetDisplay() || t.MogLevel > 0)
             {
                 string disp = "";
-                if (reqsDisplay != ItemReq.Empty.GetDisplay())
+                if (reqsDisplay != ItemReq.TRUE.GetDisplay())
                 {
                     disp += "Requires: " + reqsDisplay;
                     if (t.MogLevel > 0)

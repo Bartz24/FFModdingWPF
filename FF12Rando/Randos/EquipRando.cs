@@ -501,6 +501,7 @@ public class EquipRando : Randomizer
             displayPage2 += displayPage1;
 
             // Page 1 only
+            displayPage1 += "[1/2]";
             displayPage1 += "\\n";
             displayPage1 += $"Knockback: {weapon.KnockbackChance}%\\t";
             displayPage1 += $"Combo: {weapon.ComboChance}%\\t";
@@ -511,7 +512,7 @@ public class EquipRando : Randomizer
             linesPage1.Add($"    {info + ", \"" + displayPage1 + "\"}"},");
 
             // Page 2 only
-
+            displayPage2 += "[2/2]";
             displayPage2 += GetElementAttributeDisplayLine(attribute);
             displayPage2 += GetStatusDisplayLine(attribute);
             displayPage2 += $"\\nLicense Needed: TODO";
@@ -534,6 +535,7 @@ public class EquipRando : Randomizer
             displayPage2 += displayPage1;
 
             // Page 1 only
+            displayPage1 += "[1/2]";
             if (!string.IsNullOrEmpty(GetAttributeStatDisplay(attribute)))
             {
                 displayPage1 += "\\n";
@@ -543,6 +545,7 @@ public class EquipRando : Randomizer
             linesPage1.Add($"    {info + ", \"" + displayPage1 + "\"}"},");
 
             // Page 2 only
+            displayPage2 += "[2/2]";
             displayPage2 += GetElementAttributeDisplayLine(attribute);
             displayPage2 += GetStatusDisplayLine(attribute);
             displayPage2 += $"\\nLicense Needed: TODO";
@@ -579,13 +582,14 @@ public class EquipRando : Randomizer
             displayPage2 += displayPage1;
 
             // Page 1 only
+            displayPage1 += "[1/2]";
             displayPage1 += "\\n";
             displayPage1 += GetAttributeStatDisplay(attribute);
 
             linesPage1.Add($"    {info + ", \"" + displayPage1 + "\"}"},");
 
             // Page 2 only
-
+            displayPage2 += "[2/2]";
             displayPage2 += GetElementAttributeDisplayLine(attribute);
             displayPage2 += GetStatusDisplayLine(attribute);
 
@@ -607,6 +611,7 @@ public class EquipRando : Randomizer
             displayPage2 += displayPage1;
 
             // Page 1 only
+            displayPage1 += "[1/2]";
             if (!string.IsNullOrEmpty(GetAttributeStatDisplay(attribute)))
             {
                 displayPage1 += "\\n";
@@ -622,6 +627,7 @@ public class EquipRando : Randomizer
             linesPage1.Add($"    {info + ", \"" + displayPage1 + "\"}"},");
 
             // Page 2 only
+            displayPage2 += "[2/2]";
             displayPage2 += GetElementAttributeDisplayLine(attribute);
             displayPage2 += GetStatusDisplayLine(attribute);
             displayPage2 += $"\\nLicense Needed: TODO";
@@ -651,6 +657,7 @@ public class EquipRando : Randomizer
             displayPage2 += displayPage1;
 
             // Page 1 only
+            displayPage1 += "[1/2]";
             if (!string.IsNullOrEmpty(GetAttributeStatDisplay(attribute)))
             {
                 displayPage1 += "\\n";
@@ -671,6 +678,7 @@ public class EquipRando : Randomizer
             linesPage1.Add($"    {info + ", \"" + displayPage1 + "\"}"},");
 
             // Page 2 only
+            displayPage2 += "[2/2]";
             displayPage2 += GetElementAttributeDisplayLine(attribute);
             displayPage2 += GetStatusDisplayLine(attribute);
             displayPage2 += $"\\nLicense Needed: TODO";

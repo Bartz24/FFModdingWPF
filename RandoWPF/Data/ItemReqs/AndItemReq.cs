@@ -11,7 +11,7 @@ public class AndItemReq : ItemReq
     {
         this.reqs = reqs;
     }
-    public override bool IsValid(Dictionary<string, int> itemsAvailable)
+    protected override bool IsValidImpl(Dictionary<string, int> itemsAvailable)
     {
         foreach (ItemReq req in reqs)
         {
@@ -24,7 +24,7 @@ public class AndItemReq : ItemReq
         return true;
     }
 
-    public override List<string> GetPossibleRequirements()
+    protected override List<string> GetPossibleRequirementsImpl()
     {
         return reqs.SelectMany(r => r.GetPossibleRequirements()).Distinct().ToList();
     }

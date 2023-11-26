@@ -710,7 +710,7 @@ public class TreasureRando : Randomizer
 
             TableCellMultiple nameCell = new(new List<string>());
             nameCell.Elements.Add($"<div style=\"margin-right: auto\">{l.Name}</div>");
-            if (reqsDisplay != ItemReq.Empty.GetDisplay())
+            if (reqsDisplay != ItemReq.TRUE.GetDisplay())
             {
                 nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
             }

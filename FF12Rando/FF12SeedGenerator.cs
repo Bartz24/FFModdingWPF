@@ -1,5 +1,6 @@
 ﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
+using FF12Rando.Logic;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -66,6 +67,8 @@ public class FF12SeedGenerator : SeedGenerator
         PackPrefixName = "FF12Rando";
         DocsDisplayName = "FF12 Randomizer";
         DocsOutFolder = "docs";
+
+        AeropassItemReq.Init();
     }
 
     protected override void PrepareData()
