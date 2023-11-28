@@ -229,6 +229,8 @@ public partial class SetupPaths : UserControl
                 {
                     FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(SetupData.Paths["12"], "x64"), "loader-multi\\x64");
 
+                    FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(SetupData.Paths["12"], "x64"), "loader-multi\\dinput");
+
                     if (FF12SeedGenerator.FileLoaderInstalled())
                     {
                         MessageBox.Show("External File Loader has been successfully installed.");
