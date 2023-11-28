@@ -11,13 +11,13 @@ Dreadnought Leviathan,No. 1 Brig Key,9060,AND(AERO(80E3)|I(80AC)),1,MainKey,
 Dreadnought Leviathan,Systems Access Key,9061,AND(AERO(80E3)|I(80AC)|I(8076)),1,MainKey,Ashe
 Dreadnought Leviathan,Manufacted Nethicite,912C,AND(AERO(80E3)|I(80AC)|I(8076)),1,MainKey,
 Dreadnought Leviathan,Defeat Judge Ghis,_16,AND(AERO(80E3)|I(80AC)|I(8076)|I(8089)),1,Fake,Defeat Ghis
-Nam-Yensa Sandsea,Eksir Berries,912D,OR(I(Defeat Ghis)|I(80E0)),1,,
-Tomb of Raithwall,Dawn Shard,912E,OR(I(Defeat Ghis)|I(80E0)),2,MainKey,
-Tomb of Raithwall,Defeat Vossler,918E,AND(I(8078)|OR(I(Defeat Ghis)|I(80E0))),2,MainKey,
+Nam-Yensa Sandsea,Eksir Berries,912D,OR(I(Defeat Ghis)|I(80E0)|I(8077)),1,,
+Tomb of Raithwall,Dawn Shard,912E,OR(I(Defeat Ghis)|I(80E0)|I(8077)),2,MainKey,
+Tomb of Raithwall,Defeat Vossler,918E,AND(I(8078)|OR(I(Defeat Ghis)|I(80E0)|I(8077))),2,MainKey,
 Royal Palace,Goddess's Magicite,912F,I(8080),1,MainKey,Balthier|Fran|Guest
 Barheim Passage,Burrough Tube Fuse,9130,I(8080),1,MainKey,Guest
-Jahara,Great-chief Elder After Dawn Shard,911F,AND(I(8078)|OR(AND(I(8077)|I(80B7))|I(80E0))|OR(I(Defeat Ghis)|I(80E0))),2,,Guest
-Eruyt Village,Lente's Tear,9131,OR(AND(I(8077)|I(80B7))|I(80E0)),2,MainKey,
+Jahara,Great-chief Elder After Dawn Shard,911F,AND(I(8078)|OR(I(8077)|I(80E0))|OR(I(Defeat Ghis)|I(80E0)|I(8077))),2,,Guest
+Eruyt Village,Lente's Tear,9131,OR(I(8077)|I(80E0)),2,MainKey,
 Stilshrine of Miriam,Sword of Kings,9132,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(8078)),2,MainKey,
 Tchita Uplands,Soul Ward Key,9133,OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5)),3,MainKey,
 Tchita Uplands,Mandragora Reward,9052,AND(I(80B6)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AERO(80E4)|AERO(80E5))),3,,
@@ -84,14 +84,14 @@ Lowtown,Hunt 4: Wraith,9006,,1,Hunt,Hunt
 Bhujerba,Hunt 5: Nidhogg,9007,AERO(80E3),1,Hunt,Hunt
 Rabanastre,Hunt 6: White Mousse,9008,,5,Hunt,Hunt
 Lowtown,Hunt 7: Ring Wyrm,9009,,3,Hunt,Hunt
-Rabanastre,Hunt 8: Wyvern Lord,900A,OR(I(Defeat Ghis)|I(80E0)),2,Hunt,Hunt
+Rabanastre,Hunt 8: Wyvern Lord,900A,OR(I(Defeat Ghis)|I(80E0)|I(8077)),2,Hunt,Hunt
 Rabanastre,Hunt 9: Marilith,900B,I(808E),5,Hunt,Hunt
-Jahara,Hunt 10: Enkelados,900C,AND(I(8086)|OR(AND(I(8077)|I(80B7))|I(80E0))),2,Hunt,Hunt
+Jahara,Hunt 10: Enkelados,900C,AND(I(8086)|OR(I(8077)|I(80E0))),2,Hunt,Hunt
 Giza Plains Rains,Hunt 11: Croakadile,900D,AND(I(807C)|I(80E0)),2,Hunt,Hunt
-Jahara,Hunt 12: Ixtab,900E,OR(AND(I(8077)|I(80B7))|I(80E0)),2,Hunt,Hunt
+Jahara,Hunt 12: Ixtab,900E,OR(I(8077)|I(80E0)),2,Hunt,Hunt
 Mt. Bur-Omisace,Hunt 13: Feral Retriever,900F,OR(I(8077)|AND(I(80E0)|I(80B7))),3,Hunt,Hunt
 Eruyt Village,Hunt 14: Vorpal Bunny,9010,AND(AND(OR(I(8077)|I(80E0))|I(80B7))|I(8087)),3,Hunt,Hunt
-Jahara,Hunt 15: Mindflayer,9011,OR(AND(I(8077)|I(80B7))|I(80E0)),4,Hunt,Hunt
+Jahara,Hunt 15: Mindflayer,9011,OR(I(8077)|I(80E0)),4,Hunt,Hunt
 Dalmasca Estersand,Hunt 16: Bloodwing,9012,I(8093),5,Hunt,Hunt
 Nalbina Fortress,Hunt 17: Atomos,9013,OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5)),3,Hunt,Hunt|Jovy
 Nalbina Fortress,Hunt 18: Roblon,9014,OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5)),6,Hunt,Hunt|Jovy
@@ -106,7 +106,7 @@ Skyferry,Hunt 26: Deathgaze,901C,OR(AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|
 Bhujerba,Hunt 27: Diabolos,901D,AERO(80E3),7,Hunt,Hunt
 Mt. Bur-Omisace,Hunt 28: Piscodaemon,901E,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(Belias)),5,Hunt,Hunt
 Eruyt Village,Hunt 29: Wild Malboro,901F,OR(I(8077)|AND(I(80B7)|I(80E0))),6,Hunt,Hunt
-Jahara,Hunt 30: Catoblepas,9020,OR(AND(I(8077)|I(80B7))|I(80E0)),6,Hunt,Hunt
+Jahara,Hunt 30: Catoblepas,9020,OR(I(8077)|I(80E0)),6,Hunt,Hunt
 Mt. Bur-Omisace,Hunt 31: Fafnir,9021,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(809A)),7,Hunt,Hunt
 Balfonheim,Hunt 32: Pylraster,9022,I(8077),7,Hunt,Hunt
 Giza Plains Dry,Hunt 33: Cluckatrice,9023,I(8071),1,Hunt,Hunt
@@ -138,10 +138,10 @@ Clan Hall,Clan Boss: Flans,903B,AND(I(8071)|I(8080)),1,ClanBoss,
 Clan Hall,Clan Boss: Firemane,903C,AND(I(8071)|I(8080)),1,ClanBoss,
 Clan Hall,Clan Boss: Earth Tyrant,903D,AND(I(8071)|I(80B1)|I(80B2)),4,ClanBoss,
 Clan Hall,Clan Boss: Mimic Queen,903E,AND(I(8071)|I(8080)|I(8074)),1,ClanBoss,
-Clan Hall,Clan Boss: Demon Wall 1,903F,I(8071),3,ClanBoss,
-Clan Hall,Clan Boss: Demon Wall 2,9040,I(8071),1,ClanBoss,
+Clan Hall,Clan Boss: Demon Wall 1,903F,AND(I(8071)|OR(I(Defeat Ghis)|I(80E0)|I(8077))),3,ClanBoss,
+Clan Hall,Clan Boss: Demon Wall 2,9040,AND(I(8071)|OR(I(Defeat Ghis)|I(80E0)|I(8077))),1,ClanBoss,
 Clan Hall,Clan Boss: Elder Wyrm,9041,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(8071)),3,ClanBoss,
-Clan Hall,Clan Boss: Tiamat,9042,AND(I(8071)|OR(AND(I(8077)|I(80B7))|I(80E0))),2,ClanBoss,
+Clan Hall,Clan Boss: Tiamat,9042,AND(I(8071)|OR(I(8077)|I(80E0))),2,ClanBoss,
 Clan Hall,Clan Boss: Vinuskar,9043,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(8071)),2,ClanBoss,
 Clan Hall,Clan Boss: King Bomb,9044,AND(I(8071)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5))),5,ClanBoss,
 Clan Hall,Clan Boss: Mandragora,9045,AND(I(8071)|I(80B6)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AERO(80E4)|AERO(80E5))),4,ClanBoss,
@@ -154,9 +154,9 @@ Clan Hall,Clan Boss: Hydro,904B,AND(I(8071)|I(8077)),5,ClanBoss,
 Clan Hall,Clan Boss: Humbaba Mistant,904C,AND(I(8071)|I(8081)|I(8084)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5))),7,ClanBoss,
 Clan Hall,Clan Boss: Fury,904D,AND(I(8071)|I(8083)|I(8084)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5))),7,ClanBoss,
 Clan Hall,Clan Boss: Omega Mark XII,905A,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(8071)),8,ClanBoss,
-Tomb of Raithwall,Belias,_1,OR(I(Defeat Ghis)|I(80E0)),0,Fake,Esper|Belias
+Tomb of Raithwall,Belias,_1,OR(I(Defeat Ghis)|I(80E0)|I(8077)),0,Fake,Esper|Belias
 Stilshrine of Miriam,Mateus,_2,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(8078)),0,Fake,Esper
-Zertinan Caverns,Adrammelech,_3,OR(AND(I(8077)|I(80B7))|I(80E0)),0,Fake,Esper
+Zertinan Caverns,Adrammelech,_3,OR(I(8077)|I(80E0)),0,Fake,Esper
 Barheim Passage,Zalera,_4,I(8093),0,Fake,Esper
 Giruvegan,Shemhazai,_5,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(Belias)),0,Fake,Esper
 Pharos of Ridorana,Hashmal,_6,AND(I(8077)|I(2116|3)),0,Fake,Esper
@@ -182,7 +182,7 @@ Dalmasca Westersand,Earth Tyrant Quest Wind Globe,9170,,1,SideKey,
 Rabanastre,Earth Tyrant Quest Windvane,9171,I(80B1),1,SideKey,
 Garamsythe Waterway,White Mouse Drop,9172,,5,HuntKey,
 Rabanastre,Sorbet Sluice Gate Key,9173,I(80AE),5,SideKey,
-Ozmone Plain,Enkelados Drop,9174,OR(AND(I(8077)|I(80B7))|I(80E0)),3,HuntKey,
+Ozmone Plain,Enkelados Drop,9174,OR(I(8077)|I(80E0)),3,HuntKey,
 Giza Plains Dry,Lesina Give Errmonea Leaf,9062,AND(I(8086)|OR(AND(I(8077)|I(80B7))|I(80E0))),3,,
 Bhujerba,Pilika Merchant's Armband,9175,AND(I(8071)|AERO(80E3)),1,SideKey,
 Bhujerba,Clio's Technicks Pilika's Diary,9176,AND(I(8071)|I(8098)|AERO(80E3)),1,SideKey,
@@ -225,17 +225,17 @@ Barheim Passage,Ishteen - Bony Trophy,9092,AND(I(8093)|I(80B8)|I(HuntClubStart))
 Dalmasca Westersand,Kaiser Wolf - Fanged Trophy,9093,AND(I(80B8)|I(HuntClubStart)),5,HuntClubKey,HuntClubKill
 Dalmasca Estersand,Terror Tyrant - Hide-covered Trophy,9094,AND(I(80B8)|I(HuntClubStart)),7,HuntClubKey,HuntClubKill
 Giza Plains Dry,Nazarnir - Maned Trophy,9095,AND(I(80B8)|I(HuntClubStart)),7,HuntClubKey,HuntClubKill
-Zertinan Caverns,Alteci - Fell Trophy,9096,AND(I(80B8)|OR(AND(I(8077)|I(80B7))|I(80E0))|I(HuntClubStart)),5,HuntClubKey,HuntClubKill
+Zertinan Caverns,Alteci - Fell Trophy,9096,AND(I(80B8)|OR(I(8077)|I(80E0))|I(HuntClubStart)),5,HuntClubKey,HuntClubKill
 Lhusu Mines,Disma - Accursed Trophy,9097,AND(I(807E)|I(807F)|AERO(80E3)|I(HuntClubStart)),7,HuntClubKey,HuntClubKill
-Ogir-Yensa Sandsea,Bull Chocobo - Beaked Trophy,9098,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Ghis)|I(80E0))),7,HuntClubKey,HuntClubKill
-Nam-Yensa Sandsea,Victanir - Maverick Trophy,9099,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Ghis)|I(80E0))),7,HuntClubKey,HuntClubKill
-Tomb of Raithwall,Zombie Lord - Soulless Trophy,909A,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Ghis)|I(80E0))),6,HuntClubKey,HuntClubKill
+Ogir-Yensa Sandsea,Bull Chocobo - Beaked Trophy,9098,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Ghis)|I(80E0)|I(8077))),7,HuntClubKey,HuntClubKill
+Nam-Yensa Sandsea,Victanir - Maverick Trophy,9099,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Ghis)|I(80E0)|I(8077))),7,HuntClubKey,HuntClubKill
+Tomb of Raithwall,Zombie Lord - Soulless Trophy,909A,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Ghis)|I(80E0)|I(8077))),6,HuntClubKey,HuntClubKill
 Mosphoran Highwaste,Dheed - Leathern Trophy,909B,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5))),7,HuntClubKey,HuntClubKill
 Salikawood,Sickle Trophy,909C,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5))),5,HuntClubKey,HuntClubKill
 Nabreus Deadlands,Arioch - Vengeful Trophy,909D,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5))),7,HuntClubKey,HuntClubKill
 Necrohol of Nabudis,Vorres - Gravesoil Trophy,909E,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5))),7,HuntClubKey,HuntClubKill
-Ozmone Plain,Killbug - Metallic Trophy,909F,AND(I(80B8)|OR(AND(I(8077)|I(80B7))|I(80E0))|I(HuntClubStart)),6,HuntClubKey,HuntClubKill
-Henne Mines,Melt - Slimy Trophy,90A0,AND(I(80B8)|OR(AND(I(8077)|I(80B7))|I(80E0))|I(HuntClubStart)),7,HuntClubKey,HuntClubKill
+Ozmone Plain,Killbug - Metallic Trophy,909F,AND(I(80B8)|OR(I(8077)|I(80E0))|I(HuntClubStart)),6,HuntClubKey,HuntClubKill
+Henne Mines,Melt - Slimy Trophy,90A0,AND(I(80B8)|OR(I(8077)|I(80E0))|I(HuntClubStart)),7,HuntClubKey,HuntClubKill
 Golmore Jungle,Biding Mantis - Scythe Trophy,90A1,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(80B8)|I(HuntClubStart)),6,HuntClubKey,HuntClubKill
 Feywood,Dreadguard - Feathered Trophy,90A2,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(80B8)|I(HuntClubStart)),7,HuntClubKey,HuntClubKill
 Giruvegan,Crystal Knight - Skull Trophy,90A3,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(80B8)|I(Belias)|I(HuntClubStart)),5,HuntClubKey,HuntClubKill

@@ -44,7 +44,8 @@ public class PartyRando : Randomizer
             {
                 if (itemIDs[i] is >= 0x6000 and < 0x7000)
                 {
-                    itemIDs[i] = 0x2000;
+                    itemIDs[i] = 0xFFFF;
+                    itemAmounts[i] = 0;
                 }
             }
 
