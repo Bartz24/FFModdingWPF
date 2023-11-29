@@ -18,14 +18,14 @@ Toxicology,15,Reverses the effects of recovery items when used.,Equip
 Geomancy,16,Weather effects have no effect on attacks.,Equip
 Master Thief,17,Enables the theft of superior and rare items.,Equip
 Saboteur,18,Bypass the enemy's vitality when casting magick.,Equip
-Magick Lore,19,Increases magick potency by %n.,
+Magick Lore,19,Increases magick by 1.,
 Warmage,20,Gain MP after dealing magick damage.,Equip
 Martyr,21,Gain MP after taking damage.,Equip
-Magick Lore,22,Increases magick potency by %n.,
+Magick Lore,22,Increases magick by 1.,
 Headsman,23,Gain MP after defeating a foe.,Equip
-Magick Lore,24,Increases magick potency by %n.,
+Magick Lore,24,Increases magick by 1.,
 Treasure Hunter,25,"Obtain superior items from chests, coffers, and the like.",Equip
-Magick Lore,26,Increases magick potency by %n.,
+Magick Lore,26,Increases magick by 1.,
 EXP Boost,27,Doubles EXP earned.,Equip
 LP Boost,28,Doubles License Points earned.,Equip
 EXP Null,29,Reduces EXP earned to 0.,Equip
@@ -34,17 +34,17 @@ Piercing Magick,31,Bypass Reflect when casting magick.,Equip
 Spendthrift,32,"Enables casting of magicks with gil, rather than MP.",Equip
 Invisible,33,Invisible to enemies who detect sound and magick.,Equip
 Critical Invisible,34,Invisible to enemies who detect low HP.,Equip
-Battle Lore,35,Increases physical attack damage by %n.,
+Battle Lore,35,Increases strength by 1.,
 Mental Discipline,36,Magicks cost half normal MP cost.,Equip
 Awareness,37,Move safely past traps.,Equip
 Magick Deprived,39,Reduces MP to 0.,Equip
 Gelatinous,40,Damage from guns and measures reduced by 88%.,Equip
-Battle Lore,42,Increases physical attack damage by %n.,
-Battle Lore,43,Increases physical attack damage by %n.,
-Battle Lore,44,Increases physical attack damage by %n.,
-Battle Lore,45,Increases physical attack damage by %n.,
-Battle Lore,46,Increases physical attack damage by %n.,
-Battle Lore,47,Increases physical attack damage by %n.,
+Battle Lore,42,Increases strength by 1.,
+Battle Lore,43,Increases strength by 1.,
+Battle Lore,44,Increases strength by 1.,
+Battle Lore,45,Increases strength by 1.,
+Battle Lore,46,Increases strength by 1.,
+Battle Lore,47,Increases strength by 1.,
 Defense Boost,48,Reduces damage taken by 33%.,Equip
 Attack Boost,49,Base physical attack improved by 20%.,Equip
 Reckless,50,"Attack damage doubled, but user takes damage inflicted.",Equip
@@ -52,49 +52,49 @@ Freecast,51,Magicks casted cost 0 MP.,Equip
 Quick Hit,53,Attacks have no charge time.,Equip
 Fast Talker,54,Magicks have no charge time.,Equip
 Soulbind,58,Enemy receives 5% of damage dealt to user.,Equip
-Battle Lore,60,Increases physical attack damage by %n.,
-Battle Lore,61,Increases physical attack damage by %n.,
-Battle Lore,62,Increases physical attack damage by %n.,
-Battle Lore,63,Increases physical attack damage by %n.,
-Battle Lore,64,Increases physical attack damage by %n.,
-Battle Lore,65,Increases physical attack damage by %n.,
-Battle Lore,66,Increases physical attack damage by %n.,
-Battle Lore,67,Increases physical attack damage by %n.,
-Battle Lore,68,Increases physical attack damage by %n.,
-Magick Lore,69,Increases magick potency by %n.,
-Magick Lore,70,Increases magick potency by %n.,
-Magick Lore,71,Increases magick potency by %n.,
-Magick Lore,72,Increases magick potency by %n.,
-Magick Lore,73,Increases magick potency by %n.,
-HP Lore,74,Increases max HP by %n.,
-HP Lore,75,Increases max HP by %n.,
-HP Lore,76,Increases max HP by %n.,
-HP Lore,77,Increases max HP by %n.,
-HP Lore,78,Increases max HP by %n.,
-HP Lore,79,Increases max HP by %n.,
-HP Lore,80,Increases max HP by %n.,
-HP Lore,81,Increases max HP by %n.,
-HP Lore,82,Increases max HP by %n.,
-HP Lore,83,Increases max HP by %n.,
-HP Lore,84,Increases max HP by %n.,
-HP Lore,85,Increases max HP by %n.,
+Battle Lore,60,Increases strength by 1.,
+Battle Lore,61,Increases strength by 1.,
+Battle Lore,62,Increases strength by 1.,
+Battle Lore,63,Increases strength by 1.,
+Battle Lore,64,Increases strength by 1.,
+Battle Lore,65,Increases strength by 1.,
+Battle Lore,66,Increases strength by 1.,
+Battle Lore,67,Increases strength by 1.,
+Battle Lore,68,Increases strength by 1.,
+Magick Lore,69,Increases magick by 1.,
+Magick Lore,70,Increases magick by 1.,
+Magick Lore,71,Increases magick by 1.,
+Magick Lore,72,Increases magick by 1.,
+Magick Lore,73,Increases magick by 1.,
+HP Lore,74,Increases max HP by 30.,
+HP Lore,75,Increases max HP by 70.,
+HP Lore,76,Increases max HP by 110.,
+HP Lore,77,Increases max HP by 150.,
+HP Lore,78,Increases max HP by 190.,
+HP Lore,79,Increases max HP by 230.,
+HP Lore,80,Increases max HP by 270.,
+HP Lore,81,Increases max HP by 310.,
+HP Lore,82,Increases max HP by 350.,
+HP Lore,83,Increases max HP by 390.,
+HP Lore,84,Increases max HP by 435.,
+HP Lore,85,Increases max HP by 500.,
 Inquisitor,86,Gain MP after dealing damage.,Equip
-Magick Lore,87,Increases magick potency by %n.,
-Shield Block,88,Increases chance to block with a shield by %n%.,
-Shield Block,89,Increases chance to block with a shield by %n%.,
-Shield Block,90,Increases chance to block with a shield by %n%.,
-Channelling,91,Reduces magick MP cost by %n%.,
-Channelling,92,Reduces magick MP cost by %n%.,
-Channelling,93,Reduces magick MP cost by %n%.,
-Swiftness,94,Reduces action time by %n%.,
-Swiftness,95,Reduces action time by %n%.,
-Swiftness,96,Reduces action time by %n%.,
-Magick Lore,97,Increases magick potency by %n.,
-Magick Lore,98,Increases magick potency by %n.,
-Magick Lore,99,Increases magick potency by %n.,
-Magick Lore,100,Increases magick potency by %n.,
-Magick Lore,101,Increases magick potency by %n.,
-Magick Lore,102,Increases magick potency by %n.,
+Magick Lore,87,Increases magick by 1.,
+Shield Block,88,Increases chance to block with a shield by 5%.,
+Shield Block,89,Increases chance to block with a shield by 5%.,
+Shield Block,90,Increases chance to block with a shield by 5%.,
+Channelling,91,Reduces magick MP cost by 10%.,
+Channelling,92,Reduces magick MP cost by 10%.,
+Channelling,93,Reduces magick MP cost by 10%.,
+Swiftness,94,Reduces action time by 12%.,
+Swiftness,95,Reduces action time by 12%.,
+Swiftness,96,Reduces action time by 12%.,
+Magick Lore,97,Increases magick by 1.,
+Magick Lore,98,Increases magick by 1.,
+Magick Lore,99,Increases magick by 1.,
+Magick Lore,100,Increases magick by 1.,
+Magick Lore,101,Increases magick by 1.,
+Magick Lore,102,Increases magick by 1.,
 Serenity,103,Increases magick power when HP is full.,Equip
 Gambit Slot,104,Adds an additional gambit slot.,
 Gambit Slot,105,Adds an additional gambit slot.,
@@ -110,14 +110,14 @@ Essentials,114,Attack        Items,
 Remedy Lore,116,"Remedies remove Stop, Doom, and Disease.",Equip
 Remedy Lore,117,"Remedies remove Petrify, Confuse, and Oil.",Equip
 Remedy Lore,118,"Remedies remove Sleep, Sap, Immobilize, and Disable.",Equip
-Potion Lore,119,Potions restore more HP by %n%.,Equip
-Potion Lore,120,Potions restore more HP by %n%.,Equip
-Potion Lore,121,Potions restore more HP by %n%.,Equip
-Ether Lore,122,Ethers restore more MP by %n%.,Equip
-Ether Lore,123,Ethers restore more MP by %n%.,Equip
-Ether Lore,124,Ethers restore more MP by %n%.,Equip
-Phoenix Lore,125,Phoenix Downs restores more HP by %n%.,Equip
-Phoenix Lore,126,Phoenix Downs restores more HP by %n%.,Equip
-Phoenix Lore,127,Phoenix Downs restores more HP by %n%.,Equip
+Potion Lore,119,Potions restore more HP by 40%.,Equip
+Potion Lore,120,Potions restore more HP by 30%.,Equip
+Potion Lore,121,Potions restore more HP by 20%.,Equip
+Ether Lore,122,Ethers restore more MP by 30%.,Equip
+Ether Lore,123,Ethers restore more MP by 20%.,Equip
+Ether Lore,124,Ethers restore more MP by 10%.,Equip
+Phoenix Lore,125,Phoenix Downs restores more HP by 10%.,Equip
+Phoenix Lore,126,Phoenix Downs restores more HP by 10%.,Equip
+Phoenix Lore,127,Phoenix Downs restores more HP by 10%.,Equip
 Second Board,128,Additional License Board unlocked.,
 None,255,,Equip

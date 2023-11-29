@@ -49,6 +49,9 @@ public class PartyRando : Randomizer
                 }
             }
 
+            itemIDs = itemIDs.OrderBy(i => i == 0xFFFF).ToList();
+            itemAmounts = Enumerable.Range(0, itemAmounts.Count).OrderBy(i => itemIDs[i] == 0xFFFF).Select(i => itemAmounts[i]).ToList();
+
             c.ItemIDs = itemIDs;
             c.ItemAmounts = itemAmounts;
         }
@@ -84,9 +87,9 @@ public class PartyRando : Randomizer
             DataStorePartyMember c = party[Characters[0]];
             List<ushort> itemIDs = c.ItemIDs;
             List<byte> itemAmounts = c.ItemAmounts;
-
-            itemIDs.Add(0x2000);
-            itemAmounts.Add((byte)FF12Flags.Items.TpStoneCount.Value);
+            // Use the last slot for TP stones
+            itemIDs[9] = 0x2000;
+            itemAmounts[9] = (byte)FF12Flags.Items.TpStoneCount.Value;
 
             c.ItemIDs = itemIDs;
             c.ItemAmounts = itemAmounts;

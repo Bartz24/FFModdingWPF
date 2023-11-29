@@ -1,5 +1,5 @@
 Location,Name,ID,Requirements,Rank,Traits,FakeItems
-Rabanastre,Tomaj 1,9000,,0,Writ,Vaan
+Rabanastre,Tomaj 1,9000,,0,MainKey,Vaan
 Rabanastre,Tomaj 2,916B,,0,MainKey,
 Rabanastre,Tomaj 3,916C,,0,,
 Giza Plains Dry,Masyua Shadestone,9002,,0,MainKey,Penelo
@@ -82,7 +82,7 @@ Rabanastre,Hunt 2: Thextera,9004,,1,Hunt,Hunt
 Dalmasca Estersand,Hunt 3: Flowering Cactoid,9005,I(8073),1,Hunt,Hunt
 Lowtown,Hunt 4: Wraith,9006,,1,Hunt,Hunt
 Bhujerba,Hunt 5: Nidhogg,9007,AERO(80E3),1,Hunt,Hunt
-Rabanastre,Hunt 6: White Mousse,9008,,5,Hunt,Hunt
+Rabanastre,Hunt 6: White Mousse,9008,I(80AE),5,Hunt,Hunt
 Lowtown,Hunt 7: Ring Wyrm,9009,,3,Hunt,Hunt
 Rabanastre,Hunt 8: Wyvern Lord,900A,OR(I(Defeat Ghis)|I(80E0)|I(8077)),2,Hunt,Hunt
 Rabanastre,Hunt 9: Marilith,900B,I(808E),5,Hunt,Hunt
@@ -203,8 +203,8 @@ Skyferry,Ann's Letter,9184,OR(AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|false)
 Skyferry,Ann's Sisters Quest,906C,AND(I(8088)|AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|false)|AERO(80E4|false)|AERO(80E5|false)),4,Grindy,
 Lowtown,Dusty Letter,9185,,2,SideKey,
 Lowtown,Samal Blackened Fragment,917C,AND(I(8071)|I(8092)|I(Fran)|I(Ashe)|I(Penelo)),5,SideKey,
-Garamsythe Waterway,Dull Fragment,9186,I(80AF),0,SideKey,
-Rabanastre,Grimy Fragment,9187,,5,SideKey,
+Garamsythe Waterway,Dull Fragment,9186,AND(I(80AF)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5))),0,SideKey,
+Rabanastre,Grimy Fragment,9187,OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5)),5,SideKey,
 Old Archades,Moonsilver Medallion,9188,OR(AND(OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AERO(80E5))|I(80B6))|AERO(80E4)),5,SideKey,
 Nabreus Deadlands,Nabreus Medallion,9189,AND(I(808F)|I(8090)|I(8091)|I(80A3)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5))),6,SideKey,
 Nabreus Deadlands,Nabreus Medallion,918A,AND(I(808F)|I(8090)|I(8091)|I(80A3)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5))),6,SideKey,

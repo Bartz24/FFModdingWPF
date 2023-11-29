@@ -30,13 +30,13 @@ public class DataStorePartyMember : DataStore
     }
     public List<byte> ItemAmounts
     {
-        get => Enumerable.Range(0, 10).Where(i => Data.ReadUShort(0x58 + (i * 2)) != 0xFFFF).Select(i => Data.ReadByte(0x34 + i)).ToList();
-        set => Enumerable.Range(0, 10).ForEach(i => Data.SetByte(0x34 + i, i >= value.Count ? (byte)0 : value[i]));
+        get => Enumerable.Range(0, 10).Select(i => Data.ReadByte(0x34 + i)).ToList();
+        set => Enumerable.Range(0, 10).ForEach(i => Data.SetByte(0x34 + i, value[i]));
     }
     public List<ushort> ItemIDs
     {
-        get => Enumerable.Range(0, 10).Select(i => Data.ReadUShort(0x58 + (i * 2))).Where(a => a != 0xFFFF).ToList();
-        set => Enumerable.Range(0, 10).ForEach(i => Data.SetUShort(0x58 + (i * 2), i >= value.Count ? (ushort)0xFFFF : value[i]));
+        get => Enumerable.Range(0, 10).Select(i => Data.ReadUShort(0x58 + (i * 2))).ToList();
+        set => Enumerable.Range(0, 10).ForEach(i => Data.SetUShort(0x58 + (i * 2), value[i]));
     }
     public override int GetDefaultLength()
     {

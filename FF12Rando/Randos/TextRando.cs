@@ -105,6 +105,27 @@ public class TextRando : Randomizer
         infoStr.Text = infoStr.Text.Replace("$SEED$", RandomNum.GetIntSeed(SetupData.Seed).ToString());
         infoStr.Text = infoStr.Text.Replace("$SEED HASH$", GetHash());
 
+        string notesStr = "";
+        if (!FF12Flags.Items.KeyWrit.Enabled)
+        {
+            notesStr += "\n" +
+                "-The {color:gold}Writ of Transit{rgb:gray} is not a possible goal this seed.";
+        }
+
+        if (FF12Flags.Items.KeyStartingInv.Enabled)
+        {
+            notesStr += "\n" +
+                "-Main party member starting items have been randomized.\n" +
+                "\tCheck your inventory for new items after they join.";
+        }
+
+        if (!string.IsNullOrEmpty(notesStr))
+        {
+            infoStr.Text += "{wait}\n" +
+                "Notes for this seed:" +
+                notesStr;
+        }
+
         TextMenuMessage.Save($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\menu_message.bin");
         TextMenuCommand.Save($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\menu_command.bin");
         TextAbilityHelp.Save($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\listhelp_ability.bin");

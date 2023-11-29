@@ -91,6 +91,11 @@ class AeropassItemReq : ItemReq
             return true;
         }
 
+        if (itemsAvailable.GetValueOrDefault(Destination) == 0)
+        {
+            return false;
+        }
+
         // Refactor below using the directed graph instead
         foreach(string origin in DestinationGraph[Destination])
         {

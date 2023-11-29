@@ -136,7 +136,8 @@ public class TreasureRando : Randomizer
             {
                 StartingInvData first = new(row, 0);
                 itemLocations.Add(first.ID, first);
-                for (int i = 1; i < partyRando.partyOrig[first.IntID].ItemIDs.Count; i++)
+                // Keep the last slot empty for tp stones
+                for (int i = 1; i < 10; i++)
                 {
                     StartingInvData s = new(row, i);
                     itemLocations.Add(s.ID, s);
@@ -303,6 +304,7 @@ public class TreasureRando : Randomizer
                 tMiss.SpawnChance = 100;
             });
 
+            // Clear empty items
             itemLocations.Values.ForEach(l =>
             {
                 if (!PlacementAlgo.Placement.ContainsKey(l.ID) && !missableTreasureLinks.ContainsKey(l.ID))
@@ -313,16 +315,17 @@ public class TreasureRando : Randomizer
                         t.Respawn = 255;
                         t.SpawnChance = 0;
                     }
-                    else if (l is RewardData reward)
+                    else if (l is RewardData)
                     {
-                        if (reward.Index == 0)
-                        {
-                            PlacementAlgo.Logic.SetLocationItem(l.ID, "Gil", 0);
-                        }
-                        else
-                        {
-                            PlacementAlgo.Logic.SetLocationItem(l.ID, "FFFF", 255);
-                        }
+                        PlacementAlgo.Logic.SetLocationItem(l.ID, null, 0);
+                    }
+                    else if (l is StartingInvData)
+                    {
+                        PlacementAlgo.Logic.SetLocationItem(l.ID, null, 0);
+                    }
+                    else
+                    {
+                        throw new Exception("Missing implemention for clearing");
                     }
                 }
             });
@@ -458,7 +461,7 @@ public class TreasureRando : Randomizer
 
     public bool IsImportantKeyItem(string location)
     {
-        return (IsMainKeyItem(location) || IsSideKeyItem(location) || IsHuntKeyItem(location) || IsGrindyKeyItem(location) || IsBlackOrbKeyItem(location) || IsWoTItem(location) || IsHuntClubKeyItem(location)) && (PlacementAlgo.Logic.GetLocationItem(location) != null || PlacementAlgo.Iterations > (PlacementAlgo.Placement.Count * 1.5f) + 1) && (PlacementAlgo.Logic.GetLocationItem(location) == null || PlacementAlgo.Logic.GetLocationItem(location).Value.Item1 != "Gil");
+        return (IsMainKeyItem(location) || IsSideKeyItem(location) || IsHuntKeyItem(location) || IsGrindyKeyItem(location) || IsBlackOrbKeyItem(location) || IsHuntClubKeyItem(location)) && (PlacementAlgo.Logic.GetLocationItem(location) != null || PlacementAlgo.Iterations > (PlacementAlgo.Placement.Count * 1.5f) + 1) && (PlacementAlgo.Logic.GetLocationItem(location) == null || PlacementAlgo.Logic.GetLocationItem(location).Value.Item1 != "Gil");
     }
 
     public bool IsAbility(string t, bool orig = true)
@@ -466,14 +469,14 @@ public class TreasureRando : Randomizer
         return PlacementAlgo.Logic.GetLocationItem(t, orig) != null && (PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("30") || PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("40"));
     }
 
-    public bool IsWoTItem(string t)
+    public bool IsWoTItem(string t, bool orig = true)
     {
-        return PlacementAlgo.ItemLocations[t].Traits.Contains("Writ");
+        return PlacementAlgo.Logic.GetLocationItem(t, orig) != null && PlacementAlgo.Logic.GetLocationItem(t).Value.Item1 == "8070";
     }
 
     public bool IsMainKeyItem(string t)
     {
-        return PlacementAlgo.ItemLocations[t].Traits.Contains("MainKey");
+        return PlacementAlgo.ItemLocations[t].Traits.Contains("MainKey") && !IsWoTItem(t);
     }
 
     public bool IsSideKeyItem(string t)
@@ -923,20 +926,43 @@ public class TreasureRando : Randomizer
             DataStoreReward r = (DataStoreReward)obj;
             if (Index == 0)
             {
-                r.Gil = (uint)newCount;
+                if (newItem == null)
+                {
+                    r.Gil = 0;                    
+                }
+                else
+                {
+                    r.Gil = (uint)newCount;
+                }
             }
             else
             {
-                ushort id = Convert.ToUInt16(newItem, 16);
-                if (Index == 1)
+                if (newItem == null || newItem == "FFFF")
                 {
-                    r.Item1ID = id;
-                    r.Item1Amount = (ushort)newCount;
+                    if (Index == 1)
+                    {
+                        r.Item1ID = 0xFFFF;
+                        r.Item1Amount = 255;
+                    }
+                    else if (Index == 2)
+                    {
+                        r.Item2ID = 0xFFFF;
+                        r.Item2Amount = 255;
+                    }
                 }
-                else if (Index == 2)
+                else
                 {
-                    r.Item2ID = id;
-                    r.Item2Amount = (ushort)newCount;
+                    ushort id = Convert.ToUInt16(newItem, 16);
+                    if (Index == 1)
+                    {
+                        r.Item1ID = id;
+                        r.Item1Amount = (ushort)newCount;
+                    }
+                    else if (Index == 2)
+                    {
+                        r.Item2ID = id;
+                        r.Item2Amount = (ushort)newCount;
+                    }
                 }
             }
         }
@@ -987,9 +1013,17 @@ public class TreasureRando : Randomizer
             List<ushort> itemIDs = c.ItemIDs;
             List<byte> itemAmounts = c.ItemAmounts;
 
-            ushort id = Convert.ToUInt16(newItem, 16);
-            itemIDs[Index] = id;
-            itemAmounts[Index] = (byte)newCount;
+            if (newItem == null)
+            {
+                itemIDs[Index] = 0xFFFF;
+                itemAmounts[Index] = 0;
+            }
+            else
+            {
+                ushort id = Convert.ToUInt16(newItem, 16);
+                itemIDs[Index] = id;
+                itemAmounts[Index] = (byte)newCount;
+            }
 
             c.ItemIDs = itemIDs;
             c.ItemAmounts = itemAmounts;
@@ -998,7 +1032,14 @@ public class TreasureRando : Randomizer
         public override (string, int)? GetData(dynamic obj)
         {
             DataStorePartyMember c = (DataStorePartyMember)obj;
-            return (c.ItemIDs[Index].ToString("X4"), c.ItemAmounts[Index]);
+            if (c.ItemIDs[Index] == 0xFFFF)
+            {
+                return null;
+            }
+            else
+            {
+                return (c.ItemIDs[Index].ToString("X4"), c.ItemAmounts[Index]);
+            }
         }
     }
 }

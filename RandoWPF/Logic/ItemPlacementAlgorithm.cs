@@ -182,10 +182,11 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
     protected virtual bool TryImportantPlacement(int attempt, List<string> locations, List<string> important, List<string> accessibleAreas)
     {
         Iterations++;
-        if (Iterations > 2500)
+        if (Iterations > Math.Max(2500, important.Count * 4))
         {
             return false;
         }
+
         Dictionary<string, int> items = Logic.GetItemsAvailable();
         List<string> remaining = important.Where(t => !Placement.ContainsValue(t)).Shuffle();
         UpdateProgress(attempt, Placement.Count, important.Count);

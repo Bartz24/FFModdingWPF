@@ -164,11 +164,6 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
             return old == rep;
         }
 
-        if (!FF12Flags.Items.KeyWrit.Enabled && (treasureRando.IsWoTItem(rep) || treasureRando.IsWoTItem(old)))
-        {
-            return old == rep;
-        }
-
         if (!FF12Flags.Items.KeyGrindy.Enabled && (treasureRando.IsGrindyKeyItem(rep) || treasureRando.IsGrindyKeyItem(old)))
         {
             return old == rep;
