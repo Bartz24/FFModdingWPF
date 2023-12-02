@@ -19,7 +19,7 @@ public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
         cruxRando = randomizers.Get<HistoriaCruxRando>();
     }
 
-    public override string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth)
+    public override string AddHint(string location, string replacement, int itemDepth)
     {
         ItemLocations[location].Areas.ForEach(l => Algorithm.HintsByLocationsCount[l]--);
         return null;
@@ -88,6 +88,7 @@ public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
 
     public override void SetLocationItem(string key, string item, int count)
     {
+        LogSetItem(key, item, count);
         switch (ItemLocations[key])
         {
             case TreasureRando.TreasureData t:
@@ -195,7 +196,7 @@ public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
         return list;
     }
 
-    public override bool IsAllowed(string old, string rep, bool orig = true)
+    protected override bool IsAllowedReplacement(string old, string rep)
     {
         if (ItemLocations[old].Traits.Contains("Fixed") || ItemLocations[rep].Traits.Contains("Fixed"))
         {

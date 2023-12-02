@@ -11,6 +11,11 @@ public class ItemReq
     public static readonly BoolItemReq FALSE = new(false);
     public bool IsValid(Dictionary<string, int> itemsAvailable)
     {
+        if (ValidationStack.Count > 100)
+        {
+            throw new RandoException("Item requirement validation stack overflow", "Item requirement validation stack overflow");
+        }
+
         // Return false if this has already been checked
         if (ValidationStack.Any(s => s == this))
         {
@@ -18,15 +23,20 @@ public class ItemReq
         }
 
         ValidationStack.Push(this);
-        bool valid = IsValidImpl(itemsAvailable);
+        bool valid = IsMet(itemsAvailable);
         ValidationStack.Pop();
 
         return valid;
     }
-    protected virtual bool IsValidImpl(Dictionary<string, int> itemsAvailable) { return true; }
+    protected virtual bool IsMet(Dictionary<string, int> itemsAvailable) { return true; }
 
     public List<string> GetPossibleRequirements()
     {
+        if (ValidationStack.Count > 100)
+        {
+            throw new RandoException("Item requirement possible stack overflow", "Item requirement possible stack overflow");
+        }
+
         // Return empty list if this has already been checked
         if (PossibleStack.Any(s => s == this))
         {
@@ -42,6 +52,13 @@ public class ItemReq
 
     protected virtual List<string> GetPossibleRequirementsImpl() { return new List<string>(); }
     public virtual int GetPossibleRequirementsCount() { return 0; }
+
+    protected int BaseDifficulty { get; set; } = 0;
+
+    public virtual int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    {
+        return IsValid(itemsAvailable) ? BaseDifficulty : -1;
+    }
 
     public static Stack<ItemReq> ValidationStack { get; set; } = new();
     public static Stack<ItemReq> PossibleStack { get; set; } = new();
@@ -93,6 +110,11 @@ public class ItemReq
             return TRUE;
         }
 
+        if (s.Count(c=>c == '(') != s.Count(c => c == ')'))
+        {
+            throw new RandoException("Item Requirement parsed has invalid parentheses syntax: " + s, "Invalid requirement");
+        }
+
         string name = s.Substring(0, s.IndexOf("("));
         string argString = s.Substring(s.IndexOf("(") + 1, s.FindClosingBracketIndex('(', ')') - s.IndexOf("(") - 1);
         List<string> args = new();
@@ -120,7 +142,14 @@ public class ItemReq
         args.Add(argString);
         if (parseMapping.ContainsKey(name))
         {
-            return parseMapping[name](args);
+            ItemReq req = parseMapping[name](args);
+            string end = s.Contains(")") ? s.Substring(s.LastIndexOf(")") + 1) : s;
+            if (end.Contains("^"))
+            {
+                req.BaseDifficulty = int.Parse(end.Substring(end.IndexOf("^") + 1));
+            }
+
+            return req;
         }
         else
         {
@@ -136,5 +165,37 @@ public class ItemReq
     public virtual string GetDisplay(Func<string, string> itemNameFunc)
     {
         return "None";
+    }
+
+    public override bool Equals(object obj)
+    {
+        // Needs to be overridden 
+        throw new NotImplementedException();
+    }
+
+    public override int GetHashCode()
+    {
+        // Needs to be overridden 
+        throw new NotImplementedException();
+    }
+
+    public static bool operator ==(ItemReq a, ItemReq b)
+    {
+        if (a is null && b is null)
+        {
+            return true;
+        }
+
+        if (a is null || b is null)
+        {
+            return false;
+        }
+
+        return a.Equals(b);
+    }
+
+    public static bool operator !=(ItemReq a, ItemReq b)
+    {
+        return !(a == b);
     }
 }

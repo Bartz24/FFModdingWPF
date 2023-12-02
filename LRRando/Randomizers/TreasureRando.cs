@@ -7,6 +7,7 @@ using LRRando;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Windows.Forms;
 using System.Windows.Input;
 using static LRRando.EquipRando;
@@ -130,16 +131,15 @@ public class TreasureRando : Randomizer
         {
             hintsNotesLocations[libraItems[i]] = locations[i];
         }
-
         RandomNum.ClearRand();
 
-        placementAlgoNormal = new AssumedItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, 3)
+        placementAlgoNormal = new AssumedItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, Generator, 3)
         {
             SetProgressFunc = Generator.SetUIProgress
         };
         placementAlgoNormal.Logic = new LRItemPlacementLogic(placementAlgoNormal, Generator);
 
-        placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, -1)
+        placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, Generator, -1)
         {
             SetProgressFunc = Generator.SetUIProgress
         };
@@ -532,7 +532,7 @@ public class TreasureRando : Randomizer
                 nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
             }
 
-            return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item2}", $"{t.Difficulty}" }).ToList();
+            return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item2}", $"{t.BaseDifficulty}" }).ToList();
         }).ToList(), "itemlocations"));
         pages.Add("item_locations", page);
 
@@ -597,7 +597,7 @@ public class TreasureRando : Randomizer
         [RowIndex(6)]
         public override string LocationImagePath { get; set; }
         [RowIndex(5)]
-        public override int Difficulty { get; set; }
+        public override int BaseDifficulty { get; set; }
         [RowIndex(4)]
         public override ItemReq Requirements { get; set; }
         [RowIndex(3)]
@@ -699,7 +699,7 @@ public class TreasureRando : Randomizer
         public override string Name { get; set; }
         public override string LocationImagePath { get; set; }
         [RowIndex(5)]
-        public override int Difficulty { get; set; }
+        public override int BaseDifficulty { get; set; }
         [RowIndex(4)]
         public override ItemReq Requirements { get; set; }
         [RowIndex(3)]

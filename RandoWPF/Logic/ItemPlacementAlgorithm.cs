@@ -1,7 +1,10 @@
-﻿using Bartz24.RandoWPF;
+﻿using Bartz24.Data;
+using Bartz24.RandoWPF;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Bartz24.RandoWPF;
 
@@ -17,6 +20,8 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
     public Dictionary<string, int> HintsByLocationsCount { get; set; } = new Dictionary<string, int>();
 
     public Dictionary<string, double> AreaMults { get; set; } = new Dictionary<string, double>();
+
+    public SeedGenerator Generator { get; set; } = null;
     public Action<string, int, int> SetProgressFunc { get; set; }
     private ItemPlacementLogic<T> logic;
     public ItemPlacementLogic<T> Logic
@@ -35,21 +40,22 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
 
     public int Iterations { get; set; } = 0;
 
+    protected int maxIterations;
+    protected int importantCount;
+
     protected int maxFailCount;
 
-    public ItemPlacementAlgorithm(Dictionary<string, T> itemLocations, List<string> hintsByLocations, int maxFail = -1)
+    public ItemPlacementAlgorithm(Dictionary<string, T> itemLocations, List<string> hintsByLocations, SeedGenerator generator, int maxFail = -1)
     {
         ItemLocations = itemLocations;
         HintsByLocation = hintsByLocations;
+        Generator = generator;
         maxFailCount = maxFail;
     }
 
     public virtual bool Randomize(List<string> defaultAreas, Dictionary<string, double> areaMults)
     {
         AreaMults = areaMults;
-        Placement.Clear();
-        Depths.Clear();
-        Iterations = 0;
         List<string> allowed = Logic.GetKeysAllowed();
         List<string> place = Logic.GetKeysToPlace();
 
@@ -144,18 +150,27 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
 
     protected virtual bool DoImportantPlacement(List<string> locations, List<string> important, List<string> defaultAreas)
     {
+        maxIterations = Math.Max(2500, important.Count * 4);
+        importantCount = important.Count;
+        Logic.CalculateUsability();
+        Logic.InitializeAllowMatrix();
+
         for (int i = 0; i < (maxFailCount == -1 ? int.MaxValue : maxFailCount); i++)
         {
-            bool output = TryImportantPlacement(i, locations, important, new List<string>(defaultAreas));
-            if (output)
-            {
-                return true;
-            }
-
             Placement.Clear();
             Depths.Clear();
             Logic.Clear();
             Iterations = 0;
+
+            SetProgressFunc(i > 0 ? "Retrying item placement..." : "Preparing item placement", 0, 1);
+            Generator.Logger.LogInformation($"Starting item placement attempt {i + 1}.");
+
+            bool output = TryImportantPlacement(i, new (locations), important.Shuffle(), new (defaultAreas));
+            if (output)
+            {
+                Generator.Logger.LogInformation($"Item placement attempt {i + 1} succeeded.");
+                return true;
+            }
         }
 
         return false;
@@ -179,166 +194,132 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
         return RandomNum.ShuffleLocalized(remaining.OrderBy(t => locked.IndexOf(t)).ToList(), 8);
     }
 
-    protected virtual bool TryImportantPlacement(int attempt, List<string> locations, List<string> important, List<string> accessibleAreas)
+    protected virtual bool TryImportantPlacement(int attempt, List<string> locations, List<string> remaining, List<string> accessibleAreas)
     {
         Iterations++;
-        if (Iterations > Math.Max(2500, important.Count * 4))
+        if (Iterations > maxIterations)
         {
             return false;
         }
 
-        Dictionary<string, int> items = Logic.GetItemsAvailable();
-        List<string> remaining = important.Where(t => !Placement.ContainsValue(t)).Shuffle();
-        UpdateProgress(attempt, Placement.Count, important.Count);
-
-        List<string> newAccessibleAreas = Logic.GetNewAreasAvailable(items, accessibleAreas);
-
-        List<string> remainingLogic = remaining.Where(t => Logic.RequiresDepthLogic(t)).Shuffle();
-        if (remainingLogic.Count > 0)
+        if (Placement.Values.Distinct().Count() != Placement.Values.Count())
         {
-            remainingLogic = OrderLocked(locations, remainingLogic, important);
-            while (remainingLogic.Count > 0)
+            throw new Exception("Duplicate placements.");
+        }
+
+        Dictionary<string, int> items = Logic.GetItemsAvailable();
+        UpdateProgress(attempt, Placement.Count, importantCount);
+
+        List<string> newAccessibleAreas = Logic.GetNewAreasAvailable(items, accessibleAreas).Where(a => !accessibleAreas.Contains(a)).ToList();
+        accessibleAreas.AddRange(newAccessibleAreas);
+
+        // If we still have depth logic required items to place, finish those.
+        List<string> possibleRemaining = remaining.Where(t => Logic.RequiresDepthLogic(t)).Shuffle();
+
+        // Otherwise use the whole list which should be junk
+        bool placingJunk = false;
+        if (possibleRemaining.Count == 0)
+        {
+            possibleRemaining = remaining.Shuffle();
+            placingJunk = true;
+        }
+
+        if (possibleRemaining.Count > 0)
+        {
+            while (possibleRemaining.Count > 0)
             {
-                string rep = remainingLogic[0];
+                string rep = possibleRemaining[0];
                 (string, int)? nextItem = Logic.GetLocationItem(rep);
-                List<string> allowedLocations = HintsByLocationsCount.Keys.Shuffle();
 
-                // Remove inaccessible locations
-                allowedLocations = allowedLocations.Where(a => newAccessibleAreas.Contains(a)).ToList();
-
-                if (nextItem == null)
+                List<string> possible = new();
+                if (nextItem == null && ItemLocations[rep].Traits.Contains("Fake") && Logic.IsValid(rep, rep, items, accessibleAreas))
                 {
-                    if (ItemLocations[rep].Traits.Contains("Fake") && Logic.IsValid(rep, rep, items, allowedLocations))
-                    {
-                        Placement.Add(rep, rep);
-                        if (Placement.Count == important.Count)
-                        {
-                            return true;
-                        }
-
-                        bool result = TryImportantPlacement(attempt, locations, important, newAccessibleAreas);
-                        if (result)
-                        {
-                            return result;
-                        }
-                        else
-                        {
-                            Placement.Remove(rep);
-                        }
-                    }
+                    possible.Add(rep);
+                }
+                else if (!placingJunk)
+                {
+                    possible = locations.Where(t => Logic.IsValid(t, rep, items, accessibleAreas)).ToList();
                 }
                 else
                 {
-                    List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && Logic.IsValid(t, rep, items, allowedLocations)).Shuffle();
-                    while (possible.Count > 0)
-                    {
-                        (string, int) nextPlacement = Logic.SelectNext(items, possible, rep);
-                        string next = nextPlacement.Item1;
-                        int depth = nextPlacement.Item2;
-                        string hint = null;
-                        if (Logic.IsHintable(rep))
-                        {
-                            hint = Logic.AddHint(items, next, rep, depth);
-                        }
-
-                        Placement.Add(next, rep);
-                        Depths.Add(next, depth);
-                        if (Placement.Count == important.Count)
-                        {
-                            return true;
-                        }
-
-                        bool result = TryImportantPlacement(attempt, locations, important, newAccessibleAreas);
-                        if (result)
-                        {
-                            return result;
-                        }
-                        else
-                        {
-                            possible.Remove(next);
-                            Placement.Remove(next);
-                            Depths.Remove(next);
-                            if (Logic.IsHintable(rep))
-                            {
-                                Logic.RemoveHint(hint, next);
-                            }
-                        }
-                    }
+                    possible = locations.Where(t => Logic.IsAllowed(t, rep)).ToList();
                 }
 
-                Logic.RemoveLikeItemsFromRemaining(rep, remainingLogic);
-            }
-        }
-        else
-        {
-            List<string> remainingOther = remaining.Where(t => !Logic.RequiresDepthLogic(t)).Shuffle();
-            while (remainingOther.Count > 0)
-            {
-                string rep = remainingOther[0];
-                (string, int)? nextItem = Logic.GetLocationItem(rep);
-                if (nextItem == null)
-                {
-                    if (ItemLocations[rep].Traits.Contains("Fake"))
-                    {
-                        Placement.Add(rep, rep);
-                        if (Placement.Count == important.Count)
-                        {
-                            return true;
-                        }
-
-                        bool result = TryImportantPlacement(attempt, locations, important, newAccessibleAreas);
-                        if (result)
-                        {
-                            return result;
-                        }
-                        else
-                        {
-                            Placement.Remove(rep);
-                        }
-                    }
-
-                    continue;
-                }
-
-                List<string> possible = locations.Where(t => !Placement.ContainsKey(t) && Logic.IsAllowed(t, rep)).ToList();
                 while (possible.Count > 0)
                 {
-                    string next = possible[RandomNum.RandInt(0, possible.Count - 1)];
-                    string hint = null;
-                    if (Logic.IsHintable(rep))
+                    string next;
+                    int depth = -1;
+                    if (!placingJunk)
                     {
-                        hint = Logic.AddHint(items, next, rep, 0);
+                        (next, depth) = Logic.SelectNext(items, possible, rep);
+                    }
+                    else
+                    {
+                        next = possible[RandomNum.RandInt(0, possible.Count - 1)];
                     }
 
-                    Placement.Add(next, rep);
-                    if (Placement.Count == important.Count)
+                    string hint = AddPlacement(locations, remaining, items, rep, next, depth);
+
+                    if (remaining.Count == 0)
                     {
                         return true;
                     }
 
-                    bool result = TryImportantPlacement(attempt, locations, important, newAccessibleAreas);
+                    bool result = TryImportantPlacement(attempt, locations, remaining, accessibleAreas);
                     if (result)
                     {
                         return result;
                     }
                     else
                     {
-                        possible.Remove(next);
-                        Placement.Remove(next);
-                        if (Logic.IsHintable(rep))
+                        if (Iterations > maxIterations)
                         {
-                            Logic.RemoveHint(hint, next);
+                            return false;
                         }
 
-                        break;
+                        RemovePlacement(locations, remaining, accessibleAreas, newAccessibleAreas, rep, next, possible, hint);
                     }
                 }
 
-                Logic.RemoveLikeItemsFromRemaining(rep, remainingLogic);
+                possibleRemaining.RemoveAt(0);
+                Logic.RemoveLikeItemsFromRemaining(rep, possibleRemaining);
             }
         }
 
         return false;
+    }
+
+    private void RemovePlacement(List<string> locations, List<string> remaining, List<string> accessibleAreas, List<string> newAccessibleAreas, string rep, string next, List<string> possible, string hint = "")
+    {
+        possible.Remove(next);
+        locations.Add(next);
+        remaining.Add(rep);
+        accessibleAreas.RemoveAll(a => newAccessibleAreas.Contains(a));
+        Generator.Logger.LogDebug("Removed location " + Placement[next] + " at " + next + ".");
+        Placement.Remove(next);
+        Depths.Remove(next);
+        if (Logic.IsHintable(rep) && !string.IsNullOrEmpty(hint))
+        {
+            Logic.RemoveHint(hint, next);
+        }
+    }
+
+    private string AddPlacement(List<string> locations, List<string> remaining, Dictionary<string, int> items, string rep, string next, int depth = -1)
+    {
+        Placement.Add(next, rep);
+        remaining.Remove(rep);
+        locations.Remove(next);
+        Generator.Logger.LogDebug($"Set Location {next} ({ItemLocations[next].Name}) to {rep} ({ItemLocations[rep].Name}).");
+        if (depth >= 0)
+        {
+            Depths.Add(next, depth);
+        }
+
+        if (Logic.IsHintable(rep))
+        {
+            return Logic.AddHint( next, rep, depth);
+        }
+        return null;
     }
 
     protected List<string> PrioritizeLockedItems(List<string> locations, List<string> remaining, List<string> important)

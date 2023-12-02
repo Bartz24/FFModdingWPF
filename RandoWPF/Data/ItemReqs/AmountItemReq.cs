@@ -13,7 +13,7 @@ public class AmountItemReq : ItemReq
         this.item = item;
         this.amount = amount;
     }
-    protected override bool IsValidImpl(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
     {
         return itemsAvailable.ContainsKey(item) && itemsAvailable[item] >= amount;
     }
@@ -32,5 +32,27 @@ public class AmountItemReq : ItemReq
         }
 
         return $"{itemNameFunc(item)} x {amount}";
+    }
+
+    public override int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    {
+        if (!IsValid(itemsAvailable))
+        {
+            return -1;
+        }
+
+        return base.GetDifficulty(itemsAvailable) + amount;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is AmountItemReq req &&
+               item == req.item &&
+               amount == req.amount;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(item, amount);
     }
 }

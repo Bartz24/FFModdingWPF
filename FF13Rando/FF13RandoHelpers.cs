@@ -11,7 +11,7 @@ public class FF13RandoHelpers
         int stage = items.GetValueOrDefault("cry_stage", 0) + 1;
         int roleCount = GetRoleCount(loc, items);
         int partySize = loc.Characters.Count;
-        return Math.Max(0, loc.Difficulty - FF13Flags.Items.DifficultyScaling.Value) switch
+        return Math.Max(0, loc.BaseDifficulty - FF13Flags.Items.DifficultyScaling.Value) switch
         {
             0 or 1 => stage >= 1 && roleCount >= 0 * partySize,
             2 => stage >= 1 && roleCount >= 1 * partySize,

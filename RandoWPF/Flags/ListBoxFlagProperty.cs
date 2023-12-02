@@ -28,7 +28,7 @@ public class ListBoxFlagProperty : FlagProperty
 
     protected List<string> selectedValues;
     [JsonProperty]
-    public IList SelectedValues
+    public virtual IList SelectedValues
     {
         get => selectedValues;
         set

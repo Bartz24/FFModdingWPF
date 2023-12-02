@@ -1,7 +1,10 @@
 ﻿using Bartz24.RandoWPF;
+using MaterialDesignThemes.Wpf;
 using System;
+using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace FF12Rando;
 
@@ -66,11 +69,18 @@ public class FF12Flags
     public class Items
     {
         public static Flag Treasures, Shops, Bazaars, StartingTpStones;
-        public static ToggleFlagProperty KeyMain, KeyHunt, KeyGrindy, KeySide, KeyOrb, KeyWrit, KeyTrophy, KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale;
+        public static ToggleFlagProperty KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale;
         public static ComboBoxFlagProperty KeyDepth;
         public static NumberFlagProperty ShopSize;
         public static ToggleFlagProperty ShopsShared;
         public static NumberFlagProperty TpStoneCount;
+        public static ListBoxFlagProperty WritGoals;
+        public const string WritGoalCid2 = "Defeat Cid 2 in Pharos";
+        public const string WritGoalAny = "Find in Any Random Location";
+        public const string WritGoalMaxSphere = "Find on Random Max Sphere Location";
+        public static DictListBoxFlagProperty<string> KeyItems;
+        public static NumberFlagProperty KeyChops;
+        public static NumberFlagProperty KeyBlackOrbs;
 
         internal static void Init()
         {
@@ -82,60 +92,141 @@ public class FF12Flags
                 "Any key items in the pool will by default be shuffled between themselves."
             }.Register(FlagType.Items);
 
-            KeyMain = new ToggleFlagProperty()
+            WritGoals = new ListBoxFlagProperty()
             {
-                Text = "Include Main Key Items",
-                ID = "KeyMain",
-                Description = "The following key items will be included in the key item pool:\n" +
-                "Clan Primer, Shadestone, Sunstone, Crescent Stone, Sword of the Order, No. 1 Brig Key, Systems Access Key, Manufacted Nethicite, Dawn Shard, Goddess's Magicite, Tube Fuse, Lente's Tear, Sword of Kings, Soul Ward Key, First 3 Pinewood Chops, Lab Access Card, Treaty-Blade, First 3 Black Orbs"
+                Text = "Bahamut Unlock Conditions",
+                ID = "WritGoals",
+                Description = "Sets the possible win conditions to unlock the Bahamut. The Writ of Transit allows you to travel to Bahamut.\n" +
+                "You only need to find one Writ of Transit, but can set multiple ways to get a Writ of Transit.\n\n" +
+                " -Defeat Cid 2 in Pharos: Find 1 Sword (Sword of Kings or Treaty-Blade) and 2 magick stones (Dawn Shard, Goddess's Magicite, Manufacted Nethicite) and defeat Cid 2 to get a Writ of Transit.\n" +
+                " -Find in Any Random Location: A randomly placed Writ of Transit can show up in any non-missable location.\n" +
+                " -Find on Random Max Sphere Location: A Writ of Transit will be placed on a random location at the maximum sphere. A long chain of key items would be required.",
+                Values =
+                {
+                    WritGoalCid2,
+                    WritGoalAny,
+                    WritGoalMaxSphere
+                }
             }.Register(Treasures);
 
-            KeySide = new ToggleFlagProperty()
+            KeyItems = new DictListBoxFlagProperty<string>()
             {
-                Text = "Include Side Key Items",
-                ID = "KeySide",
-                Description = "The following key items will be included in the key item pool:\n" +
-                "Barheim Key, Stone of the Condemner, Wind Globe, Windvane, Sluice Gate Key, Merchant's Armband, Pilika's Diary, Site 3 Key, Site 11 Key, Dragon Scale, Ageworn Key, Dusty Letter, Blackened Fragment, Dull Fragment, Grimy Fragment, Moonsilver Fragment, Medallion of Bravery, Medallion of Love, Lusterless Medallion, Medallion of Might, Ann's Letter"
+                Text = "Include Key Items",
+                ID = "KeyItems",
+                Description = "Key items to be included in the item pool.\n" +
+                "Key items will not appear in missable locations or from Day 10 and later.",
+                DictValues =
+                {
+                    {"80E1", "Rabanastre Aeropass" },
+                    {"80E2", "Nalbina Aeropass" },
+                    {"8071", "Clan Primer" },
+                    {"8079", "Shadestone" },
+                    {"807A", "Sunstone" },
+                    {"8080", "Crescent Stone" },
+                    {"80AC", "Goddess's Magicite" },
+                    {"8074", "Tube Fuse" },
+                    {"8075", "Sword of the Order" },
+                    {"80E3", "Bhujerba Aeropass" },
+                    {"8076", "No. 1 Brig Key" },
+                    {"8077", "Systems Access Key" },
+                    {"8089", "Manufacted Nethicite" },
+                    {"8078", "Dawn Shard" },
+                    {"80E0", "Rainstone" },
+                    {"80B7", "Lente's Tear" },
+                    {"808B", "Sword of Kings" },
+                    {"80B6", "Soul Ward Key" },
+                    {"80E4", "Archades Aeropass" },
+                    {"809E", "Lab Access Card" },
+                    {"808C", "Treaty-Blade" },
+                    {"80E5", "Balfonheim Aeropass" },
+                    {"8093", "Barheim Key" },
+                    {"8085", "Stone of the Condemner" },
+                    {"80B1", "Wind Globe" },
+                    {"80B2", "Windvane" },
+                    {"80AF", "Sluice Gate Key" },
+                    {"8098", "Merchant's Armband" },
+                    {"8099", "Pilika's Diary" },
+                    {"807E", "Site 3 Key" },
+                    {"807F", "Site 11 Key" },
+                    {"80B4", "Dragon Scale" },
+                    {"80B5", "Ageworn Key" },
+                    {"808D", "Dusty Letter" },
+                    {"8090", "Blackened Fragment" },
+                    {"808F", "Dull Fragment" },
+                    {"8091", "Grimy Fragment" },
+                    {"80A3", "Moonsilver Medallion" },
+                    {"8081", "Medallion of Bravery" },
+                    {"8083", "Medallion of Love" },
+                    {"8084", "Lusterless Medallion" },
+                    {"8082", "Medallion of Might" },
+                    {"8088", "Ann's Letter" },
+                    {"2112", "Sandalwood Chop" },
+                    {"8073", "Cactus Flower" },
+                    {"80AE", "Broken Key" },
+                    {"8086", "Errmonea Leaf" },
+                    {"8087", "Rabbit Tail" },
+                    {"807C", "Ring of the Toad" },
+                    {"808A", "Rusted Scrap of Armor" },
+                    {"807D", "Silent Urn" },
+                    {"8092", "Stolen Articles" },
+                    {"809A", "Ring of the Light" },
+                    {"808E", "Serpentwyne Must" },
+                    {"809B", "Viera Rucksack" },
+                    {"80B8", "Shelled Trophy" },
+                    {"80B9", "Fur-scaled Trophy" },
+                    {"80BA", "Bony Trophy" },
+                    {"80BB", "Fanged Trophy" },
+                    {"80BC", "Hide-covered Trophy" },
+                    {"80BD", "Maned Trophy" },
+                    {"80BE", "Fell Trophy" },
+                    {"80BF", "Accursed Trophy" },
+                    {"80C0", "Beaked Trophy" },
+                    {"80C1", "Maverick Trophy" },
+                    {"80C2", "Soulless Trophy" },
+                    {"80C3", "Leathern Trophy" },
+                    {"80C4", "Sickle Trophy" },
+                    {"80C5", "Vengeful Trophy" },
+                    {"80C6", "Gravesoil Trophy" },
+                    {"80C7", "Metallic Trophy" },
+                    {"80C8", "Slimy Trophy" },
+                    {"80C9", "Scythe Trophy" },
+                    {"80CA", "Feathered Trophy" },
+                    {"80CB", "Skull Trophy" },
+                    {"80CC", "Mind Trophy" },
+                    {"80CD", "Eternal Trophy" },
+                    {"80CE", "Clawed Trophy" },
+                    {"80CF", "Odiferous Trophy" },
+                    {"80D0", "Whiskered Trophy" },
+                    {"80D1", "Frigid Trophy" },
+                    {"80D2", "Ensanguined Trophy" },
+                    {"80D3", "Cruel Trophy" },
+                    {"80D4", "Adamantine Trophy" },
+                    {"80D5", "Reptilian Trophy" },
+                    {"80D6", "Vile Trophy" }
+                }
             }.Register(Treasures);
 
-            KeyGrindy = new ToggleFlagProperty()
+            KeyChops = new NumberFlagProperty()
             {
-                Text = "Include Grindy Key Items",
-                ID = "KeyGrindy",
-                Description = "The following key items will be included in the key item pool:\n" +
-                "Last 25 Pinewood Chops, Sandalwood Chop"
+                Text = "Include Pinewood Chops",
+                ID = "KeyChops",
+                Description = "The number of pinewood chops to include in the pool.\n",
+                ValueText = "Pinewood Chops:",
+                MinValue = 0,
+                MaxValue = 28,
+                StepSize = 1
             }.Register(Treasures);
 
-            KeyHunt = new ToggleFlagProperty()
+            KeyBlackOrbs = new NumberFlagProperty()
             {
-                Text = "Include Hunt Key Items",
-                ID = "KeyHunt",
-                Description = "The following key items will be included in the key item pool:\n" +
-                "Cactus Flower, Broken Key, Errmonea Leaf, Rabbit Tail, Ring of the Toad, Rusted Scrap of Armor, Silent Urn, Stolen Articles, Ring of the Light, Serpentwyne Must, Viera Rucksack"
-            }.Register(Treasures);
-
-            KeyOrb = new ToggleFlagProperty()
-            {
-                Text = "Include Subterra Black Orbs",
-                ID = "KeyOrb",
-                Description = "The following key items will be included in the key item pool:\n" +
-                "Last 21 Black Orbs in the Subterra.\n" +
-                "For reference, up to 8 can be found in Penumbra, up to 15 in Umbra, and up to 24 in Abyssal."
-            }.Register(Treasures);
-
-            KeyTrophy = new ToggleFlagProperty()
-            {
-                Text = "Include Hunt Club Trophies",
-                ID = "KeyTrophy",
-                Description = "The 31 Hunt Club trophy drops from rare game will be included in the key item pool."
-            }.Register(Treasures);
-
-            KeyWrit = new ToggleFlagProperty()
-            {
-                Text = "Include Writ of Transit",
-                ID = "KeyWrit",
-                Description = "The Writ of Transit will be included in the key item pool.\n" +
-                "If turned off, this will be replaced with potions."
+                Text = "Include Black Orbs",
+                ID = "KeyBlackOrbs",
+                Description = "The number of black orbs to include in the pool.\n" +
+                "For reference, up to 3 are found on the first floor, up to 8 can be found in Penumbra, up to 15 in Umbra, and up to 24 in Abyssal.",
+                ValueText = "Black Orbs:",
+                MinValue = 0,
+                MaxValue = 24,
+                StepSize = 1
             }.Register(Treasures);
 
             KeyStartingInv = new ToggleFlagProperty()

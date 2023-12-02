@@ -1,5 +1,6 @@
 ﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,39 @@ public abstract class ItemPlacementLogic<T> where T : ItemLocation
     public Dictionary<string, T> ItemLocations => Algorithm.ItemLocations;
     public Dictionary<string, double> AreaMults => Algorithm.AreaMults;
 
+    public Dictionary<string, string> Placement => Algorithm.Placement;
+
+    public Dictionary<string, int> LocationUsability = new();
+
+    // Used to cache allowed replacements of locations
+    public AllowMatrix AllowMatrix { get; set; }
+
+    public int MaxUsability => LocationUsability.Values.Max();
+
+    public virtual void InitializeAllowMatrix()
+    {
+        AllowMatrix = new(ItemLocations.Count, ItemLocations.Keys.ToList());
+    }
+
+    public virtual void CalculateUsability()
+    {
+        Dictionary<T, List<string>> locPossible = ItemLocations.Values.ToDictionary(l => l, l => l.Requirements.GetPossibleRequirements());
+
+        LocationUsability = new ();
+        foreach (string key in ItemLocations.Keys)
+        {
+            string locItem = GetLocationItem(key)?.Item1;
+            if (locItem != null)
+            {
+                LocationUsability.Add(key, locPossible.Where(l => l.Value.Contains(locItem)).Count());
+            }
+            else
+            {
+                LocationUsability.Add(key, 0);
+            }
+        }
+    }
+
     public virtual List<string> GetKeysAllowed()
     {
         return ItemLocations.Keys.Shuffle();
@@ -28,7 +62,18 @@ public abstract class ItemPlacementLogic<T> where T : ItemLocation
     }
     public abstract bool RequiresLogic(string location);
     public abstract bool IsValid(string location, string replacement, Dictionary<string, int> items, List<string> areasAvailable);
-    public abstract bool IsAllowed(string old, string rep, bool orig = true);
+    public virtual bool IsAllowed(string old, string rep)
+    {
+        if (!AllowMatrix.HasAllow(old, rep))
+        {
+            bool allowed = IsAllowedReplacement(old, rep);
+            AllowMatrix.AddAllow(old, rep, allowed);
+            return allowed;
+        }
+
+        return AllowMatrix.IsAllowed(old, rep);
+    }
+    protected abstract bool IsAllowedReplacement(string old, string rep);
     public abstract int GetNextDepth(Dictionary<string, int> items, string location);
     public abstract bool RequiresDepthLogic(string location);
     public abstract bool IsHintable(string location);
@@ -37,7 +82,7 @@ public abstract class ItemPlacementLogic<T> where T : ItemLocation
     {
         return soFar.ToList();
     }
-    public abstract string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth);
+    public abstract string AddHint(string location, string replacement, int itemDepth);
     public abstract void RemoveHint(string hint, string location);
     public virtual void RemoveLikeItemsFromRemaining(string replacement, List<string> remaining)
     {
@@ -60,10 +105,24 @@ public abstract class ItemPlacementLogic<T> where T : ItemLocation
 
     public virtual (string, int) SelectNext(Dictionary<string, int> items, List<string> possible, string rep)
     {
-        float expBase = GetPlacementDifficultyMultiplier();
+        float mult = GetPlacementDifficultyMultiplier();
         Dictionary<string, int> possDepths = possible.ToDictionary(s => s, s => GetNextDepth(items, s));
-        string next = RandomNum.SelectRandomWeighted(possible, s => (long)(Math.Pow(expBase, possDepths[s]) + (GetAreaMult(s) * 32d)));
+
+        Dictionary<string, long> distribution = possible.ToDictionary(s => ItemLocations[s].Name + " " + s, s => LocWeight(items, s, mult, possDepths, Math.Max(3.2 - mult, 0)));
+
+        string next = RandomNum.SelectRandomWeighted(possible, (Func<string, long>)(s => LocWeight(items, s, mult, possDepths, Math.Max(3.2 - mult, 0))), true);
+        if (next == null)
+        {
+            next = RandomNum.SelectRandomWeighted(possible, (Func<string, long>)(s => LocWeight(items, s, mult, possDepths, 1)), true);
+        }
+
         return (next, possDepths[next]);
+
+        long LocWeight(Dictionary<string, int> items, string s, float mult, Dictionary<string, int> possDepths, double areaMult)
+        {
+            return (long)(Math.Pow(mult, (possDepths[s] + ItemLocations[s].GetDifficulty(items)) * (1.5 * LocationUsability[rep] / MaxUsability + 1))   
+                          + (areaMult * GetAreaMult(s) * 32));
+        }
     }
     public virtual double GetAreaMult(string location)
     {
@@ -78,6 +137,11 @@ public abstract class ItemPlacementLogic<T> where T : ItemLocation
     public virtual void SetLocationItem(string key, string item, int count)
     {
         throw new NotImplementedException("The item location type for " + key + " is not implemented.");
+    }
+
+    protected virtual void LogSetItem(string key, string item, int count)
+    {
+        Algorithm.Generator.Logger.LogDebug("Set Item Location \"" + key + "\" to [" + item + " x" + count + "]");
     }
 
     public Dictionary<string, int> GetItemsAvailable()

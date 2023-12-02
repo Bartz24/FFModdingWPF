@@ -63,7 +63,7 @@ public class FF12SeedGenerator : SeedGenerator
         }
     }
 
-    public FF12SeedGenerator()
+    public FF12SeedGenerator() : base()
     {
         Randomizers = new()
         {
@@ -107,6 +107,11 @@ public class FF12SeedGenerator : SeedGenerator
         if (!LuaLoaderInstalled())
         {
             throw new RandoException("Lua Loader is not properly installed. Download and install them on 1. Setup.", "Lua missing.");
+        }
+
+        if (FF12Flags.Items.Treasures.FlagEnabled && FF12Flags.Items.WritGoals.SelectedIndices.Count == 0)
+        {
+            throw new RandoException("Item location randomization is turned on but there is no goal selected. Select at least 1 Bahamut unlock condition.", "No goal selected.");
         }
 
         if (Directory.Exists(OutFolder))
@@ -166,9 +171,11 @@ public class FF12SeedGenerator : SeedGenerator
 
     protected override void GeneratePackAndDocs()
     {
+        SetUIProgress("Generating documentation...", -1, -1);
+
         base.GeneratePackAndDocs();
 
-        SetUIProgress($"Complete! Ready to play! The documentation have been generated in the docs folder of this application.", 100, 100);
+        SetUIProgress($"Complete! Ready to play! The documentation has been generated in the docs folder of this application.", 100, 100);
     }
     public static bool ToolsInstalled()
     {

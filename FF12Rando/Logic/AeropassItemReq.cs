@@ -70,7 +70,7 @@ class AeropassItemReq : ItemReq
 
     protected override List<string> GetPossibleRequirementsImpl()
     {
-        return DestinationReqs.Values.SelectMany(r => r.GetPossibleRequirements()).Distinct().ToList();
+        return DestinationReqs.Values.SelectMany(r => r.GetPossibleRequirements()).Concat(new List<string>() { "8077" }).Distinct().ToList();
     }
 
     public override int GetPossibleRequirementsCount()
@@ -78,7 +78,7 @@ class AeropassItemReq : ItemReq
         return GetPossibleRequirementsImpl().Count;
     }
 
-    protected override bool IsValidImpl(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
     {
         return IsDestinationValid(itemsAvailable);
     }
@@ -130,5 +130,46 @@ class AeropassItemReq : ItemReq
             default:
                 return "Unknown Aerodrome";
         }
+    }
+
+    public override int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    {
+        if (AllowStrahl && ItemReq.Item("8077").IsValid(itemsAvailable))
+        {
+            return 0;
+        }
+
+        if (!IsValid(itemsAvailable))
+        {
+            return -1;
+        }
+
+        switch (Destination)
+        {
+            case RABANASTRE:
+                return 0;
+            case NALBINA:
+                return 0;
+            case BHUJERBA:
+                return 1;
+            case ARCHADES:
+                return 2;
+            case BALFONHEIM:
+                return 2;
+            default:
+                return 0;
+        }
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is AeropassItemReq req &&
+               Destination == req.Destination &&
+               AllowStrahl == req.AllowStrahl;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Destination, AllowStrahl);
     }
 }

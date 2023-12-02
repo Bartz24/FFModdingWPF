@@ -295,4 +295,35 @@ public static class DataExtensions
 
         return result;
     }
+
+    public static int SumIntSafe(this IEnumerable<int> list)
+    {
+        long sum = 0;
+        foreach (int i in list)
+        {
+            sum += i;
+            if (sum > int.MaxValue)
+            {
+                return int.MaxValue;
+            }
+        }
+
+        return (int)sum;
+    }
+
+    public static int SumIntSafe<T>(this IEnumerable<T> list, Func<T, int> selector)
+    {
+        long sum = 0;
+        foreach (T i in list)
+        {
+            sum += selector(i);
+            if (sum > int.MaxValue)
+            {
+                return int.MaxValue;
+            }
+        }
+
+        return (int)sum;
+    }
+
 }

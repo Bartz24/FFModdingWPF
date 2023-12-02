@@ -124,13 +124,13 @@ public class TreasureRando : Randomizer
         List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
         List<string> locations = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
 
-        placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13ItemLocation>(itemLocations, locations, 3)
+        placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13ItemLocation>(itemLocations, locations, Generator, 3)
         {
             SetProgressFunc = Generator.SetUIProgress
         };
         placementAlgoNormal.Logic = new FF13ItemPlacementLogic(placementAlgoNormal, Generator);
 
-        placementAlgoBackup = new ItemPlacementAlgorithm<FF13ItemLocation>(itemLocations, locations, -1)
+        placementAlgoBackup = new ItemPlacementAlgorithm<FF13ItemLocation>(itemLocations, locations, Generator, -1)
         {
             SetProgressFunc = Generator.SetUIProgress
         };
@@ -354,7 +354,7 @@ public class TreasureRando : Randomizer
                 nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
             }
 
-            return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item2}", t.Difficulty.ToString() }).ToList();
+            return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item2}", t.BaseDifficulty.ToString() }).ToList();
         }).ToList(), "itemlocations"));
 
         pages.Add("item_locations", page);
@@ -397,7 +397,7 @@ public class TreasureRando : Randomizer
         public override List<string> Areas { get; set; }
         public override List<string> Characters { get; set; }
         [RowIndex(5)]
-        public override int Difficulty { get; set; }
+        public override int BaseDifficulty { get; set; }
 
         public TreasureData(string[] row) : base(row)
         {
@@ -442,7 +442,7 @@ public class TreasureRando : Randomizer
         [RowIndex(6)]
         public List<string> LinkedIDs { get; set; }
         [RowIndex(7)]
-        public override int Difficulty { get; set; }
+        public override int BaseDifficulty { get; set; }
 
         public EnemyData(string[] row) : base(row)
         {
@@ -494,7 +494,7 @@ public class TreasureRando : Randomizer
         public override List<string> Areas { get; set; }
         public override List<string> Characters { get; set; }
         [RowIndex(5)]
-        public override int Difficulty { get; set; }
+        public override int BaseDifficulty { get; set; }
 
         public BattleData(string[] row) : base(row)
         {

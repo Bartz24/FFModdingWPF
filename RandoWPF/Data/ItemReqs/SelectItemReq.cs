@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bartz24.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,16 +15,8 @@ public class SelectItemReq : ItemReq
         this.reqs = reqs;
         this.count = count;
     }
-    protected override bool IsValidImpl(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
     {
-        foreach (ItemReq req in reqs)
-        {
-            if (!req.IsValid(itemsAvailable))
-            {
-                return false;
-            }
-        }
-
         return reqs.Where(r => r.IsValid(itemsAvailable)).Count() >= count;
     }
 
@@ -36,5 +29,39 @@ public class SelectItemReq : ItemReq
     public override string GetDisplay(Func<string, string> itemNameFunc)
     {
         return $"At least {count} of ({string.Join(", ", reqs.Select(r => r.GetDisplay(itemNameFunc)))})";
+    }
+
+    public override int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    {
+        int minDiff = int.MaxValue;
+        foreach (List<ItemReq> reqSubset in reqs.GetAllSubsets(count))
+        {
+            ItemReq and = ItemReq.And(reqSubset.ToArray());
+            int diff = and.GetDifficulty(itemsAvailable);
+
+            if (and.IsValid(itemsAvailable) && diff >= 0)
+            {
+                minDiff = Math.Min(minDiff, diff);
+            }
+        }
+
+        if (minDiff == int.MaxValue)
+        {
+            return -1;
+        }
+
+        return base.GetDifficulty(itemsAvailable) + minDiff;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is SelectItemReq req &&
+               count == req.count &&
+               Enumerable.SequenceEqual(reqs, req.reqs);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(count, reqs);
     }
 }

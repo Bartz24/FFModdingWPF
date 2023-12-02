@@ -17,7 +17,7 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
         treasureRando = randomizers.Get<TreasureRando>();
     }
 
-    public override string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth)
+    public override string AddHint(string location, string replacement, int itemDepth)
     {
         ItemLocations[location].Areas.ForEach(l => Algorithm.HintsByLocationsCount[l]--);
 
@@ -62,8 +62,8 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
         int keyItemsFound = Algorithm.Placement.Where(p => treasureRando.IsImportantKeyItem(p.Value)).Count();
         // Early day/easier checks have higher "depths" as minItems is low to start chains
         float diffModifier = Math.Min(minItems, keyItemsFound) / (float)minItems;
-        int maxDifficulty = ItemLocations.Values.Select(t => t.Difficulty).Max();
-        int val = (int)((diffModifier * ItemLocations[location].Difficulty) + ((1 - diffModifier) * (maxDifficulty - ItemLocations[location].Difficulty)));
+        int maxDifficulty = ItemLocations.Values.Select(t => t.BaseDifficulty).Max();
+        int val = (int)((diffModifier * ItemLocations[location].BaseDifficulty) + ((1 - diffModifier) * (maxDifficulty - ItemLocations[location].BaseDifficulty)));
 
         if (ItemLocations[location].Traits.Contains("CoP"))
         {
@@ -162,6 +162,7 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
     public override void SetLocationItem(string key, string item, int count)
     {
+        LogSetItem(key, item, count);
         switch (ItemLocations[key])
         {
             case TreasureData t:
@@ -182,7 +183,7 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
         return ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
     }
 
-    public override bool IsAllowed(string old, string rep, bool orig = true)
+    protected override bool IsAllowedReplacement(string old, string rep)
     {
         foreach (string item in LRFlags.Items.KeyItems.DictValues.Keys)
         {

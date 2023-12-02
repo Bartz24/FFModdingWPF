@@ -44,7 +44,11 @@ public class RandoFlags
     }
     public static string LoadSeed(string file)
     {
-        dynamic data = JsonConvert.DeserializeObject(File.ReadAllText(file));
+        return Deserialize(File.ReadAllText(file));
+    }
+    public static string Deserialize(string json)
+    {
+        dynamic data = JsonConvert.DeserializeObject(json);
 
         string seed = data["seed"];
         string version = data["version"];

@@ -84,13 +84,13 @@ public class TreasureRando : Randomizer
 
         List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
 
-        placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13_2ItemLocation>(itemLocations, hintsNotesLocations, 3)
+        placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13_2ItemLocation>(itemLocations, hintsNotesLocations,Generator, 3)
         {
             SetProgressFunc = Generator.SetUIProgress
         };
         placementAlgoNormal.Logic = new FF13_2AssumedItemPlacementLogic(placementAlgoNormal, Generator);
 
-        placementAlgoBackup = new ItemPlacementAlgorithm<FF13_2ItemLocation>(itemLocations, hintsNotesLocations, -1)
+        placementAlgoBackup = new ItemPlacementAlgorithm<FF13_2ItemLocation>(itemLocations, hintsNotesLocations,Generator, -1)
         {
             SetProgressFunc = Generator.SetUIProgress
         };
@@ -286,7 +286,7 @@ public class TreasureRando : Randomizer
         [RowIndex(4)]
         public override List<string> RequiredAreas { get; set; }
 
-        public override int Difficulty { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override int BaseDifficulty { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public TreasureData(string[] row) : base(row)
         {
@@ -329,7 +329,7 @@ public class TreasureRando : Randomizer
         [RowIndex(4)]
         public override List<string> RequiredAreas { get; set; }
 
-        public override int Difficulty { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override int BaseDifficulty { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public SearchItemData(string[] row) : base(row)
         {

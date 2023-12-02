@@ -20,7 +20,7 @@ public static class RandoExtensions
         while (n > 1)
         {
             n--;
-            int k = RandomNum.RandInt(0, n);
+            int k = RandomNum.RandInt(0, n - 1);
             (newList[n], newList[k]) = (newList[k], newList[n]);
         }
 
@@ -33,7 +33,7 @@ public static class RandoExtensions
         while (n > 1)
         {
             n--;
-            int k = RandomNum.RandInt(0, n);
+            int k = RandomNum.RandInt(0, n - 1);
             swapFunc.Invoke(list[n], list[k]);
         }
     }

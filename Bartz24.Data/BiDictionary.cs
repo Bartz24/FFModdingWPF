@@ -18,8 +18,8 @@ public class BiDictionary<T1, T2> : IEnumerable<KeyValuePair<T1, T2>>
     public Indexer<T1, T2> Forward { get; private set; }
     public Indexer<T2, T1> Reverse { get; private set; }
 
-    public List<T1> Keys => Forward.Keys;
-    public List<T2> Values => Forward.Values;
+    public IEnumerable<T1> Keys => Forward.Keys;
+    public IEnumerable<T2> Values => Forward.Values;
 
     public void Add(T1 t1, T2 t2)
     {
@@ -55,8 +55,8 @@ public class BiDictionary<T1, T2> : IEnumerable<KeyValuePair<T1, T2>>
     {
         private readonly Dictionary<T3, T4> dict;
 
-        public List<T3> Keys => dict.Keys.ToList();
-        public List<T4> Values => dict.Values.ToList();
+        public IEnumerable<T3> Keys => dict.Keys;
+        public IEnumerable<T4> Values => dict.Values;
 
         public Indexer(Dictionary<T3, T4> dictionary)
         {

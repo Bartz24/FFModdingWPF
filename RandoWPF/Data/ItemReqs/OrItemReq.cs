@@ -11,7 +11,7 @@ public class OrItemReq : ItemReq
     {
         this.reqs = reqs;
     }
-    protected override bool IsValidImpl(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
     {
         foreach (ItemReq req in reqs)
         {
@@ -33,5 +33,36 @@ public class OrItemReq : ItemReq
     public override string GetDisplay(Func<string, string> itemNameFunc)
     {
         return $"({string.Join(" OR ", reqs.Select(r => r.GetDisplay(itemNameFunc)))})";
+    }
+
+    public override int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    {
+        int minDiff = int.MaxValue;
+        foreach (ItemReq req in reqs)
+        {
+            int diff = req.GetDifficulty(itemsAvailable);
+            if (req.IsValid(itemsAvailable) && diff >= 0)
+            {
+                minDiff = Math.Min(minDiff, diff);
+            }
+        }
+
+        if (minDiff == int.MaxValue)
+        {
+            return -1;
+        }
+
+        return base.GetDifficulty(itemsAvailable) + minDiff;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is OrItemReq req &&
+               Enumerable.SequenceEqual(reqs, req.reqs);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(reqs);
     }
 }

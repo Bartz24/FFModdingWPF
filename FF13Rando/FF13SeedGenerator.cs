@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace FF13Rando;
 public class FF13SeedGenerator : SeedGenerator
 {
-    public FF13SeedGenerator()
+    public FF13SeedGenerator() : base()
     {
         Randomizers = new()
         {

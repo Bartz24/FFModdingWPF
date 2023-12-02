@@ -14,7 +14,7 @@ public class BoolItemReq : ItemReq
         Value = value;
     }
 
-    protected override bool IsValidImpl(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
     {
         return Value;
     }
@@ -22,5 +22,16 @@ public class BoolItemReq : ItemReq
     public override string GetDisplay(Func<string, string> itemNameFunc)
     {
         return Value ? "Always" : "Never";
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is BoolItemReq req &&
+               Value == req.Value;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Value);
     }
 }

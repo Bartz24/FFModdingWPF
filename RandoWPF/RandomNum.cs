@@ -90,7 +90,7 @@ public class RandomNum
         return list.ElementAt(RandomNum.RandInt(0, list.Count() - 1));
     }
 
-    public static T SelectRandomWeighted<T>(List<T> list, Func<T, long> weightFunc)
+    public static T SelectRandomWeighted<T>(List<T> list, Func<T, long> weightFunc, bool returnNullOnFail = false)
     {
         CheckRand();
         long totalWeight = 0;
@@ -117,7 +117,14 @@ public class RandomNum
 
         if (totalWeight == 0)
         {
-            throw new Exception("Total weight cannot be 0");
+            if (returnNullOnFail)
+            {
+                return default;
+            }
+            else
+            {
+                throw new Exception("Total weight cannot be 0");
+            }
         }
 
         return selected;

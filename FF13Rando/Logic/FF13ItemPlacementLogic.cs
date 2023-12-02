@@ -13,7 +13,7 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
         treasureRando = randomizers.Get<TreasureRando>();
     }
 
-    public override string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth)
+    public override string AddHint(string location, string replacement, int itemDepth)
     {
         ItemLocations[location].Areas.ForEach(l => Algorithm.HintsByLocationsCount[l]--);
         return null;
@@ -21,7 +21,7 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
 
     public override int GetNextDepth(Dictionary<string, int> items, string location)
     {
-        return ItemLocations[location].Difficulty;
+        return ItemLocations[location].BaseDifficulty;
     }
 
     public override bool IsHintable(string location)
@@ -103,6 +103,7 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
 
     public override void SetLocationItem(string key, string item, int count)
     {
+        LogSetItem(key, item, count);
         switch (ItemLocations[key])
         {
             case TreasureRando.TreasureData t:
@@ -128,7 +129,7 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
         return ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
     }
 
-    public override bool IsAllowed(string old, string rep, bool orig = true)
+    protected override bool IsAllowedReplacement(string old, string rep)
     {
         if (!FF13Flags.Items.KeyEidolith.Enabled && (treasureRando.IsEidolon(rep) || treasureRando.IsEidolon(old)))
         {

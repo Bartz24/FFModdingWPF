@@ -1,62 +1,110 @@
 {
   "name": "3 - Chaos",
-  "version": "0.7.4.7",
+  "version": "0.8.0.6",
   "flags": [
     {
       "FlagEnabled": true,
+      "FlagID": "EquipStats",
       "FlagProperties": [
         {
           "Enabled": false,
           "ID": "EquipHiddenStat"
         }
-      ],
-      "FlagID": "EquipStats"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "EquipElem"
+      "FlagID": "EquipElem",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "EquipAug"
+      "FlagID": "EquipAug",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "EquipEff"
+      "FlagID": "EquipEff",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "Treasures",
       "FlagProperties": [
         {
-          "Enabled": true,
-          "ID": "KeyMain"
+          "SelectedValues": [
+            "Defeat Cid 2 in Pharos",
+            "Find on Random Max Sphere Location"
+          ],
+          "ID": "WritGoals"
         },
         {
-          "Enabled": true,
-          "ID": "KeySide"
+          "SelectedValues": [
+            "Rabanastre Aeropass",
+            "Nalbina Aeropass",
+            "Clan Primer",
+            "Shadestone",
+            "Sunstone",
+            "Crescent Stone",
+            "Goddess's Magicite",
+            "Tube Fuse",
+            "Sword of the Order",
+            "Bhujerba Aeropass",
+            "No. 1 Brig Key",
+            "Systems Access Key",
+            "Manufacted Nethicite",
+            "Dawn Shard",
+            "Rainstone",
+            "Lente's Tear",
+            "Sword of Kings",
+            "Soul Ward Key",
+            "Archades Aeropass",
+            "Lab Access Card",
+            "Treaty-Blade",
+            "Balfonheim Aeropass",
+            "Barheim Key",
+            "Stone of the Condemner",
+            "Windvane",
+            "Merchant's Armband",
+            "Wind Globe",
+            "Sluice Gate Key",
+            "Pilika's Diary",
+            "Site 3 Key",
+            "Site 11 Key",
+            "Dragon Scale",
+            "Ageworn Key",
+            "Dusty Letter",
+            "Blackened Fragment",
+            "Dull Fragment",
+            "Grimy Fragment",
+            "Moonsilver Medallion",
+            "Medallion of Bravery",
+            "Medallion of Love",
+            "Lusterless Medallion",
+            "Medallion of Might",
+            "Ann's Letter",
+            "Sandalwood Chop",
+            "Cactus Flower",
+            "Broken Key",
+            "Errmonea Leaf",
+            "Rabbit Tail",
+            "Ring of the Toad",
+            "Rusted Scrap of Armor",
+            "Silent Urn",
+            "Stolen Articles",
+            "Ring of the Light",
+            "Serpentwyne Must",
+            "Viera Rucksack"
+          ],
+          "ID": "KeyItems"
         },
         {
-          "Enabled": false,
-          "ID": "KeyGrindy"
+          "Value": 28,
+          "ID": "KeyChops"
         },
         {
-          "Enabled": true,
-          "ID": "KeyHunt"
-        },
-        {
-          "Enabled": true,
-          "ID": "KeyOrb"
-        },
-        {
-          "Enabled": false,
-          "ID": "KeyTrophy"
-        },
-        {
-          "Enabled": true,
-          "ID": "KeyWrit"
+          "Value": 24,
+          "ID": "KeyBlackOrbs"
         },
         {
           "Enabled": false,
@@ -98,11 +146,11 @@
           "Enabled": true,
           "ID": "KeyPlaceCharScale"
         }
-      ],
-      "FlagID": "Treasures"
+      ]
     },
     {
       "FlagEnabled": true,
+      "FlagID": "Shops",
       "FlagProperties": [
         {
           "Enabled": false,
@@ -112,61 +160,61 @@
           "Value": 15,
           "ID": "ShopSize"
         }
-      ],
-      "FlagID": "Shops"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "Bazaars"
+      "FlagID": "Bazaars",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "StartingTpStone",
       "FlagProperties": [
         {
           "Value": 50,
           "ID": "TpStoneCount"
         }
-      ],
-      "FlagID": "StartingTpStone"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandParty"
+      "FlagID": "RandParty",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandBoards"
+      "FlagID": "RandBoards",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "StartBoards"
+      "FlagID": "StartBoards",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "HintsMain",
       "FlagProperties": [
         {
           "SelectedValue": "Vague Area",
           "ID": "HintsSpecific"
         }
-      ],
-      "FlagID": "HintsMain"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "HintAbi"
+      "FlagID": "HintAbi",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "Music"
+      "FlagID": "Music",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "EXPMult",
       "FlagProperties": [
         {
           "Value": 200,
@@ -176,11 +224,11 @@
           "Value": 100,
           "ID": "EXPMultBossAmt"
         }
-      ],
-      "FlagID": "EXPMult"
+      ]
     },
     {
       "FlagEnabled": true,
+      "FlagID": "LPMult",
       "FlagProperties": [
         {
           "Value": 150,
@@ -190,8 +238,7 @@
           "Value": 100,
           "ID": "LPMultBossAmt"
         }
-      ],
-      "FlagID": "LPMult"
+      ]
     }
   ]
 }

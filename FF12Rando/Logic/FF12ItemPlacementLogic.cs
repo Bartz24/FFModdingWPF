@@ -1,5 +1,7 @@
 ﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,23 +18,35 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
     public override List<string> GetKeysToPlace()
     {
-        return base.GetKeysToPlace().Where(l => ItemLocations[l] is not TreasureRando.TreasureData || treasureRando.treasuresToPlace.Contains(l)).ToList();
+        List<string> possible = base.GetKeysToPlace().Where(l => ItemLocations[l] is not TreasureRando.TreasureData || treasureRando.treasuresToPlace.Contains(l)).ToList();
+
+        if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalCid2))
+        {
+            possible.RemoveAll(l => ItemLocations[l].Traits.Contains("WritCid2"));
+        }
+
+        return possible;
     }
 
     public override List<string> GetKeysAllowed()
     {
-        return base.GetKeysAllowed().Where(l => ItemLocations[l] is not TreasureRando.TreasureData || treasureRando.treasuresAllowed.Contains(l)).ToList();
+        List<string> possible = base.GetKeysAllowed().Where(l => ItemLocations[l] is not TreasureRando.TreasureData || treasureRando.treasuresAllowed.Contains(l)).ToList();
+
+        if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalCid2))
+        {
+            possible.RemoveAll(l => ItemLocations[l].Traits.Contains("WritCid2"));
+        }
+
+        return possible;
     }
 
-    public override string AddHint(Dictionary<string, int> items, string location, string replacement, int itemDepth)
+    public override string AddHint(string location, string replacement, int itemDepth)
     {
         ItemLocations[location].Areas.Where(l => Algorithm.HintsByLocationsCount.ContainsKey(l)).ForEach(l => Algorithm.HintsByLocationsCount[l]--);
 
         if (IsHintable(replacement))
         {
-            int index = Enumerable.Range(0, treasureRando.hints.Count).First(i => treasureRando.hints[i].Count == treasureRando.hints.Select(l => l.Count).Min());
-            treasureRando.hints[index].Add(location);
-            return index.ToString();
+            return treasureRando.AddHint(location).ToString();
         }
 
         return null;
@@ -40,41 +54,80 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
     public override int GetNextDepth(Dictionary<string, int> items, string location)
     {
-        return ItemLocations[location].Difficulty;
+        return ItemLocations[location].BaseDifficulty;
     }
 
     public override bool IsHintable(string location)
     {
-        if (FF12Flags.Items.KeyMain.Enabled && treasureRando.IsMainKeyItem(location))
+        if (ItemLocations[location].Traits.Contains("Fake"))
+        {
+            return false;
+        }
+
+        if (FF12Flags.Items.KeyItems.SelectedKeys.Contains(GetLocationItem(location).Value.Item1) && treasureRando.IsImportantKeyItem(location))
         {
             return true;
         }
 
-        if (FF12Flags.Items.KeySide.Enabled && treasureRando.IsSideKeyItem(location))
+        if (treasureRando.IsWoT(location))
         {
             return true;
         }
 
-        if (FF12Flags.Items.KeyWrit.Enabled && treasureRando.IsWoTItem(location))
+        if (IsRandomizedChop(location))
         {
             return true;
         }
 
-        if (FF12Flags.Items.KeyGrindy.Enabled && treasureRando.IsGrindyKeyItem(location))
+        if (IsRandomizedBlackOrb(location))
         {
             return true;
         }
 
-        return FF12Flags.Items.KeyOrb.Enabled && treasureRando.IsBlackOrbKeyItem(location)
-|| (FF12Flags.Items.KeyHunt.Enabled && treasureRando.IsHuntKeyItem(location))
-|| (FF12Flags.Items.KeyTrophy.Enabled && treasureRando.IsHuntClubKeyItem(location))
-|| (FF12Flags.Other.HintAbilities.FlagEnabled && treasureRando.IsAbility(location));
+        return false;
+    }
+
+    public bool IsRandomizedChop(string location)
+    {
+        if (!treasureRando.IsChopKeyItem(location))
+        {
+            return false;
+        }
+
+        string chopStr = ItemLocations[location].Traits.First(s => s.StartsWith("Chop"));
+        int chop = int.Parse(chopStr.Substring(4));
+
+        return chop <= FF12Flags.Items.KeyChops.Value;
+    }
+
+    public bool IsRandomizedBlackOrb(string location)
+    {
+        if (!treasureRando.IsBlackOrbKeyItem(location))
+        {
+            return false;
+        }    
+
+        string blackOrbStr = ItemLocations[location].Traits.First(s => s.StartsWith("BlackOrb"));
+        int blackOrb = int.Parse(blackOrbStr.Substring(8));
+
+        return blackOrb <= FF12Flags.Items.KeyBlackOrbs.Value;
+    }
+
+    public bool IsRandomizedTrophy(string location)
+    {
+        string item = GetLocationItem(location)?.Item1;
+        if (item != null && Convert.ToInt32(item, 16) is >= 0x80B9 and <= 0x80D6)
+        {
+            return FF12Flags.Items.KeyItems.DictValues.Keys.Contains(item);
+        }
+
+        return false;
     }
 
     public override bool IsValid(string location, string replacement, Dictionary<string, int> items, List<string> areasAvailable)
     {
-        return (!treasureRando.IsImportantKeyItem(replacement) || HasEnoughChars(replacement, items))
-&& ItemLocations[location].IsValid(items) &&
+        return (!treasureRando.IsImportantKeyItem(replacement) || HasEnoughChars(location, items)) &&
+            ItemLocations[location].IsValid(items) &&
             ItemLocations[location].Areas.Intersect(areasAvailable).Count() > 0 &&
             IsAllowed(location, replacement);
     }
@@ -119,6 +172,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
     public override void SetLocationItem(string key, string item, int count)
     {
+        LogSetItem(key, item, count);
         switch (ItemLocations[key])
         {
             case TreasureRando.TreasureData t:
@@ -147,46 +201,44 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
         return ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
     }
 
-    public override bool IsAllowed(string old, string rep, bool orig = true)
+    protected override bool IsAllowedReplacement(string old, string rep)
     {
         if (ItemLocations[rep].Traits.Contains("Fake") || ItemLocations[old].Traits.Contains("Fake"))
         {
             return old == rep;
         }
 
-        if (!FF12Flags.Items.KeyMain.Enabled && (treasureRando.IsMainKeyItem(rep) || treasureRando.IsMainKeyItem(old)))
+        // If the old location is null, but the other in the reward can accept the replacement, then allow it.
+        if (GetLocationItem(old) == null && treasureRando.IsImportantKeyItem(rep) && ItemLocations[old] is TreasureRando.RewardData rewardOld && rewardOld.Index > 0)
+        {
+            ItemLocation other = ItemLocations.Values.FirstOrDefault(l => l is TreasureRando.RewardData r && r.IntID == rewardOld.IntID && r.Index == (rewardOld.Index == 1 ? 2 : 1));
+            if (GetLocationItem(other.ID) != null)
+            {
+                return IsAllowed(other.ID, rep);
+            }
+        }
+
+        foreach (string item in FF12Flags.Items.KeyItems.DictValues.Keys)
+        {
+            if (!FF12Flags.Items.KeyItems.SelectedKeys.Contains(item) && (GetLocationItem(rep)?.Item1 == item || GetLocationItem(old)?.Item1 == item))
+            {
+                return old == rep;
+            }
+        }
+
+        if ((treasureRando.IsChopKeyItem(old) && !IsRandomizedChop(old)) || (treasureRando.IsChopKeyItem(t: rep) && !IsRandomizedChop(rep)))
         {
             return old == rep;
         }
 
-        if (!FF12Flags.Items.KeySide.Enabled && (treasureRando.IsSideKeyItem(rep) || treasureRando.IsSideKeyItem(old)))
-        {
-            return old == rep;
-        }
-
-        if (!FF12Flags.Items.KeyGrindy.Enabled && (treasureRando.IsGrindyKeyItem(rep) || treasureRando.IsGrindyKeyItem(old)))
-        {
-            return old == rep;
-        }
-
-        if (!FF12Flags.Items.KeyOrb.Enabled && (treasureRando.IsBlackOrbKeyItem(rep) || treasureRando.IsBlackOrbKeyItem(old)))
-        {
-            return old == rep;
-        }
-
-        if (!FF12Flags.Items.KeyHunt.Enabled && (treasureRando.IsHuntKeyItem(rep) || treasureRando.IsHuntKeyItem(old)))
-        {
-            return old == rep;
-        }
-
-        if (!FF12Flags.Items.KeyTrophy.Enabled && (treasureRando.IsHuntClubKeyItem(rep) || treasureRando.IsHuntClubKeyItem(old)))
+        if((treasureRando.IsBlackOrbKeyItem(old) && !IsRandomizedBlackOrb(old)) || (treasureRando.IsBlackOrbKeyItem(t: rep) && !IsRandomizedBlackOrb(rep)))
         {
             return old == rep;
         }
 
         if (ItemLocations[old].Traits.Contains("Missable"))
         {
-            if (treasureRando.IsImportantKeyItem(rep) || treasureRando.IsAbility(rep))
+            if (treasureRando.IsImportantKeyItem(rep) || treasureRando.IsAbility(rep) || treasureRando.IsWoT(rep))
             {
                 return false;
             }
@@ -263,7 +315,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
         if (ItemLocations[old] is TreasureRando.TreasureData)
         {
-            if (GetLocationItem(rep).Value.Item1 != "Gil" && GetLocationItem(rep).Value.Item2 > 1)
+            if (GetLocationItem(rep)?.Item1 != "Gil" && GetLocationItem(rep)?.Item2 > 1)
             {
                 return false;
             }
@@ -271,7 +323,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
         if (ItemLocations[old] is TreasureRando.StartingInvData)
         {
-            if (GetLocationItem(rep).Value.Item1 == "Gil")
+            if (GetLocationItem(rep)?.Item1 == "Gil")
             {
                 return false;
             }
@@ -282,17 +334,20 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
     }
     public override void RemoveLikeItemsFromRemaining(string replacement, List<string> remaining)
     {
-        if (treasureRando.IsBlackOrbKeyItem(replacement) && FF12Flags.Items.KeyOrb.Enabled)
+        if (IsRandomizedBlackOrb(replacement))
         {
-            remaining.RemoveAll(rem => treasureRando.IsBlackOrbKeyItem(rem));
+            List<string> orbs = remaining.Where(l => IsRandomizedBlackOrb(l)).ToList();
+            remaining.RemoveAll(rem => orbs.Contains(rem) || orbs.Select(child => ((TreasureRando.RewardData)ItemLocations[child]).Parent.ID).Contains(rem));
         }
-        else if (treasureRando.IsHuntClubKeyItem(replacement) && GetLocationItem(replacement)?.Item1 != "80B8" && FF12Flags.Items.KeyTrophy.Enabled)
+        else if (IsRandomizedTrophy(replacement))
         {
-            remaining.RemoveAll(rem => treasureRando.IsHuntClubKeyItem(rem) && GetLocationItem(replacement)?.Item1 != "80B8");
+            List<string> trophies = remaining.Where(l => IsRandomizedTrophy(l)).ToList();
+            remaining.RemoveAll(rem => trophies.Contains(rem) || trophies.Select(child => ((TreasureRando.RewardData)ItemLocations[child]).Parent.ID).Contains(rem));
         }
-        else if (treasureRando.IsGrindyKeyItem(replacement) && GetLocationItem(replacement)?.Item1 == "2113" && FF12Flags.Items.KeyGrindy.Enabled)
+        else if (IsRandomizedChop(replacement))
         {
-            remaining.RemoveAll(rem => treasureRando.IsGrindyKeyItem(replacement) && GetLocationItem(replacement)?.Item1 == "2113");
+            List<string> chops = remaining.Where(l => IsRandomizedChop(l)).ToList();
+            remaining.RemoveAll(rem => chops.Contains(rem) || chops.Select(child => ((TreasureRando.RewardData)ItemLocations[child]).Parent.ID).Contains(rem));
         }
         else
         {
@@ -381,25 +436,27 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
     private bool HasEnoughChars(string location, Dictionary<string, int> items)
     {
-        int charCount = GetCharCount(items);
         if (FF12Flags.Items.CharacterScale.Enabled)
         {
-            if (ItemLocations[location].Difficulty >= 7)
+            int charCount = GetCharCount(items);
+            int diff = ItemLocations[location].BaseDifficulty;
+
+            if (diff >= 7)
             {
                 return charCount >= 6;
             }
 
-            if (ItemLocations[location].Difficulty >= 6)
+            if (diff >= 5)
             {
                 return charCount >= 5;
             }
 
-            if (ItemLocations[location].Difficulty >= 5)
+            if (diff >= 4)
             {
                 return charCount >= 4;
             }
 
-            if (ItemLocations[location].Difficulty >= 3)
+            if (diff >= 3)
             {
                 return charCount >= 3;
             }

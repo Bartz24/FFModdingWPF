@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using Bartz24.Data;
 using Bartz24.Docs;
 using System.Reflection.Emit;
+using Microsoft.Extensions.Logging;
 
 namespace Bartz24.RandoWPF;
 
-public class SeedGenerator
+public class SeedGenerator : IDisposable
 {
+    public const string UNEXPECTED_ERROR = "Unexpected error";
+
     public Action<string, int, int> SetUIProgress { get; set; }
     public Action IncrementTotalProgress { get; set; }
     public string DataOutFolder { get; set; }
@@ -21,6 +24,13 @@ public class SeedGenerator
     public string DocsDisplayName { get; set; }
 
     public List<Randomizer> Randomizers { get; set; }
+
+    public FileLogger Logger { get; set; }
+
+    public SeedGenerator()
+    {
+        Randomizers = new();
+    }
 
     public T Get<T>() where T : Randomizer
     {
@@ -37,6 +47,14 @@ public class SeedGenerator
 
     public void GenerateSeed()
     {
+        Logger = new FileLogger("RandoLog.log", LogLevel.Debug);
+
+        // Log the version and the seed
+        Logger.LogInformation($"Version: {SetupData.Version}");
+        Logger.LogInformation($"Seed: {SetupData.Seed}");
+        FlagStringCompressor compressor = new();
+        Logger.LogInformation($"Flags: {compressor.CompressFlags()}");
+
         try
         {
             SetUIProgress("Preparing data folder...", -1, -1);
@@ -62,12 +80,13 @@ public class SeedGenerator
         }
         catch (Exception ex)
         {
-            throw new RandoException(ex.Message, "Unexpected error", ex);
+            throw new RandoException(ex.Message, UNEXPECTED_ERROR, ex);
         }
     }
 
     protected virtual void PrepareData()
     {
+        RandomNum.ClearRand();
         foreach (Flag flag in RandoFlags.FlagsList)
         {
             flag.ResetRandom(GetIntSeed());
@@ -159,5 +178,10 @@ public class SeedGenerator
         }
 
         ZipFile.CreateFromDirectory($"{DocsOutFolder}\\docs_latest", zipDocsName);
+    }
+
+    public void Dispose()
+    {
+        Logger.Dispose();
     }
 }

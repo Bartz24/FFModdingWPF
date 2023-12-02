@@ -144,19 +144,33 @@ public class ShopRando : Randomizer
 
                     for (int i = 0; i < count; i++)
                     {
-                        string newItem = RandomNum.SelectRandomWeighted(treasureRando.remainingRandomizeItems, item =>
+                        List<string> possible = treasureRando.remainingRandomizeItems.Where(item => !items.Contains(item)).ToList();
+                        if (s.Traits.Contains("Missable"))
                         {
-                            if (items.Contains(item))
-                            {
-                                return 0;
-                            }
+                            possible = possible.Where(item => !item.StartsWith("30") && !item.StartsWith("40")).ToList();
+                        }
 
-                            return s.Traits.Contains("Missable") && (item.StartsWith("30") || item.StartsWith("40"))
-                                ? 0
-                                : !s.Traits.Contains("Unique") && used.Count < treasureRando.remainingRandomizeItems.Count && used.Contains(item)
-                                ? 0
-                                : item == "2000" ? 25 : item.StartsWith("20") || item.StartsWith("21") ? 1 : 10;
-                        });
+                        string newItem = null;
+                        while (newItem == null)
+                        {
+                            newItem = RandomNum.SelectRandomWeighted(possible, item =>
+                            {
+                                if (items.Contains(item))
+                                {
+                                    return 0;
+                                }
+
+                                return !s.Traits.Contains("Unique") && used.Contains(item)
+                                    ? 0
+                                    : item == "2000" ? 25 : item.StartsWith("20") || item.StartsWith("21") ? 1 : 10;
+                            }, true);
+
+                            if (newItem == null)
+                            {
+                                used.Clear();
+                            }
+                        }
+
                         items.Add(newItem);
 
                         if (!s.Traits.Contains("Unique") && !used.Contains(newItem))

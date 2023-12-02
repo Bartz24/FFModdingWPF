@@ -1,62 +1,54 @@
 {
   "name": "1 - Simple",
-  "version": "0.7.4.7",
+  "version": "0.8.0.6",
   "flags": [
     {
       "FlagEnabled": false,
+      "FlagID": "EquipStats",
       "FlagProperties": [
         {
           "Enabled": false,
           "ID": "EquipHiddenStat"
         }
-      ],
-      "FlagID": "EquipStats"
+      ]
     },
     {
       "FlagEnabled": false,
-      "FlagProperties": [],
-      "FlagID": "EquipElem"
+      "FlagID": "EquipElem",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": false,
-      "FlagProperties": [],
-      "FlagID": "EquipAug"
+      "FlagID": "EquipAug",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": false,
-      "FlagProperties": [],
-      "FlagID": "EquipEff"
+      "FlagID": "EquipEff",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "Treasures",
       "FlagProperties": [
         {
-          "Enabled": false,
-          "ID": "KeyMain"
+          "SelectedValues": [
+            "Defeat Cid 2 in Pharos",
+            "Find in Any Random Location"
+          ],
+          "ID": "WritGoals"
         },
         {
-          "Enabled": false,
-          "ID": "KeySide"
+          "SelectedValues": [],
+          "ID": "KeyItems"
         },
         {
-          "Enabled": false,
-          "ID": "KeyGrindy"
+          "Value": 0,
+          "ID": "KeyChops"
         },
         {
-          "Enabled": false,
-          "ID": "KeyHunt"
-        },
-        {
-          "Enabled": false,
-          "ID": "KeyOrb"
-        },
-        {
-          "Enabled": false,
-          "ID": "KeyTrophy"
-        },
-        {
-          "Enabled": false,
-          "ID": "KeyWrit"
+          "Value": 0,
+          "ID": "KeyBlackOrbs"
         },
         {
           "Enabled": false,
@@ -98,11 +90,11 @@
           "Enabled": false,
           "ID": "KeyPlaceCharScale"
         }
-      ],
-      "FlagID": "Treasures"
+      ]
     },
     {
       "FlagEnabled": true,
+      "FlagID": "Shops",
       "FlagProperties": [
         {
           "Enabled": true,
@@ -112,61 +104,61 @@
           "Value": 20,
           "ID": "ShopSize"
         }
-      ],
-      "FlagID": "Shops"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "Bazaars"
+      "FlagID": "Bazaars",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "StartingTpStone",
       "FlagProperties": [
         {
           "Value": 50,
           "ID": "TpStoneCount"
         }
-      ],
-      "FlagID": "StartingTpStone"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandParty"
+      "FlagID": "RandParty",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "RandBoards"
+      "FlagID": "RandBoards",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": false,
-      "FlagProperties": [],
-      "FlagID": "StartBoards"
+      "FlagID": "StartBoards",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "HintsMain",
       "FlagProperties": [
         {
           "SelectedValue": "Exact",
           "ID": "HintsSpecific"
         }
-      ],
-      "FlagID": "HintsMain"
+      ]
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "HintAbi"
+      "FlagID": "HintAbi",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
-      "FlagProperties": [],
-      "FlagID": "Music"
+      "FlagID": "Music",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,
+      "FlagID": "EXPMult",
       "FlagProperties": [
         {
           "Value": 200,
@@ -176,11 +168,11 @@
           "Value": 100,
           "ID": "EXPMultBossAmt"
         }
-      ],
-      "FlagID": "EXPMult"
+      ]
     },
     {
       "FlagEnabled": true,
+      "FlagID": "LPMult",
       "FlagProperties": [
         {
           "Value": 150,
@@ -190,8 +182,7 @@
           "Value": 100,
           "ID": "LPMultBossAmt"
         }
-      ],
-      "FlagID": "LPMult"
+      ]
     }
   ]
 }

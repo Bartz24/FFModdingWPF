@@ -32,6 +32,8 @@ public class TreasureRando : Randomizer
     public List<string> randomizeItems = new();
     public List<string> remainingRandomizeItems = new();
 
+    public Dictionary<string, int> LocationSpheres { get; set; } = new();
+
     public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
@@ -153,7 +155,7 @@ public class TreasureRando : Randomizer
         };
         placementAlgoNormal.Logic = new FF12ItemPlacementLogic(placementAlgoNormal, Generator);
 
-        placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(itemLocations, hintsNotesLocations, -1)
+        placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(itemLocations, hintsNotesLocations, Generator, -1)
         {
             SetProgressFunc = Generator.SetUIProgress
         };
@@ -189,12 +191,12 @@ public class TreasureRando : Randomizer
             CollapseAndSelectTreasures();
 
             Dictionary<string, double> areaMults = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
-            if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
-            {
-                usingBackup = true;
-                placementAlgoBackup.Randomize(new List<string>(), areaMults);
-            }
 
+            // Backward algorithm does not well yet for this game
+            usingBackup = true;
+            placementAlgoBackup.Randomize(new List<string>(), areaMults);
+
+            Generator.SetUIProgress("Filling empty and missable locations...", 30, 100);
             int respawnIndex = 0;
             itemLocations.Values.Shuffle().ForEach(l =>
             {
@@ -235,6 +237,7 @@ public class TreasureRando : Randomizer
                 }
             });
 
+            Generator.SetUIProgress("Randomizing \"junk\" items...", 60, 100);
             EquipRando equipRando = Generator.Get<EquipRando>();
             itemLocations.Values.ForEach(l =>
             {
@@ -284,14 +287,27 @@ public class TreasureRando : Randomizer
                 }
             });
 
-            if (!FF12Flags.Items.KeyWrit.Enabled)
+            List<ItemLocation> writLocations = itemLocations.Values.Where(l => PlacementAlgo.Logic.GetLocationItem(l.ID, false)?.Item1 == "8070").ToList();
+
+            writLocations.ForEach(l =>
             {
-                itemLocations.Values.Where(l => PlacementAlgo.Logic.GetLocationItem(l.ID, false) != null && PlacementAlgo.Logic.GetLocationItem(l.ID, false).Value.Item1 == "8070")
-                    .ForEach(l =>
-                    {
-                        PlacementAlgo.Logic.SetLocationItem(l.ID, "0000", 5);
-                        hints.Where(list => list.Contains(l.ID)).ForEach(list => list.Remove(l.ID));
-                    });
+                PlacementAlgo.Logic.SetLocationItem(l.ID, "0000", 5);
+                hints.Where(list => list.Contains(l.ID)).ForEach(list => list.Remove(l.ID));
+            });
+
+            if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalCid2))
+            {
+                ItemLocation cid2 = writLocations.First(l => l.Traits.Contains("WritCid2"));
+                PlacementAlgo.Logic.SetLocationItem(cid2.ID, "8070", 1);
+                AddHint(cid2.ID);
+                writLocations.Remove(cid2);
+            }
+
+            if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalAny))
+            {
+                ItemLocation l = RandomNum.SelectRandom(writLocations);
+                PlacementAlgo.Logic.SetLocationItem(l.ID, "8070", 1);
+                AddHint(l.ID);
             }
 
             missableTreasureLinks.ForEach(p =>
@@ -307,7 +323,7 @@ public class TreasureRando : Randomizer
             // Clear empty items
             itemLocations.Values.ForEach(l =>
             {
-                if (!PlacementAlgo.Placement.ContainsKey(l.ID) && !missableTreasureLinks.ContainsKey(l.ID))
+                if (!PlacementAlgo.Placement.ContainsKey(l.ID))
                 {
                     if (l is TreasureData treasure)
                     {
@@ -315,22 +331,69 @@ public class TreasureRando : Randomizer
                         t.Respawn = 255;
                         t.SpawnChance = 0;
                     }
-                    else if (l is RewardData)
+
+                    if (PlacementAlgo.Logic.GetKeysAllowed().Contains(l.ID))
                     {
-                        PlacementAlgo.Logic.SetLocationItem(l.ID, null, 0);
-                    }
-                    else if (l is StartingInvData)
-                    {
-                        PlacementAlgo.Logic.SetLocationItem(l.ID, null, 0);
-                    }
-                    else
-                    {
-                        throw new Exception("Missing implemention for clearing");
+                        if (l is RewardData)
+                        {
+                            PlacementAlgo.Logic.SetLocationItem(l.ID, null, 0);
+                        }
+                        else if (l is StartingInvData)
+                        {
+                            PlacementAlgo.Logic.SetLocationItem(l.ID, null, 0);
+                        }
+                        else
+                        {
+                            throw new Exception("Missing implemention for clearing");
+                        }
                     }
                 }
             });
+
+            Generator.SetUIProgress("Calculating spheres...", 90, 100);
+            LocationSpheres = SphereCalculator.CalculateSpheres(PlacementAlgo.Logic);
+
+            if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalMaxSphere))
+            {
+                int sphere = LocationSpheres.Values.Max();
+                bool placed = false;
+                while (!placed)
+                {
+                    List<ItemLocation> maxSphere = itemLocations.Values.Where(l => PlacementAlgo.Placement.ContainsKey(l.ID)).Where(l =>
+                    {
+                        ItemLocation orig = itemLocations[PlacementAlgo.Placement[l.ID]];
+                        return LocationSpheres.GetValueOrDefault(l.ID, 0) == sphere
+                                && !l.Traits.Contains("Fake")
+                                && !l.Traits.Contains("Missable")
+                                && !IsKeyItem(orig.ID)
+                                && !IsAbility(orig.ID)
+                                && PlacementAlgo.Logic.GetLocationItem(l.ID, false)?.Item1 != "8070"
+                                && PlacementAlgo.Logic.GetLocationItem(l.ID, false)?.Item1 != "Gil";
+                    }).ToList();
+
+                    if (maxSphere.Count > 0)
+                    {
+                        ItemLocation l = RandomNum.SelectRandom(maxSphere);
+                        PlacementAlgo.Logic.SetLocationItem(l.ID, "8070", 1);
+                        AddHint(l.ID);
+                        placed = true;
+                    }
+                    else
+                    {
+                        sphere--;
+                    }
+                }
+            }
+
             RandomNum.ClearRand();
         }
+    }
+
+    public int AddHint(string location)
+    {
+        int index = Enumerable.Range(0, hints.Count).First(i => hints[i].Count == hints.Select(l => l.Count).Min());
+        hints[index].Add(location);
+        return index;
     }
 
     private bool ShouldRemoveItem(string newItem)
@@ -461,7 +524,7 @@ public class TreasureRando : Randomizer
 
     public bool IsImportantKeyItem(string location)
     {
-        return (IsMainKeyItem(location) || IsSideKeyItem(location) || IsHuntKeyItem(location) || IsGrindyKeyItem(location) || IsBlackOrbKeyItem(location) || IsHuntClubKeyItem(location)) && (PlacementAlgo.Logic.GetLocationItem(location) != null || PlacementAlgo.Iterations > (PlacementAlgo.Placement.Count * 1.5f) + 1) && (PlacementAlgo.Logic.GetLocationItem(location) == null || PlacementAlgo.Logic.GetLocationItem(location).Value.Item1 != "Gil");
+        return IsKeyItem(location) && (PlacementAlgo.Logic.GetLocationItem(location) != null || PlacementAlgo.Iterations > (PlacementAlgo.Placement.Count * 1.5f) + 1) && (PlacementAlgo.Logic.GetLocationItem(location) == null || PlacementAlgo.Logic.GetLocationItem(location).Value.Item1 != "Gil");
     }
 
     public bool IsAbility(string t, bool orig = true)
@@ -469,39 +532,24 @@ public class TreasureRando : Randomizer
         return PlacementAlgo.Logic.GetLocationItem(t, orig) != null && (PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("30") || PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("40"));
     }
 
-    public bool IsWoTItem(string t, bool orig = true)
+    public bool IsWoT(string t, bool orig = true)
     {
-        return PlacementAlgo.Logic.GetLocationItem(t, orig) != null && PlacementAlgo.Logic.GetLocationItem(t).Value.Item1 == "8070";
+        return PlacementAlgo.Logic.GetLocationItem(t, orig) != null && PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1 == "8070";
     }
 
-    public bool IsMainKeyItem(string t)
+    public bool IsChopKeyItem(string t)
     {
-        return PlacementAlgo.ItemLocations[t].Traits.Contains("MainKey") && !IsWoTItem(t);
-    }
-
-    public bool IsSideKeyItem(string t)
-    {
-        return PlacementAlgo.ItemLocations[t].Traits.Contains("SideKey");
-    }
-
-    public bool IsHuntKeyItem(string t)
-    {
-        return PlacementAlgo.ItemLocations[t].Traits.Contains("HuntKey");
-    }
-
-    public bool IsGrindyKeyItem(string t)
-    {
-        return PlacementAlgo.ItemLocations[t].Traits.Contains("GrindyKey");
+        return PlacementAlgo.ItemLocations[t].Traits.Any(s => s.StartsWith("Chop"));
     }
 
     public bool IsBlackOrbKeyItem(string t)
     {
-        return PlacementAlgo.ItemLocations[t].Traits.Contains("BlackOrb");
+        return PlacementAlgo.ItemLocations[t].Traits.Any(s => s.StartsWith("BlackOrb"));
     }
 
-    public bool IsHuntClubKeyItem(string t)
+    public bool IsKeyItem(string t)
     {
-        return PlacementAlgo.ItemLocations[t].Traits.Contains("HuntClubKey");
+        return PlacementAlgo.Logic.GetLocationItem(t) != null && (FF12Flags.Items.KeyItems.DictValues.Keys.Contains(PlacementAlgo.Logic.GetLocationItem(t)?.Item1) || IsChopKeyItem(t) || IsBlackOrbKeyItem(t));
     }
 
     private List<string> GetRandomizableItems()
@@ -560,28 +608,18 @@ public class TreasureRando : Randomizer
             case 0:
             default:
                 {
-                    val = $"{itemLocations[l].Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Value.Item1)}";
+                    val = $"{itemLocations[l].Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false)?.Item1)}";
                     break;
                 }
             case 1:
                 {
                     string type = "Other";
-                    if (IsMainKeyItem(PlacementAlgo.Placement[l]))
+                    if (IsKeyItem(PlacementAlgo.Placement[l]))
                     {
-                        type = "a Story Key Item";
+                        type = "a Key Item";
                     }
 
-                    if (IsSideKeyItem(PlacementAlgo.Placement[l]))
-                    {
-                        type = "a Side Key Item";
-                    }
-
-                    if (IsHuntKeyItem(PlacementAlgo.Placement[l]))
-                    {
-                        type = "a Hunt Key Item";
-                    }
-
-                    if (IsGrindyKeyItem(PlacementAlgo.Placement[l]))
+                    if (IsChopKeyItem(PlacementAlgo.Placement[l]))
                     {
                         type = "a Chop";
                     }
@@ -591,17 +629,13 @@ public class TreasureRando : Randomizer
                         type = "a Black Orb";
                     }
 
-                    if (IsHuntClubKeyItem(PlacementAlgo.Placement[l]))
-                    {
-                        type = "a Trophy";
-                    }
-
-                    if (IsWoTItem(PlacementAlgo.Placement[l]))
-                    {
-                        type = "the Writ of Transit";
-                    }
-
                     (string, int)? item = PlacementAlgo.Logic.GetLocationItem(l, false);
+
+                    if (item?.Item1 == "8070")
+                    {
+                        type = "a Writ of Transit";
+                    }
+
                     if (item != null && (item.Value.Item1.StartsWith("30") || item.Value.Item1.StartsWith("40")))
                     {
                         type = "an Ability";
@@ -612,7 +646,7 @@ public class TreasureRando : Randomizer
                 }
             case 2:
                 {
-                    val = $"{itemLocations[l].Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false).Value.Item1)}";
+                    val = $"{itemLocations[l].Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false)?.Item1)}";
                     break;
                 }
             case 3:
@@ -667,7 +701,7 @@ public class TreasureRando : Randomizer
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
         HTMLPage page = new("Item Locations", "template/documentation.html");
 
-        page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Difficulty" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), itemLocations.Values.Select(l =>
+        page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Sphere" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), itemLocations.Values.Select(l =>
         {
             string display = "";
             if (l is TreasureData t)
@@ -718,7 +752,7 @@ public class TreasureRando : Randomizer
                 nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
             }
 
-            return new object[] { nameCell, display, l.Difficulty.ToString() }.ToList();
+            return new object[] { nameCell, display, LocationSpheres.ContainsKey(l.ID) ? LocationSpheres[l.ID] : "N/A" }.ToList();
         }).Where(l => l != null).ToList(), "itemlocations"));
         pages.Add("item_locations", page);
         return pages;
@@ -841,7 +875,7 @@ public class TreasureRando : Randomizer
         [RowIndex(0)]
         public override List<string> Areas { get; set; }
         [RowIndex(6)]
-        public override int Difficulty { get; set; }
+        public override int BaseDifficulty { get; set; }
 
         public TreasureData(string[] row, int index) : base(row)
         {
@@ -897,23 +931,47 @@ public class TreasureRando : Randomizer
         [RowIndex(0)]
         public override List<string> Areas { get; set; }
         [RowIndex(4)]
-        public override int Difficulty { get; set; }
+        public override int BaseDifficulty { get; set; }
         [RowIndex(6)]
         public List<string> FakeItems { get; set; }
 
+        public bool IsFakeOnly { get; set; }
+
         public RewardData Parent { get; set; }
 
-        public RewardData(string[] row, int index, int fakeID, bool forceFake = false) : base(row)
+        public RewardData(string[] row, int index, int fakeID, bool isAttachedFake = false) : base(row)
         {
-            if (forceFake && !Traits.Contains("Fake"))
+            if (isAttachedFake && !Traits.Contains("Fake"))
             {
                 Traits.Add("Fake");
             }
+            else if (!isAttachedFake && Traits.Contains("Fake"))
+            {
+                // Fake only rewards are explicitly defined as Fake, attached fakes are added automatically
+                IsFakeOnly = true;
+            }    
 
             IntID = !Traits.Contains("Fake") ? Convert.ToInt32(row[2], 16) : fakeID;
-            ID = (forceFake ? "_" : "") + row[2] + ":" + index;
+            ID = (isAttachedFake ? "_" : "") + row[2] + ":" + index;
             Index = index;
             Parent = this;
+
+            if (Traits.Contains("WritTomaj"))
+            {
+                if (Index != 1)
+                {
+                    Traits.Remove("WritTomaj");
+                }
+                else
+                {
+                    Traits.Remove("MainKey");
+                }
+            }
+
+            if (Traits.Contains("WritCid2") && Index != 1)
+            {
+                Traits.Remove("WritCid2");
+            }
         }
 
         public override bool IsValid(Dictionary<string, int> items)
@@ -994,7 +1052,7 @@ public class TreasureRando : Randomizer
         [RowIndex(0)]
         public override List<string> Areas { get; set; }
         [RowIndex(4)]
-        public override int Difficulty { get; set; }
+        public override int BaseDifficulty { get; set; }
 
         public StartingInvData(string[] row, int index) : base(row)
         {

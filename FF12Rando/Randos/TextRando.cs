@@ -105,12 +105,34 @@ public class TextRando : Randomizer
         infoStr.Text = infoStr.Text.Replace("$SEED$", RandomNum.GetIntSeed(SetupData.Seed).ToString());
         infoStr.Text = infoStr.Text.Replace("$SEED HASH$", GetHash());
 
-        string notesStr = "";
-        if (!FF12Flags.Items.KeyWrit.Enabled)
+        string goalStr = "";
+        if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalCid2))
         {
-            notesStr += "\n" +
-                "-The {color:gold}Writ of Transit{rgb:gray} is not a possible goal this seed.";
+            goalStr += "\n" +
+                "-Gather the necessary items to climb the Pharos and defeat {color:gold}Cid 2{rgb:gray}.";
         }
+
+        if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalAny))
+        {
+            goalStr += "\n" +
+                "-Find randomly in a non-missable location.";
+        }
+
+        if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalMaxSphere))
+        {
+            goalStr += "\n" +
+                "-Find in a random max sphere location (OoA is excluded).";
+        }
+
+        if (!string.IsNullOrEmpty(goalStr))
+        {
+            infoStr.Text += "{wait}\n" +
+                "Goal: Find a {color:gold}Writ of Transit{rgb:gray} and travel to {italic}Bahamut{/italic}." +
+                "Possible {color:gold}Writ of Transit{rgb:gray} locations for this seed:" +
+                goalStr;
+        }
+
+        string notesStr = "";
 
         if (FF12Flags.Items.KeyStartingInv.Enabled)
         {

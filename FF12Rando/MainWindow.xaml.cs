@@ -82,34 +82,45 @@ public partial class MainWindow : Window
 
     private async void generateButton_Click(object sender, RoutedEventArgs e)
     {
-        FF12SeedGenerator generator = new()
+        using (FF12SeedGenerator generator = new()
         {
             SetUIProgress = SetProgressBar,
             IncrementTotalProgress = totalProgressBar.IncrementProgress
-        };
-
-        totalProgressBar.TotalSegments = (generator.Randomizers.Count * 3) + 2;
-        totalProgressBar.SetProgress(0, 0);
-
-        try
+        })
         {
-            IsEnabled = false;
-            await Task.Run(() =>
+            totalProgressBar.TotalSegments = (generator.Randomizers.Count * 3) + 2;
+            totalProgressBar.SetProgress(0, 0);
+
+            try
             {
-                generator.GenerateSeed();
-            });
-            IsEnabled = true;
-        }
-        catch (RandoException ex)
-        {
-            Exception innerMost = ex;
-            while (innerMost.InnerException != null)
-            {
-                innerMost = innerMost.InnerException;
+                IsEnabled = false;
+                await Task.Run(() =>
+                {
+                    generator.GenerateSeed();
+                });
+                IsEnabled = true;
             }
+            catch (RandoException ex)
+            {
+                if (ex.Title == SeedGenerator.UNEXPECTED_ERROR)
+                {
+                    Exception innerMost = ex;
+                    while (innerMost.InnerException != null)
+                    {
+                        innerMost = innerMost.InnerException;
+                    }
 
-            MessageBox.Show("Randomizer encountered an error.\n\n" + ex.Message + "\n\nStack trace:\n" + innerMost.StackTrace, ex.Title);
-            IsEnabled = true;
+                    MessageBox.Show("Seed generation failed with an unexpected error.\n\n" + ex.Message + "\n\nStack trace:\n" + innerMost.StackTrace, ex.Title);
+                }
+                else
+                {
+                    MessageBox.Show("Seed generation failed.\n\n" + ex.Message, ex.Title);
+                }
+
+                SetProgressBar("Seed generation failed.", 0);
+
+                IsEnabled = true;
+            }
         }
     }
     private void SetProgressBar(string text, int value, int maxValue = 100)

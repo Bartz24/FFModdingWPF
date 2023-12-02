@@ -1,5 +1,6 @@
 ﻿using Bartz24.Data;
 using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -24,7 +25,20 @@ public class DictListBoxFlagProperty<T> : ListBoxFlagProperty
             SelectedValues = new List<string>();
         }
     }
+    [JsonProperty]
+    public override IList SelectedValues
+    {
+        get => base.SelectedValues;
+        set
+        {
+            base.SelectedValues = value;
+            selectedKeys = selectedValues.Select(s => DictValues.Reverse[s]).ToList();
+        }
+    }
+
     public BiDictionary<T, string> DictValues { get; set; } = new BiDictionary<T, string>();
-    public override List<string> Values => DictValues.Forward.Values;
-    public List<T> SelectedKeys => selectedValues.Select(s => DictValues.Reverse[s]).ToList();
+    public override List<string> Values => DictValues.Forward.Values.ToList();
+
+    private List<T> selectedKeys;
+    public List<T> SelectedKeys => selectedKeys;
 }
