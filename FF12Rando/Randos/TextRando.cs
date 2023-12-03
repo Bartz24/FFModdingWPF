@@ -100,53 +100,51 @@ public class TextRando : Randomizer
         Generator.SetUIProgress("Saving Text Data...", 0, -1);
 
 
-        DataStoreBinText.StringData infoStr = TextEbpZones["rbn_a16"].Values.First(v => v.Text != null && v.Text.Contains("$VERSION$"));
-        infoStr.Text = infoStr.Text.Replace("$VERSION$", SetupData.Version);
-        infoStr.Text = infoStr.Text.Replace("$SEED$", RandomNum.GetIntSeed(SetupData.Seed).ToString());
-        infoStr.Text = infoStr.Text.Replace("$SEED HASH$", GetHash());
+        DataStoreBinText.StringData seedInfoStr = TextEbpZones["rbn_a16"].Values.First(v => v.Text != null && v.Text.Contains("$VERSION$"));
+        seedInfoStr.Text = seedInfoStr.Text.Replace("$VERSION$", SetupData.Version);
+        seedInfoStr.Text = seedInfoStr.Text.Replace("$SEED$", RandomNum.GetIntSeed(SetupData.Seed).ToString());
+        seedInfoStr.Text = seedInfoStr.Text.Replace("$SEED HASH$", GetHash());
 
+        DataStoreBinText.StringData goalInfoStr = TextEbpZones["rbn_a16"].Values.First(v => v.Text != null && v.Text.Contains("$INFO$"));
         string goalStr = "";
         if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalCid2))
         {
             goalStr += "\n" +
-                "-Gather the necessary items to climb the Pharos and defeat {color:gold}Cid 2{rgb:gray}.";
+                "  -Gather the necessary items to climb the Pharos and defeat {color:gold}Cid 2{rgb:gray}.";
         }
 
         if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalAny))
         {
             goalStr += "\n" +
-                "-Find randomly in a non-missable location.";
+                "  -Find randomly in a non-missable location. This can be virtually anywhere.";
         }
 
         if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalMaxSphere))
         {
             goalStr += "\n" +
-                "-Find in a random max sphere location (OoA is excluded).";
-        }
-
-        if (!string.IsNullOrEmpty(goalStr))
-        {
-            infoStr.Text += "{wait}\n" +
-                "Goal: Find a {color:gold}Writ of Transit{rgb:gray} and travel to {italic}Bahamut{/italic}." +
-                "Possible {color:gold}Writ of Transit{rgb:gray} locations for this seed:" +
-                goalStr;
+                "  -Find in a random max sphere location (OoA is excluded).\n" +
+                "     This requires completing a large portion of the side content.";
         }
 
         string notesStr = "";
-
         if (FF12Flags.Items.KeyStartingInv.Enabled)
         {
             notesStr += "\n" +
-                "-Main party member starting items have been randomized.\n" +
-                "\tCheck your inventory for new items after they join.";
+                "  -Main party member starting items have been randomized.\n" +
+                "     Check your inventory for new items after they join.";
         }
 
         if (!string.IsNullOrEmpty(notesStr))
         {
-            infoStr.Text += "{wait}\n" +
-                "Notes for this seed:" +
+            goalStr += "{wait}\n" +
+                "Other notes for this seed:" +
                 notesStr;
         }
+
+        goalInfoStr.Text = goalInfoStr.Text.Replace("$INFO$", "The goal for this seed:\n" +
+            "Find a {color:gold}Writ of Transit{rgb:gray} and travel to {italic}Bahamut{/italic}.{wait}\n" +
+            "The possible {color:gold}Writ of Transit{rgb:gray} locations for this seed are:" +
+            goalStr);
 
         TextMenuMessage.Save($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\menu_message.bin");
         TextMenuCommand.Save($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\menu_command.bin");

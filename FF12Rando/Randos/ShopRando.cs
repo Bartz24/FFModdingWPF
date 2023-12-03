@@ -45,6 +45,7 @@ public class ShopRando : Randomizer
         {
             FF12Flags.Items.Bazaars.SetRand();
 
+            List<string> bazaarUsed = new();
             bazaars.DataList.Shuffle().ForEach(b =>
             {
                 List<string> items = new();
@@ -53,42 +54,28 @@ public class ShopRando : Randomizer
                     string item1 = treasureRando.remainingRandomizeItems.Where(item => IsMonograph(item)).Shuffle().First();
                     items.Add(item1);
                     treasureRando.remainingRandomizeItems.Remove(item1);
+                    bazaarUsed.Add(item1);
                 }
                 else if (treasureRando.remainingRandomizeItems.Where(item => equipRando.itemData.ContainsKey(item) && equipRando.itemData[item].Rank >= 10).Count() > 0)
                 {
                     string item1 = treasureRando.remainingRandomizeItems.Where(item => equipRando.itemData.ContainsKey(item) && equipRando.itemData[item].Rank >= 10).Shuffle().First();
                     items.Add(item1);
                     treasureRando.remainingRandomizeItems.Remove(item1);
+                    bazaarUsed.Add(item1);
                 }
                 else
                 {
-                    string item1 = RandomNum.SelectRandomWeighted(treasureRando.remainingRandomizeItems, _ => 1);
-                    items.Add(item1);
-                    if (ShouldRemoveItem(item1))
-                    {
-                        treasureRando.remainingRandomizeItems.Remove(item1);
-                    }
+                    AddNewBazaarItem(treasureRando, items, bazaarUsed);
                 }
 
-                string newItem;
                 if (RandomNum.RandInt(0, 99) < 25)
                 {
-                    newItem = RandomNum.SelectRandomWeighted(treasureRando.remainingRandomizeItems, _ => 1);
-                    items.Add(newItem);
-                    if (ShouldRemoveItem(newItem))
-                    {
-                        treasureRando.remainingRandomizeItems.Remove(newItem);
-                    }
+                    AddNewBazaarItem(treasureRando, items, bazaarUsed);
                 }
 
                 if (RandomNum.RandInt(0, 99) < 5)
                 {
-                    newItem = RandomNum.SelectRandomWeighted(treasureRando.remainingRandomizeItems, _ => 1);
-                    items.Add(newItem);
-                    if (ShouldRemoveItem(newItem))
-                    {
-                        treasureRando.remainingRandomizeItems.Remove(newItem);
-                    }
+                    AddNewBazaarItem(treasureRando, items, bazaarUsed);
                 }
 
                 b.Item1ID = Convert.ToUInt16(items[0], 16);
@@ -197,6 +184,33 @@ public class ShopRando : Randomizer
         }
     }
 
+    private void AddNewBazaarItem(TreasureRando treasureRando, List<string> items, List<string> bazaarUsed)
+    {
+        EquipRando equipRando = Generator.Get<EquipRando>();
+        List<string> possible;
+        switch(RandomNum.RandInt(0, 3))
+        {
+            case 0:
+            default: // Consumables
+                possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x0000 and < 0x1000).Select(i => i.ID).ToList();
+                break;
+            case 1:// Equip
+                possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x1000 and < 0x2000).Select(i => i.ID).ToList();
+                break;
+            case 2:// Abilities
+                possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x3000 and < 0x5000).Select(i => i.ID).ToList();
+                break;
+            case 3:// Loot
+                possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x2000 and < 0x3000 and not 0x2112 and not 0x2113 and not 0x2116).Select(i => i.ID).ToList();
+                break;
+        }
+
+        possible.RemoveAll(i => bazaarUsed.Contains(i));
+        string next = RandomNum.SelectRandom(possible);
+        items.Add(next);
+        bazaarUsed.Add(next);
+    }
+
     private bool ShouldRemoveItem(string newItem)
     {
         EquipRando equipRando = Generator.Get<EquipRando>();
@@ -266,7 +280,9 @@ public class ShopRando : Randomizer
             }).ToList()));
         });
 
-        page.HTMLElements.Add(new Table("Bazaars", (new string[] { "Requirements", "New Contents" }).ToList(), (new int[] { 50, 50 }).ToList(), bazaars.DataList.Select(bazaar =>
+        HTMLPage bazaarPage = new("Bazaars", "template/documentation.html");
+
+        bazaarPage.HTMLElements.Add(new Table("Bazaars", (new string[] { "Requirements", "New Contents" }).ToList(), (new int[] { 50, 50 }).ToList(), bazaars.DataList.Select(bazaar =>
         {
             List<string> reqs = new();
             if (bazaar.Ingredient1Amount > 0)
@@ -304,6 +320,7 @@ public class ShopRando : Randomizer
         }).ToList()));
 
         pages.Add("shops", page);
+        pages.Add("bazaars", bazaarPage);
         return pages;
     }
 

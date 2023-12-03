@@ -414,7 +414,7 @@ public class TreasureRando : Randomizer
             DataStoreTreasure t2 = ebpAreas[l.MapID].TreasureList[l.Index];
             if (RandomNum.RandInt(0, 99) < 75)
             {
-                if (t.GilChance > 0 && RandomNum.RandInt(0, 99) < 15)
+                if (t.GilChance > 0 && RandomNum.RandInt(0, 99) < 60)
                 {
                     t.GilChance = 100;
                     t.GilRare = t.GilCommon = (ushort)(t.GilRare * 8);
@@ -755,6 +755,12 @@ public class TreasureRando : Randomizer
             return new object[] { nameCell, display, LocationSpheres.ContainsKey(l.ID) ? LocationSpheres[l.ID] : "N/A" }.ToList();
         }).Where(l => l != null).ToList(), "itemlocations"));
         pages.Add("item_locations", page);
+
+        // Add hints page
+        page = new("Hints", "template/documentation.html");
+        page.HTMLElements.Add(new Table("Hints", (new string[] { "Hint" }).ToList(), (new int[] { 100 }).ToList(), hints.Select(list => new object[] { string.Join("\n", list.Select(line => GetHintText(line))) }.ToList()).ToList(), "hints"));
+        pages.Add("hints", page);
+
         return pages;
     }
 

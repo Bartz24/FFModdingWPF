@@ -1,4 +1,5 @@
 ﻿using Bartz24.Data;
+using Bartz24.Docs;
 using Bartz24.FF12;
 using Bartz24.RandoWPF;
 using FF12Rando;
@@ -82,7 +83,7 @@ public class EquipRando : Randomizer
                 (0, 99),
                 (0, 99)
             };
-            float[] weights = { weapon.Category is EquipCategory.Gun or EquipCategory.Measure ? 4 : 1, 2, 1 / 10f, 1, 1, 1, 1, 2 };
+            float[] weights = { weapon.Category is EquipCategory.Gun or EquipCategory.Measure ? 4 : 1, 3 / 4f, 1 / 10f, 1, 1, 1, 1, 2 };
             int[] chances = { 70, 8, 3, 3, 4, 4, 3, 1 };
             int[] zeros = { 0, 70, 97, 97, 90, 90, 90, 90 };
             int[] negs = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -92,7 +93,7 @@ public class EquipRando : Randomizer
                 (int, int)[] hiddenBounds = {
                     (0, 100),
                     (0, 100),
-                    (RandomNum.RandInt(RandomNum.RandInt(-100, -40), -20), 0)
+                    (RandomNum.RandInt(RandomNum.RandInt(-100, -40), -20), -10)
                 };
                 float[] hiddenWeights = { 2, 2, 4 };
                 int[] hiddenChances = { 30, 30, 200 };
@@ -211,7 +212,7 @@ public class EquipRando : Randomizer
                 (0, 99),
                 (0, 99)
             };
-            float[] weights = { 1, 1, 1 / 10f, 1, 1, 1, 1, 2 };
+            float[] weights = { 1, 1, 1 / 10f, 1.2f, 1.2f, 1.2f, 1.2f, 2 };
             int[] chances = { 30, 30, 10, 10, 10, 10, 10, 10 };
             int[] zeros = { 50, 50, 70, 70, 70, 70, 70, 97 };
             int[] negs = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -264,7 +265,7 @@ public class EquipRando : Randomizer
     {
         foreach (DataStoreWeapon weapon in equip.EquipDataList.Where(w => w is DataStoreWeapon))
         {
-            int count = weapon.Elements.EnumToList().Count;
+            int count = GetRandomElementCount(weapon.Elements, 1);
             List<Element> newElem = Enum.GetValues(typeof(Element)).Cast<Element>().ToList();
             weapon.Elements = 0;
             newElem.Shuffle().Take(count).ForEach(e => weapon.Elements |= e);
@@ -272,7 +273,7 @@ public class EquipRando : Randomizer
 
         foreach (DataStoreAmmo ammo in equip.EquipDataList.Where(a => a is DataStoreAmmo))
         {
-            int count = ammo.Elements.EnumToList().Count;
+            int count = GetRandomElementCount(ammo.Elements, 1);
             List<Element> newElem = Enum.GetValues(typeof(Element)).Cast<Element>().ToList();
             ammo.Elements = 0;
             newElem.Shuffle().Take(count).ForEach(e => ammo.Elements |= e);
@@ -308,11 +309,22 @@ public class EquipRando : Randomizer
 
             elements.ForEach(e => SetElementLevel(e, statPoints[elements.IndexOf(e)], attribute));
 
-            int count = attribute.ElementsBoost.EnumToList().Count;
+            int count = GetRandomElementCount(attribute.ElementsBoost);
             List<Element> newElem = Enum.GetValues(typeof(Element)).Cast<Element>().ToList();
             attribute.ElementsBoost = 0;
             newElem.Shuffle().Take(count).ForEach(e => attribute.ElementsBoost |= e);
         }
+    }
+
+    private int GetRandomElementCount(Element elem, int max = 8)
+    {
+        int baseCount = elem.EnumToList().Count;
+        if (RandomNum.RandInt(0, 99) < 70)
+        {
+            return baseCount;
+        }
+        int round1 = RandomNum.RandIntBounds(0, max, baseCount, 1);
+        return RandomNum.RandIntBounds(0, max, round1, 1);
     }
 
     private int GetElementLevel(Element element, DataStoreAttribute attribute)
@@ -361,12 +373,17 @@ public class EquipRando : Randomizer
     {
         foreach (DataStoreWeapon weapon in equip.EquipDataList.Where(w => w is DataStoreWeapon))
         {
-            int count = weapon.StatusEffects.EnumToList().Count;
+            int count = GetRandomStatsEffectCount(weapon.StatusEffects);
             List<Status> newStatus = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
             weapon.StatusEffects = 0;
 
             for (int i = 0; i < count; i++)
             {
+                if (newStatus.Count == 0)
+                {
+                    break;
+                }
+
                 Status next = RandomNum.SelectRandomWeighted(newStatus, StatusEffectWeightOnHit);
                 newStatus.Remove(next);
                 weapon.StatusEffects |= next;
@@ -375,12 +392,17 @@ public class EquipRando : Randomizer
 
         foreach (DataStoreAmmo ammo in equip.EquipDataList.Where(w => w is DataStoreAmmo))
         {
-            int count = ammo.StatusEffects.EnumToList().Count;
+            int count = GetRandomStatsEffectCount(ammo.StatusEffects);
             List<Status> newStatus = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
             ammo.StatusEffects = 0;
 
             for (int i = 0; i < count; i++)
             {
+                if (newStatus.Count == 0)
+                {
+                    break;
+                }
+
                 Status next = RandomNum.SelectRandomWeighted(newStatus, StatusEffectWeightOnHit);
                 newStatus.Remove(next);
                 ammo.StatusEffects |= next;
@@ -390,26 +412,48 @@ public class EquipRando : Randomizer
         for (int id = 0; id < equip.AttributeDataList.Count; id++)
         {
             DataStoreAttribute attribute = equip.AttributeDataList[id];
-            int countEquip = attribute.StatusEffectsOnEquip.EnumToList().Count;
+            int countEquip = GetRandomStatsEffectCount(attribute.StatusEffectsOnEquip);
             List<Status> newStatus = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
             attribute.StatusEffectsOnEquip = 0;
 
             for (int i = 0; i < countEquip; i++)
             {
+                if (newStatus.Count == 0)
+                {
+                    break;
+                }
+
                 Status next = RandomNum.SelectRandomWeighted(newStatus, s => StatusEffectWeightOnEquip(s, id));
                 newStatus.Remove(next);
                 attribute.StatusEffectsOnEquip |= next;
             }
 
-            int countImmune = attribute.StatusEffectsImmune.EnumToList().Count;
+            int countImmune = GetRandomStatsEffectCount(attribute.StatusEffectsImmune);
             attribute.StatusEffectsImmune = 0;
             for (int i = 0; i < countImmune; i++)
             {
+                if (newStatus.Count == 0)
+                {
+                    break;
+                }
+
                 Status next = RandomNum.SelectRandomWeighted(newStatus, StatusEffectWeightImmune);
                 newStatus.Remove(next);
                 attribute.StatusEffectsImmune |= next;
             }
         }
+    }
+
+    private int GetRandomStatsEffectCount(Status status)
+    {
+        int baseCount = status.EnumToList().Count;
+        if (RandomNum.RandInt(0, 99) < 60)
+        {
+            return baseCount;
+        }
+        int round1 = RandomNum.RandIntBounds(0, 32, baseCount, 1);
+        int round2 = RandomNum.RandIntBounds(0, 32, round1, 1);
+        return RandomNum.RandIntBounds(0, 32, round2, 1);
     }
 
     private long StatusEffectWeightOnHit(Status status)

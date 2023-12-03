@@ -37,6 +37,12 @@ public class RandomNum
         return rand.Next(low, high + 1);
     }
 
+    public static int RandIntBounds(int min, int max, int center, int range)
+    {
+        CheckRand();
+        return RandInt(Math.Max(min, center - range), Math.Min(max, center + range));
+    }
+
     /// <summary>
     /// Gets a random number from (low, high)
     /// </summary>

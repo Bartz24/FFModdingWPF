@@ -311,7 +311,7 @@ public class FF12Flags
             {
                 Text = "Randomize Shops",
                 FlagID = "Shops",
-                DescriptionFormat = "Randomize contents of shops. These items can appear in treasures or bazaars if those flags are on."
+                DescriptionFormat = "Randomize contents of shops. These items can appear in the item placement pool if that flag is on."
             }.Register(FlagType.Items);
 
             ShopsShared = new ToggleFlagProperty()
@@ -336,7 +336,7 @@ public class FF12Flags
             {
                 Text = "Randomize Bazaars",
                 FlagID = "Bazaars",
-                DescriptionFormat = "Randomize contents of bazaars. These items can appear in treasures or shops if those flags are on."
+                DescriptionFormat = "Randomize contents of bazaars. They may contain duplicates of items, abilities, and loot found elsewhere. Any monographs not placed in item locations will still show up in bazaars."
             }.Register(FlagType.Items);
 
             StartingTpStones = new Flag()
