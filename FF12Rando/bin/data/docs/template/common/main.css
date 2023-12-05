@@ -7,6 +7,15 @@ body{
     color: #ffffff;
 }
 
+table {
+    table-layout: fixed;
+}
+
+.th-inner {
+    white-space:normal !important;
+    word-wrap:break-word;
+}
+
 table, th, td{
     border: 1px solid rgb(255, 255, 255);
     padding: 5px;

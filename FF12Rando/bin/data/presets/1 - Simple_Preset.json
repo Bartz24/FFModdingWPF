@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.8.0.6",
+  "version": "0.8.0.8",
   "flags": [
     {
       "FlagEnabled": false,
@@ -89,6 +89,10 @@
         {
           "Enabled": false,
           "ID": "KeyPlaceCharScale"
+        },
+        {
+          "Enabled": true,
+          "ID": "PlaceJunkScale"
         }
       ]
     },
@@ -103,12 +107,21 @@
         {
           "Value": 20,
           "ID": "ShopSize"
+        },
+        {
+          "Enabled": true,
+          "ID": "ShopJunkScale"
         }
       ]
     },
     {
       "FlagEnabled": true,
       "FlagID": "Bazaars",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": false,
+      "FlagID": "Seitengrat",
       "FlagProperties": []
     },
     {

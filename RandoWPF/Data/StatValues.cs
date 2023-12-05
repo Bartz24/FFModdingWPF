@@ -19,7 +19,7 @@ public class StatValues
 
     public void Randomize((int, int)[] bounds, long amount, float rate = 0.2f)
     {
-        int randTotal = (int)Math.Min(Math.Min(amount, GetBoundsSum(bounds)), int.MaxValue);
+        int randTotal = (int)Math.Min(amount, GetBoundsSum(bounds));
         while (Vals.Sum() < randTotal)
         {
             int select = SelectNext();

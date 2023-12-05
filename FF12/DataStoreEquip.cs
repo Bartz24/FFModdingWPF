@@ -4,6 +4,8 @@ namespace Bartz24.FF12;
 
 public class DataStoreEquip : DataStore
 {
+    public string ID { get => IntID.ToString("X4"); }
+    public int IntID { get; set; }
     public bool Unsellable
     {
         get => Data.ReadBinary(0x07, 1);

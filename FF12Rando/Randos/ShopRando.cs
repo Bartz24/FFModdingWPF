@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using static FF12Rando.TreasureRando;
 
 namespace FF12Rando;
 
@@ -29,10 +30,19 @@ public class ShopRando : Randomizer
         bazaars = new DataStoreBPSection<DataStoreBazaar>();
         bazaars.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_057.bin"));
 
+        TreasureRando treasureRando = Generator.Get<TreasureRando>();
         FileHelpers.ReadCSVFile(@"data\shops.csv", row =>
         {
             ShopData s = new(row);
             shopData.Add(s.ID, s);
+
+            string[] fakeReward = new string[] { s.Area, s.Name + " Shop", "_shop" + s.ID, "", "0", "Fake", ""};            
+            RewardData rFake = new(fakeReward, 0, TreasureRando.FakeId, false);
+            rFake.Requirements = s.Requirements;
+            TreasureRando.FakeId--;
+            treasureRando.ItemLocations.Add(rFake.ID, rFake);
+
+            s.ShopFakeLocationLink = rFake.ID;
         }, FileHelpers.CSVFileHeader.HasHeader);
     }
     public override void Randomize()
@@ -111,6 +121,28 @@ public class ShopRando : Randomizer
             RandomNum.ClearRand();
         }
 
+        if (!FF12Flags.Items.AllowSeitengrat.FlagEnabled)
+        {
+            bazaars.DataList.ForEach(b =>
+            {
+                // Replace any Seitengrat 10B2 with the Dhanusha 10C7
+                if (b.Item1ID == 0x10B2)
+                {
+                    b.Item1ID = 0x10C7;
+                }
+
+                if (b.Item2ID == 0x10B2)
+                {
+                    b.Item2ID = 0x10C7;
+                }
+
+                if (b.Item3ID == 0x10B2)
+                {
+                    b.Item3ID = 0x10C7;
+                }
+            });
+        }
+
         if (FF12Flags.Items.Shops.FlagEnabled)
         {
             FF12Flags.Items.Shops.SetRand();
@@ -149,7 +181,7 @@ public class ShopRando : Randomizer
 
                                 return !s.Traits.Contains("Unique") && used.Contains(item)
                                     ? 0
-                                    : item == "2000" ? 25 : item.StartsWith("20") || item.StartsWith("21") ? 1 : 10;
+                                    : item is "2000" or "0006" ? 25 : item.StartsWith("20") || item.StartsWith("21") ? 1 : 10;
                             }, true);
 
                             if (newItem == null)
@@ -179,6 +211,88 @@ public class ShopRando : Randomizer
                     }
                 }
             });
+
+            if (FF12Flags.Items.JunkRankScaleShops.Enabled)
+            {
+                // Get all the shop slots with consumables, equipment, and abilities and group by their item type
+                var grouping = shopData.Values.Select(s => shops[s.ID]).SelectMany(shop =>
+                {
+                    return Enumerable.Range(0, shop.GetItems().Count).Select(index => (shop, index));
+                }).GroupBy(itemSlot =>
+                {
+                    string id = itemSlot.shop.GetItems()[itemSlot.index];
+                    int intId = Convert.ToInt32(id, 16);
+                    return intId < 0x1000 ? ItemType.Consumable : intId is >= 0x3000 and < 0x5000 ? ItemType.Ability : ItemType.Equipment;
+                });
+
+                List<(DataStoreShop shop, int index)> removedItems = new();
+
+                // Group by type and sort the items by its item rank
+                foreach (var group in grouping)
+                {
+                    List<string> items = group.Shuffle().Select(itemSlot => itemSlot.shop.GetItems()[itemSlot.index]).OrderBy(item =>
+                    {
+                        return equipRando.itemData[item].Rank;
+                    }).ToList();
+                    items = RandomNum.ShuffleLocalized(items, 5);
+
+                    // Sort the shop slots by their shop sphere
+                    var slots = group.Shuffle().OrderBy(itemSlot => treasureRando.LocationSpheres.GetValueOrDefault(shopData[itemSlot.shop.ID].ShopFakeLocationLink, 0)).ToList();
+
+                    Dictionary<int, List<string>> replacedShopItems = new();
+                    // Go in order and set the junk items
+                    for (int i = 0; i < items.Count; i++)
+                    {
+                        List<string> shopItems = shops[slots[i].shop.ID].GetItems();
+
+                        if (!replacedShopItems.ContainsKey(slots[i].shop.ID))
+                        {
+                            replacedShopItems.Add(slots[i].shop.ID, new());
+                        }
+
+                        // If the item is a duplicate, find a replacement later in the list and swap with it.
+                        // If a replacement does not exist, mark the slot as removed.
+                        // The slot will be cleared after all the replacements.
+                        string newItem = items[i];
+                        if (replacedShopItems[slots[i].shop.ID].Contains(newItem))
+                        {
+                            int swapIndex = -1;
+                            for (int j = i + 1; j < items.Count; j++)
+                            {
+                                if (!replacedShopItems[slots[i].shop.ID].Contains(items[j]))
+                                {
+                                    swapIndex = j;
+                                    break;
+                                }
+                            }
+
+                            if (swapIndex == -1)
+                            {
+                                removedItems.Add(slots[i]);
+                                shops[slots[i].shop.ID].SetItems(shopItems);
+                                continue;
+                            }
+
+                            (items[i], items[swapIndex]) = (items[swapIndex], items[i]);
+                            newItem = items[i];
+                        }
+
+                        shopItems[slots[i].index] = newItem;
+
+                        shops[slots[i].shop.ID].SetItems(shopItems.OrderBy(itemId => itemId).ToList());
+
+                        replacedShopItems[slots[i].shop.ID].Add(newItem);
+                    }
+                }
+
+                // Clear the removed items
+                foreach (var slot in removedItems)
+                {
+                    List<string> shopItems = shops[slot.shop.ID].GetItems();
+                    shopItems.RemoveAt(slot.index);
+                    shops[slot.shop.ID].SetItems(shopItems);
+                }
+            }
 
             RandomNum.ClearRand();
         }
@@ -343,6 +457,11 @@ public class ShopRando : Randomizer
         public string Area { get; set; }
         [RowIndex(3)]
         public List<string> Traits { get; set; }
+        [RowIndex(4)]
+        public ItemReq Requirements { get; set; }
+
+        // Used to link the fake shop rewards in the treasure rando
+        public string ShopFakeLocationLink { get; set; }
         public ShopData(string[] row) : base(row)
         {
         }

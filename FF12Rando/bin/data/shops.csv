@@ -1,67 +1,67 @@
-Name,ID,Location,Traits
-Amal's Weaponry,48,Rabanastre,
-Panamis's Protectives,49,Rabanastre,
-Yugri's Magicks,51,Rabanastre,
-Batahn's Technicks,52,Rabanastre,
-Migelo's Sundries,50,Rabanastre,
-Yamoora's Gambits,53,Rabanastre,
-Clan Provisioner 1,13,Clan Hall,Unique
-Clan Provisioner 2,12,Clan Hall,Unique
-Clan Provisioner 3,11,Clan Hall,Unique
-Clan Provisioner 4,10,Clan Hall,Unique
-Clan Provisioner 5,9,Clan Hall,Unique
-Clan Provisioner 6,8,Clan Hall,Unique
-Clan Provisioner 7,7,Clan Hall,Unique
-Clan Provisioner 8,6,Clan Hall,Unique
-Clan Provisioner 9,5,Clan Hall,Unique
-Clan Provisioner 10,4,Clan Hall,Unique
-Clan Provisioner 11,3,Clan Hall,Unique
-Clan Provisioner 12,2,Clan Hall,Unique|Missable
-Travelling Merchant North,0,Lowtown,
-Travelling Merchant South,1,Lowtown,
-Weapons of War,14,Nalbina Fortress,
-Antiqued Armors,15,Nalbina Fortress,
-Mysterious Magicks,17,Nalbina Fortress,
-Troublesome Technicks,19,Nalbina Fortress,
-Portentous Provisions,16,Nalbina Fortress,
-Morning Star Gambits,18,Nalbina Fortress,
-Targe's Arms,54,Bhujerba,
-Rithil's Protectives,55,Bhujerba,
-Mait's Magicks,56,Bhujerba,
-Clio's Technicks,57,Bhujerba,
-Street Vendor,24,Bhujerba,
-Bashketi's Gambits,58,Bhujerba,
-Vint's Armaments Weapons,59,Archades,
-Vint's Armaments Armors,60,Archades,
-Charlotte's Magickery,62,Archades,
-Bulward's Technicks,63,Archades,
-Granch's Requisites,61,Archades,
-Lebleu's Gambits,64,Archades,
-Beruny's Armaments Weapons,65,Balfonheim,
-Beruny's Armaments Armors,66,Balfonheim,
-Quayside Magickery,38,Balfonheim,
-Odo's Technicks,67,Balfonheim,
-The Leapin' Bangaa,37,Balfonheim,
-Waterfront Gambits,39,Balfonheim,
-Dyce,29,Balfonheim,
-Unlucky Merchant,20,Estersand,
-Lohen,21,Westersand,
-Arjie,22,Giza Plains Dry,
-Burrough,23,Barheim Passage,Unique
-Tetran,25,Dreadnought Leviathan,Missable
-Garif Trader,30,Jahara,
-Tetran,31,Eruyt Village,
-Hume,32,Mt. Bur-Omisace,
-Seeq,33,Mt. Bur-Omisace,
-Luccio,34,Mosphoran Highwaste,
-Vendor of Goods,35,Phon Coast,
-Stranded Merchant,36,Old Archades,
-Baknamy,27,Necrohol of Nabudis,Unique
-Storekeeper (Rabanastre <-> Bhujerba),40,Skyferry,
-Storekeeper (Rabanastre <-> Nalbina),41,Skyferry,
-Storekeeper (Rabanastre <-> Archades),42,Skyferry,
-Storekeeper (Nalbina <-> Archades),43,Skyferry,
-Storekeeper (Nalbina <-> Balfonheim),44,Skyferry,
-Storekeeper (Bhujerba <-> Balfonheim),45,Skyferry,
-Storekeeper (Archades <-> Balfonheim),46,Skyferry,
-Storekeeper (All),47,Skyferry,
+Name,ID,Location,Traits,Requirements
+Amal's Weaponry,48,Rabanastre,,
+Panamis's Protectives,49,Rabanastre,,
+Yugri's Magicks,51,Rabanastre,,
+Batahn's Technicks,52,Rabanastre,,
+Migelo's Sundries,50,Rabanastre,,
+Yamoora's Gambits,53,Rabanastre,,
+Clan Provisioner 1,13,Clan Hall,Unique,I(8071)
+Clan Provisioner 2,12,Clan Hall,Unique,AND(I(8071)|I(Hunt|2))
+Clan Provisioner 3,11,Clan Hall,Unique,AND(I(8071)|I(Hunt|4))
+Clan Provisioner 4,10,Clan Hall,Unique,AND(I(8071)|I(Hunt|8))
+Clan Provisioner 5,9,Clan Hall,Unique,AND(I(8071)|I(Hunt|10))
+Clan Provisioner 6,8,Clan Hall,Unique,AND(I(8071)|I(Hunt|12))
+Clan Provisioner 7,7,Clan Hall,Unique,AND(I(8071)|I(Hunt|14))
+Clan Provisioner 8,6,Clan Hall,Unique,AND(I(8071)|I(Hunt|16))
+Clan Provisioner 9,5,Clan Hall,Unique,AND(I(8071)|I(Hunt|24))
+Clan Provisioner 10,4,Clan Hall,Unique,AND(I(8071)|I(Hunt|28))
+Clan Provisioner 11,3,Clan Hall,Unique,AND(I(8071)|I(Hunt|32))
+Clan Provisioner 12,2,Clan Hall,Unique|Missable,AND(I(8071)|I(Hunt|45)|I(Esper|13)|I(HuntClubKill|30)|I(80B6)|I(80B5))
+Travelling Merchant North,0,Lowtown,,
+Travelling Merchant South,1,Lowtown,,
+Weapons of War,14,Nalbina Fortress,,
+Antiqued Armors,15,Nalbina Fortress,,
+Mysterious Magicks,17,Nalbina Fortress,,
+Troublesome Technicks,19,Nalbina Fortress,,
+Portentous Provisions,16,Nalbina Fortress,,
+Morning Star Gambits,18,Nalbina Fortress,,
+Targe's Arms,54,Bhujerba,,AERO(80E3)
+Rithil's Protectives,55,Bhujerba,,AERO(80E3)
+Mait's Magicks,56,Bhujerba,,AERO(80E3)
+Clio's Technicks,57,Bhujerba,,AERO(80E3)
+Street Vendor,24,Bhujerba,,AERO(80E3)
+Bashketi's Gambits,58,Bhujerba,,AERO(80E3)
+Vint's Armaments Weapons,59,Archades,,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4))
+Vint's Armaments Armors,60,Archades,,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4))
+Charlotte's Magickery,62,Archades,,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4))
+Bulward's Technicks,63,Archades,,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4))
+Granch's Requisites,61,Archades,,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4))
+Lebleu's Gambits,64,Archades,,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4))
+Beruny's Armaments Weapons,65,Balfonheim,,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)
+Beruny's Armaments Armors,66,Balfonheim,,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)
+Quayside Magickery,38,Balfonheim,,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)
+Odo's Technicks,67,Balfonheim,,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)
+The Leapin' Bangaa,37,Balfonheim,,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)
+Waterfront Gambits,39,Balfonheim,,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)
+Dyce,29,Balfonheim,,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)
+Unlucky Merchant,20,Estersand,,
+Lohen,21,Westersand,,
+Arjie,22,Giza Plains Dry,,
+Burrough,23,Barheim Passage,Unique,I(8093)
+Tetran,25,Dreadnought Leviathan,,AND(AERO(80E3)|I(80AC)|I(8076))
+Garif Trader,30,Jahara,,OR(I(8077)|I(80E0))
+Tetran,31,Eruyt Village,,OR(I(8077)|I(80E0))
+Hume,32,Mt. Bur-Omisace,,OR(I(8077)|AND(I(80B7)|I(80E0))^1)
+Seeq,33,Mt. Bur-Omisace,,OR(I(8077)|AND(I(80B7)|I(80E0))^1)
+Luccio,34,Mosphoran Highwaste,,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)
+Vendor of Goods,35,Phon Coast,,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)
+Stranded Merchant,36,Old Archades,,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4))
+Baknamy,27,Necrohol of Nabudis,Unique,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)
+Storekeeper (Rabanastre <-> Bhujerba),40,Skyferry,,AND(AERO(80E1|false)|AERO(80E3|false))
+Storekeeper (Rabanastre <-> Nalbina),41,Skyferry,,AND(AERO(80E1|false)|AERO(80E2|false))
+Storekeeper (Rabanastre <-> Archades),42,Skyferry,,AND(AERO(80E1|false)|AERO(80E4|false))
+Storekeeper (Nalbina <-> Archades),43,Skyferry,,AND(AERO(80E2|false)|AERO(80E4|false))
+Storekeeper (Nalbina <-> Balfonheim),44,Skyferry,,AND(AERO(80E2|false)|AERO(80E5|false))
+Storekeeper (Bhujerba <-> Balfonheim),45,Skyferry,,AND(AERO(80E3|false)|AERO(80E5|false))
+Storekeeper (Archades <-> Balfonheim),46,Skyferry,,AND(AERO(80E4|false)|AERO(80E5|false))
+Storekeeper (All),47,Skyferry,,OR(AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|false)|AERO(80E4|false)|AERO(80E5|false))

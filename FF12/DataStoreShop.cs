@@ -8,6 +8,8 @@ namespace Bartz24.FF12;
 public class DataStoreShop : DataStore
 {
     protected byte[] header;
+
+    public int ID { get; set; }
     public int Offset { get; set; }
     public ushort Count { get; set; }
     public DataStoreList<DataStoreItemEntry> ItemsList { get; set; }

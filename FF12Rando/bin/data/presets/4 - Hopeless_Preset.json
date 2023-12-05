@@ -1,6 +1,6 @@
 {
   "name": "4 - Hopeless",
-  "version": "0.8.0.6",
+  "version": "0.8.0.8",
   "flags": [
     {
       "FlagEnabled": true,
@@ -175,6 +175,10 @@
         {
           "Enabled": false,
           "ID": "KeyPlaceCharScale"
+        },
+        {
+          "Enabled": true,
+          "ID": "PlaceJunkScale"
         }
       ]
     },
@@ -189,12 +193,21 @@
         {
           "Value": 10,
           "ID": "ShopSize"
+        },
+        {
+          "Enabled": true,
+          "ID": "ShopJunkScale"
         }
       ]
     },
     {
       "FlagEnabled": true,
       "FlagID": "Bazaars",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": false,
+      "FlagID": "Seitengrat",
       "FlagProperties": []
     },
     {

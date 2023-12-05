@@ -68,11 +68,11 @@ public class FF12Flags
 
     public class Items
     {
-        public static Flag Treasures, Shops, Bazaars, StartingTpStones;
-        public static ToggleFlagProperty KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale;
+        public static Flag Treasures, Shops, Bazaars, StartingTpStones, AllowSeitengrat;
+        public static ToggleFlagProperty KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale, JunkRankScale;
         public static ComboBoxFlagProperty KeyDepth;
         public static NumberFlagProperty ShopSize;
-        public static ToggleFlagProperty ShopsShared;
+        public static ToggleFlagProperty ShopsShared, JunkRankScaleShops;
         public static NumberFlagProperty TpStoneCount;
         public static ListBoxFlagProperty WritGoals;
         public const string WritGoalCid2 = "Defeat Cid 2 in Pharos";
@@ -307,6 +307,13 @@ public class FF12Flags
                 Description = "Key items placed in later locations will require a certain amount of characters unlocked."
             }.Register(Treasures);
 
+            JunkRankScale = new ToggleFlagProperty()
+            {
+                Text = "Junk Scaled Depth",
+                ID = "PlaceJunkScale",
+                Description = "Consumables, equipment, and abilities will generally be placed in order of their sphere unlocks. Better items will appear later."
+            }.Register(Treasures);
+
             Shops = new Flag()
             {
                 Text = "Randomize Shops",
@@ -332,11 +339,25 @@ public class FF12Flags
                 StepSize = 1
             }.Register(Shops);
 
+            JunkRankScaleShops = new ToggleFlagProperty()
+            {
+                Text = "Junk Scaled Depth",
+                ID = "ShopJunkScale",
+                Description = "Consumables, equipment, and abilities will generally be placed in shops in order of their sphere unlocks. Better items will appear later."
+            }.Register(Shops);
+
             Bazaars = new Flag()
             {
                 Text = "Randomize Bazaars",
                 FlagID = "Bazaars",
                 DescriptionFormat = "Randomize contents of bazaars. They may contain duplicates of items, abilities, and loot found elsewhere. Any monographs not placed in item locations will still show up in bazaars."
+            }.Register(FlagType.Items);
+
+            AllowSeitengrat = new Flag()
+            {
+                Text = "Allow Seitengrat",
+                FlagID = "Seitengrat",
+                DescriptionFormat = "Allow the Seitengrat to appear in the item pool and bazaar."
             }.Register(FlagType.Items);
 
             StartingTpStones = new Flag()
@@ -405,7 +426,7 @@ public class FF12Flags
                 Description = "Set the specificity for the hints from main quests.\n\n" +
                 "Options:\n" +
                 "    Exact - Hints give the exact item in the exact location.\n" +
-                "    Vague Type - Hints give the type ('Main Key Item'/'Side Key Item'/'Hunt Key Item'/'Chop'/'Black Orb'/'Writ of Transit'/'Trophy'/'Ability'/'Other') in the exact location.\n" +
+                "    Vague Type - Hints give the type ('Unique Key Item'/'Chop'/'Black Orb'/'Writ of Transit'/'Useless Trophy'/'Ability'/'Other') in the exact location.\n" +
                 "    Vague Area - Hints give the exact item in the area.\n" +
                 "    Unknown but Exact Location - Hints will hint that something ('?????') is in the exact location.\n" +
                 "    Random - Each hint will use one of the above rules.",

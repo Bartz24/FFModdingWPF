@@ -19,6 +19,7 @@ public class DataStoreBPShop : DataStoreBPSection<DataStoreShop>
             {
                 DataStoreShop shop = new();
                 shop.LoadData(data, offset);
+                shop.ID = DataList.Count;
                 DataList.Add(shop, DataList.Count);
             }
 

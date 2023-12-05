@@ -56,7 +56,7 @@ public class DataStoreBinText
                         Match match = Regex.Match(lines[i], "{dialog (\\d+)(.*)}");
                         string[] parameters = match.Groups[2].Value.TrimStart().Split(", ");
                         int id = int.Parse(match.Groups[1].Value);
-                        currentStr = new StringData
+                        currentStr = new StringData(this)
                         {
                             Type = StringData.StringType.Dialog
                         };
@@ -89,7 +89,7 @@ public class DataStoreBinText
                         Match match = Regex.Match(lines[i], "{symlink (\\d+)(.*)}");
                         string[] parameters = match.Groups[2].Value.TrimStart().Split(", ");
                         int id = int.Parse(match.Groups[1].Value);
-                        currentStr = new StringData
+                        currentStr = new StringData(this)
                         {
                             Type = StringData.StringType.Symlink
                         };
@@ -205,6 +205,10 @@ public class DataStoreBinText
 
     public class StringData
     {
+        private string text;
+        private string singular;
+        private string plural;
+
         public enum StringType
         {
             Dialog,
@@ -213,10 +217,47 @@ public class DataStoreBinText
 
         public StringType Type { get; set; }
 
-        public string Text { get; set; }
-        public string Singular { get; set; }
-        public string Plural { get; set; }
+        public string Text
+        {
+            get => Type == StringType.Symlink ? Parent[Link].Text : text;
+            set
+            {
+                if (Type == StringType.Symlink)
+                    Parent[Link].Text = value;
+                else
+                    text = value;
+            }
+        }
+
+        public string Singular
+        {
+            get => Type == StringType.Symlink ? Parent[Link].Singular : singular;
+            set
+            {
+                if (Type == StringType.Symlink)
+                    Parent[Link].Singular = value;
+                else
+                    singular = value;
+            }
+        }
+        public string Plural
+        {
+            get => Type == StringType.Symlink ? Parent[Link].Plural : plural;
+            set
+            {
+                if (Type == StringType.Symlink)
+                    Parent[Link].Plural = value;
+                else
+                    plural = value;
+            }
+        }
         public int ID { get; set; } = -1;
         public int Link { get; set; } = -1;
+        private DataStoreBinText Parent { get; set; }
+
+        public StringData(DataStoreBinText parent)
+        {
+            Parent = parent;
+        }
     }
 }

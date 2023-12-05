@@ -46,6 +46,8 @@ public class DataStoreBPEquip : DataStore
                     d.LoadData(EquipDataList[i].Data);
                     EquipDataList[i] = d;
                 }
+
+                EquipDataList[i].IntID = i + 0x1000;
             }
         }
 

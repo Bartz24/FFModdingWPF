@@ -1,6 +1,6 @@
 {
   "name": "3 - Chaos",
-  "version": "0.8.0.6",
+  "version": "0.8.0.8",
   "flags": [
     {
       "FlagEnabled": true,
@@ -145,6 +145,10 @@
         {
           "Enabled": true,
           "ID": "KeyPlaceCharScale"
+        },
+        {
+          "Enabled": true,
+          "ID": "PlaceJunkScale"
         }
       ]
     },
@@ -159,12 +163,21 @@
         {
           "Value": 15,
           "ID": "ShopSize"
+        },
+        {
+          "Enabled": true,
+          "ID": "ShopJunkScale"
         }
       ]
     },
     {
       "FlagEnabled": true,
       "FlagID": "Bazaars",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": false,
+      "FlagID": "Seitengrat",
       "FlagProperties": []
     },
     {

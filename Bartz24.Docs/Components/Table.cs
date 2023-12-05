@@ -18,6 +18,16 @@ public class Table : HTMLElement
     {
         HeaderName = header;
         ColumnNames = columns;
+
+        // Normalize column widths to equal 100
+        int totalWidth = colWidths.Sum();
+        for (int i = 0; i < colWidths.Count; i++)
+        {
+            colWidths[i] = (int)((double)colWidths[i] / totalWidth * 100);
+        }
+        // Adjust for rounding errors
+        colWidths[colWidths.Count - 1] += 100 - colWidths.Sum();
+
         ColumnWidths = colWidths;
         TableContents = contents;
         EncodeStrings = encode;
