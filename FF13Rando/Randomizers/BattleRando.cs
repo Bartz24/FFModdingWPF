@@ -28,6 +28,14 @@ public class BattleRando : Randomizer
 
     public SortedDictionary<string, DataStoreWDB<DataStoreBtSc>> btscs = new();
     public SortedDictionary<string, DataStoreWDB<DataStoreBtSc>> btscsOrig = new();
+    public Dictionary<string, List<string>> btscsOrigString {
+        get => btscsOrig.ToDictionary(
+            k => k.Key,
+            k => k.Value.Values.Where(e => !e.sEntryBtChSpec_string.StartsWith("pc"))
+                .Select(e => e.sEntryBtChSpec_string + "/" + e.sEntryBtChSpec_pointer)
+                .ToList()
+            );
+    }
 
     public Dictionary<string, BattleData> battleData = new();
     public Dictionary<string, EnemyData> enemyData = new();
@@ -78,12 +86,13 @@ public class BattleRando : Randomizer
             charasetData.Add(c.ID, c);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
+        //Remove unused enemies from faultwarrens sets
         charaSets.Values.Where(c => c.ID.Contains("z030")).ForEach(c =>
         {
             List<string> list = c.GetCharaSpecs();
-            list.Remove("m193");
-            list.Remove("m106");
-            list.Remove("m110");
+            list.Remove("m193"); //Seeker
+            list.Remove("m106"); //Strigoi
+            list.Remove("m110"); //Pijavica
             c.SetCharaSpecs(list);
         });
 
@@ -171,18 +180,28 @@ public class BattleRando : Randomizer
         Randomizers.SetUIProgress("Randomizing Battle Data...", -1, 100);
         if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
         {
-            FF13Flags.Enemies.EnemiesFlag.SetRand();
-
-            ReplaceLYBEnemies();
-
-            if (FF13Flags.Enemies.EnemyVariety.SelectedIndex > 0)
-            {
-                RandomizeGroupShuffle();
-            }
-
-            RandomNum.ClearRand();
+            RandomizeBattles();
         }
 
+        RandomizeTPIfApplicable();
+    }
+
+    protected virtual void RandomizeBattles()
+    {
+        FF13Flags.Enemies.EnemiesFlag.SetRand();
+
+        ReplaceLYBEnemies();
+
+        if (FF13Flags.Enemies.EnemyVariety.SelectedIndex > 0)
+        {
+            RandomizeGroupShuffle();
+        }
+
+        RandomNum.ClearRand();
+    }
+
+    protected void RandomizeTPIfApplicable()
+    {
         if (FF13Flags.Stats.RandTPBorders.FlagEnabled)
         {
             FF13Flags.Stats.RandTPBorders.SetRand();

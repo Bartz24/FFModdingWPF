@@ -35,18 +35,15 @@ public class Randomizer
     }
 }
 
-public class Plandomizer: Randomizer
+public interface IPlandomizer
 {
-    public Plandomizer(RandomizerManager randomizers) : base(randomizers)
-    {
-    }
 
-    public virtual UserControl GetPlandoPage()
+    public UserControl GetPlandoPage()
     {
         return null;
     }
 
-    public virtual void SetState(object state)
+    public void SetState(object state)
     {
 
     }

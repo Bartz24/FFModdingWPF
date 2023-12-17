@@ -24,7 +24,7 @@ public class DataStoreWDB<T> : DataStoreWDBEntry where T : DataStoreWDBEntry, ne
     public List<string> Keys => Entries.Keys.ToList();
     public List<T> Values => Entries.Values.ToList();
 
-    public List<KeyValuePair<string, T>> Entries => Data.Keys.Select(k => KeyValuePair.Create(k, Data[k])).ToList();
+    public List<KeyValuePair<string, T>> EntryList => Entries.Keys.Select(k => KeyValuePair.Create(k, Entries[k])).ToList();
 
     public void Add(string id, T data)
     {
