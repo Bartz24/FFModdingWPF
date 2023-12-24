@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Bartz24.RandoWPF.SeedInformationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bartz24.RandoWPF"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border BorderBrush="LightGray" BorderThickness="0.75" Padding="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Vertical" Margin="10" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text="Seed:" VerticalAlignment="Center" FontSize="20"/>
+                        <TextBlock Text="{Binding Seed}" Margin="5,0,0,0" FontSize="20"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,20">
+                        <TextBlock Text="Preset Used:" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding PresetUsed}" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text="Version:" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Version}" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text="Created at:" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Created, StringFormat='MMM dd, yyyy HH:mm:ss'}" Width="150" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Grid HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Grid.Column="0" Padding="5, 0" Margin="5,0,5,10" ToolTip="Load this seed's flag settings." Click="LoadButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Import" Margin="0,1"/>
+                            <TextBlock Text="Load" Margin="2,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Row="0" Grid.Column="1" Padding="5,0" Margin="5,0,5,10" ToolTip="Delete this seed's documentation .zip and seed data. Hold Shift while clicking this button to delete without confirmation." Click="DeleteButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Delete" Margin="0,1"/>
+                            <TextBlock Text="Delete" Margin="2,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="0" Padding="5,0" Margin="5,10,5,0" ToolTip="Copy this seed's string to the clipboard to share." Click="ShareButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Share" Margin="0,1"/>
+                            <TextBlock Text="Share String" Margin="2,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="1" Padding="5,0" Margin="5,10,5,0" ToolTip="Save the seed to a JSON file to share." Click="ShareJSONButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Share" Margin="0,1"/>
+                            <TextBlock Text="Share JSON" Margin="2,0"/>
+                        </StackPanel>
+                    </Button>                    
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

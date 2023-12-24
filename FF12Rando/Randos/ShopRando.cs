@@ -21,7 +21,7 @@ public class ShopRando : Randomizer
     public ShopRando(SeedGenerator randomizers) : base(randomizers) { }
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Shop Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Shop Data...");
         shops = new DataStoreBPShop();
         shops.LoadData(File.ReadAllBytes($"data\\randoShops.bin"));
         shopsOrig = new DataStoreBPShop();
@@ -47,7 +47,7 @@ public class ShopRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Shop Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Shop Data...");
         EquipRando equipRando = Generator.Get<EquipRando>();
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
 
@@ -215,7 +215,7 @@ public class ShopRando : Randomizer
             if (FF12Flags.Items.JunkRankScaleShops.Enabled)
             {
                 // Get all the shop slots with consumables, equipment, and abilities and group by their item type
-                var grouping = shopData.Values.Select(s => shops[s.ID]).SelectMany(shop =>
+                var grouping = shopData.Values.Where(s => !s.Traits.Contains("Unique")).Select(s => shops[s.ID]).SelectMany(shop =>
                 {
                     return Enumerable.Range(0, shop.GetItems().Count).Select(index => (shop, index));
                 }).GroupBy(itemSlot =>
@@ -225,7 +225,7 @@ public class ShopRando : Randomizer
                     return intId < 0x1000 ? ItemType.Consumable : intId is >= 0x3000 and < 0x5000 ? ItemType.Ability : ItemType.Equipment;
                 });
 
-                List<(DataStoreShop shop, int index)> removedItems = new();
+                Dictionary<int, List<string>> newShops = new();
 
                 // Group by type and sort the items by its item rank
                 foreach (var group in grouping)
@@ -239,37 +239,35 @@ public class ShopRando : Randomizer
                     // Sort the shop slots by their shop sphere
                     var slots = group.Shuffle().OrderBy(itemSlot => treasureRando.LocationSpheres.GetValueOrDefault(shopData[itemSlot.shop.ID].ShopFakeLocationLink, 0)).ToList();
 
-                    Dictionary<int, List<string>> replacedShopItems = new();
                     // Go in order and set the junk items
                     for (int i = 0; i < items.Count; i++)
                     {
-                        List<string> shopItems = shops[slots[i].shop.ID].GetItems();
+                        var shop = shopData[slots[i].shop.ID];
 
-                        if (!replacedShopItems.ContainsKey(slots[i].shop.ID))
+                        if (!newShops.ContainsKey(shop.ID))
                         {
-                            replacedShopItems.Add(slots[i].shop.ID, new());
+                            newShops.Add(shop.ID, new());
                         }
 
                         // If the item is a duplicate, find a replacement later in the list and swap with it.
                         // If a replacement does not exist, mark the slot as removed.
                         // The slot will be cleared after all the replacements.
                         string newItem = items[i];
-                        if (replacedShopItems[slots[i].shop.ID].Contains(newItem))
+                        if (newShops[shop.ID].Contains(newItem))
                         {
                             int swapIndex = -1;
                             for (int j = i + 1; j < items.Count; j++)
                             {
-                                if (!replacedShopItems[slots[i].shop.ID].Contains(items[j]))
+                                if (!newShops[shop.ID].Contains(items[j]))
                                 {
                                     swapIndex = j;
                                     break;
                                 }
                             }
 
+                            // Just skip adding this item if there is no replacement
                             if (swapIndex == -1)
                             {
-                                removedItems.Add(slots[i]);
-                                shops[slots[i].shop.ID].SetItems(shopItems);
                                 continue;
                             }
 
@@ -277,20 +275,28 @@ public class ShopRando : Randomizer
                             newItem = items[i];
                         }
 
-                        shopItems[slots[i].index] = newItem;
-
-                        shops[slots[i].shop.ID].SetItems(shopItems.OrderBy(itemId => itemId).ToList());
-
-                        replacedShopItems[slots[i].shop.ID].Add(newItem);
+                        newShops[slots[i].shop.ID].Add(newItem);
                     }
                 }
 
-                // Clear the removed items
-                foreach (var slot in removedItems)
+                // Set the shop items
+                foreach (var shop in shops.DataList)
                 {
-                    List<string> shopItems = shops[slot.shop.ID].GetItems();
-                    shopItems.RemoveAt(slot.index);
-                    shops[slot.shop.ID].SetItems(shopItems);
+                    // Get the items for indices not changed
+                    List<string> items = shop.GetItems()
+                        .Where((_, index) => 
+                            !grouping.SelectMany(g => g.ToList())
+                                     .Any(p => p.shop.ID == shop.ID && p.index == index))
+                        .ToList();
+
+                    // Add new items
+                    if (newShops.ContainsKey(shop.ID))
+                    {
+                        items.AddRange(newShops[shop.ID]);
+                    }
+
+                    // Remove duplicates, sort, and set items
+                    shop.SetItems(items.Distinct().OrderBy(itemId => itemId).ToList());
                 }
             }
 
@@ -440,7 +446,7 @@ public class ShopRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Shop Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving Shop Data...");
         if (FF12Flags.Items.Shops.FlagEnabled)
         {
             File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_039.bin", shops.Data);

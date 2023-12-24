@@ -9,7 +9,7 @@ using System.Reflection.Emit;
 namespace LRRando;
 public class LRSeedGenerator : SeedGenerator
 {
-    public LRSeedGenerator() : base()
+    public LRSeedGenerator(Action<string, int, int> setUIProgress) : base(setUIProgress)
     {
         Randomizers = new()
         {

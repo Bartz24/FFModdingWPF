@@ -22,7 +22,7 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
     public Dictionary<string, double> AreaMults { get; set; } = new Dictionary<string, double>();
 
     public SeedGenerator Generator { get; set; } = null;
-    public Action<string, int, int> SetProgressFunc { get; set; }
+
     private ItemPlacementLogic<T> logic;
     public ItemPlacementLogic<T> Logic
     {
@@ -162,7 +162,7 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
             Logic.Clear();
             Iterations = 0;
 
-            SetProgressFunc(i > 0 ? "Retrying item placement..." : "Preparing item placement", 0, 1);
+            RandoUI.SetUIProgressIndeterminate(i > 0 ? "Retrying item placement..." : "Preparing item placement");
             Generator.Logger.LogInformation($"Starting item placement attempt {i + 1}.");
 
             bool output = TryImportantPlacement(i, new (locations), important.Shuffle(), new (defaultAreas));
@@ -178,7 +178,7 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
 
     protected virtual void UpdateProgress(int i, int items, int maxItems)
     {
-        SetProgressFunc($"Backup Item Placement Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}") + $" ({items} out of {maxItems} items placed, {Iterations} placement attempts made)", items, maxItems);
+        RandoUI.SetUIProgressDeterminate($"Backup Item Placement Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}") + $" ({items} out of {maxItems} items placed, {Iterations} placement attempts made)", items, maxItems);
     }
 
     private List<string> locked = null;

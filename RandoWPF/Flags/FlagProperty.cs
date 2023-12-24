@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
@@ -41,7 +42,7 @@ public class FlagProperty : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, e);
     }
 
-    public virtual void Deserialize(dynamic data)
+    public virtual void Deserialize(IDictionary<string, object> data)
     {
 
     }

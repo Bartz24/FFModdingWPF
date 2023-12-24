@@ -39,7 +39,7 @@ public class BattleRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Battle Data...", 0, 100);
+        Generator.SetUIProgressDeterminate("Loading Battle Data...", 0, 100);
         btscene.LoadWDB(Generator, "13", @"\db\resident\bt_scene.wdb");
         btsceneOrig.LoadWDB(Generator, "13", @"\db\resident\bt_scene.wdb");
 
@@ -54,7 +54,7 @@ public class BattleRando : Randomizer
         FileHelpers.CopyFile(btscWDBPath, btscWDBOutPath);
         Nova.UnpackWPD(btscWDBOutPath, SetupData.Paths["Nova"]);
 
-        Generator.SetUIProgress("Loading Battle Data...", 10, 100);
+        Generator.SetUIProgressDeterminate("Loading Battle Data...", 10, 100);
 
         FileHelpers.ReadCSVFile(@"data\battlescenes.csv", row =>
         {
@@ -62,12 +62,12 @@ public class BattleRando : Randomizer
             battleData.Add(b.ID, b);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
-        Generator.SetUIProgress("Loading Battle Data...", 20, 100);
+        Generator.SetUIProgressDeterminate("Loading Battle Data...", 20, 100);
 
         btscs = LoadBtscs();
         btscsOrig = LoadBtscs();
 
-        Generator.SetUIProgress("Loading Battle Data...", 90, 100);
+        Generator.SetUIProgressDeterminate("Loading Battle Data...", 90, 100);
         FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
         {
             EnemyData e = new(row);
@@ -116,7 +116,7 @@ public class BattleRando : Randomizer
         Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 8 }, path =>
         {
             count++;
-            Generator.SetUIProgress($"Loading Encounter... ({count} of {maxCount})", count, maxCount);
+            Generator.SetUIProgressDeterminate($"Loading Encounter... ({count} of {maxCount})", count, maxCount);
             DataStoreWDB<DataStoreBtSc> btsc = new()
             {
                 ID = Path.GetFileNameWithoutExtension(path)
@@ -185,7 +185,7 @@ public class BattleRando : Randomizer
 
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Battle Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Battle Data...");
         if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
         {
             FF13Flags.Enemies.EnemiesFlag.SetRand();
@@ -250,7 +250,7 @@ public class BattleRando : Randomizer
         Dictionary<string, Dictionary<string, string>> lybMappings = new();
         lybs.Keys.ForEach(lybId =>
         {
-            Generator.SetUIProgress($"Replacing enemies per zone ({lybs.Keys.ToList().IndexOf(lybId) + 1} out of {lybs.Count})", lybs.Keys.ToList().IndexOf(lybId) + 1, lybs.Count);
+            Generator.SetUIProgressDeterminate($"Replacing enemies per zone ({lybs.Keys.ToList().IndexOf(lybId) + 1} out of {lybs.Count})", lybs.Keys.ToList().IndexOf(lybId) + 1, lybs.Count);
             List<DataStoreWDB<DataStoreBtSc>> btscsForLyb = btscs.Values.Where(
                             b => battleData[b.ID].Charasets.Where(
                                 c => GetLybId(c) == lybId).Any()).ToList();
@@ -455,7 +455,7 @@ public class BattleRando : Randomizer
             return availableSlots;
         });
 
-        Generator.SetUIProgress("Randomizing battle character sets", 0, 3);
+        Generator.SetUIProgressDeterminate("Randomizing battle character sets", 0, 3);
         //Step 1: shuffle all charasets regardless of shared fights
         charasetWithAvailable.ForEach(charasetKVP =>
         {
@@ -604,7 +604,7 @@ public class BattleRando : Randomizer
         });
 
         //Step 2: shuffle single charaset fights
-        Generator.SetUIProgress("Randomizing single character set battles", 1, 3);
+        Generator.SetUIProgressDeterminate("Randomizing single character set battles", 1, 3);
         charasets.ForEach(charaset =>
         {
             List<string> candidates = charaSets[charaset].GetCharaSpecs();
@@ -649,7 +649,7 @@ public class BattleRando : Randomizer
             });
         });
 
-        Generator.SetUIProgress("Randomizing multiple character set battles", 2, 3);
+        Generator.SetUIProgressDeterminate("Randomizing multiple character set battles", 2, 3);
         List<string> multiCharasetBattles = battleData.Where(battle => battle.Value.Charasets.Count > 1).Select(battle => battle.Key).ToList();
         multiCharasetBattles.Shuffle().ForEach(id =>
         {
@@ -702,7 +702,7 @@ public class BattleRando : Randomizer
         });
 
         //Step 3: Remove any unused enemies from the character set to reduce memory overhead.
-        Generator.SetUIProgress("Cleaning up unused enemies from character sets", 3, 3);
+        Generator.SetUIProgressDeterminate("Cleaning up unused enemies from character sets", 3, 3);
         charasets.ForEach(charaset =>
         {
             //TODO: Filter this to be non-battle characters only?
@@ -755,7 +755,7 @@ public class BattleRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Battle Data...", 0, 100);
+        Generator.SetUIProgressDeterminate("Saving Battle Data...", 0, 100);
         btscene.SaveWDB(Generator, @"\db\resident\bt_scene.wdb");
 
         charaSets.SaveWDB(Generator, @"\db\resident\charaset.wdb");
@@ -764,7 +764,7 @@ public class BattleRando : Randomizer
 
         battleConsts.SaveWDB(Generator, @"\db\resident\bt_constants.wdb");
 
-        Generator.SetUIProgress("Saving Battle Data...", 10, 100);
+        Generator.SetUIProgressDeterminate("Saving Battle Data...", 10, 100);
 
         if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
         {
@@ -774,12 +774,12 @@ public class BattleRando : Randomizer
             Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 8 }, path =>
             {
                 count++;
-                Generator.SetUIProgress($"Saving Encounter... ({count} of {maxCount})", count, maxCount);
+                Generator.SetUIProgressDeterminate($"Saving Encounter... ({count} of {maxCount})", count, maxCount);
                 btscs[Path.GetFileNameWithoutExtension(path)].Save(path);
             });
         }
 
-        Generator.SetUIProgress("Saving Battle Data...", 90, 100);
+        Generator.SetUIProgressDeterminate("Saving Battle Data...", 90, 100);
         Nova.RepackWPD(Generator.DataOutFolder + @"\btscene\wdb\btsc_wdb.bin", SetupData.Paths["Nova"]);
 
         lybs.Keys.ForEach(s =>

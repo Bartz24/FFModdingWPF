@@ -30,7 +30,7 @@ public class ListBoxFlagProperty : FlagProperty
     [JsonProperty]
     public virtual IList SelectedValues
     {
-        get => selectedValues;
+        get => selectedValues?.OrderBy(s => s).ToList();
         set
         {
             selectedValues = value.Cast<string>().ToList();
@@ -41,10 +41,10 @@ public class ListBoxFlagProperty : FlagProperty
 
     public List<int> SelectedIndices => IndicesOf(selectedValues);
 
-    public override void Deserialize(dynamic data)
+    public override void Deserialize(IDictionary<string, object> data)
     {
-        base.Deserialize((object)data);
-        SelectedValues = data[nameof(SelectedValues)] == null ? new List<string>() : data[nameof(SelectedValues)].ToObject(typeof(List<string>));
+        base.Deserialize(data);
+        SelectedValues = data[nameof(SelectedValues)] == null ? new List<string>() : ((List<object>)data[nameof(SelectedValues)]).Select(o => (string)o).ToList();
     }
 
     public List<int> IndicesOf(List<string> vals)

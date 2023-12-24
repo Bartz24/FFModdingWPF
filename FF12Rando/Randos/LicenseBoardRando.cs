@@ -23,7 +23,7 @@ public class LicenseBoardRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading License Board Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading License Board Data...");
         boards = Enumerable.Range(0, 12).Select(i =>
         {
             DataStoreLicenseBoard board = new();
@@ -55,7 +55,7 @@ public class LicenseBoardRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing License Board Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing License Board Data...");
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
         TextRando textRando = Generator.Get<TextRando>();
 
@@ -101,7 +101,7 @@ public class LicenseBoardRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving License Board Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving License Board Data...");
         if (FF12Flags.Other.LicenseBoards.FlagEnabled)
         {
             for (int i = 0; i < 12; i++)

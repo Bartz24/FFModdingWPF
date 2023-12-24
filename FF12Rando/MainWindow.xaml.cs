@@ -65,8 +65,11 @@ public partial class MainWindow : Window
 
     public MainWindow()
     {
+        RandoUI.Init(SetProgressBar, SwitchTab);
+        RandoSeeds.DocsFolder = "docs";
+        RandoSeeds.DeleteFilter = "FF12Rando_${SEED}_Docs.zip";
         FF12Flags.Init();
-        Presets.Init();
+        RandoPresets.Init();
         InitializeComponent();
         DataContext = this;
         HideProgressBar();
@@ -82,9 +85,8 @@ public partial class MainWindow : Window
 
     private async void generateButton_Click(object sender, RoutedEventArgs e)
     {
-        using (FF12SeedGenerator generator = new()
+        using (FF12SeedGenerator generator = new(SetProgressBar)
         {
-            SetUIProgress = SetProgressBar,
             IncrementTotalProgress = totalProgressBar.IncrementProgress
         })
         {
@@ -127,12 +129,35 @@ public partial class MainWindow : Window
     {
         Dispatcher.Invoke(() =>
         {
-            ProgressBarVisible = Visibility.Visible;
-            ProgressBarText = text;
             ProgressBarIndeterminate = value < 0;
+            ProgressBarVisible = ProgressBarIndeterminate || maxValue > 0 ? Visibility.Visible : Visibility.Hidden;
+            ProgressBarText = text;
             ProgressBarValue = value;
             ProgressBarMaximum = maxValue;
             totalProgressBar.SetProgress(totalProgressBar.GetProgress(), ProgressBarIndeterminate ? -1 : (float)ProgressBarValue / ProgressBarMaximum);
+
+            if (ProgressBarVisible == Visibility.Hidden)
+            {
+                // Start a timer to hide the progress bar after a short delay
+                Task.Delay(3000).ContinueWith(t =>
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        if (ProgressBarVisible == Visibility.Hidden)
+                        {
+                            ProgressBarText = "";
+                        }
+                    });
+                });
+            }
+        });
+    }
+
+    private void SwitchTab(int tabIndex)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            WindowTabs.SelectedIndex = tabIndex;
         });
     }
 
@@ -194,7 +219,7 @@ public partial class MainWindow : Window
 
     private void uninstallButton_Click(object sender, RoutedEventArgs e)
     {
-        FF12SeedGenerator gen = new ();
+        FF12SeedGenerator gen = new (null);
         if (Directory.Exists(gen.OutFolder))
         {
             try

@@ -14,7 +14,7 @@ public class SeedGenerator : IDisposable
 {
     public const string UNEXPECTED_ERROR = "Unexpected error";
 
-    public Action<string, int, int> SetUIProgress { get; set; }
+    protected Action<string, int, int> SetUIProgress { get; set; }
     public Action IncrementTotalProgress { get; set; }
     public string DataOutFolder { get; set; }
 
@@ -27,8 +27,9 @@ public class SeedGenerator : IDisposable
 
     public FileLogger Logger { get; set; }
 
-    public SeedGenerator()
+    public SeedGenerator(Action<string, int, int> setUIProgress)
     {
+        SetUIProgress = setUIProgress;
         Randomizers = new();
     }
 
@@ -57,20 +58,20 @@ public class SeedGenerator : IDisposable
 
         try
         {
-            SetUIProgress("Preparing data folder...", -1, -1);
+            RandoUI.SetUIProgressIndeterminate("Preparing data folder...");
             PrepareData();
             IncrementTotalProgress();
 
-            SetUIProgress("Loading data...", -1, -1);
+            RandoUI.SetUIProgressIndeterminate("Loading data...");
             Load();
 
-            SetUIProgress("Randomizing data...", -1, -1);
+            RandoUI.SetUIProgressIndeterminate("Randomizing data...");
             Randomize();
 
-            SetUIProgress("Saving data...", -1, -1);
+            RandoUI.SetUIProgressIndeterminate("Saving data...");
             Save();
 
-            SetUIProgress("Generating modpack and documentation...", -1, -1);
+            RandoUI.SetUIProgressIndeterminate("Generating modpack and documentation...");
             GeneratePackAndDocs();
             IncrementTotalProgress();
         }
@@ -83,6 +84,12 @@ public class SeedGenerator : IDisposable
             throw new RandoException(ex.Message, UNEXPECTED_ERROR, ex);
         }
     }
+
+    public Action<string, int, int> GetUIProgress()
+    {
+        return SetUIProgress;
+    }
+
 
     protected virtual void PrepareData()
     {
@@ -133,6 +140,9 @@ public class SeedGenerator : IDisposable
         pack.Start();
         docs.Start();
         Task.WaitAll(pack, docs);
+
+        // Reload seeds in the UI
+        RandoSeeds.LoadSeeds();
     }
 
 

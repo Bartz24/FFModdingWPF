@@ -19,7 +19,7 @@ public class EquipRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Item/Equip Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Item/Equip Data...");
         FileHelpers.ReadCSVFile(@"data\items.csv", row =>
         {
             ItemData i = new(row);
@@ -37,7 +37,7 @@ public class EquipRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Item/Equip Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Item/Equip Data...");
         if (FF12Flags.Stats.EquipStats.FlagEnabled)
         {
             FF12Flags.Stats.EquipStats.SetRand();
@@ -230,7 +230,7 @@ public class EquipRando : Randomizer
                 defZeroChance = 100;
                 mResZeroChance = 0;
             }
-            else if (type < 90)
+            else if (type < 93)
             {
                 defZeroChance = 0;
                 mResZeroChance = 0;
@@ -240,11 +240,11 @@ public class EquipRando : Randomizer
                 defZeroChance = 100;
                 mResZeroChance = 100;
             }
-            bool singleStat = defZeroChance + mResZeroChance == 200;
+            bool singleStat = defZeroChance + mResZeroChance == 100;
 
             float[] weights = { 1.3f, 1.3f, 1 / 10f, 0.4f, 0.8f, 0.8f, 0.8f, 2 };
             int[] chances = { 30, 30, singleStat ? 20 : 10, singleStat ? 20 : 10, singleStat ? 20 : 10, singleStat ? 20 : 10, singleStat ? 20 : 10, 10 };
-            int[] zeros = { defZeroChance, mResZeroChance, singleStat ? 40 : 80, singleStat ? 40 : singleStat ? 40 : 80, singleStat ? 40 : 80, singleStat ? 40 : 80, singleStat ? 40 : 80, singleStat ? 90 : 97 };
+            int[] zeros = { defZeroChance, mResZeroChance, singleStat ? 60 : 80, singleStat ? 60 : 80, singleStat ? 60 : 80, singleStat ? 60 : 80, singleStat ? 60 : 80, singleStat ? 90 : 97 };
             int[] negs = { 0, 0, 0, 0, 0, 0, 0, 0 };
             statPoints = new StatPoints(bounds, weights, chances, zeros, negs);
             statPoints.Randomize(new int[] { armor.Defense, armor.MagickResist, attribute.HP, attribute.MP, attribute.Strength, attribute.MagickPower, attribute.Vitality, attribute.Speed });
@@ -1120,7 +1120,7 @@ public class EquipRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Item/Equip Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving Item/Equip Data...");
         File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_013.bin", equip.Data);
         if (FF12SeedGenerator.DescriptiveInstalled())
         {

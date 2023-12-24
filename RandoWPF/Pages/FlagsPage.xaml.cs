@@ -20,15 +20,15 @@ public partial class FlagsPage : UserControl
     public ObservableCollection<Preset> PresetsList { get; set; } = new ObservableCollection<Preset>();
     public ObservableCollection<string> CategoryList { get; set; } = new ObservableCollection<string>();
 
-    public Visibility SaveVisible => Presets.Selected.CustomModified ? Visibility.Visible : Visibility.Collapsed;
-    public Visibility DeleteVisible => Presets.Selected.CustomLoaded ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility SaveVisible => RandoPresets.Selected.CustomModified ? Visibility.Visible : Visibility.Hidden;
+    public Visibility DeleteVisible => RandoPresets.Selected.CustomLoaded ? Visibility.Visible : Visibility.Hidden;
 
     public FlagsPage()
     {
         InitializeComponent();
         DataContext = this;
-        PresetsList = new ObservableCollection<Preset>(Presets.PresetsList);
-        Presets.SelectedChanged += Presets_SelectedChanged;
+        PresetsList = new ObservableCollection<Preset>(RandoPresets.PresetsList);
+        RandoPresets.SelectedChanged += Presets_SelectedChanged;
         CategoryList = new ObservableCollection<string>(RandoFlags.CategoryList);
         RandoFlags.SelectedChanged += Flags_SelectedChanged;
 
@@ -90,9 +90,9 @@ public partial class FlagsPage : UserControl
             {
                 try
                 {
-                    Presets.LoadPreset(path, true);
-                    Presets.Selected = Presets.PresetsList.Last(p => !p.CustomModified);
-                    PresetsList = new ObservableCollection<Preset>(Presets.PresetsList);
+                    RandoPresets.LoadPreset(path, true);
+                    RandoPresets.Selected = RandoPresets.PresetsList.Last(p => !p.CustomModified);
+                    PresetsList = new ObservableCollection<Preset>(RandoPresets.PresetsList);
                     PresetComboBox.GetBindingExpression(ComboBox.ItemsSourceProperty).UpdateTarget();
 
                     if (!Directory.Exists("presets"))
@@ -101,6 +101,7 @@ public partial class FlagsPage : UserControl
                     }
 
                     File.Copy(path, @"presets\" + System.IO.Path.GetFileName(path));
+                    RandoUI.SetUIMessage($"Loaded preset {RandoPresets.Selected.Name}.");
                 }
                 catch
                 {
@@ -121,11 +122,20 @@ public partial class FlagsPage : UserControl
         if (result)
         {
             string name = NewPresetName.Text;
-            int index = 0;
-            string output = Presets.Serialize(name, SetupData.Version);
-            while (File.Exists(@"presets\" + name + (index > 0 ? $" ({index})" : "") + "_Preset.json"))
+            string output = RandoPresets.Serialize(name, SetupData.Version);
+            if (File.Exists(@"presets\" + name + "_Preset.json"))
             {
-                index++;
+                // Ask for confirmation to override. Append a number if they say no.
+                if (MessageBox.Show("A preset with this name already exists. Do you want to override it?", "Override preset?", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                {
+                    int i = 1;
+                    while (File.Exists(@"presets\" + name + "_" + i + "_Preset.json"))
+                    {
+                        i++;
+                    }
+
+                    name += "_" + i;
+                }
             }
 
             if (!Directory.Exists("presets"))
@@ -133,12 +143,13 @@ public partial class FlagsPage : UserControl
                 Directory.CreateDirectory("presets");
             }
 
-            File.WriteAllText(@"presets\" + name + (index > 0 ? $" ({index})" : "") + "_Preset.json", output);
+            File.WriteAllText(@"presets\" + name + "_Preset.json", output);
 
-            Presets.LoadPreset(@"presets\" + name + (index > 0 ? $" ({index})" : "") + "_Preset.json", true);
-            Presets.Selected = Presets.PresetsList.Last(p => !p.CustomModified);
-            PresetsList = new ObservableCollection<Preset>(Presets.PresetsList);
+            RandoPresets.LoadPreset(@"presets\" + name + "_Preset.json", true);
+            RandoPresets.Selected = RandoPresets.PresetsList.Last(p => !p.CustomModified);
+            PresetsList = new ObservableCollection<Preset>(RandoPresets.PresetsList);
             PresetComboBox.GetBindingExpression(ComboBox.ItemsSourceProperty).UpdateTarget();
+            RandoUI.SetUIMessage($"Saved preset to the presets folder as {name + "_Preset.json"}.");
         }
     }
 
@@ -146,11 +157,13 @@ public partial class FlagsPage : UserControl
     {
         if (MessageBox.Show("Delete the selected preset?", "Delete preset?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
         {
-            File.Delete(Presets.Selected.PresetPath);
-            Presets.PresetsList.Remove(Presets.Selected);
-            Presets.Selected = Presets.PresetsList[0];
-            PresetsList = new ObservableCollection<Preset>(Presets.PresetsList);
+            string presetName = RandoPresets.Selected.Name;
+            File.Delete(RandoPresets.Selected.PresetPath);
+            RandoPresets.PresetsList.Remove(RandoPresets.Selected);
+            RandoPresets.Selected = RandoPresets.PresetsList[0];
+            PresetsList = new ObservableCollection<Preset>(RandoPresets.PresetsList);
             PresetComboBox.GetBindingExpression(ComboBox.ItemsSourceProperty).UpdateTarget();
+            RandoUI.SetUIMessage($"Deleted preset {presetName}.");
         }
     }
 }

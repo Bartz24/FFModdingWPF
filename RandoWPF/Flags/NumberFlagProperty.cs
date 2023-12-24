@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Bartz24.RandoWPF;
@@ -40,9 +41,9 @@ public class NumberFlagProperty : FlagProperty
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Value)));
         }
     }
-    public override void Deserialize(dynamic data)
+    public override void Deserialize(IDictionary<string, object> data)
     {
-        base.Deserialize((object)data);
-        Value = data["Value"];
+        base.Deserialize(data);
+        Value = (int)(long)data["Value"];
     }
 }

@@ -39,10 +39,10 @@ public class ComboBoxFlagProperty : FlagProperty
 
     public int SelectedIndex => IndexOf(SelectedValue);
 
-    public override void Deserialize(dynamic data)
+    public override void Deserialize(IDictionary<string, object> data)
     {
-        base.Deserialize((object)data);
-        SelectedValue = data["SelectedValue"];
+        base.Deserialize(data);
+        SelectedValue = (string)data["SelectedValue"];
     }
 
     public int IndexOf(string val)

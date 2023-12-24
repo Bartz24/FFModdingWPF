@@ -23,7 +23,7 @@ public class TextRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Text Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Text Data...");
         TextAbilities.Load($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_061.bin.dir\\section_000.bin");
         TextEquipment.Load($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_061.bin.dir\\section_001.bin");
         TextKeyItems.Load($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_061.bin.dir\\section_012.bin");
@@ -51,7 +51,7 @@ public class TextRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Text Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Text Data...");
     }
     private string GetHash()
     {
@@ -97,7 +97,7 @@ public class TextRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Text Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving Text Data...");
 
 
         DataStoreBinText.StringData seedInfoStr = TextEbpZones["rbn_a16"].Values.First(v => v.Text != null && v.Text.Contains("$VERSION$"));

@@ -1,13 +1,15 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 
 namespace Bartz24.RandoWPF;
 
-public class Presets
+public class RandoPresets
 {
     public static List<Preset> PresetsList { get; set; } = new List<Preset>();
 
@@ -16,13 +18,23 @@ public class Presets
         get => selected;
         set
         {
-            selected = value;
-            SelectedChanged?.Invoke(null, EventArgs.Empty);
-            selected.Apply();
+            if (selected != value)
+            {
+                selected = value;
+                SelectedChanged?.Invoke(null, EventArgs.Empty);
+                selected?.Apply();
+            }
         }
     }
 
-    public static bool ApplyingPreset = false;
+    public enum PresetSetType
+    {
+        FromPreset,
+        MatchingPreset,
+        Other
+    }
+
+    public static PresetSetType ApplyingPreset = PresetSetType.Other;
     private static Preset selected;
 
     public static event EventHandler SelectedChanged = delegate { };
@@ -40,14 +52,21 @@ public class Presets
 
     public static Preset Deserialize(string content)
     {
-        dynamic data = JsonConvert.DeserializeObject(content);
+        IDictionary<string, object> data = JsonConvert.DeserializeObject<ExpandoObject>(content, new ExpandoObjectConverter());
 
         Preset preset = new()
         {
-            Name = data["name"],
-            Version = data["version"],
-            FlagSettings = ((JArray)data["flags"]).Select(o => (dynamic)o).ToList()
+            Name = (string)data["name"],
+            Version = (string)data["version"],
+            FlagSettings = (List<object>)data["flags"]
         };
+
+        OnApply(preset);
+        FlagStringCompressor compressor = new();
+        preset.PresetFlagString = compressor.Compress(JObject.FromObject(new
+        {
+            flags = RandoFlags.FlagsList
+        }).ToString());
 
         return preset;
     }
@@ -104,22 +123,25 @@ public class Presets
     {
         RandoFlags.FlagsList.ForEach(f => f.FlagEnabled = false);
 
-        p.FlagSettings.ForEach(s =>
+        p.FlagSettings.Select(o => (IDictionary<string, object>)o).ToList().ForEach(s =>
         {
-            Flag f = RandoFlags.FlagsList.FirstOrDefault(f => f.FlagID == s["FlagID"].Value);
-
-            if (f != null)
+            if (RandoFlags.FlagsList.Where(f => f.FlagID == (string)s["FlagID"]).Count() == 0)
             {
-                f.FlagEnabled = s["FlagEnabled"].Value;
-                ((JArray)s["FlagProperties"]).Select(o => (dynamic)o).ToList().ForEach(p =>
-                {
-                    if (f.FlagProperties.Where(fp => fp.ID == p["ID"].Value).Count() > 0)
-                    {
-                        FlagProperty prop = f.FlagProperties.First(fp => fp.ID == p["ID"].Value);
-                        prop.Deserialize(p);
-                    }
-                });
+                return;
             }
+
+            Flag f = RandoFlags.FlagsList.First(f => f.FlagID == (string)s["FlagID"]);
+            f.FlagEnabled = (bool)s["FlagEnabled"];
+            ((List<object>)s["FlagProperties"]).Select(o => (IDictionary<string, object>)o).ToList().ForEach(p =>
+            {
+                if (f.FlagProperties.Where(fp => fp.ID == (string)p["ID"]).Count() == 0)
+                {
+                    return;
+                }
+
+                FlagProperty prop = f.FlagProperties.First(fp => fp.ID == (string)p["ID"]);
+                prop.Deserialize(p);
+            });
         });
     }
 }

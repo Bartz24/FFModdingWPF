@@ -59,6 +59,7 @@ public partial class SetupPage : UserControl
                 try
                 {
                     Seed = RandoFlags.LoadSeed(path);
+                    RandoUI.SetUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
                 }
                 catch (Exception ex)
                 {
@@ -101,6 +102,7 @@ public partial class SetupPage : UserControl
                     }
 
                     Seed = RandoFlags.LoadSeed(outFolder + @"\seed.json");
+                    RandoUI.SetUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
                 }
                 catch
                 {
@@ -127,5 +129,31 @@ public partial class SetupPage : UserControl
     private void seedButton_Click(object sender, RoutedEventArgs e)
     {
         Seed = RandomNum.RandSeed().ToString();
+    }
+
+    private void importStringButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            FlagStringCompressor compressor = new();
+            Seed = RandoFlags.Deserialize(compressor.Decompress(Clipboard.GetText()));
+            RandoUI.SetUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
+        }
+        catch
+        {
+            MessageBox.Show("Failed to load the seed string from your clipboard. Make sure the string is properly copied.");
+        }
+    }
+
+    private void importSeedHistoryButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (RandoSeeds.Seeds.Count == 0)
+        {
+            RandoUI.SetUIMessage("No previous seeds found.");
+        }
+        else
+        {
+            RandoUI.SwitchUITab(0);
+        }
     }
 }

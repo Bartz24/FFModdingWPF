@@ -1,6 +1,28 @@
+local previousL2State = false
+
+local function isL2Pressed()    
+    -- Thanks to Xeavin for this button checking
+    local buttonStates = memory.u16[0x02F97360]
+    local l2InputState = buttonStates >> 8 & 0x01
+    local pressed = l2InputState == 1
+    if l2InputState == 1 and previousL2State == false then
+        previousL2State = true
+        return true
+    elseif l2InputState == 0 then
+        previousL2State = false        
+    end
+    return false
+end
+
 local currentPage = 1
 
 local function descriptionSwap()
+
+    if not isL2Pressed() then
+        event.executeAfterMs(100, descriptionSwap)
+        return
+    end
+
     local current = "scripts/config/TheInsurgentsDescriptiveInventoryConfig/us.lua"
     local page1 = "scripts/config/TheInsurgentsDescriptiveInventoryConfig/us.lua.page1"
     local page2 = "scripts/config/TheInsurgentsDescriptiveInventoryConfig/us.lua.page2"
@@ -26,7 +48,7 @@ local function descriptionSwap()
         currentFile:close()
     end
     
-    event.executeAfterMs(3500, descriptionSwap)
+    event.executeAfterMs(500, descriptionSwap)
 end
 
 local function onExit()

@@ -18,14 +18,14 @@ public class MusicRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Music Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Music Data...");
         soundFiles.AddRange(File.ReadAllLines("data\\music12.csv"));
 
         musicPackFiles.AddRange(Directory.GetFiles("data\\musicPacks", "*.mab", SearchOption.AllDirectories));
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Music Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Music Data...");
         if (FF12Flags.Other.Music.FlagEnabled)
         {
             FF12Flags.Other.Music.SetRand();
@@ -44,7 +44,7 @@ public class MusicRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Music Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving Music Data...");
         Directory.CreateDirectory($"{Generator.DataOutFolder}\\sound\\music\\magi_data\\win");
         for (int i = 0; i < Math.Min(soundFiles.Count, newSoundFiles.Count); i++)
         {

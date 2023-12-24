@@ -37,9 +37,9 @@ public class TreasureRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Treasure Data...", 0, 100);
+        Generator.SetUIProgressDeterminate("Loading Treasure Data...", 0, 100);
         treasuresOrig.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
-        Generator.SetUIProgress("Loading Treasure Data...", 10, 100);
+        Generator.SetUIProgressDeterminate("Loading Treasure Data...", 10, 100);
         treasures.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
 
         FileHelpers.ReadCSVFile(@"data\treasures.csv", row =>
@@ -123,7 +123,7 @@ public class TreasureRando : Randomizer
         hintsNotesCount.Clear();
         treasuresOrig.Keys.Where(k => treasuresOrig[k].s11ItemResourceId_string.StartsWith("libra")).ForEach(k => hintsNotesLocations.Add(treasuresOrig[k].s11ItemResourceId_string, null));
 
-        Generator.SetUIProgress("Loading Treasure Data...", 80, 100);
+        Generator.SetUIProgressDeterminate("Loading Treasure Data...", 80, 100);
         LRFlags.Items.Treasures.SetRand();
         List<string> locations = itemLocations.Values.SelectMany(t => t.Areas).Distinct().Shuffle();
         List<string> libraItems = hintsNotesLocations.Keys.Shuffle();
@@ -135,13 +135,13 @@ public class TreasureRando : Randomizer
 
         placementAlgoNormal = new AssumedItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, Generator, 3)
         {
-            SetProgressFunc = Generator.SetUIProgress
+            SetProgressFunc = Generator.GetUIProgress()
         };
         placementAlgoNormal.Logic = new LRItemPlacementLogic(placementAlgoNormal, Generator);
 
         placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, Generator, -1)
         {
-            SetProgressFunc = Generator.SetUIProgress
+            SetProgressFunc = Generator.GetUIProgress()
         };
         placementAlgoBackup.Logic = new LRItemPlacementLogic(placementAlgoBackup, Generator);
     }
@@ -165,7 +165,7 @@ public class TreasureRando : Randomizer
         EquipRando equipRando = Generator.Get<EquipRando>();
         ShopRando shopRando = Generator.Get<ShopRando>();
 
-        Generator.SetUIProgress("Randomizing Treasure Data...", 0, 100);
+        Generator.SetUIProgressDeterminate("Randomizing Treasure Data...", 0, 100);
         if (LRFlags.Items.Treasures.FlagEnabled)
         {
             LRFlags.Items.Treasures.SetRand();
@@ -199,7 +199,7 @@ public class TreasureRando : Randomizer
                     || (rep.StartsWith("e") && orig.StartsWith("e") && rep.Length == 4 && orig.Length == 4);
             }
 
-            Generator.SetUIProgress("Randomizing Treasure Data...", 40, 100);
+            Generator.SetUIProgressDeterminate("Randomizing Treasure Data...", 40, 100);
             itemLocations.Values.Where(t => equipRando.itemData.ContainsKey(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1) && !equipRando.itemData[PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1].Traits.Contains("Key")).ForEach(t =>
             {
                 (string, int) orig = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value;
@@ -270,7 +270,7 @@ public class TreasureRando : Randomizer
                 PlacementAlgo.Logic.SetLocationItem(t.ID, repItem, repCount);
             });
 
-            Generator.SetUIProgress("Randomizing Treasure Data...", 70, 100);
+            Generator.SetUIProgressDeterminate("Randomizing Treasure Data...", 70, 100);
             foreach (string key in keys)
             {
                 if (equipRando.items.Keys.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1) && equipRando.IsAbility(equipRando.items[PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1]))
@@ -293,7 +293,7 @@ public class TreasureRando : Randomizer
 
             RandomNum.ClearRand();
 
-            Generator.SetUIProgress("Randomizing Treasure Data...", 80, 100);
+            Generator.SetUIProgressDeterminate("Randomizing Treasure Data...", 80, 100);
             if (LRFlags.Other.HintsNotes.FlagEnabled)
             {
                 // Update hints again to reflect actual numbers
@@ -358,7 +358,7 @@ public class TreasureRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Treasure Data...", -1, 100);
+        Generator.SetUIProgressIndeterminate("Saving Treasure Data...");
         SaveHints();
         SetAndClearBattleDrops();
         treasures.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_treasurebox.wdb");

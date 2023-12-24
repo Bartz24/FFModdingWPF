@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using ZstdSharp;
 
 namespace Bartz24.RandoWPF;
 
@@ -31,10 +33,20 @@ public class Flag : INotifyPropertyChanged
             return;
         }
 
-        Preset custom = Presets.PresetsList.First(p => p.CustomModified);
-        if (!Presets.ApplyingPreset && Presets.Selected != custom)
+        Preset custom = RandoPresets.PresetsList.FirstOrDefault(p => p.CustomModified);
+        if (RandoPresets.ApplyingPreset == RandoPresets.PresetSetType.Other)
         {
-            Presets.Selected = custom;
+            // Check for matching presets
+            FlagStringCompressor compressor = new();
+            string flagString = compressor.Compress(JObject.FromObject(new
+            {
+                flags = RandoFlags.FlagsList
+            }).ToString());
+            Preset preset = RandoPresets.PresetsList.Where(p => !p.CustomModified).FirstOrDefault(p => p.PresetFlagString == flagString);
+
+            RandoPresets.ApplyingPreset = RandoPresets.PresetSetType.MatchingPreset;
+            RandoPresets.Selected = preset == null ? custom : preset;
+            RandoPresets.ApplyingPreset = RandoPresets.PresetSetType.Other;
         }
     }
 

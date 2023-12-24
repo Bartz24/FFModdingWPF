@@ -31,7 +31,12 @@
             <TextBox x:Name="steamPath12Text" IsReadOnly="True" Text="{Binding FF12Path, Mode=OneWay}" Foreground="Gray"/>
         </Border>
         <Border Grid.Column="2" Grid.Row="0">
-            <Button x:Name="steamPath12Button" Click="steamPath12Button_Click" Content="Select FF12 Folder"/>
+            <Button x:Name="steamPath12Button" Click="steamPath12Button_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Folder"/>
+                    <Label Margin="0 -6">Select FF12 Folder</Label>
+                </StackPanel>
+            </Button>
         </Border>
         <Border Grid.Column="0" Grid.Row="1">
             <Label HorizontalAlignment="Right" VerticalAlignment="Center">FF12 VM Script Tools</Label>
@@ -46,20 +51,16 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Grid.Row="0" x:Name="toolsDownloadButton" Click="toolsDownloadButton_Click" Margin="0 0 5 0">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Download"/>
-                            <Label Margin="0 -6">Download</Label>
-                        </StackPanel>
-                    </Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Download"/>
+                        <Label Margin="0 -6">Download</Label>
+                    </StackPanel>
                 </Button>
                 <Button Grid.Column="1" Grid.Row="0" x:Name="toolsInstallButton" Click="toolsInstallButton_Click">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="TrayArrowDown"/>
-                            <Label Margin="0 -6">Install</Label>
-                        </StackPanel>
-                    </Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="TrayArrowDown"/>
+                        <Label Margin="0 -6">Install</Label>
+                    </StackPanel>
                 </Button>
             </Grid>
         </Border>
@@ -76,20 +77,16 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Grid.Row="0" x:Name="loaderDownloadButton" Click="loaderDownloadButton_Click" Margin="0 0 5 0">
-                    <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Download"/>
                             <Label Margin="0 -6">Download</Label>
                         </StackPanel>
-                    </Button.Content>
                 </Button>
                 <Button Grid.Column="1" Grid.Row="0" x:Name="loaderInstallButton" Click="loaderInstallButton_Click">
-                    <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="TrayArrowDown"/>
                             <Label Margin="0 -6">Install</Label>
                         </StackPanel>
-                    </Button.Content>
                 </Button>
             </Grid>
         </Border>
@@ -106,20 +103,16 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Grid.Row="0" x:Name="luaLoaderDownloadButton" Click="luaLoaderDownloadButton_Click" Margin="0 0 5 0">
-                    <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Download"/>
                             <Label Margin="0 -6">Download</Label>
                         </StackPanel>
-                    </Button.Content>
                 </Button>
                 <Button Grid.Column="1" Grid.Row="0" x:Name="luaLoaderInstallButton" Click="luaLoaderInstallButton_Click">
-                    <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="TrayArrowDown"/>
                             <Label Margin="0 -6">Install</Label>
                         </StackPanel>
-                    </Button.Content>
                 </Button>
             </Grid>
         </Border>
@@ -138,20 +131,16 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Grid.Row="0" x:Name="descriptiveDownloadButton" Click="descriptiveDownloadButton_Click" Margin="0 0 5 0">
-                    <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Download"/>
                             <Label Margin="0 -6">Download</Label>
                         </StackPanel>
-                    </Button.Content>
                 </Button>
                 <Button Grid.Column="1" Grid.Row="0" x:Name="descriptiveInstallButton" Click="descriptiveInstallButton_Click">
-                    <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="TrayArrowDown"/>
                             <Label Margin="0 -6">Install</Label>
                         </StackPanel>
-                    </Button.Content>
                 </Button>
             </Grid>
         </Border>

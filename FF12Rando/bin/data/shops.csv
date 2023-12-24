@@ -48,7 +48,7 @@ Unlucky Merchant,20,Estersand,,
 Lohen,21,Westersand,,
 Arjie,22,Giza Plains Dry,,
 Burrough,23,Barheim Passage,Unique,I(8093)
-Tetran,25,Dreadnought Leviathan,,AND(AERO(80E3)|I(80AC)|I(8076))
+Tetran,25,Dreadnought Leviathan,Unique,AND(AERO(80E3)|I(80AC)|I(8076))
 Garif Trader,30,Jahara,,OR(I(8077)|I(80E0))
 Tetran,31,Eruyt Village,,OR(I(8077)|I(80E0))
 Hume,32,Mt. Bur-Omisace,,OR(I(8077)|AND(I(80B7)|I(80E0))^1)

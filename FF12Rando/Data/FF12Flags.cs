@@ -343,7 +343,7 @@ public class FF12Flags
             {
                 Text = "Junk Scaled Depth",
                 ID = "ShopJunkScale",
-                Description = "Consumables, equipment, and abilities will generally be placed in shops in order of their sphere unlocks. Better items will appear later."
+                Description = "Consumables, equipment, and abilities will generally be placed in shops in order of their sphere unlocks. Better items will appear later. Unique shops (Clan shop, Nabudis, and Leviathan shops) will be unaffected."
             }.Register(Shops);
 
             Bazaars = new Flag()

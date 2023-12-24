@@ -13,16 +13,20 @@ public class Preset
 
     public virtual Preset Register()
     {
-        Presets.PresetsList.Add(this);
+        RandoPresets.PresetsList.Add(this);
         return this;
 
     }
 
     public void Apply()
     {
-        Presets.ApplyingPreset = true;
+        if (RandoPresets.ApplyingPreset == RandoPresets.PresetSetType.MatchingPreset)
+        {
+            return;
+        }
+        RandoPresets.ApplyingPreset = RandoPresets.PresetSetType.FromPreset;
         OnApply?.Invoke();
-        Presets.ApplyingPreset = false;
+        RandoPresets.ApplyingPreset = RandoPresets.PresetSetType.Other;
     }
 
     public string Name { get; set; }
@@ -30,6 +34,7 @@ public class Preset
     public bool Default { get; set; } = false;
     public bool CustomModified { get; set; } = false;
     public bool CustomLoaded { get; set; } = false;
-    public List<dynamic> FlagSettings { get; set; }
+    public List<object> FlagSettings { get; set; }
     public string PresetPath { get; set; }
+    public string PresetFlagString { get; set; }
 }

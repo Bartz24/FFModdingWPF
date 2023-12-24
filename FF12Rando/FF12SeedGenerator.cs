@@ -63,7 +63,7 @@ public class FF12SeedGenerator : SeedGenerator
         }
     }
 
-    public FF12SeedGenerator() : base()
+    public FF12SeedGenerator(Action<string, int, int> setUIProgress) : base(setUIProgress)
     {
         Randomizers = new()
         {
@@ -171,11 +171,11 @@ public class FF12SeedGenerator : SeedGenerator
 
     protected override void GeneratePackAndDocs()
     {
-        SetUIProgress("Generating documentation...", -1, -1);
+        RandoUI.SetUIProgressIndeterminate("Generating documentation...");
 
         base.GeneratePackAndDocs();
 
-        SetUIProgress($"Complete! Ready to play! The documentation has been generated in the docs folder of this application.", 100, 100);
+        RandoUI.SetUIProgressDeterminate($"Complete! Ready to play! The documentation has been generated in the docs folder of this application.", 100, 100);
     }
     public static bool ToolsInstalled()
     {

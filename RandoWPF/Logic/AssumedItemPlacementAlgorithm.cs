@@ -139,6 +139,6 @@ public class AssumedItemPlacementAlgorithm<T> : ItemPlacementAlgorithm<T> where 
 
     protected override void UpdateProgress(int i, int items, int maxItems)
     {
-        SetProgressFunc($"Item Placement Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}") + $" ({items} out of {maxItems} items placed)", items, maxItems);
+        RandoUI.SetUIProgressDeterminate($"Item Placement Attempt {i + 1}" + (maxFailCount == -1 ? "" : $" of {maxFailCount}") + $" ({items} out of {maxItems} items placed)", items, maxItems);
     }
 }

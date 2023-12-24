@@ -49,7 +49,7 @@ public class TreasureRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Treasure Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Treasure Data...");
         rewards = new DataStoreBPSection<DataStoreReward>();
         rewards.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin"));
         rewardsOrig = new DataStoreBPSection<DataStoreReward>();
@@ -159,21 +159,15 @@ public class TreasureRando : Randomizer
 
         List<string> hintsNotesLocations = ItemLocations.Values.SelectMany(l => l.Areas).Distinct().ToList();
 
-        placementAlgoNormal = new FF12AssumedItemPlacementAlgorithm(ItemLocations, hintsNotesLocations, Generator, 3)
-        {
-            SetProgressFunc = Generator.SetUIProgress
-        };
+        placementAlgoNormal = new FF12AssumedItemPlacementAlgorithm(ItemLocations, hintsNotesLocations, Generator, 3);
         placementAlgoNormal.Logic = new FF12ItemPlacementLogic(placementAlgoNormal, Generator);
 
-        placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(ItemLocations, hintsNotesLocations, Generator, -1)
-        {
-            SetProgressFunc = Generator.SetUIProgress
-        };
+        placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(ItemLocations, hintsNotesLocations, Generator, -1);
         placementAlgoBackup.Logic = new FF12ItemPlacementLogic(placementAlgoBackup, Generator);
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Treasure Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Treasure Data...");
 
         randomizeItems = new List<string>();
         if (FF12Flags.Items.Treasures.FlagEnabled)
@@ -206,7 +200,7 @@ public class TreasureRando : Randomizer
             usingBackup = true;
             placementAlgoBackup.Randomize(new List<string>(), areaMults);
 
-            Generator.SetUIProgress("Filling empty and missable locations...", 30, 100);
+            RandoUI.SetUIProgressDeterminate("Filling empty and missable locations...", 30, 100);
             int respawnIndex = 0;
             ItemLocations.Values.Shuffle().ForEach(l =>
             {
@@ -247,7 +241,7 @@ public class TreasureRando : Randomizer
                 }
             });
 
-            Generator.SetUIProgress("Randomizing \"junk\" items...", 60, 100);
+            RandoUI.SetUIProgressDeterminate("Randomizing \"junk\" items...", 60, 100);
             EquipRando equipRando = Generator.Get<EquipRando>();
             ItemLocations.Values.ForEach(l =>
             {
@@ -364,7 +358,7 @@ public class TreasureRando : Randomizer
         }
 
         // Generate spheres and anything based on it
-        Generator.SetUIProgress("Calculating spheres...", 70, 100);
+        RandoUI.SetUIProgressDeterminate("Calculating spheres...", 70, 100);
         LocationSpheres = SphereCalculator.CalculateSpheres(PlacementAlgo.Logic);
 
         if (FF12Flags.Items.Treasures.FlagEnabled)
@@ -403,7 +397,7 @@ public class TreasureRando : Randomizer
                 }
             }
 
-            Generator.SetUIProgress("Reordering junk items...", 80, 100);
+            RandoUI.SetUIProgressDeterminate("Reordering junk items...", 80, 100);
             if (FF12Flags.Items.JunkRankScale.Enabled)
             {
                 // Get all the locations with consumables, equipment, and abilities and group by their item type
@@ -774,7 +768,7 @@ public class TreasureRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Treasure Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving Treasure Data...");
         File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin", rewards.Data);
         File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_028.bin", prices.Data);
 

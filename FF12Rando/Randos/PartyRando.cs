@@ -20,7 +20,7 @@ public class PartyRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Party Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Party Data...");
         party = new DataStoreBPSection<DataStorePartyMember>();
         party.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_016.bin"));
         party.DataList.ForEach(c =>
@@ -58,7 +58,7 @@ public class PartyRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Party Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Party Data...");
         if (FF12Flags.Other.Party.FlagEnabled)
         {
             FF12Flags.Other.Party.SetRand();
@@ -95,7 +95,7 @@ public class PartyRando : Randomizer
             c.ItemAmounts = itemAmounts;
         }
 
-        Generator.SetUIProgress("Saving Party Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving Party Data...");
         File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_016.bin", party.Data);
     }
 }

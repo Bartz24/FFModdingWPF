@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 
@@ -38,6 +40,7 @@ public class RandoFlags
         {
             seed,
             version,
+            preset = RandoPresets.Selected.Name,
             flags = FlagsList.Where(f => !f.Debug).ToList()
         });
         return o.ToString();
@@ -46,32 +49,45 @@ public class RandoFlags
     {
         return Deserialize(File.ReadAllText(file));
     }
+
+    public static (string seed, string version, string preset) GetSeedInfo(string json)
+    {
+        IDictionary<string, object> data = JsonConvert.DeserializeObject<ExpandoObject>(json, new ExpandoObjectConverter());
+
+        string seed = (string)data["seed"];
+        string version = (string)data["version"];
+        string preset = data.ContainsKey("preset") ? (string)data["preset"] : "Unknown from previous version";
+
+        return (seed, version, preset);
+    }
+
     public static string Deserialize(string json)
     {
-        dynamic data = JsonConvert.DeserializeObject(json);
+        IDictionary<string, object> data = JsonConvert.DeserializeObject<ExpandoObject>(json, new ExpandoObjectConverter());
 
-        string seed = data["seed"];
-        string version = data["version"];
+        string seed = (string)data["seed"];
+        string version = (string)data["version"];
+        string preset = data.ContainsKey("preset") ? (string)data["preset"] : "Unknown from previous version";
 
         FlagsList.ForEach(f => f.FlagEnabled = false);
 
-        ((JArray)data["flags"]).Select(o => (dynamic)o).ToList().ForEach(s =>
+        ((List<object>)data["flags"]).Select(o => (IDictionary<string, object>)o).ToList().ForEach(s =>
         {
-            if (FlagsList.Where(f => f.FlagID == s["FlagID"].Value).Count() == 0)
+            if (FlagsList.Where(f => f.FlagID == (string)s["FlagID"]).Count() == 0)
             {
                 return;
             }
 
-            Flag f = FlagsList.First(f => f.FlagID == s["FlagID"].Value);
-            f.FlagEnabled = s["FlagEnabled"].Value;
-            ((JArray)s["FlagProperties"]).Select(o => (dynamic)o).ToList().ForEach(p =>
+            Flag f = FlagsList.First(f => f.FlagID == (string)s["FlagID"]);
+            f.FlagEnabled = (bool)s["FlagEnabled"];
+            ((List<object>)s["FlagProperties"]).Select(o => (IDictionary<string, object>)o).ToList().ForEach(p =>
             {
-                if (f.FlagProperties.Where(fp => fp.ID == p["ID"].Value).Count() == 0)
+            if (f.FlagProperties.Where(fp => fp.ID == (string)p["ID"]).Count() == 0)
                 {
                     return;
                 }
 
-                FlagProperty prop = f.FlagProperties.First(fp => fp.ID == p["ID"].Value);
+                FlagProperty prop = f.FlagProperties.First(fp => fp.ID == (string)p["ID"]);
                 prop.Deserialize(p);
             });
         });

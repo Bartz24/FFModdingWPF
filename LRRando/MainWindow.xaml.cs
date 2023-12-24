@@ -68,7 +68,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         LRFlags.Init();
-        Presets.Init();
+        RandoPresets.Init();
         InitializeComponent();
         DataContext = this;
         HideProgressBar();
@@ -84,9 +84,8 @@ public partial class MainWindow : Window
 
     private async void generateButton_Click(object sender, RoutedEventArgs e)
     {
-        LRSeedGenerator generator = new()
+        LRSeedGenerator generator = new(SetProgressBar)
         {
-            SetUIProgress = SetProgressBar,
             IncrementTotalProgress = totalProgressBar.IncrementProgress
         };
 

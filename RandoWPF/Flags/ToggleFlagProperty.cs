@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Bartz24.RandoWPF;
@@ -42,9 +43,9 @@ public class ToggleFlagProperty : FlagProperty
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Enabled)));
         }
     }
-    public override void Deserialize(dynamic data)
+    public override void Deserialize(IDictionary<string, object> data)
     {
-        base.Deserialize((object)data);
-        Enabled = data["Enabled"];
+        base.Deserialize(data);
+        Enabled = (bool)data["Enabled"];
     }
 }

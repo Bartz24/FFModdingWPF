@@ -67,7 +67,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         FF13Flags.Init();
-        Presets.Init();
+        RandoPresets.Init();
         InitializeComponent();
         DataContext = this;
         HideProgressBar();
