@@ -106,17 +106,29 @@ public class RandoPresets
 
     public static void LoadPreset(string file, bool customLoaded)
     {
-        Preset preset = Deserialize(File.ReadAllText(file));
-        preset.CustomLoaded = customLoaded;
-        void onApply()
+        Preset preset = null;
+        try
         {
-            OnApply(preset);
+            preset = Deserialize(File.ReadAllText(file));
+            preset.CustomLoaded = customLoaded;
+            void onApply()
+            {
+                OnApply(preset);
+            }
+
+            preset.OnApply = onApply;
+            preset.PresetPath = file;
+        }
+        catch
+        {
+            preset = null;
         }
 
-        preset.OnApply = onApply;
-        preset.PresetPath = file;
-        PresetsList.Add(preset);
-        PresetsList = PresetsList.OrderBy(p => p.CustomModified).ToList();
+        if (preset != null)
+        {
+            PresetsList.Add(preset);
+            PresetsList = PresetsList.OrderBy(p => p.CustomModified).ToList();
+        }
     }
 
     private static void OnApply(Preset p)
