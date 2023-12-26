@@ -11,6 +11,7 @@
     <DockPanel>
         <ScrollViewer>
             <StackPanel Margin="5,10">
+                <TextBlock x:Name="noSeedsText" TextAlignment="Center" Text="No previous seeds found."/>
                 <ListBox Name="seedInfoListBox" ItemsSource="{Binding SeedInformationList}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                     <ListBox.ItemTemplate>
                         <DataTemplate>

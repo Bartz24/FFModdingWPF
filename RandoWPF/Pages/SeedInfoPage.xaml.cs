@@ -39,6 +39,8 @@ public partial class SeedInfoPage : UserControl
         Dispatcher.Invoke(() =>
         {
             SeedInformationList.Remove(e.Information);
+
+            noSeedsText.Visibility = SeedInformationList.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         });
     }
 
@@ -52,6 +54,8 @@ public partial class SeedInfoPage : UserControl
             {
                 SeedInformationList.Add(seed);
             }
+
+            noSeedsText.Visibility = SeedInformationList.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         });
     }
 

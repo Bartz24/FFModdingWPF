@@ -26,6 +26,11 @@ public class RandoSeeds
     {
         Seeds.Clear();
 
+        if (!Directory.Exists(DocsFolder))
+        {
+            Directory.CreateDirectory(DocsFolder);
+        }
+
         // Read .zip files from the folder
         string[] packs = Directory.GetFiles(DocsFolder, "*.zip");
         foreach (string pack in packs)
@@ -77,6 +82,11 @@ public class RandoSeeds
 
     public static void DeleteSeed(SeedInformation info)
     {
+        if (!Directory.Exists(DocsFolder))
+        {
+            Directory.CreateDirectory(DocsFolder);
+        }
+
         string updatedFilter = DeleteFilter.Replace("${SEED}", info.Seed);
         // Remove the .zip file matching the filter split by |        
         foreach (string filter in updatedFilter.Split('|'))
