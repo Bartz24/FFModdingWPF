@@ -142,12 +142,12 @@ public class BattleRando : Randomizer
         Event
     }
 
-    private List<string> ResolvePossibleCandidates(string oldEnemy, IEnumerable<string> basePool, BattleType battleType)
+    private List<string> ResolvePossibleCandidates(string oldEnemyID, IEnumerable<string> basePool, BattleType battleType)
     {
-        EnemyData lookup = enemyData[oldEnemy];
+        EnemyData oldEnemy = enemyData[oldEnemyID];
         int diff = FF13Flags.Enemies.EnemyRank.Value;
-        int rangeMin = lookup.Rank - diff;
-        int rangeMax = lookup.Rank + diff;
+        int rangeMin = oldEnemy.Rank - diff;
+        int rangeMax = oldEnemy.Rank + diff;
 
         return basePool.Where(next =>
         {
@@ -161,11 +161,20 @@ public class BattleRando : Randomizer
                 return true; // Events can be replaced by anything
             }
 
-            // Wyverns replaced by small flying enemies might be impossible to fight            
-            List<string> groups = new() { "Flying", "Turtle", "Wyvern" };
+            // SmallHover enemies can be replaced by LargeHover and SmallHover enemies
+            if (oldEnemy.Traits.Contains("SmallHover"))
+            {
+                return enemyData[next].Traits.Contains("LargeHover") || enemyData[next].Traits.Contains("SmallHover");
+            }
 
-            return groups.Intersect(lookup.Traits).Any()
-                ? groups.Intersect(enemyData[next].Traits).Intersect(lookup.Traits).Any()
+            // Flying - can move up and down
+            // Turtle - too big and too hard if there's more than one
+            // SmallHover - taken care of above, but keep in the list to remove from the "normal" pool
+            // LargeHover - cannot move up and down and cannot be replaced by SmallHover as the hitbox will be too high
+            List<string> groups = new() { "Flying", "Turtle", "SmallHover", "LargeHover" };
+
+            return groups.Intersect(oldEnemy.Traits).Any()
+                ? groups.Intersect(enemyData[next].Traits).Intersect(oldEnemy.Traits).Any()
                 : !groups.Intersect(enemyData[next].Traits).Any();
 
         }).Where(next =>

@@ -43,11 +43,7 @@ public class TextRando : Randomizer
             mainSysUS["$chpt_save_ttl"] = "Return to the {Italic}Lindblum{Italic}?";
             mainSysUS["$flar_ttl_000"] = "FF13 Randomizer";
 
-            mainSysUS["$restart_00"] = "Retry|Softlock|Cancel";
-            mainSysUS["$restart_01"] = "Retry|Softlock";
-            mainSysUS["$pause_03"] = "{Key Select}Softlock   {Key Start}Resume";
-            mainSysUS["$restart_03"] = "{Icon Attention} The Quit function does not work yet in the randomizer.{Text NewLine}{Text NewLine}This will softlock your game for reasons that make the randomizer work.{Text NewLine}To exit the game, press the 'Esc' key.";
-            mainSysUS["$ask_end_title"] = "The Quit function does not work yet in the randomizer.{Text NewLine}{Text NewLine}This will softlock your game for reasons that make the randomizer work.{Text NewLine}To exit the game, press the 'Esc' key.{End}{Escape}";
+            mainSysUS["$pause_03"] = "{Key LSPress}+{Key RSPress}+{Key R1} {Italic}on the field{Italic} Return to Lindblum     {Key Select}Quit     {Key Start}Resume";
 
             string[] randomLocs = { "Somewhere", "Unknown", "Nautilus Park?", "The {Italic}Lindblum{Italic}?", "The {Italic}Palamecia{Italic}?", "", "FINAL FANTASY XIII", "Totally a Hallway", "Before 000 AF", "Hi :)", "Why are you looking here?", "DELETED TEXT" };
             RandomNum.SetRand(new Random(RandomNum.GetIntSeed(SetupData.Seed) + randomLocs.Length));
