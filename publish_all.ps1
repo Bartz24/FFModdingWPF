@@ -1,3 +1,10 @@
+$SkipCommas = $Args[0]
+$Skip = $SkipCommas.Split(",")
+$Skip12 = $Skip.Contains("xii")
+$Skip13 = $Skip.Contains("xiii")
+$Skip132 = $Skip.Contains("xiii2")
+$SkipLR = $Skip.Contains("lr")
+
 $Version = Get-Item -Path VERSION.txt | Get-Content -Tail 1
 
 $VersionPattern = [Regex]::new("(\d+).(\d+).(\d+).(\d+)")
@@ -25,24 +32,36 @@ $VersionFull = "$VersionMajor.$VersionMinor.$VersionBuild.$VersionRevision"
     -replace 'public static string Version \{ get; set; \} = ".*";', "public static string Version { get; set; } = `"$VersionFull`";" |
 Out-File "RandoWPF\data\SetupData.cs"
 
+if ( $Skip12 -eq $false )
+{
 "Building FF12 Rando..."
 Push-Location -Path "FF12Rando"
 Invoke-Expression ".\publish.ps1 $VersionFull Y Y"
 Pop-Location
+}
 
+if ( $Skip13 -eq $false )
+{
 "Building FF13 Rando..."
 Push-Location -Path "FF13Rando"
 Invoke-Expression ".\publish.ps1 $VersionFull Y Y"
 Pop-Location
+}
 
+if ( $Skip132 -eq $false )
+{
 "Building FF13-2 Rando..."
 Push-Location -Path "FF13_2Rando"
 Invoke-Expression ".\publish.ps1 $VersionFull Y Y"
 Pop-Location
+}
 
+if ( $SkipLR -eq $false )
+{
 "Building LR Rando..."
 Push-Location -Path "LRRando"
 Invoke-Expression ".\publish.ps1 $VersionFull Y Y"
 Pop-Location
+}
 
 Read-Host -Prompt "Press Enter to exit"
