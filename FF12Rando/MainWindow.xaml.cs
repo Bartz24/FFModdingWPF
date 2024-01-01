@@ -65,7 +65,7 @@ public partial class MainWindow : Window
 
     public MainWindow()
     {
-        RandoUI.Init(SetProgressBar, SwitchTab);
+        RandoUI.Init(SetProgressBar, () => totalProgressBar.IncrementProgress(), SwitchTab);
         RandoSeeds.DocsFolder = "docs";
         RandoSeeds.DeleteFilter = "FF12Rando_${SEED}_Docs.zip";
         FF12Flags.Init();
@@ -85,10 +85,7 @@ public partial class MainWindow : Window
 
     private async void generateButton_Click(object sender, RoutedEventArgs e)
     {
-        using (FF12SeedGenerator generator = new(SetProgressBar)
-        {
-            IncrementTotalProgress = totalProgressBar.IncrementProgress
-        })
+        using (FF12SeedGenerator generator = new())
         {
             totalProgressBar.TotalSegments = (generator.Randomizers.Count * 3) + 2;
             totalProgressBar.SetProgress(0, 0);
@@ -219,25 +216,27 @@ public partial class MainWindow : Window
 
     private void uninstallButton_Click(object sender, RoutedEventArgs e)
     {
-        FF12SeedGenerator gen = new (null);
-        if (Directory.Exists(gen.OutFolder))
+        using (FF12SeedGenerator gen = new())
         {
-            try
+            if (Directory.Exists(gen.OutFolder))
             {
-                gen.RemoveLuaScripts();
-                Directory.Delete(gen.OutFolder, true);
-            }
-            catch
-            {
-                MessageBox.Show("Encountered an error while removing the current seed files.");
-                return;
-            }
+                try
+                {
+                    gen.RemoveLuaScripts();
+                    Directory.Delete(gen.OutFolder, true);
+                }
+                catch
+                {
+                    MessageBox.Show("Encountered an error while removing the current seed files.");
+                    return;
+                }
 
-            MessageBox.Show("Seed uninstall complete.");
-        }
-        else
-        {
-            MessageBox.Show("No seed was installed to delete.");
+                MessageBox.Show("Seed uninstall complete.");
+            }
+            else
+            {
+                MessageBox.Show("No seed was installed to delete.");
+            }
         }
     }
 

@@ -56,7 +56,7 @@ public class FF13_2AssumedItemPlacementLogic : FF13_2ItemPlacementLogic
             int wildsNeeded = cruxRando.GetWildsNeeded(list);
             int gravitonsHeld = items.Keys.Where(i => i.StartsWith("frg_cmn_gvtn")).Select(i => items[i]).Sum();
 
-            HistoriaCruxRando.GateData g = cruxRando.gateData.Values.Where(g =>
+            GateData g = cruxRando.gateData.Values.Where(g =>
             {
                 if (!list.Contains(g.Location))
                 {

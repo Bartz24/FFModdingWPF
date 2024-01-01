@@ -75,7 +75,7 @@ public class RandoSeeds
         FlagStringCompressor compressor = new();
         compressor.DecompressLoadFlags(info.FlagString);
         SetupData.Seed = info.Seed;
-        RandoUI.SetUIMessage($"Set the seed to {info.Seed} and loaded flags used for the seed!");
+        RandoUI.ShowTempUIMessage($"Set the seed to {info.Seed} and loaded flags used for the seed!");
 
         RandoUI.SwitchUITab(1);
     }
@@ -108,14 +108,14 @@ public class RandoSeeds
         // Call event
         SeedDeleted?.Invoke(null, new DeleteEventArgs(info));
 
-        RandoUI.SetUIMessage($"Deleted data for the seed {info.Seed}.");
+        RandoUI.ShowTempUIMessage($"Deleted data for the seed {info.Seed}.");
     }
 
     public static void ShareStringSeed(SeedInformation info)
     {
         // Copy compressed string to clipboard
         Clipboard.SetText(info.FlagString);
-        RandoUI.SetUIMessage($"Copied seed string for seed {info.Seed} to clipboard!");
+        RandoUI.ShowTempUIMessage($"Copied seed string for seed {info.Seed} to clipboard!");
     }
 
     public static void ShareFileSeed(SeedInformation info)

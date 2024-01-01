@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace FF13_2Rando;
 
-public class BattleRando : Randomizer
+public partial class BattleRando : Randomizer
 {
     public DataStoreDB3<DataStoreBtScene> btScenes = new();
     private readonly DataStoreDB3<DataStoreRCharaSet> charaSets = new();
@@ -30,7 +30,7 @@ public class BattleRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Battle Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Battle Data...");
         btScenes.LoadDB3(Generator, "13-2", @"\db\resident\bt_scene.wdb");
         enemyData = File.ReadAllLines(@"data\enemies.csv").Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);
 
@@ -70,7 +70,7 @@ public class BattleRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Battle Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Battle Data...");
         EnemyRando enemyRando = Generator.Get<EnemyRando>();
         if (FF13_2Flags.Enemies.EnemyLocations.FlagEnabled)
         {
@@ -520,7 +520,7 @@ public class BattleRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Battle Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving Battle Data...");
         btScenes.SaveDB3(Generator, @"\db\resident\bt_scene.wdb");
 
         charaSets.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_charaset.wdb");
@@ -530,73 +530,5 @@ public class BattleRando : Randomizer
         {
             btTables[id].DeleteDB3(Generator, @"\db\btscenetable\" + id + ".db3");
         });
-    }
-    public class EnemyData : CSVDataRow
-    {
-
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Name { get; set; }
-        [RowIndex(2)]
-        public List<string> Traits { get; set; }
-        [RowIndex(3)]
-        public int Rank { get; set; }
-        [RowIndex(4)]
-        public int Size { get; set; }
-        [RowIndex(5)]
-        public List<string> Parts { get; set; }
-
-        public EnemyData(string[] row) : base(row)
-        {
-        }
-    }
-    public class BossData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string Group { get; set; }
-        [RowIndex(1)]
-        public int Rank { get; set; }
-        [RowIndex(2)]
-        public string ID { get; set; }
-        [RowIndex(3), FieldTypeOverride(FieldType.FloatFromInt100)]
-        public float HPMult { get; set; }
-        [RowIndex(4), FieldTypeOverride(FieldType.FloatFromInt100)]
-        public float STRMult { get; set; }
-        [RowIndex(5), FieldTypeOverride(FieldType.FloatFromInt100)]
-        public float MAGMult { get; set; }
-        [RowIndex(6), FieldTypeOverride(FieldType.FloatFromInt100)]
-        public float StaggerPointMult { get; set; }
-        [RowIndex(7), FieldTypeOverride(FieldType.FloatFromInt100)]
-        public float ChainResMult { get; set; }
-        [RowIndex(8), FieldTypeOverride(FieldType.FloatFromInt100)]
-        public float CPGilMult { get; set; }
-        [RowIndex(9)]
-        public List<string> Traits { get; set; }
-
-        public BossData(string[] row) : base(row)
-        {
-        }
-    }
-
-    public class BattleData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Name { get; set; }
-        [RowIndex(2)]
-        public string Location { get; set; }
-        [RowIndex(3)]
-        public List<string> LocationIDs { get; set; }
-        [RowIndex(4)]
-        public List<string> Charasets { get; set; }
-        [RowIndex(5)]
-        public List<string> Traits { get; set; }
-        [RowIndex(6)]
-        public int CharasetLimit { get; set; }
-        public BattleData(string[] row) : base(row)
-        {
-        }
     }
 }

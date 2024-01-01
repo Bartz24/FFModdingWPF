@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace LRRando;
 
-public class BattleRando : Randomizer
+public partial class BattleRando : Randomizer
 {
     public DataStoreDB3<DataStoreBtScene> btScenes = new();
     public DataStoreDB3<DataStoreBtScene> btScenesOrig = new();
@@ -24,14 +24,14 @@ public class BattleRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Battle Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Battle Data...");
         btScenesOrig.LoadDB3(Generator, "LR", @"\db\resident\bt_scene.wdb");
-        Generator.SetUIProgress("Loading Battle Data...", 20, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Battle Data...", 20, 100);
         btScenes.LoadDB3(Generator, "LR", @"\db\resident\bt_scene.wdb");
-        Generator.SetUIProgress("Loading Battle Data...", 50, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Battle Data...", 50, 100);
         charaSets.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
-        Generator.SetUIProgress("Loading Battle Data...", 80, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Battle Data...", 80, 100);
         FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
         {
             EnemyData e = new(row);
@@ -65,7 +65,7 @@ public class BattleRando : Randomizer
     public override void Randomize()
     {
         EnemyRando enemyRando = Generator.Get<EnemyRando>();
-        Generator.SetUIProgress("Randomizing Battle Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Battle Data...");
         if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
         {
             LRFlags.Enemies.EnemyLocations.SetRand();
@@ -339,7 +339,7 @@ public class BattleRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Battle Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Battle Data...");
         // Apply rando drops
         TransferBattleDrops();
 
@@ -359,66 +359,5 @@ public class BattleRando : Randomizer
             btScenes[btscName].u8NumDrop0 = 1;
 
         });
-    }
-
-    public class EnemyData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Name { get; set; }
-        [RowIndex(2)]
-        public List<string> Traits { get; set; }
-        [RowIndex(3)]
-        public string Class { get; set; }
-        [RowIndex(4)]
-        public int Size { get; set; }
-        [RowIndex(5)]
-        public List<string> Parts { get; set; }
-        public EnemyData(string[] row) : base(row)
-        {
-        }
-    }
-    public class BossData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string Group { get; set; }
-        [RowIndex(1)]
-        public int Tier { get; set; }
-        [RowIndex(2)]
-        public string ID { get; set; }
-        [RowIndex(3)]
-        public string NameID { get; set; }
-        [RowIndex(4)]
-        public string ScoreID { get; set; }
-        [RowIndex(5)]
-        public string Name { get; set; }
-        public BossData(string[] row) : base(row)
-        {
-        }
-    }
-    public class BossStatsData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public int Tier { get; set; }
-        [RowIndex(2)]
-        public int HP { get; set; }
-        [RowIndex(3)]
-        public int Strength { get; set; }
-        [RowIndex(4)]
-        public int Magic { get; set; }
-        [RowIndex(5)]
-        public int Keep { get; set; }
-        [RowIndex(6)]
-        public int PhysicalRes { get; set; }
-        [RowIndex(7)]
-        public int MagicRes { get; set; }
-        [RowIndex(8)]
-        public int BreakPoint { get; set; }
-        public BossStatsData(string[] row) : base(row)
-        {
-        }
     }
 }

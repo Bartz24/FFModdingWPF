@@ -1,10 +1,12 @@
 ﻿using Bartz24.RandoWPF;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 
 namespace Bartz24.RandoWPF;
 
 public abstract class ItemLocation : CSVDataRow
 {
+    public SeedGenerator Generator { get; set; }
     public abstract string ID { get; set; }
     public abstract string Name { get; set; }
     public abstract string LocationImagePath { get; set; }
@@ -14,11 +16,12 @@ public abstract class ItemLocation : CSVDataRow
     public abstract int BaseDifficulty { get; set; }
     public abstract bool IsValid(Dictionary<string, int> items);
 
-    public abstract void SetData(dynamic obj, string newItem, int newCount);
-    public abstract (string, int)? GetData(dynamic obj);
+    public abstract void SetItem(string newItem, int newCount);
+    public abstract (string Item, int Amount)? GetItem(bool orig);
 
-    public ItemLocation(string[] row) : base(row)
+    public ItemLocation(SeedGenerator generator, string[] row) : base(row)
     {
+        Generator = generator;
     }
 
     public int GetDifficulty(Dictionary<string, int> items)
@@ -30,5 +33,10 @@ public abstract class ItemLocation : CSVDataRow
         }
 
         return BaseDifficulty + reqDiff;
+    }
+
+    protected virtual void LogSetItem(string item, int count)
+    {
+        Generator.Logger.LogDebug("Set Item Location \"" + ID + "\" to [" + item + " x" + count + "]");
     }
 }

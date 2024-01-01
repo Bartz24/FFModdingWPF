@@ -63,7 +63,7 @@ public class FF12SeedGenerator : SeedGenerator
         }
     }
 
-    public FF12SeedGenerator(Action<string, int, int> setUIProgress) : base(setUIProgress)
+    public FF12SeedGenerator() : base()
     {
         Randomizers = new()
         {

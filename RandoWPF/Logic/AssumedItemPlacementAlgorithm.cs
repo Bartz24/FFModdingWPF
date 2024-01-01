@@ -25,7 +25,7 @@ public class AssumedItemPlacementAlgorithm<T> : ItemPlacementAlgorithm<T> where 
         {
             Iterations++;
             UpdateProgress(attempt, Placement.Count, important.Count);
-            (string, int)? nextItem = Logic.GetLocationItem(rep);
+            (string, int)? nextItem = ItemLocations[rep].GetItem(false);
             if (nextItem == null)
             {
                 List<string> newAccessibleAreasForFake = Logic.GetNewAreasAvailable(items, new List<string>());
@@ -80,7 +80,7 @@ public class AssumedItemPlacementAlgorithm<T> : ItemPlacementAlgorithm<T> where 
         {
             Iterations++;
             UpdateProgress(attempt, Placement.Count, important.Count);
-            (string, int)? nextItem = Logic.GetLocationItem(rep);
+            (string, int)? nextItem = ItemLocations[rep].GetItem(true);
             RemoveItems(locations, items, nextItem, rep);
             if (nextItem == null)
             {

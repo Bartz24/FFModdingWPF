@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace FF13Rando;
 
-public class CrystariumRando : Randomizer
+public partial class CrystariumRando : Randomizer
 {
     public Dictionary<string, DataStoreWDB<DataStoreCrystarium>> crystariums = new();
     public Dictionary<string, float[]> charMults = new();
@@ -24,7 +24,7 @@ public class CrystariumRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Crystarium Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Crystarium Data...");
         primaryRoles.Add("lightning", new Role[] { Role.Commando, Role.Ravager, Role.Medic });
         primaryRoles.Add("fang", new Role[] { Role.Commando, Role.Sentinel, Role.Saboteur });
         primaryRoles.Add("snow", new Role[] { Role.Commando, Role.Ravager, Role.Sentinel });
@@ -35,7 +35,7 @@ public class CrystariumRando : Randomizer
         crystariums = chars.ToDictionary(c => c, c => new DataStoreWDB<DataStoreCrystarium>());
         chars.ForEach(c => crystariums[c].LoadWDB(Generator, "13", @"\db\crystal\crystal_" + c + ".wdb"));
 
-        Generator.SetUIProgress("Loading Crystarium Data...", 80, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Crystarium Data...", 80, 100);
         FileHelpers.ReadCSVFile(@"data\abilities.csv", row =>
         {
             AbilityData a = new(row);
@@ -87,13 +87,13 @@ public class CrystariumRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Crystarium Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Crystarium Data...");
         List<int[]> averageStats = GetAverageStats();
         MoveFirstAbilities();
 
         UpdateCPCosts();
 
-        Generator.SetUIProgress("Randomizing Crystarium Data...", 10, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Crystarium Data...", 10, 100);
         if (FF13Flags.Stats.RandCrystAbi.FlagEnabled)
         {
             FF13Flags.Stats.RandCrystAbi.SetRand();
@@ -101,7 +101,7 @@ public class CrystariumRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Generator.SetUIProgress("Randomizing Crystarium Data...", 20, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Crystarium Data...", 20, 100);
         if (FF13Flags.Stats.RandCrystStat.FlagEnabled)
         {
             FF13Flags.Stats.RandCrystStat.SetRand();
@@ -109,7 +109,7 @@ public class CrystariumRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Generator.SetUIProgress("Randomizing Crystarium Data...", 40, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Crystarium Data...", 40, 100);
         if (FF13Flags.Stats.ShuffleCrystMisc.Enabled)
         {
             FF13Flags.Stats.RandInitStats.SetRand();
@@ -117,7 +117,7 @@ public class CrystariumRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Generator.SetUIProgress("Randomizing Crystarium Data...", 50, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Crystarium Data...", 50, 100);
         if (FF13Flags.Stats.ShuffleCrystRole.FlagEnabled)
         {
             FF13Flags.Stats.ShuffleCrystRole.SetRand();
@@ -125,7 +125,7 @@ public class CrystariumRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Generator.SetUIProgress("Randomizing Crystarium Data...", 80, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Crystarium Data...", 80, 100);
         if (FF13Flags.Stats.RandCrystStat.FlagEnabled)
         {
             FF13Flags.Stats.RandCrystStat.SetRand();
@@ -133,7 +133,7 @@ public class CrystariumRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Generator.SetUIProgress("Randomizing Crystarium Data...", 90, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Crystarium Data...", 90, 100);
         if (FF13Flags.Stats.RandInitStats.FlagEnabled)
         {
             FF13Flags.Stats.RandInitStats.SetRand();
@@ -148,7 +148,7 @@ public class CrystariumRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Generator.SetUIProgress("Randomizing Crystarium Data...", 95, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Crystarium Data...", 95, 100);
         ApplyCPCostModifiers();
 
         RoundCPCosts();
@@ -446,7 +446,7 @@ public class CrystariumRando : Randomizer
     private string GetFirstRole(string c)
     {
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
-        return treasureRando.treasures.Values.First(t => t.ID.StartsWith("z_ran_" + c) && treasureRando.itemLocations[t.ID].Traits.Contains("Same")).sItemResourceId_string.Substring($"rol_{c}_".Length);
+        return treasureRando.treasures.Values.First(t => t.ID.StartsWith("z_ran_" + c) && treasureRando.ItemLocations[t.ID].Traits.Contains("Same")).sItemResourceId_string.Substring($"rol_{c}_".Length);
     }
     public override Dictionary<string, HTMLPage> GetDocumentation()
     {
@@ -633,43 +633,8 @@ public class CrystariumRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Crystarium Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Crystarium Data...");
         chars.ForEach(c => crystariums[c].SaveWDB(Generator, @"\db\crystal\crystal_" + c + ".wdb"));
 
-    }
-    public class AbilityData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Name { get; set; }
-        public Role Role { get; set; }
-        public List<string> Characters { get; set; }
-        [RowIndex(4)]
-        public List<string> Traits { get; set; }
-        [RowIndex(5)]
-        public ItemReq Requirements { get; set; }
-        [RowIndex(6)]
-        public List<string> Incompatible { get; set; }
-
-        private readonly string[] chars = { "lightning", "fang", "hope", "sazh", "snow", "vanille" };
-        public AbilityData(string[] row) : base(row)
-        {
-            Role = row[2] == "" ? Role.None : Enum.GetValues(typeof(Role)).Cast<Role>().First(r => r.ToString().Substring(0, 3).ToUpper() == row[2]);
-            Characters = row[3] == "" ? chars.ToList() : row[3].ToCharArray().Select(c => ToCharName(c)).ToList();
-        }
-        public string ToCharName(char id)
-        {
-            return id switch
-            {
-                'l' => "lightning",
-                's' => "snow",
-                'z' => "sazh",
-                'h' => "hope",
-                'f' => "fang",
-                'v' => "vanille",
-                _ => "",
-            };
-        }
     }
 }

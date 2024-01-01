@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace FF12Rando;
 
-public class TreasureRando : Randomizer
+public partial class TreasureRando : Randomizer
 {
     public DataStoreBPSection<DataStoreReward> rewards, rewardsOrig;
     public DataStoreBPSection<DataStorePrice> prices;
@@ -93,7 +93,7 @@ public class TreasureRando : Randomizer
             int count = int.Parse(row[4]);
             for (int i = start; i < start + count; i++)
             {
-                TreasureData t = new(row, i);
+                TreasureData t = new(Generator, row, i);
                 ItemLocations.Add(t.ID, t);
             }
         }, FileHelpers.CSVFileHeader.HasHeader);
@@ -103,7 +103,7 @@ public class TreasureRando : Randomizer
             RewardData parent = null;
             for (int i = 0; i < 3; i++)
             {
-                RewardData r = new(row, i, FakeId);
+                RewardData r = new(Generator, row, i, FakeId);
                 if (i == 0)
                 {
                     parent = r;
@@ -128,7 +128,7 @@ public class TreasureRando : Randomizer
                 {
                     if (i == 0)
                     {
-                        RewardData rFake = new(row, i, FakeId, true);
+                        RewardData rFake = new(Generator, row, i, FakeId, true);
                         FakeId--;
                         ItemLocations.Add(rFake.ID, rFake);
                         parent = rFake;
@@ -146,12 +146,12 @@ public class TreasureRando : Randomizer
         {
             FileHelpers.ReadCSVFile(@"data\startingInvs.csv", row =>
             {
-                StartingInvData first = new(row, 0);
+                StartingInvData first = new(Generator, row, 0);
                 ItemLocations.Add(first.ID, first);
                 // Keep the last slot empty for tp stones
                 for (int i = 1; i < 10; i++)
                 {
-                    StartingInvData s = new(row, i);
+                    StartingInvData s = new(Generator, row, i);
                     ItemLocations.Add(s.ID, s);
                 }
             }, FileHelpers.CSVFileHeader.HasHeader);
@@ -208,12 +208,12 @@ public class TreasureRando : Randomizer
                 {
                     if (IsEmpty(l.ID))
                     {
-                        List<string> list = PlacementAlgo.Placement.Keys.Where(s => IsExtra(s) && PlacementAlgo.Logic.GetLocationItem(s, false) != null && !IsImportantKeyItem(PlacementAlgo.Placement[s]) && PlacementAlgo.Logic.IsAllowed(l.ID, PlacementAlgo.Placement[s])).Shuffle();
+                        List<string> list = PlacementAlgo.Placement.Keys.Where(s => IsExtra(s) && ItemLocations[s].GetItem(false) != null && !IsImportantKeyItem(PlacementAlgo.Placement[s]) && PlacementAlgo.Logic.IsAllowed(l.ID, PlacementAlgo.Placement[s])).Shuffle();
                         if (list.Count > 0)
                         {
                             string rep = list.First();
-                            (string, int)? item = PlacementAlgo.Logic.GetLocationItem(rep, false);
-                            PlacementAlgo.Logic.SetLocationItem(l.ID, item.Value.Item1, item.Value.Item2);
+                            (string, int)? item = ItemLocations[rep].GetItem(false);
+                            ItemLocations[l.ID].SetItem(item.Value.Item1, item.Value.Item2);
                             PlacementAlgo.Placement.Add(l.ID, PlacementAlgo.Placement[rep]);
                             PlacementAlgo.Placement.Remove(rep);
                             hints.Where(list => list.Contains(rep)).ForEach(list =>
@@ -247,7 +247,7 @@ public class TreasureRando : Randomizer
             {
                 if (PlacementAlgo.Placement.ContainsKey(l.ID))
                 {
-                    (string, int)? tuple = PlacementAlgo.Logic.GetLocationItem(l.ID, false);
+                    (string, int)? tuple = ItemLocations[l.ID].GetItem(false);
                     if (tuple != null && randomizeItems.Contains(tuple.Value.Item1))
                     {
                         string newItem = RandomNum.SelectRandomWeighted(remainingRandomizeItems, item =>
@@ -262,7 +262,7 @@ public class TreasureRando : Randomizer
                         });
                         if (newItem.StartsWith("30") || newItem.StartsWith("40"))
                         {
-                            PlacementAlgo.Logic.SetLocationItem(l.ID, newItem, 1);
+                            ItemLocations[l.ID].SetItem(newItem, 1);
                             if (!tuple.Value.Item1.StartsWith("30") && !tuple.Value.Item1.StartsWith("40"))
                             {
                                 hints.Where(list => list.Count == hints.Select(list => list.Count).Min()).First().Add(l.ID);
@@ -270,7 +270,7 @@ public class TreasureRando : Randomizer
                         }
                         else
                         {
-                            PlacementAlgo.Logic.SetLocationItem(l.ID, newItem, tuple.Value.Item2);
+                            ItemLocations[l.ID].SetItem(newItem, tuple.Value.Item2);
                             if (tuple.Value.Item1.StartsWith("30") || tuple.Value.Item1.StartsWith("40"))
                             {
                                 hints.Where(list => list.Contains(l.ID)).ForEach(list => list.Remove(l.ID));
@@ -291,18 +291,18 @@ public class TreasureRando : Randomizer
                 }
             });
 
-            List<ItemLocation> writLocations = ItemLocations.Values.Where(l => PlacementAlgo.Logic.GetLocationItem(l.ID, false)?.Item1 == "8070").ToList();
+            List<ItemLocation> writLocations = ItemLocations.Values.Where(l => ItemLocations[l.ID].GetItem(false)?.Item1 == "8070").ToList();
 
             writLocations.ForEach(l =>
             {
-                PlacementAlgo.Logic.SetLocationItem(l.ID, "0000", 5);
+                ItemLocations[l.ID].SetItem("0000", 5);
                 hints.Where(list => list.Contains(l.ID)).ForEach(list => list.Remove(l.ID));
             });
 
             if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalCid2))
             {
                 ItemLocation cid2 = writLocations.First(l => l.Traits.Contains("WritCid2"));
-                PlacementAlgo.Logic.SetLocationItem(cid2.ID, "8070", 1);
+                ItemLocations[cid2.ID].SetItem("8070", 1);
                 AddHint(cid2.ID);
                 writLocations.Remove(cid2);
             }
@@ -310,14 +310,14 @@ public class TreasureRando : Randomizer
             if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalAny))
             {
                 ItemLocation l = RandomNum.SelectRandom(writLocations);
-                PlacementAlgo.Logic.SetLocationItem(l.ID, "8070", 1);
+                ItemLocations[l.ID].SetItem("8070", 1);
                 AddHint(l.ID);
             }
 
             missableTreasureLinks.ForEach(p =>
             {
-                (string, int)? item = PlacementAlgo.Logic.GetLocationItem(p.Value, false);
-                PlacementAlgo.Logic.SetLocationItem(p.Key, item.Value.Item1, item.Value.Item2);
+                (string, int)? item = ItemLocations[p.Value].GetItem(false);
+                ItemLocations[p.Key].SetItem(item.Value.Item1, item.Value.Item2);
                 DataStoreTreasure tMiss = ebpAreas[((TreasureData)ItemLocations[p.Key]).MapID].TreasureList[((TreasureData)ItemLocations[p.Key]).Index];
                 DataStoreTreasure tLinked = ebpAreas[((TreasureData)ItemLocations[p.Value]).MapID].TreasureList[((TreasureData)ItemLocations[p.Value]).Index];
                 tMiss.Respawn = tLinked.Respawn;
@@ -340,11 +340,11 @@ public class TreasureRando : Randomizer
                     {
                         if (l is RewardData)
                         {
-                            PlacementAlgo.Logic.SetLocationItem(l.ID, null, 0);
+                            ItemLocations[l.ID].SetItem(null, 0);
                         }
                         else if (l is StartingInvData)
                         {
-                            PlacementAlgo.Logic.SetLocationItem(l.ID, null, 0);
+                            ItemLocations[l.ID].SetItem(null, 0);
                         }
                         else
                         {
@@ -379,14 +379,14 @@ public class TreasureRando : Randomizer
                                 && !l.Traits.Contains("Missable")
                                 && !IsKeyItem(orig.ID)
                                 && !IsAbility(orig.ID)
-                                && PlacementAlgo.Logic.GetLocationItem(l.ID, false)?.Item1 != "8070"
-                                && PlacementAlgo.Logic.GetLocationItem(l.ID, false)?.Item1 != "Gil";
+                                && ItemLocations[l.ID].GetItem(false)?.Item1 != "8070"
+                                && ItemLocations[l.ID].GetItem(false)?.Item1 != "Gil";
                     }).ToList();
 
                     if (maxSphere.Count > 0)
                     {
                         ItemLocation l = RandomNum.SelectRandom(maxSphere);
-                        PlacementAlgo.Logic.SetLocationItem(l.ID, "8070", 1);
+                        ItemLocations[l.ID].SetItem("8070", 1);
                         AddHint(l.ID);
                         placed = true;
                     }
@@ -403,7 +403,7 @@ public class TreasureRando : Randomizer
                 // Get all the locations with consumables, equipment, and abilities and group by their item type
                 var grouping = ItemLocations.Values.Where(l =>
                 {
-                    string id = PlacementAlgo.Logic.GetLocationItem(l.ID, false)?.Item1;
+                    string id = ItemLocations[l.ID].GetItem(false)?.Item1;
                     if (id == null)
                     {
                         return false;
@@ -422,7 +422,7 @@ public class TreasureRando : Randomizer
                     return intId < 0x2000 || intId is >= 0x3000 and < 0x5000;
                 }).GroupBy(l =>
                 {
-                    string id = PlacementAlgo.Logic.GetLocationItem(l.ID, false)?.Item1;
+                    string id = ItemLocations[l.ID].GetItem(false)?.Item1;
                     int intId = Convert.ToInt32(id, 16);
                     return intId < 0x1000 ? ItemType.Consumable : intId is >= 0x3000 and < 0x5000 ? ItemType.Ability : ItemType.Equipment;
                 });
@@ -431,7 +431,7 @@ public class TreasureRando : Randomizer
                 EquipRando equipRando = Generator.Get<EquipRando>();
                 foreach (var group in grouping)
                 {
-                    List<(string id, int count)> items = group.Shuffle().Select(l => PlacementAlgo.Logic.GetLocationItem(l.ID, false).Value).OrderBy(pair =>
+                    List<(string id, int count)> items = group.Shuffle().Select(l => ItemLocations[l.ID].GetItem(false).Value).OrderBy(pair =>
                     {
                         return equipRando.itemData[pair.Item1].Rank;
                     }).ToList();
@@ -444,7 +444,7 @@ public class TreasureRando : Randomizer
                     for (int i = 0; i < items.Count; i++)
                     {
                         (string id, int count) = items[i];
-                        PlacementAlgo.Logic.SetLocationItem(junk[i].ID, id, count);
+                        ItemLocations[junk[i].ID].SetItem(id, count);
                     }
                 }
             }
@@ -455,9 +455,9 @@ public class TreasureRando : Randomizer
         if (!FF12Flags.Items.AllowSeitengrat.FlagEnabled)
         {
             // Replace any Seitengrat with the Dhanusha
-            ItemLocations.Values.Where(l => PlacementAlgo.Logic.GetLocationItem(l.ID, false)?.Item1 == "10B2").ForEach(l =>
+            ItemLocations.Values.Where(l => ItemLocations[l.ID].GetItem(false)?.Item1 == "10B2").ForEach(l =>
             {
-                PlacementAlgo.Logic.SetLocationItem(l.ID, "10C7", PlacementAlgo.Logic.GetLocationItem(l.ID, false).Value.Item2);
+                ItemLocations[l.ID].SetItem("10C7", ItemLocations[l.ID].GetItem(false).Value.Item2);
             });
         }
     }
@@ -597,17 +597,17 @@ public class TreasureRando : Randomizer
 
     public bool IsImportantKeyItem(string location)
     {
-        return IsKeyItem(location) && (PlacementAlgo.Logic.GetLocationItem(location) != null || PlacementAlgo.Iterations > (PlacementAlgo.Placement.Count * 1.5f) + 1) && (PlacementAlgo.Logic.GetLocationItem(location) == null || PlacementAlgo.Logic.GetLocationItem(location).Value.Item1 != "Gil");
+        return IsKeyItem(location) && (ItemLocations[location].GetItem(true) != null || PlacementAlgo.Iterations > (PlacementAlgo.Placement.Count * 1.5f) + 1) && (ItemLocations[location].GetItem(true) == null || ItemLocations[location].GetItem(true).Value.Item1 != "Gil");
     }
 
     public bool IsAbility(string t, bool orig = true)
     {
-        return PlacementAlgo.Logic.GetLocationItem(t, orig) != null && (PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("30") || PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("40"));
+        return ItemLocations[t].GetItem(orig) != null && (ItemLocations[t].GetItem(orig).Value.Item1.StartsWith("30") || ItemLocations[t].GetItem(orig).Value.Item1.StartsWith("40"));
     }
 
     public bool IsWoT(string t, bool orig = true)
     {
-        return PlacementAlgo.Logic.GetLocationItem(t, orig) != null && PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1 == "8070";
+        return ItemLocations[t].GetItem(orig) != null && ItemLocations[t].GetItem(orig).Value.Item1 == "8070";
     }
 
     public bool IsChopKeyItem(string t)
@@ -622,7 +622,7 @@ public class TreasureRando : Randomizer
 
     public bool IsKeyItem(string t)
     {
-        return PlacementAlgo.Logic.GetLocationItem(t) != null && (FF12Flags.Items.KeyItems.DictValues.Keys.Contains(PlacementAlgo.Logic.GetLocationItem(t)?.Item1) || IsChopKeyItem(t) || IsBlackOrbKeyItem(t));
+        return ItemLocations[t].GetItem(true) != null && (FF12Flags.Items.KeyItems.DictValues.Keys.Contains(ItemLocations[t].GetItem(true)?.Item1) || IsChopKeyItem(t) || IsBlackOrbKeyItem(t));
     }
 
     private List<string> GetRandomizableItems()
@@ -630,7 +630,7 @@ public class TreasureRando : Randomizer
         return ItemLocations.Values.Where(l => l is not TreasureData || treasuresToPlace.Contains(l.ID))
             .Select(l =>
             {
-                (string, int)? tuple = PlacementAlgo.Logic.GetLocationItem(l.ID);
+                (string, int)? tuple = ItemLocations[l.ID].GetItem(true);
                 return tuple != null && IsRandomizableItem(tuple.Value.Item1) ? tuple.Value.Item1 : null;
             }).Where(s => s != null).Distinct().ToList();
     }
@@ -681,7 +681,7 @@ public class TreasureRando : Randomizer
             case 0:
             default:
                 {
-                    val = $"{ItemLocations[l].Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false)?.Item1)}";
+                    val = $"{ItemLocations[l].Name} has {GetItemName(ItemLocations[l].GetItem(false)?.Item1)}";
                     break;
                 }
             case 1:
@@ -703,7 +703,7 @@ public class TreasureRando : Randomizer
                         type = "a Black Orb";
                     }
 
-                    (string, int)? item = PlacementAlgo.Logic.GetLocationItem(l, false);
+                    (string, int)? item = ItemLocations[l].GetItem(false);
                     int intId = -1;
                     if (item != null)
                     {
@@ -734,7 +734,7 @@ public class TreasureRando : Randomizer
                 }
             case 2:
                 {
-                    val = $"{ItemLocations[l].Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(l, false)?.Item1)}";
+                    val = $"{ItemLocations[l].Areas[0]} has {GetItemName(ItemLocations[l].GetItem(false)?.Item1)}";
                     break;
                 }
             case 3:
@@ -998,248 +998,5 @@ public class TreasureRando : Randomizer
         }
 
         return string.Join(", ", stringList);
-    }
-
-    public class TreasureData : ItemLocation
-    {
-        public override string ID { get; set; }
-        public int Index { get; set; }
-        public override string Name { get; set; }
-        public override string LocationImagePath { get; set; }
-        [RowIndex(1)]
-        public string Subarea { get; set; }
-        [RowIndex(2)]
-        public string MapID { get; set; }
-        [RowIndex(5)]
-        public override ItemReq Requirements { get; set; }
-        [RowIndex(7)]
-        public override List<string> Traits { get; set; }
-        [RowIndex(0)]
-        public override List<string> Areas { get; set; }
-        [RowIndex(6)]
-        public override int BaseDifficulty { get; set; }
-
-        public TreasureData(string[] row, int index) : base(row)
-        {
-            Name = row[0] + " - " + row[1] + " Treasure";
-            ID = row[2] + ":" + index;
-            Index = index;
-        }
-
-        public override bool IsValid(Dictionary<string, int> items)
-        {
-            return Requirements.IsValid(items);
-        }
-
-        public override void SetData(dynamic obj, string newItem, int newCount)
-        {
-            DataStoreTreasure t = (DataStoreTreasure)obj;
-            if (newItem == "Gil")
-            {
-                t.GilChance = 100;
-                t.GilCommon = (ushort)Math.Min(newCount, 65535);
-                t.GilRare = (ushort)Math.Min(newCount * 2, 65535);
-            }
-            else
-            {
-                ushort id = Convert.ToUInt16(newItem, 16);
-                t.GilChance = 0;
-                t.CommonItem1ID = id;
-                t.CommonItem2ID = id;
-                t.RareItem1ID = id;
-                t.RareItem2ID = id;
-            }
-        }
-
-        public override (string, int)? GetData(dynamic obj)
-        {
-            DataStoreTreasure t = (DataStoreTreasure)obj;
-            return t.GilChance == 100 ? ((string, int)?)("Gil", t.GilCommon) : (t.CommonItem1ID.ToString("X4"), 1);
-        }
-    }
-
-    public class RewardData : ItemLocation
-    {
-        public override string ID { get; set; }
-        public int IntID { get; set; }
-        public int Index { get; set; }
-        [RowIndex(1)]
-        public override string Name { get; set; }
-        public override string LocationImagePath { get; set; }
-        [RowIndex(3)]
-        public override ItemReq Requirements { get; set; }
-        [RowIndex(5)]
-        public override List<string> Traits { get; set; }
-        [RowIndex(0)]
-        public override List<string> Areas { get; set; }
-        [RowIndex(4)]
-        public override int BaseDifficulty { get; set; }
-        [RowIndex(6)]
-        public List<string> FakeItems { get; set; }
-
-        public bool IsFakeOnly { get; set; }
-
-        public RewardData Parent { get; set; }
-
-        public RewardData(string[] row, int index, int fakeID, bool isAttachedFake = false) : base(row)
-        {
-            if (isAttachedFake && !Traits.Contains("Fake"))
-            {
-                Traits.Add("Fake");
-            }
-            else if (!isAttachedFake && Traits.Contains("Fake"))
-            {
-                // Fake only rewards are explicitly defined as Fake, attached fakes are added automatically
-                IsFakeOnly = true;
-            }    
-
-            IntID = !Traits.Contains("Fake") ? Convert.ToInt32(row[2], 16) : fakeID;
-            ID = (isAttachedFake ? "_" : "") + row[2] + ":" + index;
-            Index = index;
-            Parent = this;
-
-            if (Traits.Contains("WritTomaj"))
-            {
-                if (Index != 1)
-                {
-                    Traits.Remove("WritTomaj");
-                }
-                else
-                {
-                    Traits.Remove("MainKey");
-                }
-            }
-
-            if (Traits.Contains("WritCid2") && Index != 1)
-            {
-                Traits.Remove("WritCid2");
-            }
-        }
-
-        public override bool IsValid(Dictionary<string, int> items)
-        {
-            return Requirements.IsValid(items);
-        }
-
-        public override void SetData(dynamic obj, string newItem, int newCount)
-        {
-            DataStoreReward r = (DataStoreReward)obj;
-            if (Index == 0)
-            {
-                if (newItem == null)
-                {
-                    r.Gil = 0;                    
-                }
-                else
-                {
-                    r.Gil = (uint)newCount;
-                }
-            }
-            else
-            {
-                if (newItem == null || newItem == "FFFF")
-                {
-                    if (Index == 1)
-                    {
-                        r.Item1ID = 0xFFFF;
-                        r.Item1Amount = 255;
-                    }
-                    else if (Index == 2)
-                    {
-                        r.Item2ID = 0xFFFF;
-                        r.Item2Amount = 255;
-                    }
-                }
-                else
-                {
-                    ushort id = Convert.ToUInt16(newItem, 16);
-                    if (Index == 1)
-                    {
-                        r.Item1ID = id;
-                        r.Item1Amount = (ushort)newCount;
-                    }
-                    else if (Index == 2)
-                    {
-                        r.Item2ID = id;
-                        r.Item2Amount = (ushort)newCount;
-                    }
-                }
-            }
-        }
-
-        public override (string, int)? GetData(dynamic obj)
-        {
-            DataStoreReward r = (DataStoreReward)obj;
-            return Index == 0
-                ? r.Gil == 0 ? null : ("Gil", (int)r.Gil)
-                : Index == 1
-                    ? r.Item1ID == 0xFFFF ? null : (r.Item1ID.ToString("X4"), r.Item1Amount)
-                    : r.Item2ID == 0xFFFF ? null : (r.Item2ID.ToString("X4"), r.Item2Amount);
-        }
-    }
-
-    public class StartingInvData : ItemLocation
-    {
-        public override string ID { get; set; }
-        [RowIndex(2), FieldTypeOverride(FieldType.HexInt)]
-        public int IntID { get; set; }
-        public int Index { get; set; }
-        [RowIndex(1)]
-        public override string Name { get; set; }
-        public override string LocationImagePath { get; set; }
-        [RowIndex(3)]
-        public override ItemReq Requirements { get; set; }
-        [RowIndex(5)]
-        public override List<string> Traits { get; set; }
-        [RowIndex(0)]
-        public override List<string> Areas { get; set; }
-        [RowIndex(4)]
-        public override int BaseDifficulty { get; set; }
-
-        public StartingInvData(string[] row, int index) : base(row)
-        {
-            ID = row[2] + "::" + index;
-            Index = index;
-        }
-
-        public override bool IsValid(Dictionary<string, int> items)
-        {
-            return Requirements.IsValid(items);
-        }
-
-        public override void SetData(dynamic obj, string newItem, int newCount)
-        {
-            DataStorePartyMember c = (DataStorePartyMember)obj;
-            List<ushort> itemIDs = c.ItemIDs;
-            List<byte> itemAmounts = c.ItemAmounts;
-
-            if (newItem == null)
-            {
-                itemIDs[Index] = 0xFFFF;
-                itemAmounts[Index] = 0;
-            }
-            else
-            {
-                ushort id = Convert.ToUInt16(newItem, 16);
-                itemIDs[Index] = id;
-                itemAmounts[Index] = (byte)newCount;
-            }
-
-            c.ItemIDs = itemIDs;
-            c.ItemAmounts = itemAmounts;
-        }
-
-        public override (string, int)? GetData(dynamic obj)
-        {
-            DataStorePartyMember c = (DataStorePartyMember)obj;
-            if (c.ItemIDs[Index] == 0xFFFF)
-            {
-                return null;
-            }
-            else
-            {
-                return (c.ItemIDs[Index].ToString("X4"), c.ItemAmounts[Index]);
-            }
-        }
     }
 }

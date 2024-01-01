@@ -81,47 +81,7 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
     public override bool RequiresLogic(string location)
     {
         return ItemLocations[location].Traits.Contains("Same")
-|| GetLocationItem(location).Value.Item1 == "" || treasureRando.IsImportantKeyItem(location);
-    }
-
-    public override (string, int)? GetLocationItem(string key, bool orig = true)
-    {
-        switch (ItemLocations[key])
-        {
-            case TreasureRando.TreasureData t:
-                return t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
-            case TreasureRando.BattleData b:
-                BattleRando battleRando = treasureRando.Generator.Get<BattleRando>();
-                return b.GetData(orig ? battleRando.btsceneOrig[key] : battleRando.btscene[key]);
-            case TreasureRando.EnemyData e:
-                EnemyRando enemyRando = treasureRando.Generator.Get<EnemyRando>();
-                return e.GetData(orig ? enemyRando.btCharaSpecOrig[key] : enemyRando.btCharaSpec[key]);
-            default:
-                return base.GetLocationItem(key, orig);
-        }
-    }
-
-    public override void SetLocationItem(string key, string item, int count)
-    {
-        LogSetItem(key, item, count);
-        switch (ItemLocations[key])
-        {
-            case TreasureRando.TreasureData t:
-                t.SetData(treasureRando.treasures[key], item, count);
-                break;
-            case TreasureRando.BattleData b:
-                BattleRando battleRando = treasureRando.Generator.Get<BattleRando>();
-                b.SetData(battleRando.btscene[key], item, count);
-                break;
-            case TreasureRando.EnemyData e:
-                EnemyRando enemyRando = treasureRando.Generator.Get<EnemyRando>();
-                e.SetData(enemyRando.btCharaSpec[key], item, count);
-                e.LinkedIDs.ForEach(other => e.SetData(enemyRando.btCharaSpec[other], item, count));
-                break;
-            default:
-                base.SetLocationItem(key, item, count);
-                break;
-        }
+|| ItemLocations[location].GetItem(true).Value.Item1 == "" || treasureRando.IsImportantKeyItem(location);
     }
 
     public override List<string> GetNewAreasAvailable(Dictionary<string, int> items, List<string> soFar)
@@ -187,7 +147,7 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
         if (ItemLocations[old].Traits.Contains("Mission"))
         {
             specialTraits.Add("Mission");
-            if (GetLocationItem(rep).Value.Item1 == "")
+            if (ItemLocations[rep].GetItem(true).Value.Item1 == "")
             {
                 return false;
             }
@@ -198,16 +158,16 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
             }
         }
 
-        if (ItemLocations[old] is TreasureRando.BattleData)
+        if (ItemLocations[old] is BattleDropData)
         {
-            if (GetLocationItem(rep).Value.Item1 == "")
+            if (ItemLocations[rep].GetItem(true).Value.Item1 == "")
             {
                 return false;
             }
         }
-        else if (ItemLocations[old] is TreasureRando.EnemyData)
+        else if (ItemLocations[old] is EnemyDropData)
         {
-            if (GetLocationItem(rep).Value.Item1 == "")
+            if (ItemLocations[rep].GetItem(true).Value.Item1 == "")
             {
                 return false;
             }

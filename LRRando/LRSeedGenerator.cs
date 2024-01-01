@@ -9,7 +9,7 @@ using System.Reflection.Emit;
 namespace LRRando;
 public class LRSeedGenerator : SeedGenerator
 {
-    public LRSeedGenerator(Action<string, int, int> setUIProgress) : base(setUIProgress)
+    public LRSeedGenerator() : base()
     {
         Randomizers = new()
         {
@@ -92,6 +92,6 @@ public class LRSeedGenerator : SeedGenerator
     {
         base.GeneratePackAndDocs();
 
-        SetUIProgress($"Complete! Ready to install in Nova Chrysalia! The modpack '{GetPackPath()}' and documentation have been generated in the packs folder of this application.", 100, 100);
+        RandoUI.SetUIProgressDeterminate($"Complete! Ready to install in Nova Chrysalia! The modpack '{GetPackPath()}' and documentation have been generated in the packs folder of this application.", 100, 100);
     }
 }

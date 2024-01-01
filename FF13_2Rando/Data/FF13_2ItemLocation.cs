@@ -5,7 +5,7 @@ namespace FF13_2Rando;
 
 public abstract class FF13_2ItemLocation : ItemLocation
 {
-    public FF13_2ItemLocation(string[] row) : base(row)
+    public FF13_2ItemLocation(SeedGenerator generator, string[] row) : base(generator, row)
     {
     }
 

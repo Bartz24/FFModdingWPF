@@ -17,7 +17,7 @@ public class TextRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Text Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Text Data...");
         {
             string path = Nova.GetNovaFile("LR", @"txtres\zone\z0100\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
             string outPath = Generator.DataOutFolder + @"\txtres\zone\z0100\txtres_us.ztr";
@@ -30,7 +30,7 @@ public class TextRando : Randomizer
         zone100SysUS["$sys_yu_noopn"] = "You need an {Color Gold}ID card{Color SkyBlue} and have to complete the Warehouse to open the gate.";
         zone100SysUS["$sys_yu_mq2"] = "You need {Color Gold}Serah's Pendant{Color SkyBlue} and have to check the table.";
 
-        Generator.SetUIProgress("Loading Text Data...", 50, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Text Data...", 50, 100);
         {
             string path = Nova.GetNovaFile("LR", @"txtres\resident\system\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
             string outPath = Generator.DataOutFolder + @"\txtres\resident\system\txtres_us.ztr";
@@ -47,7 +47,7 @@ public class TextRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Text Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Text Data...");
         if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
         {
             mainSysUS["$m_355"] += " (I may crash with {Key R2})";
@@ -255,7 +255,7 @@ public class TextRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Text Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Text Data...");
         string hash = GetHash();
 
         mainSysUS["$dif_conf_e"] = "{Icon Attention} You have selected {Color Red}EASY MODE{Color SkyBlue}.{Text NewLine}" +

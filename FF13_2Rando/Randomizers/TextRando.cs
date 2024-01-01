@@ -13,7 +13,7 @@ public class TextRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Text Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Text Data...");
         {
             string path = Nova.GetNovaFile("13-2", @"txtres\resident\system\txtres_us.ztr", SetupData.Paths["Nova"], SetupData.Paths["13-2"]);
             string outPath = Generator.DataOutFolder + @"\txtres\resident\system\txtres_us.ztr";
@@ -32,7 +32,7 @@ public class TextRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Text Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Text Data...");
     }
 
     private string GetHash()
@@ -79,7 +79,7 @@ public class TextRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Text Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Text Data...");
         string hash = GetHash();
 
         mainSysUS["$dif_conf_e"] = "{Icon Attention} Begin game in {Color Red}EASY MODE{Color SkyBlue}?{Text NewLine}" +

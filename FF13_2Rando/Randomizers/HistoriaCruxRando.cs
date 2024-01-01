@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace FF13_2Rando;
 
-public class HistoriaCruxRando : Randomizer
+public partial class HistoriaCruxRando : Randomizer
 {
     public DataStoreDB3<DataStoreRGateTable> gateTable = new();
     public DataStoreDB3<DataStoreRGateTable> gateTableOrig = new();
@@ -26,7 +26,7 @@ public class HistoriaCruxRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Historia Crux Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Historia Crux Data...");
         gateTable.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
         gateTableOrig.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
 
@@ -48,7 +48,7 @@ public class HistoriaCruxRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Historia Crux Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Historia Crux Data...");
         if (FF13_2Flags.Other.HistoriaCrux.FlagEnabled)
         {
             FF13_2Flags.Other.HistoriaCrux.SetRand();
@@ -407,40 +407,8 @@ public class HistoriaCruxRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Historia Crux Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving Historia Crux Data...");
         gateTable.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_gatetab.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_gatetab.wdb");
-    }
-    public class GateData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string Location { get; set; }
-        [RowIndex(1)]
-        public string ID { get; set; }
-        [RowIndex(2)]
-        public List<string> Traits { get; set; }
-        [RowIndex(3)]
-        public List<string> Requirements { get; set; }
-        [RowIndex(4)]
-        public int MinMogLevel { get; set; }
-        [RowIndex(5)]
-        public string GateOriginal { get; set; }
-        [RowIndex(6)]
-        public ItemReq ItemRequirements { get; set; }
-        public GateData(string[] row) : base(row)
-        {
-        }
-    }
-    public class AreaData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Name { get; set; }
-        [RowIndex(2)]
-        public string BattleTableID { get; set; }
-        public AreaData(string[] row) : base(row)
-        {
-        }
     }
 }

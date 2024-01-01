@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace LRRando;
 
-public class MusicRando : Randomizer
+public partial class MusicRando : Randomizer
 {
     private List<string> soundFiles = new();
     private List<string> newSoundFiles = new();
@@ -19,7 +19,7 @@ public class MusicRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Music Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Music Data...");
         musicData.Clear();
         FileHelpers.ReadCSVFile(@"data\musicLR.csv", row =>
         {
@@ -29,7 +29,7 @@ public class MusicRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Music Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Music Data...");
         if (LRFlags.Other.Music.FlagEnabled)
         {
             LRFlags.Other.Music.SetRand();
@@ -53,22 +53,11 @@ public class MusicRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Music Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Music Data...");
         for (int i = 0; i < Math.Min(soundFiles.Count, newSoundFiles.Count); i++)
         {
             Directory.CreateDirectory(Path.GetDirectoryName($"{Generator.DataOutFolder}\\{newSoundFiles[i]}"));
             File.Copy($"{Nova.GetNovaFile("LR", soundFiles[i], SetupData.Paths["Nova"], SetupData.Paths["LR"])}", $"{Generator.DataOutFolder}\\{newSoundFiles[i]}", true);
-        }
-    }
-
-    public class MusicData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string Path { get; set; }
-        [RowIndex(1)]
-        public List<string> Traits { get; set; }
-        public MusicData(string[] row) : base(row)
-        {
         }
     }
 }

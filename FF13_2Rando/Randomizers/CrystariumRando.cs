@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace FF13_2Rando;
 
-public class CrystariumRando : Randomizer
+public partial class CrystariumRando : Randomizer
 {
     public DataStoreDB3<DataStoreRGrowPc> crystSerah = new();
     public DataStoreDB3<DataStoreRGrowPc> crystNoel = new();
@@ -24,7 +24,7 @@ public class CrystariumRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Crystarium Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Crystarium Data...");
         crystSerah.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_pc008.wdb", false);
         crystNoel.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_pc010.wdb", false);
         crystMonster.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_st.wdb", false);
@@ -41,7 +41,7 @@ public class CrystariumRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Crystarium Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Crystarium Data...");
         if (FF13_2Flags.Stats.RandCrystAbi.FlagEnabled)
         {
             FF13_2Flags.Stats.RandCrystAbi.SetRand();
@@ -155,28 +155,12 @@ public class CrystariumRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Crystarium Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving Crystarium Data...");
         crystSerah.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_grow_pc008.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_pc008.wdb");
         crystNoel.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_grow_pc010.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_pc010.wdb");
         crystMonster.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_grow_st.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_st.wdb");
-    }
-    public class AbilityData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Name { get; set; }
-        [RowIndex(2)]
-        public string Role { get; set; }
-        [RowIndex(3)]
-        public List<string> Traits { get; set; }
-        [RowIndex(4)]
-        public ItemReq Requirements { get; set; }
-        public AbilityData(string[] row) : base(row)
-        {
-        }
     }
 }

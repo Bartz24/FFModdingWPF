@@ -16,14 +16,14 @@ public class EnemyRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Enemy Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Enemy Data...");
         charaFamily.LoadWDB(Generator, "13", @"\db\resident\charafamily.wdb");
         btCharaSpec.LoadWDB(Generator, "13", @"\db\resident\bt_chara_spec.wdb");
         btCharaSpecOrig.LoadWDB(Generator, "13", @"\db\resident\bt_chara_spec.wdb");
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Enemy Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Enemy Data...");
         TextRando textRando = Generator.Get<TextRando>();
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
 
@@ -41,7 +41,7 @@ public class EnemyRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Enemy Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Enemy Data...");
         charaFamily.SaveWDB(Generator, @"\db\resident\charafamily.wdb");
         btCharaSpec.SaveWDB(Generator, @"\db\resident\bt_chara_spec.wdb");
     }

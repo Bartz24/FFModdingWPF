@@ -18,10 +18,10 @@ public class QuestRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Quest Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Quest Data...");
         questRewards.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_quest.wdb", false);
         FileHelpers.CopyFile(Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb", Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
-        Generator.SetUIProgress("Loading Quest Data...", 50, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Quest Data...", 50, 100);
         questRequirements.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb", false);
 
         questRewards["qst_062"].iMaxGp = 2000;
@@ -30,7 +30,7 @@ public class QuestRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Quest Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Quest Data...");
         if (LRFlags.StatsAbilities.Quests.FlagEnabled)
         {
             LRFlags.StatsAbilities.Quests.SetRand();
@@ -95,7 +95,7 @@ public class QuestRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Generator.SetUIProgress("Randomizing Quest Data...", 80, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Quest Data...", 80, 100);
         if (LRFlags.Items.CoPReqs.FlagEnabled)
         {
             questRequirements.Values.Where(q => q.iQuestIndex >= 1000).ForEach(q =>
@@ -120,10 +120,10 @@ public class QuestRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Quest Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Quest Data...");
         questRewards.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_quest.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_quest.wdb");
-        Generator.SetUIProgress("Saving Quest Data...", 50, 100);
+        RandoUI.SetUIProgressDeterminate("Saving Quest Data...", 50, 100);
         questRequirements.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_quest_ctrl.wdb");
         TempSaveFix();

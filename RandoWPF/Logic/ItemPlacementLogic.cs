@@ -39,7 +39,7 @@ public abstract class ItemPlacementLogic<T> where T : ItemLocation
         LocationUsability = new ();
         foreach (string key in ItemLocations.Keys)
         {
-            string locItem = GetLocationItem(key)?.Item1;
+            string locItem = ItemLocations[key].GetItem(true)?.Item1;
             if (locItem != null)
             {
                 LocationUsability.Add(key, locPossible.Where(l => l.Value.Contains(locItem)).Count());
@@ -58,7 +58,7 @@ public abstract class ItemPlacementLogic<T> where T : ItemLocation
 
     public virtual List<string> GetKeysToPlace()
     {
-        return ItemLocations.Keys.Shuffle().Where(l => GetLocationItem(l) != null || ItemLocations[l].Traits.Contains("Fake")).ToList();
+        return ItemLocations.Keys.Shuffle().Where(l => ItemLocations[l].GetItem(true) != null || ItemLocations[l].Traits.Contains("Fake")).ToList();
     }
     public abstract bool RequiresLogic(string location);
     public abstract bool IsValid(string location, string replacement, Dictionary<string, int> items, List<string> areasAvailable);
@@ -129,21 +129,6 @@ public abstract class ItemPlacementLogic<T> where T : ItemLocation
         return Math.Max(0, ItemLocations[location].Areas.Select(a => AreaMults[a]).Average());
     }
 
-    public virtual (string, int)? GetLocationItem(string key, bool orig = true)
-    {
-        throw new NotImplementedException("The item location type for " + key + " is not implemented.");
-    }
-
-    public virtual void SetLocationItem(string key, string item, int count)
-    {
-        throw new NotImplementedException("The item location type for " + key + " is not implemented.");
-    }
-
-    protected virtual void LogSetItem(string key, string item, int count)
-    {
-        Algorithm.Generator.Logger.LogDebug("Set Item Location \"" + key + "\" to [" + item + " x" + count + "]");
-    }
-
     public Dictionary<string, int> GetItemsAvailable()
     {
         return GetItemsAvailable(Algorithm.Placement);
@@ -154,18 +139,16 @@ public abstract class ItemPlacementLogic<T> where T : ItemLocation
         Dictionary<string, int> dict = new();
         placement.ForEach(p =>
         {
-            (string, int)? tuple = GetLocationItem(p.Value, false);
-            if (tuple != null)
+            var item = ItemLocations[p.Value].GetItem(false);
+            if (item != null)
             {
-                string item = tuple.Value.Item1;
-                int amount = tuple.Value.Item2;
-                if (dict.ContainsKey(item))
+                if (dict.ContainsKey(item.Value.Item))
                 {
-                    dict[item] += amount;
+                    dict[item.Value.Item] += item.Value.Amount;
                 }
                 else
                 {
-                    dict.Add(item, amount);
+                    dict.Add(item.Value.Item, item.Value.Amount);
                 }
             }
         });

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace FF12Rando;
 
-public class EnemyRando : Randomizer
+public partial class EnemyRando : Randomizer
 {
     private readonly Dictionary<string, DataStoreARD> ards = new();
     private readonly Dictionary<string, EnemyData> enemyData = new();
@@ -90,27 +90,5 @@ public class EnemyRando : Randomizer
         {
             File.WriteAllBytes($"{Generator.DataOutFolder}\\plan_master\\in\\plan_map\\{p.Key}\\area\\{p.Key}.ard", p.Value.Data);
         });
-    }
-    public class EnemyData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string Name { get; set; }
-        [RowIndex(1), FieldTypeOverride(FieldType.HexInt)]
-        public int IntID { get; set; }
-        public string ID { get; set; }
-        [RowIndex(2)]
-        public int Rank { get; set; }
-        [RowIndex(3)]
-        public string Area { get; set; }
-        [RowIndex(4)]
-        public int Index { get; set; }
-        [RowIndex(5)]
-        public int EXPLPScale { get; set; }
-        [RowIndex(6)]
-        public List<string> Traits { get; set; }
-        public EnemyData(string[] row) : base(row)
-        {
-            ID = row[3] + ":" + row[1] + ":" + row[4];
-        }
     }
 }

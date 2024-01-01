@@ -20,14 +20,14 @@ public class EquipRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Item/Equip Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Item/Equip Data...");
         itemWeapons.LoadDB3(Generator, "13-2", @"\db\resident\item_weapon.wdb");
         FileHelpers.CopyFile(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb", Generator.DataOutFolder + @"\db\resident\item_weapon.wdb.orig");
         items.LoadDB3(Generator, "13-2", @"\db\resident\item.wdb");
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Item/Equip Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Item/Equip Data...");
         if (FF13_2Flags.Stats.EquipStats.FlagEnabled)
         {
             FF13_2Flags.Stats.EquipStats.SetRand();
@@ -113,7 +113,7 @@ public class EquipRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Item/Equip Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving Item/Equip Data...");
         items.SaveDB3(Generator, @"\db\resident\item.wdb");
         itemWeapons.SaveDB3(Generator, @"\db\resident\item_weapon.wdb");
 

@@ -11,7 +11,7 @@ using static FF12Rando.TreasureRando;
 
 namespace FF12Rando;
 
-public class ShopRando : Randomizer
+public partial class ShopRando : Randomizer
 {
     public DataStoreBPShop shops;
     public DataStoreBPShop shopsOrig;
@@ -37,7 +37,7 @@ public class ShopRando : Randomizer
             shopData.Add(s.ID, s);
 
             string[] fakeReward = new string[] { s.Area, s.Name + " Shop", "_shop" + s.ID, "", "0", "Fake", ""};            
-            RewardData rFake = new(fakeReward, 0, TreasureRando.FakeId, false);
+            RewardData rFake = new(Generator, fakeReward, 0, TreasureRando.FakeId, false);
             rFake.Requirements = s.Requirements;
             TreasureRando.FakeId--;
             treasureRando.ItemLocations.Add(rFake.ID, rFake);
@@ -451,25 +451,6 @@ public class ShopRando : Randomizer
         {
             File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_039.bin", shops.Data);
             File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_057.bin", bazaars.Data);
-        }
-    }
-    public class ShopData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string Name { get; set; }
-        [RowIndex(1)]
-        public int ID { get; set; }
-        [RowIndex(2)]
-        public string Area { get; set; }
-        [RowIndex(3)]
-        public List<string> Traits { get; set; }
-        [RowIndex(4)]
-        public ItemReq Requirements { get; set; }
-
-        // Used to link the fake shop rewards in the treasure rando
-        public string ShopFakeLocationLink { get; set; }
-        public ShopData(string[] row) : base(row)
-        {
         }
     }
 }

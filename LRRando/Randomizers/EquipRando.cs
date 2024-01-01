@@ -12,7 +12,7 @@ using static Bartz24.FF13_2_LR.Enums;
 
 namespace LRRando;
 
-public class EquipRando : Randomizer
+public partial class EquipRando : Randomizer
 {
     public DataStoreDB3<DataStoreItemWeapon> itemWeapons = new();
     public DataStoreDB3<DataStoreItem> items = new();
@@ -33,21 +33,21 @@ public class EquipRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Equip Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Equip Data...");
         itemWeapons.LoadDB3(Generator, "LR", @"\db\resident\item_weapon.wdb");
-        Generator.SetUIProgress("Loading Equip Data...", 10, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 10, 100);
         items.LoadDB3(Generator, "LR", @"\db\resident\item.wdb");
-        Generator.SetUIProgress("Loading Equip Data...", 20, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 20, 100);
         itemsOrig.LoadDB3(Generator, "LR", @"\db\resident\item.wdb");
-        Generator.SetUIProgress("Loading Equip Data...", 30, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 30, 100);
         autoAbilities.LoadDB3(Generator, "LR", @"\db\resident\bt_auto_ability.wdb");
-        Generator.SetUIProgress("Loading Equip Data...", 40, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 40, 100);
         itemAbilities.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
-        Generator.SetUIProgress("Loading Equip Data...", 60, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 60, 100);
         itemAbilitiesOrig.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
-        Generator.SetUIProgress("Loading Equip Data...", 70, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 70, 100);
         passiveAbilities.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_pasv_ablty.wdb", false);
-        Generator.SetUIProgress("Loading Equip Data...", 80, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 80, 100);
         upgrades.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb", false);
 
         FileHelpers.ReadCSVFile(@"data\passives.csv", row =>
@@ -81,7 +81,7 @@ public class EquipRando : Randomizer
         items["key_r_multi"].u16SortAllByKCategory = 101;
         items["key_r_multi"].u16SortCategoryByCategory = 151;
 
-        Generator.SetUIProgress("Loading Equip Data...", 90, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 90, 100);
         itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
         itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
 
@@ -107,7 +107,7 @@ public class EquipRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Equip Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Equip Data...");
         if (LRFlags.StatsAbilities.EquipStats.FlagEnabled)
         {
             LRFlags.StatsAbilities.EquipStats.SetRand();
@@ -122,7 +122,7 @@ public class EquipRando : Randomizer
             itemWeapons.Values.Where(w => !upgrades.Keys.Contains(w.sUpgradeId_string)).ForEach(w => w.sUpgradeId_string = "");
         }
 
-        Generator.SetUIProgress("Randomizing Equip Data...", 40, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Equip Data...", 40, 100);
         if (LRFlags.StatsAbilities.GarbAbilities.FlagEnabled)
         {
             LRFlags.StatsAbilities.GarbAbilities.SetRand();
@@ -130,7 +130,7 @@ public class EquipRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Generator.SetUIProgress("Randomizing Equip Data...", 70, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Equip Data...", 70, 100);
         if (LRFlags.StatsAbilities.EquipPassives.FlagEnabled)
         {
             LRFlags.StatsAbilities.EquipPassives.SetRand();
@@ -798,17 +798,17 @@ public class EquipRando : Randomizer
 
         itemAbilities.Values.Where(i => i.i8AtbDec < 0).ForEach(i => i.i8AtbDec += 256);
 
-        Generator.SetUIProgress("Saving Equip Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Equip Data...");
         itemWeapons.SaveDB3(Generator, @"\db\resident\item_weapon.wdb");
-        Generator.SetUIProgress("Saving Equip Data...", 20, 100);
+        RandoUI.SetUIProgressDeterminate("Saving Equip Data...", 20, 100);
         items.SaveDB3(Generator, @"\db\resident\item.wdb");
-        Generator.SetUIProgress("Saving Equip Data...", 40, 100);
+        RandoUI.SetUIProgressDeterminate("Saving Equip Data...", 40, 100);
         itemAbilities.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_item_abi.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_item_abi.wdb");
-        Generator.SetUIProgress("Saving Equip Data...", 80, 100);
+        RandoUI.SetUIProgressDeterminate("Saving Equip Data...", 80, 100);
         autoAbilities.DeleteDB3(Generator, @"\db\resident\bt_auto_ability.db3");
         passiveAbilities.DeleteDB3(Generator, @"\db\resident\_wdbpack.bin\r_pasv_ablty.db3");
-        Generator.SetUIProgress("Saving Equip Data...", 90, 100);
+        RandoUI.SetUIProgressDeterminate("Saving Equip Data...", 90, 100);
         upgrades.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_bt_upgrade.wdb");
         TempSaveFix();
@@ -997,58 +997,5 @@ public class EquipRando : Randomizer
         }
 
         return name;
-    }
-
-    public class AbilityData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public int BasePower { get; set; }
-        [RowIndex(2)]
-        public int HitMultiplier { get; set; }
-        [RowIndex(3)]
-        public int ATBCost { get; set; }
-        [RowIndex(4)]
-        public int MenuIcon { get; set; }
-        public AbilityData(string[] row) : base(row)
-        {
-        }
-    }
-
-    public class PassiveData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-
-        [RowIndex(1)]
-        public string Name { get; set; }
-
-        [RowIndex(2)]
-        public List<string> UpgradeInto { get; set; }
-        public PassiveData(string[] row) : base(row)
-        {
-        }
-    }
-
-    public class ItemData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Name { get; set; }
-        [RowIndex(2)]
-        public string Category { get; set; }
-        [RowIndex(3)]
-        public int Rank { get; set; }
-        [RowIndex(4)]
-        public List<string> Traits { get; set; }
-        [RowIndex(5)]
-        public int OverrideBuyGil { get; set; }
-        [RowIndex(6)]
-        public int OverrideBuyEP { get; set; }
-        public ItemData(string[] row) : base(row)
-        {
-        }
     }
 }

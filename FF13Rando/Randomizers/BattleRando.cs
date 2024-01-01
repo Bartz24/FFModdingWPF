@@ -16,7 +16,7 @@ using File = System.IO.File;
 
 namespace FF13Rando;
 
-public class BattleRando : Randomizer
+public partial class BattleRando : Randomizer
 {
     public DataStoreWDB<DataStoreBtScene> btscene = new();
     public DataStoreWDB<DataStoreBtScene> btsceneOrig = new();
@@ -39,7 +39,7 @@ public class BattleRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgressDeterminate("Loading Battle Data...", 0, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Battle Data...", 0, 100);
         btscene.LoadWDB(Generator, "13", @"\db\resident\bt_scene.wdb");
         btsceneOrig.LoadWDB(Generator, "13", @"\db\resident\bt_scene.wdb");
 
@@ -54,7 +54,7 @@ public class BattleRando : Randomizer
         FileHelpers.CopyFile(btscWDBPath, btscWDBOutPath);
         Nova.UnpackWPD(btscWDBOutPath, SetupData.Paths["Nova"]);
 
-        Generator.SetUIProgressDeterminate("Loading Battle Data...", 10, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Battle Data...", 10, 100);
 
         FileHelpers.ReadCSVFile(@"data\battlescenes.csv", row =>
         {
@@ -62,15 +62,15 @@ public class BattleRando : Randomizer
             battleData.Add(b.ID, b);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
-        Generator.SetUIProgressDeterminate("Loading Battle Data...", 20, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Battle Data...", 20, 100);
 
         btscs = LoadBtscs();
         btscsOrig = LoadBtscs();
 
-        Generator.SetUIProgressDeterminate("Loading Battle Data...", 90, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Battle Data...", 90, 100);
         FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
         {
-            EnemyData e = new(row);
+            EnemyData e = new( row);
             enemyData.Add(e.ID, e);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
@@ -116,7 +116,7 @@ public class BattleRando : Randomizer
         Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 8 }, path =>
         {
             count++;
-            Generator.SetUIProgressDeterminate($"Loading Encounter... ({count} of {maxCount})", count, maxCount);
+            RandoUI.SetUIProgressDeterminate($"Loading Encounter... ({count} of {maxCount})", count, maxCount);
             DataStoreWDB<DataStoreBtSc> btsc = new()
             {
                 ID = Path.GetFileNameWithoutExtension(path)
@@ -250,7 +250,7 @@ public class BattleRando : Randomizer
         Dictionary<string, Dictionary<string, string>> lybMappings = new();
         lybs.Keys.ForEach(lybId =>
         {
-            Generator.SetUIProgressDeterminate($"Replacing enemies per zone ({lybs.Keys.ToList().IndexOf(lybId) + 1} out of {lybs.Count})", lybs.Keys.ToList().IndexOf(lybId) + 1, lybs.Count);
+            RandoUI.SetUIProgressDeterminate($"Replacing enemies per zone ({lybs.Keys.ToList().IndexOf(lybId) + 1} out of {lybs.Count})", lybs.Keys.ToList().IndexOf(lybId) + 1, lybs.Count);
             List<DataStoreWDB<DataStoreBtSc>> btscsForLyb = btscs.Values.Where(
                             b => battleData[b.ID].Charasets.Where(
                                 c => GetLybId(c) == lybId).Any()).ToList();
@@ -455,7 +455,7 @@ public class BattleRando : Randomizer
             return availableSlots;
         });
 
-        Generator.SetUIProgressDeterminate("Randomizing battle character sets", 0, 3);
+        RandoUI.SetUIProgressDeterminate("Randomizing battle character sets", 0, 3);
         //Step 1: shuffle all charasets regardless of shared fights
         charasetWithAvailable.ForEach(charasetKVP =>
         {
@@ -604,7 +604,7 @@ public class BattleRando : Randomizer
         });
 
         //Step 2: shuffle single charaset fights
-        Generator.SetUIProgressDeterminate("Randomizing single character set battles", 1, 3);
+        RandoUI.SetUIProgressDeterminate("Randomizing single character set battles", 1, 3);
         charasets.ForEach(charaset =>
         {
             List<string> candidates = charaSets[charaset].GetCharaSpecs();
@@ -649,7 +649,7 @@ public class BattleRando : Randomizer
             });
         });
 
-        Generator.SetUIProgressDeterminate("Randomizing multiple character set battles", 2, 3);
+        RandoUI.SetUIProgressDeterminate("Randomizing multiple character set battles", 2, 3);
         List<string> multiCharasetBattles = battleData.Where(battle => battle.Value.Charasets.Count > 1).Select(battle => battle.Key).ToList();
         multiCharasetBattles.Shuffle().ForEach(id =>
         {
@@ -702,7 +702,7 @@ public class BattleRando : Randomizer
         });
 
         //Step 3: Remove any unused enemies from the character set to reduce memory overhead.
-        Generator.SetUIProgressDeterminate("Cleaning up unused enemies from character sets", 3, 3);
+        RandoUI.SetUIProgressDeterminate("Cleaning up unused enemies from character sets", 3, 3);
         charasets.ForEach(charaset =>
         {
             //TODO: Filter this to be non-battle characters only?
@@ -755,7 +755,7 @@ public class BattleRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgressDeterminate("Saving Battle Data...", 0, 100);
+        RandoUI.SetUIProgressDeterminate("Saving Battle Data...", 0, 100);
         btscene.SaveWDB(Generator, @"\db\resident\bt_scene.wdb");
 
         charaSets.SaveWDB(Generator, @"\db\resident\charaset.wdb");
@@ -764,7 +764,7 @@ public class BattleRando : Randomizer
 
         battleConsts.SaveWDB(Generator, @"\db\resident\bt_constants.wdb");
 
-        Generator.SetUIProgressDeterminate("Saving Battle Data...", 10, 100);
+        RandoUI.SetUIProgressDeterminate("Saving Battle Data...", 10, 100);
 
         if (FF13Flags.Enemies.EnemiesFlag.FlagEnabled)
         {
@@ -774,12 +774,12 @@ public class BattleRando : Randomizer
             Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 8 }, path =>
             {
                 count++;
-                Generator.SetUIProgressDeterminate($"Saving Encounter... ({count} of {maxCount})", count, maxCount);
+                RandoUI.SetUIProgressDeterminate($"Saving Encounter... ({count} of {maxCount})", count, maxCount);
                 btscs[Path.GetFileNameWithoutExtension(path)].Save(path);
             });
         }
 
-        Generator.SetUIProgressDeterminate("Saving Battle Data...", 90, 100);
+        RandoUI.SetUIProgressDeterminate("Saving Battle Data...", 90, 100);
         Nova.RepackWPD(Generator.DataOutFolder + @"\btscene\wdb\btsc_wdb.bin", SetupData.Paths["Nova"]);
 
         lybs.Keys.ForEach(s =>
@@ -789,52 +789,5 @@ public class BattleRando : Randomizer
 
             File.WriteAllBytes(outPath, lybs[s].Data);
         });
-    }
-
-    public class EnemyData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Name { get; set; }
-        [RowIndex(2)]
-        public List<string> Traits { get; set; }
-        [RowIndex(3)]
-        public int Rank { get; set; }
-        [RowIndex(4)]
-        public List<int> LYBForced { get; set; }
-        public EnemyData(string[] row) : base(row)
-        {
-        }
-    }
-
-    public class BattleData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Name { get; set; }
-        [RowIndex(2)]
-        public string Location { get; set; }
-        [RowIndex(3)]
-        public List<string> Charasets { get; set; }
-        [RowIndex(4)]
-        public string MissionID { get; set; }
-        [RowIndex(5)]
-        public List<string> Traits { get; set; }
-        public BattleData(string[] row) : base(row)
-        {
-        }
-    }
-
-    public class CharasetData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public int Limit { get; set; }
-        public CharasetData(string[] row) : base(row)
-        {
-        }
     }
 }

@@ -8,14 +8,16 @@ namespace Bartz24.RandoWPF;
 public class RandoUI
 {
     private static Action<string, int, int> SetUIProgress { get; set; }
+    private static Action IncrementTotalProgress { get; set; }
     private static Action<int> SwitchTab { get; set; }
-    public static void Init(Action<string, int, int> setProgress, Action<int> switchTab)
+    public static void Init(Action<string, int, int> setProgress, Action incrementTotal, Action<int> switchTab)
     {
         SetUIProgress = setProgress;
+        IncrementTotalProgress = incrementTotal;
         SwitchTab = switchTab;
     }
 
-    public static void SetUIMessage(string text)
+    public static void ShowTempUIMessage(string text)
     {
         SetUIProgress(text, 0, 0);
     }
@@ -33,6 +35,11 @@ public class RandoUI
         }
 
         SetUIProgress(text, value, max);
+    }
+
+    public static void IncrementTotalProgressUI()
+    {
+        IncrementTotalProgress();
     }
 
     public static void SwitchUITab(int tab)

@@ -13,9 +13,6 @@ namespace Bartz24.RandoWPF;
 public class SeedGenerator : IDisposable
 {
     public const string UNEXPECTED_ERROR = "Unexpected error";
-
-    protected Action<string, int, int> SetUIProgress { get; set; }
-    public Action IncrementTotalProgress { get; set; }
     public string DataOutFolder { get; set; }
 
     public string OutFolder { get; set; }
@@ -27,9 +24,8 @@ public class SeedGenerator : IDisposable
 
     public FileLogger Logger { get; set; }
 
-    public SeedGenerator(Action<string, int, int> setUIProgress)
+    public SeedGenerator()
     {
-        SetUIProgress = setUIProgress;
         Randomizers = new();
     }
 
@@ -60,7 +56,7 @@ public class SeedGenerator : IDisposable
         {
             RandoUI.SetUIProgressIndeterminate("Preparing data folder...");
             PrepareData();
-            IncrementTotalProgress();
+            RandoUI.IncrementTotalProgressUI();
 
             RandoUI.SetUIProgressIndeterminate("Loading data...");
             Load();
@@ -73,7 +69,7 @@ public class SeedGenerator : IDisposable
 
             RandoUI.SetUIProgressIndeterminate("Generating modpack and documentation...");
             GeneratePackAndDocs();
-            IncrementTotalProgress();
+            RandoUI.IncrementTotalProgressUI();
         }
         catch (RandoException ex)
         {
@@ -84,12 +80,6 @@ public class SeedGenerator : IDisposable
             throw new RandoException(ex.Message, UNEXPECTED_ERROR, ex);
         }
     }
-
-    public Action<string, int, int> GetUIProgress()
-    {
-        return SetUIProgress;
-    }
-
 
     protected virtual void PrepareData()
     {
@@ -110,7 +100,7 @@ public class SeedGenerator : IDisposable
         Randomizers.ForEach(r =>
         {
             r.Load();
-            IncrementTotalProgress();
+            RandoUI.IncrementTotalProgressUI();
         });
     }
 
@@ -119,7 +109,7 @@ public class SeedGenerator : IDisposable
         Randomizers.ForEach(r =>
         {
             r.Randomize();
-            IncrementTotalProgress();
+            RandoUI.IncrementTotalProgressUI();
         });
     }
 
@@ -128,7 +118,7 @@ public class SeedGenerator : IDisposable
         Randomizers.ForEach(r =>
         {
             r.Save();
-            IncrementTotalProgress();
+            RandoUI.IncrementTotalProgressUI();
         });
     }
 

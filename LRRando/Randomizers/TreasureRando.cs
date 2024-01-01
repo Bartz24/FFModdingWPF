@@ -14,11 +14,11 @@ using static LRRando.EquipRando;
 
 namespace LRRando;
 
-public class TreasureRando : Randomizer
+public partial class TreasureRando : Randomizer
 {
     public DataStoreDB3<DataStoreRTreasurebox> treasuresOrig = new();
     public DataStoreDB3<DataStoreRTreasurebox> treasures = new();
-    public Dictionary<string, ItemLocation> itemLocations = new();
+    public Dictionary<string, ItemLocation> ItemLocations = new();
     public Dictionary<string, HintData> hintData = new();
     public Dictionary<string, List<string>> hintsMain = new();
     private readonly Dictionary<string, string> hintsNotesLocations = new();
@@ -37,21 +37,21 @@ public class TreasureRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgressDeterminate("Loading Treasure Data...", 0, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Treasure Data...", 0, 100);
         treasuresOrig.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
-        Generator.SetUIProgressDeterminate("Loading Treasure Data...", 10, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Treasure Data...", 10, 100);
         treasures.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
 
         FileHelpers.ReadCSVFile(@"data\treasures.csv", row =>
         {
-            TreasureData t = new(row, this);
-            itemLocations.Add(t.ID, t);
+            TreasureData t = new(Generator, row, this);
+            ItemLocations.Add(t.ID, t);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
         FileHelpers.ReadCSVFile(@"data\battleDrops.csv", row =>
         {
-            BattleDropData b = new(row, this);
-            itemLocations.Add(b.ID, b);
+            BattleDropData b = new(Generator, row, this);
+            ItemLocations.Add(b.ID, b);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
         hintsMain.Clear();
@@ -123,9 +123,9 @@ public class TreasureRando : Randomizer
         hintsNotesCount.Clear();
         treasuresOrig.Keys.Where(k => treasuresOrig[k].s11ItemResourceId_string.StartsWith("libra")).ForEach(k => hintsNotesLocations.Add(treasuresOrig[k].s11ItemResourceId_string, null));
 
-        Generator.SetUIProgressDeterminate("Loading Treasure Data...", 80, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Treasure Data...", 80, 100);
         LRFlags.Items.Treasures.SetRand();
-        List<string> locations = itemLocations.Values.SelectMany(t => t.Areas).Distinct().Shuffle();
+        List<string> locations = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().Shuffle();
         List<string> libraItems = hintsNotesLocations.Keys.Shuffle();
         for (int i = 0; i < locations.Count; i++)
         {
@@ -133,16 +133,10 @@ public class TreasureRando : Randomizer
         }
         RandomNum.ClearRand();
 
-        placementAlgoNormal = new AssumedItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, Generator, 3)
-        {
-            SetProgressFunc = Generator.GetUIProgress()
-        };
+        placementAlgoNormal = new AssumedItemPlacementAlgorithm<ItemLocation>(ItemLocations, locations, Generator, 3);
         placementAlgoNormal.Logic = new LRItemPlacementLogic(placementAlgoNormal, Generator);
 
-        placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(itemLocations, locations, Generator, -1)
-        {
-            SetProgressFunc = Generator.GetUIProgress()
-        };
+        placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(ItemLocations, locations, Generator, -1);
         placementAlgoBackup.Logic = new LRItemPlacementLogic(placementAlgoBackup, Generator);
     }
 
@@ -165,14 +159,14 @@ public class TreasureRando : Randomizer
         EquipRando equipRando = Generator.Get<EquipRando>();
         ShopRando shopRando = Generator.Get<ShopRando>();
 
-        Generator.SetUIProgressDeterminate("Randomizing Treasure Data...", 0, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Treasure Data...", 0, 100);
         if (LRFlags.Items.Treasures.FlagEnabled)
         {
             LRFlags.Items.Treasures.SetRand();
 
-            List<string> keys = itemLocations.Keys.Shuffle();
+            List<string> keys = ItemLocations.Keys.Shuffle();
 
-            Dictionary<string, double> areaMults = itemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
+            Dictionary<string, double> areaMults = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
             if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
             {
                 usingBackup = true;
@@ -180,7 +174,7 @@ public class TreasureRando : Randomizer
             }
 
             // Same treasures take priority
-            keys = keys.OrderBy(k => !itemLocations[k].Traits.Contains("Same")).ToList();
+            keys = keys.OrderBy(k => !ItemLocations[k].Traits.Contains("Same")).ToList();
 
             static bool sameCheck(string rep, string orig)
             {
@@ -199,13 +193,13 @@ public class TreasureRando : Randomizer
                     || (rep.StartsWith("e") && orig.StartsWith("e") && rep.Length == 4 && orig.Length == 4);
             }
 
-            Generator.SetUIProgressDeterminate("Randomizing Treasure Data...", 40, 100);
-            itemLocations.Values.Where(t => equipRando.itemData.ContainsKey(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1) && !equipRando.itemData[PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1].Traits.Contains("Key")).ForEach(t =>
+            RandoUI.SetUIProgressDeterminate("Randomizing Treasure Data...", 40, 100);
+            ItemLocations.Values.Where(t => equipRando.itemData.ContainsKey(ItemLocations[t.ID].GetItem(false).Value.Item1) && !equipRando.itemData[ItemLocations[t.ID].GetItem(false).Value.Item1].Traits.Contains("Key")).ForEach(t =>
             {
-                (string, int) orig = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value;
+                (string, int) orig = ItemLocations[t.ID].GetItem(false).Value;
 
 
-                ItemData item = equipRando.itemData.GetValueOrDefault(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1);
+                ItemData item = equipRando.itemData.GetValueOrDefault(ItemLocations[t.ID].GetItem(false).Value.Item1);
                 if (item?.Category == "Adornment")
                 {
                     string next;
@@ -224,7 +218,7 @@ public class TreasureRando : Randomizer
                         count = (int)Math.Max((double)RandomNum.RandInt(100, 200) / 100.0 * Math.Pow(1.2, -(equipRando.itemData[next].Rank + 5)), 1);
                     }
 
-                    PlacementAlgo.Logic.SetLocationItem(t.ID, next, count);
+                    ItemLocations[t.ID].SetItem(next, count);
                     return;
                 }
 
@@ -243,7 +237,7 @@ public class TreasureRando : Randomizer
                         i.Category == category &&
                         i.Rank >= equipRando.itemData[orig.Item1].Rank - rankRange &&
                         i.Rank <= equipRando.itemData[orig.Item1].Rank + rankRange &&
-                        (!t.Traits.Contains("Same") || sameCheck(i.ID, PlacementAlgo.Logic.GetLocationItem(t.ID, true).Value.Item1)) &&
+                        (!t.Traits.Contains("Same") || sameCheck(i.ID, ItemLocations[t.ID].GetItem(true).Value.Item1)) &&
                         !i.Traits.Contains("Key"));
 
                     if (category == "Weapon" || category == "Shield" || category == "Garb" || category == "Accessory")
@@ -267,39 +261,39 @@ public class TreasureRando : Randomizer
                 equipRando.RemainingEquip.Remove(repItem);
 
                 int repCount = equipRando.itemData[repItem].Category == "Garb" || equipRando.itemData[repItem].Category == "Accessory" ? 1 : orig.Item2;
-                PlacementAlgo.Logic.SetLocationItem(t.ID, repItem, repCount);
+                ItemLocations[t.ID].SetItem(repItem, repCount);
             });
 
-            Generator.SetUIProgressDeterminate("Randomizing Treasure Data...", 70, 100);
+            RandoUI.SetUIProgressIndeterminate("Randomizing Treasure Data...");
             foreach (string key in keys)
             {
-                if (equipRando.items.Keys.Contains(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1) && equipRando.IsAbility(equipRando.items[PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1]))
+                if (equipRando.items.Keys.Contains(ItemLocations[key].GetItem(false).Value.Item1) && equipRando.IsAbility(equipRando.items[ItemLocations[key].GetItem(false).Value.Item1]))
                 {
-                    int lv = int.Parse(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1.Substring(PlacementAlgo.Logic.GetLocationItem(key, false).Value.Item1.Length - 2)) / 10 + 1;
+                    int lv = int.Parse(ItemLocations[key].GetItem(false).Value.Item1.Substring(ItemLocations[key].GetItem(false).Value.Item1.Length - 2)) / 10 + 1;
                     lv = RandomNum.RandInt(Math.Max(lv - 2, 1), Math.Min(lv + 2, 5));
                     string next = equipRando.GetAbilities(-1).Shuffle().First().sScriptId_string;
-                    PlacementAlgo.Logic.SetLocationItem(key, $"{next}_{((lv - 1) * 10).ToString("00")}", 1);
+                    ItemLocations[key].SetItem($"{next}_{((lv - 1) * 10).ToString("00")}", 1);
                 }
             }
 
-            itemLocations.Values.Where(t => PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 == "" || equipRando.itemData.ContainsKey(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1)).ForEach(t =>
+            ItemLocations.Values.Where(t => ItemLocations[t.ID].GetItem(false).Value.Item1 == "" || equipRando.itemData.ContainsKey(ItemLocations[t.ID].GetItem(false).Value.Item1)).ForEach(t =>
             {
-                (string, int) orig = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value;
+                (string, int) orig = ItemLocations[t.ID].GetItem(false).Value;
                 if (orig.Item2 > 0)
                 {
-                    PlacementAlgo.Logic.SetLocationItem(t.ID, orig.Item1, RandomNum.RandInt((int)Math.Round(Math.Max(1, orig.Item2 * 0.75)), (int)Math.Round(orig.Item2 * 1.25)));
+                    ItemLocations[t.ID].SetItem(orig.Item1, RandomNum.RandInt((int)Math.Round(Math.Max(1, orig.Item2 * 0.75)), (int)Math.Round(orig.Item2 * 1.25)));
                 }
             });
 
             RandomNum.ClearRand();
 
-            Generator.SetUIProgressDeterminate("Randomizing Treasure Data...", 80, 100);
+            RandoUI.SetUIProgressIndeterminate("Randomizing Treasure Data...");
             if (LRFlags.Other.HintsNotes.FlagEnabled)
             {
                 // Update hints again to reflect actual numbers
                 hintsNotesLocations.Keys.Where(note => hintsNotesLocations[note] != null).ForEach(note =>
                     {
-                        int locationCount = itemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && itemLocations[t].Areas[0] == hintsNotesLocations[note] && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
+                        int locationCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas[0] == hintsNotesLocations[note] && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
                         hintsNotesCount[hintsNotesLocations[note]] = locationCount;
                     });
             }
@@ -317,17 +311,17 @@ public class TreasureRando : Randomizer
 
     public bool IsEPAbility(string t, bool orig = true)
     {
-        return PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1.StartsWith("ti") || PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1 == "at900_00";
+        return ItemLocations[t].GetItem(orig).Value.Item1.StartsWith("ti") || ItemLocations[t].GetItem(orig).Value.Item1 == "at900_00";
     }
 
     public bool IsKeyItem(string t, bool orig = true)
     {
-        return LRFlags.Items.KeyItems.DictValues.Keys.Contains(PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1);
+        return LRFlags.Items.KeyItems.DictValues.Keys.Contains(ItemLocations[t].GetItem(orig).Value.Item1);
     }
 
     public bool IsPilgrimKeyItem(string t, bool orig = true)
     {
-        return PlacementAlgo.Logic.GetLocationItem(t, orig).Value.Item1 == "key_d_key";
+        return ItemLocations[t].GetItem(orig).Value.Item1 == "key_d_key";
     }
 
     public List<string> GetRandomizableEquip()
@@ -358,7 +352,7 @@ public class TreasureRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgressIndeterminate("Saving Treasure Data...");
+        RandoUI.SetUIProgressIndeterminate("Saving Treasure Data...");
         SaveHints();
         SetAndClearBattleDrops();
         treasures.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
@@ -436,7 +430,7 @@ public class TreasureRando : Randomizer
         {
             hintsMain.Keys.ForEach(h =>
             {
-                textRando.mainSysUS["$" + h] = string.Join("{Text NewLine}{Text NewLine}", hintsMain[h].Select(t => itemLocations[t]).Select(t => GetHintText(t)));
+                textRando.mainSysUS["$" + h] = string.Join("{Text NewLine}{Text NewLine}", hintsMain[h].Select(t => ItemLocations[t]).Select(t => GetHintText(t)));
             });
         }
 
@@ -464,7 +458,7 @@ public class TreasureRando : Randomizer
             case 0:
             default:
                 {
-                    return $"{t.Name} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1)}";
+                    return $"{t.Name} has {GetItemName(ItemLocations[t.ID].GetItem(false).Value.Item1)}";
                 }
             case 1:
                 {
@@ -488,7 +482,7 @@ public class TreasureRando : Randomizer
                 }
             case 2:
                 {
-                    return $"{t.Areas[0]} has {GetItemName(PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1)}";
+                    return $"{t.Areas[0]} has {GetItemName(ItemLocations[t.ID].GetItem(false).Value.Item1)}";
                 }
             case 3:
                 {
@@ -510,9 +504,9 @@ public class TreasureRando : Randomizer
 
         HTMLPage page = new("Item Locations", "template/documentation.html");
 
-        page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Difficulty" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), itemLocations.Values.Select(t =>
+        page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Difficulty" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), ItemLocations.Values.Select(t =>
         {
-            string itemID = PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1;
+            string itemID = ItemLocations[t.ID].GetItem(false).Value.Item1;
             string name = GetItemName(itemID);
             string reqsDisplay = t.Requirements.GetDisplay(GetItemName);
             if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
@@ -532,7 +526,7 @@ public class TreasureRando : Randomizer
                 nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
             }
 
-            return (new object[] { nameCell, $"{name} x {PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item2}", $"{t.BaseDifficulty}" }).ToList();
+            return (new object[] { nameCell, $"{name} x {ItemLocations[t.ID].GetItem(false).Value.Item2}", $"{t.BaseDifficulty}" }).ToList();
         }).ToList(), "itemlocations"));
         pages.Add("item_locations", page);
 
@@ -586,166 +580,5 @@ public class TreasureRando : Randomizer
         }
 
         return name;
-    }
-
-    public class TreasureData : ItemLocation
-    {
-        [RowIndex(0)]
-        public override string ID { get; set; }
-        [RowIndex(2)]
-        public override string Name { get; set; }
-        [RowIndex(6)]
-        public override string LocationImagePath { get; set; }
-        [RowIndex(5)]
-        public override int BaseDifficulty { get; set; }
-        [RowIndex(4)]
-        public override ItemReq Requirements { get; set; }
-        [RowIndex(3)]
-        public override List<string> Traits { get; set; }
-        [RowIndex(1)]
-        public override List<string> Areas { get; set; }
-
-        private readonly TreasureRando rando;
-
-        public TreasureData(string[] row, TreasureRando treasureRando) : base(row)
-        {
-            rando = treasureRando;
-        }
-
-        public override bool IsValid(Dictionary<string, int> items)
-        {
-            return (!Traits.Contains("EP") || HasEP(items)) && Requirements.IsValid(items);
-        }
-
-        public bool HasEP(Dictionary<string, int> items)
-        {
-            QuestRando questRando = rando.Generator.Get<QuestRando>();
-
-            foreach (DataStoreRQuest quest in questRando.questRewards.Values.Where(q => q.iMaxGp > 0))
-            {
-                if (quest.name == "qst_027" && rando.itemLocations["tre_qst_027"].IsValid(items)) // Peace and Quiet, Kupo
-                {
-                    return true;
-                }
-
-                if (quest.name == "qst_028" && rando.itemLocations["tre_qst_028"].IsValid(items)) // Saving an Angel
-                {
-                    return true;
-                }
-
-                if (quest.name == "qst_046" && rando.itemLocations["tre_qst_046"].IsValid(items)) // Adonis's Audition
-                {
-                    return true;
-                }
-
-                if (quest.name == "qst_062" && rando.itemLocations["tre_qst_062"].IsValid(items)) // Fighting Actress
-                {
-                    return true;
-                }
-
-                if (quest.name == "qst_9000" && rando.hintData["fl_mnlx_005e"].Requirements.IsValid(items)) // 1-5
-                {
-                    return true;
-                }
-
-                if (quest.name == "qst_9010" && rando.hintData["fl_mnyu_004e"].Requirements.IsValid(items)) // 2-3
-                {
-                    return true;
-                }
-
-                if (quest.name == "qst_9020" && rando.hintData["fl_mndd_005e"].Requirements.IsValid(items)) // 4-5
-                {
-                    return true;
-                }
-
-                if (quest.name == "qst_9030" && rando.hintData["fl_mnwl_003e"].Requirements.IsValid(items)) // 3-3
-                {
-                    return true;
-                }
-
-                if (quest.name == "qst_9040" && rando.itemLocations["tre_qst_027_2"].Requirements.IsValid(items)) // Ereshkigal
-                {
-                    return true;
-                }
-
-                if (quest.name == "qst_9050" && rando.hintData["fl_mnsz_001e"].Requirements.IsValid(items))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public override void SetData(dynamic obj, string newItem, int newCount)
-        {
-            DataStoreRTreasurebox t = (DataStoreRTreasurebox)obj;
-            t.s11ItemResourceId_string = newItem;
-            t.iItemCount = newCount;
-        }
-
-        public override (string, int)? GetData(dynamic obj)
-        {
-            DataStoreRTreasurebox t = (DataStoreRTreasurebox)obj;
-            return (t.s11ItemResourceId_string, t.iItemCount);
-        }
-    }
-
-    public class BattleDropData : ItemLocation
-    {
-        [RowIndex(0)]
-        public override string ID { get; set; }
-        [RowIndex(2)]
-        public override string Name { get; set; }
-        public override string LocationImagePath { get; set; }
-        [RowIndex(5)]
-        public override int BaseDifficulty { get; set; }
-        [RowIndex(4)]
-        public override ItemReq Requirements { get; set; }
-        [RowIndex(3)]
-        public override List<string> Traits { get; set; }
-        [RowIndex(1)]
-        public override List<string> Areas { get; set; }
-
-        private readonly TreasureRando rando;
-
-        public BattleDropData(string[] row, TreasureRando treasureRando) : base(row)
-        {
-            Traits.Add("Battle");
-
-            rando = treasureRando;
-        }
-
-        public override bool IsValid(Dictionary<string, int> items)
-        {
-            return Requirements.IsValid(items);
-        }
-
-        public override void SetData(dynamic obj, string newItem, int newCount)
-        {
-            DataStoreBtScene b = (DataStoreBtScene)obj;
-            b.sDropItem0_string = newItem;
-            b.u16DropProb0 = 10000;
-            b.u8NumDrop0 = newCount;
-        }
-
-        public override (string, int)? GetData(dynamic obj)
-        {
-            DataStoreBtScene b = (DataStoreBtScene)obj;
-            return (b.sDropItem0_string, b.u8NumDrop0);
-        }
-    }
-
-    public class HintData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Name { get; set; }
-        [RowIndex(2)]
-        public ItemReq Requirements { get; set; }
-        public HintData(string[] row) : base(row)
-        {
-        }
     }
 }

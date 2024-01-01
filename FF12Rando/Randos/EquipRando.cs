@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace FF12Rando;
 
-public class EquipRando : Randomizer
+public partial class EquipRando : Randomizer
 {
     public Dictionary<string, ItemData> itemData = new();
     public Dictionary<string, AugmentData> augmentData = new();
@@ -1125,40 +1125,6 @@ public class EquipRando : Randomizer
         if (FF12SeedGenerator.DescriptiveInstalled())
         {
             GenerateDescriptionsFile();
-        }
-    }
-    public class ItemData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string Name { get; set; }
-        [RowIndex(1), FieldTypeOverride(FieldType.HexInt)]
-        public int IntID { get; set; }
-        [RowIndex(1)]
-        public string ID { get; set; }
-        [RowIndex(2)]
-        public int Rank { get; set; }
-        [RowIndex(3), FieldTypeOverride(FieldType.HexInt)]
-        public int IntUpgrade { get; set; }
-        [RowIndex(3)]
-        public string Upgrade { get; set; }
-        public ItemData(string[] row) : base(row)
-        {
-        }
-    }
-    public class AugmentData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string Name { get; set; }
-        [RowIndex(1)]
-        public int IntID { get; set; }
-        [RowIndex(1)]
-        public string ID { get; set; }
-        [RowIndex(2)]
-        public string Description { get; set; }
-        [RowIndex(3)]
-        public List<string> Traits { get; set; }
-        public AugmentData(string[] row) : base(row)
-        {
         }
     }
 }

@@ -77,8 +77,8 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
         foreach (string key in Placement.Keys.Where(l => !ItemLocations[l].Traits.Contains("Fake")))
         {
             string repKey = Placement[key];
-            (string, int)? orig = Logic.GetLocationItem(repKey);
-            Logic.SetLocationItem(key, orig.Value.Item1, orig.Value.Item2);
+            (string, int)? orig = ItemLocations[repKey].GetItem(true);
+            ItemLocations[key].SetItem(orig.Value.Item1, orig.Value.Item2);
         }
     }
 
@@ -229,7 +229,7 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
             while (possibleRemaining.Count > 0)
             {
                 string rep = possibleRemaining[0];
-                (string, int)? nextItem = Logic.GetLocationItem(rep);
+                (string, int)? nextItem = ItemLocations[rep].GetItem(true);
 
                 List<string> possible = new();
                 if (nextItem == null && ItemLocations[rep].Traits.Contains("Fake") && Logic.IsValid(rep, rep, items, accessibleAreas))
@@ -329,7 +329,7 @@ public class ItemPlacementAlgorithm<T> where T : ItemLocation
 
         foreach (string rep in remaining)
         {
-            (string, int)? nextItem = Logic.GetLocationItem(rep);
+            (string, int)? nextItem = ItemLocations[rep].GetItem(true);
             if (nextItem == null)
             {
                 continue;

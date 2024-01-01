@@ -15,13 +15,13 @@ public class ShopRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Shop Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Shop Data...");
         shops.LoadWDB(Generator, "13", @"\db\resident\shop.wdb");
     }
     public override void Randomize()
     {
         //TODO: add option to lock in high quality upgrading components?
-        Generator.SetUIProgress("Randomizing Shop Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Shop Data...");
 
         if (FF13Flags.Items.ShopContents.FlagEnabled)
         {
@@ -159,7 +159,7 @@ public class ShopRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Shop Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Shop Data...");
         shops.SaveWDB(Generator, @"\db\resident\shop.wdb");
     }
 }

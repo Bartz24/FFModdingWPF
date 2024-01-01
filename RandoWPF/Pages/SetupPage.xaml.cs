@@ -59,7 +59,7 @@ public partial class SetupPage : UserControl
                 try
                 {
                     Seed = RandoFlags.LoadSeed(path);
-                    RandoUI.SetUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
+                    RandoUI.ShowTempUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
                 }
                 catch (Exception ex)
                 {
@@ -102,7 +102,7 @@ public partial class SetupPage : UserControl
                     }
 
                     Seed = RandoFlags.LoadSeed(outFolder + @"\seed.json");
-                    RandoUI.SetUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
+                    RandoUI.ShowTempUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
                 }
                 catch
                 {
@@ -137,7 +137,7 @@ public partial class SetupPage : UserControl
         {
             FlagStringCompressor compressor = new();
             Seed = RandoFlags.Deserialize(compressor.Decompress(Clipboard.GetText()));
-            RandoUI.SetUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
+            RandoUI.ShowTempUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
         }
         catch
         {
@@ -149,7 +149,7 @@ public partial class SetupPage : UserControl
     {
         if (RandoSeeds.Seeds.Count == 0)
         {
-            RandoUI.SetUIMessage("No previous seeds found.");
+            RandoUI.ShowTempUIMessage("No previous seeds found.");
         }
         else
         {

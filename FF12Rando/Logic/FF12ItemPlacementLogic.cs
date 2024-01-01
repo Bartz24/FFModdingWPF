@@ -18,7 +18,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
     public override List<string> GetKeysToPlace()
     {
-        List<string> possible = base.GetKeysToPlace().Where(l => ItemLocations[l] is not TreasureRando.TreasureData || treasureRando.treasuresToPlace.Contains(l)).ToList();
+        List<string> possible = base.GetKeysToPlace().Where(l => ItemLocations[l] is not TreasureData || treasureRando.treasuresToPlace.Contains(l)).ToList();
 
         if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalCid2))
         {
@@ -30,7 +30,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
     public override List<string> GetKeysAllowed()
     {
-        List<string> possible = base.GetKeysAllowed().Where(l => ItemLocations[l] is not TreasureRando.TreasureData || treasureRando.treasuresAllowed.Contains(l)).ToList();
+        List<string> possible = base.GetKeysAllowed().Where(l => ItemLocations[l] is not TreasureData || treasureRando.treasuresAllowed.Contains(l)).ToList();
 
         if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalCid2))
         {
@@ -64,7 +64,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
             return false;
         }
 
-        if (FF12Flags.Items.KeyItems.SelectedKeys.Contains(GetLocationItem(location).Value.Item1) && treasureRando.IsImportantKeyItem(location))
+        if (FF12Flags.Items.KeyItems.SelectedKeys.Contains(ItemLocations[location].GetItem(true).Value.Item1) && treasureRando.IsImportantKeyItem(location))
         {
             return true;
         }
@@ -115,7 +115,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
     public bool IsRandomizedTrophy(string location)
     {
-        string item = GetLocationItem(location)?.Item1;
+        string item = ItemLocations[location].GetItem(true)?.Item1;
         if (item != null && Convert.ToInt32(item, 16) is >= 0x80B9 and <= 0x80D6)
         {
             return FF12Flags.Items.KeyItems.DictValues.Keys.Contains(item);
@@ -149,53 +149,6 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
         return true;
     }
 
-    public override (string, int)? GetLocationItem(string key, bool orig = true)
-    {
-        switch (ItemLocations[key])
-        {
-            case TreasureRando.TreasureData t:
-                return t.GetData(orig ? treasureRando.ebpAreasOrig[t.MapID].TreasureList[t.Index] : treasureRando.ebpAreas[t.MapID].TreasureList[t.Index]);
-            case TreasureRando.RewardData t:
-                if (t.Traits.Contains("Fake"))
-                {
-                    return null;
-                }
-
-                return t.GetData(orig ? treasureRando.rewardsOrig[t.IntID - 0x9000] : treasureRando.rewards[t.IntID - 0x9000]);
-            case TreasureRando.StartingInvData s:
-                PartyRando partyRando = treasureRando.Generator.Get<PartyRando>();
-                return s.GetData(orig ? partyRando.partyOrig[s.IntID] : partyRando.party[s.IntID]);
-            default:
-                return base.GetLocationItem(key, orig);
-        }
-    }
-
-    public override void SetLocationItem(string key, string item, int count)
-    {
-        LogSetItem(key, item, count);
-        switch (ItemLocations[key])
-        {
-            case TreasureRando.TreasureData t:
-                t.SetData(treasureRando.ebpAreas[t.MapID].TreasureList[t.Index], item, count);
-                break;
-            case TreasureRando.RewardData t:
-                if (t.Traits.Contains("Fake"))
-                {
-                    break;
-                }
-
-                t.SetData(treasureRando.rewards[t.IntID - 0x9000], item, count);
-                break;
-            case TreasureRando.StartingInvData s:
-                PartyRando partyRando = treasureRando.Generator.Get<PartyRando>();
-                s.SetData(partyRando.party[s.IntID], item, count);
-                break;
-            default:
-                base.SetLocationItem(key, item, count);
-                break;
-        }
-    }
-
     public override List<string> GetNewAreasAvailable(Dictionary<string, int> items, List<string> soFar)
     {
         return ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
@@ -209,10 +162,10 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
         }
 
         // If the old location is null, but the other in the reward can accept the replacement, then allow it.
-        if (GetLocationItem(old) == null && treasureRando.IsImportantKeyItem(rep) && ItemLocations[old] is TreasureRando.RewardData rewardOld && rewardOld.Index > 0)
+        if (ItemLocations[old].GetItem(true) == null && treasureRando.IsImportantKeyItem(rep) && ItemLocations[old] is RewardData rewardOld && rewardOld.Index > 0)
         {
-            ItemLocation other = ItemLocations.Values.FirstOrDefault(l => l is TreasureRando.RewardData r && r.IntID == rewardOld.IntID && r.Index == (rewardOld.Index == 1 ? 2 : 1));
-            if (GetLocationItem(other.ID) != null)
+            ItemLocation other = ItemLocations.Values.FirstOrDefault(l => l is RewardData r && r.IntID == rewardOld.IntID && r.Index == (rewardOld.Index == 1 ? 2 : 1));
+            if (ItemLocations[other.ID].GetItem(true) != null)
             {
                 return IsAllowed(other.ID, rep);
             }
@@ -220,7 +173,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
         foreach (string item in FF12Flags.Items.KeyItems.DictValues.Keys)
         {
-            if (!FF12Flags.Items.KeyItems.SelectedKeys.Contains(item) && (GetLocationItem(rep)?.Item1 == item || GetLocationItem(old)?.Item1 == item))
+            if (!FF12Flags.Items.KeyItems.SelectedKeys.Contains(item) && (ItemLocations[rep].GetItem(true)?.Item1 == item || ItemLocations[old].GetItem(true)?.Item1 == item))
             {
                 return old == rep;
             }
@@ -300,30 +253,30 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
             }
         }
 
-        if (ItemLocations[old] is TreasureRando.RewardData reward)
+        if (ItemLocations[old] is RewardData reward)
         {
-            if (reward.Index == 0 && GetLocationItem(rep).Value.Item1 != "Gil")
+            if (reward.Index == 0 && ItemLocations[rep].GetItem(true).Value.Item1 != "Gil")
             {
                 return false;
             }
 
-            if (reward.Index > 0 && GetLocationItem(rep).Value.Item1 == "Gil")
-            {
-                return false;
-            }
-        }
-
-        if (ItemLocations[old] is TreasureRando.TreasureData)
-        {
-            if (GetLocationItem(rep)?.Item1 != "Gil" && GetLocationItem(rep)?.Item2 > 1)
+            if (reward.Index > 0 && ItemLocations[rep].GetItem(true).Value.Item1 == "Gil")
             {
                 return false;
             }
         }
 
-        if (ItemLocations[old] is TreasureRando.StartingInvData)
+        if (ItemLocations[old] is TreasureData)
         {
-            if (GetLocationItem(rep)?.Item1 == "Gil")
+            if (ItemLocations[rep].GetItem(true)?.Item1 != "Gil" && ItemLocations[rep].GetItem(true)?.Item2 > 1)
+            {
+                return false;
+            }
+        }
+
+        if (ItemLocations[old] is StartingInvData)
+        {
+            if (ItemLocations[rep].GetItem(true)?.Item1 == "Gil")
             {
                 return false;
             }
@@ -337,17 +290,17 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
         if (IsRandomizedBlackOrb(replacement))
         {
             List<string> orbs = remaining.Where(l => IsRandomizedBlackOrb(l)).ToList();
-            remaining.RemoveAll(rem => orbs.Contains(rem) || orbs.Select(child => ((TreasureRando.RewardData)ItemLocations[child]).Parent.ID).Contains(rem));
+            remaining.RemoveAll(rem => orbs.Contains(rem) || orbs.Select(child => ((RewardData)ItemLocations[child]).Parent.ID).Contains(rem));
         }
         else if (IsRandomizedTrophy(replacement))
         {
             List<string> trophies = remaining.Where(l => IsRandomizedTrophy(l)).ToList();
-            remaining.RemoveAll(rem => trophies.Contains(rem) || trophies.Select(child => ((TreasureRando.RewardData)ItemLocations[child]).Parent.ID).Contains(rem));
+            remaining.RemoveAll(rem => trophies.Contains(rem) || trophies.Select(child => ((RewardData)ItemLocations[child]).Parent.ID).Contains(rem));
         }
         else if (IsRandomizedChop(replacement))
         {
             List<string> chops = remaining.Where(l => IsRandomizedChop(l)).ToList();
-            remaining.RemoveAll(rem => chops.Contains(rem) || chops.Select(child => ((TreasureRando.RewardData)ItemLocations[child]).Parent.ID).Contains(rem));
+            remaining.RemoveAll(rem => chops.Contains(rem) || chops.Select(child => ((RewardData)ItemLocations[child]).Parent.ID).Contains(rem));
         }
         else
         {
@@ -368,7 +321,7 @@ public class FF12ItemPlacementLogic : ItemPlacementLogic<ItemLocation>
     public override Dictionary<string, int> GetItemsAvailable(Dictionary<string, string> placement)
     {
         Dictionary<string, int> dict = base.GetItemsAvailable(placement);
-        placement.Keys.Where(l => ItemLocations[l] is TreasureRando.RewardData).Select(l => (TreasureRando.RewardData)ItemLocations[l]).ForEach(l =>
+        placement.Keys.Where(l => ItemLocations[l] is RewardData).Select(l => (RewardData)ItemLocations[l]).ForEach(l =>
         {
             if (l.FakeItems.Count > 0 && l.Parent == l)
             {

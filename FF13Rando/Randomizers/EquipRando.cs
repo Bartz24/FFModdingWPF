@@ -11,7 +11,7 @@ using static FF13Rando.Enums;
 
 namespace FF13Rando;
 
-public class EquipRando : Randomizer
+public partial class EquipRando : Randomizer
 {
     public DataStoreWDB<DataStoreItem> items = new();
     public DataStoreWDB<DataStoreEquip> equip = new();
@@ -23,7 +23,7 @@ public class EquipRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Equip/Item Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Equip/Item Data...");
         items.LoadWDB(Generator, "13", @"\db\resident\item.wdb");
         equip.LoadWDB(Generator, "13", @"\db\resident\item_weapon.wdb");
 
@@ -71,7 +71,7 @@ public class EquipRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Equip/Item Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Equip/Item Data...");
         TextRando textRando = Generator.Get<TextRando>();
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
         string[] chars = { "lig", "fan", "hop", "saz", "sno", "van" };
@@ -366,7 +366,7 @@ public class EquipRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Equip/Item Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Equip/Item Data...");
         items.SaveWDB(Generator, @"\db\resident\item.wdb");
         equip.SaveWDB(Generator, @"\db\resident\item_weapon.wdb");
 
@@ -382,63 +382,5 @@ public class EquipRando : Randomizer
         }
 
         return name;
-    }
-
-    public class ItemData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Name { get; set; }
-        [RowIndex(2)]
-        public string Category { get; set; }
-        [RowIndex(3)]
-        public int Rank { get; set; }
-        [RowIndex(4)]
-        public string DefaultShop { get; set; }
-        [RowIndex(5)]
-        public List<string> Traits { get; set; }
-        public int SortIndex { get; set; }
-        [RowIndex(6)]
-        public int OverrideBuy { get; set; }
-        public ItemData(string[] row) : base(row)
-        {
-        }
-    }
-
-    public class PassiveData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string Name { get; set; }
-        [RowIndex(1)]
-        public string ID { get; set; }
-        [RowIndex(2)]
-        public float StrengthMult { get; set; }
-        [RowIndex(3)]
-        public float MagicMult { get; set; }
-        [RowIndex(4)]
-        public string DisplayNameID { get; set; }
-        [RowIndex(5)]
-        public string HelpID { get; set; }
-        [RowIndex(6)]
-        public int StatInitial { get; set; }
-        [RowIndex(7)]
-        public int StatType1 { get; set; }
-        [RowIndex(8)]
-        public int StatType2 { get; set; }
-        [RowIndex(9)]
-        public int MaxValue { get; set; }
-
-        // b and p are used as follows:
-        // stat = initial * b ^ (rank - 1) + p * (rank - 1)
-        [RowIndex(10)]
-        public float RankConstB { get; set; }
-        [RowIndex(11)]
-        public float RankConstP { get; set; }
-        [RowIndex(12)]
-        public string Upgrade { get; set; }
-        public PassiveData(string[] row) : base(row)
-        {
-        }
     }
 }

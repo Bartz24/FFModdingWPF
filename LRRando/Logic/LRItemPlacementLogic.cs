@@ -51,7 +51,7 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
     {
         return req.GetPossibleRequirements().Select(item =>
         {
-            List<string> reqChecks = Algorithm.Placement.Keys.Where(t => GetLocationItem(Algorithm.Placement[t]).Value.Item1 == item && !ItemLocations[t].Requirements.GetPossibleRequirements().Contains(item)).ToList();
+            List<string> reqChecks = Algorithm.Placement.Keys.Where(t => ItemLocations[Algorithm.Placement[t]].GetItem(true).Value.Item1 == item && !ItemLocations[t].Requirements.GetPossibleRequirements().Contains(item)).ToList();
             return reqChecks.Select(t => Algorithm.Depths[t] + GetReqsMaxDepth(ItemLocations[t].Requirements)).DefaultIfEmpty(0).Max();
         }).DefaultIfEmpty(0).Max();
     }
@@ -85,14 +85,14 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
             return true;
         }
 
-        if (LRFlags.Items.KeyItems.SelectedKeys.Contains(GetLocationItem(location).Value.Item1) && treasureRando.IsImportantKeyItem(location))
+        if (LRFlags.Items.KeyItems.SelectedKeys.Contains(ItemLocations[location].GetItem(true).Value.Item1) && treasureRando.IsImportantKeyItem(location))
         {
             return true;
         }
 
         if (treasureRando.IsEPAbility(location))
         {
-            if (!LRFlags.StatsAbilities.EPAbilities.FlagEnabled || !LRFlags.StatsAbilities.EPAbilitiesPool.SelectedKeys.Contains(GetLocationItem(location).Value.Item1))
+            if (!LRFlags.StatsAbilities.EPAbilities.FlagEnabled || !LRFlags.StatsAbilities.EPAbilitiesPool.SelectedKeys.Contains(ItemLocations[location].GetItem(true).Value.Item1))
             {
                 return false;
             }
@@ -136,46 +136,14 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
             return true;
         }
 
-        if (GetLocationItem(location).Value.Item1.StartsWith("libra"))
+        if (ItemLocations[location].GetItem(true).Value.Item1.StartsWith("libra"))
         {
             return true;
         }
 
         return treasureRando.IsEPAbility(location)
-|| GetLocationItem(location).Value.Item1.StartsWith("it")
-|| GetLocationItem(location).Value.Item1 == "" || GetLocationItem(location).Value.Item2 > 1;
-    }
-
-    public override (string, int)? GetLocationItem(string key, bool orig = true)
-    {
-        switch (ItemLocations[key])
-        {
-            case TreasureData t:
-                return t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
-            case BattleDropData t:
-                BattleRando battleRando = treasureRando.Generator.Get<BattleRando>();
-                return t.GetData(orig ? battleRando.btScenesOrig[key] : battleRando.btScenes[key]);
-            default:
-                return base.GetLocationItem(key, orig);
-        }
-    }
-
-    public override void SetLocationItem(string key, string item, int count)
-    {
-        LogSetItem(key, item, count);
-        switch (ItemLocations[key])
-        {
-            case TreasureData t:
-                t.SetData(treasureRando.treasures[key], item, count);
-                break;
-            case BattleDropData t:
-                BattleRando battleRando = treasureRando.Generator.Get<BattleRando>();
-                t.SetData(battleRando.btScenes[key], item, count);
-                break;
-            default:
-                base.SetLocationItem(key, item, count);
-                break;
-        }
+|| ItemLocations[location].GetItem(true).Value.Item1.StartsWith("it")
+|| ItemLocations[location].GetItem(true).Value.Item1 == "" || ItemLocations[location].GetItem(true).Value.Item2 > 1;
     }
 
     public override List<string> GetNewAreasAvailable(Dictionary<string, int> items, List<string> soFar)
@@ -187,7 +155,7 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
     {
         foreach (string item in LRFlags.Items.KeyItems.DictValues.Keys)
         {
-            if (!LRFlags.Items.KeyItems.SelectedKeys.Contains(item) && (GetLocationItem(rep).Value.Item1 == item || GetLocationItem(old).Value.Item1 == item))
+            if (!LRFlags.Items.KeyItems.SelectedKeys.Contains(item) && (ItemLocations[rep].GetItem(true).Value.Item1 == item || ItemLocations[old].GetItem(true).Value.Item1 == item))
             {
                 return old == rep;
             }
@@ -195,7 +163,7 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 
         foreach (string abi in LRFlags.StatsAbilities.EPAbilitiesPool.DictValues.Keys)
         {
-            if ((!LRFlags.StatsAbilities.EPAbilities.FlagEnabled || !LRFlags.StatsAbilities.EPAbilitiesPool.SelectedKeys.Contains(abi)) && (GetLocationItem(rep).Value.Item1 == abi || GetLocationItem(old).Value.Item1 == abi))
+            if ((!LRFlags.StatsAbilities.EPAbilities.FlagEnabled || !LRFlags.StatsAbilities.EPAbilitiesPool.SelectedKeys.Contains(abi)) && (ItemLocations[rep].GetItem(true).Value.Item1 == abi || ItemLocations[old].GetItem(true).Value.Item1 == abi))
             {
                 return old == rep;
             }
@@ -213,7 +181,7 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
                 return false;
             }
 
-            if (GetLocationItem(rep).Value.Item1.StartsWith("libra"))
+            if (ItemLocations[rep].GetItem(true).Value.Item1.StartsWith("libra"))
             {
                 return false;
             }
@@ -265,7 +233,7 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
                 return false;
             }
 
-            if (GetLocationItem(rep).Value.Item1.StartsWith("it"))
+            if (ItemLocations[rep].GetItem(true).Value.Item1.StartsWith("it"))
             {
                 return false;
             }
@@ -283,17 +251,17 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
                 return false;
             }
 
-            if (GetLocationItem(rep).Value.Item1.StartsWith("it"))
+            if (ItemLocations[rep].GetItem(true).Value.Item1.StartsWith("it"))
             {
                 return false;
             }
 
-            if (GetLocationItem(rep).Value.Item2 > 1)
+            if (ItemLocations[rep].GetItem(true).Value.Item2 > 1)
             {
                 return false;
             }
 
-            if (GetLocationItem(rep).Value.Item1 == "")
+            if (ItemLocations[rep].GetItem(true).Value.Item1 == "")
             {
                 return false;
             }
@@ -306,12 +274,12 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
                 return false;
             }
 
-            if (GetLocationItem(rep).Value.Item2 > 1)
+            if (ItemLocations[rep].GetItem(true).Value.Item2 > 1)
             {
                 return false;
             }
 
-            if (GetLocationItem(rep).Value.Item1 == "")
+            if (ItemLocations[rep].GetItem(true).Value.Item1 == "")
             {
                 return false;
             }

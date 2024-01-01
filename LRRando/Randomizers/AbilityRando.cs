@@ -19,12 +19,12 @@ public class AbilityRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Ability Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Ability Data...");
         abilities.LoadDB3(Generator, "LR", @"\db\resident\bt_ability.wdb");
-        Generator.SetUIProgress("Loading Ability Data...", 50, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Ability Data...", 50, 100);
         abilityGrowths.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb", false);
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
-        Generator.SetUIProgress("Loading Ability Data...", 80, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Ability Data...", 80, 100);
         treasureRando.AddTreasure("ini_ba_abi", "", 1, "");
         treasureRando.AddTreasure("ini_ca_abi", "", 1, "");
     }
@@ -32,20 +32,20 @@ public class AbilityRando : Randomizer
     {
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
 
-        Generator.SetUIProgress("Randomizing Ability Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Ability Data...");
         if (LRFlags.StatsAbilities.EPAbilities.FlagEnabled)
         {
             LRFlags.StatsAbilities.EPAbilities.SetRand();
 
-            IEnumerable<ItemLocation> keys = treasureRando.itemLocations.Values.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1.StartsWith("ti") || treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 == "at900_00");
+            IEnumerable<ItemLocation> keys = treasureRando.ItemLocations.Values.Where(t => t.GetItem(false).Value.Item1.StartsWith("ti") || t.GetItem(false).Value.Item1 == "at900_00");
 
-            keys = keys.Where(t => LRFlags.StatsAbilities.EPAbilitiesPool.SelectedKeys.Contains(treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1));
+            keys = keys.Where(t => LRFlags.StatsAbilities.EPAbilitiesPool.SelectedKeys.Contains(t.GetItem(false).Value.Item1));
 
             keys.ToList().Shuffle((t1, t2) =>
             {
-                string value = treasureRando.PlacementAlgo.Logic.GetLocationItem(t1.ID, false).Value.Item1;
-                treasureRando.PlacementAlgo.Logic.SetLocationItem(t1.ID, treasureRando.PlacementAlgo.Logic.GetLocationItem(t2.ID, false).Value.Item1, 1);
-                treasureRando.PlacementAlgo.Logic.SetLocationItem(t2.ID, value, 1);
+                string value = treasureRando.ItemLocations[t1.ID].GetItem(false).Value.Item1;
+                treasureRando.ItemLocations[t1.ID].SetItem(treasureRando.ItemLocations[t2.ID].GetItem(false).Value.Item1, 1);
+                treasureRando.ItemLocations[t2.ID].SetItem(value, 1);
             });
 
             if (LRFlags.StatsAbilities.NerfOC.FlagEnabled)
@@ -56,7 +56,7 @@ public class AbilityRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Generator.SetUIProgress("Randomizing Ability Data...", 50, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Ability Data...", 50, 100);
         if (LRFlags.StatsAbilities.EPCosts.FlagEnabled)
         {
             LRFlags.StatsAbilities.EPCosts.SetRand();
@@ -78,7 +78,7 @@ public class AbilityRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        Generator.SetUIProgress("Randomizing Ability Data...", 80, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Ability Data...", 80, 100);
         if (LRFlags.StatsAbilities.AbilityPassives.FlagEnabled)
         {
             EquipRando equipRando = Generator.Get<EquipRando>();
@@ -126,9 +126,9 @@ public class AbilityRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Ability Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Ability Data...");
         abilities.SaveDB3(Generator, @"\db\resident\bt_ability.wdb");
-        Generator.SetUIProgress("Saving Ability Data...", 50, 100);
+        RandoUI.SetUIProgressDeterminate("Saving Ability Data...", 50, 100);
         abilityGrowths.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_bt_abi_grow.wdb");
     }

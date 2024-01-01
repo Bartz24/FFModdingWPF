@@ -34,7 +34,7 @@ public class FF12AssumedItemPlacementAlgorithm : AssumedItemPlacementAlgorithm<I
 
         base.RemoveItems(locations, items, nextItem, rep);
 
-        if (ItemLocations[rep] is TreasureRando.RewardData reward && reward.IsFakeOnly)
+        if (ItemLocations[rep] is RewardData reward && reward.IsFakeOnly)
         {
             RemoveFakeItems(items, reward);
         }
@@ -51,14 +51,14 @@ public class FF12AssumedItemPlacementAlgorithm : AssumedItemPlacementAlgorithm<I
 
             // Do not remove fake items from rep as it was already removed
             List<string> removed = possible.Where(s => !newPossible.Contains(s)).ToList();
-            removed.Where(s => ItemLocations[s] is TreasureRando.RewardData).Select(s=> ((TreasureRando.RewardData)ItemLocations[s]).Parent).Distinct().ForEach(parent =>
+            removed.Where(s => ItemLocations[s] is RewardData).Select(s=> ((RewardData)ItemLocations[s]).Parent).Distinct().ForEach(parent =>
             {
                 RemoveFakeItems(items, parent);
             });
         }
     }
 
-    private void RemoveFakeItems(Dictionary<string, int> items, TreasureRando.RewardData reward)
+    private void RemoveFakeItems(Dictionary<string, int> items, RewardData reward)
     {
         if (ParentsRemoved.Contains(reward.Parent.ID))
         {

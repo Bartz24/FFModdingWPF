@@ -30,7 +30,7 @@ public class EnemyRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Enemy Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Loading Enemy Data...");
         x000.ForEach(s =>
         {
             DataStoreDB3<DataStoreBtCharaSpec> db3 = new();
@@ -80,7 +80,7 @@ public class EnemyRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Enemy Data...", 0, -1);
+        RandoUI.SetUIProgressIndeterminate("Saving Enemy Data...");
         x000.ForEach(s =>
         {
             enemies[s].SaveDB3(Generator, @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb");

@@ -63,50 +63,7 @@ public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
 
     public override bool RequiresLogic(string location)
     {
-        return IsImportantKeyItem(location) || GetLocationItem(location).Value.Item1.StartsWith("frg");
-    }
-
-    public override (string, int)? GetLocationItem(string key, bool orig = true)
-    {
-        switch (ItemLocations[key])
-        {
-            case TreasureRando.TreasureData t:
-                (string, int)? tuple = t.GetData(orig ? treasureRando.treasuresOrig[key] : treasureRando.treasures[key]);
-                if (ItemLocations[key].Traits.Contains("Event") && tuple.Value.Item1.StartsWith("frg"))
-                {
-                    return (tuple.Value.Item1, 1);
-                }
-
-                return tuple;
-            case TreasureRando.SearchItemData s:
-                string id = key.Substring(0, key.IndexOf(":"));
-                return s.GetData(orig ? treasureRando.searchOrig[id] : treasureRando.search[id]);
-            default:
-                return base.GetLocationItem(key, orig);
-        }
-    }
-
-    public override void SetLocationItem(string key, string item, int count)
-    {
-        LogSetItem(key, item, count);
-        switch (ItemLocations[key])
-        {
-            case TreasureRando.TreasureData t:
-                if (ItemLocations[key].Traits.Contains("Event") && item.StartsWith("frg"))
-                {
-                    count = 0;
-                }
-
-                t.SetData(treasureRando.treasures[key], item, count);
-                break;
-            case TreasureRando.SearchItemData s:
-                string id = key.Substring(0, key.IndexOf(":"));
-                s.SetData(treasureRando.search[id], item, count);
-                break;
-            default:
-                base.SetLocationItem(key, item, count);
-                break;
-        }
+        return IsImportantKeyItem(location) || ItemLocations[location].GetItem(true).Value.Item1.StartsWith("frg");
     }
 
     public override List<string> GetNewAreasAvailable(Dictionary<string, int> items, List<string> soFar)
@@ -135,7 +92,7 @@ public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
             int wildsNeeded = cruxRando.GetWildsNeeded(list);
             int gravitonsHeld = items.Keys.Where(i => i.StartsWith("frg_cmn_gvtn")).Select(i => items[i]).Sum();
 
-            HistoriaCruxRando.GateData g = cruxRando.gateData.Values.Where(g =>
+            GateData g = cruxRando.gateData.Values.Where(g =>
             {
                 if (!list.Contains(g.Location))
                 {
@@ -233,19 +190,19 @@ public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
             }
         }
 
-        if (ItemLocations[old] is TreasureRando.SearchItemData)
+        if (ItemLocations[old] is SearchItemData)
         {
-            if (IsImportantKeyItem(rep) && GetLocationItem(old).Value.Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowCryst.Enabled)
+            if (IsImportantKeyItem(rep) && ItemLocations[old].GetItem(true).Value.Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowCryst.Enabled)
             {
                 return false;
             }
 
-            if (IsImportantKeyItem(rep) && !GetLocationItem(old).Value.Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowJunk.Enabled)
+            if (IsImportantKeyItem(rep) && !ItemLocations[old].GetItem(true).Value.Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowJunk.Enabled)
             {
                 return false;
             }
 
-            if (GetLocationItem(rep).Value.Item1.StartsWith("frg"))
+            if (ItemLocations[rep].GetItem(true).Value.Item1.StartsWith("frg"))
             {
                 return false;
             }

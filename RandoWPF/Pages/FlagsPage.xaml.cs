@@ -101,7 +101,7 @@ public partial class FlagsPage : UserControl
                     }
 
                     File.Copy(path, @"presets\" + System.IO.Path.GetFileName(path));
-                    RandoUI.SetUIMessage($"Loaded preset {RandoPresets.Selected.Name}.");
+                    RandoUI.ShowTempUIMessage($"Loaded preset {RandoPresets.Selected.Name}.");
                 }
                 catch
                 {
@@ -149,7 +149,7 @@ public partial class FlagsPage : UserControl
             RandoPresets.Selected = RandoPresets.PresetsList.Last(p => !p.CustomModified);
             PresetsList = new ObservableCollection<Preset>(RandoPresets.PresetsList);
             PresetComboBox.GetBindingExpression(ComboBox.ItemsSourceProperty).UpdateTarget();
-            RandoUI.SetUIMessage($"Saved preset to the presets folder as {name + "_Preset.json"}.");
+            RandoUI.ShowTempUIMessage($"Saved preset to the presets folder as {name + "_Preset.json"}.");
         }
     }
 
@@ -163,7 +163,7 @@ public partial class FlagsPage : UserControl
             RandoPresets.Selected = RandoPresets.PresetsList[0];
             PresetsList = new ObservableCollection<Preset>(RandoPresets.PresetsList);
             PresetComboBox.GetBindingExpression(ComboBox.ItemsSourceProperty).UpdateTarget();
-            RandoUI.SetUIMessage($"Deleted preset {presetName}.");
+            RandoUI.ShowTempUIMessage($"Deleted preset {presetName}.");
         }
     }
 }

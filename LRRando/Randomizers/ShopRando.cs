@@ -10,7 +10,7 @@ using static Bartz24.FF13_2_LR.Enums;
 
 namespace LRRando;
 
-public class ShopRando : Randomizer
+public partial class ShopRando : Randomizer
 {
     private readonly DataStoreDB3<DataStoreShop> shopsOrig = new();
     private readonly DataStoreDB3<DataStoreShop> shops = new();
@@ -20,9 +20,9 @@ public class ShopRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Shop Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Shop Data...");
         shopsOrig.LoadDB3(Generator, "LR", @"\db\resident\shop.wdb");
-        Generator.SetUIProgress("Loading Shop Data...", 50, 100);
+        RandoUI.SetUIProgressDeterminate("Loading Shop Data...", 50, 100);
         shops.LoadDB3(Generator, "LR", @"\db\resident\shop.wdb");
 
         FileHelpers.ReadCSVFile(@"data\shops.csv", row =>
@@ -38,14 +38,14 @@ public class ShopRando : Randomizer
         EquipRando equipRando = Generator.Get<EquipRando>();
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
 
-        Generator.SetUIProgress("Randomizing Shop Data...", 0, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Shop Data...");
         equipRando.itemWeapons.Values.Where(i => equipRando.items.Keys.Contains(i.name) && ((i.u4WeaponKind == (int)WeaponKind.Weapon && i.u4AccessoryPos == 0) || i.u4WeaponKind == (int)WeaponKind.Shield)).ForEach(i =>
         {
             equipRando.items[i.name].uSellPrice = (int)(2 * equipRando.items[i.name].uSellPrice / Math.Log10(Math.Pow(equipRando.items[i.name].uSellPrice, 1.5) / 1.5));
             equipRando.items[i.name].uSellPrice = equipRando.items[i.name].uSellPrice.RoundToSignificantDigits((int)Math.Max(2, Math.Ceiling(Math.Log10(equipRando.items[i.name].uSellPrice) - 2)));
         });
 
-        Generator.SetUIProgress("Randomizing Shop Data...", 20, 100);
+        RandoUI.SetUIProgressDeterminate("Randomizing Shop Data...", 20, 100);
         if (LRFlags.Items.Shops.FlagEnabled)
         {
             LRFlags.Items.Shops.SetRand();
@@ -63,7 +63,7 @@ public class ShopRando : Randomizer
                   s.u3Category == (int)ShopCategory.Inn ||
                   (s.u3Category == (int)ShopCategory.Libra && (
                                 !i.StartsWith("libra") ||
-                                treasureRando.itemLocations.Values.Where(t => treasureRando.PlacementAlgo.Logic.GetLocationItem(t.ID, false).Value.Item1 == i).Count() == 0))
+                                treasureRando.ItemLocations.Values.Where(t => treasureRando.ItemLocations[t.ID].GetItem(false).Value.Item1 == i).Count() == 0))
                   ).ToList())
             );
 
@@ -107,7 +107,7 @@ public class ShopRando : Randomizer
                 AddToRandomShop(uniqueShops, shopsDict, adorn);
             }
 
-            Generator.SetUIProgress("Randomizing Shop Data...", 70, 100);
+            RandoUI.SetUIProgressDeterminate("Randomizing Shop Data...", 70, 100);
 
             List<string> possibleItems = new();
             possibleItems.AddRange(equipRando.itemData.Values.Where(i => i.Category == "Item").Select(i => i.ID));
@@ -197,7 +197,7 @@ public class ShopRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Shop Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Shop Data...");
         shops.SaveDB3(Generator, @"\db\resident\shop.wdb");
     }
 
@@ -256,24 +256,5 @@ public class ShopRando : Randomizer
            });
         pages.Add("shops", page);
         return pages;
-    }
-
-    public class ShopData : CSVDataRow
-    {
-        [RowIndex(0)]
-        public string ID { get; set; }
-        [RowIndex(1)]
-        public string Area { get; set; }
-        [RowIndex(2)]
-        public string SubArea { get; set; }
-        [RowIndex(3)]
-        public string AdditionalInfo { get; set; }
-        [RowIndex(4)]
-        public int DayStart { get; set; }
-        [RowIndex(5)]
-        public int DayEnd { get; set; }
-        public ShopData(string[] row) : base(row)
-        {
-        }
     }
 }

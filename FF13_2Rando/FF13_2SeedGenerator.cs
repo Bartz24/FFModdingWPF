@@ -102,6 +102,6 @@ public class FF13_2SeedGenerator : SeedGenerator
     {
         base.GeneratePackAndDocs();
 
-        SetUIProgress($"Complete! Ready to install in Nova Chrysalia! The modpack '{GetPackPath()}' and documentation have been generated in the packs folder of this application.", 100, 100);
+        RandoUI.SetUIProgressDeterminate($"Complete! Ready to install in Nova Chrysalia! The modpack '{GetPackPath()}' and documentation have been generated in the packs folder of this application.", 100, 100);
     }
 }

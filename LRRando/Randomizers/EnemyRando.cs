@@ -16,7 +16,7 @@ public class EnemyRando : Randomizer
 
     public override void Load()
     {
-        Generator.SetUIProgress("Loading Enemy Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Loading Enemy Data...");
         string path = Nova.GetNovaFile("LR", @"db\resident\bt_chara_spec.wdb", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
         string outPath = Generator.DataOutFolder + @"\db\resident\bt_chara_spec.wdb";
         FileHelpers.CopyFile(path, outPath);
@@ -36,7 +36,7 @@ public class EnemyRando : Randomizer
     }
     public override void Randomize()
     {
-        Generator.SetUIProgress("Randomizing Enemy Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Randomizing Enemy Data...");
         EquipRando equipRando = Generator.Get<EquipRando>();
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
 
@@ -175,7 +175,7 @@ public class EnemyRando : Randomizer
 
     public override void Save()
     {
-        Generator.SetUIProgress("Saving Enemy Data...", -1, 100);
+        RandoUI.SetUIProgressIndeterminate("Saving Enemy Data...");
         string outPath = Generator.DataOutFolder + @"\db\resident\bt_chara_spec.wdb";
         enemies.Save(outPath, SetupData.Paths["Nova"]);
     }
