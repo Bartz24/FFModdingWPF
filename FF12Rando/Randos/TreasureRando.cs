@@ -359,12 +359,15 @@ public partial class TreasureRando : Randomizer
         foreach (TreasureLocation l in treasures)
         {
             DataStoreTreasure t = ebpAreas[l.MapID].TreasureList[l.Index];
-            if (!areaRespawns.ContainsKey(l.MapID))
+            if (t.SpawnChance > 0 && t.Respawn < 255)
             {
-                areaRespawns.Add(l.MapID, new List<int>());
-            }
+                if (!areaRespawns.ContainsKey(l.MapID))
+                {
+                    areaRespawns.Add(l.MapID, new List<int>());
+                }
 
-            areaRespawns[l.MapID].Add(t.Respawn);
+                areaRespawns[l.MapID].Add(t.Respawn);
+            }
         }
 
         File.WriteAllLines($"{Generator.OutFolder}\\treasureTracker.txt", areaRespawns.Select(p => $"{areaMapping[p.Key]},{string.Join(",", p.Value)}"));
