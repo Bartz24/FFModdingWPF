@@ -1,296 +1,280 @@
-Location,Name,ID,Requirements,Rank,Traits,FakeItems
-Rabanastre,Tomaj 1,9000,,0,WritTomaj,Vaan
-Rabanastre,Tomaj 2,916B,,0,,
-Rabanastre,Tomaj 3,916C,,0,,
-Giza Plains Dry,Masyua Shadestone,9002,,0,,Penelo
-Giza Plains Dry,Giza Sunstone,9001,I(8079),1,,
-Lowtown,Dalan Crescent Stone,905E,I(807A),0,,
-Lowtown,Dalan Sword of the Order,905F,I(80AC),0,,
-Lowtown,Balzac Sword of the Order Turn In,911E,I(8075),0,,
-Dreadnought Leviathan,No. 1 Brig Key,9060,AND(AERO(80E3)|I(80AC)),1,,
-Dreadnought Leviathan,Systems Access Key,9061,AND(AERO(80E3)|I(80AC)|I(8076)),1,,Ashe
-Dreadnought Leviathan,Manufacted Nethicite,912C,AND(AERO(80E3)|I(80AC)|I(8076)),1,,
-Dreadnought Leviathan,Defeat Judge Ghis,_16,AND(AERO(80E3)|I(80AC)|I(8076)|I(8089)),1,Fake,Defeat Ghis
-Nam-Yensa Sandsea,Eksir Berries,912D,OR(I(Defeat Ghis)^1|I(80E0)^2|I(8077)),1,,
-Tomb of Raithwall,Dawn Shard,912E,OR(I(Defeat Ghis)^1|I(80E0)^2|I(8077)),2,,
-Tomb of Raithwall,Defeat Vossler,918E,AND(I(8078)|OR(I(Defeat Ghis)^1|I(80E0)^2|I(8077))),2,,
-Royal Palace,Goddess's Magicite,912F,I(8080),1,,Balthier|Fran|Guest
-Barheim Passage,Burrough Tube Fuse,9130,I(8080),1,,Guest
-Jahara,Great-chief Elder After Dawn Shard,911F,AND(I(8078)|OR(I(8077)|I(80E0))|OR(I(Defeat Ghis)^1|I(80E0)^2|I(8077))),2,,Guest
-Eruyt Village,Lente's Tear,9131,OR(I(8077)|I(80E0)),2,,
-Stilshrine of Miriam,Sword of Kings,9132,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^2)|I(8078)),2,,
-Tchita Uplands,Soul Ward Key,9133,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1),3,,
-Tchita Uplands,Mandragora Reward,9052,AND(I(80B6)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),3,,
-Draklor Laboratory,Defeat Cid 1,918D,AND(OR(I(2113|3)|I(2112))|I(809E)|OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4))),5,,Defeat Cid
-Archades,Pinewood Chop 1,9134,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop1,
-Archades,Pinewood Chop 2,9135,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop2,
-Archades,Pinewood Chop 3,9136,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop3,
-Archades,Pinewood Chop 4,9137,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop4,
-Archades,Pinewood Chop 5,9138,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop5,
-Archades,Pinewood Chop 6,9139,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop6,
-Archades,Pinewood Chop 7,913A,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop7,
-Archades,Pinewood Chop 8,913B,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop8,
-Archades,Pinewood Chop 9,913C,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop9,
-Archades,Pinewood Chop 10,913D,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop10,
-Archades,Pinewood Chop 11,913E,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop11,
-Archades,Pinewood Chop 12,913F,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop12,
-Archades,Pinewood Chop 13,9140,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop13,
-Archades,Pinewood Chop 14,9141,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop14,
-Archades,Pinewood Chop 15,9142,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop15,
-Archades,Pinewood Chop 16,9143,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop16,
-Archades,Pinewood Chop 17,9144,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop17,
-Archades,Pinewood Chop 18,9145,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop18,
-Archades,Pinewood Chop 19,9146,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop19,
-Archades,Pinewood Chop 20,9147,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop20,
-Archades,Pinewood Chop 21,9148,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop21,
-Archades,Pinewood Chop 22,9149,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop22,
-Archades,Pinewood Chop 23,914A,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop23,
-Archades,Pinewood Chop 24,914B,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop24,
-Archades,Pinewood Chop 25,914C,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop25,
-Archades,Pinewood Chop 26,914D,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop26,
-Archades,Pinewood Chop 27,914E,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop27,
-Archades,Pinewood Chop 28,914F,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4)),0,Chop28,
-Archades,Sandalwood Chop,9150,AND(I(2113|28)|OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4))),2,,
-Draklor Laboratory,Lab Access Card,9151,AND(OR(I(2113|3)|I(2112))|OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^1|AERO(80E5))|I(80B6))^2|AERO(80E4))),0,,
-Giruvegan,Treaty-Blade,9152,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^2)|I(Belias)),5,,
-Pharos of Ridorana,Black Orb 1,9153,I(8077),6,BlackOrb1,
-Pharos of Ridorana,Black Orb 2,9154,I(8077),6,BlackOrb2,
-Pharos of Ridorana,Black Orb 3,9155,I(8077),6,BlackOrb3,
-Pharos of Ridorana,Defeat Cid 2,918F,AND(I(8077)|I(2116|3)|OR(I(808B)|I(808C))|OR(SELECT(2|I(8078)|I(80AC)|I(8089)))),7,WritCid2,
-Pharos of Ridorana Subterra,Black Orb 4,9156,AND(I(8077)|I(2116|3)),7,BlackOrb4,
-Pharos of Ridorana Subterra,Black Orb 5,9157,AND(I(8077)|I(2116|3)),7,BlackOrb5,
-Pharos of Ridorana Subterra,Black Orb 6,9158,AND(I(8077)|I(2116|3)),7,BlackOrb6,
-Pharos of Ridorana Subterra,Black Orb 7,9159,AND(I(8077)|I(2116|3)),7,BlackOrb7,
-Pharos of Ridorana Subterra,Black Orb 8,915A,AND(I(8077)|I(2116|3)),7,BlackOrb8,
-Pharos of Ridorana Subterra,Black Orb 9,915B,AND(I(8077)|I(2116|8)),7,BlackOrb9,
-Pharos of Ridorana Subterra,Black Orb 10,915C,AND(I(8077)|I(2116|8)),7,BlackOrb10,
-Pharos of Ridorana Subterra,Black Orb 11,915D,AND(I(8077)|I(2116|8)),7,BlackOrb11,
-Pharos of Ridorana Subterra,Black Orb 12,915E,AND(I(8077)|I(2116|8)),7,BlackOrb12,
-Pharos of Ridorana Subterra,Black Orb 13,915F,AND(I(8077)|I(2116|8)),7,BlackOrb13,
-Pharos of Ridorana Subterra,Black Orb 14,9160,AND(I(8077)|I(2116|8)),7,BlackOrb14,
-Pharos of Ridorana Subterra,Black Orb 15,9161,AND(I(8077)|I(2116|8)),7,BlackOrb15,
-Pharos of Ridorana Subterra,Black Orb 16,9162,AND(I(8077)|I(2116|15)),7,BlackOrb16,
-Pharos of Ridorana Subterra,Black Orb 17,9163,AND(I(8077)|I(2116|15)),7,BlackOrb17,
-Pharos of Ridorana Subterra,Black Orb 18,9164,AND(I(8077)|I(2116|15)),7,BlackOrb18,
-Pharos of Ridorana Subterra,Black Orb 19,9165,AND(I(8077)|I(2116|15)),7,BlackOrb19,
-Pharos of Ridorana Subterra,Black Orb 20,9166,AND(I(8077)|I(2116|15)),7,BlackOrb20,
-Pharos of Ridorana Subterra,Black Orb 21,9167,AND(I(8077)|I(2116|15)),7,BlackOrb21,
-Pharos of Ridorana Subterra,Black Orb 22,9168,AND(I(8077)|I(2116|15)),7,BlackOrb22,
-Pharos of Ridorana Subterra,Black Orb 23,9169,AND(I(8077)|I(2116|15)),7,BlackOrb23,
-Pharos of Ridorana Subterra,Black Orb 24,916A,AND(I(8077)|I(2116|15)),7,BlackOrb24,
-Rabanastre,Hunt 1: Rogue Tomato,9003,,1,Hunt,Hunt
-Rabanastre,Hunt 2: Thextera,9004,,1,Hunt,Hunt
-Dalmasca Estersand,Hunt 3: Flowering Cactoid,9005,I(8073),1,Hunt,Hunt
-Lowtown,Hunt 4: Wraith,9006,,1,Hunt,Hunt
-Bhujerba,Hunt 5: Nidhogg,9007,AERO(80E3),1,Hunt,Hunt
-Rabanastre,Hunt 6: White Mousse,9008,I(80AE),5,Hunt,Hunt
-Lowtown,Hunt 7: Ring Wyrm,9009,,3,Hunt,Hunt
-Rabanastre,Hunt 8: Wyvern Lord,900A,OR(I(Defeat Ghis)^1|I(80E0)^2|I(8077)),2,Hunt,Hunt
-Rabanastre,Hunt 9: Marilith,900B,I(808E),5,Hunt,Hunt
-Jahara,Hunt 10: Enkelados,900C,AND(I(8086)|OR(I(8077)|I(80E0))),2,Hunt,Hunt
-Giza Plains Rains,Hunt 11: Croakadile,900D,AND(I(807C)|I(80E0)),2,Hunt,Hunt
-Jahara,Hunt 12: Ixtab,900E,OR(I(8077)|I(80E0)),2,Hunt,Hunt
-Mt. Bur-Omisace,Hunt 13: Feral Retriever,900F,OR(I(8077)|AND(I(80E0)|I(80B7))),3,Hunt,Hunt
-Eruyt Village,Hunt 14: Vorpal Bunny,9010,AND(AND(OR(I(8077)|I(80E0))|I(80B7))|I(8087)),3,Hunt,Hunt
-Jahara,Hunt 15: Mindflayer,9011,OR(I(8077)|I(80E0)),4,Hunt,Hunt
-Dalmasca Estersand,Hunt 16: Bloodwing,9012,I(8093),5,Hunt,Hunt
-Nalbina Fortress,Hunt 17: Atomos,9013,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^2),3,Hunt,Hunt|Jovy
-Nalbina Fortress,Hunt 18: Roblon,9014,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^2),6,Hunt,Hunt|Jovy
-Mosphoran Highwaste,Hunt 19: Braegh,9015,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^2),4,Hunt,Hunt
-Archades,Hunt 20: Darksteel,9016,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AERO(80E5)^1|AERO(80E4))|I(80B6))),4,Hunt,Hunt
-Balfonheim,Hunt 21: Vyraal,9017,AND(I(809B)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5))),5,Hunt,Hunt
-Old Archades,Hunt 22: Lindwyrm,9018,AND(I(808A)|OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5))|OR(AERO(80E4)|I(80B6)))|AND(AERO(80E4)|I(80B6)))),5,Hunt,Hunt
-Archades,Hunt 23: Overlord,9019,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5))|OR(AERO(80E4)|I(80B6)))|AND(AERO(80E4)|I(80B6))),6,Hunt,Hunt
-Nalbina Fortress,Hunt 24: Goliath,901A,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^2),6,Hunt,Hunt|Jovy
-Nalbina Fortress,Hunt 25: Deathscythe,901B,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^2),6,Hunt,Hunt|Jovy
-Skyferry,Hunt 26: Deathgaze,901C,OR(AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|false)|AERO(80E4|false)|AERO(80E5|false)),7,Hunt,Hunt
-Bhujerba,Hunt 27: Diabolos,901D,AERO(80E3),7,Hunt,Hunt
-Mt. Bur-Omisace,Hunt 28: Piscodaemon,901E,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(Belias)),5,Hunt,Hunt
-Eruyt Village,Hunt 29: Wild Malboro,901F,OR(I(8077)|AND(I(80B7)|I(80E0))^1),6,Hunt,Hunt
-Jahara,Hunt 30: Catoblepas,9020,OR(I(8077)|I(80E0)),6,Hunt,Hunt
-Mt. Bur-Omisace,Hunt 31: Fafnir,9021,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(809A)),7,Hunt,Hunt
-Balfonheim,Hunt 32: Pylraster,9022,I(8077),7,Hunt,Hunt
-Giza Plains Dry,Hunt 33: Cluckatrice,9023,I(8071),1,Hunt,Hunt
-Bhujerba,Hunt 34: Rocktoise,9024,AND(I(8071)|AERO(80E3)),1,Hunt,Hunt
-Lowtown,Hunt 35: Orthros,9025,AND(I(8071)|I(8092)|I(Fran)|I(Ashe)|I(Penelo)),5,Hunt,Hunt
-Giza Plains Dry,Hunt 36: Gil Snapper,9026,AND(I(8071)|I(807D)|I(80E0)),3,Hunt,Hunt
-Mt. Bur-Omisace,Hunt 37: Trickster,9027,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(8071)),5,Hunt,Hunt
-Bhujerba,Hunt 38: Antlion,9028,AND(I(8071)|I(807E)|AERO(80E3)),5,Hunt,Hunt
-Aerodrome,Hunt 39: Carrot,9029,AND(I(8071)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,Hunt,Hunt|Jovy
-Clan Hall,Hunt 40: Gilgamesh,902A,AND(I(8071)|I(807E)|I(807F)|AERO(80E3)),7,Hunt,Hunt
-Clan Hall,Hunt 41: Belito,9122,AND(I(8071)|OR(I(Defeat Ghis)^1|I(80E0)^2)),5,Hunt,Hunt
-Lowtown,Hunt 42: Behemoth King,902B,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(8071)),7,Hunt,Hunt
-Balfonheim,Hunt 43: Ixion,902C,AND(I(8071)|I(8077)),6,Hunt,Hunt
-Clan Hall,Hunt 44: Shadowseer,902D,AND(I(8071)|I(8077)|I(2116|24)),6,Hunt,Hunt
-Clan Hall,Hunt 45: Yiazmat,902E,AND(I(8071)|I(8077)),8,Hunt,Hunt
-Clan Hall,Clan Rank: Moppet,902F,I(8071),1,ClanRank,
-Clan Hall,Clan Rank: Hedge Knight,9030,AND(I(8071)|I(Hunt|2)),2,ClanRank,
-Clan Hall,Clan Rank: Rear Guard,9031,AND(I(8071)|I(Hunt|4)),3,ClanRank,
-Clan Hall,Clan Rank: Vanguard,9032,AND(I(8071)|I(Hunt|8)),4,ClanRank,
-Clan Hall,Clan Rank: Headhunter,9033,AND(I(8071)|I(Hunt|10)),5,ClanRank,
-Clan Hall,Clan Rank: Ward of Justice,9034,AND(I(8071)|I(Hunt|12)),6,ClanRank,
-Clan Hall,Clan Rank: Brave Companion,9035,AND(I(8071)|I(Hunt|14)),7,ClanRank,
-Clan Hall,Clan Rank: Riskbreaker,9036,AND(I(8071)|I(Hunt|16)),8,ClanRank,
-Clan Hall,Clan Rank: Paragon of Justice,9037,AND(I(8071)|I(Hunt|24)),9,ClanRank,
-Clan Hall,Clan Rank: High Guardian,9038,AND(I(8071)|I(Hunt|28)),10,ClanRank,
-Clan Hall,Clan Rank: Knight of the Round,9039,AND(I(8071)|I(Hunt|32)),11,ClanRank,
-Clan Hall,Clan Rank: Order of Ambrosia,903A,AND(I(8071)|I(Hunt|45)|I(Esper|13)|I(HuntClubKill|30)|I(80B6)|I(80B5)),12,ClanRank|Missable,
-Clan Hall,Clan Boss: Flans,903B,AND(I(8071)|I(8080)),1,ClanBoss,
-Clan Hall,Clan Boss: Firemane,903C,AND(I(8071)|I(8080)),1,ClanBoss,
-Clan Hall,Clan Boss: Earth Tyrant,903D,AND(I(8071)|I(80B1)|I(80B2)),4,ClanBoss,
-Clan Hall,Clan Boss: Mimic Queen,903E,AND(I(8071)|I(8080)|I(8074)),1,ClanBoss,
-Clan Hall,Clan Boss: Demon Wall 1,903F,AND(I(8071)|OR(I(Defeat Ghis)^1|I(80E0)^2|I(8077))),3,ClanBoss,
-Clan Hall,Clan Boss: Demon Wall 2,9040,AND(I(8071)|OR(I(Defeat Ghis)^1|I(80E0)^2|I(8077))),1,ClanBoss,
-Clan Hall,Clan Boss: Elder Wyrm,9041,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(8071)),3,ClanBoss,
-Clan Hall,Clan Boss: Tiamat,9042,AND(I(8071)|OR(I(8077)|I(80E0))^1),2,ClanBoss,
-Clan Hall,Clan Boss: Vinuskar,9043,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(8071)),2,ClanBoss,
-Clan Hall,Clan Boss: King Bomb,9044,AND(I(8071)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),5,ClanBoss,
-Clan Hall,Clan Boss: Mandragora,9045,AND(I(8071)|I(80B6)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AERO(80E4)^3|AERO(80E5)^1)),4,ClanBoss,
-Clan Hall,Clan Boss: Ahriman,9046,AND(I(8071)|I(80B6)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AERO(80E4)^3|AERO(80E5)^1)),5,ClanBoss,
-Clan Hall,Clan Boss: Hell Wyrm,9047,AND(I(8071)|I(80B6)|I(80B5)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AERO(80E4)^3|AERO(80E5)^1)),7,ClanBoss,
-Clan Hall,Clan Boss: Rafflesia,9048,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(8071)),4,ClanBoss,
-Clan Hall,Clan Boss: Daedulus,9049,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(8071)|I(Belias)),5,ClanBoss,
-Clan Hall,Clan Boss: Tyrant,904A,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(8071)|I(Belias)),5,ClanBoss,
-Clan Hall,Clan Boss: Hydro,904B,AND(I(8071)|I(8077)),5,ClanBoss,
-Clan Hall,Clan Boss: Humbaba Mistant,904C,AND(I(8071)|I(8081)|I(8084)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,ClanBoss,
-Clan Hall,Clan Boss: Fury,904D,AND(I(8071)|I(8083)|I(8084)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,ClanBoss,
-Clan Hall,Clan Boss: Omega Mark XII,905A,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(8071)),8,ClanBoss,
-Tomb of Raithwall,Belias,_1,OR(I(Defeat Ghis)^1|I(80E0)^2|I(8077)),0,Fake,Esper|Belias
-Stilshrine of Miriam,Mateus,_2,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(8078)),0,Fake,Esper
-Zertinan Caverns,Adrammelech,_3,OR(I(8077)|I(80E0)),0,Fake,Esper
-Barheim Passage,Zalera,_4,I(8093),0,Fake,Esper
-Giruvegan,Shemhazai,_5,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(Belias)),0,Fake,Esper
-Pharos of Ridorana,Hashmal,_6,AND(I(8077)|I(2116|3)),0,Fake,Esper
-Garamsythe Waterway,Cuchulainn,_7,I(80AF),0,Fake,Esper
-Stilshrine of Miriam,Zeromus,_8,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(8078)|I(8085)),0,Fake,Esper
-Mosphoran Highwaste,Exodus,_9,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1),0,Fake,Esper
-Pharos of Ridorana,Famfrit,_10,AND(I(8077)|I(2116|3)|OR(I(808B)|I(808C))|OR(SELECT(2|I(8078)|I(80AC)|I(8089)))),0,Fake,Esper
-Necrohol of Nabudis,Chaos,_11,AND(I(8082)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),0,Fake,Esper
-Giruvegan,Ultima,_12,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^2)|I(Belias)),0,Fake,Esper
-Henne Mines,Zodiark,_13,AND(I(Esper|10)|OR(I(8077)|I(80E0)^1)),0,Fake,Esper
-Balfonheim,Reddas,_14,AND(I(Defeat Cid)^4|I(808C)),0,Fake,Guest
-Lowtown,Basch,_15,I(8075),0,Fake,Basch
-Clan Hall,Clan Esper: Control 1,904E,AND(I(8071)|I(Esper|1)),1,ClanEsper,
-Clan Hall,Clan Esper: Control 4,904F,AND(I(8071)|I(Esper|4)),3,ClanEsper,
-Clan Hall,Clan Esper: Control 8,9050,AND(I(8071)|I(Esper|8)),5,ClanEsper,
-Clan Hall,Clan Esper: Control 13,9051,AND(I(8071)|I(Esper|13)),8,ClanEsper,
-Dalmasca Estersand,Flowering Cactoid Drop,916D,,1,,
-Dalmasca Estersand,Patient Barheim Key,916E,I(8073),2,,
-Dalmasca Estersand,Dantro's Wife Give Cactus Flower,9081,I(8073),1,,
-Dalmasca Estersand,Cactus Family Quest,908A,I(8073),1,,
-Mt. Bur-Omisace,Acolyte Stone of the Condemner,916F,AND(OR(I(8077)|AND(I(80B7)|I(80E0))^1)|I(808B)),3,,Defeat Bergan
-Dalmasca Westersand,Earth Tyrant Quest Wind Globe,9170,,1,,
-Rabanastre,Earth Tyrant Quest Windvane,9171,I(80B1),1,,
-Garamsythe Waterway,White Mouse Drop,9172,,5,,
-Rabanastre,Sorbet Sluice Gate Key,9173,I(80AE),5,,
-Ozmone Plain,Enkelados Drop,9174,OR(I(8077)|I(80E0)^1),3,,
-Giza Plains Dry,Lesina Give Errmonea Leaf,9062,AND(I(8086)|OR(I(8077)|I(80E0)^1)),3,,
-Bhujerba,Pilika Merchant's Armband,9175,AND(I(8071)|AERO(80E3)),1,,
-Bhujerba,Clio's Technicks Pilika's Diary,9176,AND(I(8071)|I(8098)|AERO(80E3)),1,,
-Bhujerba,Pilika Give Pilika's Diary,908D,AND(I(8071)|I(8098)|I(8099)|AERO(80E3)),1,,
-Golmore Jungle,Vorpal Bunny Drop,9177,OR(I(8077)|AND(I(80E0)|I(80B7))),3,,
-Giza Plains Rains,Croakadile Drop,9178,I(80E0),2,,
-Tchita Uplands,Lindwyrm Drop,9179,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1),5,,
-Giza Plains Rains,Nomads Silent Urn,917A,AND(I(8071)|I(80E0)),3,,
-Garamsythe Waterway,Orthros Drop,917B,AND(I(8071)|I(Fran)|I(Ashe)|I(Penelo)),5,,
-Bhujerba,Niray Site 3 Key,917D,AND(I(8071)|AERO(80E3)),0,,
-Phon Coast,Site 11 Key,917E,AND(I(8071)|I(807E)|AERO(80E3)),5,,
-Paramina Rift,Fafnir Drop,917F,OR(I(8077)|AND(I(80E0)|I(80B7))^1),7,,
-Zertinan Caverns,Marilith Drop,9180,,5,,
-Cerobi Steppe,Vyraal Drop,9181,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1),5,,
-Balfonheim,Viera Wayfarer Dragon Scale,9182,AND(I(809B)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),5,,
-Cerobi Steppe,Wyrm Philosopher Ageworn Key,9183,AND(I(809B)|I(80B4)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),5,,
-Skyferry,Ann's Letter,9184,OR(AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|false)|AERO(80E4|false)|AERO(80E5|false)),2,,
-Skyferry,Ann's Sisters Quest,906C,AND(I(8088)|AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|false)|AERO(80E4|false)|AERO(80E5|false)),7,Grindy,
-Lowtown,Dusty Letter,9185,,2,,
-Lowtown,Samal Blackened Fragment,917C,AND(I(8071)|I(8092)|I(Fran)|I(Ashe)|I(Penelo)),5,,
-Garamsythe Waterway,Dull Fragment,9186,AND(I(80AF)|OR(I(Defeat Bergan)|I(8073)|AND(I(80B1)|I(80B2))|AND(AERO(80E4)|I(80B6))|AERO(80E5))),0,,
-Rabanastre,Grimy Fragment,9187,AND(I(809B)|I(80B4)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),5,,
-Old Archades,Moonsilver Medallion,9188,OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AERO(80E5)^1)|I(80B6))|AERO(80E4)),5,,
-Nabreus Deadlands,Nabreus Medallion,9189,AND(I(808F)|I(8090)|I(8091)|I(80A3)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),6,,
-Nabreus Deadlands,Nabreus Medallion,918A,AND(I(808F)|I(8090)|I(8091)|I(80A3)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),6,,
-Nabreus Deadlands,Nabreus Medallion,918B,AND(I(808F)|I(8090)|I(8091)|I(80A3)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),6,,
-Necrohol of Nabudis,Medallion of Might,918C,AND(I(8081)|I(8083)|I(8084)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,,
-Rabanastre,Viera Rendeveous,9056,,1,,
-Rabanastre,Ktjn Reward,9058,I(8071),2,,
-Nalbina Fortress,Jovy Reward,906A,I(Jovy|5),7,Hunt,
-Dalmasca Estersand,Outpost Mysterious Glint,906E,,0,,
-Dalmasca Estersand,Outpost Mysterious Glint,906F,,0,,
-Dalmasca Estersand,Outpost Mysterious Glint,9057,,0,,
-Dalmasca Estersand,Outpost Mysterious Glint,9070,,0,,
-Dalmasca Estersand,Outpost Mysterious Glint,9059,,0,,
-Balfonheim,Footrace,908F,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)),0,,
-Phon Coast,Thalassinon - Shelled Trophy,9090,OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1),6,,HuntClubStart
-Garamsythe Waterway,Gavial - Fur-scaled Trophy,9091,AND(I(80B8)|I(HuntClubStart)),6,,HuntClubKill
-Barheim Passage,Ishteen - Bony Trophy,9092,AND(I(8093)|I(80B8)|I(HuntClubStart)),7,,HuntClubKill
-Dalmasca Westersand,Kaiser Wolf - Fanged Trophy,9093,AND(I(80B8)|I(HuntClubStart)),5,,HuntClubKill
-Dalmasca Estersand,Terror Tyrant - Hide-covered Trophy,9094,AND(I(80B8)|I(HuntClubStart)),7,,HuntClubKill
-Giza Plains Dry,Nazarnir - Maned Trophy,9095,AND(I(80B8)|I(HuntClubStart)),7,,HuntClubKill
-Zertinan Caverns,Alteci - Fell Trophy,9096,AND(I(80B8)|OR(I(8077)|I(80E0)^1)|I(HuntClubStart)),5,,HuntClubKill
-Lhusu Mines,Disma - Accursed Trophy,9097,AND(I(807E)|I(807F)|AERO(80E3)|I(HuntClubStart)),7,,HuntClubKill
-Ogir-Yensa Sandsea,Bull Chocobo - Beaked Trophy,9098,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Ghis)|I(80E0)|I(8077))),7,,HuntClubKill
-Nam-Yensa Sandsea,Victanir - Maverick Trophy,9099,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Ghis)|I(80E0)|I(8077))),7,,HuntClubKill
-Tomb of Raithwall,Zombie Lord - Soulless Trophy,909A,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Ghis)|I(80E0)|I(8077))),6,,HuntClubKill
-Mosphoran Highwaste,Dheed - Leathern Trophy,909B,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,,HuntClubKill
-Salikawood,Sickle Trophy,909C,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),5,,HuntClubKill
-Nabreus Deadlands,Arioch - Vengeful Trophy,909D,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,,HuntClubKill
-Necrohol of Nabudis,Vorres - Gravesoil Trophy,909E,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,,HuntClubKill
-Ozmone Plain,Killbug - Metallic Trophy,909F,AND(I(80B8)|OR(I(8077)|I(80E0))|I(HuntClubStart)),6,,HuntClubKill
-Henne Mines,Melt - Slimy Trophy,90A0,AND(I(80B8)|OR(I(8077)|I(80E0))|I(HuntClubStart)),7,,HuntClubKill
-Golmore Jungle,Biding Mantis - Scythe Trophy,90A1,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(80B8)|I(HuntClubStart)),6,,HuntClubKill
-Feywood,Dreadguard - Feathered Trophy,90A2,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(80B8)|I(HuntClubStart)),7,,HuntClubKill
-Giruvegan,Crystal Knight - Skull Trophy,90A3,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(80B8)|I(Belias)|I(HuntClubStart)),5,,HuntClubKill
-Paramina Rift,Ancbolder - Mind Trophy,90A4,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(80B8)|I(HuntClubStart)),5,,HuntClubKill
-Stilshrine of Miriam,Myath - Eternal Trophy,90A5,AND(OR(I(8077)|AND(I(80B7)|I(80E0)))|I(8078)|I(80B8)|I(HuntClubStart)),5,,HuntClubKill
-Phon Coast,Skullash - Clawed Trophy,90A6,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,,HuntClubKill
-Tchita Uplands,Kris - Odiferous Trophy,90A7,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,,HuntClubKill
-Tchita Uplands,Grimalkin - Whiskered Trophy,90A8,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,,HuntClubKill
-Sochen Cave Palace,Wendice - Frigid Trophy,90A9,AND(I(80B6)|I(80B8)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)|I(HuntClubStart)),5,,HuntClubKill
-Sochen Cave Palace,Anubys - Ensanguined Trophy,90AA,AND(I(80B6)|I(80B8)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)|I(HuntClubStart)),7,,HuntClubKill
-Cerobi Steppe,Bluesang - Cruel Trophy,90AB,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,,HuntClubKill
-Cerobi Steppe,Aspidochelon - Adamantine Trophy,90AC,AND(I(80B8)|I(HuntClubStart)|OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AND(AERO(80E4)|I(80B6))^3|AERO(80E5)^1)),7,,HuntClubKill
-Ridorana Cataract,Abelisk - Reptilian Trophy,90AD,AND(I(8077)|I(80B8)|I(HuntClubStart)),7,,HuntClubKill
-Pharos of Ridorana,Avenger - Vile Trophy,90AE,AND(I(8077)|I(2116|3)|I(80B8)|I(HuntClubStart)),7,,HuntClubKill
-Archades,Hunt Club Owner 5 Trophy Rares Defeated,90F9,AND(I(2112)|I(HuntClubKill|5)|OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AERO(80E5))|I(80B6))^3|AERO(80E4))),6,Grindy,
-Archades,Hunt Club Owner 10 Trophy Rares Defeated,90FA,AND(I(2112)|I(HuntClubKill|10)|OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AERO(80E5))|I(80B6))^3|AERO(80E4))),7,Grindy,
-Archades,Hunt Club Owner 15 Trophy Rares Defeated,90FB,AND(I(2112)|I(HuntClubKill|15)|OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AERO(80E5))|I(80B6))^3|AERO(80E4))),7,Grindy,
-Archades,Hunt Club Owner 20 Trophy Rares Defeated,90FC,AND(I(2112)|I(HuntClubKill|20)|OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AERO(80E5))|I(80B6))^3|AERO(80E4))),8,Grindy,
-Archades,Hunt Club Owner 25 Trophy Rares Defeated,90FD,AND(I(2112)|I(HuntClubKill|25)|OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AERO(80E5))|I(80B6))^3|AERO(80E4))),9,Grindy,
-Archades,Hunt Club Owner 30 Trophy Rares Defeated,90FE,AND(I(2112)|I(HuntClubKill|30)|OR(AND(OR(I(Defeat Bergan)^3|I(8073)^1|AND(I(80B1)|I(80B2))^2|AERO(80E5))|I(80B6))^3|AERO(80E4))),10,Grindy,
-Phon Coast,All Trophies Atak 16 or more,90F3,AND(I(80B8)|I(HuntClubStart)),10,Missable,
-Phon Coast,All Trophies Atak 15 or less,90F4,AND(I(80B8)|I(HuntClubStart)),10,Missable,
-Phon Coast,All Trophies Blok 16 or more,90F5,AND(I(80B8)|I(HuntClubStart)),10,Missable,
-Phon Coast,All Trophies Blok 15 or less,90F6,AND(I(80B8)|I(HuntClubStart)),10,Missable,
-Phon Coast,All Trophies Stok 16 or more,90F7,AND(I(80B8)|I(HuntClubStart)),10,Missable,
-Phon Coast,All Trophies Stok 15 or less,90F8,AND(I(80B8)|I(HuntClubStart)),10,Missable,
-Phon Coast,"Atak 1, Blok 0, Stok 0 Outfitters",90FF,AND(I(80B8)|I(HuntClubStart)),5,Missable,
-Phon Coast,"Atak 0, Blok 1, Stok 0 Outfitters",9100,AND(I(80B8)|I(HuntClubStart)),5,Missable,
-Phon Coast,"Atak 0, Blok 0, Stok 1 Outfitters",9101,AND(I(80B8)|I(HuntClubStart)),5,Missable,
-Phon Coast,"Atak 5, Blok 0, Stok 0 Outfitters",9102,AND(I(80B8)|I(HuntClubStart)),6,Missable,
-Phon Coast,"Atak 0, Blok 5, Stok 0 Outfitters",9103,AND(I(80B8)|I(HuntClubStart)),6,Missable,
-Phon Coast,"Atak 0, Blok 0, Stok 5 Outfitters",9104,AND(I(80B8)|I(HuntClubStart)),6,Missable,
-Phon Coast,"Atak 10, Blok 0, Stok 0 Outfitters",9105,AND(I(80B8)|I(HuntClubStart)),7,Missable,
-Phon Coast,"Atak 0, Blok 10, Stok 0 Outfitters",9106,AND(I(80B8)|I(HuntClubStart)),7,Missable,
-Phon Coast,"Atak 0, Blok 0, Stok 10 Outfitters",9107,AND(I(80B8)|I(HuntClubStart)),7,Missable,
-Phon Coast,"Atak 15, Blok 0, Stok 0 Outfitters",9108,AND(I(80B8)|I(HuntClubStart)),7,Missable,
-Phon Coast,"Atak 0, Blok 15, Stok 0 Outfitters",9109,AND(I(80B8)|I(HuntClubStart)),7,Missable,
-Phon Coast,"Atak 0, Blok 0, Stok 15 Outfitters",910A,AND(I(80B8)|I(HuntClubStart)),7,Missable,
-Phon Coast,"Atak 10, Blok 5, Stok 0 Outfitters",910B,AND(I(80B8)|I(HuntClubStart)),7,Missable,
-Phon Coast,"Atak 20, Blok 0, Stok 0 Outfitters",910C,AND(I(80B8)|I(HuntClubStart)),8,Missable,
-Phon Coast,"Atak 0, Blok 20, Stok 0 Outfitters",910D,AND(I(80B8)|I(HuntClubStart)),8,Missable,
-Phon Coast,"Atak 0, Blok 0, Stok 20 Outfitters",910E,AND(I(80B8)|I(HuntClubStart)),8,Missable,
-Phon Coast,"Atak 5, Blok 10, Stok 5 Outfitters",910F,AND(I(80B8)|I(HuntClubStart)),8,Missable,
-Phon Coast,"Atak 25, Blok 0, Stok 0 Outfitters",9110,AND(I(80B8)|I(HuntClubStart)),9,Missable,
-Phon Coast,"Atak 0, Blok 25, Stok 0 Outfitters",9111,AND(I(80B8)|I(HuntClubStart)),9,Missable,
-Phon Coast,"Atak 0, Blok 0, Stok 25 Outfitters",9112,AND(I(80B8)|I(HuntClubStart)),9,Missable,
-Phon Coast,"Atak 5, Blok 5, Stok 15 Outfitters",9113,AND(I(80B8)|I(HuntClubStart)),9,Missable,
-Phon Coast,"Atak 30, Blok 0, Stok 0 Outfitters",9114,AND(I(80B8)|I(HuntClubStart)),10,Missable,
-Phon Coast,"Atak 0, Blok 30, Stok 0 Outfitters",9115,AND(I(80B8)|I(HuntClubStart)),10,Missable,
-Phon Coast,"Atak 0, Blok 0, Stok 30 Outfitters",9116,AND(I(80B8)|I(HuntClubStart)),10,Missable,
-Phon Coast,"Atak 10, Blok 10, Stok 10 Outfitters",9117,AND(I(80B8)|I(HuntClubStart)),10,Missable,
-Phon Coast,"Atak 25, Blok 1, Stok 1 Outfitters",9118,AND(I(80B8)|I(HuntClubStart)),9,Missable,
-Phon Coast,"Atak 1, Blok 25, Stok 1 Outfitters",9119,AND(I(80B8)|I(HuntClubStart)),9,Missable,
-Phon Coast,"Atak 1, Blok 1, Stok 25 Outfitters",911A,AND(I(80B8)|I(HuntClubStart)),9,Missable,
-Phon Coast,"Atak 12, Blok 5, Stok 5 Outfitters",911B,AND(I(80B8)|I(HuntClubStart)),8,Missable,
-Phon Coast,"Atak 5, Blok 12, Stok 5 Outfitters",911C,AND(I(80B8)|I(HuntClubStart)),8,Missable,
-Phon Coast,"Atak 5, Blok 5, Stok 12 Outfitters",911D,AND(I(80B8)|I(HuntClubStart)),8,Missable,
+Location,Name,ID,Requirements,Rank,Traits
+Rabanastre,Tomaj 1,9000,,0,WritTomaj
+Rabanastre,Tomaj 2,916B,,0,
+Rabanastre,Tomaj 3,916C,,0,
+Giza Plains Dry,Masyua Shadestone,9002,,0,
+Giza Plains Dry,Giza Sunstone,9001,I(8079),1,
+Lowtown,Dalan Crescent Stone,905E,I(807A),0,
+Lowtown,Dalan Sword of the Order,905F,I(80AC),0,
+Lowtown,Balzac Sword of the Order Turn In,911E,I(8075),0,
+Dreadnought Leviathan,No. 1 Brig Key,9060,I(Dreadnought Leviathan),1,
+Dreadnought Leviathan,Systems Access Key,9061,AND(I(Dreadnought Leviathan)|I(8076)),1,
+Dreadnought Leviathan,Manufacted Nethicite,912C,AND(I(Dreadnought Leviathan)|I(8076)),1,
+Nam-Yensa Sandsea,Eksir Berries,912D,I(Sandseas),1,
+Tomb of Raithwall,Dawn Shard,912E,I(Sandseas),2,
+Tomb of Raithwall,Defeat Vossler,918E,AND(I(8078)|I(Sandseas)),2,
+Royal Palace,Goddess's Magicite,912F,I(8080),1,
+Barheim Passage,Burrough Tube Fuse,9130,I(8080),1,
+Jahara,Great-chief Elder After Dawn Shard,911F,AND(I(Ozmone Plain)|I(Defeat Ghis)),2,
+Eruyt Village,Lente's Tear,9131,I(Ozmone Plain),2,
+Stilshrine of Miriam,Sword of Kings,9132,AND(I(Paramina Rift)|I(8078)),2,
+Tchita Uplands,Soul Ward Key,9133,I(Tchita Uplands),3,
+Tchita Uplands,Mandragora Reward,9052,AND(I(Tchita Uplands)|I(Sochen Cave Palace)),3,
+Draklor Laboratory,Defeat Cid 1,918D,AND(I(Draklor Laboratory)|I(809E)),5,
+Archades,Pinewood Chop 1,9134,I(Archades),0,Chop1
+Archades,Pinewood Chop 2,9135,I(Archades),0,Chop2
+Archades,Pinewood Chop 3,9136,I(Archades),0,Chop3
+Archades,Pinewood Chop 4,9137,I(Archades),0,Chop4
+Archades,Pinewood Chop 5,9138,I(Archades),0,Chop5
+Archades,Pinewood Chop 6,9139,I(Archades),0,Chop6
+Archades,Pinewood Chop 7,913A,I(Archades),0,Chop7
+Archades,Pinewood Chop 8,913B,I(Archades),0,Chop8
+Archades,Pinewood Chop 9,913C,I(Archades),0,Chop9
+Archades,Pinewood Chop 10,913D,I(Archades),0,Chop10
+Archades,Pinewood Chop 11,913E,I(Archades),0,Chop11
+Archades,Pinewood Chop 12,913F,I(Archades),0,Chop12
+Archades,Pinewood Chop 13,9140,I(Archades),0,Chop13
+Archades,Pinewood Chop 14,9141,I(Archades),0,Chop14
+Archades,Pinewood Chop 15,9142,I(Archades),0,Chop15
+Archades,Pinewood Chop 16,9143,I(Archades),0,Chop16
+Archades,Pinewood Chop 17,9144,I(Archades),0,Chop17
+Archades,Pinewood Chop 18,9145,I(Archades),0,Chop18
+Archades,Pinewood Chop 19,9146,I(Archades),0,Chop19
+Archades,Pinewood Chop 20,9147,I(Archades),0,Chop20
+Archades,Pinewood Chop 21,9148,I(Archades),0,Chop21
+Archades,Pinewood Chop 22,9149,I(Archades),0,Chop22
+Archades,Pinewood Chop 23,914A,I(Archades),0,Chop23
+Archades,Pinewood Chop 24,914B,I(Archades),0,Chop24
+Archades,Pinewood Chop 25,914C,I(Archades),0,Chop25
+Archades,Pinewood Chop 26,914D,I(Archades),0,Chop26
+Archades,Pinewood Chop 27,914E,I(Archades),0,Chop27
+Archades,Pinewood Chop 28,914F,I(Archades),0,Chop28
+Archades,Sandalwood Chop,9150,AND(I(2113|28)|I(Archades)),2,
+Draklor Laboratory,Lab Access Card,9151,I(Draklor Laboratory),0,
+Giruvegan,Treaty-Blade,9152,AND(I(Paramina Rift)|I(Belias)),5,
+Pharos of Ridorana,Black Orb 1,9153,I(8077),6,BlackOrb1
+Pharos of Ridorana,Black Orb 2,9154,I(8077),6,BlackOrb2
+Pharos of Ridorana,Black Orb 3,9155,I(8077),6,BlackOrb3
+Pharos of Ridorana,Defeat Cid 2,918F,AND(I(8077)|I(2116|3)|OR(I(808B)|I(808C))|OR(SELECT(2|I(8078)|I(80AC)|I(8089)))),7,WritCid2
+Pharos of Ridorana Subterra,Black Orb 4,9156,AND(I(8077)|I(2116|3)),7,BlackOrb4
+Pharos of Ridorana Subterra,Black Orb 5,9157,AND(I(8077)|I(2116|3)),7,BlackOrb5
+Pharos of Ridorana Subterra,Black Orb 6,9158,AND(I(8077)|I(2116|3)),7,BlackOrb6
+Pharos of Ridorana Subterra,Black Orb 7,9159,AND(I(8077)|I(2116|3)),7,BlackOrb7
+Pharos of Ridorana Subterra,Black Orb 8,915A,AND(I(8077)|I(2116|3)),7,BlackOrb8
+Pharos of Ridorana Subterra,Black Orb 9,915B,AND(I(8077)|I(2116|8)),7,BlackOrb9
+Pharos of Ridorana Subterra,Black Orb 10,915C,AND(I(8077)|I(2116|8)),7,BlackOrb10
+Pharos of Ridorana Subterra,Black Orb 11,915D,AND(I(8077)|I(2116|8)),7,BlackOrb11
+Pharos of Ridorana Subterra,Black Orb 12,915E,AND(I(8077)|I(2116|8)),7,BlackOrb12
+Pharos of Ridorana Subterra,Black Orb 13,915F,AND(I(8077)|I(2116|8)),7,BlackOrb13
+Pharos of Ridorana Subterra,Black Orb 14,9160,AND(I(8077)|I(2116|8)),7,BlackOrb14
+Pharos of Ridorana Subterra,Black Orb 15,9161,AND(I(8077)|I(2116|8)),7,BlackOrb15
+Pharos of Ridorana Subterra,Black Orb 16,9162,AND(I(8077)|I(2116|15)),7,BlackOrb16
+Pharos of Ridorana Subterra,Black Orb 17,9163,AND(I(8077)|I(2116|15)),7,BlackOrb17
+Pharos of Ridorana Subterra,Black Orb 18,9164,AND(I(8077)|I(2116|15)),7,BlackOrb18
+Pharos of Ridorana Subterra,Black Orb 19,9165,AND(I(8077)|I(2116|15)),7,BlackOrb19
+Pharos of Ridorana Subterra,Black Orb 20,9166,AND(I(8077)|I(2116|15)),7,BlackOrb20
+Pharos of Ridorana Subterra,Black Orb 21,9167,AND(I(8077)|I(2116|15)),7,BlackOrb21
+Pharos of Ridorana Subterra,Black Orb 22,9168,AND(I(8077)|I(2116|15)),7,BlackOrb22
+Pharos of Ridorana Subterra,Black Orb 23,9169,AND(I(8077)|I(2116|15)),7,BlackOrb23
+Pharos of Ridorana Subterra,Black Orb 24,916A,AND(I(8077)|I(2116|15)),7,BlackOrb24
+Rabanastre,Hunt 1: Rogue Tomato,9003,,1,Hunt
+Rabanastre,Hunt 2: Thextera,9004,,1,Hunt
+Dalmasca Estersand,Hunt 3: Flowering Cactoid,9005,I(8073),1,Hunt
+Lowtown,Hunt 4: Wraith,9006,,1,Hunt
+Bhujerba,Hunt 5: Nidhogg,9007,AERO(80E3),1,Hunt
+Rabanastre,Hunt 6: White Mousse,9008,I(80AE),5,Hunt
+Lowtown,Hunt 7: Ring Wyrm,9009,,3,Hunt
+Rabanastre,Hunt 8: Wyvern Lord,900A,I(Sandseas),2,Hunt
+Rabanastre,Hunt 9: Marilith,900B,I(808E),5,Hunt
+Jahara,Hunt 10: Enkelados,900C,AND(I(8086)|I(Ozmone Plain)),2,Hunt
+Giza Plains Rains,Hunt 11: Croakadile,900D,AND(I(807C)|I(80E0)),2,Hunt
+Jahara,Hunt 12: Ixtab,900E,I(Ozmone Plain),2,Hunt
+Mt. Bur-Omisace,Hunt 13: Feral Retriever,900F,I(Paramina Rift),3,Hunt
+Eruyt Village,Hunt 14: Vorpal Bunny,9010,AND(I(Ozmone Plain)|I(Paramina Rift)),3,Hunt
+Jahara,Hunt 15: Mindflayer,9011,I(Ozmone Plain),4,Hunt
+Dalmasca Estersand,Hunt 16: Bloodwing,9012,I(8093),5,Hunt
+Nalbina Fortress,Hunt 17: Atomos,9013,I(Tchita Uplands),3,Hunt
+Nalbina Fortress,Hunt 18: Roblon,9014,I(Tchita Uplands),6,Hunt
+Mosphoran Highwaste,Hunt 19: Braegh,9015,I(Tchita Uplands),4,Hunt
+Archades,Hunt 20: Darksteel,9016,AND(I(Sochen Cave Palace)|I(Archades)),4,Hunt
+Balfonheim,Hunt 21: Vyraal,9017,AND(I(809B)|I(Tchita Uplands)),5,Hunt
+Old Archades,Hunt 22: Lindwyrm,9018,AND(I(Tchita Uplands)|I(Archades)),5,Hunt
+Archades,Hunt 23: Overlord,9019,AND(I(Tchita Uplands)|I(Archades)),6,Hunt
+Nalbina Fortress,Hunt 24: Goliath,901A,I(Tchita Uplands),6,Hunt
+Nalbina Fortress,Hunt 25: Deathscythe,901B,I(Tchita Uplands),6,Hunt
+Skyferry,Hunt 26: Deathgaze,901C,OR(AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|false)|AERO(80E4|false)|AERO(80E5|false)),7,Hunt
+Bhujerba,Hunt 27: Diabolos,901D,AERO(80E3),7,Hunt
+Mt. Bur-Omisace,Hunt 28: Piscodaemon,901E,AND(I(Paramina Rift)|I(Belias)),5,Hunt
+Eruyt Village,Hunt 29: Wild Malboro,901F,I(Paramina Rift),6,Hunt
+Jahara,Hunt 30: Catoblepas,9020,I(Ozmone Plain),6,Hunt
+Mt. Bur-Omisace,Hunt 31: Fafnir,9021,AND(I(Paramina Rift)|I(809A)),7,Hunt
+Balfonheim,Hunt 32: Pylraster,9022,I(8077),7,Hunt
+Giza Plains Dry,Hunt 33: Cluckatrice,9023,I(8071),1,Hunt
+Bhujerba,Hunt 34: Rocktoise,9024,AND(I(8071)|AERO(80E3)),1,Hunt
+Lowtown,Hunt 35: Orthros,9025,AND(I(8071)|I(8092)|I(Fran)|I(Ashe)|I(Penelo)),5,Hunt
+Giza Plains Dry,Hunt 36: Gil Snapper,9026,AND(I(8071)|I(807D)|I(80E0)),3,Hunt
+Mt. Bur-Omisace,Hunt 37: Trickster,9027,AND(I(Paramina Rift)|I(8071)),5,Hunt
+Bhujerba,Hunt 38: Antlion,9028,AND(I(8071)|I(807E)|AERO(80E3)),5,Hunt
+Aerodrome,Hunt 39: Carrot,9029,AND(I(8071)|I(Tchita Uplands)),7,Hunt
+Clan Hall,Hunt 40: Gilgamesh,902A,AND(I(8071)|I(807E)|I(807F)|AERO(80E3)),7,Hunt
+Clan Hall,Hunt 41: Belito,9122,AND(I(8071)|I(Sandseas)|I(Ozmone Plain)),5,Hunt
+Lowtown,Hunt 42: Behemoth King,902B,AND(I(Paramina Rift)|I(8071)),7,Hunt
+Balfonheim,Hunt 43: Ixion,902C,AND(I(8071)|I(8077)),6,Hunt
+Clan Hall,Hunt 44: Shadowseer,902D,AND(I(8071)|I(8077)|I(2116|24)),6,Hunt
+Clan Hall,Hunt 45: Yiazmat,902E,AND(I(8071)|I(8077)),8,Hunt
+Clan Hall,Clan Rank: Moppet,902F,I(8071),1,ClanRank
+Clan Hall,Clan Rank: Hedge Knight,9030,AND(I(8071)|I(Hunt|2)),2,ClanRank
+Clan Hall,Clan Rank: Rear Guard,9031,AND(I(8071)|I(Hunt|4)),3,ClanRank
+Clan Hall,Clan Rank: Vanguard,9032,AND(I(8071)|I(Hunt|8)),4,ClanRank
+Clan Hall,Clan Rank: Headhunter,9033,AND(I(8071)|I(Hunt|10)),5,ClanRank
+Clan Hall,Clan Rank: Ward of Justice,9034,AND(I(8071)|I(Hunt|12)),6,ClanRank
+Clan Hall,Clan Rank: Brave Companion,9035,AND(I(8071)|I(Hunt|14)),7,ClanRank
+Clan Hall,Clan Rank: Riskbreaker,9036,AND(I(8071)|I(Hunt|16)),8,ClanRank
+Clan Hall,Clan Rank: Paragon of Justice,9037,AND(I(8071)|I(Hunt|24)),9,ClanRank
+Clan Hall,Clan Rank: High Guardian,9038,AND(I(8071)|I(Hunt|28)),10,ClanRank
+Clan Hall,Clan Rank: Knight of the Round,9039,AND(I(8071)|I(Hunt|32)),11,ClanRank
+Clan Hall,Clan Rank: Order of Ambrosia,903A,AND(I(8071)|I(Hunt|45)|I(Esper|13)|I(HuntClubKill|30)|I(80B6)|I(80B5)),12,ClanRank|Missable
+Clan Hall,Clan Boss: Flans,903B,AND(I(8071)|I(8080)),1,ClanBoss
+Clan Hall,Clan Boss: Firemane,903C,AND(I(8071)|I(8080)),1,ClanBoss
+Clan Hall,Clan Boss: Earth Tyrant,903D,AND(I(8071)|I(Defeat Earth Tyrant)),4,ClanBoss
+Clan Hall,Clan Boss: Mimic Queen,903E,AND(I(8071)|I(8080)|I(8074)),1,ClanBoss
+Clan Hall,Clan Boss: Demon Wall 1,903F,AND(I(8071)|I(Sandseas)),3,ClanBoss
+Clan Hall,Clan Boss: Demon Wall 2,9040,AND(I(8071)|I(Sandseas)),1,ClanBoss
+Clan Hall,Clan Boss: Elder Wyrm,9041,AND(I(Paramina Rift)|I(8071)),3,ClanBoss
+Clan Hall,Clan Boss: Tiamat,9042,I(Ozmone Plain),2,ClanBoss
+Clan Hall,Clan Boss: Vinuskar,9043,AND(I(Paramina Rift)|I(8078)|I(8071)),2,ClanBoss
+Clan Hall,Clan Boss: King Bomb,9044,AND(I(8071)|I(Tchita Uplands)),5,ClanBoss
+Clan Hall,Clan Boss: Mandragora,9045,AND(I(8071)|I(Sochen Cave Palace)),4,ClanBoss
+Clan Hall,Clan Boss: Ahriman,9046,AND(I(8071)|I(Sochen Cave Palace)),5,ClanBoss
+Clan Hall,Clan Boss: Hell Wyrm,9047,AND(I(8071)|I(80B5)|I(Sochen Cave Palace)),7,ClanBoss
+Clan Hall,Clan Boss: Rafflesia,9048,AND(I(Paramina Rift)|I(8071)),4,ClanBoss
+Clan Hall,Clan Boss: Daedulus,9049,AND(I(Paramina Rift)|I(8071)|I(Belias)),5,ClanBoss
+Clan Hall,Clan Boss: Tyrant,904A,AND(I(Paramina Rift)|I(8071)|I(Belias)),5,ClanBoss
+Clan Hall,Clan Boss: Hydro,904B,AND(I(8071)|I(8077)),5,ClanBoss
+Clan Hall,Clan Boss: Humbaba Mistant,904C,AND(I(8071)|I(8081)|I(8084)|I(Tchita Uplands)),7,ClanBoss
+Clan Hall,Clan Boss: Fury,904D,AND(I(8071)|I(8083)|I(8084)|I(Tchita Uplands)),7,ClanBoss
+Clan Hall,Clan Boss: Omega Mark XII,905A,AND(I(Paramina Rift)|I(8071)|I(Belias)),8,ClanBoss
+Clan Hall,Clan Esper: Control 1,904E,AND(I(8071)|I(Esper|1)),1,ClanEsper
+Clan Hall,Clan Esper: Control 4,904F,AND(I(8071)|I(Esper|4)),3,ClanEsper
+Clan Hall,Clan Esper: Control 8,9050,AND(I(8071)|I(Esper|8)),5,ClanEsper
+Clan Hall,Clan Esper: Control 13,9051,AND(I(8071)|I(Esper|13)),8,ClanEsper
+Dalmasca Estersand,Flowering Cactoid Drop,916D,,1,
+Dalmasca Estersand,Patient Barheim Key,916E,I(8073),2,
+Dalmasca Estersand,Dantro's Wife Give Cactus Flower,9081,I(8073),1,
+Dalmasca Estersand,Cactus Family Quest,908A,I(8073),1,
+Mt. Bur-Omisace,Acolyte Stone of the Condemner,916F,AND(I(Paramina Rift)|I(808B)),3,
+Dalmasca Westersand,Earth Tyrant Quest Wind Globe,9170,,1,
+Rabanastre,Earth Tyrant Quest Windvane,9171,I(80B1),1,
+Garamsythe Waterway,White Mouse Drop,9172,,5,
+Rabanastre,Sorbet Sluice Gate Key,9173,I(80AE),5,
+Ozmone Plain,Enkelados Drop,9174,I(Ozmone Plain),3,
+Giza Plains Dry,Lesina Give Errmonea Leaf,9062,AND(I(8086)|I(Ozmone Plain)),3,
+Bhujerba,Pilika Merchant's Armband,9175,AND(I(8071)|AERO(80E3)),1,
+Bhujerba,Clio's Technicks Pilika's Diary,9176,AND(I(8071)|I(8098)|AERO(80E3)),1,
+Bhujerba,Pilika Give Pilika's Diary,908D,AND(I(8071)|I(8098)|I(8099)|AERO(80E3)),1,
+Golmore Jungle,Vorpal Bunny Drop,9177,I(Paramina Rift),3,
+Giza Plains Rains,Croakadile Drop,9178,I(80E0),2,
+Tchita Uplands,Lindwyrm Drop,9179,I(Tchita Uplands),5,
+Giza Plains Rains,Nomads Silent Urn,917A,AND(I(8071)|I(80E0)),3,
+Garamsythe Waterway,Orthros Drop,917B,AND(I(8071)|I(Fran)|I(Ashe)|I(Penelo)),5,
+Bhujerba,Niray Site 3 Key,917D,AND(I(8071)|AERO(80E3)),0,
+Phon Coast,Site 11 Key,917E,AND(I(8071)|I(807E)|AERO(80E3)),5,
+Paramina Rift,Fafnir Drop,917F,I(Paramina Rift),7,
+Zertinan Caverns,Marilith Drop,9180,,5,
+Cerobi Steppe,Vyraal Drop,9181,I(Tchita Uplands),5,
+Balfonheim,Viera Wayfarer Dragon Scale,9182,AND(I(809B)|I(Tchita Uplands)),5,
+Cerobi Steppe,Wyrm Philosopher Ageworn Key,9183,AND(I(809B)|I(80B4)|I(Tchita Uplands)),5,
+Skyferry,Ann's Letter,9184,OR(AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|false)|AERO(80E4|false)|AERO(80E5|false)),2,
+Skyferry,Ann's Sisters Quest,906C,AND(I(8088)|AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|false)|AERO(80E4|false)|AERO(80E5|false)),7,Grindy
+Lowtown,Dusty Letter,9185,,2,
+Lowtown,Samal Blackened Fragment,917C,AND(I(8071)|I(8092)|I(Fran)|I(Ashe)|I(Penelo)),5,
+Garamsythe Waterway,Dull Fragment,9186,AND(I(80AF)|I(Tchita Uplands)),0,
+Rabanastre,Grimy Fragment,9187,I(Tchita Uplands),5,
+Old Archades,Moonsilver Medallion,9188,AND(I(Tchita Uplands)|I(Archades)),5,
+Nabreus Deadlands,Nabreus Medallion,9189,AND(I(808F)|I(8090)|I(8091)|I(80A3)|I(Tchita Uplands)),6,
+Nabreus Deadlands,Nabreus Medallion,918A,AND(I(808F)|I(8090)|I(8091)|I(80A3)|I(Tchita Uplands)),6,
+Nabreus Deadlands,Nabreus Medallion,918B,AND(I(808F)|I(8090)|I(8091)|I(80A3)|I(Tchita Uplands)),6,
+Necrohol of Nabudis,Medallion of Might,918C,AND(I(8081)|I(8083)|I(8084)|I(Tchita Uplands)),7,
+Rabanastre,Viera Rendeveous,9056,,1,
+Rabanastre,Ktjn Reward,9058,I(8071),2,
+Nalbina Fortress,Jovy Reward,906A,I(Jovy|5),7,Hunt
+Dalmasca Estersand,Outpost Mysterious Glint,906E,,0,
+Dalmasca Estersand,Outpost Mysterious Glint,906F,,0,
+Dalmasca Estersand,Outpost Mysterious Glint,9057,,0,
+Dalmasca Estersand,Outpost Mysterious Glint,9070,,0,
+Dalmasca Estersand,Outpost Mysterious Glint,9059,,0,
+Balfonheim,Footrace,908F,I(Tchita Uplands),0,
+Phon Coast,Thalassinon - Shelled Trophy,9090,I(Tchita Uplands),6,
+Garamsythe Waterway,Gavial - Fur-scaled Trophy,9091,AND(I(80B8)|I(HuntClubStart)),6,
+Barheim Passage,Ishteen - Bony Trophy,9092,AND(I(8093)|I(80B8)|I(HuntClubStart)),7,
+Dalmasca Westersand,Kaiser Wolf - Fanged Trophy,9093,AND(I(80B8)|I(HuntClubStart)),5,
+Dalmasca Estersand,Terror Tyrant - Hide-covered Trophy,9094,AND(I(80B8)|I(HuntClubStart)),7,
+Giza Plains Dry,Nazarnir - Maned Trophy,9095,AND(I(80B8)|I(HuntClubStart)),7,
+Zertinan Caverns,Alteci - Fell Trophy,9096,AND(I(80B8)|I(Ozmone Plain)|I(HuntClubStart)),5,
+Lhusu Mines,Disma - Accursed Trophy,9097,AND(I(807E)|I(807F)|AERO(80E3)|I(HuntClubStart)),7,
+Ogir-Yensa Sandsea,Bull Chocobo - Beaked Trophy,9098,AND(I(80B8)|I(HuntClubStart)|I(Sandseas)),7,
+Nam-Yensa Sandsea,Victanir - Maverick Trophy,9099,AND(I(80B8)|I(HuntClubStart)|I(Sandseas)),7,
+Tomb of Raithwall,Zombie Lord - Soulless Trophy,909A,AND(I(80B8)|I(HuntClubStart)|I(Sandseas)),6,
+Mosphoran Highwaste,Dheed - Leathern Trophy,909B,AND(I(80B8)|I(HuntClubStart)|I(Tchita Uplands)),7,
+Salikawood,Sickle Trophy,909C,AND(I(80B8)|I(HuntClubStart)|I(Tchita Uplands)),5,
+Nabreus Deadlands,Arioch - Vengeful Trophy,909D,AND(I(80B8)|I(HuntClubStart)|I(Tchita Uplands)),7,
+Necrohol of Nabudis,Vorres - Gravesoil Trophy,909E,AND(I(80B8)|I(HuntClubStart)|I(Tchita Uplands)),7,
+Ozmone Plain,Killbug - Metallic Trophy,909F,AND(I(80B8)|I(Ozmone Plain)|I(HuntClubStart)),6,
+Henne Mines,Melt - Slimy Trophy,90A0,AND(I(80B8)|I(Ozmone Plain)|I(HuntClubStart)),7,
+Golmore Jungle,Biding Mantis - Scythe Trophy,90A1,AND(I(80B8)|I(Paramina Rift)|I(HuntClubStart)),6,
+Feywood,Dreadguard - Feathered Trophy,90A2,AND(I(80B8)|I(Paramina Rift)|I(HuntClubStart)),7,
+Giruvegan,Crystal Knight - Skull Trophy,90A3,AND(I(80B8)|I(Paramina Rift)|I(Belias)|I(HuntClubStart)),5,
+Paramina Rift,Ancbolder - Mind Trophy,90A4,AND(I(80B8)|I(Paramina Rift)|I(HuntClubStart)),5,
+Stilshrine of Miriam,Myath - Eternal Trophy,90A5,AND(I(80B8)|I(Paramina Rift)|I(8078)|I(HuntClubStart)),5,
+Phon Coast,Skullash - Clawed Trophy,90A6,AND(I(80B8)|I(HuntClubStart)|I(Tchita Uplands)),7,
+Tchita Uplands,Kris - Odiferous Trophy,90A7,AND(I(80B8)|I(HuntClubStart)|I(Tchita Uplands)),7,
+Tchita Uplands,Grimalkin - Whiskered Trophy,90A8,AND(I(80B8)|I(HuntClubStart)|I(Tchita Uplands)),7,
+Sochen Cave Palace,Wendice - Frigid Trophy,90A9,AND(I(80B8)|I(HuntClubStart)|I(Sochen Cave Palace)),5,
+Sochen Cave Palace,Anubys - Ensanguined Trophy,90AA,AND(I(80B8)|I(HuntClubStart)|I(Sochen Cave Palace)),7,
+Cerobi Steppe,Bluesang - Cruel Trophy,90AB,AND(I(80B8)|I(HuntClubStart)|I(Tchita Uplands)),7,
+Cerobi Steppe,Aspidochelon - Adamantine Trophy,90AC,AND(I(80B8)|I(HuntClubStart)|I(Tchita Uplands)),7,
+Ridorana Cataract,Abelisk - Reptilian Trophy,90AD,AND(I(8077)|I(80B8)|I(HuntClubStart)),7,
+Pharos of Ridorana,Avenger - Vile Trophy,90AE,AND(I(8077)|I(2116|3)|I(80B8)|I(HuntClubStart)),7,
+Archades,Hunt Club Owner 5 Trophy Rares Defeated,90F9,AND(I(2112)|I(HuntClubKill|5)|I(Archades)),6,Grindy
+Archades,Hunt Club Owner 10 Trophy Rares Defeated,90FA,AND(I(2112)|I(HuntClubKill|10)|I(Archades)),7,Grindy
+Archades,Hunt Club Owner 15 Trophy Rares Defeated,90FB,AND(I(2112)|I(HuntClubKill|15)|I(Archades)),7,Grindy
+Archades,Hunt Club Owner 20 Trophy Rares Defeated,90FC,AND(I(2112)|I(HuntClubKill|20)|I(Archades)),8,Grindy
+Archades,Hunt Club Owner 25 Trophy Rares Defeated,90FD,AND(I(2112)|I(HuntClubKill|25)|I(Archades)),9,Grindy
+Archades,Hunt Club Owner 30 Trophy Rares Defeated,90FE,AND(I(2112)|I(HuntClubKill|30)|I(Archades)),10,Grindy
+Phon Coast,All Trophies Atak 16 or more,90F3,AND(I(80B8)|I(HuntClubStart)),10,Missable
+Phon Coast,All Trophies Atak 15 or less,90F4,AND(I(80B8)|I(HuntClubStart)),10,Missable
+Phon Coast,All Trophies Blok 16 or more,90F5,AND(I(80B8)|I(HuntClubStart)),10,Missable
+Phon Coast,All Trophies Blok 15 or less,90F6,AND(I(80B8)|I(HuntClubStart)),10,Missable
+Phon Coast,All Trophies Stok 16 or more,90F7,AND(I(80B8)|I(HuntClubStart)),10,Missable
+Phon Coast,All Trophies Stok 15 or less,90F8,AND(I(80B8)|I(HuntClubStart)),10,Missable
+Phon Coast,"Atak 1, Blok 0, Stok 0 Outfitters",90FF,AND(I(80B8)|I(HuntClubStart)),5,Missable
+Phon Coast,"Atak 0, Blok 1, Stok 0 Outfitters",9100,AND(I(80B8)|I(HuntClubStart)),5,Missable
+Phon Coast,"Atak 0, Blok 0, Stok 1 Outfitters",9101,AND(I(80B8)|I(HuntClubStart)),5,Missable
+Phon Coast,"Atak 5, Blok 0, Stok 0 Outfitters",9102,AND(I(80B8)|I(HuntClubStart)),6,Missable
+Phon Coast,"Atak 0, Blok 5, Stok 0 Outfitters",9103,AND(I(80B8)|I(HuntClubStart)),6,Missable
+Phon Coast,"Atak 0, Blok 0, Stok 5 Outfitters",9104,AND(I(80B8)|I(HuntClubStart)),6,Missable
+Phon Coast,"Atak 10, Blok 0, Stok 0 Outfitters",9105,AND(I(80B8)|I(HuntClubStart)),7,Missable
+Phon Coast,"Atak 0, Blok 10, Stok 0 Outfitters",9106,AND(I(80B8)|I(HuntClubStart)),7,Missable
+Phon Coast,"Atak 0, Blok 0, Stok 10 Outfitters",9107,AND(I(80B8)|I(HuntClubStart)),7,Missable
+Phon Coast,"Atak 15, Blok 0, Stok 0 Outfitters",9108,AND(I(80B8)|I(HuntClubStart)),7,Missable
+Phon Coast,"Atak 0, Blok 15, Stok 0 Outfitters",9109,AND(I(80B8)|I(HuntClubStart)),7,Missable
+Phon Coast,"Atak 0, Blok 0, Stok 15 Outfitters",910A,AND(I(80B8)|I(HuntClubStart)),7,Missable
+Phon Coast,"Atak 10, Blok 5, Stok 0 Outfitters",910B,AND(I(80B8)|I(HuntClubStart)),7,Missable
+Phon Coast,"Atak 20, Blok 0, Stok 0 Outfitters",910C,AND(I(80B8)|I(HuntClubStart)),8,Missable
+Phon Coast,"Atak 0, Blok 20, Stok 0 Outfitters",910D,AND(I(80B8)|I(HuntClubStart)),8,Missable
+Phon Coast,"Atak 0, Blok 0, Stok 20 Outfitters",910E,AND(I(80B8)|I(HuntClubStart)),8,Missable
+Phon Coast,"Atak 5, Blok 10, Stok 5 Outfitters",910F,AND(I(80B8)|I(HuntClubStart)),8,Missable
+Phon Coast,"Atak 25, Blok 0, Stok 0 Outfitters",9110,AND(I(80B8)|I(HuntClubStart)),9,Missable
+Phon Coast,"Atak 0, Blok 25, Stok 0 Outfitters",9111,AND(I(80B8)|I(HuntClubStart)),9,Missable
+Phon Coast,"Atak 0, Blok 0, Stok 25 Outfitters",9112,AND(I(80B8)|I(HuntClubStart)),9,Missable
+Phon Coast,"Atak 5, Blok 5, Stok 15 Outfitters",9113,AND(I(80B8)|I(HuntClubStart)),9,Missable
+Phon Coast,"Atak 30, Blok 0, Stok 0 Outfitters",9114,AND(I(80B8)|I(HuntClubStart)),10,Missable
+Phon Coast,"Atak 0, Blok 30, Stok 0 Outfitters",9115,AND(I(80B8)|I(HuntClubStart)),10,Missable
+Phon Coast,"Atak 0, Blok 0, Stok 30 Outfitters",9116,AND(I(80B8)|I(HuntClubStart)),10,Missable
+Phon Coast,"Atak 10, Blok 10, Stok 10 Outfitters",9117,AND(I(80B8)|I(HuntClubStart)),10,Missable
+Phon Coast,"Atak 25, Blok 1, Stok 1 Outfitters",9118,AND(I(80B8)|I(HuntClubStart)),9,Missable
+Phon Coast,"Atak 1, Blok 25, Stok 1 Outfitters",9119,AND(I(80B8)|I(HuntClubStart)),9,Missable
+Phon Coast,"Atak 1, Blok 1, Stok 25 Outfitters",911A,AND(I(80B8)|I(HuntClubStart)),9,Missable
+Phon Coast,"Atak 12, Blok 5, Stok 5 Outfitters",911B,AND(I(80B8)|I(HuntClubStart)),8,Missable
+Phon Coast,"Atak 5, Blok 12, Stok 5 Outfitters",911C,AND(I(80B8)|I(HuntClubStart)),8,Missable
+Phon Coast,"Atak 5, Blok 5, Stok 12 Outfitters",911D,AND(I(80B8)|I(HuntClubStart)),8,Missable

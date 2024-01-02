@@ -29,7 +29,7 @@ public class TreasureData : FF13_2ItemLocation, DataStoreItemProvider<DataStoreR
     {
     }
 
-    public override bool IsValid(Dictionary<string, int> items)
+    public override bool AreItemReqsMet(Dictionary<string, int> items)
     {
         return Requirements.IsValid(items);
     }

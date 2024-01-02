@@ -4,6 +4,9 @@ namespace Bartz24.FF12;
 
 public class DataStoreReward : DataStore
 {
+    public string ID { get => IntID.ToString("X4"); }
+    public int IntID { get; set; }
+
     public uint Gil
     {
         get => Data.ReadUInt(0x0);

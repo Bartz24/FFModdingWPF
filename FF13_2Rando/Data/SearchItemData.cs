@@ -31,7 +31,7 @@ public class SearchItemData : FF13_2ItemLocation, DataStoreItemProvider<DataStor
         MogLevel = 2;
     }
 
-    public override bool IsValid(Dictionary<string, int> items)
+    public override bool AreItemReqsMet(Dictionary<string, int> items)
     {
         return Requirements.IsValid(items);
     }

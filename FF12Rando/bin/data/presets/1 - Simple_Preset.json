@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.8.0.8",
+  "version": "0.8.0.13",
   "flags": [
     {
       "FlagEnabled": false,
@@ -87,12 +87,20 @@
           "ID": "KeyDepth"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeyPlaceCharScale"
         },
         {
           "Enabled": true,
           "ID": "PlaceJunkScale"
+        },
+        {
+          "Value": 2,
+          "ID": "JunkRange"
+        },
+        {
+          "Enabled": false,
+          "ID": "ReplaceJunkAny"
         }
       ]
     },

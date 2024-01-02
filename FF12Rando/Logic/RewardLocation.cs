@@ -5,9 +5,10 @@ using System.Collections.Generic;
 
 namespace FF12Rando;
 
-public class RewardData : ItemLocation, DataStoreItemProvider<DataStoreReward>
+public class RewardLocation : FF12ItemLocation, DataStoreItemProvider<DataStoreReward>
 {
     public override string ID { get; set; }
+    [RowIndex(2), FieldTypeOverride(FieldType.HexInt)]
     public int IntID { get; set; }
     public int Index { get; set; }
     [RowIndex(1)]
@@ -21,29 +22,11 @@ public class RewardData : ItemLocation, DataStoreItemProvider<DataStoreReward>
     public override List<string> Areas { get; set; }
     [RowIndex(4)]
     public override int BaseDifficulty { get; set; }
-    [RowIndex(6)]
-    public List<string> FakeItems { get; set; }
 
-    public bool IsFakeOnly { get; set; }
-
-    public RewardData Parent { get; set; }
-
-    public RewardData(SeedGenerator generator, string[] row, int index, int fakeID, bool isAttachedFake = false) : base(generator, row)
+    public RewardLocation(SeedGenerator generator, string[] row, int index) : base(generator, row)
     {
-        if (isAttachedFake && !Traits.Contains("Fake"))
-        {
-            Traits.Add("Fake");
-        }
-        else if (!isAttachedFake && Traits.Contains("Fake"))
-        {
-            // Fake only rewards are explicitly defined as Fake, attached fakes are added automatically
-            IsFakeOnly = true;
-        }
-
-        IntID = !Traits.Contains("Fake") ? Convert.ToInt32(row[2], 16) : fakeID;
-        ID = (isAttachedFake ? "_" : "") + row[2] + ":" + index;
+        ID = row[2] + ":" + index;
         Index = index;
-        Parent = this;
 
         if (Traits.Contains("WritTomaj"))
         {
@@ -63,19 +46,14 @@ public class RewardData : ItemLocation, DataStoreItemProvider<DataStoreReward>
         }
     }
 
-    public override bool IsValid(Dictionary<string, int> items)
+    public override bool AreItemReqsMet(Dictionary<string, int> items)
     {
-        return Requirements.IsValid(items);
+        return base.AreItemReqsMet(items) && Requirements.IsValid(items);
     }
 
     public override void SetItem(string newItem, int newCount)
     {
         LogSetItem(newItem, newCount);
-        if (Traits.Contains("Fake"))
-        {
-            return;
-        }
-
         DataStoreReward r = GetItemData(false);
         if (Index == 0)
         {
@@ -122,11 +100,6 @@ public class RewardData : ItemLocation, DataStoreItemProvider<DataStoreReward>
 
     public override (string, int)? GetItem(bool orig)
     {
-        if (Traits.Contains("Fake"))
-        {
-            return null;
-        }
-
         DataStoreReward r = GetItemData(orig);
         return Index == 0
             ? r.Gil == 0 ? null : ("Gil", (int)r.Gil)
@@ -139,5 +112,19 @@ public class RewardData : ItemLocation, DataStoreItemProvider<DataStoreReward>
     {
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
         return orig ? treasureRando.rewardsOrig[IntID - 0x9000] : treasureRando.rewards[IntID - 0x9000];
+    }
+
+    public override bool CanReplace(ItemLocation location)
+    {
+        if (Index == 0)
+        {
+            // Gil can go in other rewards of index 0 or treasures
+            return location is RewardLocation r && r.Index == 0 || location is TreasureLocation;
+        }
+        else
+        {
+            // Items can not go into rewards of index 0
+            return location is not RewardLocation r || r.Index != 0;
+        }
     }
 }

@@ -69,11 +69,11 @@ public class FF12Flags
     public class Items
     {
         public static Flag Treasures, Shops, Bazaars, StartingTpStones, AllowSeitengrat;
-        public static ToggleFlagProperty KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale, JunkRankScale;
+        public static ToggleFlagProperty KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale, JunkRankScale, ReplaceAny;
         public static ComboBoxFlagProperty KeyDepth;
         public static NumberFlagProperty ShopSize;
         public static ToggleFlagProperty ShopsShared, JunkRankScaleShops;
-        public static NumberFlagProperty TpStoneCount;
+        public static NumberFlagProperty TpStoneCount, ReplaceRank;
         public static ListBoxFlagProperty WritGoals;
         public const string WritGoalCid2 = "Defeat Cid 2 in Pharos";
         public const string WritGoalAny = "Find in Any Random Location";
@@ -312,6 +312,24 @@ public class FF12Flags
                 Text = "Junk Scaled Depth",
                 ID = "PlaceJunkScale",
                 Description = "Consumables, equipment, and abilities will generally be placed in order of their sphere unlocks. Better items will appear later."
+            }.Register(Treasures);
+
+            ReplaceRank = new NumberFlagProperty()
+            {
+                Text = "Junk Item Rank Range",
+                ID = "JunkRange",
+                Description = "'Junk' items (consumables, equipment, and loot) will be replaced by items within the specified value of its \"Rank\". Junk will not be replaced by high end items like Seitengrat or Dark Energy.",
+                ValueText = "Item Rank +/-",
+                MinValue = 0,
+                MaxValue = 8
+            }.Register(Treasures);
+
+            ReplaceAny = new ToggleFlagProperty()
+            {
+                Text = "Replace Junk Items From Any Category",
+                ID = "ReplaceJunkAny",
+                Description = "Allow 'Junk' items (consumables, equipment, and loot) to be replaced by items of other types.\n" +
+                "Ex: Potions can be replaced with Broadsword."
             }.Register(Treasures);
 
             Shops = new Flag()

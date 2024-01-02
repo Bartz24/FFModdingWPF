@@ -52,8 +52,10 @@ public class SeedGenerator : IDisposable
         FlagStringCompressor compressor = new();
         Logger.LogInformation($"Flags: {compressor.CompressFlags()}");
 
+#if !DEBUG
         try
         {
+#endif
             RandoUI.SetUIProgressIndeterminate("Preparing data folder...");
             PrepareData();
             RandoUI.IncrementTotalProgressUI();
@@ -70,7 +72,8 @@ public class SeedGenerator : IDisposable
             RandoUI.SetUIProgressIndeterminate("Generating modpack and documentation...");
             GeneratePackAndDocs();
             RandoUI.IncrementTotalProgressUI();
-        }
+#if !DEBUG
+    }
         catch (RandoException ex)
         {
             throw ex;
@@ -79,6 +82,7 @@ public class SeedGenerator : IDisposable
         {
             throw new RandoException(ex.Message, UNEXPECTED_ERROR, ex);
         }
+#endif
     }
 
     protected virtual void PrepareData()

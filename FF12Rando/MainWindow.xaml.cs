@@ -90,14 +90,17 @@ public partial class MainWindow : Window
             totalProgressBar.TotalSegments = (generator.Randomizers.Count * 3) + 2;
             totalProgressBar.SetProgress(0, 0);
 
+#if !DEBUG
             try
             {
+#endif
                 IsEnabled = false;
                 await Task.Run(() =>
                 {
                     generator.GenerateSeed();
                 });
                 IsEnabled = true;
+#if !DEBUG
             }
             catch (RandoException ex)
             {
@@ -120,6 +123,7 @@ public partial class MainWindow : Window
 
                 IsEnabled = true;
             }
+#endif
         }
     }
     private void SetProgressBar(string text, int value, int maxValue = 100)

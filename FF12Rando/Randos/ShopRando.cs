@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using static FF12Rando.TreasureRando;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FF12Rando;
 
@@ -36,13 +37,12 @@ public partial class ShopRando : Randomizer
             ShopData s = new(row);
             shopData.Add(s.ID, s);
 
-            string[] fakeReward = new string[] { s.Area, s.Name + " Shop", "_shop" + s.ID, "", "0", "Fake", ""};            
-            RewardData rFake = new(Generator, fakeReward, 0, TreasureRando.FakeId, false);
-            rFake.Requirements = s.Requirements;
-            TreasureRando.FakeId--;
-            treasureRando.ItemLocations.Add(rFake.ID, rFake);
+            string[] fakeData = new string[] { s.Area, s.Name + " Shop", "_shop" + s.ID, "", "", "0"};            
+            FF12FakeLocation fake = new(Generator, fakeData, s.Name + " Shop");
+            fake.Requirements = s.Requirements;
+            treasureRando.ItemLocations.Add(fake.ID, fake);
 
-            s.ShopFakeLocationLink = rFake.ID;
+            s.ShopFakeLocationLink = fake.ID;
         }, FileHelpers.CSVFileHeader.HasHeader);
     }
     public override void Randomize()
@@ -59,31 +59,14 @@ public partial class ShopRando : Randomizer
             bazaars.DataList.Shuffle().ForEach(b =>
             {
                 List<string> items = new();
-                if (treasureRando.remainingRandomizeItems.Where(item => IsMonograph(item)).Count() > 0)
-                {
-                    string item1 = treasureRando.remainingRandomizeItems.Where(item => IsMonograph(item)).Shuffle().First();
-                    items.Add(item1);
-                    treasureRando.remainingRandomizeItems.Remove(item1);
-                    bazaarUsed.Add(item1);
-                }
-                else if (treasureRando.remainingRandomizeItems.Where(item => equipRando.itemData.ContainsKey(item) && equipRando.itemData[item].Rank >= 10).Count() > 0)
-                {
-                    string item1 = treasureRando.remainingRandomizeItems.Where(item => equipRando.itemData.ContainsKey(item) && equipRando.itemData[item].Rank >= 10).Shuffle().First();
-                    items.Add(item1);
-                    treasureRando.remainingRandomizeItems.Remove(item1);
-                    bazaarUsed.Add(item1);
-                }
-                else
+                AddNewBazaarItem(treasureRando, items, bazaarUsed);
+
+                if (RandomNum.RandInt(0, 99) < 40)
                 {
                     AddNewBazaarItem(treasureRando, items, bazaarUsed);
                 }
 
-                if (RandomNum.RandInt(0, 99) < 25)
-                {
-                    AddNewBazaarItem(treasureRando, items, bazaarUsed);
-                }
-
-                if (RandomNum.RandInt(0, 99) < 5)
+                if (RandomNum.RandInt(0, 99) < 8)
                 {
                     AddNewBazaarItem(treasureRando, items, bazaarUsed);
                 }
@@ -145,6 +128,10 @@ public partial class ShopRando : Randomizer
 
         if (FF12Flags.Items.Shops.FlagEnabled)
         {
+            HashSet<string> shopItems = equipRando.itemData.Values.Where(i => 
+                i.Category is "Weapon" or "Armor" or "Accessory" or "Item" or "Ability" 
+                && i.Rank < 10
+                && !treasureRando.ItemPlacer.UsefulItemPlacer.UsedAbilities.Contains(i.ID)).Select(i => i.ID).ToHashSet();
             FF12Flags.Items.Shops.SetRand();
 
             Dictionary<string, int> locationsShared = new();
@@ -163,7 +150,7 @@ public partial class ShopRando : Randomizer
 
                     for (int i = 0; i < count; i++)
                     {
-                        List<string> possible = treasureRando.remainingRandomizeItems.Where(item => !items.Contains(item)).ToList();
+                        List<string> possible = shopItems.Where(item => !items.Contains(item)).ToList();
                         if (s.Traits.Contains("Missable"))
                         {
                             possible = possible.Where(item => !item.StartsWith("30") && !item.StartsWith("40")).ToList();
@@ -199,7 +186,7 @@ public partial class ShopRando : Randomizer
 
                         if (s.Traits.Contains("Unique") && !newItem.StartsWith("00") && !newItem.StartsWith("20") && !newItem.StartsWith("21"))
                         {
-                            treasureRando.remainingRandomizeItems.Remove(newItem);
+                            shopItems.Remove(newItem);
                         }
                     }
 
@@ -237,7 +224,8 @@ public partial class ShopRando : Randomizer
                     items = RandomNum.ShuffleLocalized(items, 5);
 
                     // Sort the shop slots by their shop sphere
-                    var slots = group.Shuffle().OrderBy(itemSlot => treasureRando.LocationSpheres.GetValueOrDefault(shopData[itemSlot.shop.ID].ShopFakeLocationLink, 0)).ToList();
+                    var slots = group.Shuffle().OrderBy(itemSlot => 
+                        treasureRando.ItemPlacer.SphereCalculator.Spheres.GetValueOrDefault(treasureRando.ItemLocations[shopData[itemSlot.shop.ID].ShopFakeLocationLink], 0)).ToList();
 
                     // Go in order and set the junk items
                     for (int i = 0; i < items.Count; i++)
@@ -308,78 +296,31 @@ public partial class ShopRando : Randomizer
     {
         EquipRando equipRando = Generator.Get<EquipRando>();
         List<string> possible;
-        switch(RandomNum.RandInt(0, 3))
+        do
         {
-            case 0:
-            default: // Consumables
-                possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x0000 and < 0x1000).Select(i => i.ID).ToList();
-                break;
-            case 1:// Equip
-                possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x1000 and < 0x2000).Select(i => i.ID).ToList();
-                break;
-            case 2:// Abilities
-                possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x3000 and < 0x5000).Select(i => i.ID).ToList();
-                break;
-            case 3:// Loot
-                possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x2000 and < 0x3000 and not 0x2112 and not 0x2113 and not 0x2116).Select(i => i.ID).ToList();
-                break;
-        }
+            switch (RandomNum.RandInt(0, 3))
+            {
+                case 0:
+                default: // Consumables
+                    possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x0000 and < 0x1000).Select(i => i.ID).ToList();
+                    break;
+                case 1:// Equip
+                    possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x1000 and < 0x2000).Select(i => i.ID).ToList();
+                    break;
+                case 2:// Abilities
+                    possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x3000 and < 0x5000).Select(i => i.ID).ToList();
+                    break;
+                case 3:// Loot
+                    possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x2000 and < 0x3000 and not 0x2112 and not 0x2113 and not 0x2116).Select(i => i.ID).ToList();
+                    break;
+            }
 
-        possible.RemoveAll(i => bazaarUsed.Contains(i));
+            possible.RemoveAll(i => bazaarUsed.Contains(i));
+        }
+        while (possible.Count == 0);
         string next = RandomNum.SelectRandom(possible);
         items.Add(next);
         bazaarUsed.Add(next);
-    }
-
-    private bool ShouldRemoveItem(string newItem)
-    {
-        EquipRando equipRando = Generator.Get<EquipRando>();
-        return !newItem.StartsWith("00") && !newItem.StartsWith("20") && !newItem.StartsWith("21")
-&& (newItem.StartsWith("30") || newItem.StartsWith("40")
-|| !equipRando.itemData.ContainsKey(newItem) || RandomNum.RandInt(0, 100) < Math.Pow(equipRando.itemData[newItem].Rank, 2));
-    }
-
-    private static bool IsMonograph(string item)
-    {
-        return item is "8065" or "8066" or "8067" or "8068" or "8069" or "806A" or "806B" or "806C";
-    }
-
-    public List<string> GetRandomizableShopItems()
-    {
-        return shopsOrig.DataList
-            .SelectMany(s => s.ItemsList)
-            .Select(i =>
-            {
-                string item = i.Item.ToString("X4");
-                return item != "FFFF" && !item.StartsWith("60") && !item.StartsWith("61") ? item : null;
-            }).Where(s => s != null).Distinct().ToList();
-    }
-    public List<string> GetRandomizableBazaarItems()
-    {
-        return bazaars.DataList
-            .SelectMany(b =>
-            {
-                string[] items = new string[3];
-                string item1 = b.Item1ID.ToString("X4");
-                if (b.Item1Amount > 0)
-                {
-                    items[0] = item1;
-                }
-
-                string item2 = b.Item2ID.ToString("X4");
-                if (b.Item2Amount > 0)
-                {
-                    items[1] = item2;
-                }
-
-                string item3 = b.Item3ID.ToString("X4");
-                if (b.Item3Amount > 0)
-                {
-                    items[2] = item3;
-                }
-
-                return items;
-            }).Where(s => s != null).Distinct().ToList();
     }
 
     public override Dictionary<string, HTMLPage> GetDocumentation()

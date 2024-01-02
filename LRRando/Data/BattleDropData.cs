@@ -29,7 +29,7 @@ public class BattleDropData : ItemLocation, DataStoreItemProvider<DataStoreBtSce
         rando = treasureRando;
     }
 
-    public override bool IsValid(Dictionary<string, int> items)
+    public override bool AreItemReqsMet(Dictionary<string, int> items)
     {
         return Requirements.IsValid(items);
     }

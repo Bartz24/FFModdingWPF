@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FF12Rando;
 
-public class TreasureData : ItemLocation, DataStoreItemProvider<DataStoreTreasure>
+public class TreasureLocation : FF12ItemLocation, DataStoreItemProvider<DataStoreTreasure>
 {
     public override string ID { get; set; }
     public int Index { get; set; }
@@ -24,23 +24,33 @@ public class TreasureData : ItemLocation, DataStoreItemProvider<DataStoreTreasur
     [RowIndex(6)]
     public override int BaseDifficulty { get; set; }
 
-    public TreasureData(SeedGenerator generator, string[] row, int index) : base(generator, row)
+    public TreasureLocation(SeedGenerator generator, string[] row, int index) : base(generator, row)
     {
         Name = row[0] + " - " + row[1] + " Treasure";
         ID = row[2] + ":" + index;
         Index = index;
     }
 
-    public override bool IsValid(Dictionary<string, int> items)
+    public override bool AreItemReqsMet(Dictionary<string, int> items)
     {
-        return Requirements.IsValid(items);
+        return base.AreItemReqsMet(items) && Requirements.IsValid(items);
     }
 
     public override void SetItem(string newItem, int newCount)
     {
         LogSetItem(newItem, newCount);
         DataStoreTreasure t = GetItemData(false);
-        if (newItem == "Gil")
+        if (newItem == null)
+        {
+            t.GilCommon = 0;
+            t.GilRare = 0;
+            t.GilChance = 0;
+            t.CommonItem1ID = 0xFFFF;
+            t.CommonItem2ID = 0xFFFF;
+            t.RareItem1ID = 0xFFFF;
+            t.RareItem2ID = 0xFFFF;
+        }
+        else if (newItem == "Gil")
         {
             t.GilChance = 100;
             t.GilCommon = (ushort)Math.Min(newCount, 65535);
@@ -48,16 +58,24 @@ public class TreasureData : ItemLocation, DataStoreItemProvider<DataStoreTreasur
         }
         else
         {
+            string upgradeItem = newItem;
+            EquipRando equipRando = Generator.Get<EquipRando>();
+            if (equipRando.itemData.ContainsKey(newItem) && !string.IsNullOrEmpty(equipRando.itemData[newItem].Upgrade))
+            {
+                upgradeItem = equipRando.itemData[newItem].Upgrade;
+            }
+
             ushort id = Convert.ToUInt16(newItem, 16);
+            ushort upgradeID = Convert.ToUInt16(upgradeItem, 16);
             t.GilChance = 0;
             t.CommonItem1ID = id;
             t.CommonItem2ID = id;
-            t.RareItem1ID = id;
-            t.RareItem2ID = id;
+            t.RareItem1ID = upgradeID;
+            t.RareItem2ID = upgradeID;
         }
     }
 
-    public override (string, int)? GetItem(bool orig)
+    public override (string Item, int Amount)? GetItem(bool orig)
     {
         DataStoreTreasure t = GetItemData(orig);
         return t.GilChance == 100 ? ((string, int)?)("Gil", t.GilCommon) : (t.CommonItem1ID.ToString("X4"), 1);
@@ -67,5 +85,19 @@ public class TreasureData : ItemLocation, DataStoreItemProvider<DataStoreTreasur
     {
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
         return orig ? treasureRando.ebpAreasOrig[MapID].TreasureList[Index] : treasureRando.ebpAreas[MapID].TreasureList[Index];
+    }
+
+    public override bool CanReplace(ItemLocation location)
+    {
+        if (GetItemData(true).GilChance == 100)
+        {
+            // Gil can go in other rewards of index 0 or treasures
+            return location is RewardLocation r && r.Index == 0 || location is TreasureLocation;
+        }
+        else
+        {
+            // Items can not go into rewards of index 0
+            return location is not RewardLocation r || r.Index != 0;
+        }
     }
 }

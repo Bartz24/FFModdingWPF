@@ -29,7 +29,7 @@ public class TreasureData : ItemLocation, DataStoreItemProvider<DataStoreRTreasu
         rando = treasureRando;
     }
 
-    public override bool IsValid(Dictionary<string, int> items)
+    public override bool AreItemReqsMet(Dictionary<string, int> items)
     {
         return (!Traits.Contains("EP") || HasEP(items)) && Requirements.IsValid(items);
     }
@@ -40,22 +40,22 @@ public class TreasureData : ItemLocation, DataStoreItemProvider<DataStoreRTreasu
 
         foreach (DataStoreRQuest quest in questRando.questRewards.Values.Where(q => q.iMaxGp > 0))
         {
-            if (quest.name == "qst_027" && rando.ItemLocations["tre_qst_027"].IsValid(items)) // Peace and Quiet, Kupo
+            if (quest.name == "qst_027" && rando.ItemLocations["tre_qst_027"].AreItemReqsMet(items)) // Peace and Quiet, Kupo
             {
                 return true;
             }
 
-            if (quest.name == "qst_028" && rando.ItemLocations["tre_qst_028"].IsValid(items)) // Saving an Angel
+            if (quest.name == "qst_028" && rando.ItemLocations["tre_qst_028"].AreItemReqsMet(items)) // Saving an Angel
             {
                 return true;
             }
 
-            if (quest.name == "qst_046" && rando.ItemLocations["tre_qst_046"].IsValid(items)) // Adonis's Audition
+            if (quest.name == "qst_046" && rando.ItemLocations["tre_qst_046"].AreItemReqsMet(items)) // Adonis's Audition
             {
                 return true;
             }
 
-            if (quest.name == "qst_062" && rando.ItemLocations["tre_qst_062"].IsValid(items)) // Fighting Actress
+            if (quest.name == "qst_062" && rando.ItemLocations["tre_qst_062"].AreItemReqsMet(items)) // Fighting Actress
             {
                 return true;
             }

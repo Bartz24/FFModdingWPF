@@ -2,6 +2,7 @@
 using Bartz24.Docs;
 using Bartz24.FF12;
 using Bartz24.RandoWPF;
+using FF12Rando.Logic;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,27 +18,15 @@ public partial class TreasureRando : Randomizer
     public Dictionary<string, DataStoreEBP> ebpAreas = new();
     public Dictionary<string, DataStoreEBP> ebpAreasOrig = new();
 
-    public List<List<string>> hints = Enumerable.Range(0, 35).Select(_ => new List<string>()).ToList();
-
     public Dictionary<string, string> areaMapping = new();
     public Dictionary<string, ItemLocation> ItemLocations = new();
-    public Dictionary<string, string> missableTreasureLinks = new();
-    private FF12AssumedItemPlacementAlgorithm placementAlgoNormal;
-    private ItemPlacementAlgorithm<ItemLocation> placementAlgoBackup;
-    private bool usingBackup = false;
-    public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo => usingBackup ? placementAlgoBackup : placementAlgoNormal;
+    public FF12ItemPlacer ItemPlacer { get; set; }
+    public FF12HintPlacer HintPlacer { get; set; }
 
     public List<string> treasuresToPlace = new();
     public List<string> treasuresAllowed = new();
 
-    public List<string> randomizeItems = new();
-    public List<string> remainingRandomizeItems = new();
-
-    public Dictionary<string, int> LocationSpheres { get; set; } = new();
-
     public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
-
-    public static int FakeId = -1;
 
     // Used for grouping/sorting by type
     public enum ItemType
@@ -52,8 +41,10 @@ public partial class TreasureRando : Randomizer
         RandoUI.SetUIProgressIndeterminate("Loading Treasure Data...");
         rewards = new DataStoreBPSection<DataStoreReward>();
         rewards.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin"));
+        rewards.DataList.ForEach(r => r.IntID = rewards.DataList.IndexOf(r) + 0x9000);
         rewardsOrig = new DataStoreBPSection<DataStoreReward>();
         rewardsOrig.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_037.bin"));
+        rewardsOrig.DataList.ForEach(r => r.IntID = rewardsOrig.DataList.IndexOf(r) + 0x9000);
         prices = new DataStoreBPSection<DataStorePrice>();
         prices.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_028.bin"));
 
@@ -93,51 +84,16 @@ public partial class TreasureRando : Randomizer
             int count = int.Parse(row[4]);
             for (int i = start; i < start + count; i++)
             {
-                TreasureData t = new(Generator, row, i);
+                TreasureLocation t = new(Generator, row, i);
                 ItemLocations.Add(t.ID, t);
             }
         }, FileHelpers.CSVFileHeader.HasHeader);
 
         FileHelpers.ReadCSVFile(@"data\rewards.csv", row =>
         {
-            RewardData parent = null;
             for (int i = 0; i < 3; i++)
             {
-                RewardData r = new(Generator, row, i, FakeId);
-                if (i == 0)
-                {
-                    parent = r;
-                }
-                else
-                {
-                    r.Parent = parent;
-                }
-
-                if (r.Traits.Contains("Fake"))
-                {
-                    if (i == 0)
-                    {
-                        FakeId--;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-                else if (r.FakeItems.Count > 0)
-                {
-                    if (i == 0)
-                    {
-                        RewardData rFake = new(Generator, row, i, FakeId, true);
-                        FakeId--;
-                        ItemLocations.Add(rFake.ID, rFake);
-                        parent = rFake;
-                        r.Parent = parent;
-                    }
-
-                    r.FakeItems.Clear();
-                }
-
+                RewardLocation r = new(Generator, row, i);
                 ItemLocations.Add(r.ID, r);
             }
         }, FileHelpers.CSVFileHeader.HasHeader);
@@ -146,47 +102,35 @@ public partial class TreasureRando : Randomizer
         {
             FileHelpers.ReadCSVFile(@"data\startingInvs.csv", row =>
             {
-                StartingInvData first = new(Generator, row, 0);
+                StartingInvLocation first = new(Generator, row, 0);
                 ItemLocations.Add(first.ID, first);
                 // Keep the last slot empty for tp stones
                 for (int i = 1; i < 10; i++)
                 {
-                    StartingInvData s = new(Generator, row, i);
+                    StartingInvLocation s = new(Generator, row, i);
                     ItemLocations.Add(s.ID, s);
                 }
             }, FileHelpers.CSVFileHeader.HasHeader);
         }
 
+        FileHelpers.ReadCSVFile(@"data\fakeChecks.csv", row =>
+        {
+            string[] fakeItems = row[6].Split('|');
+            int index = 0;
+            foreach (string fakeItem in fakeItems)
+            {
+                FF12FakeLocation f = new(Generator, row, fakeItem);
+                f.ID = f.ID + ":" + index;
+                ItemLocations.Add(f.ID, f);
+                index++;
+            }
+        }, FileHelpers.CSVFileHeader.HasHeader);
+
         List<string> hintsNotesLocations = ItemLocations.Values.SelectMany(l => l.Areas).Distinct().ToList();
-
-        placementAlgoNormal = new FF12AssumedItemPlacementAlgorithm(ItemLocations, hintsNotesLocations, Generator, 3);
-        placementAlgoNormal.Logic = new FF12ItemPlacementLogic(placementAlgoNormal, Generator);
-
-        placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(ItemLocations, hintsNotesLocations, Generator, -1);
-        placementAlgoBackup.Logic = new FF12ItemPlacementLogic(placementAlgoBackup, Generator);
     }
     public override void Randomize()
     {
         RandoUI.SetUIProgressIndeterminate("Randomizing Treasure Data...");
-
-        randomizeItems = new List<string>();
-        if (FF12Flags.Items.Treasures.FlagEnabled)
-        {
-            randomizeItems = randomizeItems.Concat(GetRandomizableItems()).Distinct().ToList();
-        }
-
-        ShopRando shopRando = Generator.Get<ShopRando>();
-        if (FF12Flags.Items.Shops.FlagEnabled)
-        {
-            randomizeItems = randomizeItems.Concat(shopRando.GetRandomizableShopItems()).Distinct().ToList();
-        }
-
-        if (FF12Flags.Items.Bazaars.FlagEnabled)
-        {
-            randomizeItems = randomizeItems.Concat(shopRando.GetRandomizableBazaarItems()).Distinct().ToList();
-        }
-
-        remainingRandomizeItems = new List<string>(randomizeItems);
 
         if (FF12Flags.Items.Treasures.FlagEnabled)
         {
@@ -196,258 +140,71 @@ public partial class TreasureRando : Randomizer
 
             Dictionary<string, double> areaMults = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
 
-            // Backward algorithm does not well yet for this game
-            usingBackup = true;
-            placementAlgoBackup.Randomize(new List<string>(), areaMults);
+            ItemPlacer = new(Generator);
+            ItemPlacer.LocationsToPlace = ItemLocations.Values
+                .Where(l => (l is not TreasureLocation || treasuresToPlace.Contains(l.ID)) && l.GetItem(true) != null).ToHashSet();
+            ItemPlacer.PossibleLocations = ItemLocations.Values
+                .Where(l => l is not TreasureLocation || treasuresAllowed.Contains(l.ID)).ToHashSet();
+            ItemPlacer.PlaceItems();
+            ItemPlacer.ApplyToGameData();
+            
+            // Clear null treasures
+            foreach (var location in ItemLocations.Values)
+            {
+                if (!ItemPlacer.FinalPlacement.ContainsKey(location) && location is TreasureLocation)
+                {
+                    DataStoreTreasure t = ebpAreas[((TreasureLocation)location).MapID].TreasureList[((TreasureLocation)location).Index];
+                    t.SpawnChance = 0;
+                    t.Respawn = 255;
+                    t.GilChance = 0;
+                    t.CommonItem1ID = t.CommonItem2ID = t.RareItem1ID = t.RareItem2ID = 0xFFFF;
+                    t.GilCommon = t.GilRare = 0;
+                }
+            }
 
-            RandoUI.SetUIProgressDeterminate("Filling empty and missable locations...", 30, 100);
+            // Set treasure respawn IDs
             int respawnIndex = 0;
-            ItemLocations.Values.Shuffle().ForEach(l =>
+            foreach (var location in ItemPlacer.FinalPlacement.Keys.Shuffle())
             {
-                if (PlacementAlgo.Logic.GetKeysAllowed().Contains(l.ID))
+                if (respawnIndex >= 255)
                 {
-                    if (IsEmpty(l.ID))
-                    {
-                        List<string> list = PlacementAlgo.Placement.Keys.Where(s => IsExtra(s) && ItemLocations[s].GetItem(false) != null && !IsImportantKeyItem(PlacementAlgo.Placement[s]) && PlacementAlgo.Logic.IsAllowed(l.ID, PlacementAlgo.Placement[s])).Shuffle();
-                        if (list.Count > 0)
-                        {
-                            string rep = list.First();
-                            (string, int)? item = ItemLocations[rep].GetItem(false);
-                            ItemLocations[l.ID].SetItem(item.Value.Item1, item.Value.Item2);
-                            PlacementAlgo.Placement.Add(l.ID, PlacementAlgo.Placement[rep]);
-                            PlacementAlgo.Placement.Remove(rep);
-                            hints.Where(list => list.Contains(rep)).ForEach(list =>
-                            {
-                                list.Remove(rep);
-                                list.Add(l.ID);
-                            });
-                        }
-                    }
-
-                    if (l is TreasureData data)
-                    {
-                        DataStoreTreasure t = ebpAreas[data.MapID].TreasureList[data.Index];
-                        t.Respawn = (byte)respawnIndex;
-                        respawnIndex++;
-                        t.SpawnChance = 100;
-                    }
+                    break;
                 }
-                else if (l is TreasureData)
+
+                if (location is TreasureLocation t)
                 {
-                    if (l.Traits.Contains("Missable") && RandomNum.RandInt(0, 99) < 20)
-                    {
-                        missableTreasureLinks.Add(l.ID, RandomNum.SelectRandomWeighted(treasuresAllowed, _ => 1));
-                    }
-                }
-            });
-
-            RandoUI.SetUIProgressDeterminate("Randomizing \"junk\" items...", 60, 100);
-            EquipRando equipRando = Generator.Get<EquipRando>();
-            ItemLocations.Values.ForEach(l =>
-            {
-                if (PlacementAlgo.Placement.ContainsKey(l.ID))
-                {
-                    (string, int)? tuple = ItemLocations[l.ID].GetItem(false);
-                    if (tuple != null && randomizeItems.Contains(tuple.Value.Item1))
-                    {
-                        string newItem = RandomNum.SelectRandomWeighted(remainingRandomizeItems, item =>
-                        {
-                            return item == "2000"
-                                ? 25
-                                : item.StartsWith("00") || item.StartsWith("20") || item.StartsWith("21")
-                                ? 8
-                                : (item.StartsWith("30") || item.StartsWith("40")) && ItemLocations[l.ID].Traits.Contains("Missable")
-                                ? 0
-                                : item.StartsWith("30") || item.StartsWith("40") ? 1 : 3;
-                        });
-                        if (newItem.StartsWith("30") || newItem.StartsWith("40"))
-                        {
-                            ItemLocations[l.ID].SetItem(newItem, 1);
-                            if (!tuple.Value.Item1.StartsWith("30") && !tuple.Value.Item1.StartsWith("40"))
-                            {
-                                hints.Where(list => list.Count == hints.Select(list => list.Count).Min()).First().Add(l.ID);
-                            }
-                        }
-                        else
-                        {
-                            ItemLocations[l.ID].SetItem(newItem, tuple.Value.Item2);
-                            if (tuple.Value.Item1.StartsWith("30") || tuple.Value.Item1.StartsWith("40"))
-                            {
-                                hints.Where(list => list.Contains(l.ID)).ForEach(list => list.Remove(l.ID));
-                            }
-
-                            if (l is TreasureData treasure && equipRando.itemData.ContainsKey(newItem) && equipRando.itemData[newItem].Upgrade != "")
-                            {
-                                ebpAreas[treasure.MapID].TreasureList[treasure.Index].RareItem1ID = (ushort)equipRando.itemData[newItem].IntUpgrade;
-                                ebpAreas[treasure.MapID].TreasureList[treasure.Index].RareItem2ID = (ushort)equipRando.itemData[newItem].IntUpgrade;
-                            }
-                        }
-
-                        if (ShouldRemoveItem(newItem))
-                        {
-                            remainingRandomizeItems.Remove(newItem);
-                        }
-                    }
-                }
-            });
-
-            List<ItemLocation> writLocations = ItemLocations.Values.Where(l => ItemLocations[l.ID].GetItem(false)?.Item1 == "8070").ToList();
-
-            writLocations.ForEach(l =>
-            {
-                ItemLocations[l.ID].SetItem("0000", 5);
-                hints.Where(list => list.Contains(l.ID)).ForEach(list => list.Remove(l.ID));
-            });
-
-            if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalCid2))
-            {
-                ItemLocation cid2 = writLocations.First(l => l.Traits.Contains("WritCid2"));
-                ItemLocations[cid2.ID].SetItem("8070", 1);
-                AddHint(cid2.ID);
-                writLocations.Remove(cid2);
-            }
-
-            if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalAny))
-            {
-                ItemLocation l = RandomNum.SelectRandom(writLocations);
-                ItemLocations[l.ID].SetItem("8070", 1);
-                AddHint(l.ID);
-            }
-
-            missableTreasureLinks.ForEach(p =>
-            {
-                (string, int)? item = ItemLocations[p.Value].GetItem(false);
-                ItemLocations[p.Key].SetItem(item.Value.Item1, item.Value.Item2);
-                DataStoreTreasure tMiss = ebpAreas[((TreasureData)ItemLocations[p.Key]).MapID].TreasureList[((TreasureData)ItemLocations[p.Key]).Index];
-                DataStoreTreasure tLinked = ebpAreas[((TreasureData)ItemLocations[p.Value]).MapID].TreasureList[((TreasureData)ItemLocations[p.Value]).Index];
-                tMiss.Respawn = tLinked.Respawn;
-                tMiss.SpawnChance = 100;
-            });
-
-            // Clear empty items
-            ItemLocations.Values.ForEach(l =>
-            {
-                if (!PlacementAlgo.Placement.ContainsKey(l.ID))
-                {
-                    if (l is TreasureData treasure)
-                    {
-                        DataStoreTreasure t = ebpAreas[treasure.MapID].TreasureList[treasure.Index];
-                        t.Respawn = 255;
-                        t.SpawnChance = 0;
-                    }
-
-                    if (PlacementAlgo.Logic.GetKeysAllowed().Contains(l.ID))
-                    {
-                        if (l is RewardData)
-                        {
-                            ItemLocations[l.ID].SetItem(null, 0);
-                        }
-                        else if (l is StartingInvData)
-                        {
-                            ItemLocations[l.ID].SetItem(null, 0);
-                        }
-                        else
-                        {
-                            throw new Exception("Missing implemention for clearing");
-                        }
-                    }
-                }
-            });
-
-            RandomNum.ClearRand();
-        }
-
-        // Generate spheres and anything based on it
-        RandoUI.SetUIProgressDeterminate("Calculating spheres...", 70, 100);
-        LocationSpheres = SphereCalculator.CalculateSpheres(PlacementAlgo.Logic);
-
-        if (FF12Flags.Items.Treasures.FlagEnabled)
-        {
-            FF12Flags.Items.Treasures.SetRand();
-
-            if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalMaxSphere))
-            {
-                int sphere = LocationSpheres.Values.Max();
-                bool placed = false;
-                while (!placed)
-                {
-                    List<ItemLocation> maxSphere = ItemLocations.Values.Where(l => PlacementAlgo.Placement.ContainsKey(l.ID)).Where(l =>
-                    {
-                        ItemLocation orig = ItemLocations[PlacementAlgo.Placement[l.ID]];
-                        return LocationSpheres.GetValueOrDefault(l.ID, 0) == sphere
-                                && !l.Traits.Contains("Fake")
-                                && !l.Traits.Contains("Missable")
-                                && !IsKeyItem(orig.ID)
-                                && !IsAbility(orig.ID)
-                                && ItemLocations[l.ID].GetItem(false)?.Item1 != "8070"
-                                && ItemLocations[l.ID].GetItem(false)?.Item1 != "Gil";
-                    }).ToList();
-
-                    if (maxSphere.Count > 0)
-                    {
-                        ItemLocation l = RandomNum.SelectRandom(maxSphere);
-                        ItemLocations[l.ID].SetItem("8070", 1);
-                        AddHint(l.ID);
-                        placed = true;
-                    }
-                    else
-                    {
-                        sphere--;
-                    }
+                    DataStoreTreasure treasure = ebpAreas[t.MapID].TreasureList[t.Index];
+                    treasure.Respawn = (byte)respawnIndex;
+                    respawnIndex++;
                 }
             }
 
-            RandoUI.SetUIProgressDeterminate("Reordering junk items...", 80, 100);
-            if (FF12Flags.Items.JunkRankScale.Enabled)
+            // Set random linked missable chests
+            foreach (var location in ItemLocations.Values.Where(l => l is TreasureLocation && l.Traits.Contains("Missable")))
             {
-                // Get all the locations with consumables, equipment, and abilities and group by their item type
-                var grouping = ItemLocations.Values.Where(l =>
+                if (RandomNum.RandInt(0, 99) < 20)
                 {
-                    string id = ItemLocations[l.ID].GetItem(false)?.Item1;
-                    if (id == null)
-                    {
-                        return false;
-                    }
-
-                    int intId;
-                    try
-                    {
-                        intId = Convert.ToInt32(id, 16);
-                    }
-                    catch
-                    {
-                        return false;
-                    }
-
-                    return intId < 0x2000 || intId is >= 0x3000 and < 0x5000;
-                }).GroupBy(l =>
-                {
-                    string id = ItemLocations[l.ID].GetItem(false)?.Item1;
-                    int intId = Convert.ToInt32(id, 16);
-                    return intId < 0x1000 ? ItemType.Consumable : intId is >= 0x3000 and < 0x5000 ? ItemType.Ability : ItemType.Equipment;
-                });
-
-                // Group by type and sort the items by its item rank
-                EquipRando equipRando = Generator.Get<EquipRando>();
-                foreach (var group in grouping)
-                {
-                    List<(string id, int count)> items = group.Shuffle().Select(l => ItemLocations[l.ID].GetItem(false).Value).OrderBy(pair =>
-                    {
-                        return equipRando.itemData[pair.Item1].Rank;
-                    }).ToList();
-                    items = RandomNum.ShuffleLocalized(items, 5);
-
-                    // Sort the junk locations by sphere
-                    List<ItemLocation> junk = group.Shuffle().OrderBy(l => LocationSpheres.GetValueOrDefault(l.ID, 0)).ToList();
-
-                    // Go in order and set the junk items
-                    for (int i = 0; i < items.Count; i++)
-                    {
-                        (string id, int count) = items[i];
-                        ItemLocations[junk[i].ID].SetItem(id, count);
-                    }
+                    continue;
                 }
+
+                TreasureLocation missable = (TreasureLocation)location;
+
+                // Find another non missable chest
+                TreasureLocation other = RandomNum.SelectRandom(ItemLocations.Values.Where(l => l is TreasureLocation && !l.Traits.Contains("Missable") && l.GetItem(false) != null).Select(l => (TreasureLocation)l));
+
+                // Copy item
+                var item = other.GetItem(false);
+                missable.SetItem(item.Value.Item, item.Value.Amount);
+
+                // Copy respawn and spawn chance
+                DataStoreTreasure treasureMissable = ebpAreas[missable.MapID].TreasureList[missable.Index];
+                DataStoreTreasure treasureOther = ebpAreas[other.MapID].TreasureList[other.Index];
+                treasureMissable.Respawn = treasureOther.Respawn;
+                treasureMissable.SpawnChance = treasureOther.SpawnChance;
             }
+
+            HintPlacer = new(Generator, ItemPlacer, Enumerable.Range(0, 35).ToHashSet());
+            HintPlacer.PlaceHints();
 
             RandomNum.ClearRand();
         }
@@ -462,26 +219,11 @@ public partial class TreasureRando : Randomizer
         }
     }
 
-    public int AddHint(string location)
-    {
-        int index = Enumerable.Range(0, hints.Count).First(i => hints[i].Count == hints.Select(l => l.Count).Min());
-        hints[index].Add(location);
-        return index;
-    }
-
-    private bool ShouldRemoveItem(string newItem)
-    {
-        EquipRando equipRando = Generator.Get<EquipRando>();
-        return !newItem.StartsWith("00") && !newItem.StartsWith("20") && !newItem.StartsWith("21")
-&& (newItem.StartsWith("30") || newItem.StartsWith("40")
-|| !equipRando.itemData.ContainsKey(newItem) || RandomNum.RandInt(0, 100) < Math.Pow(equipRando.itemData[newItem].Rank, 2));
-    }
-
     private void CollapseAndSelectTreasures()
     {
         treasuresToPlace.Clear();
         List<int> usedRespawnIDs = new();
-        ItemLocations.Values.Where(l => l is TreasureData).Select(l => (TreasureData)l).ForEach(l =>
+        ItemLocations.Values.Where(l => l is TreasureLocation).Select(l => (TreasureLocation)l).ForEach(l =>
         {
             DataStoreTreasure t = ebpAreasOrig[l.MapID].TreasureList[l.Index];
             DataStoreTreasure t2 = ebpAreas[l.MapID].TreasureList[l.Index];
@@ -538,7 +280,7 @@ public partial class TreasureRando : Randomizer
                 }
             }
 
-            if (IsAbility(l.ID))
+            if (l.GetItem(true) != null && (l.GetItem(true).Value.Item.StartsWith("30") || l.GetItem(true).Value.Item.StartsWith("40")))
             {
                 if (t.Respawn == 255 || !usedRespawnIDs.Contains(t.Respawn))
                 {
@@ -547,7 +289,7 @@ public partial class TreasureRando : Randomizer
             }
         });
 
-        foreach (TreasureData l in ItemLocations.Values.Where(l => l is TreasureData && !treasuresToPlace.Contains(l.ID)).Select(l => (TreasureData)l).Shuffle())
+        foreach (TreasureLocation l in ItemLocations.Values.Where(l => l is TreasureLocation && !treasuresToPlace.Contains(l.ID)).Select(l => (TreasureLocation)l).Shuffle())
         {
             DataStoreTreasure t = ebpAreasOrig[l.MapID].TreasureList[l.Index];
             if (t.Respawn == 255 || !usedRespawnIDs.Contains(t.Respawn))
@@ -565,69 +307,12 @@ public partial class TreasureRando : Randomizer
             }
         }
 
-        treasuresAllowed = ItemLocations.Values.Where(l => l is TreasureData && !l.Traits.Contains("Missable")).Select(l => l.ID).Shuffle().Take(255).ToList();
-    }
-
-    private bool IsEmpty(string id)
-    {
-        if (ItemLocations[id] is TreasureData)
-        {
-            return !PlacementAlgo.Placement.ContainsKey(id);
-        }
-
-        if (ItemLocations[id] is RewardData)
-        {
-            string rewardId = id.Split(":")[0];
-            return PlacementAlgo.Placement.Keys.Where(s => s.StartsWith(rewardId)).Count() == 0;
-        }
-
-        return false;
-    }
-
-    private bool IsExtra(string id)
-    {
-        if (ItemLocations[id] is RewardData)
-        {
-            string rewardId = id.Split(":")[0];
-            return PlacementAlgo.Placement.Keys.Where(s => s.StartsWith(rewardId)).Count() > 1;
-        }
-
-        return false;
-    }
-
-    public bool IsImportantKeyItem(string location)
-    {
-        return IsKeyItem(location) && (ItemLocations[location].GetItem(true) != null || PlacementAlgo.Iterations > (PlacementAlgo.Placement.Count * 1.5f) + 1) && (ItemLocations[location].GetItem(true) == null || ItemLocations[location].GetItem(true).Value.Item1 != "Gil");
-    }
-
-    public bool IsAbility(string t, bool orig = true)
-    {
-        return ItemLocations[t].GetItem(orig) != null && (ItemLocations[t].GetItem(orig).Value.Item1.StartsWith("30") || ItemLocations[t].GetItem(orig).Value.Item1.StartsWith("40"));
-    }
-
-    public bool IsWoT(string t, bool orig = true)
-    {
-        return ItemLocations[t].GetItem(orig) != null && ItemLocations[t].GetItem(orig).Value.Item1 == "8070";
-    }
-
-    public bool IsChopKeyItem(string t)
-    {
-        return PlacementAlgo.ItemLocations[t].Traits.Any(s => s.StartsWith("Chop"));
-    }
-
-    public bool IsBlackOrbKeyItem(string t)
-    {
-        return PlacementAlgo.ItemLocations[t].Traits.Any(s => s.StartsWith("BlackOrb"));
-    }
-
-    public bool IsKeyItem(string t)
-    {
-        return ItemLocations[t].GetItem(true) != null && (FF12Flags.Items.KeyItems.DictValues.Keys.Contains(ItemLocations[t].GetItem(true)?.Item1) || IsChopKeyItem(t) || IsBlackOrbKeyItem(t));
+        treasuresAllowed = ItemLocations.Values.Where(l => l is TreasureLocation && !l.Traits.Contains("Missable")).Select(l => l.ID).Shuffle().Take(255).ToList();
     }
 
     private List<string> GetRandomizableItems()
     {
-        return ItemLocations.Values.Where(l => l is not TreasureData || treasuresToPlace.Contains(l.ID))
+        return ItemLocations.Values.Where(l => l is not TreasureLocation || treasuresToPlace.Contains(l.ID))
             .Select(l =>
             {
                 (string, int)? tuple = ItemLocations[l.ID].GetItem(true);
@@ -643,16 +328,16 @@ public partial class TreasureRando : Randomizer
     public void SaveHints()
     {
         TextRando textRando = Generator.Get<TextRando>();
-        if (hints.Select(l => l.Count).Sum() > 0)
+        if (HintPlacer.Hints.Values.Select(l => l.Count).Sum() > 0)
         {
-            for (int i = 0; i < hints.Count; i++)
+            foreach (int num in HintPlacer.Hints.Keys)
             {
                 List<string> lines = new();
-                if (hints[i].Count > 0)
+                if (HintPlacer.Hints[num].Count > 0)
                 {
-                    foreach (string l in hints[i])
+                    foreach (var l in HintPlacer.Hints[num])
                     {
-                        lines.Add(GetHintText(l));
+                        lines.Add(HintPlacer.GetHintText(l));
                     }
                 }
                 else
@@ -660,99 +345,18 @@ public partial class TreasureRando : Randomizer
                     lines.Add("There is nothing left to hint.");
                 }
 
-                textRando.TextKeyDescriptions[352 + i].Text = string.Join("\n", lines);
+                textRando.TextKeyDescriptions[352 + num].Text = string.Join("\n", lines);
             }
         }
-    }
-
-    private string GetHintText(string l)
-    {
-        string val;
-        int index = FF12Flags.Other.HintsSpecific.Values.IndexOf(FF12Flags.Other.HintsSpecific.SelectedValue);
-        if (index == FF12Flags.Other.HintsSpecific.Values.Count - 1)
-        {
-            FF12Flags.Other.HintsMain.SetRand();
-            index = RandomNum.RandInt(0, FF12Flags.Other.HintsSpecific.Values.Count - 2);
-            RandomNum.ClearRand();
-        }
-
-        switch (index)
-        {
-            case 0:
-            default:
-                {
-                    val = $"{ItemLocations[l].Name} has {GetItemName(ItemLocations[l].GetItem(false)?.Item1)}";
-                    break;
-                }
-            case 1:
-                {
-
-                    string type = "Other";
-                    if (IsKeyItem(PlacementAlgo.Placement[l]))
-                    {
-                        type = "a Unique Key Item";
-                    }
-
-                    if (IsChopKeyItem(PlacementAlgo.Placement[l]))
-                    {
-                        type = "a Chop";
-                    }
-
-                    if (IsBlackOrbKeyItem(PlacementAlgo.Placement[l]))
-                    {
-                        type = "a Black Orb";
-                    }
-
-                    (string, int)? item = ItemLocations[l].GetItem(false);
-                    int intId = -1;
-                    if (item != null)
-                    {
-                        try
-                        {
-                            intId = Convert.ToInt32(item.Value.Item1, 16);
-                        }
-                        catch { }
-                    }
-
-                    if (item?.Item1 == "8070")
-                    {
-                        type = "a Writ of Transit";
-                    }
-
-                    if (intId is >= 0x80B9 and <= 0x80D6)
-                    {
-                        type = "a Useless Trophy";
-                    }
-
-                    if (item != null && (item.Value.Item1.StartsWith("30") || item.Value.Item1.StartsWith("40")))
-                    {
-                        type = "an Ability";
-                    }
-
-                    val = $"{ItemLocations[l].Name} has {type}";
-                    break;
-                }
-            case 2:
-                {
-                    val = $"{ItemLocations[l].Areas[0]} has {GetItemName(ItemLocations[l].GetItem(false)?.Item1)}";
-                    break;
-                }
-            case 3:
-                {
-                    val = $"{ItemLocations[l].Name} has ????";
-                    break;
-                }
-        }
-
-        return val;
     }
 
     public void SaveTreasureTracker()
     {
         Dictionary<string, List<int>> areaRespawns = new();
-        IEnumerable<TreasureData> treasures = PlacementAlgo.Placement.Keys.Where(l => ItemLocations[l] is TreasureData).Select(l => (TreasureData)ItemLocations[l]);
-        treasures = treasures.Concat(missableTreasureLinks.Keys.Select(l => (TreasureData)ItemLocations[l]));
-        foreach (TreasureData l in treasures)
+        IEnumerable<TreasureLocation> treasures = ItemLocations.Values
+            .Where(l => l is TreasureLocation && l.GetItem(false) != null)
+            .Select(l => (TreasureLocation)l);
+        foreach (TreasureLocation l in treasures)
         {
             DataStoreTreasure t = ebpAreas[l.MapID].TreasureList[l.Index];
             if (!areaRespawns.ContainsKey(l.MapID))
@@ -789,10 +393,10 @@ public partial class TreasureRando : Randomizer
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
         HTMLPage page = new("Item Locations", "template/documentation.html");
 
-        page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Sphere" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), ItemLocations.Values.Select(l =>
+        page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Sphere" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), ItemLocations.Values.Where(l => l is not FakeLocation).Select(l =>
         {
             string display = "";
-            if (l is TreasureData t)
+            if (l is TreasureLocation t)
             {
                 DataStoreTreasure treasure = ebpAreas[t.MapID].TreasureList[t.Index];
                 if (treasure.SpawnChance == 0)
@@ -802,9 +406,9 @@ public partial class TreasureRando : Randomizer
 
                 display = GetTreasureDisplay(treasure);
             }
-            else if (l is RewardData r)
+            else if (l is RewardLocation r)
             {
-                if (r.Index > 0 || r.Traits.Contains("Fake"))
+                if (r.Index > 0)
                 {
                     return null;
                 }
@@ -812,7 +416,7 @@ public partial class TreasureRando : Randomizer
                 DataStoreReward reward = rewards[r.IntID - 0x9000];
                 display = GetRewardDisplay(reward);
             }
-            else if (l is StartingInvData s)
+            else if (l is StartingInvLocation s)
             {
                 if (s.Index > 0)
                 {
@@ -840,13 +444,13 @@ public partial class TreasureRando : Randomizer
                 nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
             }
 
-            return new object[] { nameCell, display, LocationSpheres.ContainsKey(l.ID) ? LocationSpheres[l.ID] : "N/A" }.ToList();
+            return new object[] { nameCell, display, ItemPlacer.SphereCalculator.Spheres.ContainsKey(l) ? ItemPlacer.SphereCalculator.Spheres[l] : "N/A" }.ToList();
         }).Where(l => l != null).ToList(), "itemlocations"));
         pages.Add("item_locations", page);
 
         // Add hints page
         page = new("Hints", "template/documentation.html");
-        page.HTMLElements.Add(new Table("Hints", (new string[] { "Hint" }).ToList(), (new int[] { 100 }).ToList(), hints.Select(list => new object[] { string.Join("\n", list.Select(line => GetHintText(line))) }.ToList()).ToList(), "hints"));
+        page.HTMLElements.Add(new Table("Hints", (new string[] { "Hint Number", "Hint" }).ToList(), (new int[] { 20, 80 }).ToList(), HintPlacer.Hints.Select(hint => new object[] { $"Hint Number {hint.Key + 1}", string.Join("\n", hint.Value.Select(line => HintPlacer.GetHintText(line))) }.ToList()).ToList(), "hints"));
         pages.Add("hints", page);
 
         return pages;

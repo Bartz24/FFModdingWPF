@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,44 +10,72 @@ using System.Windows;
 namespace Bartz24.RandoWPF;
 
 // Calculates the spheres by going through the item locations and assigning them to the first sphere they can be in.
-public class SphereCalculator
+public class SphereCalculator<T> where T : ItemLocation
 {
-    public static Dictionary<string, int> CalculateSpheres<T>(ItemPlacementLogic<T> logic) where T : ItemLocation
-    {
-        Dictionary<string, int> spheres = new();
+    public Dictionary<T, int> Spheres { get; set; } = new();
 
+    private SeedGenerator Generator { get; set; }
+
+    public SphereCalculator(SeedGenerator generator)
+    {
+        Generator = generator;
+    }
+
+    public void CalculateSpheres(HashSet<T> locations)
+    {
+        Spheres.Clear();
         Dictionary<string, int> items = new();
 
-        List<string> remaining = new(logic.ItemLocations.Keys.Where(k => !logic.ItemLocations[k].Traits.Contains("Missable")));
+        HashSet<T> remaining = new(locations.Where(l => !l.Traits.Contains("Missable")));
 
-        List<string> used = new();
+        HashSet<T> used = new();
 
         for (int sphere = 0; remaining.Count > 0; sphere++)
         {
+            RandoUI.SetUIProgressIndeterminate($"Calculating sphere {sphere} items.");
+            Generator.Logger.LogDebug($"Calculating sphere {sphere} items.");
+
+            HashSet<T> addedThisSphere = new();
             bool valid = false;
-            foreach (string loc in remaining)
+            foreach (T loc in remaining)
             {
-                if (logic.ItemLocations[loc].IsValid(items))
+                if (loc.AreItemReqsMet(items))
                 {
                     valid = true;
 
-                    spheres.Add(loc, sphere);
+                    Spheres.Add(loc, sphere);
                     used.Add(loc);
+
+                    if (loc.GetItem(false) != null)
+                    {
+                        addedThisSphere.Add(loc);
+                    }
                 }
             }
 
-            remaining.RemoveAll(l => used.Contains(l));
+            remaining.RemoveWhere(l => used.Contains(l));
 
-            items = logic.GetItemsAvailable(used.ToDictionary(l => l, l => l));
+            foreach (var loc in addedThisSphere)
+            {
+                (string itemID, int amount) = loc.GetItem(false).Value;
+                if (items.ContainsKey(itemID))
+                {
+                    items[itemID] += amount;
+                }
+                else
+                {
+                    items.Add(itemID, amount);
+                }
+            }
 
             if (!valid)
             {
-                MessageBox.Show("Could not find a path to all items placed. This seed might be unbeatable. Report this to the dev with the seed and flags used. After this seed finishes generating, you can click on \"Share current seed\" and send the JSON seed file.");
+                string msg = "Could not find a path to all items placed. This seed might be unbeatable. Report this to the dev with the seed and flags used. After this seed finishes generating, you can click on \"Share current seed\" and send the JSON seed file.";
+                Generator.Logger.LogError(msg);
+                MessageBox.Show(msg);
 
-                return spheres;
+                return;
             }
         }
-
-        return spheres;
     }
 }

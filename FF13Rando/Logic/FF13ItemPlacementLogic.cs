@@ -31,7 +31,7 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
 
     public override bool IsValid(string location, string replacement, Dictionary<string, int> items, List<string> areasAvailable)
     {
-        return ItemLocations[location].IsValid(items) &&
+        return ItemLocations[location].AreItemReqsMet(items) &&
             FF13RandoHelpers.AreCrystariumReqsMet(ItemLocations[location], items) &&
             ItemLocations[location].Areas.Intersect(areasAvailable).Count() > 0 &&
             IsAllowed(location, replacement);

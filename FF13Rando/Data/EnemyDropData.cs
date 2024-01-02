@@ -30,7 +30,7 @@ public class EnemyDropData : FF13ItemLocation, DataStoreItemProvider<DataStoreBt
         Characters = FF13RandoHelpers.ParseReqCharas(row[8]);
     }
 
-    public override bool IsValid(Dictionary<string, int> items)
+    public override bool AreItemReqsMet(Dictionary<string, int> items)
     {
         return Requirements.IsValid(items);
     }

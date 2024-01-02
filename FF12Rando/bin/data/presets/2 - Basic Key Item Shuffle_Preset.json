@@ -1,6 +1,6 @@
 {
   "name": "2 - Basic Key Item Shuffle",
-  "version": "0.8.0.8",
+  "version": "0.8.0.13",
   "flags": [
     {
       "FlagEnabled": false,
@@ -40,28 +40,28 @@
         },
         {
           "SelectedValues": [
-            "Rabanastre Aeropass",
-            "Nalbina Aeropass",
-            "Clan Primer",
-            "Shadestone",
-            "Sunstone",
-            "Crescent Stone",
-            "Goddess's Magicite",
-            "Tube Fuse",
-            "Sword of the Order",
-            "Bhujerba Aeropass",
-            "No. 1 Brig Key",
-            "Systems Access Key",
-            "Manufacted Nethicite",
-            "Dawn Shard",
-            "Rainstone",
-            "Soul Ward Key",
-            "Sword of Kings",
-            "Lente's Tear",
             "Archades Aeropass",
-            "Lab Access Card",
-            "Treaty-Blade",
             "Balfonheim Aeropass",
+            "Bhujerba Aeropass",
+            "Clan Primer",
+            "Crescent Stone",
+            "Dawn Shard",
+            "Goddess's Magicite",
+            "Lab Access Card",
+            "Lente's Tear",
+            "Manufacted Nethicite",
+            "Nalbina Aeropass",
+            "No. 1 Brig Key",
+            "Rabanastre Aeropass",
+            "Rainstone",
+            "Shadestone",
+            "Soul Ward Key",
+            "Sunstone",
+            "Sword of Kings",
+            "Sword of the Order",
+            "Systems Access Key",
+            "Treaty-Blade",
+            "Tube Fuse",
             "Wind Globe",
             "Windvane"
           ],
@@ -118,6 +118,14 @@
         {
           "Enabled": true,
           "ID": "PlaceJunkScale"
+        },
+        {
+          "Value": 2,
+          "ID": "JunkRange"
+        },
+        {
+          "Enabled": false,
+          "ID": "ReplaceJunkAny"
         }
       ]
     },

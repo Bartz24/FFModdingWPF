@@ -2,7 +2,7 @@
 
 namespace FF12Rando;
 
-public class ItemData : CSVDataRow
+public class ItemData : CSVDataRow, IItem
 {
     [RowIndex(0)]
     public string Name { get; set; }
@@ -16,6 +16,8 @@ public class ItemData : CSVDataRow
     public int IntUpgrade { get; set; }
     [RowIndex(3)]
     public string Upgrade { get; set; }
+    [RowIndex(4)]
+    public string Category { get; set; }
     public ItemData(string[] row) : base(row)
     {
     }

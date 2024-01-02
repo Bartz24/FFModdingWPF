@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FF12Rando;
 
-public class StartingInvData : ItemLocation, DataStoreItemProvider<DataStorePartyMember>
+public class StartingInvLocation : FF12ItemLocation, DataStoreItemProvider<DataStorePartyMember>
 {
     public override string ID { get; set; }
     [RowIndex(2), FieldTypeOverride(FieldType.HexInt)]
@@ -23,15 +23,15 @@ public class StartingInvData : ItemLocation, DataStoreItemProvider<DataStorePart
     [RowIndex(4)]
     public override int BaseDifficulty { get; set; }
 
-    public StartingInvData(SeedGenerator generator, string[] row, int index) : base(generator, row)
+    public StartingInvLocation(SeedGenerator generator, string[] row, int index) : base(generator, row)
     {
         ID = row[2] + "::" + index;
         Index = index;
     }
 
-    public override bool IsValid(Dictionary<string, int> items)
+    public override bool AreItemReqsMet(Dictionary<string, int> items)
     {
-        return Requirements.IsValid(items);
+        return base.AreItemReqsMet(items) && Requirements.IsValid(items);
     }
 
     public override void SetItem(string newItem, int newCount)
@@ -74,5 +74,11 @@ public class StartingInvData : ItemLocation, DataStoreItemProvider<DataStorePart
     {
         PartyRando partyRando = Generator.Get<PartyRando>();
         return orig ? partyRando.partyOrig[IntID] : partyRando.party[IntID];
+    }
+
+    public override bool CanReplace(ItemLocation location)
+    {
+        // Cannot be placed in rewards index 0
+        return location is not RewardLocation reward || reward.Index != 0;
     }
 }

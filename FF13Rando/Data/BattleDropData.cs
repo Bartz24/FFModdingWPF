@@ -26,7 +26,7 @@ public class BattleDropData : FF13ItemLocation, DataStoreItemProvider<DataStoreB
         Characters = FF13RandoHelpers.ParseReqCharas(row[6]);
     }
 
-    public override bool IsValid(Dictionary<string, int> items)
+    public override bool AreItemReqsMet(Dictionary<string, int> items)
     {
         return Requirements.IsValid(items);
     }

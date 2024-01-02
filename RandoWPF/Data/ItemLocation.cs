@@ -14,7 +14,9 @@ public abstract class ItemLocation : CSVDataRow
     public abstract List<string> Traits { get; set; }
     public abstract List<string> Areas { get; set; }
     public abstract int BaseDifficulty { get; set; }
-    public abstract bool IsValid(Dictionary<string, int> items);
+    public abstract bool AreItemReqsMet(Dictionary<string, int> items);
+
+    public abstract bool CanReplace(ItemLocation location);
 
     public abstract void SetItem(string newItem, int newCount);
     public abstract (string Item, int Amount)? GetItem(bool orig);

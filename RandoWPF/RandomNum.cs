@@ -96,12 +96,21 @@ public class RandomNum
         return list.ElementAt(RandomNum.RandInt(0, list.Count() - 1));
     }
 
-    public static T SelectRandomWeighted<T>(List<T> list, Func<T, long> weightFunc, bool returnNullOnFail = false)
+    public static T SelectRandomOrDefault<T>(IEnumerable<T> list)
+    {
+        if (list.Count() == 0)
+        {
+            return default;
+        }
+        return list.ElementAt(RandomNum.RandInt(0, list.Count() - 1));
+    }
+
+    public static T SelectRandomWeighted<T>(IEnumerable<T> collection, Func<T, long> weightFunc, bool returnNullOnFail = false)
     {
         CheckRand();
         long totalWeight = 0;
         T selected = default;
-        foreach (var item in list)
+        foreach (var item in collection)
         {
             long weight = weightFunc(item);
             if (weight < 0)
