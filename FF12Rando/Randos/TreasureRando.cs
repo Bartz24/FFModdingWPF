@@ -162,7 +162,7 @@ public partial class TreasureRando : Randomizer
                 }
             }
 
-            // Set treasure respawn IDs
+            // Set treasure respawn IDs and spawn chance
             int respawnIndex = 0;
             foreach (var location in ItemPlacer.FinalPlacement.Keys.Shuffle())
             {
@@ -175,6 +175,7 @@ public partial class TreasureRando : Randomizer
                 {
                     DataStoreTreasure treasure = ebpAreas[t.MapID].TreasureList[t.Index];
                     treasure.Respawn = (byte)respawnIndex;
+                    treasure.SpawnChance = 100;
                     respawnIndex++;
                 }
             }
