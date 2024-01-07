@@ -97,8 +97,13 @@ public class EquipRando : Randomizer
         itemData.Values.Where(i => i.OverrideBuyGil != -1).ForEach(i => items[i.ID].uPurchasePrice = i.OverrideBuyGil);
         itemData.Values.Where(i => i.OverrideBuyEP != -1).ForEach(i => items[i.ID].uGpCost = i.OverrideBuyEP * 1000);
 
-        RemainingEquip = itemData.Values.Where(i => (i.Category == "Weapon" || i.Category == "Shield" || i.Category == "Garb" || i.Category == "Accessory") && !i.Traits.Contains("Key")).Select(i => i.ID).ToList();
+        RemainingEquip = itemData.Values.Where(i => (i.Category == "Weapon" || i.Category == "Shield" || i.Category == "Garb" || i.Category == "Accessory") && !i.Traits.Contains("Key")).Select(i => i.ID).ToList();        
         RemainingAdorn = itemData.Values.Where(i => i.Category == "Adornment" && !i.Traits.Contains("Remove")).Select(i => i.ID).ToList();
+        if (!LRFlags.Items.IncludeDLCItems.Enabled)
+        {
+            RemainingEquip.RemoveAll(i => itemData[i].Traits.Contains("DLC"));
+            RemainingAdorn.RemoveAll(i => itemData[i].Traits.Contains("DLC"));
+        }
     }
     public override void Randomize()
     {

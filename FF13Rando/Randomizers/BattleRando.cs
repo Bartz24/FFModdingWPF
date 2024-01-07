@@ -723,7 +723,7 @@ public class BattleRando : Randomizer
         {
             0 => 0,
             1 => 0,
-            2 => 40,
+            2 => 36,
             _ => 16,
         };
     }

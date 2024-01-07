@@ -1,8 +1,6 @@
-0.7.5 Changelog:
--Added random equipment upgrading, available from the start
--Added all upgrade materials to shops and reduced their prices
--Improved equipment stat rando
--Improved selection of key items and bosses for randomization
--Reverted Final Day Sets fight to vanilla to avoid softlock
--Fixed Saint's Crux softlock
--Pressing enter to save custom presets is possible now
+0.7.6 Changelog:
+-Added junk item range and category swap flags
+-Changed gil and EP prices for items
+-Reduced the adornment pool to avoid clutter
+-Added upgrade materials to the pool
+-Added an option to include DLC equipment in the pool

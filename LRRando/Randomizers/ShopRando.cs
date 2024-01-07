@@ -85,33 +85,31 @@ public class ShopRando : Randomizer
                 shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra && shopsDict.ContainsKey(s.name)).ForEach(s => shopsDict[s.name].Add("mat_cus_0_0" + n));
             }
 
-            foreach (string equip in equipRando.RemainingEquip)
+            foreach (string equip in equipRando.RemainingEquip.Where(a => equipRando.itemData[a].Category != "Accessory").ToList())
             {
-                string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && IsValid(equip, (ShopCategory)shopsOrig[k].u3Category)).Shuffle().First();
-                shopsDict[next].Add(equip);
-                string unique = uniqueShops.Keys.Where(k => next.StartsWith(k)).FirstOrDefault();
-                if (!string.IsNullOrEmpty(unique))
-                {
-                    uniqueShops[unique].Add(equip);
-                }
+                AddToRandomShop(uniqueShops, shopsDict, equip, true);
+                equipRando.RemainingEquip.Remove(equip);
             }
 
-            foreach (string adorn in equipRando.RemainingAdorn)
+            foreach (string equip in equipRando.RemainingEquip.Shuffle().Take((int)(equipRando.RemainingEquip.Count * 0.4)))
             {
-                string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && IsValid(adorn, (ShopCategory)shopsOrig[k].u3Category)).Shuffle().First();
-                shopsDict[next].Add(adorn);
-                string unique = uniqueShops.Keys.Where(k => next.StartsWith(k)).FirstOrDefault();
-                if (!string.IsNullOrEmpty(unique))
-                {
-                    uniqueShops[unique].Add(adorn);
-                }
+                AddToRandomShop(uniqueShops, shopsDict, equip, true);
+            }
+
+            foreach (string adorn in equipRando.RemainingAdorn.Where(a => equipRando.itemData[a].Traits.Contains("Always")).ToList())
+            {
+                AddToRandomShop(uniqueShops, shopsDict, adorn);
+                equipRando.RemainingAdorn.Remove(adorn);
+            }
+
+            foreach (string adorn in equipRando.RemainingAdorn.Shuffle().Take((int)(equipRando.RemainingAdorn.Count * 0.2)))
+            {
+                AddToRandomShop(uniqueShops, shopsDict, adorn);
             }
 
             Randomizers.SetUIProgress("Randomizing Shop Data...", 70, 100);
 
             List<string> possibleItems = new();
-            possibleItems.AddRange(equipRando.RemainingEquip);
-            possibleItems.AddRange(equipRando.RemainingAdorn);
             possibleItems.AddRange(equipRando.itemData.Values.Where(i => i.Category == "Item").Select(i => i.ID));
             foreach (string shop in shopsDict.Keys.Shuffle().OrderBy(s => s != "shop_ptl_pt00"))
             {
@@ -158,6 +156,32 @@ public class ShopRando : Randomizer
             }
 
             RandomNum.ClearRand();
+        }
+
+        void AddToRandomShop(Dictionary<string, List<string>> uniqueShops, Dictionary<string, List<string>> shopsDict, string equip, bool multiple = false)
+        {
+            // Get the next shop to add to
+            string next = shopsDict.Keys.Where(k => shopsDict[k].Count < 32 && IsValid(equip, (ShopCategory)shopsOrig[k].u3Category) && !shopsDict[k].Contains(equip)).Shuffle().FirstOrDefault();
+
+            if (next == null)
+            {
+                return;
+            }
+
+            // Add to random shop
+            shopsDict[next].Add(equip);
+
+            // Add to unique shop if this is a unique shop
+            string unique = uniqueShops.Keys.Where(k => next.StartsWith(k)).FirstOrDefault();
+            if (!string.IsNullOrEmpty(unique))
+            {
+                uniqueShops[unique].Add(equip);
+            }
+            // Otherwise, have a chance to add to another shop
+            else if (multiple && RandomNum.RandInt(0, 99) < 60)
+            {
+                AddToRandomShop(uniqueShops, shopsDict, equip, true);
+            }
         }
     }
 

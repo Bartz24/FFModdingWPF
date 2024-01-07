@@ -221,7 +221,7 @@ public class LRFlags
         public static Flag Treasures;
         public static Flag Shops;
         public static Flag CoPReqs;
-        public static ToggleFlagProperty EPMissable, IDCardBuy, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy, KeyPlaceSuperboss, ReplaceAny;
+        public static ToggleFlagProperty EPMissable, IDCardBuy, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy, KeyPlaceSuperboss, ReplaceAny, IncludeDLCItems;
         public static ComboBoxFlagProperty KeyDepth;
         public static DictListBoxFlagProperty<string> KeyItems;
         public static NumberFlagProperty ReplaceRank;
@@ -411,6 +411,14 @@ public class LRFlags
                 ID = "ReplaceJunkAny",
                 Description = "Allow 'Junk' items (consumables, weapons, shields, garbs, accessories, and materials) to be replaced by items of other types.\n" +
                 "Ex: Potions can be replaced with Bronze Malistones."
+            }.Register(Treasures);
+
+            IncludeDLCItems = new ToggleFlagProperty()
+            {
+                Text = "Include DLC Items",
+                ID = "IncludeDLC",
+                Description = "Include DLC equipment and adornments in the item pool.\n" +
+                "Note: Be sure to also enable the DLC content in the in-game settings menu."
             }.Register(Treasures);
         }
     }

@@ -1,11 +1,8 @@
-0.7.5 Changelog:
--Added TP border rando
--Added run speed multiplier
--Added equipment stat and passive rando
--Added new CP cost options and overall CP cost multiplier
--Replaced quit game text with softlock text
--Improved item location documentation
--Fixed Ch 2 looping
--Fixed Ch 10 enemy rando crash
--Fixed incorrect item names
--Pressing enter to save custom presets is possible now
+0.7.6 Changelog:
+-Added a new shortcut to return to the Lindblum to get out of previously softlocking areas (L3+R3+R1)
+-Fixed softlock/freeze when selecting Quit to title
+-New enemy rando system. Base option will also replace enemies on the field 1-to-1 for the area. Additional options are available to randomize enemies individually
+-Mission enemies can now be unique rather than pulling a random enemy from the area
+-Moved enemies which can hover to their own pool (uhlans, chonchons, etc)
+-Improved load and save times
+-Various enemy rando crash fixes
