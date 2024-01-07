@@ -1,6 +1,7 @@
 ﻿using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
@@ -111,7 +112,7 @@ public class CSVDataRow
                 property.SetValue(this, string.IsNullOrEmpty(value) ? -1 : Convert.ToInt32(value, 16));
                 break;
             case FieldType.Float:
-                property.SetValue(this, string.IsNullOrEmpty(value) ? -1 : float.Parse(value));
+                property.SetValue(this, string.IsNullOrEmpty(value) ? -1 : float.Parse(value, CultureInfo.InvariantCulture));
                 break;
             case FieldType.FloatFromInt100:
                 property.SetValue(this, string.IsNullOrEmpty(value) ? -1 : int.Parse(value) / 100f);
