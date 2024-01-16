@@ -52,6 +52,7 @@ public class EnemyRando : Randomizer
         RemoveAbiDrop(equipRando, abiDrops);
         enemies.Values.Where(e => e.sBaseBtSpec_string == "").ForEach(baseE =>
         {
+            baseE.u24MaxHp = 70000000;
             foreach (string type in types)
             {
                 string baseItem = GetDrop(baseE, type);

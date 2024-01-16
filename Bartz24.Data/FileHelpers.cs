@@ -3,6 +3,7 @@ using CsvHelper.Configuration;
 using SharpCompress.Archives;
 using SharpCompress.Archives.SevenZip;
 using SharpCompress.Common;
+using SharpCompress.Readers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -61,23 +62,83 @@ public class FileHelpers
         subfolderName = subfolderName.Replace("\\", "/");
         using (SevenZipArchive archive = SevenZipArchive.Open(archiveFile))
         {
-            List<SevenZipArchiveEntry> entries = archive.Entries.Where(entry => entry.Key.StartsWith(subfolderName)).ToList();
-
-            foreach (SevenZipArchiveEntry entry in entries)
+            archive.ExtractAllEntries();
+            using (var reader = archive.ExtractAllEntries())
             {
-                string relativePath = entry.Key.Substring(entry.Key.IndexOf(subfolderName) + subfolderName.Length);
-                string entryPath = Path.Combine(outputFolderPath, relativePath.Length > 0 ? relativePath.Substring(1) : relativePath);
-                if (entry.IsDirectory)
+                while (reader.MoveToNextEntry())
                 {
-                    Directory.CreateDirectory(entryPath);
-                }
-                else
-                {
-                    ExtractionOptions options = new();
-                    options.Overwrite = true;
-                    entry.WriteToFile(entryPath, options);
+                    if (reader.Entry.Key.StartsWith(subfolderName))
+                    {
+                        string relativePath = reader.Entry.Key.Substring(reader.Entry.Key.IndexOf(subfolderName) + subfolderName.Length);
+                        string entryPath = Path.Combine(outputFolderPath, relativePath.Length > 0 ? relativePath.Substring(1) : relativePath);
+                        if (reader.Entry.IsDirectory)
+                        {
+                            Directory.CreateDirectory(Path.Combine(outputFolderPath, reader.Entry.Key));
+                        }
+                        else
+                        {
+                            ExtractionOptions options = new();
+                            options.Overwrite = true;
+                            reader.WriteEntryToFile(entryPath, options);
+                        }
+                    }
                 }
             }
         }
+    }
+
+    public static bool RemoveFilesAndFolders(string folderPath, List<string> denyList)
+    {
+        if (!Directory.Exists(folderPath))
+        {
+            return false;
+        }
+
+        bool filesRemaining = false;
+        try
+        {
+            // Process each file in the folder
+            foreach (string filePath in Directory.GetFiles(folderPath))
+            {
+                // Check if the file path is not in the denylist
+                if (!denyList.Contains(filePath))
+                {
+                    File.Delete(filePath);
+                }
+                else
+                {
+                    filesRemaining = true;
+                }
+            }
+
+            // Process each subfolder in the folder
+            foreach (string subfolderPath in Directory.GetDirectories(folderPath))
+            {
+                // Check if the folder path is not in the denylist
+                if (!denyList.Contains(subfolderPath))
+                {
+                    // Recursively call the method for each subfolder
+                    bool subfilesRemaining = RemoveFilesAndFolders(subfolderPath, denyList);
+                    if (!subfilesRemaining)
+                    {
+                        Directory.Delete(subfolderPath);
+                    }
+                    else
+                    {
+                        filesRemaining = true;
+                    }
+                }
+                else
+                {
+                    filesRemaining = true;
+                }
+            }
+        }
+        catch (Exception)
+        {
+            // Handle exceptions if needed
+        }
+
+        return filesRemaining;
     }
 }

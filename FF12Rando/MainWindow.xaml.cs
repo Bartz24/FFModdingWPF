@@ -226,7 +226,7 @@ public partial class MainWindow : Window
             {
                 try
                 {
-                    gen.RemoveLuaScripts();
+                    gen.RemoveAndMoveLuaScripts();
                     Directory.Delete(gen.OutFolder, true);
                 }
                 catch
@@ -282,7 +282,7 @@ public partial class MainWindow : Window
             }
             catch
             {
-                MessageBox.Show("Encountered an error while removing mod loader files.");
+                MessageBox.Show("Encountered an error while removing Descriptive Inventory files.");
                 return;
             }
 
@@ -291,6 +291,28 @@ public partial class MainWindow : Window
             setupPaths.UpdateText();
 
             MessageBox.Show("Removed The Insurgent's Descriptive Inventory files.");
+        }
+    }
+
+    private void uninstallManifestoButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (MessageBox.Show("Uninstall The Insurgent's Manifesto files? This will first revert to the Vortex installation if that is detected.", "Remove mod?", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+        {
+            try
+            {
+                FF12SeedGenerator.UninstallManifesto();
+            }
+            catch
+            {
+                MessageBox.Show("Encountered an error while removing Manifesto files.");
+                return;
+            }
+
+            // Workaround since we can't set the name on this for some reason
+            SetupPaths setupPaths = (SetupPaths)this.GetByUid("setupPaths");
+            setupPaths.UpdateText();
+
+            MessageBox.Show("Removed The Insurgent's Manifesto files.");
         }
     }
 }

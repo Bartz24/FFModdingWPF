@@ -7,7 +7,7 @@ using System.Linq;
 using static LRRando.TreasureRando;
 
 namespace LRRando;
-
+/*
 public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
 {
     private readonly TreasureRando treasureRando;
@@ -299,3 +299,4 @@ public class LRItemPlacementLogic : ItemPlacementLogic<ItemLocation>
         treasureRando.hintsMain.Values.ForEach(l => l.Clear());
     }
 }
+*/

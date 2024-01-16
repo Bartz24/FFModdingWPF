@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FF12Rando;
 public class FF12SeedGenerator : SeedGenerator
@@ -63,6 +64,40 @@ public class FF12SeedGenerator : SeedGenerator
         }
     }
 
+    private static List<string> ManifestoRequiredPathsRandoInstall
+    {
+        get
+        {
+            if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+            {
+                throw new RandoException("Missing steam path", "Invalid path");
+            }
+
+            return new()
+            {
+                Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\image\\ff12\\in\\common\\pc_skillmotion.bin"),
+                Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsManifesto.lua")
+            };
+        }
+    }
+
+    private static List<string> ManifestoRequiredPathsVortexInstall
+    {
+        get
+        {
+            if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+            {
+                throw new RandoException("Missing steam path", "Invalid path");
+            }
+
+            return new()
+            {
+                Path.Combine(SetupData.Paths["12"], "mods\\deploy\\ps2data\\image\\ff12\\in\\common\\pc_skillmotion.bin"),
+                Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsManifesto.lua")
+            };
+        }
+    }
+
     public FF12SeedGenerator() : base()
     {
         Randomizers = new()
@@ -109,6 +144,11 @@ public class FF12SeedGenerator : SeedGenerator
             throw new RandoException("Lua Loader is not properly installed. Download and install them on 1. Setup.", "Lua missing.");
         }
 
+        if (ManifestoInstalled() == ManifestoInstallType.Missing)
+        {
+            throw new RandoException("The Insurgent's Manifesto is not properly installed. Download and install them on 1. Setup.", "Insurgent's Manifesto missing.");
+        }
+
         if (FF12Flags.Items.Treasures.FlagEnabled && FF12Flags.Items.WritGoals.SelectedIndices.Count == 0)
         {
             throw new RandoException("Item location randomization is turned on but there is no goal selected. Select at least 1 Bahamut unlock condition.", "No goal selected.");
@@ -116,7 +156,11 @@ public class FF12SeedGenerator : SeedGenerator
 
         if (Directory.Exists(OutFolder))
         {
-            Directory.Delete(OutFolder, true);
+            List<string> denyList = new (){
+                Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\image\\ff12\\in\\common\\pc_skillmotion.bin"),
+                Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\obj_finish\\in\\chara"),
+            };
+            FileHelpers.RemoveFilesAndFolders(OutFolder, denyList);
         }
 
         Directory.CreateDirectory(OutFolder);
@@ -125,7 +169,7 @@ public class FF12SeedGenerator : SeedGenerator
         SetupData.WPDTracking.Clear();
 
         UpdateLoaderConfig();
-        RemoveLuaScripts();
+        RemoveAndMoveLuaScripts();
         CopyLuaScripts();
 
         base.PrepareData();
@@ -151,16 +195,22 @@ public class FF12SeedGenerator : SeedGenerator
         FileHelpers.CopyFromFolder(scriptsFolder, "data\\scripts");
     }
 
-    public void RemoveLuaScripts()
+    public void RemoveAndMoveLuaScripts()
     {
         string scriptsFolder = Path.Combine(SetupData.Paths["12"], "x64\\scripts");
 
         Directory.GetFiles(scriptsFolder).Where(s => Path.GetFileName(s).StartsWith("Rando")).ForEach(s => File.Delete(s));
 
         string descriptiveFolder = $"{SetupData.Paths["12"]}\\x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig";
-        if (File.Exists(Path.Combine(descriptiveFolder, "us.lua.before_rando")))
+        if (!File.Exists(Path.Combine(descriptiveFolder, "us.lua.before_rando")))
         {
-            File.Move(Path.Combine(descriptiveFolder, "us.lua.before_rando"), Path.Combine(descriptiveFolder, "us.lua"), true);
+            MoveToBackup(Path.Combine(descriptiveFolder, "us.lua"), false);
+        }
+
+        // Move the original script to a backup if it hasn't been moved already
+        if (!File.Exists(Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsManifestoConfig.lua.before_rando")))
+        {
+            MoveToBackup(Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsManifestoConfig.lua"), false);
         }
     }
 
@@ -225,5 +275,81 @@ public class FF12SeedGenerator : SeedGenerator
     public static void UninstallDescriptive()
     {
         DescriptivePaths.Where(s => File.Exists(s)).ForEach(s => File.Delete(s));
+    }
+
+    public enum ManifestoInstallType
+    {
+        Missing,
+        Vortex,
+        Rando
+    }
+
+    public static ManifestoInstallType ManifestoInstalled()
+    {
+        if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+        {
+            return ManifestoInstallType.Missing;
+        }
+
+        if (ManifestoRequiredPathsRandoInstall.All(s => File.Exists(s)) && Directory.Exists(Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\obj_finish\\in\\chara")))
+        {
+            return ManifestoInstallType.Rando;
+        }
+
+        if (ManifestoRequiredPathsVortexInstall.All(s => File.Exists(s)) && Directory.Exists(Path.Combine(SetupData.Paths["12"], "mods\\deploy\\ps2data\\obj_finish\\in\\chara")))
+        {
+            return ManifestoInstallType.Vortex;
+        }
+
+        return ManifestoInstallType.Missing;
+    }
+
+    public static void UninstallManifesto()
+    {
+        if (ManifestoRequiredPathsVortexInstall.All(s => File.Exists(s)) && Directory.Exists(Path.Combine(SetupData.Paths["12"], "mods\\deploy\\ps2data\\obj_finish\\in\\chara")))
+        {
+                string filePath = Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsManifestoConfig.lua");
+            if (File.Exists(filePath + ".before_rando"))
+            {
+                // Ask user whether to restore backed up lua file or delete it
+                if (MessageBox.Show("Detected that the Insurgent's Manifesto was installed through Vortex. Would you like to revert the original Insurgent's Manifesto file for the Vortex install?\nYes - Revert\nNo - Delete",
+                    "Revert or Delete?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    // Restore config
+                    File.Delete(filePath);
+                    File.Move(filePath + ".before_rando", filePath);
+
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Detected that the Insurgent's Manifesto was installed through Vortex. However, the backup Insurgent's Manifesto config file for the Vortex install was not found. Nothing to revert. Uninstall through Vortex if you want to completely remove the Insurgent's Manifesto mod.", "Nothing to revert", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        // Delete including config backup        
+        List<string> manifestoScripts = new()
+        {
+            Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsManifesto.lua"),
+            Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsManifestoConfig.lua"),
+            Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsManifestoConfig.lua.before_rando")
+        };
+        manifestoScripts.Where(s => File.Exists(s)).ForEach(s => File.Delete(s));
+    }
+
+    public static void MoveToBackup(string path, bool makeCopy = false)
+    {
+        if (File.Exists(path) && !File.Exists(path + ".before_rando"))
+        {
+            if (makeCopy)
+            {
+                File.Copy(path, path + ".before_rando");
+            }
+            else
+            {
+                File.Move(path, path + ".before_rando");
+            }
+        }
     }
 }

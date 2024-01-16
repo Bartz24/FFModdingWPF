@@ -5,6 +5,7 @@ using SharpCompress.Archives.SevenZip;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -28,6 +29,9 @@ public partial class SetupPaths : UserControl
     private const string DescriptiveInstalledText = "The Insurgent's Descriptive Inventory is correctly installed.";
     private const string DescriptiveNotInstalledText = "The OPTIONAL mod for improved equipment descriptions is not installed.\nEither download through the Vortex mod manager,\nor download and then install the loader directly with the buttons to the right.";
 
+    private const string ManifestoInstalledText = "The Insurgent's Manifesto is correctly installed.";
+    private const string ManifestoNotInstalledText = "The Insurgent's Manifesto is not installed.\nEither download through the Vortex mod manager,\nor download and then install the loader directly with the buttons to the right.";
+
     public string FF12Path => SetupData.GetSteamPath("12");
     public string ToolsText { get; set; }
     public SolidColorBrush ToolsTextColor { get; set; }
@@ -37,6 +41,8 @@ public partial class SetupPaths : UserControl
     public SolidColorBrush LuaLoaderTextColor { get; set; }
     public string DescriptiveText { get; set; }
     public SolidColorBrush DescriptiveTextColor { get; set; }
+    public string ManifestoText { get; set; }
+    public SolidColorBrush ManifestoTextColor { get; set; }
 
     public SetupPaths()
     {
@@ -72,6 +78,25 @@ public partial class SetupPaths : UserControl
         DescriptiveTextColor = FF12SeedGenerator.DescriptiveInstalled() ? Brushes.LightGreen : Brushes.Yellow;
         DescriptiveTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
         DescriptiveTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
+
+        switch(FF12SeedGenerator.ManifestoInstalled())
+        {
+            case FF12SeedGenerator.ManifestoInstallType.Missing:
+                ManifestoText = ManifestoNotInstalledText;
+                ManifestoTextColor = Brushes.Yellow;
+                break;
+            case FF12SeedGenerator.ManifestoInstallType.Rando:
+                ManifestoText = ManifestoInstalledText;
+                ManifestoTextColor = Brushes.LightGreen;
+                break;
+            case FF12SeedGenerator.ManifestoInstallType.Vortex:
+                ManifestoText = "The Insurgent's Manifesto is correctly installed through Vortex. Note: Some Manifesto features like Dalan options will not appear in rando.";
+                ManifestoTextColor = Brushes.LightGreen;
+                break;
+        }
+
+        ManifestoTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
+        ManifestoTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
     }
 
     private void steamPath12Button_Click(object sender, RoutedEventArgs e)
@@ -320,7 +345,7 @@ public partial class SetupPaths : UserControl
     private void descriptiveDownloadButton_Click(object sender, RoutedEventArgs e)
     {
         string url = "https://www.nexusmods.com/finalfantasy12/mods/319";
-        if (MessageBox.Show("This will open your default browser at the below link to download The Insurgent's Descriptive Inventory from NexusMods. Continue?\n" + url, "Download file loader", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+        if (MessageBox.Show("This will open your default browser at the below link to download The Insurgent's Descriptive Inventory from NexusMods. Continue?\n" + url, "Download descriptive inventory", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
         {
             try
             {
@@ -369,6 +394,82 @@ public partial class SetupPaths : UserControl
                 catch
                 {
                     MessageBox.Show("Failed to install The Insurgent's Descriptive Inventory when extracting the files.");
+                }
+
+                UpdateText();
+            }
+            else
+            {
+                MessageBox.Show("Make sure the selected file is a 7z file.", "The selected file is not valid");
+            }
+        }
+    }
+
+    private void manifestoDownloadButton_Click(object sender, RoutedEventArgs e)
+    {
+        string url = "https://www.nexusmods.com/finalfantasy12/mods/218";
+        if (MessageBox.Show("This will open your default browser at the below link to download The Insurgent's Manifesto from NexusMods. Continue?\n" + url, "Download manifesto", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                url = url.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+        }
+    }
+
+    private void manifestoInstallButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+        {
+            MessageBox.Show("The path for FF12 is not valid. Setup the Steam path in the '1. Setup' step. first", "FF12 not found.");
+            return;
+        }
+
+        if (FF12SeedGenerator.ManifestoInstalled() == FF12SeedGenerator.ManifestoInstallType.Vortex)
+        {
+            if (MessageBox.Show("The Insurgent's Manifesto looks to already be installed through Vortex. No need to install it again. Continue?", "Manifesto already installed") == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            // Move to backup .before_rando files
+            FF12SeedGenerator.MoveToBackup(Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsManifestoConfig.lua"));
+        }
+
+        VistaOpenFileDialog dialog = new()
+        {
+            Title = "Please select a compressed file of The Insurgent's Manifesto.",
+            Multiselect = false,
+            Filter = "7zip|*.7z"
+        };
+        if ((bool)dialog.ShowDialog())
+        {
+            string path = dialog.FileName.Replace("/", "\\");
+            if (File.Exists(path))
+            {
+                try
+                {
+                    FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(SetupData.Paths["12"], "x64\\scripts"), "data\\x64\\scripts");
+                    FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\image"), "data\\mods\\deploy\\ff12data\\ps2data\\image");
+                    FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\obj_finish"), "data\\mods\\deploy\\ff12data\\ps2data\\obj_finish");
+
+                    if (FF12SeedGenerator.ManifestoInstalled() == FF12SeedGenerator.ManifestoInstallType.Rando)
+                    {
+                        MessageBox.Show("The Insurgent's Manifesto has been successfully installed.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to install The Insurgent's Manifesto. Expected files are missing.");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Failed to install The Insurgent's Manifesto when extracting the files.");
                 }
 
                 UpdateText();

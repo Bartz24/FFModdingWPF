@@ -28,10 +28,11 @@ public class ItemReorderer<T, I> where T : ItemLocation where I : IItem
         var grouping = locations.Where(l =>
         {
             string id = l.GetItem(false)?.Item;
-            if (id == null || !Items.ContainsKey(id) || !Categories.Contains(Items[id].Category))
+            if (id == null || !Items.ContainsKey(id) || !Categories.Contains(Items[id].Category) || Items[id].Traits.Contains("Ignore"))
             {
                 return false;
             }
+
             return true;
         }).GroupBy(l =>
         {

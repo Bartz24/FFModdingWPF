@@ -19,12 +19,12 @@ public class RandoUI
 
     public static void ShowTempUIMessage(string text)
     {
-        SetUIProgress(text, 0, 0);
+        SetUIProgress?.Invoke(text, 0, 0);
     }
 
     public static void SetUIProgressIndeterminate(string text)
     {
-        SetUIProgress(text, -1, -1);
+        SetUIProgress?.Invoke(text, -1, -1);
     }
 
     public static void SetUIProgressDeterminate(string text, int value, int max)
@@ -34,16 +34,16 @@ public class RandoUI
             throw new ArgumentException("Value and max must be non-negative");
         }
 
-        SetUIProgress(text, value, max);
+        SetUIProgress?.Invoke(text, value, max);
     }
 
     public static void IncrementTotalProgressUI()
     {
-        IncrementTotalProgress();
+        IncrementTotalProgress?.Invoke();
     }
 
     public static void SwitchUITab(int tab)
     {
-        SwitchTab(tab);
+        SwitchTab?.Invoke(tab);
     }
 }

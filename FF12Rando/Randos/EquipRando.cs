@@ -100,7 +100,7 @@ public partial class EquipRando : Randomizer
                     (0, 100),
                     (RandomNum.RandInt(RandomNum.RandInt(-100, -40), -20), -10)
                 };
-                float[] hiddenWeights = { 0.8f, 0.8f, 4 };
+                float[] hiddenWeights = { 0.8f, 0.8f, 2.5f };
                 int[] hiddenChances = { 30, 30, 200 };
                 int[] hiddenZeros = { 10, 5, 0 };
                 int[] hiddenNegs = { 0, 0, 100 };

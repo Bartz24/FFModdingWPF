@@ -9,4 +9,5 @@ public interface IItem
 {
     public string Category { get; set; }
     public int Rank { get; set; }
+    public List<string> Traits { get; set; }
 }

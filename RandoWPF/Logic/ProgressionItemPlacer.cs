@@ -208,11 +208,15 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             }
         }
 
-        return RandomNum.SelectRandomWeighted(possibleLocations, l => GetAreaWeight(l));
+        return RandomNum.SelectRandomWeighted(possibleLocations, l => (long)(
+                    GetAreaWeight(l) 
+                    * Math.Pow(1.2, Math.Max(0, 10 - DepthDifficulty)) 
+                    * (l.BaseDifficulty + 1) 
+                    * 100));
 
     }
-    protected virtual long GetAreaWeight(T location)
+    protected virtual double GetAreaWeight(T location)
     {
-        return Math.Max(1, (long)(location.Areas.Select(a => AreaMultipliers[a]).Average() * 100.0));
+        return Math.Max(1, location.Areas.Select(a => AreaMultipliers[a]).Average());
     }
 }

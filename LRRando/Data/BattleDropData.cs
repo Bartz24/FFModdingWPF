@@ -54,4 +54,9 @@ public class BattleDropData : ItemLocation, DataStoreItemProvider<DataStoreBtSce
         BattleRando battleRando = Generator.Get<BattleRando>();
         return orig ? battleRando.btScenesOrig[ID] : battleRando.btScenes[ID];
     }
+
+    public override bool CanReplace(ItemLocation location)
+    {
+        return false;
+    }
 }

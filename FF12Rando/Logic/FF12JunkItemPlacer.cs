@@ -54,7 +54,8 @@ public class FF12JunkItemPlacer : JunkItemPlacer<ItemLocation>
                     i.Category == category &&
                     i.Rank >= equipRando.itemData[orig.Item1].Rank - rankRange &&
                     i.Rank <= equipRando.itemData[orig.Item1].Rank + rankRange &&
-                    i.Rank <= 10);
+                    i.Rank <= 10 &&
+                    !i.Traits.Contains("Ignore"));
 
                 repItem = RandomNum.SelectRandomOrDefault(possible)?.ID;
             } while (repItem == null);

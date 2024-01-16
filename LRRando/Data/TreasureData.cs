@@ -113,4 +113,9 @@ public class TreasureData : ItemLocation, DataStoreItemProvider<DataStoreRTreasu
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
         return orig ? treasureRando.treasuresOrig[ID] : treasureRando.treasures[ID];
     }
+
+    public override bool CanReplace(ItemLocation location)
+    {
+        return false;
+    }
 }

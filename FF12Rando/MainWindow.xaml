@@ -193,7 +193,11 @@
                         <rando:FinishPage>
                             <Button Click="generateButton_Click"
                                     ToolTip="Generate the rando files specific to this seed using the selected option above.">Generate Seed</Button>
-                            <Label Margin="10"/>
+                            <Separator Margin="0,20">
+                                <Separator.RenderTransform>
+                                    <ScaleTransform ScaleY="3" />
+                                </Separator.RenderTransform>
+                            </Separator>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -222,7 +226,11 @@
                         <StackPanel Margin="40">
                             <Button Click="uninstallButton_Click"
                                     ToolTip="Remove the rando files specific to this seed.">Uninstall Seed</Button>
-                            <Label Margin="10"/>
+                            <Separator Margin="0,20,0,0">
+                                <Separator.RenderTransform>
+                                    <ScaleTransform ScaleY="3" />
+                                </Separator.RenderTransform>
+                            </Separator>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -230,11 +238,21 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <Button Margin="2" Grid.Column="0" Grid.Row="0" 
+                                <TextBlock Text="Required Mods" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="5"/>
+                                <Button Margin="2" Grid.Column="0" Grid.Row="1" 
                                         Click="uninstallLoadersButton_Click"
                                         ToolTip="Uninstalls mod loaders if they were installed. Do NOT uninstall here if it was previously installed through Vortex.">Uninstall Mod Loaders</Button>
-                                <Button Margin="2" Grid.Column="1" Grid.Row="0" 
+                                <Button Margin="2" Grid.Column="1" Grid.Row="1" 
+                                        Click="uninstallManifestoButton_Click"
+                                        FontSize="13"
+                                        ToolTip="Uninstalls Insurgent's Manifesto if they were installed. Do NOT uninstall here if it was previously installed through Vortex.">Revert to Vortex config or Uninstall Insurgent's Manifesto</Button>
+
+                                <TextBlock Text="Optional Mods" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5"/>
+                                <Button Margin="2" Grid.Column="0" Grid.Row="3" 
                                         Click="uninstallDescriptiveButton_Click"
                                         ToolTip="Uninstalls The Insurgent's Descriptive Inventory if it was installed. Do NOT uninstall here if it was previously installed through Vortex.">Uninstall The Insurgent's Descriptive Inventory mod</Button>
                             </Grid>

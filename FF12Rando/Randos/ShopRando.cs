@@ -131,6 +131,7 @@ public partial class ShopRando : Randomizer
             HashSet<string> shopItems = equipRando.itemData.Values.Where(i => 
                 i.Category is "Weapon" or "Armor" or "Accessory" or "Item" or "Ability" 
                 && i.Rank < 10
+                && !i.Traits.Contains("Ignore")
                 && !treasureRando.ItemPlacer.UsefulItemPlacer.UsedAbilities.Contains(i.ID)).Select(i => i.ID).ToHashSet();
             FF12Flags.Items.Shops.SetRand();
 

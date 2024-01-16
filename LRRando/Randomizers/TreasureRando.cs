@@ -27,11 +27,11 @@ public partial class TreasureRando : Randomizer
     public Dictionary<string, string> BattleDrops = new();
     public Dictionary<string, string> OrigBattleDrops = new();
 
-    private ItemPlacementAlgorithm<ItemLocation> placementAlgoNormal;
-    private ItemPlacementAlgorithm<ItemLocation> placementAlgoBackup;
+    //private ItemPlacementAlgorithm<ItemLocation> placementAlgoNormal;
+    //private ItemPlacementAlgorithm<ItemLocation> placementAlgoBackup;
     private bool usingBackup = false;
 
-    public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo => usingBackup ? placementAlgoBackup : placementAlgoNormal;
+    //public ItemPlacementAlgorithm<ItemLocation> PlacementAlgo => usingBackup ? placementAlgoBackup : placementAlgoNormal;
 
     public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -133,11 +133,11 @@ public partial class TreasureRando : Randomizer
         }
         RandomNum.ClearRand();
 
-        placementAlgoNormal = new AssumedItemPlacementAlgorithm<ItemLocation>(ItemLocations, locations, Generator, 3);
-        placementAlgoNormal.Logic = new LRItemPlacementLogic(placementAlgoNormal, Generator);
+        //placementAlgoNormal = new AssumedItemPlacementAlgorithm<ItemLocation>(ItemLocations, locations, Generator, 3);
+        //placementAlgoNormal.Logic = new LRItemPlacementLogic(placementAlgoNormal, Generator);
 
-        placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(ItemLocations, locations, Generator, -1);
-        placementAlgoBackup.Logic = new LRItemPlacementLogic(placementAlgoBackup, Generator);
+        //placementAlgoBackup = new ItemPlacementAlgorithm<ItemLocation>(ItemLocations, locations, Generator, -1);
+        //placementAlgoBackup.Logic = new LRItemPlacementLogic(placementAlgoBackup, Generator);
     }
 
     public void AddTreasure(string newName, string item, int count, string next)
@@ -167,10 +167,10 @@ public partial class TreasureRando : Randomizer
             List<string> keys = ItemLocations.Keys.Shuffle();
 
             Dictionary<string, double> areaMults = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
-            if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
+            //if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
             {
                 usingBackup = true;
-                placementAlgoBackup.Randomize(new List<string>(), areaMults);
+               // placementAlgoBackup.Randomize(new List<string>(), areaMults);
             }
 
             // Same treasures take priority
@@ -291,11 +291,11 @@ public partial class TreasureRando : Randomizer
             if (LRFlags.Other.HintsNotes.FlagEnabled)
             {
                 // Update hints again to reflect actual numbers
-                hintsNotesLocations.Keys.Where(note => hintsNotesLocations[note] != null).ForEach(note =>
-                    {
-                        int locationCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas[0] == hintsNotesLocations[note] && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
-                        hintsNotesCount[hintsNotesLocations[note]] = locationCount;
-                    });
+                //hintsNotesLocations.Keys.Where(note => hintsNotesLocations[note] != null).ForEach(note =>
+                    //{
+                        //int locationCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas[0] == hintsNotesLocations[note] && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
+                        //hintsNotesCount[hintsNotesLocations[note]] = locationCount;
+                    //});
             }
 
             if (LRFlags.Items.IDCardBuy.Enabled)
@@ -463,12 +463,12 @@ public partial class TreasureRando : Randomizer
             case 1:
                 {
                     string type = "Other";
-                    if (IsKeyItem(PlacementAlgo.Placement[t.ID]))
+                    //if (IsKeyItem(PlacementAlgo.Placement[t.ID]))
                     {
                         type = "a Key Item";
                     }
 
-                    if (IsPilgrimKeyItem(PlacementAlgo.Placement[t.ID]))
+                    //if (IsPilgrimKeyItem(PlacementAlgo.Placement[t.ID]))
                     {
                         type = "Pilgrim's Crux";
                     }
