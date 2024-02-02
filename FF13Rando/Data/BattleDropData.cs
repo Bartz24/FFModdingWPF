@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FF13Rando;
 
-public class BattleDropData : FF13ItemLocation, DataStoreItemProvider<DataStoreBtScene>
+public class BattleDropData : FF13ItemLocation, IDataStoreItemProvider<DataStoreBtScene>
 {
     [RowIndex(0)]
     public override string ID { get; set; }
@@ -49,5 +49,10 @@ public class BattleDropData : FF13ItemLocation, DataStoreItemProvider<DataStoreB
     {
         BattleRando battleRando = Generator.Get<BattleRando>();
         return orig ? battleRando.btsceneOrig[ID] : battleRando.btscene[ID];
+    }
+
+    public override bool CanReplace(ItemLocation location)
+    {
+        throw new System.NotImplementedException();
     }
 }

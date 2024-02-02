@@ -73,7 +73,7 @@ public class FileHelpers
                         string entryPath = Path.Combine(outputFolderPath, relativePath.Length > 0 ? relativePath.Substring(1) : relativePath);
                         if (reader.Entry.IsDirectory)
                         {
-                            Directory.CreateDirectory(Path.Combine(outputFolderPath, reader.Entry.Key));
+                            Directory.CreateDirectory(entryPath);
                         }
                         else
                         {

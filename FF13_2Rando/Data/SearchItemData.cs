@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FF13_2Rando;
 
-public class SearchItemData : FF13_2ItemLocation, DataStoreItemProvider<DataStoreSearchItem>
+public class SearchItemData : FF13_2ItemLocation, IDataStoreItemProvider<DataStoreSearchItem>
 {
     public override string ID { get; set; }
     [RowIndex(1)]
@@ -63,5 +63,10 @@ public class SearchItemData : FF13_2ItemLocation, DataStoreItemProvider<DataStor
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
         string searchID = ID.Substring(0, ID.IndexOf(":"));
         return orig ? treasureRando.searchOrig[searchID] : treasureRando.search[searchID];
+    }
+
+    public override bool CanReplace(ItemLocation location)
+    {
+        throw new NotImplementedException();
     }
 }

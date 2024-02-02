@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FF13Rando;
 
-public class TreasureData : FF13ItemLocation, DataStoreItemProvider<DataStoreTreasurebox>
+public class TreasureData : FF13ItemLocation, IDataStoreItemProvider<DataStoreTreasurebox>
 {
     [RowIndex(0)]
     public override string ID { get; set; }
@@ -49,5 +49,10 @@ public class TreasureData : FF13ItemLocation, DataStoreItemProvider<DataStoreTre
     {
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
         return orig ? treasureRando.treasuresOrig[ID] : treasureRando.treasures[ID];
+    }
+
+    public override bool CanReplace(ItemLocation location)
+    {
+        throw new System.NotImplementedException();
     }
 }

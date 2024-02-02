@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace FF13_2Rando;
-
+/*
 public class FF13_2AssumedItemPlacementLogic : FF13_2ItemPlacementLogic
 {
     private readonly List<string> WildGatesOpenOrder = new();
@@ -141,3 +141,4 @@ public class FF13_2AssumedItemPlacementLogic : FF13_2ItemPlacementLogic
         return list;
     }
 }
+*/

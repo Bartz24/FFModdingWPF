@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF;
-public interface DataStoreItemProvider<T>
+public interface IDataStoreItemProvider<T>
 {
     public T GetItemData(bool orig);
 }

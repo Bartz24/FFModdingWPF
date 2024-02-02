@@ -80,7 +80,7 @@ public partial class BattleRando : Randomizer
             areaBoundsOrig = new Dictionary<string, (int, int)>(areaBounds);
 
             TreasureRando treasureRando = Generator.Get<TreasureRando>();
-            List<string> areaUnlockOrder = treasureRando.PlacementAlgo.Logic.GetPropValue<List<string>>("AreaUnlockOrder");
+            List<string> areaUnlockOrder = new();//treasureRando.PlacementAlgo.Logic.GetPropValue<List<string>>("AreaUnlockOrder");
             areaUnlockOrder = areaUnlockOrder.Where(a => areaBounds.ContainsKey(a)).ToList();
             areaUnlockOrder.AddRange(areaBounds.Keys.Where(a => !areaUnlockOrder.Contains(a)));
 

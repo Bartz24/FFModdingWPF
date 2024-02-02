@@ -66,6 +66,9 @@ public partial class MainWindow : Window
 
     public MainWindow()
     {
+        RandoUI.Init(SetProgressBar, () => totalProgressBar.IncrementProgress(), SwitchTab);
+        RandoSeeds.DocsFolder = "packs";
+        RandoSeeds.DeleteFilter = "FF13Rando_${SEED}_Docs.zip";
         FF13Flags.Init();
         RandoPresets.Init();
         InitializeComponent();
@@ -79,6 +82,14 @@ public partial class MainWindow : Window
         }
 
         ChangelogText = File.ReadAllText(@"data\changelog.txt");
+    }
+
+    private void SwitchTab(int tabIndex)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            WindowTabs.SelectedIndex = tabIndex;
+        });
     }
 
     private async void generateButton_Click(object sender, RoutedEventArgs e)
@@ -110,17 +121,31 @@ public partial class MainWindow : Window
             }
         }
     }
-
     private void SetProgressBar(string text, int value, int maxValue = 100)
     {
         Dispatcher.Invoke(() =>
         {
-            ProgressBarVisible = Visibility.Visible;
-            ProgressBarText = text;
             ProgressBarIndeterminate = value < 0;
+            ProgressBarVisible = ProgressBarIndeterminate || maxValue > 0 ? Visibility.Visible : Visibility.Hidden;
+            ProgressBarText = text;
             ProgressBarValue = value;
             ProgressBarMaximum = maxValue;
             totalProgressBar.SetProgress(totalProgressBar.GetProgress(), ProgressBarIndeterminate ? -1 : (float)ProgressBarValue / ProgressBarMaximum);
+
+            if (ProgressBarVisible == Visibility.Hidden)
+            {
+                // Start a timer to hide the progress bar after a short delay
+                Task.Delay(3000).ContinueWith(t =>
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        if (ProgressBarVisible == Visibility.Hidden)
+                        {
+                            ProgressBarText = "";
+                        }
+                    });
+                });
+            }
         });
     }
 

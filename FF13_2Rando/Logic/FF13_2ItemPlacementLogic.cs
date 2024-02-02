@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace FF13_2Rando;
-
-public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
+/*
+ public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
 {
     protected TreasureRando treasureRando;
     protected HistoriaCruxRando cruxRando;
@@ -257,3 +257,4 @@ public class FF13_2ItemPlacementLogic : ItemPlacementLogic<FF13_2ItemLocation>
 
     }
 }
+*/

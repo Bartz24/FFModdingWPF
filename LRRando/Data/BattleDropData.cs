@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace LRRando;
 
-public class BattleDropData : ItemLocation, DataStoreItemProvider<DataStoreBtScene>
+public class BattleDropData : ItemLocation, IDataStoreItemProvider<DataStoreBtScene>
 {
     [RowIndex(0)]
     public override string ID { get; set; }

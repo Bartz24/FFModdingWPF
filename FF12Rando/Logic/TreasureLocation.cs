@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FF12Rando;
 
-public class TreasureLocation : FF12ItemLocation, DataStoreItemProvider<DataStoreTreasure>
+public class TreasureLocation : FF12ItemLocation, IDataStoreItemProvider<DataStoreTreasure>
 {
     public override string ID { get; set; }
     public int Index { get; set; }

@@ -18,11 +18,11 @@ public partial class TreasureRando : Randomizer
     private readonly Dictionary<string, List<string>> hintsMain = new();
     private readonly Dictionary<string, int> hintsNotesUniqueCount = new();
     private readonly Dictionary<string, int> hintsNotesSharedCount = new();
-    private AssumedItemPlacementAlgorithm<FF13ItemLocation> placementAlgoNormal;
-    private ItemPlacementAlgorithm<FF13ItemLocation> placementAlgoBackup;
+    //private AssumedItemPlacementAlgorithm<FF13ItemLocation> placementAlgoNormal;
+    //private ItemPlacementAlgorithm<FF13ItemLocation> placementAlgoBackup;
     private bool usingBackup = false;
 
-    public ItemPlacementAlgorithm<FF13ItemLocation> PlacementAlgo => usingBackup ? placementAlgoBackup : placementAlgoNormal;
+    //public ItemPlacementAlgorithm<FF13ItemLocation> PlacementAlgo => usingBackup ? placementAlgoBackup : placementAlgoNormal;
 
     public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -124,11 +124,11 @@ public partial class TreasureRando : Randomizer
         List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
         List<string> locations = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToList();
 
-        placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13ItemLocation>(ItemLocations, locations, Generator, 3);
-        placementAlgoNormal.Logic = new FF13ItemPlacementLogic(placementAlgoNormal, Generator);
+        //placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13ItemLocation>(ItemLocations, locations, Generator, 3);
+        //placementAlgoNormal.Logic = new FF13ItemPlacementLogic(placementAlgoNormal, Generator);
 
-        placementAlgoBackup = new ItemPlacementAlgorithm<FF13ItemLocation>(ItemLocations, locations, Generator, -1);
-        placementAlgoBackup.Logic = new FF13ItemPlacementLogic(placementAlgoBackup, Generator);
+        //placementAlgoBackup = new ItemPlacementAlgorithm<FF13ItemLocation>(ItemLocations, locations, Generator, -1);
+        //placementAlgoBackup.Logic = new FF13ItemPlacementLogic(placementAlgoBackup, Generator);
 
     }
 
@@ -153,23 +153,23 @@ public partial class TreasureRando : Randomizer
             FF13Flags.Items.Treasures.SetRand();
 
             Dictionary<string, double> areaMults = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
-            if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
+            //if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
             {
                 usingBackup = true;
-                placementAlgoBackup.Randomize(placementAlgoBackup.Logic.GetNewAreasAvailable(new Dictionary<string, int>(), new List<string>()), areaMults);
+                //placementAlgoBackup.Randomize(placementAlgoBackup.Logic.GetNewAreasAvailable(new Dictionary<string, int>(), new List<string>()), areaMults);
             }
 
             RandoUI.SetUIProgressDeterminate("Randomizing Treasure Data...", 60, 100);
 
             // Update hints again to reflect actual numbers
-            PlacementAlgo.HintsByLocation.ForEach(l =>
-            {
-                int uniqueCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas.Count == 1 && ItemLocations[t].Areas[0] == l && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
-                hintsNotesUniqueCount.Add(l, uniqueCount);
+            //PlacementAlgo.HintsByLocation.ForEach(l =>
+            //{
+                //int uniqueCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas.Count == 1 && ItemLocations[t].Areas[0] == l && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
+                //hintsNotesUniqueCount.Add(l, uniqueCount);
 
-                int sharedCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas.Count > 1 && ItemLocations[t].Areas.Contains(l) && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
-                hintsNotesSharedCount.Add(l, sharedCount);
-            });
+                //int sharedCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas.Count > 1 && ItemLocations[t].Areas.Contains(l) && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
+                //hintsNotesSharedCount.Add(l, sharedCount);
+            //});
 
             RandomNum.ClearRand();
         }

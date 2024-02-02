@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace LRRando;
 
-public class TreasureData : ItemLocation, DataStoreItemProvider<DataStoreRTreasurebox>
+public class TreasureData : ItemLocation, IDataStoreItemProvider<DataStoreRTreasurebox>
 {
     [RowIndex(0)]
     public override string ID { get; set; }

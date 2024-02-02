@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FF13Rando;
 
-public class EnemyDropData : FF13ItemLocation, DataStoreItemProvider<DataStoreBtCharaSpec>
+public class EnemyDropData : FF13ItemLocation, IDataStoreItemProvider<DataStoreBtCharaSpec>
 {
     [RowIndex(0)]
     public override string ID { get; set; }
@@ -56,7 +56,13 @@ public class EnemyDropData : FF13ItemLocation, DataStoreItemProvider<DataStoreBt
         // Set linked items
         EnemyRando enemyRando = Generator.Get<EnemyRando>();
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
-        LinkedIDs.ForEach(other => treasureRando.ItemLocations[other].SetItem(newItem, newCount));
+        LinkedIDs.ForEach(other =>
+        {
+            DataStoreBtCharaSpec otherEnemy = enemyRando.btCharaSpec[other];
+            otherEnemy.sDropItem0_string = s.sDropItem0_string;
+            otherEnemy.sDropItem1_string = s.sDropItem1_string;
+            otherEnemy.u8NumDrop = s.u8NumDrop;
+        });
     }
 
     public override (string, int)? GetItem(bool orig)
@@ -69,5 +75,10 @@ public class EnemyDropData : FF13ItemLocation, DataStoreItemProvider<DataStoreBt
     {
         EnemyRando enemyRando = Generator.Get<EnemyRando>();
         return orig ? enemyRando.btCharaSpecOrig[ID] : enemyRando.btCharaSpec[ID];
+    }
+
+    public override bool CanReplace(ItemLocation location)
+    {
+        throw new System.NotImplementedException();
     }
 }

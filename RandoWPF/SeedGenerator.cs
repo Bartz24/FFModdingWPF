@@ -186,6 +186,6 @@ public class SeedGenerator : IDisposable
 
     public void Dispose()
     {
-        Logger.Dispose();
+        Logger?.Dispose();
     }
 }

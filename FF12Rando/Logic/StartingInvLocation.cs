@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FF12Rando;
 
-public class StartingInvLocation : FF12ItemLocation, DataStoreItemProvider<DataStorePartyMember>
+public class StartingInvLocation : FF12ItemLocation, IDataStoreItemProvider<DataStorePartyMember>
 {
     public override string ID { get; set; }
     [RowIndex(2), FieldTypeOverride(FieldType.HexInt)]

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace FF13Rando;
-
-public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
+/*
+ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
 {
     private readonly TreasureRando treasureRando;
 
@@ -186,3 +186,4 @@ public class FF13ItemPlacementLogic : ItemPlacementLogic<FF13ItemLocation>
 
     }
 }
+*/

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FF12Rando;
 
-public class RewardLocation : FF12ItemLocation, DataStoreItemProvider<DataStoreReward>
+public class RewardLocation : FF12ItemLocation, IDataStoreItemProvider<DataStoreReward>
 {
     public override string ID { get; set; }
     [RowIndex(2), FieldTypeOverride(FieldType.HexInt)]
