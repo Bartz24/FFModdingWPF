@@ -2,9 +2,9 @@
 using Bartz24.RandoWPF;
 using System.Collections.Generic;
 
-namespace LRRando;
+namespace LRRando.Logic;
 
-public class BattleDropData : ItemLocation, IDataStoreItemProvider<DataStoreBtScene>
+public class BattleDropLocation : ItemLocation, IDataStoreItemProvider<DataStoreBtScene>
 {
     [RowIndex(0)]
     public override string ID { get; set; }
@@ -22,7 +22,7 @@ public class BattleDropData : ItemLocation, IDataStoreItemProvider<DataStoreBtSc
 
     private readonly TreasureRando rando;
 
-    public BattleDropData(SeedGenerator generator, string[] row, TreasureRando treasureRando) : base(generator, row)
+    public BattleDropLocation(SeedGenerator generator, string[] row, TreasureRando treasureRando) : base(generator, row)
     {
         Traits.Add("Battle");
 

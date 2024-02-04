@@ -70,7 +70,7 @@ public class SphereCalculator<T> where T : ItemLocation
 
             if (!valid)
             {
-                string msg = "Could not find a path to all items placed. This seed might be unbeatable. Report this to the dev with the seed and flags used. After this seed finishes generating, you can click on \"Share current seed\" and send the JSON seed file.";
+                string msg = "Could not find a path to all items placed. This seed might be unbeatable. Report this to the dev with the seed and flags used. After this seed finishes generating, go to the History tab and share the seed.";
                 Generator.Logger.LogError(msg);
                 MessageBox.Show(msg);
 

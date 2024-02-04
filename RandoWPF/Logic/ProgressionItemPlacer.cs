@@ -43,9 +43,11 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     {
         FoundItems = new();
         RemainingFixed = new(FixedLocations);
-        RemainingToPlace = new(LocationsToPlace.Where(l => !RemainingFixed.Contains(l)).Shuffle());
+        RemainingToPlace = new(GetInitialReplacementOrder());
         FinalPlacement.Clear();
         UnlockedLocations.Clear();
+
+        int initialRemaining = RemainingToPlace.Count;
 
         T firstFailure = null;
         while (RemainingToPlace.Count > 0 || RemainingFixed.Count > 0)
@@ -63,8 +65,20 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
             T replacement = RemainingToPlace.Dequeue();
 
+            // The initial depth is based on remaining items. The more items remaining, the higher the depth can be.
+            // This allows items early on (first 50%) to be placed in newly unlocked areas more often.
+            // Limited by the depth difficulty with a floor of 1
+            int depth = 10;
+            if (RemainingToPlace.Count > initialRemaining / 2)
+            {
+                int placedCount = initialRemaining - RemainingToPlace.Count;
+                depth = Math.Max(1, (int)Math.Round((double)placedCount / (initialRemaining / 2) * 10));
+            }
+
+            depth = Math.Min(depth, DepthDifficulty);
+
             // Find location and start with depth difficulty
-            T location = SelectLocation(replacement, DepthDifficulty);
+            T location = SelectLocation(replacement, depth);
             if (location != null)
             {
                 PlaceItem(location, replacement);
@@ -88,10 +102,27 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
                 RemainingToPlace.Enqueue(replacement);
             }
 
-            RandoUI.SetUIProgressDeterminate($"Attempt {Attempts}: Placed {FinalPlacement.Count} of {LocationsToPlace.Count + FixedLocations.Count} important items.", FinalPlacement.Count, LocationsToPlace.Count + FixedLocations.Count);
+            RandoUI.SetUIProgressDeterminate($"Attempt {Attempts}: Placed {FinalPlacement.Count} of {Replacements.Count + FixedLocations.Count} important items.", FinalPlacement.Count, Replacements.Count + FixedLocations.Count);
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Prioritize placing items that immediately unlock other locations
+    /// </summary>
+    /// <returns></returns>
+    private List<T> GetInitialReplacementOrder()
+    {
+        List<T> newOrder = new();
+        List<T> original = Replacements.Where(l => !RemainingFixed.Contains(l)).ToList();
+        while (original.Count > 0)
+        {
+            T next = RandomNum.SelectRandomWeighted(original, l => Math.Min(GetNewlyAccessibleWithLocation(UnlockedLocations, l).Count * 5, 30) + 1);
+            newOrder.Add(next);
+            original.Remove(next);
+        }
+        return newOrder;
     }
 
     protected virtual void PlaceFixed()
@@ -130,19 +161,24 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         }
     }
 
-    protected virtual void AddFoundItem(T location)
+    protected virtual void AddFoundItem(T location, Dictionary<string, int> foundItems = null)
     {
+        if (foundItems == null)
+        {
+            foundItems = FoundItems;
+        }
+
         var item = location.GetItem(true);
         if (item != null)
         {
             var (itemID, amount) = item.Value;
-            if (FoundItems.ContainsKey(itemID))
+            if (foundItems.ContainsKey(itemID))
             {
-                FoundItems[itemID] += amount;
+                foundItems[itemID] += amount;
             }
             else
             {
-                FoundItems.Add(itemID, amount);
+                foundItems.Add(itemID, amount);
             }
         }
     }
@@ -171,21 +207,34 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             }
         }
 
-
         // Then, find any newly accessible locations and add them to UnlockedLocations with depth 0        
-        var previouslyFound = newUnlockedLocations.SelectMany(p => p.Value).ToHashSet();
+        HashSet<T> newlyAccessible = GetNewlyAccessible(newUnlockedLocations, FoundItems);
+
+        newUnlockedLocations.Add(0, newlyAccessible);
+
+        UnlockedLocations = newUnlockedLocations;
+    }
+
+    private HashSet<T> GetNewlyAccessibleWithLocation(Dictionary<int, HashSet<T>> unlockedLocations, T addLocation)
+    {
+        var foundItems = new Dictionary<string, int>(FoundItems);
+        AddFoundItem(addLocation, foundItems);
+        return GetNewlyAccessible(unlockedLocations, foundItems);
+    }
+
+    private HashSet<T> GetNewlyAccessible(Dictionary<int, HashSet<T>> unlockedLocations, Dictionary<string, int> foundItems)
+    {
+        var previouslyFound = unlockedLocations.SelectMany(p => p.Value).ToHashSet();
         HashSet<T> newlyAccessible = new();
         foreach (var loc in PossibleLocations)
         {
-            if (loc.AreItemReqsMet(FoundItems) && !FinalPlacement.ContainsKey(loc) && !previouslyFound.Contains(loc))
+            if (!FinalPlacement.ContainsKey(loc) && !previouslyFound.Contains(loc) && loc.AreItemReqsMet(foundItems))
             {
                 newlyAccessible.Add(loc);
             }
         }
 
-        newUnlockedLocations.Add(0, newlyAccessible);
-
-        UnlockedLocations = newUnlockedLocations;
+        return newlyAccessible;
     }
 
     protected T SelectLocation(T replacement, int n)

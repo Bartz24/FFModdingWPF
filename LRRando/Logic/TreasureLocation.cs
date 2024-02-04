@@ -3,9 +3,9 @@ using Bartz24.RandoWPF;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LRRando;
+namespace LRRando.Logic;
 
-public class TreasureData : ItemLocation, IDataStoreItemProvider<DataStoreRTreasurebox>
+public class TreasureLocation : ItemLocation, IDataStoreItemProvider<DataStoreRTreasurebox>
 {
     [RowIndex(0)]
     public override string ID { get; set; }
@@ -24,7 +24,7 @@ public class TreasureData : ItemLocation, IDataStoreItemProvider<DataStoreRTreas
 
     private readonly TreasureRando rando;
 
-    public TreasureData(SeedGenerator generator, string[] row, TreasureRando treasureRando) : base(generator, row)
+    public TreasureLocation(SeedGenerator generator, string[] row, TreasureRando treasureRando) : base(generator, row)
     {
         rando = treasureRando;
     }

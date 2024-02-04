@@ -11,7 +11,7 @@ public abstract class ItemPlacer<T> where T : ItemLocation
     /// <summary>
     /// The items that need to be placed
     /// </summary>
-    public HashSet<T> LocationsToPlace { get; set; } = new();
+    public HashSet<T> Replacements { get; set; } = new();
 
     /// <summary>
     /// The allowed locations for the items
@@ -54,10 +54,5 @@ public abstract class ItemPlacer<T> where T : ItemLocation
                 location.SetItem(null, 0);
             }
         }
-    }
-
-    public virtual HashSet<T> GetUnusedLocations()
-    {
-        return PossibleLocations.Where(l => !FinalPlacement.ContainsKey(l)).ToHashSet();
     }
 }

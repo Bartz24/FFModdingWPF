@@ -18,7 +18,7 @@ public class UsefulItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     {
         HashSet<T> remainingLocations = new(PossibleLocations);
 
-        foreach (var place in LocationsToPlace)
+        foreach (var place in Replacements)
         {
             T location = RandomNum.SelectRandomOrDefault(remainingLocations.Where(l => place.CanReplace(l)));
             if (location == null && LogWarnings)
@@ -31,7 +31,7 @@ public class UsefulItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
                 remainingLocations.Remove(location);
             }
 
-            RandoUI.SetUIProgressDeterminate($"Placed {FinalPlacement.Count} of {LocationsToPlace.Count} useful items.", FinalPlacement.Count, LocationsToPlace.Count);
+            RandoUI.SetUIProgressDeterminate($"Placed {FinalPlacement.Count} of {Replacements.Count} useful items.", FinalPlacement.Count, Replacements.Count);
         }
     }
 }

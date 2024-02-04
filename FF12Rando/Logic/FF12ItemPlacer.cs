@@ -6,52 +6,43 @@ using System.Linq;
 using System.Reflection.Emit;
 
 namespace FF12Rando;
-public class FF12ItemPlacer : ItemPlacer<ItemLocation>
+public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 {
     public ProgressionItemPlacer<ItemLocation> ProgressionItemPlacer { get; set; }
     public FF12UsefulItemPlacer UsefulItemPlacer { get; set; }
     public FF12JunkItemPlacer JunkItemPlacer { get; set; }
 
-    public SphereCalculator<ItemLocation> SphereCalculator { get; set; }
+    public FF12ItemPlacer(SeedGenerator generator) : base(generator) 
+    { 
 
-    public override Dictionary<ItemLocation, ItemLocation> FinalPlacement
+    }
+
+    protected override HashSet<ItemLocation> GetLocationsForPlacer(HashSet<ItemLocation> usedLocations, ItemPlacer<ItemLocation> placer)
     {
-        get
+        var possible = PossibleLocations.Except(usedLocations).ToHashSet();
+
+        if (placer == ProgressionItemPlacer)
         {
-            Dictionary<ItemLocation, ItemLocation> final = new();
-            if (ProgressionItemPlacer != null)
-            {
-                final = final.Concat(ProgressionItemPlacer.FinalPlacement).ToDictionary(k => k.Key, v => v.Value);
-            }
-
-            if (UsefulItemPlacer != null)
-            {
-                final = final.Concat(UsefulItemPlacer.FinalPlacement).ToDictionary(k => k.Key, v => v.Value);
-            }
-
-            if (JunkItemPlacer != null)
-            {
-                final = final.Concat(JunkItemPlacer.FinalPlacement).ToDictionary(k => k.Key, v => v.Value);
-            }
-
-            return final;
+            return GetProgressionLocations(possible);
+        }
+        else if (placer == UsefulItemPlacer)
+        {
+            return possible.Where(l => !l.Traits.Contains("Missable")).ToHashSet();
+        }
+        else if (placer == JunkItemPlacer)
+        {
+            return possible;
+        }
+        else
+        {
+            throw new Exception("Unknown placer");
         }
     }
 
-    public FF12ItemPlacer(SeedGenerator generator) : base(generator)
+    protected HashSet<ItemLocation> GetProgressionLocations(HashSet<ItemLocation> possible)
     {
-        SphereCalculator = new(Generator);
-    }
-
-    private HashSet<ItemLocation> GetProgressionLocations(HashSet<ItemLocation> fixedItems)
-    {
-        return PossibleLocations.Where(l =>
+        return possible.Where(l =>
         {
-            if (fixedItems.Contains(l))
-            {
-                return false;
-            }
-
             if (l.Traits.Contains("Missable"))
             {
                 return false;
@@ -116,40 +107,55 @@ public class FF12ItemPlacer : ItemPlacer<ItemLocation>
         }).ToHashSet();
     }
 
-    private HashSet<ItemLocation> GetProgressionItems(HashSet<ItemLocation> fixedItems)
+    protected override HashSet<ItemLocation> GetReplacementsForPlacer(HashSet<ItemLocation> usedReplacements, ItemPlacer<ItemLocation> placer)
     {
-        return LocationsToPlace.Where(l =>
+        var remaining = Replacements.Except(usedReplacements).ToHashSet();
+        if (placer == ProgressionItemPlacer)
         {
-            if (fixedItems.Contains(l))
+            return remaining.Where(l =>
             {
-                return false;
-            }
+                foreach (string item in FF12Flags.Items.KeyItems.DictValues.Keys)
+                {
+                    if (FF12Flags.Items.KeyItems.SelectedKeys.Contains(item) && l.GetItem(true)?.Item == item)
+                    {
+                        return true;
+                    }
+                }
 
-            foreach (string item in FF12Flags.Items.KeyItems.DictValues.Keys)
-            {
-                if (FF12Flags.Items.KeyItems.SelectedKeys.Contains(item) && l.GetItem(true)?.Item == item)
+                if (l.Traits.Any(s => s.StartsWith("Chop")) && IsRandomizedChop(l))
                 {
                     return true;
                 }
-            }
 
-            if (l.Traits.Any(s => s.StartsWith("Chop")) && IsRandomizedChop(l))
-            {
-                return true;
-            }
+                if (l.Traits.Any(s => s.StartsWith("BlackOrb")) && IsRandomizedOrb(l))
+                {
+                    return true;
+                }
 
-            if (l.Traits.Any(s => s.StartsWith("BlackOrb")) && IsRandomizedOrb(l))
-            {
-                return true;
-            }
-
-            return false;
-        }).ToHashSet();
+                return false;
+            }).ToHashSet();
+        }
+        else if (placer == UsefulItemPlacer)
+        {
+            return remaining
+                .Where(l => 
+                    l.GetItem(false).Value.Item.StartsWith("30") ||
+                    l.GetItem(false).Value.Item.StartsWith("40"))
+                .ToHashSet();
+        }
+        else if (placer == JunkItemPlacer)
+        {
+            return remaining;
+        }
+        else
+        {
+            throw new Exception("Unknown placer");
+        }
     }
 
-    private HashSet<ItemLocation> GetFixedItems()
+    protected override HashSet<ItemLocation> GetFixedLocations()
     {
-        return LocationsToPlace.Where(l =>
+        return Replacements.Where(l =>
         {
             if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalCid2) && l.Traits.Contains("WritCid2"))
             {
@@ -183,62 +189,24 @@ public class FF12ItemPlacer : ItemPlacer<ItemLocation>
         }).ToHashSet();
     }
 
-    public override void PlaceItems()
+    protected override void RebuildPlacers()
     {
         Dictionary<string, double> areaMults = PossibleLocations.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
 
         ProgressionItemPlacer = new(Generator, GetDifficulty(), areaMults);
+        ProgressionItemPlacer.FixedLocations = GetFixedLocations();
         UsefulItemPlacer = new(Generator, false);
         JunkItemPlacer = new(Generator, this);
 
-        // Place progression items first
-        var fixedItems = GetFixedItems();
-        var progressionItems = GetProgressionItems(fixedItems);
-        var progressionLocations = GetProgressionLocations(fixedItems);
-
-        ProgressionItemPlacer.LocationsToPlace = progressionItems;
-        ProgressionItemPlacer.PossibleLocations = progressionLocations;
-        ProgressionItemPlacer.FixedLocations = fixedItems;
-        ProgressionItemPlacer.PlaceItems();
-
-        // Place useful items next
-        // Useful items are abilities
-        var usefulItems = LocationsToPlace.Except(fixedItems).Where(l => (l.GetItem(false).Value.Item.StartsWith("30") || l.GetItem(false).Value.Item.StartsWith("40")) && !progressionItems.Contains(l)).ToHashSet();
-        var usefulLocations = PossibleLocations.Except(fixedItems).Except(progressionLocations).Concat(ProgressionItemPlacer.GetUnusedLocations()).ToHashSet();
-        // Remove missable locations
-        usefulLocations = usefulLocations.Where(l => !l.Traits.Contains("Missable")).ToHashSet();
-
-        UsefulItemPlacer.LocationsToPlace = usefulItems;
-        UsefulItemPlacer.PossibleLocations = usefulLocations;
-        UsefulItemPlacer.PlaceItems();
-
-        // Place junk items last
-        // Junk items are everything else
-        var junkItems = LocationsToPlace.Except(fixedItems).Except(progressionItems).Except(usefulItems).ToHashSet();
-        var junkLocations = PossibleLocations.Except(fixedItems).Except(progressionLocations).Except(usefulLocations).Concat(UsefulItemPlacer.GetUnusedLocations()).ToHashSet();
-        
-        JunkItemPlacer.LocationsToPlace = junkItems;
-        JunkItemPlacer.PossibleLocations = junkLocations;
-        JunkItemPlacer.PlaceItems();
+        Placers = new() { ProgressionItemPlacer, UsefulItemPlacer, JunkItemPlacer };
     }
 
     public override void ApplyToGameData()
     {
-        ProgressionItemPlacer.ApplyToGameData();
-        UsefulItemPlacer.ApplyToGameData();
-        JunkItemPlacer.ApplyToGameData();
+        base.ApplyToGameData();
 
-        ClearUnsetLocations();
-
-        // Calculate spheres
-        SphereCalculator = new SphereCalculator<ItemLocation>(Generator);
-        SphereCalculator.CalculateSpheres(PossibleLocations);
-
-        // Reorder items
         EquipRando equipRando = Generator.Get<EquipRando>();
-        var categories = new HashSet<string>() { "Item", "Weapon", "Armor", "Accessory" };
-        var itemReorderer = new ItemReorderer<ItemLocation, ItemData>(Generator, categories, equipRando.itemData);
-        itemReorderer.ReorderItems(PossibleLocations, SphereCalculator);
+        var categories = GetReorderItemCategories();
 
         // Place a Writ of Transit in a location in the max sphere that is non-missable
         if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalMaxSphere))
@@ -272,22 +240,19 @@ public class FF12ItemPlacer : ItemPlacer<ItemLocation>
         }
     }
 
-    public int GetDifficulty()
+    protected override HashSet<string> GetReorderItemCategories()
     {
-        switch (FF12Flags.Items.KeyDepth.SelectedIndex)
-        {
-            case 0:
-            default:
-                return 10;
-            case 1:
-                return 7;
-            case 2:
-                return 5;
-            case 3:
-                return 3;
-            case 4:
-                return 1;
-        }
+        return new() { "Item", "Weapon", "Armor", "Accessory" };
+    }
+
+    protected override Dictionary<string, ItemData> GetReorderItems()
+    {
+        return Generator.Get<EquipRando>().itemData;
+    }
+
+    protected override int GetDifficultyIndex()
+    {
+        return FF12Flags.Items.KeyDepth.SelectedIndex;
     }
 
     public bool IsRandomizedChop(ItemLocation location)

@@ -141,7 +141,7 @@ public partial class TreasureRando : Randomizer
             Dictionary<string, double> areaMults = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
 
             ItemPlacer = new(Generator);
-            ItemPlacer.LocationsToPlace = ItemLocations.Values
+            ItemPlacer.Replacements = ItemLocations.Values
                 .Where(l => (l is not TreasureLocation || treasuresToPlace.Contains(l.ID)) && l.GetItem(true) != null).ToHashSet();
             ItemPlacer.PossibleLocations = ItemLocations.Values
                 .Where(l => l is not TreasureLocation || treasuresAllowed.Contains(l.ID)).ToHashSet();

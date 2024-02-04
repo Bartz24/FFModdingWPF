@@ -3,7 +3,7 @@ using Bartz24.Docs;
 using Bartz24.FF13_2_LR;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
-using LRRando;
+using LRRando.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,13 +44,13 @@ public partial class TreasureRando : Randomizer
 
         FileHelpers.ReadCSVFile(@"data\treasures.csv", row =>
         {
-            TreasureData t = new(Generator, row, this);
+            TreasureLocation t = new(Generator, row, this);
             ItemLocations.Add(t.ID, t);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
         FileHelpers.ReadCSVFile(@"data\battleDrops.csv", row =>
         {
-            BattleDropData b = new(Generator, row, this);
+            BattleDropLocation b = new(Generator, row, this);
             ItemLocations.Add(b.ID, b);
         }, FileHelpers.CSVFileHeader.HasHeader);
 

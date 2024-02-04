@@ -14,14 +14,14 @@ public abstract class JunkItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
     public override void PlaceItems()
     {
-        HashSet<T> remainingReplacements = new(LocationsToPlace);
+        HashSet<T> remainingReplacements = new(Replacements);
 
         // Fill all possible locations with junk. If the replacements is empty, refill it and continue
-        foreach (var loc in PossibleLocations.Shuffle().Take(LocationsToPlace.Count))
+        foreach (var loc in PossibleLocations.Shuffle().Take(Replacements.Count))
         {
             remainingReplacements = SetJunkItem(remainingReplacements, loc);
 
-            RandoUI.SetUIProgressDeterminate($"Placed {FinalPlacement.Count} of {LocationsToPlace.Count} junk items.", FinalPlacement.Count, LocationsToPlace.Count);
+            RandoUI.SetUIProgressDeterminate($"Placed {FinalPlacement.Count} of {Replacements.Count} junk items.", FinalPlacement.Count, Replacements.Count);
         }
 
         // Fill any multi locations with junk
@@ -43,7 +43,7 @@ public abstract class JunkItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             replacement = RandomNum.SelectRandomOrDefault(remainingReplacements.Where(l => l.CanReplace(loc)));
             if (replacement == null)
             {
-                remainingReplacements = new(LocationsToPlace);
+                remainingReplacements = new(Replacements);
             }
         } while (replacement == null);
 
