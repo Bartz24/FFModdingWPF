@@ -221,7 +221,7 @@ public class LRFlags
         public static Flag Treasures;
         public static Flag Shops;
         public static Flag CoPReqs;
-        public static ToggleFlagProperty EPMissable, IDCardBuy, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy, KeyPlaceSuperboss, ReplaceAny, IncludeDLCItems;
+        public static ToggleFlagProperty EPMissable, IDCardBuy, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy, KeyPlaceSuperboss, ReplaceAny, IncludeDLCItems, IncludeEPAbilities;
         public static ComboBoxFlagProperty KeyDepth;
         public static DictListBoxFlagProperty<string> KeyItems;
         public static NumberFlagProperty ReplaceRank;
@@ -315,6 +315,13 @@ public class LRFlags
                     {"key_b_11", "Bandit's Bloodseal" },
                     {"key_b_12", "Oath of the Merchants Guild" },
                 }
+            }.Register(Treasures);
+
+            IncludeEPAbilities = new ToggleFlagProperty()
+            {
+                Text = "Include EP Abilities",
+                ID = "IncludeEP",
+                Description = "Include selected EP abilities in the item pool. Non-selected EP abilities from the 'EP Abilities' option will stay in their normal location."
             }.Register(Treasures);
 
             EPMissable = new ToggleFlagProperty()
@@ -425,7 +432,7 @@ public class LRFlags
     public class Other
     {
         public static Flag Music, LoadingText;
-        public static Flag HintsMain, HintsNotes, HintsEP, HintsPilgrim;
+        public static Flag HintsMain;
         public static ComboBoxFlagProperty HintsSpecific;
         public static ToggleFlagProperty HintsDepth;
         public static ToggleFlagProperty FanfareMusic;
@@ -483,30 +490,6 @@ public class LRFlags
                 ID = "HintsDepth",
                 Description = "Hints for items will prioritize locations of lower than or equal to depths of the item itself."
             }.Register(HintsMain);
-
-            HintsNotes = new Flag()
-            {
-                Text = "Hints by Area",
-                FlagID = "HintsArea",
-                DescriptionFormat = "Each randomized Enemy Libra Notes item will hint towards the number of randomized important key items by area.",
-                Aesthetic = true
-            }.Register(FlagType.Other);
-
-            HintsEP = new Flag()
-            {
-                Text = "Hint EP Abilities",
-                FlagID = "HintsEP",
-                DescriptionFormat = "Randomized EP abilities will be included in hints.",
-                Aesthetic = true
-            }.Register(FlagType.Other);
-
-            HintsPilgrim = new Flag()
-            {
-                Text = "Hint Pilgrim's Cruxes",
-                FlagID = "HintsPilgrim",
-                DescriptionFormat = "Randomized Pilgrim's Cruxes will be included in hints.",
-                Aesthetic = true
-            }.Register(FlagType.Other);
         }
     }
 

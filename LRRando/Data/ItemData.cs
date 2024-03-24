@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LRRando;
 
-public class ItemData : CSVDataRow
+public class ItemData : CSVDataRow, IItem
 {
     [RowIndex(0)]
     public string ID { get; set; }

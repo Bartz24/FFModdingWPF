@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 
 namespace Bartz24.Data;
@@ -29,13 +30,17 @@ public class FileHelpers
 
     public static void ReadCSVFile(string file, Action<string[]> readRow, CSVFileHeader fileHeader)
     {
-        using (CsvParser csv = new(new StreamReader(file), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
+        using (FileStream stream = new(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
         {
-            while (csv.Read())
+            using (CsvParser csv = new(new StreamReader(
+                stream), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
             {
-                if (csv.Row > 1 || fileHeader == CSVFileHeader.NoHeader)
+                while (csv.Read())
                 {
-                    readRow(csv.Record);
+                    if (csv.Row > 1 || fileHeader == CSVFileHeader.NoHeader)
+                    {
+                        readRow(csv.Record);
+                    }
                 }
             }
         }

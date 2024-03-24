@@ -1,4 +1,4 @@
-﻿<Window x:Class="LRRando.MainWindow"
+﻿<rando:RandoMainWindow x:Class="LRRando.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -56,14 +56,29 @@
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
-                <StackPanel Visibility="{Binding ProgressBarVisible,Mode=TwoWay}">
+                <StackPanel>
                     <TextBlock TextWrapping="Wrap" Text="{Binding ProgressBarText}"></TextBlock>
-                    <ProgressBar x:Name="progressBar" Value="{Binding ProgressBarValue}" Maximum="{Binding ProgressBarMaximum}" IsIndeterminate="{Binding ProgressBarIndeterminate}"/>
-                    <rando:SegmentedProgressBar x:Name="totalProgressBar" TotalSegments="5" Margin="0 2" />
+                    <StackPanel Visibility="{Binding ProgressBarVisible,Mode=TwoWay}">
+                        <ProgressBar x:Name="progressBar" Value="{Binding ProgressBarValue}" Maximum="{Binding ProgressBarMaximum}" IsIndeterminate="{Binding ProgressBarIndeterminate}"/>
+                        <rando:SegmentedProgressBar x:Name="totalProgressBar" TotalSegments="5" Margin="0 2" />
+                    </StackPanel>
                 </StackPanel>
             </DockPanel>
             <Separator DockPanel.Dock="Bottom"/>
-            <TabControl x:Name="WindowTabs" TabStripPlacement="Left" Style="{DynamicResource MaterialDesignNavigatilRailTabControl}">
+            <TabControl x:Name="WindowTabs" TabStripPlacement="Left" Style="{DynamicResource MaterialDesignNavigatilRailTabControl}" SelectedIndex="1">
+                <TabItem Width="100" Height="50">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Vertical">
+                            <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="History" TextAlignment="Center"/>
+                            </Button>
+                            <Separator Margin="0,-1,0,0"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <rando:SeedInfoPage/>
+                    </DockPanel>
+                </TabItem>
                 <TabItem Width="100" Height="50">
                     <TabItem.Header>
                         <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5">
@@ -156,10 +171,7 @@
                                         ToolTip="Open the Nova Chrysalia mod manager.">Open Nova Program</Button>
                                 <Button Margin="2" Grid.Column="1" Grid.Row="0" 
                                         Click="openModpackFolder_Click"
-                                        ToolTip="Open the folder containing the packs and documentation spoiler logs.">Open Modpack/Docs Folder</Button>
-                                <Button Margin="2" Grid.Column="0" Grid.Row="1" 
-                                        Click="shareSeedFolder_Click"
-                                        ToolTip="Export the current seed and flags to a JSON file to share.">Share Current Seed with Flags (JSON)</Button>
+                                        ToolTip="Open the folder containing the packs and documentation spoiler logs.">Open Modpack/Docs Folder</Button>                                
                             </Grid>
                             <Label Margin="10"/>
                             <Button
@@ -197,4 +209,4 @@
             </TabControl>
         </DockPanel>
     </materialDesign:DialogHost>
-</Window>
+</rando:RandoMainWindow>

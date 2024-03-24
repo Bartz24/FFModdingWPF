@@ -1,6 +1,7 @@
 ﻿using Bartz24.Data;
 using Bartz24.Docs;
 using Bartz24.RandoWPF;
+using CsvHelper.Configuration;
 using LRRando;
 using MaterialDesignThemes.Wpf;
 using Ookii.Dialogs.Wpf;
@@ -11,126 +12,35 @@ using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace LRRando;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window
+public partial class MainWindow : RandoMainWindow
 {
+    protected override SeedGenerator Generator => new LRSeedGenerator();
 
-    public static readonly DependencyProperty ProgressBarValueProperty =
-    DependencyProperty.Register(nameof(ProgressBarValue), typeof(int), typeof(MainWindow));
-    public int ProgressBarValue
-    {
-        get => (int)GetValue(ProgressBarValueProperty);
-        set => SetValue(ProgressBarValueProperty, value);
-    }
-    public static readonly DependencyProperty ProgressBarMaximumProperty =
-    DependencyProperty.Register(nameof(ProgressBarMaximum), typeof(int), typeof(MainWindow));
-    public int ProgressBarMaximum
-    {
-        get => (int)GetValue(ProgressBarMaximumProperty);
-        set => SetValue(ProgressBarMaximumProperty, value);
-    }
-    public static readonly DependencyProperty ProgressBarVisibleProperty =
-    DependencyProperty.Register(nameof(ProgressBarVisible), typeof(Visibility), typeof(MainWindow));
-    public Visibility ProgressBarVisible
-    {
-        get => (Visibility)GetValue(ProgressBarVisibleProperty);
-        set => SetValue(ProgressBarVisibleProperty, value);
-    }
-    public static readonly DependencyProperty ProgressBarIndeterminateProperty =
-    DependencyProperty.Register(nameof(ProgressBarIndeterminate), typeof(bool), typeof(MainWindow));
-    public bool ProgressBarIndeterminate
-    {
-        get => (bool)GetValue(ProgressBarIndeterminateProperty);
-        set => SetValue(ProgressBarIndeterminateProperty, value);
-    }
+    protected override SegmentedProgressBar TotalProgressBar => totalProgressBar;
 
-    public static readonly DependencyProperty ProgressBarTextProperty =
-    DependencyProperty.Register(nameof(ProgressBarText), typeof(string), typeof(MainWindow));
-    public string ProgressBarText
-    {
-        get => (string)GetValue(ProgressBarTextProperty);
-        set => SetValue(ProgressBarTextProperty, value);
-    }
+    protected override TabControl MainWindowTabs => WindowTabs;
 
-    public static readonly DependencyProperty ChangelogTextProperty =
-    DependencyProperty.Register(nameof(ChangelogText), typeof(string), typeof(MainWindow));
-    public string ChangelogText
+    public MainWindow() : base()
     {
-        get => (string)GetValue(ChangelogTextProperty);
-        set => SetValue(ChangelogTextProperty, value);
-    }
-
-    public MainWindow()
-    {
+        RandoSeeds.DocsFolder = "packs";
+        RandoSeeds.DeleteFilter = "LRRando_${SEED}_Docs.zip";
         LRFlags.Init();
         RandoPresets.Init();
         InitializeComponent();
         DataContext = this;
-        HideProgressBar();
         DataExtensions.Mode = ByteMode.BigEndian;
 
         if (string.IsNullOrEmpty(SetupData.Paths["Nova"]))
         {
             RootDialog.ShowDialog(RootDialog.DialogContent);
         }
-
-        ChangelogText = File.ReadAllText(@"data\changelog.txt");
-    }
-
-    private async void generateButton_Click(object sender, RoutedEventArgs e)
-    {
-        using (LRSeedGenerator generator = new())
-        {
-            totalProgressBar.TotalSegments = (generator.Randomizers.Count * 3) + 2;
-            totalProgressBar.SetProgress(0, 0);
-
-            try
-            {
-                IsEnabled = false;
-                await Task.Run(() =>
-                {
-                    generator.GenerateSeed();
-                });
-                IsEnabled = true;
-            }
-            catch (RandoException ex)
-            {
-                Exception innerMost = ex;
-                while (innerMost.InnerException != null)
-                {
-                    innerMost = innerMost.InnerException;
-                }
-
-                MessageBox.Show("Randomizer encountered an error.\n\n" + ex.Message + "\n\nStack trace:\n" + innerMost.StackTrace, ex.Title);
-                IsEnabled = true;
-            }
-        }
-    }
-
-    private void SetProgressBar(string text, int value, int maxValue = 100)
-    {
-        Dispatcher.Invoke(() =>
-        {
-            ProgressBarVisible = Visibility.Visible;
-            ProgressBarText = text;
-            ProgressBarIndeterminate = value < 0;
-            ProgressBarValue = value;
-            ProgressBarMaximum = maxValue;
-            totalProgressBar.SetProgress(totalProgressBar.GetProgress(), ProgressBarIndeterminate ? -1 : (float)ProgressBarValue / ProgressBarMaximum);
-        });
-    }
-
-    private void HideProgressBar()
-    {
-        Dispatcher.Invoke(() =>
-        {
-            ProgressBarVisible = Visibility.Hidden;
-        });
     }
 
     private void openNovaButton_Click(object sender, RoutedEventArgs e)
@@ -156,38 +66,5 @@ public partial class MainWindow : Window
         {
             Process.Start("explorer.exe", dir);
         }
-    }
-
-    private void NextStepButton_Click(object sender, RoutedEventArgs e)
-    {
-        WindowTabs.SelectedIndex++;
-    }
-
-    private void PrevStepButton_Click(object sender, RoutedEventArgs e)
-    {
-        WindowTabs.SelectedIndex--;
-    }
-
-    private void shareSeedFolder_Click(object sender, RoutedEventArgs e)
-    {
-        int seed = RandomNum.GetIntSeed(SetupData.Seed);
-
-        VistaSaveFileDialog dialog = new()
-        {
-            Filter = "JSON|*.json",
-            DefaultExt = ".json",
-            AddExtension = true,
-            FileName = "LRRando_" + seed + "_Seed"
-        };
-        if ((bool)dialog.ShowDialog())
-        {
-            string path = dialog.FileName.Replace("/", "\\");
-            RandoHelpers.SaveSeedJSON(path);
-        }
-    }
-
-    private void shareSeedModpackFolder_Click(object sender, RoutedEventArgs e)
-    {
-
     }
 }

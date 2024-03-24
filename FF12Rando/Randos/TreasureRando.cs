@@ -116,13 +116,11 @@ public partial class TreasureRando : Randomizer
         FileHelpers.ReadCSVFile(@"data\fakeChecks.csv", row =>
         {
             string[] fakeItems = row[6].Split('|');
-            int index = 0;
-            foreach (string fakeItem in fakeItems)
+            for(int i = 0; i < fakeItems.Length; i++)
             {
-                FF12FakeLocation f = new(Generator, row, fakeItem);
-                f.ID = f.ID + ":" + index;
+                FF12FakeLocation f = new(Generator, row, fakeItems[i]);
+                f.ID = f.ID + ":" + i;
                 ItemLocations.Add(f.ID, f);
-                index++;
             }
         }, FileHelpers.CSVFileHeader.HasHeader);
 
@@ -336,10 +334,7 @@ public partial class TreasureRando : Randomizer
                 List<string> lines = new();
                 if (HintPlacer.Hints[num].Count > 0)
                 {
-                    foreach (var l in HintPlacer.Hints[num])
-                    {
-                        lines.Add(HintPlacer.GetHintText(l));
-                    }
+                    lines = HintPlacer.Hints[num].Select(l => HintPlacer.GetHintText(l)).ToList();
                 }
                 else
                 {
@@ -544,6 +539,15 @@ public partial class TreasureRando : Randomizer
             output = textRando.TextKeyItems[intId - 0x8000].Text;
         }
         
+        if (string.IsNullOrEmpty(output))
+        {
+            EquipRando equipRando = Generator.Get<EquipRando>();
+            if (equipRando.itemData.ContainsKey(id))
+            {
+                output = equipRando.itemData[id].Name;
+            }
+        }
+
         if (!string.IsNullOrEmpty(output))
         {
             if (removeFormatting)

@@ -116,6 +116,37 @@ public class TreasureLocation : ItemLocation, IDataStoreItemProvider<DataStoreRT
 
     public override bool CanReplace(ItemLocation location)
     {
-        return false;
+        if (GetItemData(true).s11ItemResourceId_string == "")
+        {
+            // Gil can go in other treasures except for battle or trade rewards
+            return location is TreasureLocation && !location.Traits.Contains("Battle") && !location.Traits.Contains("Trade");
+        }
+        else if (GetItemData(true).s11ItemResourceId_string.StartsWith("it"))
+        {
+            // Consumables cannot go in quest or battle rewards
+            if (location.Traits.Contains("Quest") || location.Traits.Contains("Battle"))
+            {
+                return false;
+            }
+        }
+        else if(GetItemData(true).s11ItemResourceId_string.StartsWith("ti") || GetItemData(true).s11ItemResourceId_string == "at900_00")
+        {
+            // EP abilities cannot go in CoP, quest, battle, or trade rewards
+            if (location.Traits.Contains("CoP") || location.Traits.Contains("Quest") || location.Traits.Contains("Battle") || location.Traits.Contains("Trade"))
+            {
+                return false;
+            }
+        }
+
+        if (GetItemData(true).iItemCount > 1)
+        {
+            // Multiples cannot go into trade rewards
+            if (location.Traits.Contains("Trade"))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

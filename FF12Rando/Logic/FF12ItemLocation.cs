@@ -67,12 +67,12 @@ public abstract class FF12ItemLocation : ItemLocation
 
             if (diff >= 7)
             {
-                return charCount >= 6;
+                return charCount >= 6 && items.GetValueOrDefault("C01F") > 0;
             }
 
             if (diff >= 5)
             {
-                return charCount >= 5;
+                return charCount >= 5 && items.GetValueOrDefault("C01F") > 0;
             }
 
             if (diff >= 4)

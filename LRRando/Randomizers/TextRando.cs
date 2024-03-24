@@ -58,7 +58,7 @@ public class TextRando : Randomizer
             mainSysUS["$m_896w"] += " (I may crash with {Key R2})";
         }
 
-        LRFlags.Other.HintsPilgrim.SetRand();
+        LRFlags.Other.LoadingText.SetRand();
 
         //EquipRando equipRando = randomizers.Get<EquipRando>();
         if (LRFlags.Other.LoadingText.FlagEnabled)

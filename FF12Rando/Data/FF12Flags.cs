@@ -202,7 +202,21 @@ public class FF12Flags
                     {"80D3", "Cruel Trophy" },
                     {"80D4", "Adamantine Trophy" },
                     {"80D5", "Reptilian Trophy" },
-                    {"80D6", "Vile Trophy" }
+                    {"80D6", "Vile Trophy" },
+                    {"C012", "Belias Esper" },
+                    {"C013", "Mateus Esper" },
+                    {"C014", "Adrammelech Esper" },
+                    {"C015", "Hashmal Esper" },
+                    {"C016", "Cuchulainn Esper" },
+                    {"C017", "Famfrit Esper" },
+                    {"C018", "Zalera Esper" },
+                    {"C019", "Shemhazai Esper" },
+                    {"C01A", "Chaos Esper" },
+                    {"C01B", "Zeromus Esper" },
+                    {"C01C", "Exodus Esper" },
+                    {"C01D", "Ultima Esper" },
+                    {"C01E", "Zodiark Esper" },
+                    {"C01F", "Second Board" }
                 }
             }.Register(Treasures);
 
@@ -304,7 +318,7 @@ public class FF12Flags
             {
                 Text = "Character Scaled Depth",
                 ID = "KeyPlaceCharScale",
-                Description = "Key items placed in later locations will require a certain amount of characters unlocked."
+                Description = "Key items placed in later locations will require a certain amount of characters unlocked and second board will be required for later locations."
             }.Register(Treasures);
 
             JunkRankScale = new ToggleFlagProperty()

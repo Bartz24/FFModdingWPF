@@ -22,7 +22,7 @@ public class FF12JunkItemPlacer : JunkItemPlacer<ItemLocation>
         base.PlaceItems();
     }
 
-    public override (string Item, int Amount) GetNewJunkItem((string Item, int Amount) orig)
+    public override (string Item, int Amount) GetNewItem((string Item, int Amount) orig)
     {
         EquipRando equipRando = Generator.Get<EquipRando>();
         string repItem = null;
@@ -61,12 +61,7 @@ public class FF12JunkItemPlacer : JunkItemPlacer<ItemLocation>
             } while (repItem == null);
         }
 
-        if (amount > 1)
-        {
-            amount = RandomNum.RandInt((int)Math.Round(Math.Max(1, orig.Amount * 0.75)), (int)Math.Round(orig.Amount * 1.25));
-        }
-
-        return (repItem, amount);
+        return ModifyAmount((repItem, amount));
     }
 
     protected override HashSet<ItemLocation> GetEmptyMultiLocations()
@@ -74,7 +69,7 @@ public class FF12JunkItemPlacer : JunkItemPlacer<ItemLocation>
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
         HashSet<DataStoreReward> emptyRewards = treasureRando.rewards.DataList.Where(r=>treasureRando.ItemLocations.ContainsKey($"{r.ID}:0")).ToHashSet();
 
-        // Remove any rewards that have an item set in one of its indices
+        // Don't include any rewards that have an item set in one of its indices
         foreach(var loc in ParentPlacer.FinalPlacement.Keys)
         {
             if (loc is RewardLocation r)
@@ -84,6 +79,5 @@ public class FF12JunkItemPlacer : JunkItemPlacer<ItemLocation>
         }
 
         return emptyRewards.Select(r => treasureRando.ItemLocations[$"{r.ID}:{RandomNum.RandInt(0, 2)}"]).ToHashSet();
-
     }
 }

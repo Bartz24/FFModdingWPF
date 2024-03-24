@@ -122,6 +122,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             newOrder.Add(next);
             original.Remove(next);
         }
+
         return newOrder;
     }
 

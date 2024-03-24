@@ -57,6 +57,15 @@ public class BattleDropLocation : ItemLocation, IDataStoreItemProvider<DataStore
 
     public override bool CanReplace(ItemLocation location)
     {
-        return false;
+        if (GetItemData(true).u8NumDrop0 > 1)
+        {
+            // Multiples cannot go into trade rewards
+            if (location.Traits.Contains("Trade"))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

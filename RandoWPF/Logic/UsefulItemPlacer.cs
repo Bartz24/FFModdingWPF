@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF;
-public class UsefulItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
+public abstract class UsefulItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 {
     protected bool LogWarnings { get; set; }
     public UsefulItemPlacer(SeedGenerator generator, bool logWarnings) : base(generator)
@@ -34,4 +34,16 @@ public class UsefulItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             RandoUI.SetUIProgressDeterminate($"Placed {FinalPlacement.Count} of {Replacements.Count} useful items.", FinalPlacement.Count, Replacements.Count);
         }
     }
+
+    public override void ApplyToGameData()
+    {
+        foreach (var loc in FinalPlacement.Keys)
+        {
+            var rep = FinalPlacement[loc];
+            var (Item, Amount) = GetNewItem(rep.GetItem(true).Value);
+            loc.SetItem(Item, Amount);
+        }
+    }
+
+    public abstract (string Item, int Amount) GetNewItem((string Item, int Amount) orig);
 }

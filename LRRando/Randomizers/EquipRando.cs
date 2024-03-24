@@ -943,13 +943,30 @@ public partial class EquipRando : Randomizer
         return passiveNames;
     }
 
-    private string GetItemName(string itemID)
+    public string GetItemName(string itemID)
     {
+        AbilityRando abilityRando = Generator.Get<AbilityRando>();
         TextRando textRando = Generator.Get<TextRando>();
-        string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
-        if (name.Contains("{End}"))
+        string name;
+        if (itemID == "")
         {
-            name = name.Substring(0, name.IndexOf("{End}"));
+            name = "Gil";
+        }
+        else if (abilityRando.abilities.Keys.Contains(itemID))
+        {
+            name = textRando.mainSysUS[abilityRando.abilities[itemID].sStringResId_string];
+        }
+        else if (items.Keys.Contains(itemID) && textRando.mainSysUS.Keys.Contains(items[itemID].sItemNameStringId_string))
+        {
+            name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
+            if (name.Contains("{End}"))
+            {
+                name = name.Substring(0, name.IndexOf("{End}"));
+            }
+        }
+        else
+        {
+            name = itemID;
         }
 
         return name;

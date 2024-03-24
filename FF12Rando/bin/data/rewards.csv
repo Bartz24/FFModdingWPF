@@ -11,12 +11,14 @@ Dreadnought Leviathan,No. 1 Brig Key,9060,I(Dreadnought Leviathan),1,
 Dreadnought Leviathan,Systems Access Key,9061,AND(I(Dreadnought Leviathan)|I(8076)),1,
 Dreadnought Leviathan,Manufacted Nethicite,912C,AND(I(Dreadnought Leviathan)|I(8076)),1,
 Nam-Yensa Sandsea,Eksir Berries,912D,I(Sandseas),1,
+Tomb of Raithwall,Defeat Belias,9190,I(Sandseas),2,
 Tomb of Raithwall,Dawn Shard,912E,I(Sandseas),2,
 Tomb of Raithwall,Defeat Vossler,918E,AND(I(8078)|I(Sandseas)),2,
 Royal Palace,Goddess's Magicite,912F,I(8080),1,
 Barheim Passage,Burrough Tube Fuse,9130,I(8080),1,
 Jahara,Great-chief Elder After Dawn Shard,911F,AND(I(Ozmone Plain)|I(Defeat Vossler)),2,
 Eruyt Village,Lente's Tear,9131,I(Ozmone Plain),2,
+Stilshrine of Miriam,Defeat Mateus,9191,AND(I(Paramina Rift)|I(8078)),2,
 Stilshrine of Miriam,Sword of Kings,9132,AND(I(Paramina Rift)|I(8078)),2,
 Tchita Uplands,Soul Ward Key,9133,I(Tchita Uplands),3,
 Tchita Uplands,Mandragora Reward,9052,AND(I(Tchita Uplands)|I(Sochen Cave Palace)),3,
@@ -51,11 +53,13 @@ Archades,Pinewood Chop 27,914E,I(Archades),0,Chop27
 Archades,Pinewood Chop 28,914F,I(Archades),0,Chop28
 Archades,Sandalwood Chop,9150,AND(I(2113|28)|I(Archades)),2,
 Draklor Laboratory,Lab Access Card,9151,I(Draklor Laboratory),0,
-Giruvegan,Treaty-Blade,9152,AND(I(Paramina Rift)|I(Belias)),5,
+Giruvegan,Defeat Shemhazai,9192,AND(I(Paramina Rift)|I(C012)),5,
+Giruvegan,Treaty-Blade,9152,AND(I(Paramina Rift)|I(C012)),5,
 Pharos of Ridorana,Black Orb 1,9153,I(8077),6,BlackOrb1
 Pharos of Ridorana,Black Orb 2,9154,I(8077),6,BlackOrb2
 Pharos of Ridorana,Black Orb 3,9155,I(8077),6,BlackOrb3
-Pharos of Ridorana,Defeat Cid 2,918F,AND(I(8077)|I(2116|3)|OR(I(808B)|I(808C))|OR(SELECT(2|I(8078)|I(80AC)|I(8089)))),7,WritCid2
+Pharos of Ridorana,Defeat Hashmal,9193,AND(I(8077)|I(2116|3)),6,
+Pharos of Ridorana,Defeat Famfrit and Cid 2,918F,AND(I(8077)|I(2116|3)|OR(I(808B)|I(808C))|OR(SELECT(2|I(8078)|I(80AC)|I(8089)))),7,WritCid2
 Pharos of Ridorana Subterra,Black Orb 4,9156,AND(I(8077)|I(2116|3)),7,BlackOrb4
 Pharos of Ridorana Subterra,Black Orb 5,9157,AND(I(8077)|I(2116|3)),7,BlackOrb5
 Pharos of Ridorana Subterra,Black Orb 6,9158,AND(I(8077)|I(2116|3)),7,BlackOrb6
@@ -104,7 +108,7 @@ Nalbina Fortress,Hunt 24: Goliath,901A,I(Tchita Uplands),6,Hunt
 Nalbina Fortress,Hunt 25: Deathscythe,901B,I(Tchita Uplands),6,Hunt
 Skyferry,Hunt 26: Deathgaze,901C,OR(AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|false)|AERO(80E4|false)|AERO(80E5|false)),7,Hunt
 Bhujerba,Hunt 27: Diabolos,901D,AERO(80E3),7,Hunt
-Mt. Bur-Omisace,Hunt 28: Piscodaemon,901E,AND(I(Paramina Rift)|I(Belias)),5,Hunt
+Mt. Bur-Omisace,Hunt 28: Piscodaemon,901E,AND(I(Paramina Rift)|I(C012)),5,Hunt
 Eruyt Village,Hunt 29: Wild Malboro,901F,I(Paramina Rift),6,Hunt
 Jahara,Hunt 30: Catoblepas,9020,I(Ozmone Plain),6,Hunt
 Mt. Bur-Omisace,Hunt 31: Fafnir,9021,AND(I(Paramina Rift)|I(809A)),7,Hunt
@@ -148,12 +152,12 @@ Clan Hall,Clan Boss: Mandragora,9045,AND(I(8071)|I(Sochen Cave Palace)),4,ClanBo
 Clan Hall,Clan Boss: Ahriman,9046,AND(I(8071)|I(Sochen Cave Palace)),5,ClanBoss
 Clan Hall,Clan Boss: Hell Wyrm,9047,AND(I(8071)|I(80B5)|I(Sochen Cave Palace)),7,ClanBoss
 Clan Hall,Clan Boss: Rafflesia,9048,AND(I(Paramina Rift)|I(8071)),4,ClanBoss
-Clan Hall,Clan Boss: Daedulus,9049,AND(I(Paramina Rift)|I(8071)|I(Belias)),5,ClanBoss
-Clan Hall,Clan Boss: Tyrant,904A,AND(I(Paramina Rift)|I(8071)|I(Belias)),5,ClanBoss
+Clan Hall,Clan Boss: Daedulus,9049,AND(I(Paramina Rift)|I(8071)|I(C012)),5,ClanBoss
+Clan Hall,Clan Boss: Tyrant,904A,AND(I(Paramina Rift)|I(8071)|I(C012)),5,ClanBoss
 Clan Hall,Clan Boss: Hydro,904B,AND(I(8071)|I(8077)),5,ClanBoss
 Clan Hall,Clan Boss: Humbaba Mistant,904C,AND(I(8071)|I(8081)|I(8084)|I(Tchita Uplands)),7,ClanBoss
 Clan Hall,Clan Boss: Fury,904D,AND(I(8071)|I(8083)|I(8084)|I(Tchita Uplands)),7,ClanBoss
-Clan Hall,Clan Boss: Omega Mark XII,905A,AND(I(Paramina Rift)|I(8071)|I(Belias)),8,ClanBoss
+Clan Hall,Clan Boss: Omega Mark XII,905A,AND(I(Paramina Rift)|I(8071)|I(C012)),8,ClanBoss
 Clan Hall,Clan Esper: Control 1,904E,AND(I(8071)|I(Esper|1)),1,ClanEsper
 Clan Hall,Clan Esper: Control 4,904F,AND(I(8071)|I(Esper|4)),3,ClanEsper
 Clan Hall,Clan Esper: Control 8,9050,AND(I(8071)|I(Esper|8)),5,ClanEsper
@@ -204,6 +208,14 @@ Dalmasca Estersand,Outpost Mysterious Glint,9057,,0,
 Dalmasca Estersand,Outpost Mysterious Glint,9070,,0,
 Dalmasca Estersand,Outpost Mysterious Glint,9059,,0,
 Balfonheim,Footrace,908F,I(Tchita Uplands),0,
+Zertinan Caverns,Defeat Adrammelech,9194,I(Ozmone Plain),3,
+Barheim Passage,Defeat Zalera,9195,I(8093),4,
+Garamsythe Waterway,Defeat Cuchulainn,9196,I(80AF),6,
+Stilshrine of Miriam,Defeat Zeromus,9197,AND(I(Paramina Rift)|I(8078)|I(8085)),5,
+Mosphoran Highwaste,Defeat Exodus,9198,I(Tchita Uplands),4,
+Necrohol of Nabudis,Defeat Chaos,9199,AND(I(8082)|I(Tchita Uplands)),5,
+Giruvegan,Defeat Ultima,919A,AND(I(Paramina Rift)|I(C012)),6,
+Henne Mines,Defeat Zodiark,919B,AND(I(Esper|10)|I(Ozmone Plain)),7,
 Phon Coast,Thalassinon - Shelled Trophy,9090,I(Tchita Uplands),6,
 Garamsythe Waterway,Gavial - Fur-scaled Trophy,9091,AND(I(80B8)|I(HuntClubStart)),6,
 Barheim Passage,Ishteen - Bony Trophy,9092,AND(I(8093)|I(80B8)|I(HuntClubStart)),7,
@@ -223,7 +235,7 @@ Ozmone Plain,Killbug - Metallic Trophy,909F,AND(I(80B8)|I(Ozmone Plain)|I(HuntCl
 Henne Mines,Melt - Slimy Trophy,90A0,AND(I(80B8)|I(Ozmone Plain)|I(HuntClubStart)),7,
 Golmore Jungle,Biding Mantis - Scythe Trophy,90A1,AND(I(80B8)|I(Paramina Rift)|I(HuntClubStart)),6,
 Feywood,Dreadguard - Feathered Trophy,90A2,AND(I(80B8)|I(Paramina Rift)|I(HuntClubStart)),7,
-Giruvegan,Crystal Knight - Skull Trophy,90A3,AND(I(80B8)|I(Paramina Rift)|I(Belias)|I(HuntClubStart)),5,
+Giruvegan,Crystal Knight - Skull Trophy,90A3,AND(I(80B8)|I(Paramina Rift)|I(C012)|I(HuntClubStart)),5,
 Paramina Rift,Ancbolder - Mind Trophy,90A4,AND(I(80B8)|I(Paramina Rift)|I(HuntClubStart)),5,
 Stilshrine of Miriam,Myath - Eternal Trophy,90A5,AND(I(80B8)|I(Paramina Rift)|I(8078)|I(HuntClubStart)),5,
 Phon Coast,Skullash - Clawed Trophy,90A6,AND(I(80B8)|I(HuntClubStart)|I(Tchita Uplands)),7,

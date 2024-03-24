@@ -90,7 +90,10 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
 
     public override void ApplyToGameData()
     {
-        base.ApplyToGameData();
+        foreach (var placer in Placers)
+        {
+            placer.ApplyToGameData();
+        }
 
         ClearUnsetLocations();
         CalculateSpheres();

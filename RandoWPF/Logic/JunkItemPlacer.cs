@@ -63,10 +63,21 @@ public abstract class JunkItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         {
             var rep = FinalPlacement[loc];
             var orig = rep.GetItem(true);
-            var (item, amount) = GetNewJunkItem(orig.Value);
+            var (item, amount) = GetNewItem(orig.Value);
             loc.SetItem(item, amount);
         }
     }
 
-    public abstract (string Item, int Amount) GetNewJunkItem((string Item, int Amount) orig);
+    public abstract (string Item, int Amount) GetNewItem((string Item, int Amount) orig);
+
+    protected virtual (string Item, int Amount) ModifyAmount((string Item, int Amount) item)
+    {
+        int amount = item.Amount;
+        if (amount > 1)
+        {
+            amount = RandomNum.RandInt((int)Math.Round(Math.Max(1, item.Amount * 0.75)), (int)Math.Round(item.Amount * 1.25));
+        }
+
+        return (item.Item, amount);
+    }
 }

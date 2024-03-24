@@ -50,7 +50,7 @@
                 SelectedItem="{Binding Path=(local:RandoPresets.Selected),Mode=TwoWay}"  
                 DisplayMemberPath="Name"/>
                         <Button x:Name="SaveButton"
-                            Visibility="{Binding SaveVisible}"
+                            IsEnabled="{Binding SaveEnabled}"
                                 Click="SavePreset_Click"
                                 Padding="5,0" Margin="5,0" Width="70"
                                 ToolTip="Save custom preset to a JSON file.">
@@ -60,7 +60,7 @@
                             </StackPanel>
                         </Button>
                         <Button x:Name="DeleteButton"
-                            Visibility="{Binding DeleteVisible}"
+                            IsEnabled="{Binding DeleteEnabled}"
                                 Click="DeletePreset_Click"
                                 Padding="5,0" Margin="5,0" Width="70"
                                 ToolTip="Delete custom preset.">

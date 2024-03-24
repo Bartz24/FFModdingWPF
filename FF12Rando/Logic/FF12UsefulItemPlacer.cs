@@ -19,26 +19,16 @@ public class FF12UsefulItemPlacer : UsefulItemPlacer<ItemLocation>
         base.PlaceItems();
     }
 
-    public override void ApplyToGameData()
-    {
-        foreach (var loc in FinalPlacement.Keys)
-        {
-            var rep = FinalPlacement[loc];
-            var newItem = GetNewItem(rep.GetItem(true));
-            loc.SetItem(newItem.Value.Item, newItem.Value.Amount);
-        }
-    }
-
-    private (string Item, int Amount)? GetNewItem((string Item, int Amount)? item)
+    public override (string Item, int Amount) GetNewItem((string Item, int Amount) orig)
     {
         EquipRando equipRando = Generator.Get<EquipRando>();
-        if (item == null || !equipRando.itemData.ContainsKey(item.Value.Item1) || equipRando.itemData[item.Value.Item1].Category != "Ability")
+        if (!equipRando.itemData.ContainsKey(orig.Item) || equipRando.itemData[orig.Item].Category != "Ability")
         {
-            return item;
+            return orig;
         }   
 
         string rep = RandomNum.SelectRandom(equipRando.itemData.Values.Where(i => i.Category == "Ability" && !UsedAbilities.Contains(i.ID))).ID;
         UsedAbilities.Add(rep);
-        return (rep, item.Value.Item2);
+        return (rep, orig.Amount);
     }
 }

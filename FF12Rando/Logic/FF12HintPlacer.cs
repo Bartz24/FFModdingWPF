@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FF12Rando;
-public class FF12HintPlacer : HintPlacer<int, ItemLocation>
+public class FF12HintPlacer : HintPlacer<int, ItemLocation, FF12ItemPlacer>
 {
-    public FF12HintPlacer(SeedGenerator generator, ItemPlacer<ItemLocation> itemPlacer, HashSet<int> hintLocations) : base(generator, itemPlacer, hintLocations)
+    public FF12HintPlacer(SeedGenerator generator, FF12ItemPlacer itemPlacer, HashSet<int> hintLocations) : base(generator, itemPlacer, hintLocations)
     {
     }
 

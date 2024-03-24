@@ -20,8 +20,8 @@ public partial class FlagsPage : UserControl
     public ObservableCollection<Preset> PresetsList { get; set; } = new ObservableCollection<Preset>();
     public ObservableCollection<string> CategoryList { get; set; } = new ObservableCollection<string>();
 
-    public Visibility SaveVisible => RandoPresets.Selected.CustomModified ? Visibility.Visible : Visibility.Hidden;
-    public Visibility DeleteVisible => RandoPresets.Selected.CustomLoaded ? Visibility.Visible : Visibility.Hidden;
+    public bool SaveEnabled => RandoPresets.Selected.CustomModified;
+    public bool DeleteEnabled => RandoPresets.Selected.CustomLoaded;
 
     public FlagsPage()
     {
@@ -39,8 +39,8 @@ public partial class FlagsPage : UserControl
 
     private void Presets_SelectedChanged(object sender, EventArgs e)
     {
-        SaveButton.GetBindingExpression(VisibilityProperty).UpdateTarget();
-        DeleteButton.GetBindingExpression(VisibilityProperty).UpdateTarget();
+        SaveButton.GetBindingExpression(IsEnabledProperty).UpdateTarget();
+        DeleteButton.GetBindingExpression(IsEnabledProperty).UpdateTarget();
     }
 
     private bool FlagFilter(object item)

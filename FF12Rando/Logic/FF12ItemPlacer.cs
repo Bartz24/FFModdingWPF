@@ -8,9 +8,9 @@ using System.Reflection.Emit;
 namespace FF12Rando;
 public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 {
-    public ProgressionItemPlacer<ItemLocation> ProgressionItemPlacer { get; set; }
-    public FF12UsefulItemPlacer UsefulItemPlacer { get; set; }
-    public FF12JunkItemPlacer JunkItemPlacer { get; set; }
+    public ProgressionItemPlacer<ItemLocation> ProgressionPlacer { get; set; }
+    public FF12UsefulItemPlacer UsefulPlacer { get; set; }
+    public FF12JunkItemPlacer JunkPlacer { get; set; }
 
     public FF12ItemPlacer(SeedGenerator generator) : base(generator) 
     { 
@@ -21,15 +21,15 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
     {
         var possible = PossibleLocations.Except(usedLocations).ToHashSet();
 
-        if (placer == ProgressionItemPlacer)
+        if (placer == ProgressionPlacer)
         {
             return GetProgressionLocations(possible);
         }
-        else if (placer == UsefulItemPlacer)
+        else if (placer == UsefulPlacer)
         {
             return possible.Where(l => !l.Traits.Contains("Missable")).ToHashSet();
         }
-        else if (placer == JunkItemPlacer)
+        else if (placer == JunkPlacer)
         {
             return possible;
         }
@@ -110,7 +110,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
     protected override HashSet<ItemLocation> GetReplacementsForPlacer(HashSet<ItemLocation> usedReplacements, ItemPlacer<ItemLocation> placer)
     {
         var remaining = Replacements.Except(usedReplacements).ToHashSet();
-        if (placer == ProgressionItemPlacer)
+        if (placer == ProgressionPlacer)
         {
             return remaining.Where(l =>
             {
@@ -135,7 +135,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
                 return false;
             }).ToHashSet();
         }
-        else if (placer == UsefulItemPlacer)
+        else if (placer == UsefulPlacer)
         {
             return remaining
                 .Where(l => 
@@ -143,7 +143,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
                     l.GetItem(false).Value.Item.StartsWith("40"))
                 .ToHashSet();
         }
-        else if (placer == JunkItemPlacer)
+        else if (placer == JunkPlacer)
         {
             return remaining;
         }
@@ -193,12 +193,12 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
     {
         Dictionary<string, double> areaMults = PossibleLocations.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
 
-        ProgressionItemPlacer = new(Generator, GetDifficulty(), areaMults);
-        ProgressionItemPlacer.FixedLocations = GetFixedLocations();
-        UsefulItemPlacer = new(Generator, false);
-        JunkItemPlacer = new(Generator, this);
+        ProgressionPlacer = new(Generator, GetDifficulty(), areaMults);
+        ProgressionPlacer.FixedLocations = GetFixedLocations();
+        UsefulPlacer = new(Generator, false);
+        JunkPlacer = new(Generator, this);
 
-        Placers = new() { ProgressionItemPlacer, UsefulItemPlacer, JunkItemPlacer };
+        Placers = new() { ProgressionPlacer, UsefulPlacer, JunkPlacer };
     }
 
     public override void ApplyToGameData()

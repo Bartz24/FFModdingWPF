@@ -8,7 +8,7 @@ Ogir-Yensa Sandsea,Sandsea Unlock,_6,OR(I(Defeat Ghis)|I(80E0)|I(8077)),,1,Sands
 Tomb of Raithwall,Defeat Vossler,_7,AND(I(8078)|I(Sandseas)),,1,Defeat Vossler
 Garamsythe Waterway,Garamsythe Characters,_8,I(8080),,1,Balthier|Fran|Guest
 Barheim Passage,Barheim Guest,_9,I(8080),,1,Guest
-Ozmone Plain,Ozmone Unlock,_10,OR(I(8077)|I(80B7)),,1,Ozmone Plain
+Ozmone Plain,Ozmone Unlock,_10,OR(I(8077)|AND(I(Paramina Rift)|I(80B7))),,1,Ozmone Plain
 Paramina Rift,Paramina Unlock,_11,AND(OR(I(8077)|AND(I(Ozmone Plain)|I(80E0)))),,2,Paramina Rift
 Mt. Bur-Omisace,Defeat Bergan,_12,AND(I(Paramina Rift)|I(808B)),,3,Defeat Bergan
 Dalmasca Westersand,Defeat Earth Tyrant,_13,I(80B1)|I(80B2),,4,Defeat Earth Tyrant
@@ -44,7 +44,7 @@ Nalbina Fortress,Hunt 24: Goliath,_42,I(Tchita Uplands),,6,Hunt|Jovy
 Nalbina Fortress,Hunt 25: Deathscythe,_43,I(Tchita Uplands),,6,Hunt|Jovy
 Skyferry,Hunt 26: Deathgaze,_44,OR(AERO(80E1|false)|AERO(80E2|false)|AERO(80E3|false)|AERO(80E4|false)|AERO(80E5|false)),,7,Hunt
 Bhujerba,Hunt 27: Diabolos,_45,AERO(80E3),,7,Hunt
-Mt. Bur-Omisace,Hunt 28: Piscodaemon,_46,AND(I(Paramina Rift)|I(Belias)),,5,Hunt
+Mt. Bur-Omisace,Hunt 28: Piscodaemon,_46,AND(I(Paramina Rift)|I(C012)),,5,Hunt
 Eruyt Village,Hunt 29: Wild Malboro,_47,I(Paramina Rift),,6,Hunt
 Jahara,Hunt 30: Catoblepas,_48,I(Ozmone Plain),,6,Hunt
 Mt. Bur-Omisace,Hunt 31: Fafnir,_49,AND(I(Paramina Rift)|I(809A)),,7,Hunt
@@ -62,19 +62,19 @@ Lowtown,Hunt 42: Behemoth King,_60,AND(I(Paramina Rift)|I(8071)),,7,Hunt
 Balfonheim,Hunt 43: Ixion,_61,AND(I(8071)|I(8077)),,6,Hunt
 Clan Hall,Hunt 44: Shadowseer,_62,AND(I(8071)|I(8077)|I(2116|24)),,6,Hunt
 Clan Hall,Hunt 45: Yiazmat,_63,AND(I(8071)|I(8077)),,8,Hunt
-Tomb of Raithwall,Belias,_64,I(Sandseas),,1,Esper|Belias
-Stilshrine of Miriam,Mateus,_65,AND(I(Paramina Rift)|I(8078)),,2,Esper
-Zertinan Caverns,Adrammelech,_66,I(Ozmone Plain),,2,Esper
-Barheim Passage,Zalera,_67,I(8093),,4,Esper
-Giruvegan,Shemhazai,_68,AND(I(Paramina Rift)|I(Belias)),,5,Esper
-Pharos of Ridorana,Hashmal,_69,AND(I(8077)|I(2116|3)),,5,Esper
-Garamsythe Waterway,Cuchulainn,_70,I(80AF),,6,Esper
-Stilshrine of Miriam,Zeromus,_71,AND(I(Paramina Rift)|I(8078)|I(8085)),,5,Esper
-Mosphoran Highwaste,Exodus,_72,I(Tchita Uplands),,4,Esper
-Pharos of Ridorana,Famfrit,_73,AND(I(8077)|I(2116|3)|OR(I(808B)|I(808C))|OR(SELECT(2|I(8078)|I(80AC)|I(8089)))),,5,Esper
-Necrohol of Nabudis,Chaos,_74,AND(I(8082)|I(Tchita Uplands)),,5,Esper
-Giruvegan,Ultima,_75,AND(I(Paramina Rift)|I(Belias)),,6,Esper
-Henne Mines,Zodiark,_76,AND(I(Esper|10)|I(Ozmone Plain)),,7,Esper
+Tomb of Raithwall,Belias,_64,I(C012),,1,Esper
+Stilshrine of Miriam,Mateus,_65,I(C013),,2,Esper
+Zertinan Caverns,Adrammelech,_66,I(C014),,3,Esper
+Barheim Passage,Zalera,_67,I(C018),,4,Esper
+Giruvegan,Shemhazai,_68,I(C019),,5,Esper
+Pharos of Ridorana,Hashmal,_69,I(C015),,5,Esper
+Garamsythe Waterway,Cuchulainn,_70,I(C016),,6,Esper
+Stilshrine of Miriam,Zeromus,_71,I(C01B),,5,Esper
+Mosphoran Highwaste,Exodus,_72,I(C01C),,4,Esper
+Pharos of Ridorana,Famfrit,_73,I(C017),,5,Esper
+Necrohol of Nabudis,Chaos,_74,I(C01A),,5,Esper
+Giruvegan,Ultima,_75,I(C01D),,6,Esper
+Henne Mines,Zodiark,_76,I(C01E),,7,Esper
 Balfonheim,Reddas,_77,AND(I(Defeat Cid)|I(808C)),,0,Guest
 Lowtown,Basch,_78,I(8075),,0,Basch
 Phon Coast,Thalassinon - Shelled Trophy,_79,I(Tchita Uplands),,6,HuntClubStart
@@ -96,7 +96,7 @@ Ozmone Plain,Killbug - Metallic Trophy,_94,AND(I(80B8)|I(Ozmone Plain)|I(HuntClu
 Henne Mines,Melt - Slimy Trophy,_95,AND(I(80B8)|I(Ozmone Plain)|I(HuntClubStart)),,7,HuntClubKill
 Golmore Jungle,Biding Mantis - Scythe Trophy,_96,AND(I(80B8)|I(Paramina Rift)|I(HuntClubStart)),,6,HuntClubKill
 Feywood,Dreadguard - Feathered Trophy,_97,AND(I(80B8)|I(Paramina Rift)|I(HuntClubStart)),,7,HuntClubKill
-Giruvegan,Crystal Knight - Skull Trophy,_98,AND(I(80B8)|I(Paramina Rift)|I(Belias)|I(HuntClubStart)),,5,HuntClubKill
+Giruvegan,Crystal Knight - Skull Trophy,_98,AND(I(80B8)|I(Paramina Rift)|I(C012)|I(HuntClubStart)),,5,HuntClubKill
 Paramina Rift,Ancbolder - Mind Trophy,_99,AND(I(80B8)|I(Paramina Rift)|I(HuntClubStart)),,5,HuntClubKill
 Stilshrine of Miriam,Myath - Eternal Trophy,_100,AND(I(80B8)|I(Paramina Rift)|I(8078)|I(HuntClubStart)),,5,HuntClubKill
 Phon Coast,Skullash - Clawed Trophy,_101,AND(I(80B8)|I(HuntClubStart)|I(Tchita Uplands)),,7,HuntClubKill

@@ -20,9 +20,10 @@ public class FakeLocation : ItemLocation
     [RowIndex(5)]
     public override int BaseDifficulty { get; set; }
     public string FakeItem { get; set; }
+    public int Amount { get; set; }
     public override string LocationImagePath { get; set; }
 
-    public FakeLocation(SeedGenerator generator, string[] row, string fakeItem) : base(generator, row)
+    public FakeLocation(SeedGenerator generator, string[] row, string fakeItem, int amount = 1) : base(generator, row)
     {
         if (!Traits.Contains("Fake"))
         {
@@ -30,11 +31,12 @@ public class FakeLocation : ItemLocation
         }
 
         FakeItem = fakeItem;
+        Amount = amount;
     }
 
     public override (string Item, int Amount)? GetItem(bool orig)
     {
-        return (FakeItem, 1);
+        return (FakeItem, Amount);
     }
 
     public override bool AreItemReqsMet(Dictionary<string, int> items)

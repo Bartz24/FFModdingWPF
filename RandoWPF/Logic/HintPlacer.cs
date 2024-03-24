@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF;
-public abstract class HintPlacer<I, T> where T : ItemLocation
+public abstract class HintPlacer<I, T, P> where T : ItemLocation where P : ItemPlacer<T>
 {
     public SeedGenerator Generator { get; set; }
-    public ItemPlacer<T> ItemPlacer { get; set; }
+    public P ItemPlacer { get; set; }
 
     public Dictionary<I, List<T>> Hints { get; set; } = new();
 
-    public HintPlacer(SeedGenerator generator, ItemPlacer<T> itemPlacer, HashSet<I> hintLocations)
+    public HintPlacer(SeedGenerator generator, P itemPlacer, HashSet<I> hintLocations)
     {
         Generator = generator;
         ItemPlacer = itemPlacer;
@@ -36,8 +36,14 @@ public abstract class HintPlacer<I, T> where T : ItemLocation
     protected virtual void PlaceHint(T location)
     {
         // Select the hint location to add to which has the lowest amount and select random
-        var hintLoc = RandomNum.SelectRandom(Hints.Where(h => h.Value.Count == Hints.Min(h2 => h2.Value.Count)));
-        Hints[hintLoc.Key].Add(location);
+        IEnumerable<I> possible = GetPossibleLocations(location);
+        var hintLoc = RandomNum.SelectRandom(possible.Where(h => Hints[h].Count == possible.Min(h2 => Hints[h2].Count)));
+        Hints[hintLoc].Add(location);
+    }
+
+    protected virtual IEnumerable<I> GetPossibleLocations(T location)
+    {
+        return Hints.Keys;
     }
 
     protected abstract bool IsHintable(T location);

@@ -132,7 +132,7 @@ public partial class ShopRando : Randomizer
                 i.Category is "Weapon" or "Armor" or "Accessory" or "Item" or "Ability" 
                 && i.Rank < 10
                 && !i.Traits.Contains("Ignore")
-                && !treasureRando.ItemPlacer.UsefulItemPlacer.UsedAbilities.Contains(i.ID)).Select(i => i.ID).ToHashSet();
+                && !treasureRando.ItemPlacer.UsefulPlacer.UsedAbilities.Contains(i.ID)).Select(i => i.ID).ToHashSet();
             FF12Flags.Items.Shops.SetRand();
 
             Dictionary<string, int> locationsShared = new();
