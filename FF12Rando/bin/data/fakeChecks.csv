@@ -8,8 +8,8 @@ Ogir-Yensa Sandsea,Sandsea Unlock,_6,OR(I(Defeat Ghis)|I(80E0)|I(8077)),,1,Sands
 Tomb of Raithwall,Defeat Vossler,_7,AND(I(8078)|I(Sandseas)),,1,Defeat Vossler
 Garamsythe Waterway,Garamsythe Characters,_8,I(8080),,1,Balthier|Fran|Guest
 Barheim Passage,Barheim Guest,_9,I(8080),,1,Guest
-Ozmone Plain,Ozmone Unlock,_10,OR(I(8077)|AND(I(Paramina Rift)|I(80B7))),,1,Ozmone Plain
-Paramina Rift,Paramina Unlock,_11,AND(OR(I(8077)|AND(I(Ozmone Plain)|I(80E0)))),,2,Paramina Rift
+Ozmone Plain,Ozmone Unlock,_10,OR(I(8077)|I(80E0)),,1,Ozmone Plain
+Paramina Rift,Paramina Unlock,_11,OR(I(8077)|AND(I(Ozmone Plain)|I(80B7))),,2,Paramina Rift
 Mt. Bur-Omisace,Defeat Bergan,_12,AND(I(Paramina Rift)|I(808B)),,3,Defeat Bergan
 Dalmasca Westersand,Defeat Earth Tyrant,_13,I(80B1)|I(80B2),,4,Defeat Earth Tyrant
 Northern,Northern and Tchita Unlock,_14,OR(I(Defeat Bergan)|I(8073)|I(Defeat Earth Tyrant)|AND(AERO(80E4)|I(80B6))|AERO(80E5)),,3,Tchita Uplands

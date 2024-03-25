@@ -49,28 +49,23 @@ public class FF12HintPlacer : HintPlacer<int, ItemLocation, FF12ItemPlacer>
                 {
                     type = "a Writ of Transit";
                 }
-
-                if (itemData.IntID == 0x2112 || itemData.IntID == 0x2113)
+                else if (itemData.IntID == 0x2112 || itemData.IntID == 0x2113)
                 {
                     type = "a Chop";
                 }
-
-                if (itemData.IntID == 0x2116)
+                else if (itemData.IntID == 0x2116)
                 {
                     type = "a Black Orb";
                 }
-
-                if (itemData.ID.StartsWith("30") || itemData.ID.StartsWith("40"))
+                else if (itemData.ID.StartsWith("30") || itemData.ID.StartsWith("40"))
                 {
                     type = "an Ability";
                 }
-
-                if (itemData.IntID is >= 0x80B9 and <= 0x80D6)
+                else if (itemData.IntID is >= 0x80B9 and <= 0x80D6)
                 {
                     type = "a Useless Trophy";
                 }
-
-                if (itemData.Category == "Key" && itemData.IntID >= 0x8000)
+                else if (itemData.Category == "Key" && itemData.IntID >= 0x8000)
                 {
                     type = "an Important Key Item";
                 }

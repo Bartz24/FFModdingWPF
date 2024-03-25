@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace FF12Rando;
 
@@ -585,7 +586,7 @@ public partial class EquipRando : Randomizer
                 List<string> onhit = new()
                 {
                     GetElementsDisplay(weapon.Elements.EnumToList(), true),
-                    weapon.StatusChance == 0 ? "" : $"{weapon.StatusChance}% {GetStatusDisplay(weapon.StatusEffects.EnumToList())}"
+                    weapon.StatusChance == 0 ? "" : $"{weapon.StatusChance}% {GetStatusDisplay(weapon.StatusEffects.EnumToList(), true)}"
                 };
                 displayPage1 += $"On Hit: {string.Join(", ", onhit.Where(s => !string.IsNullOrEmpty(s)))}";
             }
@@ -704,7 +705,7 @@ public partial class EquipRando : Randomizer
                 List<string> onhit = new()
                 {
                     GetElementsDisplay(ammo.Elements.EnumToList(), true),
-                    ammo.StatusChance == 0 ? "" : $"{ammo.StatusChance}% {GetStatusDisplay(ammo.StatusEffects.EnumToList())}"
+                    ammo.StatusChance == 0 ? "" : $"{ammo.StatusChance}% {GetStatusDisplay(ammo.StatusEffects.EnumToList(), true)}"
                 };
                 displayAll += $"On Hit: {string.Join(", ", onhit.Where(s => !string.IsNullOrEmpty(s)))}";
             }
@@ -961,7 +962,7 @@ public partial class EquipRando : Randomizer
         return display;
     }
 
-    private string GetStatusDisplayLine(DataStoreAttribute attribute, string newLine = "\\n", string separator = "\\t", string join = ",")
+    private string GetStatusDisplayLine(DataStoreAttribute attribute, bool useInGameFormat = true, string newLine = "\\n", string separator = "\\t", string join = ",")
     {
         string display = "";
         if (attribute.StatusEffectsOnEquip.EnumToList().Count > 0 || attribute.StatusEffectsImmune.EnumToList().Count > 0)
@@ -970,12 +971,12 @@ public partial class EquipRando : Randomizer
 
             if (attribute.StatusEffectsOnEquip.EnumToList().Count > 0)
             {
-                display += $"On Equip: {GetStatusDisplay(attribute.StatusEffectsOnEquip.EnumToList(), join)}{separator}";
+                display += $"On Equip: {GetStatusDisplay(attribute.StatusEffectsOnEquip.EnumToList(), useInGameFormat, join)}{separator}";
             }
 
             if (attribute.StatusEffectsImmune.EnumToList().Count > 0)
             {
-                display += $"Immune: {GetStatusDisplay(attribute.StatusEffectsImmune.EnumToList(), join)}{separator}";
+                display += $"Immune: {GetStatusDisplay(attribute.StatusEffectsImmune.EnumToList(), useInGameFormat, join)}{separator}";
             }
         }
 
@@ -1010,15 +1011,62 @@ public partial class EquipRando : Randomizer
         }
     }
 
-    private string GetStatusDisplay(List<Status> statuses, string join = ",")
+    private string GetStatusDisplay(List<Status> statuses, bool useInGameFormat, string join = ",")
     {
-        return string.Join(join, statuses.Select(s => s switch
+        if (useInGameFormat)
         {
-            Status.Death => "KO",
-            Status.CriticalHP => "Critical HP",
-            Status.XZone => "X-Zone",
-            _ => s.ToString()
-        }));
+            string statusStr = string.Join("", statuses.Select(s => s switch
+            {
+                Status.Death => "{icon:21} KO",
+                Status.Stone => "{icon:22}",
+                Status.Petrify => "{icon:23}",
+                Status.Stop => "{icon:24}",
+                Status.Sleep => "{icon:25}",
+                Status.Confuse => "{icon:26}",
+                Status.Doom => "{icon:27} Doom",
+                Status.Blind => "{icon:28}",
+                Status.Poison => "{icon:29}",
+                Status.Silence => "{icon:30}",
+                Status.Sap => "{icon:31}",
+                Status.Oil => "{icon:32}",
+                Status.Reverse => "{icon:33}",
+                Status.Disable => "{icon:34}",
+                Status.Immobilize => "{icon:35}",
+                Status.Slow => "{icon:36}",
+                Status.Disease => "{icon:37}",
+                Status.Lure => "{icon:38}",
+                Status.Protect => "{icon:39}",
+                Status.Shell => "{icon:40}",
+                Status.Haste => "{icon:41}",
+                Status.Bravery => "{icon:42}",
+                Status.Faith => "{icon:43}",
+                Status.Reflect => "{icon:44}",
+                Status.Vanish => "{icon:45}",
+                Status.Regen => "{icon:46}",
+                Status.Float => "{icon:47}",
+                Status.Berserk => "{icon:48}",
+                Status.Bubble => "{icon:49}",
+                Status.CriticalHP => "{icon:50}",
+                Status.Libra => "{icon:51}",
+                Status.XZone => "{icon:52}",
+                _ => ""
+            }));
+            if (!string.IsNullOrEmpty(statusStr))
+            {
+                statusStr = "{vpos:-2}" + statusStr + "{vpos:0}";
+            }
+            return statusStr;
+        }
+        else
+        {
+            return string.Join(join, statuses.Select(s => s switch
+            {
+                Status.Death => "KO",
+                Status.CriticalHP => "Critical HP",
+                Status.XZone => "X-Zone",
+                _ => s.ToString()
+            }));
+        }
     }
 
     private int GetEquipId(DataStoreEquip equipment)
@@ -1048,12 +1096,12 @@ public partial class EquipRando : Randomizer
             string onHitStatus = "";
             if (weapon.StatusChance > 0 && weapon.StatusEffects.EnumToList().Count > 0)
             {             
-                onHitStatus = $"On Hit: {weapon.StatusChance}% " + GetStatusDisplay(weapon.StatusEffects.EnumToList(), ", ");
+                onHitStatus = $"On Hit: {weapon.StatusChance}% " + GetStatusDisplay(weapon.StatusEffects.EnumToList(), false, ", ");
             }
 
             DataStoreAttribute attribute = equip.AttributeDataList[(int)weapon.AttributeOffset];
             string elemDisplay = onHitElem + GetElementAttributeDisplayLine(attribute, string.IsNullOrEmpty(onHitElem) ? "" : "\n", false, "\n");
-            string statusDisplay = onHitStatus + GetStatusDisplayLine(attribute, string.IsNullOrEmpty(onHitStatus) ? "" : "\n", "\n", ", ");
+            string statusDisplay = onHitStatus + GetStatusDisplayLine(attribute, false, string.IsNullOrEmpty(onHitStatus) ? "" : "\n", "\n", ", ");
 
             return new string[] { name, weapon.AttackPower.ToString(), weapon.Evade.ToString(), weapon.KnockbackChance.ToString(), weapon.ComboChance.ToString(), weapon.ChargeTime.ToString(), GetAttributeStatDisplay(attribute," "), elemDisplay, statusDisplay }.ToList();
         }).ToList()));
@@ -1065,7 +1113,7 @@ public partial class EquipRando : Randomizer
             string name = treasureRando.GetItemName(shield.ID);
 
             DataStoreAttribute attribute = equip.AttributeDataList[(int)shield.AttributeOffset];
-            return new string[] { name, shield.Evade.ToString(), shield.MagickEvade.ToString(), GetAttributeStatDisplay(attribute, " "), GetElementAttributeDisplayLine(attribute, "", false, "\n"), GetStatusDisplayLine(attribute, "", "\n", ", ") }.ToList();
+            return new string[] { name, shield.Evade.ToString(), shield.MagickEvade.ToString(), GetAttributeStatDisplay(attribute, " "), GetElementAttributeDisplayLine(attribute, "", false, "\n"), GetStatusDisplayLine(attribute, false, "", "\n", ", ") }.ToList();
         }).ToList()));
 
         page.HTMLElements.Add(new Table("Ammo", (new string[] { "Name", "Attack Power", "Evade", "Other Stats", "Element Effects", "Status Effects" }).ToList(), (new int[] { 10, 10, 10, 10, 20, 20 }).ToList(), equip.EquipDataList.Where(w => w is DataStoreAmmo).Select(e =>
@@ -1083,12 +1131,12 @@ public partial class EquipRando : Randomizer
             string onHitStatus = "";
             if (ammo.StatusChance > 0 && ammo.StatusEffects.EnumToList().Count > 0)
             {
-                onHitStatus = $"On Hit: {ammo.StatusChance}% " + GetStatusDisplay(ammo.StatusEffects.EnumToList(), ", ");
+                onHitStatus = $"On Hit: {ammo.StatusChance}% " + GetStatusDisplay(ammo.StatusEffects.EnumToList(), false, ", ");
             }
 
             DataStoreAttribute attribute = equip.AttributeDataList[(int)ammo.AttributeOffset];
             string elemDisplay = onHitElem + GetElementAttributeDisplayLine(attribute, string.IsNullOrEmpty(onHitElem) ? "" : "\n", false, "\n");
-            string statusDisplay = onHitStatus + GetStatusDisplayLine(attribute, string.IsNullOrEmpty(onHitStatus) ? "" : "\n", "\n", ", ");
+            string statusDisplay = onHitStatus + GetStatusDisplayLine(attribute, false, string.IsNullOrEmpty(onHitStatus) ? "" : "\n", "\n", ", ");
 
             return new string[] { name, ammo.AttackPower.ToString(), ammo.Evade.ToString(), GetAttributeStatDisplay(attribute, " "), elemDisplay, statusDisplay }.ToList();
         }).ToList()));
@@ -1100,7 +1148,7 @@ public partial class EquipRando : Randomizer
             string name = treasureRando.GetItemName(armor.ID);
 
             DataStoreAttribute attribute = equip.AttributeDataList[(int)armor.AttributeOffset];
-            return new string[] { name, armor.Defense.ToString(), armor.MagickResist.ToString(), GetAttributeStatDisplay(attribute, " "), GetElementAttributeDisplayLine(attribute, "", false, "\n"), GetStatusDisplayLine(attribute, "", "\n", ", "), GetAugmentDescription(armor, int.MaxValue) }.ToList();
+            return new string[] { name, armor.Defense.ToString(), armor.MagickResist.ToString(), GetAttributeStatDisplay(attribute, " "), GetElementAttributeDisplayLine(attribute, "", false, "\n"), GetStatusDisplayLine(attribute, false,"", "\n", ", "), GetAugmentDescription(armor, int.MaxValue) }.ToList();
         }).ToList()));
 
         page.HTMLElements.Add(new Table("Accessories", (new string[] { "Name", "Defense", "Magick Resist", "Other Stats", "Element Effects", "Status Effects", "Passive" }).ToList(), (new int[] { 10, 10, 10, 10, 20, 20, 20 }).ToList(), equip.EquipDataList.Where(a => a is DataStoreArmor && (a.Category == EquipCategory.Accessory || a.Category == EquipCategory.AccessoryCrown)).Select(e =>
@@ -1110,7 +1158,7 @@ public partial class EquipRando : Randomizer
             string name = treasureRando.GetItemName(accessory.ID);
 
             DataStoreAttribute attribute = equip.AttributeDataList[(int)accessory.AttributeOffset];
-            return new string[] { name, accessory.Defense.ToString(), accessory.MagickResist.ToString(), GetAttributeStatDisplay(attribute, " "), GetElementAttributeDisplayLine(attribute, "", false, "\n"), GetStatusDisplayLine(attribute, "", "\n", ", "), GetAugmentDescription(accessory, int.MaxValue) }.ToList();
+            return new string[] { name, accessory.Defense.ToString(), accessory.MagickResist.ToString(), GetAttributeStatDisplay(attribute, " "), GetElementAttributeDisplayLine(attribute, "", false, "\n"), GetStatusDisplayLine(attribute, false, "", "\n", ", "), GetAugmentDescription(accessory, int.MaxValue) }.ToList();
         }).ToList()));
 
         pages.Add("equipment", page);

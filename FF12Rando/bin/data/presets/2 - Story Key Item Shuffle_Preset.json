@@ -1,6 +1,6 @@
 {
-  "name": "2 - Basic Key Item Shuffle",
-  "version": "0.8.0.13",
+  "name": "2 - Story Key Item Shuffle",
+  "version": "0.8.0.20",
   "flags": [
     {
       "FlagEnabled": false,
@@ -42,14 +42,18 @@
           "SelectedValues": [
             "Archades Aeropass",
             "Balfonheim Aeropass",
+            "Belias Esper",
             "Bhujerba Aeropass",
             "Clan Primer",
             "Crescent Stone",
             "Dawn Shard",
+            "Famfrit Esper",
             "Goddess's Magicite",
+            "Hashmal Esper",
             "Lab Access Card",
             "Lente's Tear",
             "Manufacted Nethicite",
+            "Mateus Esper",
             "Nalbina Aeropass",
             "No. 1 Brig Key",
             "Rabanastre Aeropass",
