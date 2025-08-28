@@ -1,4 +1,5 @@
 ﻿using Bartz24.RandoWPF;
+using Bartz24.RandoWPF.Data.Areas;
 using Bartz24.RandoWPF.Logic;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 
     public LRJunkItemPlacer JunkPlacer { get; set; }
 
-    public LRItemPlacer(SeedGenerator generator) : base(generator)
+    public LRItemPlacer(SeedGenerator generator, AreaGraph areaGraph) : base(generator, areaGraph)
     {
     }
 
@@ -182,7 +183,7 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 
         areaMults.Keys.Where(a => a == "Ultimate Lair").ToList().ForEach(a => areaMults[a] *= 0.4d);
 
-        ProgressionPlacer = new(Generator, GetDifficulty(), areaMults);
+        ProgressionPlacer = new(Generator, AreaGraph, GetDifficulty(), areaMults);
         ProgressionPlacer.FixedLocations = GetFixedLocations();
         UsefulPlacer = new(Generator, false);
         JunkPlacer = new(Generator);

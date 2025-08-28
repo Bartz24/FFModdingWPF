@@ -1,4 +1,5 @@
-﻿using Bartz24.RandoWPF.Logic;
+﻿using Bartz24.RandoWPF.Data.Areas;
+using Bartz24.RandoWPF.Logic;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,12 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
 
     public SphereCalculator<L> SphereCalculator { get; set; }
 
-    public CombinedItemPlacer(SeedGenerator generator) : base(generator)
+    protected AreaGraph AreaGraph { get; set; }
+
+    public CombinedItemPlacer(SeedGenerator generator, AreaGraph areaGraph) : base(generator)
     {
         SphereCalculator = new(Generator);
+        AreaGraph = areaGraph;
     }
 
     public override Dictionary<L, L> FinalPlacement

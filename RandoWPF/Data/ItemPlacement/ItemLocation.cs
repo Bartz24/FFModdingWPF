@@ -25,7 +25,7 @@ public abstract class ItemLocation : CSVDataRow
         return components;
     }
 
-    public virtual bool AreItemReqsMet(Dictionary<string, int> items)
+    public bool AreItemReqsMet(Dictionary<string, int> items)
     {
         return GetComponents().All(c => c.AreItemReqsMet(items));
     }

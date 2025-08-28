@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Bartz24.RandoWPF.Data.Areas;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,11 @@ namespace Bartz24.RandoWPF.Logic;
 public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 {
     public HashSet<T> FixedLocations { get; set; } = new();
+    protected AreaGraph AreaGraph { get; set; }
 
     protected Dictionary<string, int> FoundItems { get; set; } = new();
+
+    protected List<string> UnlockedAreas { get; set; } = new();
 
     protected Dictionary<int, HashSet<T>> UnlockedLocations { get; set; } = new();
 
@@ -23,9 +27,10 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
     protected Dictionary<string, double> AreaMultipliers { get; set; } = new();
 
-    public ProgressionItemPlacer(SeedGenerator generator, int depthDiff, Dictionary<string, double> areaMults) : base(generator)
+    public ProgressionItemPlacer(SeedGenerator generator, AreaGraph areaGraph, int depthDiff, Dictionary<string, double> areaMults) : base(generator)
     {
         DepthDifficulty = depthDiff;
+        AreaGraph = areaGraph;
         AreaMultipliers = areaMults;
     }
 
@@ -67,6 +72,8 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
                 return RemainingFixed.Count == 0;
             }
 
+            // Update unlocked areas and locations
+            UpdatedUnlockedAreas();
             UpdatedUnlockedLocations();
 
             T replacement = RemainingToPlace.Dequeue();
@@ -218,6 +225,12 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         }
     }
 
+    protected virtual void UpdatedUnlockedAreas()
+    {
+        // Update UnlockedAreas based on FoundItems and AreaGraph
+        UnlockedAreas = AreaGraph.GetAllAccessibleAreas("Initial", FoundItems).Select(a => a.Name).ToList();
+    }
+
     protected virtual void UpdatedUnlockedLocations()
     {
         // Increment all group keys in UnlockedLocations by 1, and move any that are depth 10 or higher into the same group of depth 10
@@ -263,6 +276,12 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         HashSet<T> newlyAccessible = new();
         foreach (var loc in PossibleLocations)
         {
+            // Skip if no areas are unlocked for this location
+            if (loc.Areas.Intersect(UnlockedAreas).Count() == 0)
+            {
+                continue;
+            }
+
             if (!FinalPlacement.ContainsKey(loc) && !previouslyFound.Contains(loc) && loc.AreItemReqsMet(foundItems))
             {
                 newlyAccessible.Add(loc);

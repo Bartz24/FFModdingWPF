@@ -3,6 +3,7 @@ using Bartz24.Docs;
 using Bartz24.FF13_2_LR;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
+using Bartz24.RandoWPF.Data.Areas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ public partial class TreasureRando : Randomizer
     public Dictionary<string, string> OrigBattleDrops = new();
     public LRItemPlacer ItemPlacer { get; set; }
     public LRHintPlacer HintPlacer { get; set; }
+    public AreaGraph AreaGraph { get; set; }
 
     public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -140,6 +142,9 @@ public partial class TreasureRando : Randomizer
         LRFlags.Items.Treasures.SetRand();
         List<string> locations = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().Shuffle();
         RandomNum.ClearRand();
+
+        AreaGraph = new(Generator);
+        AreaGraph.ReadFromCSVs(@"data\areas.csv", @"data\areaConnections.csv");
     }
 
     public void AddTreasure(string newName, string item, int count, string next)
@@ -163,7 +168,7 @@ public partial class TreasureRando : Randomizer
         {
             LRFlags.Items.Treasures.SetRand();
 
-            ItemPlacer = new(Generator);
+            ItemPlacer = new(Generator, AreaGraph);
             ItemPlacer.Replacements = ItemLocations.Values.ToHashSet();
             ItemPlacer.PossibleLocations = ItemLocations.Values.ToHashSet();
             ItemPlacer.PlaceItems();

@@ -29,11 +29,6 @@ public class BattleDropLocation : ItemLocation, IDataStoreItemProvider<DataStore
         rando = treasureRando;
     }
 
-    public override bool AreItemReqsMet(Dictionary<string, int> items)
-    {
-        return Requirements.IsValid(items);
-    }
-
     public override void SetItem(string newItem, int newCount)
     {
         LogSetItem(newItem, newCount);

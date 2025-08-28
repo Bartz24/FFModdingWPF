@@ -1,4 +1,5 @@
 ﻿using Bartz24.RandoWPF;
+using Bartz24.RandoWPF.Data.Areas;
 using Bartz24.RandoWPF.Logic;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
     public FF12UsefulItemPlacer UsefulPlacer { get; set; }
     public FF12JunkItemPlacer JunkPlacer { get; set; }
 
-    public FF12ItemPlacer(SeedGenerator generator) : base(generator) 
+    public FF12ItemPlacer(SeedGenerator generator, AreaGraph areaGraph) : base(generator, areaGraph)
     { 
 
     }
@@ -208,7 +209,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
     {
         Dictionary<string, double> areaMults = PossibleLocations.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
 
-        ProgressionPlacer = new(Generator, GetDifficulty(), areaMults);
+        ProgressionPlacer = new(Generator, AreaGraph, GetDifficulty(), areaMults);
         ProgressionPlacer.FixedLocations = GetFixedLocations();
         UsefulPlacer = new(Generator, false);
         JunkPlacer = new(Generator, this);

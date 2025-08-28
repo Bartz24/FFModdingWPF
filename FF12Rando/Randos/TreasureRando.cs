@@ -2,6 +2,7 @@
 using Bartz24.Docs;
 using Bartz24.FF12;
 using Bartz24.RandoWPF;
+using Bartz24.RandoWPF.Data.Areas;
 using FF12Rando.Logic;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ public partial class TreasureRando : Randomizer
     public Dictionary<string, ItemLocation> ItemLocations = new();
     public FF12ItemPlacer ItemPlacer { get; set; }
     public FF12HintPlacer HintPlacer { get; set; }
+    public AreaGraph AreaGraph { get; set; }
 
     public List<string> treasuresToPlace = new();
     public List<string> treasuresAllowed = new();
@@ -123,6 +125,9 @@ public partial class TreasureRando : Randomizer
         }, FileHelpers.CSVFileHeader.HasHeader);
 
         List<string> hintsNotesLocations = ItemLocations.Values.SelectMany(l => l.Areas).Distinct().ToList();
+
+        AreaGraph = new(Generator);
+        AreaGraph.ReadFromCSVs(@"data\areas.csv", @"data\areaConnections.csv");
     }
     public override void Randomize()
     {
@@ -136,7 +141,7 @@ public partial class TreasureRando : Randomizer
 
             Dictionary<string, double> areaMults = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
 
-            ItemPlacer = new(Generator);
+            ItemPlacer = new(Generator, AreaGraph);
             ItemPlacer.Replacements = ItemLocations.Values
                 .Where(l => (l is not TreasureLocation || treasuresToPlace.Contains(l.ID)) && l.GetItem(true) != null).ToHashSet();
             ItemPlacer.PossibleLocations = ItemLocations.Values

@@ -1,5 +1,6 @@
 ﻿using Bartz24.FF12;
 using Bartz24.RandoWPF;
+using Bartz24.RandoWPF.Data.Areas;
 using Bartz24.RandoWPF.Logic;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace FF12Rando;
 public class FF12ProgressionItemPlacer : ProgressionItemPlacer<ItemLocation>
 {
-    public FF12ProgressionItemPlacer(SeedGenerator generator, int depthDiff, Dictionary<string, double> areaMults) : base(generator, depthDiff, areaMults)
+    public FF12ProgressionItemPlacer(SeedGenerator generator, AreaGraph areaGraph, int depthDiff, Dictionary<string, double> areaMults) : base(generator, areaGraph, depthDiff, areaMults)
     {
     }
 
