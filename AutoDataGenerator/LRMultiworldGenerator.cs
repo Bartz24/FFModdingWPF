@@ -58,7 +58,7 @@ internal class LRMultiworldGenerator
             "\n" +
             "\n" +
             "class LRFF13Item(Item):\n" +
-            "    game: str = \"Lightning Returns Final Fantasy XIII\"\n" +
+            "    game: str = \"Lightning Returns: Final Fantasy XIII\"\n" +
             "\n" +
             "\n" +
             "class LRFF13ItemData(NamedTuple):\n" +
@@ -169,7 +169,6 @@ internal class LRMultiworldGenerator
         string script =
             "from typing import Dict, NamedTuple, Optional\n" +
             "from BaseClasses import Location, LocationProgressType\n" +
-            "from .Items import LRFF13_BASE_ID\n" +
             "\n" +
             "\n" +
             "class LRFF13Location(Location):\n" +
@@ -189,6 +188,7 @@ internal class LRMultiworldGenerator
         locations.Clear();
 
         int nextIndex = 0;
+        Dictionary<string, int> nameCounts = TreasureRando.ItemLocations.Values.Select(l => l.Name).GroupBy(n => n).ToDictionary(g => g.Key, g => g.Count());
         Dictionary<string, int> usedNames = new();
 
         TreasureRando.ItemLocations.Values.Where(l => l is not FakeLocation).ToList().ForEach(l =>
@@ -199,15 +199,24 @@ internal class LRMultiworldGenerator
                 classification = "EXCLUDED";
             }
 
-            if (usedNames.ContainsKey(l.Name))
+            string name;
+            if (nameCounts[l.Name] == 1)
             {
-                usedNames[l.Name]++;
+                name = l.Name;
             }
             else
             {
-                usedNames.Add(l.Name, 1);
+                if (usedNames.ContainsKey(l.Name))
+                {
+                    usedNames[l.Name]++;
+                }
+                else
+                {
+                    usedNames.Add(l.Name, 1);
+                }
+
+                name = $"{l.Name} ({usedNames[l.Name]})";
             }
-            string name = $"{l.Name} ({usedNames[l.Name]})";
 
             switch (l)
             {
@@ -239,7 +248,7 @@ internal class LRMultiworldGenerator
         script +=
             $"    \"{name}\": LRFF13LocationData(\n" +
             $"        region=\"Nova\",\n" +
-            $"        address=LRFF13_BASE_ID + {intIndex},\n" +
+            $"        address={intIndex},\n" +
             $"        classification=LocationProgressType.{classification},\n" +
             $"        type=\"{type}\"";
         if (!string.IsNullOrEmpty(strId))
