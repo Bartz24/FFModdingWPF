@@ -290,6 +290,52 @@ public partial class TreasureRando : Randomizer
 
         if (LRFlags.Items.Treasures.FlagEnabled && LRFlags.Other.HintsMain.FlagEnabled)
         {
+            Dictionary<string, string> bossHintLocations = new Dictionary<string, string>();
+            if (LRFlags.Other.HintsBosses.SelectedIndex > 0)
+            {
+                // This is the last main quest hint location before the boss (if it has one) for each quest
+                int[] mainQuestCount = [1, 4, 2, 2, 4, 6];
+                string[] originalBosses = ["Aeronite", "Noel", "Snow", "Caius", "Grendel", "Ereshkigal"];
+                for (var i = 0; i < mainQuestCount.Length; i++)
+                {
+                    // For each main quest, identify what kind of hint type we're doing:
+                    var hintType = LRFlags.Other.HintsBosses.SelectedIndex;
+                    LRFlags.Other.HintsMain.SetRand();
+                    if(hintType == 5)
+                    {
+                        hintType = RandomNum.RandInt(1, 4);
+                    }
+                    var hintIdx = 1;
+                    if (hintType % 2 == 0)
+                    {
+                        hintIdx = RandomNum.RandInt(1, mainQuestCount[i]);
+                    }
+                    RandomNum.ClearRand();
+                    var name = $"{i}-{hintIdx}";
+
+                    BattleRando battleRando = Generator.Get<BattleRando>();
+                    var shuffled = battleRando.RandomisedBosses();
+
+                    var original = originalBosses[i];
+
+                    var hintText = "";
+
+                    switch (hintType/2)
+                    {
+                        case 1:
+                            // Source
+                            var source = shuffled[original];
+                            hintText = $"{original} location has {source}";
+                            break;
+                        case 2:
+                            // Target
+                            var target = shuffled.Where(kv => kv.Value == original).Select(kv => kv.Key).FirstOrDefault();
+                            hintText = $"{original} is in {target}'s location";
+                            break;
+                    }
+                    bossHintLocations.Add(name, hintText);
+                }
+            }
             hintData.Keys.ForEach(h =>
             {
                 List<string> lines = new();
@@ -297,10 +343,20 @@ public partial class TreasureRando : Randomizer
                 {
                     lines = HintPlacer.Hints[h].Select(l => HintPlacer.GetHintText(l)).ToList();
                 }
-                else
+
+                // Add in boss hint here.
+                var quest = hintData[h].Name;
+
+                if (bossHintLocations.ContainsKey(quest))
+                {
+                    lines.Add(bossHintLocations[quest]);
+                }
+
+                if (lines.Count == 0)
                 {
                     lines.Add("There is nothing left to hint.");
                 }
+                
 
                 textRando.mainSysUS["$" + h] = string.Join("{Text NewLine}{Text NewLine}", lines);
             });

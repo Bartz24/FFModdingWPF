@@ -1,7 +1,7 @@
 ﻿ID,Location,Name,Traits,Required Items,Difficulty
 btsc04902,Dead Dunes,Cactair Fragment of Kindness,MainKey,,1
 btsc04900,Dead Dunes,Goblots Arithmometer,SideKey,,1
-btsc04990,Dead Dunes,Aeronite Monster Flesh,SideKey|Superboss,,8
+btsc04990,Dead Dunes,Aeronite Monster Flesh,SideKey|Superboss,I(Eradia|1100),8
 btsc01900,Luxerion,Zomok Cursed Dragon Claw,SideKey,,1
 btsc02902,Yusnaan,Gremlins Music Satchel,SideKey,,1
 btsc02952,Yusnaan,Schrodinger Civet Musk,SideKey,,3

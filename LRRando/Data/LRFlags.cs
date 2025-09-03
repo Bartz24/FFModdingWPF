@@ -378,7 +378,7 @@ public class LRFlags
                 "    Hard+ - Each level of depth/difficulty increases likelihood of that location by 1.20x.\n" +
                 "    Hard++ - Each level of depth/difficulty increases likelihood of that location by 1.50x.\n" +
                 "    Hard+++ - Each level of depth/difficulty increases likelihood of that location by 2.00x.",
-                Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
+                Values = ["Normal", "Hard", "Hard+", "Hard++", "Hard+++" ]
             }.Register(Treasures);
 
             IDCardBuy = new ToggleFlagProperty()
@@ -436,6 +436,7 @@ public class LRFlags
         public static Flag HintsMain;
         public static ComboBoxFlagProperty HintsSpecific;
         public static ToggleFlagProperty HintsDepth;
+        public static ComboBoxFlagProperty HintsBosses;
         public static ToggleFlagProperty FanfareMusic;
 
         internal static void Init()
@@ -482,7 +483,7 @@ public class LRFlags
                 "    Vague Area - Hints give the exact item in the area.\n" +
                 "    Unknown but Exact Location - Hints will hint that something ('?????') is in the exact location.\n" +
                 "    Random - Each hint will use one of the above rules.",
-                Values = new string[] { "Exact", "Vague Type", "Vague Area", "Unknown but Exact Location", "Random" }.ToList()
+                Values = ["Exact", "Vague Type", "Vague Area", "Unknown but Exact Location", "Random"]
             }.Register(HintsMain);
 
             HintsDepth = new ToggleFlagProperty()
@@ -490,6 +491,22 @@ public class LRFlags
                 Text = "Hints at Earlier Locations",
                 ID = "HintsDepth",
                 Description = "Hints for items will prioritize locations of lower than or equal to depths of the item itself."
+            }.Register(HintsMain);
+
+            HintsBosses = new ComboBoxFlagProperty()
+            {
+                Text = "Boss Hints",
+                ID = "HintsBosses",
+                Description = "Set whether bosses will be hinted in main quest hints.\n" +
+                "Main Quest 0 corresponds to Aeronite, and Main Quest 5 correponds to Ereshkigal.\n\n" +
+                "Options:\n" +
+                "    None - Do not include boss data in main quest hints.\n" +
+                "    Source Initial - The first main quest hint for an area will tell you what boss is at the end of that quest.\n" +
+                "    Source Random - The source hint will be in a random hint in this quest).\n" +
+                "    Target Initial - The first main quest hint for an area will tell you where the boss from that quest has been placed.\n" +
+                "    Target Random - The target hint will be in a random hint in this quest.\n" +
+                "    Random - Each hint will use one of the above rules (excluding None).",
+                Values = ["None", "Source Initial", "Source Random", "Target Initial", "Target Random", "Random"]
             }.Register(HintsMain);
         }
     }

@@ -5,6 +5,7 @@ using Bartz24.LR;
 using Bartz24.RandoWPF;
 using LRRando;
 using System;
+using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -359,5 +360,10 @@ public partial class BattleRando : Randomizer
             btScenes[btscName].u8NumDrop0 = 1;
 
         });
+    }
+
+    public Dictionary<string, string> RandomisedBosses()
+    {
+        return new Dictionary<string, string>(shuffledBosses);
     }
 }
