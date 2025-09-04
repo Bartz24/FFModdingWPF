@@ -124,6 +124,50 @@ public abstract class RandoMainWindow : Window
         }
     }
 
+    protected async void generateDocsButton_Click(object sender, RoutedEventArgs e)
+    {
+        using (var generator = Generator)
+        {
+            TotalProgressBar.TotalSegments = (generator.Randomizers.Count * 2) + 1;
+            TotalProgressBar.SetProgress(0, 0);
+
+#if !DEBUG
+            try
+            {
+#endif
+            IsEnabled = false;
+            await Task.Run(() =>
+            {
+                generator.GenerateSeedDryRun();
+            });
+            IsEnabled = true;
+#if !DEBUG
+            }
+            catch (RandoException ex)
+            {
+                if (ex.Title == SeedGenerator.UNEXPECTED_ERROR)
+                {
+                    Exception innerMost = ex;
+                    while (innerMost.InnerException != null)
+                    {
+                        innerMost = innerMost.InnerException;
+                    }
+
+                    MessageBox.Show("Seed generation failed with an unexpected error.\n\n" + ex.Message + "\n\nStack trace:\n" + innerMost.StackTrace, ex.Title);
+                }
+                else
+                {
+                    MessageBox.Show("Seed generation failed.\n\n" + ex.Message, ex.Title);
+                }
+
+                SetProgressBar("Seed generation failed.", 0);
+
+                IsEnabled = true;
+            }
+#endif
+        }
+    }
+
     protected abstract SeedGenerator Generator { get; }
 
     protected abstract SegmentedProgressBar TotalProgressBar { get; }

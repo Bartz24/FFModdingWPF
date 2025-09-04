@@ -24,6 +24,18 @@ public class OrItemReq : ItemReq
         return false;
     }
 
+    public override bool HasUpperBound()
+    {
+        foreach (ItemReq req in reqs)
+        {
+            if (!req.HasUpperBound())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     protected override List<string> GetPossibleRequirementsImpl()
     {
         return reqs.SelectMany(r => r.GetPossibleRequirements()).Distinct().ToList();

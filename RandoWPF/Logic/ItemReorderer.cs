@@ -28,7 +28,7 @@ public class ItemReorderer<T, I> where T : ItemLocation where I : IItem
         var grouping = locations.Where(l =>
         {
             string id = l.GetItem(false)?.Item;
-            if (id == null || !Items.ContainsKey(id) || !Categories.Contains(Items[id].Category) || Items[id].Traits.Contains("Ignore"))
+            if (id == null || !Items.ContainsKey(id) || !Categories.Contains(Items[id].Category) || Items[id].Traits.Contains("Ignore") || Items[id].Traits.Contains("Key") || Items[id].Traits.Contains("MainKey"))
             {
                 return false;
             }
@@ -43,6 +43,7 @@ public class ItemReorderer<T, I> where T : ItemLocation where I : IItem
         // Group by type and sort the items by its item rank
         foreach (var group in grouping)
         {
+            // Remove cos_fa00 from garb group
             List<(string id, int count)> items = group.Shuffle().Select(l => l.GetItem(false).Value).OrderBy(pair =>
             {
                 return Items[pair.Item].Rank;

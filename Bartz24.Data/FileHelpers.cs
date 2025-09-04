@@ -33,7 +33,7 @@ public class FileHelpers
         using (FileStream stream = new(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
         {
             using (CsvParser csv = new(new StreamReader(
-                stream), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
+                stream), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false, AllowComments = true }))
             {
                 while (csv.Read())
                 {

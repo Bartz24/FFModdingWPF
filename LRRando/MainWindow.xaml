@@ -211,6 +211,9 @@
                                     </StackPanel>
                                 </Button.CommandParameter>
                             </Button>
+                            <Label Margin="10"/>
+                            <Button Click="generateDocsButton_Click"
+    ToolTip="Generate the docs for the seed only.">Generate Docs Only</Button>
                         </rando:FinishPage>
                     </DockPanel>
                 </TabItem>

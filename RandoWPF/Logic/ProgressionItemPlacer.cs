@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,9 +41,30 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             if (!success)
             {
                 Generator.Logger.LogDebug($"Failed to place {RemainingToPlace.Count + RemainingFixed.Count} remaining replacements.");
+                Generator.Logger.LogDebug($"Remaining to place: {string.Join(",", RemainingToPlace.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}]"))}{string.Join(",", RemainingFixed.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}]"))}");
             }
         }
         while (!success);
+    }
+
+    protected bool ensureCompletable(HashSet<T> remainingFixed)
+    {
+        var trueFixedLocations = remainingFixed.Where(item => !(item is FakeLocation)).ToArray();
+        if (trueFixedLocations.Length > 0)
+        {
+            return false;
+        }
+        var fakeLocations = remainingFixed.Where(item => item is FakeLocation).ToArray();
+        if (fakeLocations.Length > 0)
+        {
+            // Assume all required locations are marked appropriately (TODO: Game specific logic?)
+            // All fake checks have "fake" as a trait so start from 1 not 0
+            if(fakeLocations.Any(item => item.Traits.Count > 1 && !item.Traits.Contains("Missable")))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     protected virtual bool TryPlaceItems()
@@ -64,12 +86,18 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             // Occurs when fixed locations are the last ones to be placed
             if (RemainingToPlace.Count == 0)
             {
-                return RemainingFixed.Count == 0;
+                // This is technically fine if the remaining item set doesn't include critical path items.
+                return ensureCompletable(RemainingFixed);
             }
 
             UpdatedUnlockedLocations();
 
             T replacement = RemainingToPlace.Dequeue();
+
+            if(replacement.ID == "trd_ticket")
+            {
+                Debug.WriteLine("attempting to place ticket");
+            }
 
             // The initial depth is based on remaining items. The more items remaining, the higher the depth can be.
             // This allows items early on (first 50%) to be placed in newly unlocked areas more often.
@@ -87,6 +115,10 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             T location = SelectLocation(replacement, depth);
             if (location != null)
             {
+                if (replacement.ID == "trd_ticket")
+                {
+                    Debug.WriteLine("Ticket placed");
+                }
                 PlaceItem(location, replacement);
 
                 // Placed an item, so reset failure
@@ -115,7 +147,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     }
 
     /// <summary>
-    /// Prioritize placing items that immediately unlock other locations
+    /// Prioritize placing items that immediately unlock other locations, or that have maximal depth requirements.
     /// </summary>
     /// <returns></returns>
     private List<T> GetInitialReplacementOrder()
@@ -135,8 +167,10 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             else
             {
                 minIndex = RandomNum.RandInt(15, 70);
-                minIndex = Math.Clamp(minIndex + GetLocationOffset(next, similarItemType), 0, 80);
-                int range = RandomNum.RandInt(0, 99) < 30 ? 100 : RandomNum.RandInt(30, 100);
+                var (minAdjust, maxAdjust) = GetLocationOffsets(next, similarItemType);
+                minIndex = Math.Clamp(minIndex + minAdjust, 0, 80);
+                var rangeCap = Math.Max(100 + maxAdjust, 31);
+                int range = RandomNum.RandInt(0, 99) < 30 ? rangeCap : RandomNum.RandInt(30, rangeCap);
                 maxIndex = Math.Min(minIndex + range, 100);
 
                 itemRanges.Add(similarItemType, (minIndex, maxIndex));
@@ -150,31 +184,58 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
             newOrder.Add(index, next);
             usedIndices[index] = true;
+
+            if(next.ID == "trd_ticket")
+            {
+                Generator.Logger.LogDebug($"Ticket given weight of {index}");
+            }
         }
 
         return newOrder.Keys.OrderBy(i => i).Select(i => newOrder[i]).ToList();
     }
 
-    protected virtual int GetLocationOffset(T location, string itemType)
+    protected virtual (int,int) GetLocationOffsets(T location, string itemType)
     {
-        return -GetNewlyAccessibleWithLocation(UnlockedLocations, location).Count / 10;
+        var newlyAccessible = GetNewlyAccessibleWithLocation(UnlockedLocations, location);
+        var unlockingWeight = newlyAccessible.Count / 10;
+        var remainingWithInterest = PossibleLocations.Where(loc => loc.Requirements.GetPossibleRequirements().Contains(itemType)).Count();
+        var remainingFixedWithInterest = FixedLocations.Where(loc => loc.Requirements.GetPossibleRequirements().Contains(itemType)).Count();
+        // Min bound is adjusted downwards by how many locations are immediately unlocked by this item, as well as the number of overall locations still locked by this item in some way.
+        // Max bound as adjusted downwards by the number of overall locations still locked by this item in some way.
+        // The idea being that items which unlock large segments of the game (e.g. LR greens/ticket) are weighted to fall much earlier generally speaking
+        // TODO: refine weighting here.
+        if(remainingWithInterest > 0 || remainingFixedWithInterest > 0)
+        {
+            Debug.WriteLine($"Item {itemType} unlocks {remainingWithInterest} locations ({remainingFixedWithInterest} fixed)");
+        }
+        return (-unlockingWeight - remainingWithInterest, -remainingFixedWithInterest*5 - remainingWithInterest*5);
     }
 
     protected virtual void PlaceFixed()
     {
-        // Repeat as fixed locations can unlock other fixed locations
+        // Only allow one fixed check marked as NoCascade per iteration.
+        bool noCascadeFound = false;
         bool placed;
+        // Repeat as fixed locations can unlock other fixed locations
         do
         {
             HashSet<T> toRemove = new();
             placed = false;
-            foreach (var loc in RemainingFixed)
+            foreach (var loc in RemainingFixed.OrderBy(i => i.BaseDifficulty).ToList())
             {
+                if(loc.Traits.Contains("NoCascade") && noCascadeFound)
+                {
+                    continue;
+                }
                 if (loc.AreItemReqsMet(FoundItems))
                 {
                     PlaceItem(loc, loc);
                     toRemove.Add(loc);
                     placed = true;
+                    if (loc.Traits.Contains("NoCascade"))
+                    {
+                        noCascadeFound = true;
+                    }
                 }
             }
 
@@ -207,6 +268,13 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         if (item != null)
         {
             var (itemID, amount) = item.Value;
+            if(itemID == "Eradia")
+            {
+                Debug.WriteLine($"Gained {amount} eradia at location {location.ID}");
+            } else if (itemID.StartsWith("MQ"))
+            {
+                Debug.WriteLine($"Gained {amount} {itemID} at location {location.ID}");
+            }
             if (foundItems.ContainsKey(itemID))
             {
                 foundItems[itemID] += amount;
@@ -247,6 +315,18 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
         newUnlockedLocations.Add(0, newlyAccessible);
 
+        // Remove any locations which now cannot be accessed.
+        HashSet<T> newlyInaccessible = GetNewlyInaccessible(newUnlockedLocations, FoundItems);
+
+        if (newlyInaccessible.Count > 0)
+        {
+            Generator.Logger.LogDebug($"Removing {newlyInaccessible.Count} locations");
+            foreach (var entry in newUnlockedLocations)
+            {
+                entry.Value.RemoveWhere(e => newlyInaccessible.Contains(e));
+            }
+        }
+
         UnlockedLocations = newUnlockedLocations;
     }
 
@@ -255,6 +335,31 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         var foundItems = new Dictionary<string, int>(FoundItems);
         AddFoundItem(addLocation, foundItems);
         return GetNewlyAccessible(unlockedLocations, foundItems);
+    }
+
+    private HashSet<T> GetNewlyInaccessibleWithLocation(Dictionary<int, HashSet<T>> unlockedLocations, T addLocation)
+    {
+        var foundItems = new Dictionary<string, int>(FoundItems);
+        AddFoundItem(addLocation, foundItems);
+        return GetNewlyInaccessible(unlockedLocations, foundItems);
+    }
+
+    private HashSet<T> GetNewlyInaccessible(Dictionary<int, HashSet<T>> unlockedLocations, Dictionary<string, int> foundItems)
+    {
+        var previouslyFound = unlockedLocations.SelectMany(p => p.Value).ToHashSet();
+        HashSet<T> newlyInaccessible = new();
+        foreach (var loc in PossibleLocations)
+        {
+            var finalPlacementContains = FinalPlacement.ContainsKey(loc);
+            var prevFound = previouslyFound.Contains(loc);
+            var reqMet = loc.AreItemReqsMet(foundItems);
+            if (!finalPlacementContains && prevFound && !reqMet)
+            {
+                newlyInaccessible.Add(loc);
+            }
+        }
+
+        return newlyInaccessible;
     }
 
     private HashSet<T> GetNewlyAccessible(Dictionary<int, HashSet<T>> unlockedLocations, Dictionary<string, int> foundItems)
