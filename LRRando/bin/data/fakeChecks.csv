@@ -1,96 +1,96 @@
 Areas,Name,ID,Requirements,Traits,Rank,Fake Items
-Ark,Ark Day 0,_0,,,0,Eradia*100
-Ark,Ark Day 1,_1,I(Eradia|100),,0,Eradia*100
-Ark,Ark Day 2,_2,I(Eradia|200),,1,Eradia*100
-Ark,Ark Day 3,_3,I(Eradia|300),,1,Eradia*100
-Ark,Ark Day 4,_4,I(Eradia|400),,2,Eradia*100
-Ark,Ark Day 5,_5,I(Eradia|500),,2,Eradia*100
-Ark,Ark Day 6,_6,I(Eradia|600),,3,Eradia*100
-Dead Dunes,Main Quest 4,_15,AND(I(key_d_sekiban|3)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_wing|1)|I(Eradia|100)),,6,Eradia*100|MQ4*1|MQDone
-Luxerion,Main Quest 1,_16,I(Eradia|200),,3,Eradia*100|MQ1*1|MQDone
-Wildlands,Main Quest 3,_17,AND(I(key_w_yasai_t|1)|I(Eradia|300)),,3,Eradia*100|MQ3*1|MQDone
-Yusnaan,Main Quest 2,_18,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)|I(Eradia|300)),,4,Eradia*100|MQ2*1|MQDone
-Wildlands,Main Quest 5,_19,AND(I(key_w_yasai_t|1)|I(key_s_kairaku|1)|I(key_s_hiai|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1)|I(Eradia|200)),,6,Eradia*100|MQDone
+Ark,Ark Day 0,_0,,Day,0,Eradia*50
+Ark,Ark Day 1,_1,I(Eradia|50),Day,0,Eradia*50
+Ark,Ark Day 2,_2,I(Eradia|120),,1,Eradia*100
+Ark,Ark Day 3,_3,I(Eradia|240),,1,Eradia*100
+Ark,Ark Day 4,_4,I(Eradia|380),,2,Eradia*100
+Ark,Ark Day 5,_5,I(Eradia|510),,2,Eradia*100
+Ark,Ark Day 6,_6,I(Eradia|640),,3,Eradia*100
+Dead Dunes,Main Quest 4,_15,AND(I(MQ4|5)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_wing|1)|I(Eradia|100)),Main,6,Eradia*100|MQ4*1|MQDone
+Luxerion,Main Quest 1,_16,AND(I(MQ1|4)|I(Eradia|200)),Main,3,Eradia*100|MQ1*1|MQDone
+Wildlands,Main Quest 3,_17,AND(I(MQ3|3)|I(Eradia|300)),Main,3,Eradia*100|MQ3*1|MQDone
+Yusnaan,Main Quest 2,_18,AND(I(MQ2|3)|I(key_y_serap)|I(Eradia|300)),Main,4,Eradia*100|MQ2*1|MQDone
+Wildlands,Main Quest 5,_19,AND(I(MQ3|3)|I(key_s_kairaku|1)|I(key_s_hiai|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1)|I(Eradia|200)),Main,6,Eradia*100|MQDone
 Luxerion,The Things She Lost Quest,_20,AND(OR(I(key_kb_g|1)|I(key_kb_r|1))|I(Eradia|200)),,2,Eradia*2
 Luxerion,"Where Are You, Holmes? Quest",_21,I(Eradia|100),,0,Eradia*2
-Luxerion,Like Clockwork Quest,_22,I(Eradia|200),,1,Eradia*4
-Luxerion,Dying Wish Quest,_23,AND(I(key_sp_bt|1)|I(Eradia|200)),,2,Eradia*4
-Luxerion,Suspicious Spheres Quest,_24,AND(I(key_kyu_pass|1)|I(Eradia|200)),,2,Eradia*2
-Luxerion,Born From Chaos Quest,_25,AND(I(key_behi_tume|1)|I(Eradia|200)),,1,Eradia*8
-Luxerion,Soul Seeds Quest,_26,I(Eradia|200),,0,Eradia*2
-Luxerion,Faster Than Lightning Quest,_27,I(Eradia|200),,1,Eradia*2
-Luxerion,Treasured Ball Quest,_28,AND(I(key_ball|1)|I(Eradia|100)),,2,Eradia*2
-Luxerion,The Angel's Tears Quest,_29,I(Eradia|600),,3,Eradia*4
-Luxerion,The Saint's Stone Quest,_30,I(Eradia|200),,2,Eradia*2
+Luxerion,Like Clockwork Quest,_22,AND(I(Eradia|200)|I(MQ1|4)),,1,Eradia*4
+Luxerion,Dying Wish Quest,_23,AND(I(key_sp_bt|1)|I(Eradia|200)|I(MQ1|2)),,2,Eradia*4
+Luxerion,Suspicious Spheres Quest,_24,AND(I(key_kyu_pass|1)|I(Eradia|200)|I(MQ1|2)),,2,Eradia*2
+Luxerion,Born From Chaos Quest,_25,AND(I(key_behi_tume|1)|I(Eradia|200)|I(MQ1|2)),,1,Eradia*8
+Luxerion,Soul Seeds Quest,_26,AND(I(Eradia|200)|I(MQ1|2)),,0,Eradia*2
+Luxerion,Faster Than Lightning Quest,_27,AND(I(Eradia|200)|I(MQ1|2)),,1,Eradia*2
+Luxerion,Treasured Ball Quest,_28,AND(I(key_ball|1)|I(Eradia|100)|I(MQ1|5)),,2,Eradia*2
+Luxerion,The Angel's Tears Quest,_29,AND(M(Eradia|500)|I(MQ1|2)),,3,Eradia*4
+Luxerion,The Saint's Stone Quest,_30,AND(I(Eradia|200)|I(MQ1|5)),,2,Eradia*2
 Luxerion,Whither Faith Quest,_31,I(Eradia|100),,0,Eradia*2
 Luxerion,The Avid Reader Quest,_32,I(Eradia|400),,3,Eradia*4
-Luxerion,Buried Passion Quest,_33,AND(I(key_l_pen|1)|I(Eradia|500)),,2,Eradia*4
-Luxerion,The Girl Who Cried Wolf Quest,_34,I(Eradia|300),,3,Eradia*2
+Luxerion,Buried Passion Quest,_33,AND(I(key_l_pen|1)|M(Eradia|800)|I(MQ1|4)),,2,Eradia*4
+Luxerion,The Girl Who Cried Wolf Quest,_34,AND(I(Eradia|300)|I(MQ1|5)),,3,Eradia*2
 Luxerion,Stuck in a Gem Quest,_35,I(Eradia|200),,2,Eradia*4
-Luxerion,Get the Girl Quest,_36,I(Eradia|200),,2,Eradia*4
-Luxerion,A Rose By Any Other Name Quest,_37,AND(I(key_l_hana|1)|I(Eradia|300)),,4,Eradia*8
-Luxerion,Voices from the Grave Quest,_38,I(Eradia|300),,3,Eradia*2
-Luxerion,To Save the Sinless Quest,_39,I(Eradia|500),,4,Eradia*8
-Dead Dunes,The Life of a Machine Quest,_40,I(Eradia|100),,1,Eradia*4
+Luxerion,Get the Girl Quest,_36,AND(I(Eradia|200)|I(MQ1|5)),,2,Eradia*4
+Luxerion,A Rose By Any Other Name Quest,_37,AND(I(key_l_hana|1)|I(Eradia|300)|I(MQ1|5)),,4,Eradia*8
+Luxerion,Voices from the Grave Quest,_38,AND(I(Eradia|300)|I(MQ1|5)),,3,Eradia*2
+Luxerion,To Save the Sinless Quest,_39,AND(I(key_l_pen|1)|I(Eradia|800)|I(MQ1|5)),,4,Eradia*8
+Dead Dunes,The Life of a Machine Quest,_40,AND(I(Eradia|100)|I(MQ4|3)),,1,Eradia*4
 Dead Dunes,Old Rivals Quest,_41,AND(I(key_d_keisan|1)|I(Eradia|100)),,2,Eradia*2
 Dead Dunes,His Wife's Dream Quest,_42,AND(I(key_d_keisan|1)|I(Eradia|100)),,2,Eradia*4
 Dead Dunes,Tool of the Trade Quest,_43,AND(I(key_d_lupe|1)|I(Eradia|100)),,1,Eradia*2
-Dead Dunes,Adonis's Audition Quest,_44,I(Eradia|100),,1,Eradia*4
-Dead Dunes,What Rough Beast Slouches Quest,_45,AND(I(key_d_niku|1)|I(Eradia|700)),,3,Eradia*8
-Dead Dunes,Skeletons In The Closet Quest,_46,AND(I(key_d_sekiban|1)|I(Eradia|200)),,6,Eradia*8
+Dead Dunes,Adonis's Audition Quest,_44,AND(I(Eradia|100)|I(MQ4|1)),,1,Eradia*4
+Dead Dunes,What Rough Beast Slouches Quest,_45,AND(I(key_d_niku|1)|I(Eradia|700)|I(MQ4|3)),,3,Eradia*8
+Dead Dunes,Skeletons In The Closet Quest,_46,AND(I(key_d_sekiban|1)|I(Eradia|200)|I(MQ4|4)),,6,Eradia*8
 Dead Dunes,Last One Standing Quest,_47,I(Eradia|700),,10,Eradia*8
-Wildlands,A Father's Request Quest,_48,AND(I(key_w_yasai_t|1)|I(Eradia|200)),,1,Eradia*4
-Wildlands,The Hunter's Challenge Quest,_49,AND(I(key_w_yasai_t|1)|I(Eradia|300)),,3,Eradia*4
-Wildlands,A Final Cure Quest,_50,AND(I(key_w_yasai_t|1)|I(Eradia|200)),,3,Eradia*4
+Wildlands,A Father's Request Quest,_48,AND(I(key_w_yasai_t|1)|I(Eradia|200)|I(MQ3|1)),,1,Eradia*4
+Wildlands,The Hunter's Challenge Quest,_49,AND(I(key_w_yasai_t|1)|I(Eradia|300)|I(MQ3|1)),,3,Eradia*4
+Wildlands,A Final Cure Quest,_50,AND(I(key_w_yasai_t|1)|I(Eradia|200)|I(MQ3|1)),,3,Eradia*4
 Wildlands,Fuzzy Search Quest,_51,I(Eradia|200),,0,Eradia*2
-Wildlands,Round 'em Up Quest,_52,AND(I(key_w_yasai_t|1)|I(Eradia|200)),,2,Eradia*4
-Wildlands,Chocobo Cheer Quest,_53,AND(I(key_w_yasai_t|1)|I(Eradia|200)),,2,Eradia*2
+Wildlands,Round 'em Up Quest,_52,AND(I(key_w_yasai_t|1)|I(Eradia|200)|I(MQ3|2)),,2,Eradia*4
+Wildlands,Chocobo Cheer Quest,_53,AND(I(key_w_yasai_t|1)|I(Eradia|200)|I(MQ3|2)),,2,Eradia*2
 Wildlands,"Peace and Quiet, Kupo Quest",_54,I(Eradia|100),,2,Eradia*2
-Wildlands,Saving an Angel Quest,_55,AND(I(key_w_yasai_t|1)|I(Eradia|100)),,1,Eradia*4
-Wildlands,Omega Point Quest,_56,AND(I(key_w_yasai_t|1)|I(key_w_data|1)|I(Eradia|300)),,2,Eradia*4
-Wildlands,The Old Man and the Field Quest,_57,AND(I(key_w_yasai_t|1)|I(Eradia|300)),,3,Eradia*2
-Wildlands,Land of our Forebears Quest,_58,AND(I(key_w_yasai_t|1)|I(Eradia|400)),,6,Eradia*8
-Wildlands,A Taste of the Past Quest,_59,AND(I(key_w_yasai_t|1)|I(key_w_apple|2)|I(Eradia|200)),,2,Eradia*4
-Wildlands,"Dog, Doctor and Assistant Quest",_60,AND(I(key_w_yasai_t|1)|I(Eradia|200)),,3,Eradia*2
-Wildlands,The Right Stuff Quest,_61,AND(I(key_w_yasai_t|1)|I(Eradia|200)),,3,Eradia*2
+Wildlands,Saving an Angel Quest,_55,AND(I(key_w_yasai_t|1)|I(Eradia|100)|I(MQ3|1)),,1,Eradia*4
+Wildlands,Omega Point Quest,_56,AND(I(key_w_yasai_t|1)|I(key_w_data|1)|I(Eradia|300)|I(MQ3|3)),,2,Eradia*4
+Wildlands,The Old Man and the Field Quest,_57,AND(I(key_w_yasai_t|1)|I(Eradia|300)|I(MQ3|1)),,3,Eradia*2
+Wildlands,Land of our Forebears Quest,_58,AND(I(key_w_yasai_t|1)|I(Eradia|400)|I(MQ3|1)),,6,Eradia*8
+Wildlands,A Taste of the Past Quest,_59,AND(I(key_w_yasai_t|1)|I(key_w_apple|2)|I(Eradia|200)|I(MQ3|2)),,2,Eradia*4
+Wildlands,"Dog, Doctor and Assistant Quest",_60,AND(I(key_w_yasai_t|1)|I(Eradia|200)|I(MQ3|2)),,3,Eradia*2
+Wildlands,The Right Stuff Quest,_61,AND(I(key_w_yasai_t|1)|I(Eradia|200)|I(MQ3|1)),,3,Eradia*2
 Wildlands,The Secret Lives of Sheep Quest,_62,AND(I(key_w_yasai_t|1)|I(Eradia|300)),,3,Eradia*8
 Wildlands,"Where Are You, Moogle? Quest",_63,I(Eradia|100),,3,Eradia*4
 Wildlands,Mercy of a Goddess Quest,_64,AND(I(key_w_yasai_t|1)|I(Eradia|300)),,4,Eradia*4
-Wildlands,The Grail of Valhalla Quest,_65,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)|I(key_w_buhin1|1)|I(key_w_buhin2|1)|I(key_w_buhin3|1)),,4,Eradia*8
-Wildlands,To Live in Chaos Quest,_66,AND(I(key_w_yasai_t|1)|I(Eradia|400)),,5,Eradia*8
-Wildlands,Killing Time Quest,_67,AND(I(key_w_yasai_t|1)|I(Eradia|100)),,2,Eradia*2
+Wildlands,The Grail of Valhalla Quest,_65,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)|I(key_w_buhin1|1)|I(key_w_buhin2|1)|I(key_w_buhin3|1)|I(MQ3|3)),,4,Eradia*8
+Wildlands,To Live in Chaos Quest,_66,AND(I(key_w_yasai_t|1)|I(Eradia|400)|I(MQ3|4)),,5,Eradia*8
+Wildlands,Killing Time Quest,_67,AND(I(key_w_yasai_t|1)|I(Eradia|100)|I(MQ3|3)),,2,Eradia*2
 Wildlands,Matchmaker Quest,_68,AND(I(key_w_yasai_t|1)|I(Eradia|200)),,4,Eradia*2
 Wildlands,Mother and Daughter Quest,_69,AND(I(key_w_yasai_t|1)|I(Eradia|200)),,4,Eradia*4
-Yusnaan,Fireworks in a Bottle Quest,_70,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(Eradia|200)),,2,Eradia*2
-Yusnaan,The Fighting Actress Quest,_71,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(Eradia|200)),,4,Eradia*4
+Yusnaan,Fireworks in a Bottle Quest,_70,AND(I(MQ2|2)|I(Eradia|200)),,2,Eradia*2
+Yusnaan,The Fighting Actress Quest,_71,AND(I(MQ2|2)|I(Eradia|200)),,4,Eradia*4
 Yusnaan,Songless Diva Quest,_72,AND(I(key_y_kaban|1)|I(Eradia|200)),,2,Eradia*4
 Yusnaan,Stolen Things Quest,_73,AND(I(key_y_letter|1)|I(Eradia|200)),,1,Eradia*2
-Yusnaan,Fireworks for a Steal Quest,_74,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(Eradia|200)),,2,Eradia*4
+Yusnaan,Fireworks for a Steal Quest,_74,AND(I(MQ2|2)|I(Eradia|200)),,2,Eradia*4
 Yusnaan,A Testing Proposition Quest,_75,I(Eradia|500),,4,Eradia*8
-Yusnaan,Last Date Quest,_76,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)|I(Eradia|400)),,5,Eradia*2
+Yusnaan,Last Date Quest,_76,AND(I(MQ2|4)|I(Eradia|400)),Missable,5,Eradia*2
 Yusnaan,Free Will Quest,_77,I(Eradia|300),,6,Eradia*8
-Yusnaan,Friends Forever Quest,_78,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)|I(Eradia|400)),,5,Eradia*4
+Yusnaan,Friends Forever Quest,_78,AND(I(MQ2|4)|I(Eradia|400)),,5,Eradia*4
 Yusnaan,Family Food Quest,_79,AND(I(key_y_bashira|1)|I(key_y_recipe|1)|I(key_y_cream|1)|I(Eradia|300)),,3,Eradia*4
-Yusnaan,Tanbam's Taboo Quest,_80,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)|I(Eradia|400)),,5,Eradia*8
+Yusnaan,Tanbam's Taboo Quest,_80,AND(I(MQ2|4)|I(Eradia|400)),,5,Eradia*8
 Yusnaan,Play It for Me Quest,_81,AND(I(key_y_kagi2|1)|I(key_y_kagi3|1)|I(key_y_rappa|1)|I(Eradia|200)),,3,Eradia*4
-Yusnaan,Adoring Adornments Quest,_82,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(Eradia|300)),,2,Eradia*4
-Yusnaan,Adoring Candice Quest,_83,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(cos_fa00|1)|I(key_y_serap|1)|I(Eradia|400)),,4,Eradia*8
-Yusnaan,Death Safari Quest,_84,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(Eradia|300)),,5,Eradia*4
-Yusnaan,Death Game Quest,_85,AND(I(key_y_ticket|1)|I(key_y_id|1)|I(Eradia|300)),,7,Eradia*8
-Luxerion,Main Quest 1-1,_100,,,1,MQ1*1
-Luxerion,Main Quest 1-2,_101,,,1,MQ1*1
-Luxerion,Main Quest 1-3,_102,,,1,MQ1*1
-Luxerion,Main Quest 1-4,_103,,,1,MQ1*1
-Yusnaan,Main Quest 2-1 cyclops,_110,I(key_y_ticket|1),,1,MQ2*1
-Yusnaan,Main Quest 2-1,_111,AND(I(key_y_ticket|1)|I(key_y_id|1)),,2,MQ2*1
-Yusnaan,Main Quest 2-2,_112,AND(I(MQ2|1)|I(cos_fa00|1)),,3,MQ2*1
-Wildlands,Main Quest 3-1,_120,,,1,MQ3*1
-Wildlands,Main Quest 3-2,_121,I(key_w_yasai_t|1),,2,MQ3*1
-Wildlands,Main Quest 3-3 Flight,_122,I(MQ3|2),,3,MQ3*1
-Dead Dunes,Main Quest 4-1,_130,,,1,MQ4*1
-Dead Dunes,Main Quest 4-2,_131,,,2,MQ4*1
-Dead Dunes,Main Quest 4-3,_132,,,2,MQ4*1
-Dead Dunes,Main Quest 4-4 First Table placed,_133,I(key_d_sekiban|1),,3,MQ4*1
-Dead Dunes,Main Quest 4-4,_134,I(key_d_sekiban|3),,4,MQ4*1
-Wildlands,Main Quest 5 start,_140,AND(I(key_w_yasai_t|1)|I(MQ3|3)),,3,MQ5*1
+Yusnaan,Adoring Adornments Quest,_82,AND(I(MQ2|2)|I(Eradia|300)),,2,Eradia*4
+Yusnaan,Adoring Candice Quest,_83,AND(I(MQ2|4)|I(Eradia|400)),,4,Eradia*8
+Yusnaan,Death Safari Quest,_84,AND(I(MQ2|2)|I(Eradia|300)),,5,Eradia*4
+Yusnaan,Death Game Quest,_85,AND(I(MQ2|2)|I(Eradia|300)),,7,Eradia*8
+Luxerion,Main Quest 1-1,_100,,Main,1,MQ1*1
+Luxerion,Main Quest 1-2,_101,I(MQ1|1),Main,1,MQ1*1
+Luxerion,Main Quest 1-3,_102,I(MQ1|2),Main,2,MQ1*1
+Luxerion,Main Quest 1-4,_103,I(MQ1|3),Main,2,MQ1*1
+Yusnaan,Main Quest 2-1 cyclops,_110,AND(I(key_y_ticket|1)|M(Eradia|701)),Main,1,MQ2*1
+Yusnaan,Main Quest 2-1,_111,AND(I(MQ2|1)|I(key_y_id|1)),Main,2,MQ2*1
+Yusnaan,Main Quest 2-2,_112,AND(I(MQ2|2)|I(cos_fa00|1)),Main,3,MQ2*1
+Wildlands,Main Quest 3-1,_120,,Main,1,MQ3*1
+Wildlands,Main Quest 3-2,_121,AND(I(MQ3|1)|I(key_w_yasai_t|1)),Main,2,MQ3*1
+Wildlands,Main Quest 3-3 Flight,_122,I(MQ3|2),Main,3,MQ3*1
+Dead Dunes,Main Quest 4-1,_130,,Main,1,MQ4*1
+Dead Dunes,Main Quest 4-2,_131,I(MQ4|1),Main,2,MQ4*1
+Dead Dunes,Main Quest 4-3,_132,I(MQ4|2),Main,2,MQ4*1
+Dead Dunes,Main Quest 4-4 First Tablet placed,_133,AND(I(MQ4|3)|I(key_d_sekiban|1)),Main,3,MQ4*1
+Dead Dunes,Main Quest 4-4,_134,AND(I(MQ4|4)|I(key_d_sekiban|3)),Main,4,MQ4*1
+Wildlands,Main Quest 5 start,_140,AND(I(key_w_yasai_t|1)|I(MQ3|3)),Main,4,MQ5*1
 Final Day,Victory,_141,I(MQDone|5),Missable,8,Victory

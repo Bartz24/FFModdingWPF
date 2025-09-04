@@ -68,8 +68,13 @@ public class SphereCalculator<T> where T : ItemLocation
                 }
             }
 
+            // TODO:
+            // Improve validation for "missable" quests like buried passion where it depends on placement but is safe
+            // Improve chain checks
+
             if (!valid)
             {
+                Generator.Logger.LogDebug($"Remaining locations: {string.Join(",",remaining.Select(r => r.ID))}");
                 string msg = "Could not find a path to all items placed. This seed might be unbeatable. Report this to the dev with the seed and flags used. After this seed finishes generating, go to the History tab and share the seed.";
                 Generator.Logger.LogError(msg);
                 MessageBox.Show(msg);

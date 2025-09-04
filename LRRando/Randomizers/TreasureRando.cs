@@ -27,6 +27,8 @@ public partial class TreasureRando : Randomizer
     public LRHintPlacer HintPlacer { get; set; }
     public AreaGraph AreaGraph { get; set; }
 
+    private bool hintsSaved = false;
+
     public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
@@ -285,6 +287,11 @@ public partial class TreasureRando : Randomizer
 
     private void SaveHints()
     {
+        if (hintsSaved)
+        {
+            return;
+        }
+        hintsSaved = true;
         EquipRando equipRando = Generator.Get<EquipRando>();
         AbilityRando abilityRando = Generator.Get<AbilityRando>();
         TextRando textRando = Generator.Get<TextRando>();
@@ -323,7 +330,7 @@ public partial class TreasureRando : Randomizer
 
                     var hintText = "";
 
-                    switch (hintType/2)
+                    switch ((hintType+1)/2)
                     {
                         case 1:
                             // Source
@@ -370,6 +377,7 @@ public partial class TreasureRando : Randomizer
 
     public override Dictionary<string, HTMLPage> GetDocumentation()
     {
+        SaveHints();
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
         EquipRando equipRando = Generator.Get<EquipRando>();
         TextRando textRando = Generator.Get<TextRando>();

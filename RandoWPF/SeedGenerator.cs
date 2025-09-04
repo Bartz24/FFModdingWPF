@@ -89,6 +89,46 @@ public abstract class SeedGenerator : IDisposable
 #endif
     }
 
+    public void GenerateSeedDryRun()
+    {
+        Logger = new FileLogger("RandoLog.log", LogLevel.Debug);
+
+        // Log the version and the seed
+        Logger.LogInformation($"Version: {SetupData.Version}");
+        Logger.LogInformation($"Seed: {SetupData.Seed}");
+        FlagStringCompressor compressor = new();
+        Logger.LogInformation($"Flags: {compressor.CompressFlags()}");
+
+#if !DEBUG
+        try
+        {
+#endif
+        RandoUI.SetUIProgressIndeterminate("Preparing data folder...");
+        PrepareData();
+        RandoUI.IncrementTotalProgressUI();
+
+        RandoUI.SetUIProgressIndeterminate("Loading data...");
+        Load();
+
+        RandoUI.SetUIProgressIndeterminate("Randomizing data...");
+        Randomize();
+
+        RandoUI.SetUIProgressIndeterminate("Generating documentation...");
+        GenerateDocsOnly();
+        RandoUI.IncrementTotalProgressUI();
+#if !DEBUG
+    }
+        catch (RandoException ex)
+        {
+            throw ex;
+        }
+        catch (Exception ex)
+        {
+            throw new RandoException(ex.Message, UNEXPECTED_ERROR, ex);
+        }
+#endif
+    }
+
     public virtual void PrepareData()
     {
         RandomNum.ClearRand();
@@ -123,6 +163,17 @@ public abstract class SeedGenerator : IDisposable
             r.Save();
             RandoUI.IncrementTotalProgressUI();
         });
+    }
+
+    public virtual void GenerateDocsOnly()
+    {
+        Task docs = new(GenerateDocs);
+
+        docs.Start();
+        Task.WaitAll(docs);
+
+        // Reload seeds in the UI
+        RandoSeeds.LoadSeeds();
     }
 
     public virtual void GeneratePackAndDocs()
