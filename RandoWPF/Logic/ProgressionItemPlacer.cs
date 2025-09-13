@@ -115,10 +115,6 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             T location = SelectLocation(replacement, depth);
             if (location != null)
             {
-                if (replacement.ID == "trd_ticket")
-                {
-                    Debug.WriteLine("Ticket placed");
-                }
                 PlaceItem(location, replacement);
 
                 // Placed an item, so reset failure
@@ -184,11 +180,6 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
             newOrder.Add(index, next);
             usedIndices[index] = true;
-
-            if(next.ID == "trd_ticket")
-            {
-                Generator.Logger.LogDebug($"Ticket given weight of {index}");
-            }
         }
 
         return newOrder.Keys.OrderBy(i => i).Select(i => newOrder[i]).ToList();
@@ -268,13 +259,6 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         if (item != null)
         {
             var (itemID, amount) = item.Value;
-            if(itemID == "Eradia")
-            {
-                Debug.WriteLine($"Gained {amount} eradia at location {location.ID}");
-            } else if (itemID.StartsWith("MQ"))
-            {
-                Debug.WriteLine($"Gained {amount} {itemID} at location {location.ID}");
-            }
             if (foundItems.ContainsKey(itemID))
             {
                 foundItems[itemID] += amount;
