@@ -41,9 +41,6 @@ public class TextRando : Randomizer
 
         //mainSysUS["$m_001"] = "Rando: Slaughterhouse Special";
         //mainSysUS["$m_001_ac000"] = "Used for tracking in the randomizer. You have checked the Fragment of Courage location in Yusnaan.";
-        mainSysUS.Add("$item_apitem", "Archipelago Items");
-        mainSysUS.Add("$item_apitem_desc", "Items found sent to the AP multiworld.");
-
     }
     public override void Randomize()
     {

@@ -339,7 +339,7 @@ public partial class TreasureRando : Randomizer
             hintData.Keys.ForEach(h =>
             {
                 List<string> lines = new();
-                if (HintPlacer.Hints[h].Count > 0)
+                if (HintPlacer?.Hints[h].Count > 0)
                 {
                     lines = HintPlacer.Hints[h].Select(l => HintPlacer.GetHintText(l)).ToList();
                 }
@@ -398,11 +398,12 @@ public partial class TreasureRando : Randomizer
                 nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
             }
 
-            return (new object[] { nameCell, $"{name} x {ItemLocations[t.ID].GetItem(false).Value.Item2}", ItemPlacer.SphereCalculator.Spheres.ContainsKey(t) ? ItemPlacer.SphereCalculator.Spheres[t] : "N/A" }).ToList();
+            string item = $"{name} x {ItemLocations[t.ID].GetItem(false).Value.Item2}";
+            return (new object[] { nameCell, item, ItemPlacer.SphereCalculator.Spheres.ContainsKey(t) ? ItemPlacer.SphereCalculator.Spheres[t] : "N/A" }).ToList();
         }).ToList(), "itemlocations"));
         pages.Add("item_locations", page);
 
-        if (LRFlags.Items.Treasures.FlagEnabled && LRFlags.Other.HintsMain.FlagEnabled)
+        if (LRFlags.Items.Treasures.FlagEnabled && LRFlags.Other.HintsMain.FlagEnabled && HintPlacer != null)
         {
             HTMLPage hintsPage = new("Hints", "template/documentation.html");
 

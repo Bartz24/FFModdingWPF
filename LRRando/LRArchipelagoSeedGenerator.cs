@@ -26,7 +26,7 @@ public class LRArchipelagoSeedGenerator : LRSeedGenerator
             new EnemyRando(this),
             new BattleRando(this),
             new MusicRando(this),
-            new TextRando(this)
+            new APTextRando(this)
         };
     }
 }

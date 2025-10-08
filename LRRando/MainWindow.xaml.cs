@@ -36,6 +36,7 @@ public partial class MainWindow : RandoMainWindow
     {
         RandoSeeds.DocsFolder = "packs";
         RandoSeeds.DeleteFilter = "LRRando_${SEED}_Docs.zip";
+        RandoFlags.ArchipelagoDataType = typeof(LRArchipelagoData);
         LRFlags.Init();
         RandoPresets.Init();
         InitializeComponent();

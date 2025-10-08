@@ -16,10 +16,21 @@ public class APEquipRando : EquipRando
     {
         base.Load();
 
-        var apItem = items.InsertCopyAlphabetical("key_b_20", "key_r_apitem");
-        apItem.sItemNameStringId_string = "$item_apitem";
-        apItem.sHelpStringId_string = "$item_apitem_desc";
-        apItem.u16SortAllByKCategory = 101;
-        apItem.u16SortCategoryByCategory = 151;
+        // Create unique AP key items based on LRArchipelagoData item placements
+        var apData = RandoFlags.GetArchipelagoData<LRArchipelagoData>();
+        for (int i = 0; i < apData.ItemPlacements.Count; i++)
+        {
+            string idx = (i + 1).ToString("D4");
+            string itemId = $"key_r_ap_{idx}";
+
+            if (!items.Keys.Contains(itemId))
+            {
+                var apUnique = items.InsertCopyAlphabetical("key_b_20", itemId);
+                apUnique.sItemNameStringId_string = $"$zzz_r_ap_{idx}"; // Name will be populated in TextRando
+                apUnique.sHelpStringId_string = $"$zzz_r_aph_{idx}";
+                apUnique.u16SortAllByKCategory = 101;
+                apUnique.u16SortCategoryByCategory = 151;
+            }
+        }
     }
 }
