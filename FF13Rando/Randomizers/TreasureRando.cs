@@ -141,7 +141,7 @@ public partial class TreasureRando : Randomizer
     private void AddTreasure(DataStoreWDB<DataStoreTreasurebox> database, string newName, string item, int count)
     {
         database.Copy(database.Keys[0], newName);
-        database[newName].sItemResourceId_string = item;
+        database[newName].sItemResourceId = item;
         database[newName].iItemCount = (uint)count;
     }
 
@@ -367,7 +367,7 @@ public partial class TreasureRando : Randomizer
         }
         else
         {
-            name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId_string];
+            name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId];
             if (name.Contains("{End}"))
             {
                 name = name.Substring(0, name.IndexOf("{End}"));

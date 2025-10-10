@@ -4,87 +4,60 @@ using System.Linq;
 
 namespace Bartz24.LR;
 
-public class DataStoreBtCharaSpec : DataStoreDB3SubEntry
+public class DataStoreBtCharaSpec : DataStoreWDBEntry
 {
-    public int sCharaSpec_pointer { get; set; }
-    public string sCharaSpec_string { get; set; }
-    public int sBaseBtSpec_pointer { get; set; }
-    public string sBaseBtSpec_string { get; set; }
-    public int sNameStrResID_pointer { get; set; }
-    public string sNameStrResID_string { get; set; }
-    public int sWandIdAg_pointer { get; set; }
-    public string sWandIdAg_string { get; set; }
-    public int fAtkLen { get; set; }
-    public int sScriptId_pointer { get; set; }
-    public string sScriptId_string { get; set; }
-    public int sAiSheetName_pointer { get; set; }
-    public string sAiSheetName_string { get; set; }
-    public int sAbility0_pointer { get; set; }
-    public string sAbility0_string { get; set; }
-    public int sAbility1_pointer { get; set; }
-    public string sAbility1_string { get; set; }
-    public int sAbility2_pointer { get; set; }
-    public string sAbility2_string { get; set; }
-    public int sAbility3_pointer { get; set; }
-    public string sAbility3_string { get; set; }
-    public int sAbility4_pointer { get; set; }
-    public string sAbility4_string { get; set; }
-    public int sAbility5_pointer { get; set; }
-    public string sAbility5_string { get; set; }
-    public int sAbility6_pointer { get; set; }
-    public string sAbility6_string { get; set; }
-    public int sAbility7_pointer { get; set; }
-    public string sAbility7_string { get; set; }
-    public int fFReserve0 { get; set; }
-    public int sEffId0_pointer { get; set; }
-    public string sEffId0_string { get; set; }
+    public string sCharaSpec { get; set; }
+    public string sBaseBtSpec { get; set; }
+    public string sNameStrResID { get; set; }
+    public string sWandIdAg { get; set; }
+        public float fAtkLen { get; set; }
+    public string sScriptId { get; set; }
+    public string sAiSheetName { get; set; }
+    public string sAbility0 { get; set; }
+    public string sAbility1 { get; set; }
+    public string sAbility2 { get; set; }
+    public string sAbility3 { get; set; }
+    public string sAbility4 { get; set; }
+    public string sAbility5 { get; set; }
+    public string sAbility6 { get; set; }
+    public string sAbility7 { get; set; }
+        public float fFReserve0 { get; set; }
+    public string sEffId0 { get; set; }
     public int iEffArg0 { get; set; }
-    public int sSndId0_pointer { get; set; }
-    public string sSndId0_string { get; set; }
-    public int sEffId1_pointer { get; set; }
-    public string sEffId1_string { get; set; }
-    public int iEffArg1 { get; set; }
-    public int sSndId1_pointer { get; set; }
-    public string sSndId1_string { get; set; }
-    public int sDropCndItem0_pointer { get; set; }
-    public string sDropCndItem0_string { get; set; }
-    public int sDropCndItem1_pointer { get; set; }
-    public string sDropCndItem1_string { get; set; }
-    public int sDropCndItem2_pointer { get; set; }
-    public string sDropCndItem2_string { get; set; }
-    public int sBrkDefState_pointer { get; set; }
-    public string sBrkDefState_string { get; set; }
-    public int fBrkDefDecVal { get; set; }
-    public int sBrkState0_pointer { get; set; }
-    public string sBrkState0_string { get; set; }
-    public int fBrkLoopTime0 { get; set; }
-    public int fBrkDecVal0 { get; set; }
-    public int fBrkCoolTime0 { get; set; }
-    public int fBrkGrgTime0 { get; set; }
-    public int sBrkState1_pointer { get; set; }
-    public string sBrkState1_string { get; set; }
-    public int fBrkLoopTime1 { get; set; }
-    public int fBrkDecVal1 { get; set; }
-    public int fBrkCoolTime1 { get; set; }
-    public int fBrkGrgTime1 { get; set; }
-    public int sBrkState2_pointer { get; set; }
-    public string sBrkState2_string { get; set; }
-    public int fBrkLoopTime2 { get; set; }
-    public int fBrkDecVal2 { get; set; }
-    public int fBrkCoolTime2 { get; set; }
-    public int fBrkGrgTime2 { get; set; }
-    public int sBrkState3_pointer { get; set; }
-    public string sBrkState3_string { get; set; }
-    public int fBrkLoopTime3 { get; set; }
-    public int fBrkDecVal3 { get; set; }
-    public int fBrkCoolTime3 { get; set; }
-    public int fBrkGrgTime3 { get; set; }
-    public int sBrkState4_pointer { get; set; }
-    public string sBrkState4_string { get; set; }
-    public int fBrkLoopTime4 { get; set; }
-    public int fBrkDecVal4 { get; set; }
-    public int fBrkCoolTime4 { get; set; }
-    public int fBrkGrgTime4 { get; set; }
+    public string sSndId0 { get; set; }
+    public string sEffId1 { get; set; }
+        public int iEffArg1 { get; set; }
+    public string sSndId1 { get; set; }
+    public string sDropCndItem0 { get; set; }
+    public string sDropCndItem1 { get; set; }
+    public string sDropCndItem2 { get; set; }
+    public string sBrkDefState { get; set; }
+    public float fBrkDefDecVal { get; set; }
+    public string sBrkState0 { get; set; }
+    public float fBrkLoopTime0 { get; set; }
+    public float fBrkDecVal0 { get; set; }
+    public float fBrkCoolTime0 { get; set; }
+    public float fBrkGrgTime0 { get; set; }
+    public string sBrkState1 { get; set; }
+    public float fBrkLoopTime1 { get; set; }
+    public float fBrkDecVal1 { get; set; }
+    public float fBrkCoolTime1 { get; set; }
+    public float fBrkGrgTime1 { get; set; }
+    public string sBrkState2 { get; set; }
+    public float fBrkLoopTime2 { get; set; }
+    public float fBrkDecVal2 { get; set; }
+    public float fBrkCoolTime2 { get; set; }
+    public float fBrkGrgTime2 { get; set; }
+    public string sBrkState3 { get; set; }
+    public float fBrkLoopTime3 { get; set; }
+    public float fBrkDecVal3 { get; set; }
+    public float fBrkCoolTime3 { get; set; }
+    public float fBrkGrgTime3 { get; set; }
+    public string sBrkState4 { get; set; }
+    public float fBrkLoopTime4 { get; set; }
+    public float fBrkDecVal4 { get; set; }
+    public float fBrkCoolTime4 { get; set; }
+    public float fBrkGrgTime4 { get; set; }
     public int u6PcKind { get; set; }
     public int u8Rank { get; set; }
     public int u1NoHide { get; set; }
@@ -154,8 +127,7 @@ public class DataStoreBtCharaSpec : DataStoreDB3SubEntry
     public int u8StatusDef21 { get; set; }
     public int u8StatusDef22 { get; set; }
     public int u8StatusDef23 { get; set; }
-    public int s8Ability16_pointer { get; set; }
-    public string s8Ability16_string { get; set; }
+    public string s8Ability16 { get; set; }
     public int u10Prop0 { get; set; }
     public int u10Prop1 { get; set; }
     public int u10Prop2 { get; set; }
@@ -163,56 +135,32 @@ public class DataStoreBtCharaSpec : DataStoreDB3SubEntry
     public int u1BrkActTiming1 { get; set; }
     public int u10Prop3 { get; set; }
     public int u10Prop4 { get; set; }
-    public int s12Ability8_pointer { get; set; }
-    public string s12Ability8_string { get; set; }
-    public int s12Ability9_pointer { get; set; }
-    public string s12Ability9_string { get; set; }
-    public int s12Ability10_pointer { get; set; }
-    public string s12Ability10_string { get; set; }
-    public int s8Ability17_pointer { get; set; }
-    public string s8Ability17_string { get; set; }
-    public int s12Ability11_pointer { get; set; }
-    public string s12Ability11_string { get; set; }
-    public int s12Ability12_pointer { get; set; }
-    public string s12Ability12_string { get; set; }
-    public int s8Ability18_pointer { get; set; }
-    public string s8Ability18_string { get; set; }
-    public int s12Ability13_pointer { get; set; }
-    public string s12Ability13_string { get; set; }
-    public int s12Ability14_pointer { get; set; }
-    public string s12Ability14_string { get; set; }
-    public int s8Ability19_pointer { get; set; }
-    public string s8Ability19_string { get; set; }
-    public int s12Ability15_pointer { get; set; }
-    public string s12Ability15_string { get; set; }
-    public int s8Ability20_pointer { get; set; }
-    public string s8Ability20_string { get; set; }
-    public int s8Ability21_pointer { get; set; }
-    public string s8Ability21_string { get; set; }
+    public string s12Ability8 { get; set; }
+    public string s12Ability9 { get; set; }
+    public string s12Ability10 { get; set; }
+    public string s8Ability17 { get; set; }
+    public string s12Ability11 { get; set; }
+    public string s12Ability12 { get; set; }
+    public string s8Ability18 { get; set; }
+    public string s12Ability13 { get; set; }
+    public string s12Ability14 { get; set; }
+    public string s8Ability19 { get; set; }
+    public string s12Ability15 { get; set; }
+    public string s8Ability20 { get; set; }
+    public string s8Ability21 { get; set; }
     public int u4PartCharKind { get; set; }
-    public int s8Ability22_pointer { get; set; }
-    public string s8Ability22_string { get; set; }
-    public int s8Ability23_pointer { get; set; }
-    public string s8Ability23_string { get; set; }
-    public int s8Ability24_pointer { get; set; }
-    public string s8Ability24_string { get; set; }
-    public int s8Ability25_pointer { get; set; }
-    public string s8Ability25_string { get; set; }
-    public int s8Ability26_pointer { get; set; }
-    public string s8Ability26_string { get; set; }
-    public int s8Ability27_pointer { get; set; }
-    public string s8Ability27_string { get; set; }
-    public int s8Ability28_pointer { get; set; }
-    public string s8Ability28_string { get; set; }
-    public int s8Ability29_pointer { get; set; }
-    public string s8Ability29_string { get; set; }
-    public int s8Ability30_pointer { get; set; }
-    public string s8Ability30_string { get; set; }
-    public int s8Ability31_pointer { get; set; }
-    public string s8Ability31_string { get; set; }
-    public int u6Reserve4 { get; set; }
-    public int s8PartCharSpec2_pointer { get; set; }
-    public string s8PartCharSpec2_string { get; set; }
+    public string s8Ability22 { get; set; }
+    public string s8Ability23 { get; set; }
+    public string s8Ability24 { get; set; }
+    public string s8Ability25 { get; set; }
+    public string s8Ability26 { get; set; }
+    public string s8Ability27 { get; set; }
+    public string s8Ability28 { get; set; }
+    public string s8Ability29 { get; set; }
+    public string s8Ability30 { get; set; }
+    public string s8Ability31 { get; set; }
+        public int u6Reserve4 { get; set; }
+    public string s8PartCharSpec2 { get; set; }
     public int u1BrkEnbFly1 { get; set; }
     public int u1BrkValReset1 { get; set; }
     public int u14NameElemId { get; set; }
@@ -224,27 +172,19 @@ public class DataStoreBtCharaSpec : DataStoreDB3SubEntry
     public int u3DropUnlockTmg1 { get; set; }
     public int u1BrkEnbFly2 { get; set; }
     public int u14EffPos1 { get; set; }
-    public int s16PartCharSpec0_pointer { get; set; }
-    public string s16PartCharSpec0_string { get; set; }
+    public string s16PartCharSpec0 { get; set; }
     public int u1BrkValReset2 { get; set; }
     public int u1BrkActTiming3 { get; set; }
-    public int s16PartCharSpec1_pointer { get; set; }
-    public string s16PartCharSpec1_string { get; set; }
-    public int s8PartCharSpec3_pointer { get; set; }
-    public string s8PartCharSpec3_string { get; set; }
-    public int s8PartCharSpec4_pointer { get; set; }
-    public string s8PartCharSpec4_string { get; set; }
-    public int s8PartCharSpec5_pointer { get; set; }
-    public string s8PartCharSpec5_string { get; set; }
-    public int s8PartCharSpec6_pointer { get; set; }
-    public string s8PartCharSpec6_string { get; set; }
-    public int s8PartCharSpec7_pointer { get; set; }
-    public string s8PartCharSpec7_string { get; set; }
-    public int u7NumDrop0 { get; set; }
+    public string s16PartCharSpec1 { get; set; }
+    public string s8PartCharSpec3 { get; set; }
+    public string s8PartCharSpec4 { get; set; }
+    public string s8PartCharSpec5 { get; set; }
+    public string s8PartCharSpec6 { get; set; }
+    public string s8PartCharSpec7 { get; set; }
+        public int u7NumDrop0 { get; set; }
     public int u1BrkEnbFly3 { get; set; }
     public int u14TgElemId0 { get; set; }
-    public int s10DropItem0_pointer { get; set; }
-    public string s10DropItem0_string { get; set; }
+    public string s10DropItem0 { get; set; }
     public int u7NumMaxDrop0 { get; set; }
     public int u1BrkValReset3 { get; set; }
     public int u14DropProbEnd0 { get; set; }
@@ -258,8 +198,7 @@ public class DataStoreBtCharaSpec : DataStoreDB3SubEntry
     public int u1BrkValReset4 { get; set; }
     public int u8DropCndArg0A { get; set; }
     public int u14DropCndAddProbA { get; set; }
-    public int s10DropItem1_pointer { get; set; }
-    public string s10DropItem1_string { get; set; }
+    public string s10DropItem1 { get; set; }
     public int u7NumDrop1 { get; set; }
     public int u7NumMaxDrop1 { get; set; }
     public int u14DropProbEnd1 { get; set; }
@@ -375,239 +314,198 @@ public class DataStoreBtCharaSpec : DataStoreDB3SubEntry
     public int u4BrkExecAttr4 { get; set; }
     public int u4BrkAccIdx4 { get; set; }
     public int u10BrkChrProp4 { get; set; }
-    public override Dictionary<string, int> GetStringArrayMapping()
-    {
-        Dictionary<string, int> mapping = new()
-        {
-            { nameof(s8Ability16_pointer), 0 },
-            { nameof(s12Ability8_pointer), 1 },
-            { nameof(s12Ability9_pointer), 2 },
-            { nameof(s12Ability10_pointer), 3 },
-            { nameof(s8Ability17_pointer), 4 },
-            { nameof(s12Ability11_pointer), 5 },
-            { nameof(s12Ability12_pointer), 6 },
-            { nameof(s8Ability18_pointer), 7 },
-            { nameof(s12Ability13_pointer), 8 },
-            { nameof(s12Ability14_pointer), 9 },
-            { nameof(s8Ability19_pointer), 10 },
-            { nameof(s12Ability15_pointer), 11 },
-            { nameof(s8Ability20_pointer), 12 },
-            { nameof(s8Ability21_pointer), 13 },
-            { nameof(s8Ability22_pointer), 14 },
-            { nameof(s8Ability23_pointer), 15 },
-            { nameof(s8Ability24_pointer), 16 },
-            { nameof(s8Ability25_pointer), 17 },
-            { nameof(s8Ability26_pointer), 18 },
-            { nameof(s8Ability27_pointer), 19 },
-            { nameof(s8Ability28_pointer), 20 },
-            { nameof(s8Ability29_pointer), 21 },
-            { nameof(s8Ability30_pointer), 22 },
-            { nameof(s8Ability31_pointer), 23 },
-            { nameof(s8PartCharSpec2_pointer), 24 },
-            { nameof(s16PartCharSpec0_pointer), 25 },
-            { nameof(s16PartCharSpec1_pointer), 26 },
-            { nameof(s8PartCharSpec3_pointer), 27 },
-            { nameof(s8PartCharSpec4_pointer), 28 },
-            { nameof(s8PartCharSpec5_pointer), 29 },
-            { nameof(s8PartCharSpec6_pointer), 30 },
-            { nameof(s8PartCharSpec7_pointer), 31 },
-            { nameof(s10DropItem0_pointer), 32 },
-            { nameof(s10DropItem1_pointer), 33 }
-        };
-        return mapping;
-    }
     public void SetAbilities(List<string> list)
     {
-        sAbility0_string = "";
-        sAbility1_string = "";
-        sAbility2_string = "";
-        sAbility3_string = "";
-        sAbility4_string = "";
-        sAbility5_string = "";
-        sAbility6_string = "";
-        sAbility7_string = "";
-        s12Ability8_string = "";
-        s12Ability9_string = "";
-        s12Ability10_string = "";
-        s12Ability11_string = "";
-        s12Ability12_string = "";
-        s12Ability13_string = "";
-        s12Ability14_string = "";
-        s12Ability15_string = "";
-        s8Ability16_string = "";
-        s8Ability17_string = "";
-        s8Ability18_string = "";
-        s8Ability19_string = "";
-        s8Ability20_string = "";
-        s8Ability21_string = "";
-        s8Ability22_string = "";
-        s8Ability23_string = "";
-        s8Ability24_string = "";
-        s8Ability25_string = "";
-        s8Ability26_string = "";
-        s8Ability27_string = "";
-        s8Ability28_string = "";
-        s8Ability29_string = "";
-        s8Ability30_string = "";
-        s8Ability31_string = "";
+        sAbility0 = "";
+        sAbility1 = "";
+        sAbility2 = "";
+        sAbility3 = "";
+        sAbility4 = "";
+        sAbility5 = "";
+        sAbility6 = "";
+        sAbility7 = "";
+        s12Ability8 = "";
+        s12Ability9 = "";
+        s12Ability10 = "";
+        s12Ability11 = "";
+        s12Ability12 = "";
+        s12Ability13 = "";
+        s12Ability14 = "";
+        s12Ability15 = "";
+        s8Ability16 = "";
+        s8Ability17 = "";
+        s8Ability18 = "";
+        s8Ability19 = "";
+        s8Ability20 = "";
+        s8Ability21 = "";
+        s8Ability22 = "";
+        s8Ability23 = "";
+        s8Ability24 = "";
+        s8Ability25 = "";
+        s8Ability26 = "";
+        s8Ability27 = "";
+        s8Ability28 = "";
+        s8Ability29 = "";
+        s8Ability30 = "";
+        s8Ability31 = "";
         if (list.Count > 0)
         {
-            sAbility0_string = list[0];
+            sAbility0 = list[0];
         }
 
         if (list.Count > 1)
         {
-            sAbility1_string = list[1];
+            sAbility1 = list[1];
         }
 
         if (list.Count > 2)
         {
-            sAbility2_string = list[2];
+            sAbility2 = list[2];
         }
 
         if (list.Count > 3)
         {
-            sAbility3_string = list[3];
+            sAbility3 = list[3];
         }
 
         if (list.Count > 4)
         {
-            sAbility4_string = list[4];
+            sAbility4 = list[4];
         }
 
         if (list.Count > 5)
         {
-            sAbility5_string = list[5];
+            sAbility5 = list[5];
         }
 
         if (list.Count > 6)
         {
-            sAbility6_string = list[6];
+            sAbility6 = list[6];
         }
 
         if (list.Count > 7)
         {
-            sAbility7_string = list[7];
+            sAbility7 = list[7];
         }
 
         if (list.Count > 8)
         {
-            s12Ability8_string = list[8];
+            s12Ability8 = list[8];
         }
 
         if (list.Count > 9)
         {
-            s12Ability9_string = list[9];
+            s12Ability9 = list[9];
         }
 
         if (list.Count > 10)
         {
-            s12Ability10_string = list[10];
+            s12Ability10 = list[10];
         }
 
         if (list.Count > 11)
         {
-            s12Ability11_string = list[11];
+            s12Ability11 = list[11];
         }
 
         if (list.Count > 12)
         {
-            s12Ability12_string = list[12];
+            s12Ability12 = list[12];
         }
 
         if (list.Count > 13)
         {
-            s12Ability13_string = list[13];
+            s12Ability13 = list[13];
         }
 
         if (list.Count > 14)
         {
-            s12Ability14_string = list[14];
+            s12Ability14 = list[14];
         }
 
         if (list.Count > 15)
         {
-            s12Ability15_string = list[15];
+            s12Ability15 = list[15];
         }
 
         if (list.Count > 16)
         {
-            s8Ability16_string = list[16];
+            s8Ability16 = list[16];
         }
 
         if (list.Count > 17)
         {
-            s8Ability17_string = list[17];
+            s8Ability17 = list[17];
         }
 
         if (list.Count > 18)
         {
-            s8Ability18_string = list[18];
+            s8Ability18 = list[18];
         }
 
         if (list.Count > 19)
         {
-            s8Ability19_string = list[19];
+            s8Ability19 = list[19];
         }
 
         if (list.Count > 20)
         {
-            s8Ability20_string = list[20];
+            s8Ability20 = list[20];
         }
 
         if (list.Count > 21)
         {
-            s8Ability21_string = list[21];
+            s8Ability21 = list[21];
         }
 
         if (list.Count > 22)
         {
-            s8Ability22_string = list[22];
+            s8Ability22 = list[22];
         }
 
         if (list.Count > 23)
         {
-            s8Ability23_string = list[23];
+            s8Ability23 = list[23];
         }
 
         if (list.Count > 24)
         {
-            s8Ability24_string = list[24];
+            s8Ability24 = list[24];
         }
 
         if (list.Count > 25)
         {
-            s8Ability25_string = list[25];
+            s8Ability25 = list[25];
         }
 
         if (list.Count > 26)
         {
-            s8Ability26_string = list[26];
+            s8Ability26 = list[26];
         }
 
         if (list.Count > 27)
         {
-            s8Ability27_string = list[27];
+            s8Ability27 = list[27];
         }
 
         if (list.Count > 28)
         {
-            s8Ability28_string = list[28];
+            s8Ability28 = list[28];
         }
 
         if (list.Count > 29)
         {
-            s8Ability29_string = list[29];
+            s8Ability29 = list[29];
         }
 
         if (list.Count > 30)
         {
-            s8Ability30_string = list[30];
+            s8Ability30 = list[30];
         }
 
         if (list.Count > 31)
         {
-            s8Ability31_string = list[31];
+            s8Ability31 = list[31];
         }
     }
 
@@ -615,38 +513,38 @@ public class DataStoreBtCharaSpec : DataStoreDB3SubEntry
     {
         List<string> list = new()
         {
-            sAbility0_string,
-            sAbility1_string,
-            sAbility2_string,
-            sAbility3_string,
-            sAbility4_string,
-            sAbility5_string,
-            sAbility6_string,
-            sAbility7_string,
-            s12Ability8_string,
-            s12Ability9_string,
-            s12Ability10_string,
-            s12Ability11_string,
-            s12Ability12_string,
-            s12Ability13_string,
-            s12Ability14_string,
-            s12Ability15_string,
-            s8Ability16_string,
-            s8Ability17_string,
-            s8Ability18_string,
-            s8Ability19_string,
-            s8Ability20_string,
-            s8Ability21_string,
-            s8Ability22_string,
-            s8Ability23_string,
-            s8Ability24_string,
-            s8Ability25_string,
-            s8Ability26_string,
-            s8Ability27_string,
-            s8Ability28_string,
-            s8Ability29_string,
-            s8Ability30_string,
-            s8Ability31_string
+            sAbility0,
+            sAbility1,
+            sAbility2,
+            sAbility3,
+            sAbility4,
+            sAbility5,
+            sAbility6,
+            sAbility7,
+            s12Ability8,
+            s12Ability9,
+            s12Ability10,
+            s12Ability11,
+            s12Ability12,
+            s12Ability13,
+            s12Ability14,
+            s12Ability15,
+            s8Ability16,
+            s8Ability17,
+            s8Ability18,
+            s8Ability19,
+            s8Ability20,
+            s8Ability21,
+            s8Ability22,
+            s8Ability23,
+            s8Ability24,
+            s8Ability25,
+            s8Ability26,
+            s8Ability27,
+            s8Ability28,
+            s8Ability29,
+            s8Ability30,
+            s8Ability31
         };
         return list.Where(s => s != "").ToList();
     }

@@ -19,7 +19,7 @@ public class TextRando : Randomizer
             string outPath = Generator.DataOutFolder + @"\txtres\resident\system\txtres_us.ztr";
             FileHelpers.CopyFile(path, outPath);
 
-            mainSysUS.Load(outPath, SetupData.Paths["Nova"]);
+            mainSysUS.Load("13-2", outPath, SetupData.Paths["Nova"]);
         }
 
         {
@@ -27,7 +27,7 @@ public class TextRando : Randomizer
             string outPath = Generator.DataOutFolder + @"\txtres\resident\game\txtres_us.ztr";
             FileHelpers.CopyFile(path, outPath);
 
-            quizUS.Load(outPath, SetupData.Paths["Nova"]);
+            quizUS.Load("13-2", outPath, SetupData.Paths["Nova"]);
         }
     }
     public override void Randomize()

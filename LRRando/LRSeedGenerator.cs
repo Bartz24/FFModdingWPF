@@ -1,5 +1,6 @@
 ﻿
 using Bartz24.Data;
+using Bartz24.FF13Series;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,11 @@ public class LRSeedGenerator : SeedGenerator
         if (string.IsNullOrEmpty(SetupData.Paths["Nova"]) || !File.Exists(SetupData.Paths["Nova"]))
         {
             throw new RandoException("NovaChrysalia.exe needs to be selected. Download Nova Chrysalia and setup the path in the '1. Setup' step.", "Nova Chrysalia not found.");
+        }
+
+        if (!Nova.IsNovaVersion2(SetupData.Paths["Nova"]))
+        {
+            throw new RandoException("Nova Chrysalia needs to be version 2.X+. Nova Chrysalia version 2.X+ is currently available as a beta. Click the download button in the '1. Setup' step to get a supported version.", "Nova Chrysalia is not version 2.X+");
         }
 
         if (!Nova.IsUnpacked("LR", @"db\resident\wdbpack.bin", SetupData.Paths["LR"]))

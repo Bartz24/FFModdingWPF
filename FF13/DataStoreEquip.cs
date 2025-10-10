@@ -4,28 +4,28 @@ namespace Bartz24.FF13;
 
 public class DataStoreEquip : DataStoreWDBEntry
 {
-    public string sPassive_string { get; set; }
+    public string sPassive { get; set; }
 
     public uint sPassive_pointer
     {
         get => Data.ReadUInt(0x8);
         set => Data.SetUInt(0x8, value);
     }
-    public string sPassiveDisplayName_string { get; set; }
+    public string sPassiveDisplayName { get; set; }
 
     public uint sPassiveDisplayName_pointer
     {
         get => Data.ReadUInt(0xC);
         set => Data.SetUInt(0xC, value);
     }
-    public string sUpgradeInto_string { get; set; }
+    public string sUpgradeInto { get; set; }
 
     public uint sUpgradeInto_pointer
     {
         get => Data.ReadUInt(0x14);
         set => Data.SetUInt(0x14, value);
     }
-    public string sHelpDisplay_string { get; set; }
+    public string sHelpDisplay { get; set; }
 
     public uint sHelpDisplay_pointer
     {

@@ -9,7 +9,7 @@ public class DataStoreBtCharaSpec : DataStoreWDBEntry
         get => Data.ReadUInt(0x0);
         set => Data.SetUInt(0x0, value);
     }
-    public string sCharaSpec_string { get; set; }
+    public string sCharaSpec { get; set; }
 
 
     public uint u24MaxHp
@@ -57,13 +57,13 @@ public class DataStoreBtCharaSpec : DataStoreWDBEntry
         get => Data.ReadUInt(0xF0);
         set => Data.SetUInt(0xF0, value);
     }
-    public string sDropItem0_string { get; set; }
+    public string sDropItem0 { get; set; }
     public uint sDropItem1_pointer
     {
         get => Data.ReadUInt(0xF4);
         set => Data.SetUInt(0xF4, value);
     }
-    public string sDropItem1_string { get; set; }
+    public string sDropItem1 { get; set; }
 
     public byte u8NumDrop
     {

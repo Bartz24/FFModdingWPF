@@ -2,10 +2,9 @@
 
 namespace Bartz24.FF13_2;
 
-public class DataStoreRGrowPc : DataStoreDB3SubEntry
+public class DataStoreRGrowPc : DataStoreWDBEntry
 {
-    public int sAbilityId_pointer { get; set; }
-    public string sAbilityId_string { get; set; }
+    public string sAbilityId { get; set; }
     public int u4Role { get; set; }
     public int u7Lv { get; set; }
     public int u3Kind { get; set; }

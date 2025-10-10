@@ -14,14 +14,14 @@ namespace LRRando;
 
 public partial class EquipRando : Randomizer
 {
-    public DataStoreDB3<DataStoreItemWeapon> itemWeapons = new();
-    public DataStoreDB3<DataStoreItem> items = new();
-    public DataStoreDB3<DataStoreItem> itemsOrig = new();
-    public DataStoreDB3<DataStoreBtAutoAbility> autoAbilities = new();
-    public DataStoreDB3<DataStoreRPassiveAbility> passiveAbilities = new();
-    public DataStoreDB3<DataStoreRItemAbi> itemAbilities = new();
-    public DataStoreDB3<DataStoreRItemAbi> itemAbilitiesOrig = new();
-    public DataStoreDB3<DataStoreRBtUpgrade> upgrades = new();
+    public DataStoreWDB<DataStoreItemWeapon> itemWeapons = new();
+    public DataStoreWDB<DataStoreItem> items = new();
+    public DataStoreWDB<DataStoreItem> itemsOrig = new();
+    public DataStoreWDB<DataStoreBtAutoAbility> autoAbilities = new();
+    public DataStoreWDB<DataStoreRPassiveAbility> passiveAbilities = new();
+    public DataStoreWDB<DataStoreRItemAbi> itemAbilities = new();
+    public DataStoreWDB<DataStoreRItemAbi> itemAbilitiesOrig = new();
+    public DataStoreWDB<DataStoreRBtUpgrade> upgrades = new();
     public readonly Dictionary<string, AbilityData> abilityData = new();
     public readonly Dictionary<string, PassiveData> passiveData = new();
     public readonly Dictionary<string, ItemData> itemData = new();
@@ -34,21 +34,21 @@ public partial class EquipRando : Randomizer
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading Equip Data...");
-        itemWeapons.LoadDB3(Generator, "LR", @"\db\resident\item_weapon.wdb");
+        itemWeapons.LoadWDB(Generator, "LR", @"\db\resident\item_weapon.wdb");
         RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 10, 100);
-        items.LoadDB3(Generator, "LR", @"\db\resident\item.wdb");
+        items.LoadWDB(Generator, "LR", @"\db\resident\item.wdb");
         RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 20, 100);
-        itemsOrig.LoadDB3(Generator, "LR", @"\db\resident\item.wdb");
+        itemsOrig.LoadWDB(Generator, "LR", @"\db\resident\item.wdb");
         RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 30, 100);
-        autoAbilities.LoadDB3(Generator, "LR", @"\db\resident\bt_auto_ability.wdb");
+        autoAbilities.LoadWDB(Generator, "LR", @"\db\resident\bt_auto_ability.wdb");
         RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 40, 100);
-        itemAbilities.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
+        itemAbilities.LoadWDB(Generator, "LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
         RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 60, 100);
-        itemAbilitiesOrig.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
+        itemAbilitiesOrig.LoadWDB(Generator, "LR", @"\db\resident\_wdbpack.bin\r_item_abi.wdb", false);
         RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 70, 100);
-        passiveAbilities.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_pasv_ablty.wdb", false);
+        passiveAbilities.LoadWDB(Generator, "LR", @"\db\resident\_wdbpack.bin\r_pasv_ablty.wdb", false);
         RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 80, 100);
-        upgrades.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb", false);
+        upgrades.LoadWDB(Generator, "LR", @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb", false);
 
         FileHelpers.ReadCSVFile(@"data\passives.csv", row =>
         {
@@ -106,7 +106,7 @@ public partial class EquipRando : Randomizer
             RandomizeUpgrades();
             RandomNum.ClearRand();
 
-            itemWeapons.Values.Where(w => !upgrades.Keys.Contains(w.sUpgradeId_string)).ForEach(w => w.sUpgradeId_string = "");
+            itemWeapons.Values.Where(w => !upgrades.Keys.Contains(w.sUpgradeId)).ForEach(w => w.sUpgradeId = "");
         }
 
         RandoUI.SetUIProgressDeterminate("Randomizing Equip Data...", 40, 100);
@@ -126,10 +126,10 @@ public partial class EquipRando : Randomizer
             RandomNum.ClearRand();
         }
 
-        itemWeapons.Values.Where(a => a.u4AccessoryPos > 0 && items.Keys.Contains(a.name)).ForEach(a =>
+        itemWeapons.Values.Where(a => a.u4AccessoryPos > 0 && items.Keys.Contains(a.record)).ForEach(a =>
         {
-            items[a.name].uPurchasePrice = 50000;
-            items[a.name].u1OnlyOne = 1;
+            items[a.record].uPurchasePrice = 50000;
+            items[a.record].u1OnlyOne = 1;
         });
     }
 
@@ -138,23 +138,23 @@ public partial class EquipRando : Randomizer
         foreach (DataStoreItemWeapon garb in itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Costume))
         {
             string forceWeaponType = "";
-            if (garb.name == "cos_ba00")
+            if (garb.record == "cos_ba00")
             {
                 forceWeaponType = "wea_ea08";
             }
 
-            if (garb.name == "cos_ca00")
+            if (garb.record == "cos_ca00")
             {
                 forceWeaponType = "wea_ca00";
             }
 
             do
             {
-                garb.sCosAbilityCir_string = RandomizeAbility(garb.sCosAbilityCir_string, forceWeaponType == "" ? -1 : itemWeapons[forceWeaponType].i16AttackModVal > itemWeapons[forceWeaponType].i16MagicModVal ? 26 : 27);
-                garb.sCosAbilityCro_string = RandomizeAbility(garb.sCosAbilityCro_string, -1);
-                garb.sCosAbilityTri_string = RandomizeAbility(garb.sCosAbilityTri_string, -1);
-                garb.sCosAbilitySqu_string = RandomizeAbility(garb.sCosAbilitySqu_string, -1);
-            } while (new string[] { garb.sCosAbilityCir_string, garb.sCosAbilityCro_string, garb.sCosAbilityTri_string, garb.sCosAbilitySqu_string }.Distinct().Where(x => x.StartsWith("abi_")).GroupBy(x => itemAbilities[x].sAbilityId_string).Any(g => g.Count() > 1));
+                garb.sCosAbilityCir = RandomizeAbility(garb.sCosAbilityCir, forceWeaponType == "" ? -1 : itemWeapons[forceWeaponType].i16AttackModVal > itemWeapons[forceWeaponType].i16MagicModVal ? 26 : 27);
+                garb.sCosAbilityCro = RandomizeAbility(garb.sCosAbilityCro, -1);
+                garb.sCosAbilityTri = RandomizeAbility(garb.sCosAbilityTri, -1);
+                garb.sCosAbilitySqu = RandomizeAbility(garb.sCosAbilitySqu, -1);
+            } while (new string[] { garb.sCosAbilityCir, garb.sCosAbilityCro, garb.sCosAbilityTri, garb.sCosAbilitySqu }.Distinct().Where(x => x.StartsWith("abi_")).GroupBy(x => itemAbilities[x].sAbilityId).Any(g => g.Count() > 1));
         }
     }
 
@@ -167,11 +167,11 @@ public partial class EquipRando : Randomizer
             string newAbility = possible.ElementAt(RandomNum.RandInt(0, possible.Count - 1));
             if (name.StartsWith("abi_") && !name.EndsWith("zz99"))
             {
-                string origAbility = itemAbilities[name].sAbilityId_string;
-                itemAbilities[name].sAbilityId_string = newAbility;
-                items[name].sItemNameStringId_string = "";
-                items[name].sHelpStringId_string = "";
-                items[name].sScriptId_string = "";
+                string origAbility = itemAbilities[name].sAbilityId;
+                itemAbilities[name].sAbilityId = newAbility;
+                items[name].sItemNameStringId = "";
+                items[name].sHelpStringId = "";
+                items[name].sScriptId = "";
                 items[name].u8MenuIcon = abilityData[newAbility].MenuIcon;
 
                 if (itemAbilities[name].u4Lv < 1)
@@ -205,9 +205,9 @@ public partial class EquipRando : Randomizer
 
     public List<DataStoreItem> GetAbilities(int forceType)
     {
-        List<string> list = itemsOrig.Values.Where(i => IsAbility(i) && (forceType == -1 || i.u8MenuIcon == forceType)).Select(i => i.name).ToList();
+        List<string> list = itemsOrig.Values.Where(i => IsAbility(i) && (forceType == -1 || i.u8MenuIcon == forceType)).Select(i => i.record).ToList();
 
-        return list.Select(s => itemsOrig[s]).GroupBy(i => i.sScriptId_string).Select(g => g.First()).ToList();
+        return list.Select(s => itemsOrig[s]).GroupBy(i => i.sScriptId).Select(g => g.First()).ToList();
     }
 
     public bool IsAbility(string item)
@@ -217,7 +217,7 @@ public partial class EquipRando : Randomizer
 
     public bool IsAbility(DataStoreItem item)
     {
-        return item.u8ItemCategory == (int)ItemCategory.Ability && !item.name.StartsWith("abi_");
+        return item.u8ItemCategory == (int)ItemCategory.Ability && !item.record.StartsWith("abi_");
     }
 
     private void RandomizeStats()
@@ -243,15 +243,15 @@ public partial class EquipRando : Randomizer
             garb.i16AtbStartModVal = 100;
             */
 
-            if (items.Keys.Contains(garb.name) && items[garb.name].uPurchasePrice == 0)
+            if (items.Keys.Contains(garb.record) && items[garb.record].uPurchasePrice == 0)
             {
-                items[garb.name].uPurchasePrice = 50000;
+                items[garb.record].uPurchasePrice = 50000;
             }
         }
 
         foreach (DataStoreItemWeapon weapon in itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Weapon && w.u4AccessoryPos == 0))
         {
-            bool starting = weapon.name is "wea_ea08" or "wea_ca00";
+            bool starting = weapon.record is "wea_ea08" or "wea_ca00";
 
             StatPoints statPoints;
             do
@@ -289,7 +289,7 @@ public partial class EquipRando : Randomizer
 
         foreach (DataStoreItemWeapon shield in itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Shield))
         {
-            bool starting = shield.name is "shi_ea08" or "shi_ca00";
+            bool starting = shield.record is "shi_ea08" or "shi_ca00";
 
             StatPoints statPoints;
             do
@@ -352,7 +352,7 @@ public partial class EquipRando : Randomizer
                 new int[] { 1, 1, 1 },
                 new int[] { 5, 5, 5 } };
 
-            DataStoreRBtUpgrade[] shieldUpgrades = GetAndRegisterBlankUpgrades(shield.name);
+            DataStoreRBtUpgrade[] shieldUpgrades = GetAndRegisterBlankUpgrades(shield.record);
             if (shield.u16UpgradeLimit < 10)
             {
                 shield.u16UpgradeLimit = 10;
@@ -419,7 +419,7 @@ public partial class EquipRando : Randomizer
                 DataStoreRBtUpgrade upgrade = shieldUpgrades[type];
                 if (currentStats[0] > baseStats[0])
                 {
-                    upgrade.sPhyAtkItemId_string = mats[type];
+                    upgrade.sPhyAtkItemId = mats[type];
                     upgrade.uPhyAtkGil = gilVals[type];
                     upgrade.i16PhyAtkLimit += baseStats[0];
                     upgrade.u8PhyAtkItemCount = 1;
@@ -427,7 +427,7 @@ public partial class EquipRando : Randomizer
 
                 if (currentStats[1] > baseStats[1])
                 {
-                    upgrade.sMagAtkItemId_string = mats[type];
+                    upgrade.sMagAtkItemId = mats[type];
                     upgrade.uMagAtkGil = gilVals[type];
                     upgrade.i16MagAtkLimit += baseStats[1];
                     upgrade.u8MagAtkItemCount = 1;
@@ -435,7 +435,7 @@ public partial class EquipRando : Randomizer
 
                 if (currentStats[2] > baseStats[2])
                 {
-                    upgrade.sMaxHpItemId_string = mats[type];
+                    upgrade.sMaxHpItemId = mats[type];
                     upgrade.uMaxHpGil = gilVals[type];
                     upgrade.i16MaxHpLimit += baseStats[2];
                     upgrade.u8MaxHpItemCount = 1;
@@ -443,7 +443,7 @@ public partial class EquipRando : Randomizer
 
                 if (currentStats[3] > baseStats[3])
                 {
-                    upgrade.sAtbSpdItemId_string = mats[type];
+                    upgrade.sAtbSpdItemId = mats[type];
                     upgrade.uAtbSpdGil = gilVals[type];
                     upgrade.i16AtbSpdLimit += baseStats[3];
                     upgrade.u8AtbSpdItemCount = 1;
@@ -451,7 +451,7 @@ public partial class EquipRando : Randomizer
 
                 if (currentStats[4] > baseStats[4])
                 {
-                    upgrade.sGuardItemId_string = mats[type];
+                    upgrade.sGuardItemId = mats[type];
                     upgrade.uGuardGil = gilVals[type];
                     upgrade.i16GuardLimit += baseStats[4];
                     upgrade.u8GuardItemCount = 1;
@@ -483,7 +483,7 @@ public partial class EquipRando : Randomizer
                 new int[] { 1, 1, 1 },
                 new int[] { 1, 1, 1 } };
 
-            DataStoreRBtUpgrade[] weaponUpgrades = GetAndRegisterBlankUpgrades(weapon.name);
+            DataStoreRBtUpgrade[] weaponUpgrades = GetAndRegisterBlankUpgrades(weapon.record);
             if (weapon.u16UpgradeLimit < 10)
             {
                 weapon.u16UpgradeLimit = 10;
@@ -550,7 +550,7 @@ public partial class EquipRando : Randomizer
                 DataStoreRBtUpgrade upgrade = weaponUpgrades[type];
                 if (currentStats[0] > baseStats[0])
                 {
-                    upgrade.sPhyAtkItemId_string = mats[type];
+                    upgrade.sPhyAtkItemId = mats[type];
                     upgrade.uPhyAtkGil = gilVals[type];
                     upgrade.i16PhyAtkLimit += baseStats[0];
                     upgrade.u8PhyAtkItemCount = 1;
@@ -558,7 +558,7 @@ public partial class EquipRando : Randomizer
 
                 if (currentStats[1] > baseStats[1])
                 {
-                    upgrade.sMagAtkItemId_string = mats[type];
+                    upgrade.sMagAtkItemId = mats[type];
                     upgrade.uMagAtkGil = gilVals[type];
                     upgrade.i16MagAtkLimit += baseStats[1];
                     upgrade.u8MagAtkItemCount = 1;
@@ -566,7 +566,7 @@ public partial class EquipRando : Randomizer
 
                 if (currentStats[2] > baseStats[2])
                 {
-                    upgrade.sMaxHpItemId_string = mats[type];
+                    upgrade.sMaxHpItemId = mats[type];
                     upgrade.uMaxHpGil = gilVals[type];
                     upgrade.i16MaxHpLimit += baseStats[2];
                     upgrade.u8MaxHpItemCount = 1;
@@ -574,7 +574,7 @@ public partial class EquipRando : Randomizer
 
                 if (currentStats[3] > baseStats[3])
                 {
-                    upgrade.sAtbSpdItemId_string = mats[type];
+                    upgrade.sAtbSpdItemId = mats[type];
                     upgrade.uAtbSpdGil = gilVals[type];
                     upgrade.i16AtbSpdLimit += baseStats[3];
                     upgrade.u8AtbSpdItemCount = 1;
@@ -582,7 +582,7 @@ public partial class EquipRando : Randomizer
 
                 if (currentStats[4] > baseStats[4])
                 {
-                    upgrade.sBrkBonusItemId_string = mats[type];
+                    upgrade.sBrkBonusItemId = mats[type];
                     upgrade.uBrkBonusGil = gilVals[type];
                     upgrade.i16BrkBonusLimit += baseStats[4];
                     upgrade.u8BrkBonusItemCount = 1;
@@ -604,18 +604,18 @@ public partial class EquipRando : Randomizer
                 }
             }
 
-            upgrade.name = $"{name}_{i}";
+            upgrade.record = $"{name}_{i}";
             if (i < 2)
             {
-                upgrade.sNextId_string = $"{name}_{i + 1}";
+                upgrade.sNextId = $"{name}_{i + 1}";
             }
 
             upgrade.u2Rank = i;
 
-            upgrades.Add(upgrade, 104);
+            upgrades.Add(upgrade);
             if (i == 0)
             {
-                itemWeapons[name].sUpgradeId_string = upgrade.name;
+                itemWeapons[name].sUpgradeId = upgrade.record;
             }
 
             return upgrade;
@@ -625,55 +625,55 @@ public partial class EquipRando : Randomizer
     private void RandomizePassives()
     {
         List<DataStoreBtAutoAbility> filteredAbilities = GetFilteredAbilities();
-        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility_string != ""))
+        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility != ""))
         {
-            equip.sAbility_string = filteredAbilities.ElementAt(RandomNum.RandInt(0, filteredAbilities.Count - 1)).name;
+            equip.sAbility = filteredAbilities.ElementAt(RandomNum.RandInt(0, filteredAbilities.Count - 1)).record;
         }
 
-        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility2_string != ""))
+        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility2 != ""))
         {
-            IEnumerable<DataStoreBtAutoAbility> enumerable = filteredAbilities.Where(a => a.name != equip.sAbility_string);
-            equip.sAbility2_string = enumerable.ElementAt(RandomNum.RandInt(0, enumerable.Count() - 1)).name;
+            IEnumerable<DataStoreBtAutoAbility> enumerable = filteredAbilities.Where(a => a.record != equip.sAbility);
+            equip.sAbility2 = enumerable.ElementAt(RandomNum.RandInt(0, enumerable.Count() - 1)).record;
         }
 
-        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility3_string != ""))
+        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility3 != ""))
         {
-            IEnumerable<DataStoreBtAutoAbility> enumerable = filteredAbilities.Where(a => a.name != equip.sAbility_string && a.name != equip.sAbility2_string);
-            equip.sAbility3_string = enumerable.ElementAt(RandomNum.RandInt(0, enumerable.Count() - 1)).name;
+            IEnumerable<DataStoreBtAutoAbility> enumerable = filteredAbilities.Where(a => a.record != equip.sAbility && a.record != equip.sAbility2);
+            equip.sAbility3 = enumerable.ElementAt(RandomNum.RandInt(0, enumerable.Count() - 1)).record;
         }
 
         foreach (DataStoreItemWeapon garb in itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Costume))
         {
-            RandomizeGarbPassive(garb.sCosAbilityCir_string);
-            RandomizeGarbPassive(garb.sCosAbilityCro_string);
-            RandomizeGarbPassive(garb.sCosAbilityTri_string);
-            RandomizeGarbPassive(garb.sCosAbilitySqu_string);
+            RandomizeGarbPassive(garb.sCosAbilityCir);
+            RandomizeGarbPassive(garb.sCosAbilityCro);
+            RandomizeGarbPassive(garb.sCosAbilityTri);
+            RandomizeGarbPassive(garb.sCosAbilitySqu);
         }
     }
 
     private void RandomizeUpgradePassives()
     {
         int[] gilVals = { 20, 50, 100 };
-        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => upgrades.Keys.Contains(w.sUpgradeId_string)))
+        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => upgrades.Keys.Contains(w.sUpgradeId)))
         {
-            DataStoreRBtUpgrade next = upgrades[equip.sUpgradeId_string];
+            DataStoreRBtUpgrade next = upgrades[equip.sUpgradeId];
             List<DataStoreRBtUpgrade> nextUpgrades = new();
             do
             {
                 nextUpgrades.Add(next);
-                next = upgrades.Keys.Contains(next.sNextId_string) ? upgrades[next.sNextId_string] : null;
+                next = upgrades.Keys.Contains(next.sNextId) ? upgrades[next.sNextId] : null;
             } while (next != null);
 
-            if (equip.sAbility_string != "" && passiveData[equip.sAbility_string].UpgradeInto.Count > 0)
+            if (equip.sAbility != "" && passiveData[equip.sAbility].UpgradeInto.Count > 0)
             {
-                List<(string, int)> abiVals = GetRandomPassiveUpgrades(equip.sAbility_string, nextUpgrades.Count);
+                List<(string, int)> abiVals = GetRandomPassiveUpgrades(equip.sAbility, nextUpgrades.Count);
                 for (int i = 0; i < nextUpgrades.Count; i++)
                 {
                     nextUpgrades[i].i16Abi1Limit = abiVals[i].Item2;
                     nextUpgrades[i].uAbi1Gil = gilVals[i];
                     nextUpgrades[i].u8Abi1ItemCount = 1;
-                    nextUpgrades[i].sAbi1Id_string = abiVals[i].Item1;
-                    nextUpgrades[i].sAbi1ItemId_string = GetMaterialForUpgrade(nextUpgrades[i]);
+                    nextUpgrades[i].sAbi1Id = abiVals[i].Item1;
+                    nextUpgrades[i].sAbi1ItemId = GetMaterialForUpgrade(nextUpgrades[i]);
                 }
             }
             else
@@ -683,21 +683,21 @@ public partial class EquipRando : Randomizer
                     nextUpgrades[i].i16Abi1Limit = 0;
                     nextUpgrades[i].uAbi1Gil = 0;
                     nextUpgrades[i].u8Abi1ItemCount = 0;
-                    nextUpgrades[i].sAbi1Id_string = "";
-                    nextUpgrades[i].sAbi1ItemId_string = "";
+                    nextUpgrades[i].sAbi1Id = "";
+                    nextUpgrades[i].sAbi1ItemId = "";
                 }
             }
 
-            if (equip.sAbility2_string != "" && passiveData[equip.sAbility2_string].UpgradeInto.Count > 0)
+            if (equip.sAbility2 != "" && passiveData[equip.sAbility2].UpgradeInto.Count > 0)
             {
-                List<(string, int)> abiVals = GetRandomPassiveUpgrades(equip.sAbility2_string, nextUpgrades.Count);
+                List<(string, int)> abiVals = GetRandomPassiveUpgrades(equip.sAbility2, nextUpgrades.Count);
                 for (int i = 0; i < nextUpgrades.Count; i++)
                 {
                     nextUpgrades[i].i16Abi2Limit = abiVals[i].Item2;
                     nextUpgrades[i].uAbi2Gil = gilVals[i];
                     nextUpgrades[i].u8Abi2ItemCount = 1;
-                    nextUpgrades[i].sAbi2Id_string = abiVals[i].Item1;
-                    nextUpgrades[i].sAbi2ItemId_string = GetMaterialForUpgrade(nextUpgrades[i]);
+                    nextUpgrades[i].sAbi2Id = abiVals[i].Item1;
+                    nextUpgrades[i].sAbi2ItemId = GetMaterialForUpgrade(nextUpgrades[i]);
                 }
             }
             else
@@ -707,8 +707,8 @@ public partial class EquipRando : Randomizer
                     nextUpgrades[i].i16Abi2Limit = 0;
                     nextUpgrades[i].uAbi2Gil = 0;
                     nextUpgrades[i].u8Abi2ItemCount = 0;
-                    nextUpgrades[i].sAbi2Id_string = "";
-                    nextUpgrades[i].sAbi2ItemId_string = "";
+                    nextUpgrades[i].sAbi2Id = "";
+                    nextUpgrades[i].sAbi2ItemId = "";
                 }
             }
         }
@@ -750,7 +750,7 @@ public partial class EquipRando : Randomizer
 
     private string GetMaterialForUpgrade(DataStoreRBtUpgrade upgrade)
     {
-        string[] mats = { upgrade.sAbi1ItemId_string, upgrade.sAbi2ItemId_string, upgrade.sAtbSpdItemId_string, upgrade.sBrkBonusItemId_string, upgrade.sGuardItemId_string, upgrade.sMagAtkItemId_string, upgrade.sMaxHpItemId_string, upgrade.sPhyAtkItemId_string };
+        string[] mats = { upgrade.sAbi1ItemId, upgrade.sAbi2ItemId, upgrade.sAtbSpdItemId, upgrade.sBrkBonusItemId, upgrade.sGuardItemId, upgrade.sMagAtkItemId, upgrade.sMaxHpItemId, upgrade.sPhyAtkItemId };
         return mats.First(s => s != "" && s.StartsWith("mat_cus"));
     }
 
@@ -761,18 +761,18 @@ public partial class EquipRando : Randomizer
             if (RandomNum.RandInt(0, 99) < 15)
             {
                 List<DataStoreBtAutoAbility> filteredAbilities = GetFilteredAbilities();
-                itemAbilities[name].sPasvAbility_string = filteredAbilities.ElementAt(RandomNum.RandInt(0, filteredAbilities.Count - 1)).name;
+                itemAbilities[name].sPasvAbility = filteredAbilities.ElementAt(RandomNum.RandInt(0, filteredAbilities.Count - 1)).record;
             }
             else
             {
-                itemAbilities[name].sPasvAbility_string = "";
+                itemAbilities[name].sPasvAbility = "";
             }
         }
     }
 
     public List<DataStoreBtAutoAbility> GetFilteredAbilities()
     {
-        return autoAbilities.Values.Where(a => passiveData.Keys.Contains(a.name)).ToList();
+        return autoAbilities.Values.Where(a => passiveData.Keys.Contains(a.record)).ToList();
     }
 
     public override void Save()
@@ -786,40 +786,18 @@ public partial class EquipRando : Randomizer
         itemAbilities.Values.Where(i => i.i8AtbDec < 0).ForEach(i => i.i8AtbDec += 256);
 
         RandoUI.SetUIProgressIndeterminate("Saving Equip Data...");
-        itemWeapons.SaveDB3(Generator, @"\db\resident\item_weapon.wdb");
+        itemWeapons.SaveWDB(Generator, @"\db\resident\item_weapon.wdb");
         RandoUI.SetUIProgressDeterminate("Saving Equip Data...", 20, 100);
-        items.SaveDB3(Generator, @"\db\resident\item.wdb");
+        items.SaveWDB(Generator, @"\db\resident\item.wdb");
         RandoUI.SetUIProgressDeterminate("Saving Equip Data...", 40, 100);
-        itemAbilities.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_item_abi.wdb");
+        itemAbilities.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_item_abi.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_item_abi.wdb");
         RandoUI.SetUIProgressDeterminate("Saving Equip Data...", 80, 100);
-        autoAbilities.DeleteDB3(Generator, @"\db\resident\bt_auto_ability.db3");
-        passiveAbilities.DeleteDB3(Generator, @"\db\resident\_wdbpack.bin\r_pasv_ablty.db3");
+        autoAbilities.DeleteWDB(Generator, @"\db\resident\bt_auto_ability.db3");
+        passiveAbilities.DeleteWDB(Generator, @"\db\resident\_wdbpack.bin\r_pasv_ablty.db3");
         RandoUI.SetUIProgressDeterminate("Saving Equip Data...", 90, 100);
-        upgrades.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb");
+        upgrades.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_bt_upgrade.wdb");
-        TempSaveFix();
-    }
-
-    private void TempSaveFix()
-    {
-        byte[] data = File.ReadAllBytes(Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb");
-
-        uint startUpgradeData = data.ReadUInt(0xE0);
-        if (data.ReadUInt(0x100) - startUpgradeData == 0x64)
-        {
-            List<DataStoreRBtUpgrade> values = upgrades.Values.ToList();
-            for (int i = 0; i < values.Count; i++)
-            {
-                data.SetUInt(0xE0 + (0x20 * i), (uint)(startUpgradeData + (0x68 * i)));
-                data.SetUInt((int)startUpgradeData + (0x68 * i), (uint)values[i].sNextId_pointer);
-                byte[] missingBytes = new byte[4];
-                missingBytes.SetUInt(0, (uint)values[i].u8Abi2ItemCount);
-                data = data.SubArray(0, (int)startUpgradeData + (0x68 * i) + 0x64).Concat(missingBytes).Concat(data.SubArray((int)startUpgradeData + (0x68 * i) + 0x64, data.Length - ((int)startUpgradeData + (0x68 * i) + 0x64)));
-            }
-
-            File.WriteAllBytes(Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_bt_upgrade.wdb", data);
-        }
     }
 
     public override Dictionary<string, HTMLPage> GetDocumentation()
@@ -830,53 +808,53 @@ public partial class EquipRando : Randomizer
 
         HTMLPage page = new("Equipment", "template/documentation.html");
 
-        page.HTMLElements.Add(new Table("Garbs", (new string[] { "Name", "Maximum ATB", "Default ATB", "Locked Abilities", "Passives" }).ToList(), (new int[] { 15, 10, 10, 30, 35 }).ToList(), itemWeapons.Values.Where(g => g.u4WeaponKind == (int)WeaponKind.Costume && items.Keys.Contains(g.name)).Select(g =>
+        page.HTMLElements.Add(new Table("Garbs", (new string[] { "Name", "Maximum ATB", "Default ATB", "Locked Abilities", "Passives" }).ToList(), (new int[] { 15, 10, 10, 30, 35 }).ToList(), itemWeapons.Values.Where(g => g.u4WeaponKind == (int)WeaponKind.Costume && items.Keys.Contains(g.record)).Select(g =>
         {
-            string name = GetItemName(g.name);
+            string name = GetItemName(g.record);
             List<string> passiveNames = GetEquipPassivesDocs(g);
             List<string> abilityNames = new();
-            if (g.sCosAbilityCir_string != "")
+            if (g.sCosAbilityCir != "")
             {
-                abilityNames.Add(GetAbilityName(g.sCosAbilityCir_string));
+                abilityNames.Add(GetAbilityName(g.sCosAbilityCir));
             }
 
-            if (g.sCosAbilityCro_string != "")
+            if (g.sCosAbilityCro != "")
             {
-                abilityNames.Add(GetAbilityName(g.sCosAbilityCro_string));
+                abilityNames.Add(GetAbilityName(g.sCosAbilityCro));
             }
 
-            if (g.sCosAbilitySqu_string != "")
+            if (g.sCosAbilitySqu != "")
             {
-                abilityNames.Add(GetAbilityName(g.sCosAbilitySqu_string));
+                abilityNames.Add(GetAbilityName(g.sCosAbilitySqu));
             }
 
-            if (g.sCosAbilityTri_string != "")
+            if (g.sCosAbilityTri != "")
             {
-                abilityNames.Add(GetAbilityName(g.sCosAbilityTri_string));
+                abilityNames.Add(GetAbilityName(g.sCosAbilityTri));
             }
 
             return new string[] { name, g.i16AtbModVal.ToString(), g.i16AtbStartModVal.ToString(), string.Join(", ", abilityNames), string.Join(", ", passiveNames) }.ToList();
         }).ToList()));
 
-        page.HTMLElements.Add(new Table("Weapons", (new string[] { "Name", "Strength", "Magic", "HP", "ATB Speed", "Stagger Power", "Passives" }).ToList(), (new int[] { 15, 10, 10, 10, 10, 10, 35 }).ToList(), itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Weapon && w.u4AccessoryPos == 0 && items.Keys.Contains(w.name)).Select(w =>
+        page.HTMLElements.Add(new Table("Weapons", (new string[] { "Name", "Strength", "Magic", "HP", "ATB Speed", "Stagger Power", "Passives" }).ToList(), (new int[] { 15, 10, 10, 10, 10, 10, 35 }).ToList(), itemWeapons.Values.Where(w => w.u4WeaponKind == (int)WeaponKind.Weapon && w.u4AccessoryPos == 0 && items.Keys.Contains(w.record)).Select(w =>
         {
-            string name = GetItemName(w.name);
+            string name = GetItemName(w.record);
             List<string> passiveNames = GetEquipPassivesDocs(w);
 
             return new string[] { name, w.i16AttackModVal.ToString(), w.i16MagicModVal.ToString(), w.i16HpModVal.ToString(), w.i16AtbSpeedModVal.ToString(), w.iBreakBonus.ToString(), string.Join(", ", passiveNames) }.ToList();
         }).ToList()));
 
-        page.HTMLElements.Add(new Table("Shields", (new string[] { "Name", "Strength", "Magic", "HP", "ATB Speed", "Guard Defense", "Passives" }).ToList(), (new int[] { 15, 10, 10, 10, 10, 10, 35 }).ToList(), itemWeapons.Values.Where(s => s.u4WeaponKind == (int)WeaponKind.Shield && items.Keys.Contains(s.name)).Select(s =>
+        page.HTMLElements.Add(new Table("Shields", (new string[] { "Name", "Strength", "Magic", "HP", "ATB Speed", "Guard Defense", "Passives" }).ToList(), (new int[] { 15, 10, 10, 10, 10, 10, 35 }).ToList(), itemWeapons.Values.Where(s => s.u4WeaponKind == (int)WeaponKind.Shield && items.Keys.Contains(s.record)).Select(s =>
         {
-            string name = GetItemName(s.name);
+            string name = GetItemName(s.record);
             List<string> passiveNames = GetEquipPassivesDocs(s);
 
             return new string[] { name, s.i16AttackModVal.ToString(), s.i16MagicModVal.ToString(), s.i16HpModVal.ToString(), s.i16AtbSpeedModVal.ToString(), s.iGuardModVal.ToString(), string.Join(", ", passiveNames) }.ToList();
         }).ToList()));
 
-        page.HTMLElements.Add(new Table("Accessories", (new string[] { "Name", "Passives" }).ToList(), (new int[] { 15, 85 }).ToList(), itemWeapons.Values.Where(s => s.u4AccessoryPos > 0 && items.Keys.Contains(s.name)).Select(s =>
+        page.HTMLElements.Add(new Table("Accessories", (new string[] { "Name", "Passives" }).ToList(), (new int[] { 15, 85 }).ToList(), itemWeapons.Values.Where(s => s.u4AccessoryPos > 0 && items.Keys.Contains(s.record)).Select(s =>
         {
-            string name = GetItemName(s.name);
+            string name = GetItemName(s.record);
             List<string> passiveNames = GetEquipPassivesDocs(s);
 
             return new string[] { name, string.Join(", ", passiveNames) }.ToList();
@@ -892,39 +870,39 @@ public partial class EquipRando : Randomizer
     private List<string> GetEquipPassivesDocs(DataStoreItemWeapon w)
     {
         List<string> passiveNames = new();
-        if (w.sAbility_string != "")
+        if (w.sAbility != "")
         {
-            passiveNames.Add(GetPassiveName(w.sAbility_string));
+            passiveNames.Add(GetPassiveName(w.sAbility));
         }
 
-        if (w.sAbility2_string != "")
+        if (w.sAbility2 != "")
         {
-            passiveNames.Add(GetPassiveName(w.sAbility2_string));
+            passiveNames.Add(GetPassiveName(w.sAbility2));
         }
 
-        if (w.sAbility3_string != "")
+        if (w.sAbility3 != "")
         {
-            passiveNames.Add(GetPassiveName(w.sAbility3_string));
+            passiveNames.Add(GetPassiveName(w.sAbility3));
         }
 
-        if (w.sCosAbilityCir_string != "" && itemAbilities.Keys.Contains(w.sCosAbilityCir_string) && itemAbilities[w.sCosAbilityCir_string].sPasvAbility_string != "")
+        if (w.sCosAbilityCir != "" && itemAbilities.Keys.Contains(w.sCosAbilityCir) && itemAbilities[w.sCosAbilityCir].sPasvAbility != "")
         {
-            passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilityCir_string].sPasvAbility_string));
+            passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilityCir].sPasvAbility));
         }
 
-        if (w.sCosAbilityCro_string != "" && itemAbilities.Keys.Contains(w.sCosAbilityCro_string) && itemAbilities[w.sCosAbilityCro_string].sPasvAbility_string != "")
+        if (w.sCosAbilityCro != "" && itemAbilities.Keys.Contains(w.sCosAbilityCro) && itemAbilities[w.sCosAbilityCro].sPasvAbility != "")
         {
-            passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilityCro_string].sPasvAbility_string));
+            passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilityCro].sPasvAbility));
         }
 
-        if (w.sCosAbilityTri_string != "" && itemAbilities.Keys.Contains(w.sCosAbilityTri_string) && itemAbilities[w.sCosAbilityTri_string].sPasvAbility_string != "")
+        if (w.sCosAbilityTri != "" && itemAbilities.Keys.Contains(w.sCosAbilityTri) && itemAbilities[w.sCosAbilityTri].sPasvAbility != "")
         {
-            passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilityTri_string].sPasvAbility_string));
+            passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilityTri].sPasvAbility));
         }
 
-        if (w.sCosAbilitySqu_string != "" && itemAbilities.Keys.Contains(w.sCosAbilitySqu_string) && itemAbilities[w.sCosAbilitySqu_string].sPasvAbility_string != "")
+        if (w.sCosAbilitySqu != "" && itemAbilities.Keys.Contains(w.sCosAbilitySqu) && itemAbilities[w.sCosAbilitySqu].sPasvAbility != "")
         {
-            passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilitySqu_string].sPasvAbility_string));
+            passiveNames.Add(GetPassiveName(itemAbilities[w.sCosAbilitySqu].sPasvAbility));
         }
 
         return passiveNames;
@@ -941,11 +919,11 @@ public partial class EquipRando : Randomizer
         }
         else if (abilityRando.abilities.Keys.Contains(itemID))
         {
-            name = textRando.mainSysUS[abilityRando.abilities[itemID].sStringResId_string];
+            name = textRando.mainSysUS[abilityRando.abilities[itemID].sStringResId];
         }
-        else if (items.Keys.Contains(itemID) && textRando.mainSysUS.Keys.Contains(items[itemID].sItemNameStringId_string))
+        else if (items.Keys.Contains(itemID) && textRando.mainSysUS.Keys.Contains(items[itemID].sItemNameStringId))
         {
-            name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
+            name = textRando.mainSysUS[items[itemID].sItemNameStringId];
             if (name.Contains("{End}"))
             {
                 name = name.Substring(0, name.IndexOf("{End}"));
@@ -963,13 +941,13 @@ public partial class EquipRando : Randomizer
     {
         TextRando textRando = Generator.Get<TextRando>();
         string name = "";
-        if (autoAbilities[passiveID].sStringResId_string != "" && textRando.mainSysUS.Keys.Contains(autoAbilities[passiveID].sStringResId_string))
+        if (autoAbilities[passiveID].sStringResId != "" && textRando.mainSysUS.Keys.Contains(autoAbilities[passiveID].sStringResId))
         {
-            name = textRando.mainSysUS[autoAbilities[passiveID].sStringResId_string];
+            name = textRando.mainSysUS[autoAbilities[passiveID].sStringResId];
         }
-        else if (autoAbilities[passiveID].sAutoAblArgStr0_string != "")
+        else if (autoAbilities[passiveID].sAutoAblArgStr0 != "")
         {
-            name = textRando.mainSysUS[passiveAbilities[autoAbilities[passiveID].sAutoAblArgStr0_string].sStringResId_string];
+            name = textRando.mainSysUS[passiveAbilities[autoAbilities[passiveID].sAutoAblArgStr0].sStringResId];
         }
 
         if (name.Contains("{End}"))
@@ -991,12 +969,12 @@ public partial class EquipRando : Randomizer
         string name = "";
         if (abilityRando.abilities.Keys.Contains(abilityID))
         {
-            name = textRando.mainSysUS[abilityRando.abilities[abilityID].sStringResId_string];
+            name = textRando.mainSysUS[abilityRando.abilities[abilityID].sStringResId];
             name += " Lv. " + abilityRando.abilities[abilityID].u4Lv;
         }
-        else if (itemAbilities[abilityID].sAbilityId_string != "" && abilityRando.abilities.Keys.Contains(itemAbilities[abilityID].sAbilityId_string))
+        else if (itemAbilities[abilityID].sAbilityId != "" && abilityRando.abilities.Keys.Contains(itemAbilities[abilityID].sAbilityId))
         {
-            name = textRando.mainSysUS[abilityRando.abilities[itemAbilities[abilityID].sAbilityId_string].sStringResId_string];
+            name = textRando.mainSysUS[abilityRando.abilities[itemAbilities[abilityID].sAbilityId].sStringResId];
             name += " Lv. " + itemAbilities[abilityID].u4Lv;
         }
 

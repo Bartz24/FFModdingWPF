@@ -2,8 +2,7 @@
 
 namespace Bartz24.LR;
 
-public class DataStoreRStyles : DataStoreDB3SubEntry
+public class DataStoreRStyles : DataStoreWDBEntry
 {
-    public int sResourceId_pointer { get; set; }
-    public string sResourceId_string { get; set; }
-}
+    public string sResourceId { get; set; }
+    }

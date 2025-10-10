@@ -11,18 +11,18 @@ namespace LRRando;
 
 public class QuestRando : Randomizer
 {
-    public DataStoreDB3<DataStoreRQuest> questRewards = new();
-    public DataStoreDB3<DataStoreRQuestCtrl> questRequirements = new();
+    public DataStoreWDB<DataStoreRQuest> questRewards = new();
+    public DataStoreWDB<DataStoreRQuestCtrl> questRequirements = new();
 
     public QuestRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading Quest Data...");
-        questRewards.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_quest.wdb", false);
+        questRewards.LoadWDB(Generator, "LR", @"\db\resident\_wdbpack.bin\r_quest.wdb", false);
         FileHelpers.CopyFile(Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb", Generator.DataOutFolder + @"\db\resident\_wdbpack.bin\r_quest.wdb.orig");
         RandoUI.SetUIProgressDeterminate("Loading Quest Data...", 50, 100);
-        questRequirements.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb", false);
+        questRequirements.LoadWDB(Generator, "LR", @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb", false);
 
         questRewards["qst_062"].iMaxGp = 2000;
         questRewards["qst_046"].iItemBagSize = 1;
@@ -100,17 +100,17 @@ public class QuestRando : Randomizer
         {
             questRequirements.Values.Where(q => q.iQuestIndex >= 1000).ForEach(q =>
               {
-                  if (!q.s9ClearItem_string.StartsWith("key") && q.u7ClearItemNum > 0)
+                  if (!q.s9ClearItem.StartsWith("key") && q.u7ClearItemNum > 0)
                   {
                       q.u7ClearItemNum = (q.u7ClearItemNum + 2 - 1) / 2;
                   }
 
-                  if (!q.s9ClearItem2_string.StartsWith("key") && q.u7ClearItemNum2 > 0)
+                  if (!q.s9ClearItem2.StartsWith("key") && q.u7ClearItemNum2 > 0)
                   {
                       q.u7ClearItemNum2 = (q.u7ClearItemNum2 + 2 - 1) / 2;
                   }
 
-                  if (!q.s9ClearItem3_string.StartsWith("key") && q.u7ClearItemNum3 > 0)
+                  if (!q.s9ClearItem3.StartsWith("key") && q.u7ClearItemNum3 > 0)
                   {
                       q.u7ClearItemNum3 = (q.u7ClearItemNum3 + 2 - 1) / 2;
                   }
@@ -121,10 +121,10 @@ public class QuestRando : Randomizer
     public override void Save()
     {
         RandoUI.SetUIProgressIndeterminate("Saving Quest Data...");
-        questRewards.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_quest.wdb");
+        questRewards.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_quest.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_quest.wdb");
         RandoUI.SetUIProgressDeterminate("Saving Quest Data...", 50, 100);
-        questRequirements.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb");
+        questRequirements.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_quest_ctrl.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_quest_ctrl.wdb");
         TempSaveFix();
     }

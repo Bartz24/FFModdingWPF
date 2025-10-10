@@ -12,8 +12,8 @@ namespace LRRando;
 
 public partial class ShopRando : Randomizer
 {
-    private readonly DataStoreDB3<DataStoreShop> shopsOrig = new();
-    private readonly DataStoreDB3<DataStoreShop> shops = new();
+    private readonly DataStoreWDB<DataStoreShop> shopsOrig = new();
+    private readonly DataStoreWDB<DataStoreShop> shops = new();
     private readonly Dictionary<string, ShopData> shopData = new();
 
     public ShopRando(SeedGenerator randomizers) : base(randomizers) { }
@@ -21,9 +21,9 @@ public partial class ShopRando : Randomizer
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading Shop Data...");
-        shopsOrig.LoadDB3(Generator, "LR", @"\db\resident\shop.wdb");
+        shopsOrig.LoadWDB(Generator, "LR", @"\db\resident\shop.wdb");
         RandoUI.SetUIProgressDeterminate("Loading Shop Data...", 50, 100);
-        shops.LoadDB3(Generator, "LR", @"\db\resident\shop.wdb");
+        shops.LoadWDB(Generator, "LR", @"\db\resident\shop.wdb");
 
         FileHelpers.ReadCSVFile(@"data\shops.csv", row =>
         {
@@ -39,10 +39,10 @@ public partial class ShopRando : Randomizer
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
 
         RandoUI.SetUIProgressIndeterminate("Randomizing Shop Data...");
-        equipRando.itemWeapons.Values.Where(i => equipRando.items.Keys.Contains(i.name) && ((i.u4WeaponKind == (int)WeaponKind.Weapon && i.u4AccessoryPos == 0) || i.u4WeaponKind == (int)WeaponKind.Shield)).ForEach(i =>
+        equipRando.itemWeapons.Values.Where(i => equipRando.items.Keys.Contains(i.record) && ((i.u4WeaponKind == (int)WeaponKind.Weapon && i.u4AccessoryPos == 0) || i.u4WeaponKind == (int)WeaponKind.Shield)).ForEach(i =>
         {
-            equipRando.items[i.name].uSellPrice = (int)(2 * equipRando.items[i.name].uSellPrice / Math.Log10(Math.Pow(equipRando.items[i.name].uSellPrice, 1.5) / 1.5));
-            equipRando.items[i.name].uSellPrice = equipRando.items[i.name].uSellPrice.RoundToSignificantDigits((int)Math.Max(2, Math.Ceiling(Math.Log10(equipRando.items[i.name].uSellPrice) - 2)));
+            equipRando.items[i.record].uSellPrice = (int)(2 * equipRando.items[i.record].uSellPrice / Math.Log10(Math.Pow(equipRando.items[i.record].uSellPrice, 1.5) / 1.5));
+            equipRando.items[i.record].uSellPrice = equipRando.items[i.record].uSellPrice.RoundToSignificantDigits((int)Math.Max(2, Math.Ceiling(Math.Log10(equipRando.items[i.record].uSellPrice) - 2)));
         });
 
         RandoUI.SetUIProgressDeterminate("Randomizing Shop Data...", 20, 100);
@@ -55,11 +55,11 @@ public partial class ShopRando : Randomizer
                 { "shop_ptl", new List<string>() },
                 { "shop_equ_wd00", new List<string>() }
             };
-            shops.Values.Where(s => s.u3Category == (int)ShopCategory.Forge).Shuffle().Take(3).ForEach(s => uniqueShops.Add(s.name, new List<string>()));
+            shops.Values.Where(s => s.u3Category == (int)ShopCategory.Forge).Shuffle().Take(3).ForEach(s => uniqueShops.Add(s.record, new List<string>()));
 
             Dictionary<string, List<string>> shopsDict = new();
 
-            shopData.Keys.Select(s => shopsOrig[s]).ForEach(s => shopsDict.Add(s.name, s.GetItems().Where(i =>
+            shopData.Keys.Select(s => shopsOrig[s]).ForEach(s => shopsDict.Add(s.record, s.GetItems().Where(i =>
                   s.u3Category == (int)ShopCategory.Inn ||
                   (s.u3Category == (int)ShopCategory.Libra && (
                                 !i.StartsWith("libra") ||
@@ -77,12 +77,12 @@ public partial class ShopRando : Randomizer
 
             for (int n = 4; n <= 8; n++)
             {
-                shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra && shopsDict.ContainsKey(s.name)).ForEach(s => shopsDict[s.name].Add("mat_abi_0_0" + n));
+                shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra && shopsDict.ContainsKey(s.record)).ForEach(s => shopsDict[s.record].Add("mat_abi_0_0" + n));
             }
 
             for (int n = 3; n <= 8; n++)
             {
-                shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra && shopsDict.ContainsKey(s.name)).ForEach(s => shopsDict[s.name].Add("mat_cus_0_0" + n));
+                shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra && shopsDict.ContainsKey(s.record)).ForEach(s => shopsDict[s.record].Add("mat_cus_0_0" + n));
             }
 
             foreach (string equip in equipRando.RemainingEquip.Where(a => equipRando.itemData[a].Category != "Accessory").ToList())
@@ -198,7 +198,7 @@ public partial class ShopRando : Randomizer
     public override void Save()
     {
         RandoUI.SetUIProgressIndeterminate("Saving Shop Data...");
-        shops.SaveDB3(Generator, @"\db\resident\shop.wdb");
+        shops.SaveWDB(Generator, @"\db\resident\shop.wdb");
     }
 
     public override Dictionary<string, HTMLPage> GetDocumentation()
@@ -211,8 +211,8 @@ public partial class ShopRando : Randomizer
 
         shopData.Keys.Select(s => shops[s]).Where(s => s.u3Category is ((int)ShopCategory.Ark) or ((int)ShopCategory.Forge) or ((int)ShopCategory.Items) or ((int)ShopCategory.Libra) or ((int)ShopCategory.Outfitters)).ForEach(shop =>
            {
-               ShopData shopInfo = shopData[shop.name];
-               string name = $"{shopInfo.Area} {shopInfo.SubArea} - {textRando.mainSysUS[shop.sShopNameLabel_string]}";
+               ShopData shopInfo = shopData[shop.record];
+               string name = $"{shopInfo.Area} {shopInfo.SubArea} - {textRando.mainSysUS[shop.sShopNameLabel]}";
                if (shopInfo.DayStart != -1)
                {
                    name += $" - Day {shopInfo.DayStart}";
@@ -240,11 +240,11 @@ public partial class ShopRando : Randomizer
                    }
                    else if (abilityRando.abilities.Keys.Contains(itemID))
                    {
-                       name = textRando.mainSysUS[abilityRando.abilities[itemID].sStringResId_string];
+                       name = textRando.mainSysUS[abilityRando.abilities[itemID].sStringResId];
                    }
                    else
                    {
-                       name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId_string].Replace("{Var83 182}", "Omega");
+                       name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId].Replace("{Var83 182}", "Omega");
                        if (name.Contains("{End}"))
                        {
                            name = name.Substring(0, name.IndexOf("{End}"));

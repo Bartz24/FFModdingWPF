@@ -9,12 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.90" />
-    <PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.115" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Include="SetupSteamPath.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -24,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bartz24.Data\Bartz24.Data.csproj" />
+    <ProjectReference Include="..\Bartz24.FF13Series\Bartz24.FF13Series.csproj" />
   </ItemGroup>
 
 </Project>

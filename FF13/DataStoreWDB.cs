@@ -117,7 +117,7 @@ public class DataStoreWDB<T> : DataStoreWDBEntry where T : DataStoreWDBEntry, ne
             if (p.Name.EndsWith("_pointer"))
             {
                 string prefix = p.Name.Substring(0, p.Name.LastIndexOf("_pointer"));
-                StringPointerMapping.Add(prefix + "_pointer", prefix + "_string");
+                StringPointerMapping.Add(prefix + "_pointer", prefix + "");
             }
 
             if (p.Name.EndsWith("_pointer_end"))

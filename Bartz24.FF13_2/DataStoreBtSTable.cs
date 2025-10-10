@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Bartz24.FF13_2;
 
-public class DataStoreBtSTable : DataStoreDB3SubEntry
+public class DataStoreBtSTable : DataStoreWDBEntry
 {
     public int iBattleSituationId0 { get; set; }
     public int iBattleSituationId1 { get; set; }
@@ -31,11 +31,9 @@ public class DataStoreBtSTable : DataStoreDB3SubEntry
     public int uiDespair9 { get; set; }
     public int uiDespair10 { get; set; }
     public int uiDespair11 { get; set; }
-    public int sAccentTable_pointer { get; set; }
-    public string sAccentTable_string { get; set; }
-    public int sNext_pointer { get; set; }
-    public string sNext_string { get; set; }
-    public int i8BattleSituationRandom0 { get; set; }
+    public string sAccentTable { get; set; }
+    public string sNext { get; set; }
+        public int i8BattleSituationRandom0 { get; set; }
     public int i8BattleSituationRandom1 { get; set; }
     public int i8BattleSituationRandom2 { get; set; }
     public int i8BattleSituationRandom3 { get; set; }

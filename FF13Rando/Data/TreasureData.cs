@@ -30,14 +30,14 @@ public class TreasureData : FF13ItemLocation, IDataStoreItemProvider<DataStoreTr
     {
         LogSetItem(newItem, newCount);
         DataStoreTreasurebox t = GetItemData(false);
-        t.sItemResourceId_string = newItem;
+        t.sItemResourceId = newItem;
         t.iItemCount = (uint)newCount;
     }
 
     public override (string, int)? GetItem(bool orig)
     {
         DataStoreTreasurebox t = GetItemData(orig);
-        return (t.sItemResourceId_string, (int)t.iItemCount);
+        return (t.sItemResourceId, (int)t.iItemCount);
     }
 
     public DataStoreTreasurebox GetItemData(bool orig)

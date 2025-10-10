@@ -5,110 +5,62 @@ using System.Linq;
 
 namespace Bartz24.FF13_2;
 
-public class DataStoreRGrowSt : DataStoreDB3SubEntry
+public class DataStoreRGrowSt : DataStoreWDBEntry
 {
-    public int sBtCharaSpecId_pointer { get; set; }
-    public string sBtCharaSpecId_string { get; set; }
+    public string sBtCharaSpecId { get; set; }
     public int iHpMin { get; set; }
     public int iHpMax { get; set; }
     public int iPhyMin { get; set; }
     public int iPhyMax { get; set; }
     public int iMgkMin { get; set; }
     public int iMgkMax { get; set; }
-    public int sAbi0_pointer { get; set; }
-    public string sAbi0_string { get; set; }
-    public int sAbi1_pointer { get; set; }
-    public string sAbi1_string { get; set; }
-    public int sAbi2_pointer { get; set; }
-    public string sAbi2_string { get; set; }
-    public int sAbi3_pointer { get; set; }
-    public string sAbi3_string { get; set; }
-    public int sAbi4_pointer { get; set; }
-    public string sAbi4_string { get; set; }
-    public int sAbi5_pointer { get; set; }
-    public string sAbi5_string { get; set; }
-    public int sAbi6_pointer { get; set; }
-    public string sAbi6_string { get; set; }
-    public int sAbi7_pointer { get; set; }
-    public string sAbi7_string { get; set; }
-    public int sAbi8_pointer { get; set; }
-    public string sAbi8_string { get; set; }
-    public int sAbi9_pointer { get; set; }
-    public string sAbi9_string { get; set; }
-    public int sAbi10_pointer { get; set; }
-    public string sAbi10_string { get; set; }
-    public int sAbi11_pointer { get; set; }
-    public string sAbi11_string { get; set; }
-    public int sAbi12_pointer { get; set; }
-    public string sAbi12_string { get; set; }
-    public int sAbi13_pointer { get; set; }
-    public string sAbi13_string { get; set; }
-    public int sAbi14_pointer { get; set; }
-    public string sAbi14_string { get; set; }
-    public int sAbi15_pointer { get; set; }
-    public string sAbi15_string { get; set; }
-    public int sAbi16_pointer { get; set; }
-    public string sAbi16_string { get; set; }
-    public int sAbi17_pointer { get; set; }
-    public string sAbi17_string { get; set; }
-    public int sAbi18_pointer { get; set; }
-    public string sAbi18_string { get; set; }
-    public int sAbi19_pointer { get; set; }
-    public string sAbi19_string { get; set; }
-    public int sAbi20_pointer { get; set; }
-    public string sAbi20_string { get; set; }
-    public int sAbi21_pointer { get; set; }
-    public string sAbi21_string { get; set; }
-    public int sAbi22_pointer { get; set; }
-    public string sAbi22_string { get; set; }
-    public int sAbi23_pointer { get; set; }
-    public string sAbi23_string { get; set; }
-    public int sAbi24_pointer { get; set; }
-    public string sAbi24_string { get; set; }
-    public int sAbi25_pointer { get; set; }
-    public string sAbi25_string { get; set; }
-    public int sAbi26_pointer { get; set; }
-    public string sAbi26_string { get; set; }
-    public int sAbi27_pointer { get; set; }
-    public string sAbi27_string { get; set; }
-    public int sAbi28_pointer { get; set; }
-    public string sAbi28_string { get; set; }
-    public int sAbi29_pointer { get; set; }
-    public string sAbi29_string { get; set; }
-    public int sAbi30_pointer { get; set; }
-    public string sAbi30_string { get; set; }
-    public int sAbi31_pointer { get; set; }
-    public string sAbi31_string { get; set; }
-    public int sRebirth0_pointer { get; set; }
-    public string sRebirth0_string { get; set; }
-    public int sRebirth1_pointer { get; set; }
-    public string sRebirth1_string { get; set; }
-    public int sRebirth2_pointer { get; set; }
-    public string sRebirth2_string { get; set; }
-    public int sRebirth3_pointer { get; set; }
-    public string sRebirth3_string { get; set; }
-    public int sRebirth4_pointer { get; set; }
-    public string sRebirth4_string { get; set; }
-    public int sRebirth5_pointer { get; set; }
-    public string sRebirth5_string { get; set; }
-    public int sRebirth6_pointer { get; set; }
-    public string sRebirth6_string { get; set; }
-    public int sRebirth7_pointer { get; set; }
-    public string sRebirth7_string { get; set; }
-    public int sConstellationId_pointer { get; set; }
-    public string sConstellationId_string { get; set; }
-    public int sComboName_pointer { get; set; }
-    public string sComboName_string { get; set; }
-    public int sComboButtonHelp_pointer { get; set; }
-    public string sComboButtonHelp_string { get; set; }
-    public int sFlavor0_pointer { get; set; }
-    public string sFlavor0_string { get; set; }
-    public int sFlavor1_pointer { get; set; }
-    public string sFlavor1_string { get; set; }
-    public int sFlavor2_pointer { get; set; }
-    public string sFlavor2_string { get; set; }
-    public int sFlavor3_pointer { get; set; }
-    public string sFlavor3_string { get; set; }
+    public string sAbi0 { get; set; }
+    public string sAbi1 { get; set; }
+    public string sAbi2 { get; set; }
+    public string sAbi3 { get; set; }
+    public string sAbi4 { get; set; }
+    public string sAbi5 { get; set; }
+    public string sAbi6 { get; set; }
+    public string sAbi7 { get; set; }
+    public string sAbi8 { get; set; }
+    public string sAbi9 { get; set; }
+    public string sAbi10 { get; set; }
+    public string sAbi11 { get; set; }
+    public string sAbi12 { get; set; }
+    public string sAbi13 { get; set; }
+    public string sAbi14 { get; set; }
+    public string sAbi15 { get; set; }
+    public string sAbi16 { get; set; }
+    public string sAbi17 { get; set; }
+    public string sAbi18 { get; set; }
+    public string sAbi19 { get; set; }
+    public string sAbi20 { get; set; }
+    public string sAbi21 { get; set; }
+    public string sAbi22 { get; set; }
+    public string sAbi23 { get; set; }
+    public string sAbi24 { get; set; }
+    public string sAbi25 { get; set; }
+    public string sAbi26 { get; set; }
+    public string sAbi27 { get; set; }
+    public string sAbi28 { get; set; }
+    public string sAbi29 { get; set; }
+    public string sAbi30 { get; set; }
+    public string sAbi31 { get; set; }
+    public string sRebirth0 { get; set; }
+    public string sRebirth1 { get; set; }
+    public string sRebirth2 { get; set; }
+    public string sRebirth3 { get; set; }
+    public string sRebirth4 { get; set; }
+    public string sRebirth5 { get; set; }
+    public string sRebirth6 { get; set; }
+    public string sRebirth7 { get; set; }
+    public string sConstellationId { get; set; }
+    public string sComboName { get; set; }
+    public string sComboButtonHelp { get; set; }
+    public string sFlavor0 { get; set; }
+    public string sFlavor1 { get; set; }
+    public string sFlavor2 { get; set; }
+    public string sFlavor3 { get; set; }
     public int u5RoleStyle { get; set; }
     public int u7InitLv { get; set; }
     public int u7MaxLv { get; set; }
@@ -200,7 +152,7 @@ public class DataStoreRGrowSt : DataStoreDB3SubEntry
         List<string> list = new();
         for (int i = 1; i < 32; i++)
         {
-            list.Add(this.GetPropValue<string>($"sAbi{i}_string"));
+            list.Add(this.GetPropValue<string>($"sAbi{i}"));
         }
 
         return list.Where(s => s != "").ToList();
@@ -209,7 +161,7 @@ public class DataStoreRGrowSt : DataStoreDB3SubEntry
     {
         for (int i = 1; i < 32; i++)
         {
-            this.SetPropValue($"sAbi{i}_string", i > list.Count ? "" : list[i - 1]);
+            this.SetPropValue($"sAbi{i}", i > list.Count ? "" : list[i - 1]);
         }
     }
 }

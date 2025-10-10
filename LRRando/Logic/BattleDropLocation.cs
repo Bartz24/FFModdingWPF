@@ -33,7 +33,7 @@ public class BattleDropLocation : ItemLocation, IDataStoreItemProvider<DataStore
     {
         LogSetItem(newItem, newCount);
         DataStoreBtScene b = GetItemData(false);
-        b.sDropItem0_string = newItem;
+        b.sDropItem0 = newItem;
         b.u16DropProb0 = 10000;
         b.u8NumDrop0 = newCount;
     }
@@ -41,7 +41,7 @@ public class BattleDropLocation : ItemLocation, IDataStoreItemProvider<DataStore
     public override (string, int)? GetItem(bool orig)
     {
         DataStoreBtScene b = GetItemData(orig);
-        return (b.sDropItem0_string, b.u8NumDrop0);
+        return (b.sDropItem0, b.u8NumDrop0);
     }
 
     public DataStoreBtScene GetItemData(bool orig)

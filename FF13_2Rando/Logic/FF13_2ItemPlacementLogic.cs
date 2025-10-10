@@ -99,7 +99,7 @@ namespace FF13_2Rando;
                     return false;
                 }
 
-                string nextLocation = cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Substring(0, cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Length - 2);
+                string nextLocation = cruxRando.gateTableOrig[g.ID].sOpenHistoria1.Substring(0, cruxRando.gateTableOrig[g.ID].sOpenHistoria1.Length - 2);
                 if (!cruxRando.placement.ContainsKey(nextLocation))
                 {
                     return false;
@@ -110,13 +110,13 @@ namespace FF13_2Rando;
 && g.ItemRequirements.IsValid(items) && list.Intersect(g.Requirements).Count() == g.Requirements.Count;
             }).Where(g =>
             {
-                string nextLocation = cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Substring(0, cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Length - 2);
+                string nextLocation = cruxRando.gateTableOrig[g.ID].sOpenHistoria1.Substring(0, cruxRando.gateTableOrig[g.ID].sOpenHistoria1.Length - 2);
                 return !list.Contains(cruxRando.placement[nextLocation]);
             }).Shuffle().FirstOrDefault();
 
             if (g != null)
             {
-                string nextLocation = cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Substring(0, cruxRando.gateTableOrig[g.ID].sOpenHistoria1_string.Length - 2);
+                string nextLocation = cruxRando.gateTableOrig[g.ID].sOpenHistoria1.Substring(0, cruxRando.gateTableOrig[g.ID].sOpenHistoria1.Length - 2);
                 if (!list.Contains(cruxRando.placement[nextLocation]))
                 {
                     list.Add(cruxRando.placement[nextLocation]);

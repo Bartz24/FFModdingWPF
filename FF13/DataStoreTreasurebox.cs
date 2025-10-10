@@ -9,7 +9,7 @@ public class DataStoreTreasurebox : DataStoreWDBEntry
         get => Data.ReadUInt(0x0);
         set => Data.SetUInt(0x0, value);
     }
-    public string sItemResourceId_string { get; set; }
+    public string sItemResourceId { get; set; }
     public uint iItemCount
     {
         get => Data.ReadUInt(0x4);

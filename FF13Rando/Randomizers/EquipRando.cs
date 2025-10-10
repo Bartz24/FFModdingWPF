@@ -86,17 +86,17 @@ public partial class EquipRando : Randomizer
             foreach (string r in roles)
             {
                 string name = $"rol_{c}_{r}";
-                items[name].sItemNameStringId_string = newNames[0];
-                items[name].sHelpStringId_string = "$mb_000_00eh";
+                items[name].sItemNameStringId = newNames[0];
+                items[name].sHelpStringId = "$mb_000_00eh";
                 newNames.RemoveAt(0);
-                textRando.mainSysUS[items[name].sItemNameStringId_string] = $"{charNames[chars.ToList().IndexOf(c)]}'s {roleNames[roles.ToList().IndexOf(r)]} Role" + "{End}";
+                textRando.mainSysUS[items[name].sItemNameStringId] = $"{charNames[chars.ToList().IndexOf(c)]}'s {roleNames[roles.ToList().IndexOf(r)]} Role" + "{End}";
             }
         }
 
-        items["cry_stage"].sItemNameStringId_string = newNames[0];
-        items["cry_stage"].sHelpStringId_string = "$mb_000_00eh";
+        items["cry_stage"].sItemNameStringId = newNames[0];
+        items["cry_stage"].sHelpStringId = "$mb_000_00eh";
         newNames.RemoveAt(0);
-        textRando.mainSysUS[items["cry_stage"].sItemNameStringId_string] = "Crystarium Expansion{End}{Many}Crystarium Expansions{End}{Article}a{End}";
+        textRando.mainSysUS[items["cry_stage"].sItemNameStringId] = "Crystarium Expansion{End}{Many}Crystarium Expansions{End}{Article}a{End}";
 
         string chapterProgress = newNames[0];
         newNames.RemoveAt(0);
@@ -106,15 +106,15 @@ public partial class EquipRando : Randomizer
         textRando.mainSysUS[chapterComplete] = "Used for tracking in the rando to determine completed chapters.";
         for (int i = 1; i <= 13; i++)
         {
-            items["chap_prog_" + i.ToString("00")].sItemNameStringId_string = newNames[0];
+            items["chap_prog_" + i.ToString("00")].sItemNameStringId = newNames[0];
             newNames.RemoveAt(0);
-            items["chap_prog_" + i.ToString("00")].sHelpStringId_string = chapterProgress;
-            textRando.mainSysUS[items["chap_prog_" + i.ToString("00")].sItemNameStringId_string] = "Chapter " + i + " Progress{End}";
+            items["chap_prog_" + i.ToString("00")].sHelpStringId = chapterProgress;
+            textRando.mainSysUS[items["chap_prog_" + i.ToString("00")].sItemNameStringId] = "Chapter " + i + " Progress{End}";
 
-            items["chap_comp_" + i.ToString("00")].sItemNameStringId_string = newNames[0];
+            items["chap_comp_" + i.ToString("00")].sItemNameStringId = newNames[0];
             newNames.RemoveAt(0);
-            items["chap_comp_" + i.ToString("00")].sHelpStringId_string = chapterComplete;
-            textRando.mainSysUS[items["chap_comp_" + i.ToString("00")].sItemNameStringId_string] = "Chapter " + i + " Completed{End}";
+            items["chap_comp_" + i.ToString("00")].sHelpStringId = chapterComplete;
+            textRando.mainSysUS[items["chap_comp_" + i.ToString("00")].sItemNameStringId] = "Chapter " + i + " Completed{End}";
         }
 
         RandomizeEquipmentPassivesAndStats();
@@ -181,9 +181,9 @@ public partial class EquipRando : Randomizer
                 e.i8MagicInitial = (short)Math.Ceiling(strMagAvg * newPassive.MagicMult);
                 e.u8MagicIncrease = (ushort)Math.Ceiling(strMagIncreaseAvg * newPassive.MagicMult);
 
-                e.sPassive_string = newPassive.ID;
-                e.sPassiveDisplayName_string = newPassive.DisplayNameID;
-                e.sHelpDisplay_string = newPassive.HelpID;
+                e.sPassive = newPassive.ID;
+                e.sPassiveDisplayName = newPassive.DisplayNameID;
+                e.sHelpDisplay = newPassive.HelpID;
                 e.u1StatType1 = (byte)newPassive.StatType1;
                 e.u8StatType2 = (ushort)newPassive.StatType2;
                 e.i8StatInitial = (short)CalculateInitialFromRank(newPassive, items[e.ID].Rank, newPassive.StatInitial == newPassive.MaxValue ? newPassive.MaxValue : int.MinValue);
@@ -283,7 +283,7 @@ public partial class EquipRando : Randomizer
     {
         return passiveData.Values.Where(p =>
         {
-            return p.ID == e.sPassive_string && p.DisplayNameID == e.sPassiveDisplayName_string && p.StatType1 == e.u1StatType1 && p.StatType2 == e.u8StatType2;
+            return p.ID == e.sPassive && p.DisplayNameID == e.sPassiveDisplayName && p.StatType1 == e.u1StatType1 && p.StatType2 == e.u8StatType2;
         }).FirstOrDefault();
     }
 
@@ -295,7 +295,7 @@ public partial class EquipRando : Randomizer
 
     private DataStoreEquip GetRandomEquipParent(DataStoreEquip e)
     {
-        return equip.Values.Where(e2 => e2.sUpgradeInto_string == e.ID).Shuffle().FirstOrDefault();
+        return equip.Values.Where(e2 => e2.sUpgradeInto == e.ID).Shuffle().FirstOrDefault();
     }
 
     private int GetEquipUpgradeDepth(DataStoreEquip e)
@@ -303,7 +303,7 @@ public partial class EquipRando : Randomizer
         int maxDepth = 0;
 
         int newDepth = equip.Values
-            .Where(e2 => e2.sUpgradeInto_string == e.ID)
+            .Where(e2 => e2.sUpgradeInto == e.ID)
             .Select(e2 => GetEquipUpgradeDepth(e2) + 1)
             .DefaultIfEmpty(0)
             .Max();
@@ -375,7 +375,7 @@ public partial class EquipRando : Randomizer
     private string GetItemName(string itemID)
     {
         TextRando textRando = Generator.Get<TextRando>();
-        string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
+        string name = textRando.mainSysUS[items[itemID].sItemNameStringId];
         if (name.Contains("{End}"))
         {
             name = name.Substring(0, name.IndexOf("{End}"));

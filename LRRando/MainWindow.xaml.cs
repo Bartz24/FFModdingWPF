@@ -51,9 +51,17 @@ public partial class MainWindow : RandoMainWindow
 
     private void openNovaButton_Click(object sender, RoutedEventArgs e)
     {
-        if (File.Exists(SetupData.GetSteamPath("Nova", false)))
+        string path = SetupData.GetSteamPath("Nova", false);
+        if (File.Exists(path))
         {
-            Process.Start(SetupData.GetSteamPath("Nova", false));
+            // Start the process from the folder of the executable
+            ProcessStartInfo processStartInfo = new()
+            {
+                FileName = path,
+                WorkingDirectory = Path.GetDirectoryName(path)
+            };
+
+            Process.Start(processStartInfo);
         }
         else
         {

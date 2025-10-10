@@ -9,19 +9,19 @@ public class DataStoreItem : DataStoreWDBEntry
         get => Data.ReadUInt(0x0);
         set => Data.SetUInt(0x0, value);
     }
-    public string sItemNameStringId_string { get; set; }
+    public string sItemNameStringId { get; set; }
     public uint sHelpStringId_pointer
     {
         get => Data.ReadUInt(0x4);
         set => Data.SetUInt(0x4, value);
     }
-    public string sHelpStringId_string { get; set; }
+    public string sHelpStringId { get; set; }
     public uint sScriptId_pointer
     {
         get => Data.ReadUInt(0x8);
         set => Data.SetUInt(0x8, value);
     }
-    public string sScriptId_string { get; set; }
+    public string sScriptId { get; set; }
     public uint u16BuyPrice
     {
         get => Data.ReadUInt(0xC);

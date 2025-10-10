@@ -36,11 +36,11 @@ public class EnemyDropData : FF13ItemLocation, IDataStoreItemProvider<DataStoreB
         DataStoreBtCharaSpec s = GetItemData(false);
         if (Index == 0)
         {
-            s.sDropItem0_string = newItem;
+            s.sDropItem0 = newItem;
         }
         else
         {
-            s.sDropItem1_string = newItem;
+            s.sDropItem1 = newItem;
         }
 
         if (s.u8NumDrop > 0)
@@ -54,8 +54,8 @@ public class EnemyDropData : FF13ItemLocation, IDataStoreItemProvider<DataStoreB
         LinkedIDs.ForEach(other =>
         {
             DataStoreBtCharaSpec otherEnemy = enemyRando.btCharaSpec[other];
-            otherEnemy.sDropItem0_string = s.sDropItem0_string;
-            otherEnemy.sDropItem1_string = s.sDropItem1_string;
+            otherEnemy.sDropItem0 = s.sDropItem0;
+            otherEnemy.sDropItem1 = s.sDropItem1;
             otherEnemy.u8NumDrop = s.u8NumDrop;
         });
     }
@@ -63,7 +63,7 @@ public class EnemyDropData : FF13ItemLocation, IDataStoreItemProvider<DataStoreB
     public override (string, int)? GetItem(bool orig)
     {
         DataStoreBtCharaSpec s = GetItemData(orig);
-        return (Index == 0 ? s.sDropItem0_string : s.sDropItem1_string, s.u8NumDrop);
+        return (Index == 0 ? s.sDropItem0 : s.sDropItem1, s.u8NumDrop);
     }
 
     public DataStoreBtCharaSpec GetItemData(bool orig)

@@ -13,9 +13,9 @@ namespace LRRando;
 
 public partial class BattleRando : Randomizer
 {
-    public DataStoreDB3<DataStoreBtScene> btScenes = new();
-    public DataStoreDB3<DataStoreBtScene> btScenesOrig = new();
-    private readonly DataStoreDB3<DataStoreRCharaSet> charaSets = new();
+    public DataStoreWDB<DataStoreBtScene> btScenes = new();
+    public DataStoreWDB<DataStoreBtScene> btScenesOrig = new();
+    private readonly DataStoreWDB<DataStoreRCharaSet> charaSets = new();
     private readonly Dictionary<string, EnemyData> enemyData = new();
     private readonly Dictionary<string, Dictionary<int, BossData>> bossData = new();
     private readonly Dictionary<string, Dictionary<int, BossStatsData>> bossStatsData = new();
@@ -26,11 +26,11 @@ public partial class BattleRando : Randomizer
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading Battle Data...");
-        btScenesOrig.LoadDB3(Generator, "LR", @"\db\resident\bt_scene.wdb");
+        btScenesOrig.LoadWDB(Generator, "LR", @"\db\resident\bt_scene.wdb");
         RandoUI.SetUIProgressDeterminate("Loading Battle Data...", 20, 100);
-        btScenes.LoadDB3(Generator, "LR", @"\db\resident\bt_scene.wdb");
+        btScenes.LoadWDB(Generator, "LR", @"\db\resident\bt_scene.wdb");
         RandoUI.SetUIProgressDeterminate("Loading Battle Data...", 50, 100);
-        charaSets.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
+        charaSets.LoadWDB(Generator, "LR", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
         RandoUI.SetUIProgressDeterminate("Loading Battle Data...", 80, 100);
         FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
@@ -77,12 +77,12 @@ public partial class BattleRando : Randomizer
                 shuffledBosses = Enumerable.Range(0, list.Count).ToDictionary(i => list[i], i => shuffled[i]);
             }
 
-            btScenes.Values.Where(b => !IgnoredBtScenes.Contains(b.name)).ForEach(b =>
+            btScenes.Values.Where(b => !IgnoredBtScenes.Contains(b.record)).ForEach(b =>
             {
                 List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Where(s =>
                         !s.EndsWith("tuto") || s == "m352_tuto" || s == "m390_tuto" || LRFlags.Enemies.Prologue.Enabled).Select(s => enemyData[s]).ToList();
                 int count = oldEnemies.Count;
-                if (LRFlags.Enemies.EncounterSize.Enabled && count > 0 && oldEnemies[0].Class != "Boss" && !oldEnemies[0].ID.EndsWith("tuto") && b.name != "btsc08601")
+                if (LRFlags.Enemies.EncounterSize.Enabled && count > 0 && oldEnemies[0].Class != "Boss" && !oldEnemies[0].ID.EndsWith("tuto") && b.record != "btsc08601")
                 {
                     count = RandomNum.RandInt(Math.Max(1, count - 2), Math.Min(10, count + 2));
                     if (count > oldEnemies.Count)
@@ -111,7 +111,7 @@ public partial class BattleRando : Randomizer
 
                         List<EnemyData> validEnemies = enemyData.Values.ToList();
                         int variety = -1;
-                        if (CharaSetMapping.ContainsKey(b.name) || count > 7)
+                        if (CharaSetMapping.ContainsKey(b.record) || count > 7)
                         {
                             // Limit forced fights to a max variety of 3 enemies with no parts to avoid memory? issues
                             validEnemies = validEnemies.Where(e => e.Parts.Count == 0).ToList();
@@ -131,17 +131,17 @@ public partial class BattleRando : Randomizer
                             b.u4BtChInitSetNum = charSpecs.Count > newEnemies.Sum(e => e.Size) ? newEnemies.Sum(e => e.Size) : 0;
                             b.SetCharSpecs(charSpecs);
                             // Update normal encounter entry IDs to ones supporting 3+ enemies
-                            if (b.s8BtChEntryId_string is "btsc_def_e00" or "btsc_def_m03")
+                            if (b.s8BtChEntryId is "btsc_def_e00" or "btsc_def_m03")
                             {
-                                b.s8BtChEntryId_string = "btsc_def_e00";
+                                b.s8BtChEntryId = "btsc_def_e00";
                             }
 
-                            if (CharaSetMapping.ContainsKey(b.name))
+                            if (CharaSetMapping.ContainsKey(b.record))
                             {
-                                CharaSetMapping[b.name].ForEach(m =>
+                                CharaSetMapping[b.record].ForEach(m =>
                                 {
                                     List<string> specs = charaSets[m].CharaSpecs;
-                                    specs.AddRange(charSpecs.Where(s => !specs.Contains(s)).Select(s => enemyRando.enemies[s].sCharaSpec_string).Distinct());
+                                    specs.AddRange(charSpecs.Where(s => !specs.Contains(s)).Select(s => enemyRando.enemies[s].sCharaSpec).Distinct());
                                     charaSets[m].CharaSpecs = specs;
                                 });
                             }
@@ -199,15 +199,15 @@ public partial class BattleRando : Randomizer
             charSpecs.AddRange(newEnemies.Select(e => e.ID));
             if (newGroup == "Caius" && group != "Caius")
             {
-                btScene.s8PartyEntryId_string = "btsc_caius";
-                btScene.s8BtChEntryId_string = "btsc_caius";
+                btScene.s8PartyEntryId = "btsc_caius";
+                btScene.s8BtChEntryId = "btsc_caius";
                 btScene.u1EvenNoShift = 1;
             }
 
             if (newGroup == "Aeronite" && group != "Aeronite")
             {
-                btScene.s8PartyEntryId_string = "btsc00375";
-                btScene.s8BtChEntryId_string = "btsc00375";
+                btScene.s8PartyEntryId = "btsc00375";
+                btScene.s8BtChEntryId = "btsc00375";
             }
             // No Score ID means new stats
             if (newBoss.ScoreID == "")
@@ -329,10 +329,10 @@ public partial class BattleRando : Randomizer
             return new string[] { p.Key, p.Value }.ToList();
         }).ToList()));
 
-        page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID (Actual Location TBD)", "New Enemies" }).ToList(), (new int[] { 60, 40 }).ToList(), btScenes.Values.Where(b => int.Parse(b.name.Substring(4)) >= 1000).Select(b =>
+        page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID (Actual Location TBD)", "New Enemies" }).ToList(), (new int[] { 60, 40 }).ToList(), btScenes.Values.Where(b => int.Parse(b.record.Substring(4)) >= 1000).Select(b =>
         {
             List<string> names = b.GetCharSpecs().Take(b.u4BtChInitSetNum > 0 ? b.u4BtChInitSetNum : int.MaxValue).Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : e + " (???)").GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
-            return new string[] { b.name, string.Join(",", names) }.ToList();
+            return new string[] { b.record, string.Join(",", names) }.ToList();
         }).ToList()));
         pages.Add("encounters", page);
         return pages;
@@ -345,8 +345,8 @@ public partial class BattleRando : Randomizer
         TransferBattleDrops();
 
         string outPath = Generator.DataOutFolder + @"\db\resident\bt_scene.wdb";
-        btScenes.Save(outPath, SetupData.Paths["Nova"]);
-        charaSets.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_charaset.wdb");
+        btScenes.Save("LR", outPath, SetupData.Paths["Nova"]);
+        charaSets.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_charaset.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_charaset.wdb");
     }
 
@@ -355,7 +355,7 @@ public partial class BattleRando : Randomizer
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
         treasureRando.BattleDrops.Keys.ForEach(btscName =>
         {
-            btScenes[btscName].sDropItem0_string = treasureRando.BattleDrops[btscName];
+            btScenes[btscName].sDropItem0 = treasureRando.BattleDrops[btscName];
             btScenes[btscName].u16DropProb0 = 10000;
             btScenes[btscName].u8NumDrop0 = 1;
 

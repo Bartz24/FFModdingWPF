@@ -12,25 +12,25 @@ public class DataStoreMission : DataStoreWDBEntry
         get => Data.ReadUInt(0x34);
         set => Data.SetUInt(0x34, value);
     }
-    public string sCharaSpecId0_string { get; set; }
+    public string sCharaSpecId0 { get; set; }
     public uint sCharaSpecId1_pointer
     {
         get => Data.ReadUInt(0x38);
         set => Data.SetUInt(0x38, value);
     }
-    public string sCharaSpecId1_string { get; set; }
+    public string sCharaSpecId1 { get; set; }
     public uint sCharaSpecId2_pointer
     {
         get => Data.ReadUInt(0x3C);
         set => Data.SetUInt(0x3C, value);
     }
-    public string sCharaSpecId2_string { get; set; }
+    public string sCharaSpecId2 { get; set; }
     public uint sCharaSpecId3_pointer
     {
         get => Data.ReadUInt(0x40);
         set => Data.SetUInt(0x40, value);
     }
-    public string sCharaSpecId3_string { get; set; }
+    public string sCharaSpecId3 { get; set; }
 
     public override int GetDefaultLength()
     {
@@ -48,11 +48,11 @@ public class DataStoreMission : DataStoreWDBEntry
         {
             if (i < list.Count)
             {
-                this.SetPropValue($"sCharaSpecId{i}_string", list[i]);
+                this.SetPropValue($"sCharaSpecId{i}", list[i]);
             }
             else
             {
-                this.SetPropValue($"sCharaSpecId{i}_string", "");
+                this.SetPropValue($"sCharaSpecId{i}", "");
             }
         }
     }
@@ -62,7 +62,7 @@ public class DataStoreMission : DataStoreWDBEntry
         List<string> list = new();
         for (int i = 0; i < 4; i++)
         {
-            list.Add(this.GetPropValue<string>($"sCharaSpecId{i}_string"));
+            list.Add(this.GetPropValue<string>($"sCharaSpecId{i}"));
         }
 
         return list.Where(s => s != "").ToList();

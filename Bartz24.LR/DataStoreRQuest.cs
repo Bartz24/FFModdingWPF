@@ -2,12 +2,11 @@
 
 namespace Bartz24.LR;
 
-public class DataStoreRQuest : DataStoreDB3SubEntry
+public class DataStoreRQuest : DataStoreWDBEntry
 {
     public int iQuestIndex { get; set; }
     public int iGp { get; set; }
-    public int sTreasureBoxId_pointer { get; set; }
-    public string sTreasureBoxId_string { get; set; }
+    public string sTreasureBoxId { get; set; }
     public int iMaxGp { get; set; }
     public int iMaxHp { get; set; }
     public int iAtkPhy { get; set; }
@@ -15,8 +14,7 @@ public class DataStoreRQuest : DataStoreDB3SubEntry
     public int iMaxAtb { get; set; }
     public int iAtbSpeed { get; set; }
     public int iItemBagSize { get; set; }
-    public int sTreasureBoxId2_pointer { get; set; }
-    public string sTreasureBoxId2_string { get; set; }
+    public string sTreasureBoxId2 { get; set; }
     public int iMaxGp2 { get; set; }
     public int iMaxHp2 { get; set; }
     public int iAtkPhy2 { get; set; }

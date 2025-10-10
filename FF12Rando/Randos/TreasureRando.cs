@@ -76,7 +76,6 @@ public partial class TreasureRando : Randomizer
         PartyRando partyRando = Generator.Get<PartyRando>();
         partyRando.Characters = MathHelpers.DecodeNaturalSequence(prices[0x76].Price, 6, 6).Select(l => (int)l).ToArray();
 
-
         areaMapping = File.ReadAllLines("data\\mapAreas.csv").ToDictionary(s => s.Split(',')[1], s => s.Split(',')[0]);
 
         ItemLocations.Clear();

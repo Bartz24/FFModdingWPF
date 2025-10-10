@@ -138,7 +138,6 @@ public abstract class SeedGenerator : IDisposable
         RandoSeeds.LoadSeeds();
     }
 
-
     public virtual void GeneratePack()
     {
         string zipName = "packs\\" + GetPackPath();

@@ -20,7 +20,7 @@ public class TextRando : Randomizer
             string outPath = Generator.DataOutFolder + @"\txtres\resident\system\txtres_us.ztr";
             FileHelpers.CopyFile(path, outPath);
 
-            mainSysUS.Load(outPath, SetupData.Paths["Nova"]);
+            mainSysUS.Load("13", outPath, SetupData.Paths["Nova"]);
 
             mainSysUS["$acc_039_000"] = "Collector Catalog{End}{Many}Collector Catalogs{End}{Article}a";
             mainSysUS["$acc_039_001"] = "Connoisseur Catalog{End}{Many}Connoisseur Catalogs{End}{Article}a";

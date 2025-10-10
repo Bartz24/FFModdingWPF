@@ -13,8 +13,8 @@ namespace FF13_2Rando;
 
 public class EquipRando : Randomizer
 {
-    public DataStoreDB3<DataStoreItemWeapon> itemWeapons = new();
-    public DataStoreDB3<DataStoreItem> items = new();
+    public DataStoreWDB<DataStoreItemWeapon> itemWeapons = new();
+    public DataStoreWDB<DataStoreItem> items = new();
 
     public EquipRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -52,7 +52,7 @@ public class EquipRando : Randomizer
 
     private void RandomizeStats()
     {
-        foreach (DataStoreItemWeapon weapon in itemWeapons.Values.Where(w => w.name.Contains("wea")))
+        foreach (DataStoreItemWeapon weapon in itemWeapons.Values.Where(w => w.record.Contains("wea")))
         {
             StatPoints statPoints;
             (int, int)[] bounds = {
@@ -83,22 +83,22 @@ public class EquipRando : Randomizer
     {
         CrystariumRando crystariumRando = Generator.Get<CrystariumRando>();
         List<AbilityData> filteredAbilities = crystariumRando.abilityData.Values.Where(a => a.Role == "" && !a.Traits.Contains("Mon")).ToList();
-        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility_string != ""))
+        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility != ""))
         {
-            IList<AbilityData> list = filteredAbilities.Where(a => (!a.Traits.Contains("Noel") || equip.name.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.name.Contains("ser"))).Shuffle();
-            equip.sAbility_string = list.First().ID;
+            IList<AbilityData> list = filteredAbilities.Where(a => (!a.Traits.Contains("Noel") || equip.record.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.record.Contains("ser"))).Shuffle();
+            equip.sAbility = list.First().ID;
         }
 
-        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility2_string != ""))
+        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility2 != ""))
         {
-            IList<AbilityData> list = filteredAbilities.Where(a => a.ID != equip.sAbility_string && (!a.Traits.Contains("Noel") || equip.name.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.name.Contains("ser"))).Shuffle();
-            equip.sAbility2_string = list.First().ID;
+            IList<AbilityData> list = filteredAbilities.Where(a => a.ID != equip.sAbility && (!a.Traits.Contains("Noel") || equip.record.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.record.Contains("ser"))).Shuffle();
+            equip.sAbility2 = list.First().ID;
         }
 
-        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility3_string != ""))
+        foreach (DataStoreItemWeapon equip in itemWeapons.Values.Where(w => w.sAbility3 != ""))
         {
-            IList<AbilityData> list = filteredAbilities.Where(a => a.ID != equip.sAbility_string && a.ID != equip.sAbility2_string && (!a.Traits.Contains("Noel") || equip.name.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.name.Contains("ser"))).Shuffle();
-            equip.sAbility3_string = list.First().ID;
+            IList<AbilityData> list = filteredAbilities.Where(a => a.ID != equip.sAbility && a.ID != equip.sAbility2 && (!a.Traits.Contains("Noel") || equip.record.Contains("noe")) && (!a.Traits.Contains("Serah") || equip.record.Contains("ser"))).Shuffle();
+            equip.sAbility3 = list.First().ID;
         }
     }
 
@@ -116,39 +116,12 @@ public class EquipRando : Randomizer
         RandoUI.SetUIProgressIndeterminate("Saving Item/Equip Data...");
         items.SaveDB3(Generator, @"\db\resident\item.wdb");
         itemWeapons.SaveDB3(Generator, @"\db\resident\item_weapon.wdb");
-
-        TempSaveFix();
-    }
-    private void TempSaveFix()
-    {
-        byte[] origData = File.ReadAllBytes(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb.orig");
-        byte[] data = File.ReadAllBytes(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb");
-
-        if (data.Length < origData.Length)
-        {
-
-            int startQstData = (int)data.ReadUInt(0xE0);
-            List<DataStoreItemWeapon> values = itemWeapons.Values.ToList();
-            for (int i = 0; i < values.Count; i++)
-            {
-                byte[] fix2 = new byte[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-                fix2.SetByte(3, (byte)values[i].u14DisasRate3);
-                data = data.SubArray(0, startQstData + (72 * i) + 64).Concat(fix2).Concat(data.SubArray(startQstData + (72 * i) + 68, data.Length - (startQstData + (72 * i) + 68)));
-                data.SetUInt(startQstData + (72 * i), (uint)values[i].sWeaponCharaSpecId_pointer);
-
-                data.SetUInt(0xE0 + (32 * i), (uint)(startQstData + (72 * i)));
-            }
-
-            File.WriteAllBytes(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb", data);
-        }
-
-        File.Delete(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb.orig");
     }
 
     private string GetItemName(string itemID)
     {
         TextRando textRando = Generator.Get<TextRando>();
-        string name = textRando.mainSysUS[items[itemID].sItemNameStringId_string];
+        string name = textRando.mainSysUS[items[itemID].sItemNameStringId];
         if (name.Contains("{End}"))
         {
             name = name.Substring(0, name.IndexOf("{End}"));

@@ -159,7 +159,6 @@ internal class LRMultiworldGenerator
                 $"        weight={weight}";
         }
 
-
         if (amount != 1)
         {
             script += $",\n" +
@@ -307,9 +306,14 @@ internal class LRMultiworldGenerator
             sb.Append($"    \"{areaName}\": LRFF13RegionData(connecting_regions=[");
             for (int j = 0; j < connections.Count; j++)
             {
-                if (j > 0) sb.Append(", ");
+                if (j > 0)
+                {
+                    sb.Append(", ");
+                }
+
                 sb.Append($"\"{connections[j]}\"");
             }
+
             sb.Append("]),\n");
         }
 
@@ -401,6 +405,7 @@ internal class LRMultiworldGenerator
             {
                 rules.Add(ruleStr);
             }
+
             locationToRules[name] = ruleStr;
         });
 
@@ -415,6 +420,7 @@ internal class LRMultiworldGenerator
                 int indent = i == 0 ? 4 : ruleLines[i - 1].TakeWhile(ch => ch == ' ' || ch == '(').Count();
                 ruleLines[i] = new string(' ', indent) + ruleLines[i];
             }
+
             ruleStr = $"lambda state, player:\n{string.Join("\n", ruleLines)}";
 
             if (!rules.Contains(ruleStr))
@@ -431,6 +437,7 @@ internal class LRMultiworldGenerator
         {
             script += $"    {rules[i]},  # Rule {i}\n";
         }
+
         script += "]\n\n";
 
         script += "location_rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {\n";

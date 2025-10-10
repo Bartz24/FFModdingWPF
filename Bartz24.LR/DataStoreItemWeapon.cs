@@ -2,47 +2,30 @@
 
 namespace Bartz24.LR;
 
-public class DataStoreItemWeapon : DataStoreDB3SubEntry
+public class DataStoreItemWeapon : DataStoreWDBEntry
 {
-    public int sWeaponCharaSpecId_pointer { get; set; }
-    public string sWeaponCharaSpecId_string { get; set; }
-    public int sWeaponCharaSpecId2_pointer { get; set; }
-    public string sWeaponCharaSpecId2_string { get; set; }
-    public int sAbility_pointer { get; set; }
-    public string sAbility_string { get; set; }
-    public int sAbility2_pointer { get; set; }
-    public string sAbility2_string { get; set; }
-    public int sAbility3_pointer { get; set; }
-    public string sAbility3_string { get; set; }
-    public int sAbilityName_pointer { get; set; }
-    public string sAbilityName_string { get; set; }
-    public int sOtherItemId_pointer { get; set; }
-    public string sOtherItemId_string { get; set; }
-    public int sDefStyleName_pointer { get; set; }
-    public string sDefStyleName_string { get; set; }
-    public int sCosAbilityCir_pointer { get; set; }
-    public string sCosAbilityCir_string { get; set; }
-    public int sCosAbilityCro_pointer { get; set; }
-    public string sCosAbilityCro_string { get; set; }
-    public int sCosAbilityTri_pointer { get; set; }
-    public string sCosAbilityTri_string { get; set; }
-    public int sCosAbilitySqu_pointer { get; set; }
-    public string sCosAbilitySqu_string { get; set; }
-    public int iBreakBonus { get; set; }
+    public string sWeaponCharaSpecId { get; set; }
+    public string sWeaponCharaSpecId2 { get; set; }
+    public string sAbility { get; set; }
+    public string sAbility2 { get; set; }
+    public string sAbility3 { get; set; }
+    public string sAbilityName { get; set; }
+    public string sOtherItemId { get; set; }
+    public string sDefStyleName { get; set; }
+    public string sCosAbilityCir { get; set; }
+    public string sCosAbilityCro { get; set; }
+    public string sCosAbilityTri { get; set; }
+    public string sCosAbilitySqu { get; set; }
+        public int iBreakBonus { get; set; }
     public int iGuardModVal { get; set; }
-    public int sNextItemId_pointer { get; set; }
-    public string sNextItemId_string { get; set; }
-    public int sUpgradeId_pointer { get; set; }
-    public string sUpgradeId_string { get; set; }
-    public int iRankupGil { get; set; }
-    public int sRankupItem1_pointer { get; set; }
-    public string sRankupItem1_string { get; set; }
-    public int sRankupItem2_pointer { get; set; }
-    public string sRankupItem2_string { get; set; }
-    public int sRankupItem3_pointer { get; set; }
-    public string sRankupItem3_string { get; set; }
-    public int fBreakRate0 { get; set; }
-    public int fBreakRate1 { get; set; }
+    public string sNextItemId { get; set; }
+    public string sUpgradeId { get; set; }
+        public int iRankupGil { get; set; }
+    public string sRankupItem1 { get; set; }
+    public string sRankupItem2 { get; set; }
+    public string sRankupItem3 { get; set; }
+    public float fBreakRate0 { get; set; }
+    public float fBreakRate1 { get; set; }
     public int u4WeaponKind { get; set; }
     public int u4AccessoryPos { get; set; }
     public int u8StatusModKind0 { get; set; }

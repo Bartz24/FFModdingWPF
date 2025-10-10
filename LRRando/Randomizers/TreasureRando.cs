@@ -16,8 +16,8 @@ namespace LRRando;
 
 public partial class TreasureRando : Randomizer
 {
-    public DataStoreDB3<DataStoreRTreasurebox> treasuresOrig = new();
-    public DataStoreDB3<DataStoreRTreasurebox> treasures = new();
+    public DataStoreWDB<DataStoreRTreasurebox> treasuresOrig = new();
+    public DataStoreWDB<DataStoreRTreasurebox> treasures = new();
     public Dictionary<string, ItemLocation> ItemLocations = new();
     public Dictionary<string, HintData> hintData = new();
 
@@ -32,9 +32,9 @@ public partial class TreasureRando : Randomizer
     public override void Load()
     {
         RandoUI.SetUIProgressDeterminate("Loading Treasure Data...", 0, 100);
-        treasuresOrig.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
+        treasuresOrig.LoadWDB(Generator, "LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
         RandoUI.SetUIProgressDeterminate("Loading Treasure Data...", 10, 100);
-        treasures.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
+        treasures.LoadWDB(Generator, "LR", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
 
         FileHelpers.ReadCSVFile(@"data\treasures.csv", row =>
         {
@@ -153,11 +153,11 @@ public partial class TreasureRando : Randomizer
         AddTreasure(treasures, newName, item, count, next);
     }
 
-    private void AddTreasure(DataStoreDB3<DataStoreRTreasurebox> database, string newName, string item, int count, string next)
+    private void AddTreasure(DataStoreWDB<DataStoreRTreasurebox> database, string newName, string item, int count, string next)
     {
-        database.InsertCopyAlphabetical(database.Keys[0], newName);
-        database[newName].s11ItemResourceId_string = item;
-        database[newName].s10NextTreasureBoxResourceId_string = next;
+        database.Copy(database.Keys[0], newName);
+        database[newName].s11ItemResourceId = item;
+        database[newName].s10NextTreasureBoxResourceId = next;
         database[newName].iItemCount = count;
     }
 
@@ -181,7 +181,7 @@ public partial class TreasureRando : Randomizer
 
             if (LRFlags.Items.IDCardBuy.Enabled)
             {
-                treasures["ran_rando_id"].s11ItemResourceId_string = "true";
+                treasures["ran_rando_id"].s11ItemResourceId = "true";
             }
         }
     }
@@ -194,7 +194,7 @@ public partial class TreasureRando : Randomizer
         }
 
         List<string> list = new();
-        list.AddRange(treasuresOrig.Values.Where(t => isEquip(t.s11ItemResourceId_string)).Select(t => t.s11ItemResourceId_string));
+        list.AddRange(treasuresOrig.Values.Where(t => isEquip(t.s11ItemResourceId)).Select(t => t.s11ItemResourceId));
 
         return list;
     }
@@ -207,7 +207,7 @@ public partial class TreasureRando : Randomizer
         }
 
         List<string> list = new();
-        list.AddRange(treasuresOrig.Values.Where(t => isAdorn(t.s11ItemResourceId_string)).Select(t => t.s11ItemResourceId_string));
+        list.AddRange(treasuresOrig.Values.Where(t => isAdorn(t.s11ItemResourceId)).Select(t => t.s11ItemResourceId));
 
         return list;
     }
@@ -217,7 +217,7 @@ public partial class TreasureRando : Randomizer
         RandoUI.SetUIProgressIndeterminate("Saving Treasure Data...");
         SaveHints();
         SetAndClearBattleDrops();
-        treasures.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
+        treasures.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_treasurebox.wdb");
     }
 
@@ -274,11 +274,11 @@ public partial class TreasureRando : Randomizer
     {
         btscs.ForEach(btsc =>
         {
-            BattleDrops.Add(btsc, treasures[treasure].s11ItemResourceId_string);
+            BattleDrops.Add(btsc, treasures[treasure].s11ItemResourceId);
         });
-        OrigBattleDrops.Add(treasure, treasures[treasure].s11ItemResourceId_string);
+        OrigBattleDrops.Add(treasure, treasures[treasure].s11ItemResourceId);
 
-        treasures[treasure].s11ItemResourceId_string = "";
+        treasures[treasure].s11ItemResourceId = "";
         treasures[treasure].iItemCount = 0;
     }
 
@@ -290,7 +290,7 @@ public partial class TreasureRando : Randomizer
 
         if (LRFlags.Items.Treasures.FlagEnabled && LRFlags.Other.HintsMain.FlagEnabled)
         {
-            Dictionary<string, string> bossHintLocations = new Dictionary<string, string>();
+            Dictionary<string, string> bossHintLocations = new();
             if (LRFlags.Other.HintsBosses.SelectedIndex > 0)
             {
                 // This is the last main quest hint location before the boss (if it has one) for each quest
@@ -305,11 +305,13 @@ public partial class TreasureRando : Randomizer
                     {
                         hintType = RandomNum.RandInt(1, 4);
                     }
+
                     var hintIdx = 1;
                     if (hintType % 2 == 0)
                     {
                         hintIdx = RandomNum.RandInt(1, mainQuestCount[i]);
                     }
+
                     RandomNum.ClearRand();
                     var name = $"{i}-{hintIdx}";
 
@@ -333,9 +335,11 @@ public partial class TreasureRando : Randomizer
                             hintText = $"{original} is in {target}'s location";
                             break;
                     }
+
                     bossHintLocations.Add(name, hintText);
                 }
             }
+
             hintData.Keys.ForEach(h =>
             {
                 List<string> lines = new();
@@ -370,7 +374,7 @@ public partial class TreasureRando : Randomizer
         TextRando textRando = Generator.Get<TextRando>();
         OrigBattleDrops.Keys.ForEach(name =>
         {
-            treasures[name].s11ItemResourceId_string = OrigBattleDrops[name];
+            treasures[name].s11ItemResourceId = OrigBattleDrops[name];
             treasures[name].iItemCount = 1;
         });
 

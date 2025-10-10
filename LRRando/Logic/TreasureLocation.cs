@@ -43,14 +43,14 @@ public class TreasureLocation : ItemLocation, IDataStoreItemProvider<DataStoreRT
     {
         LogSetItem(newItem, newCount);
         DataStoreRTreasurebox t = GetItemData(false);
-        t.s11ItemResourceId_string = newItem;
+        t.s11ItemResourceId = newItem;
         t.iItemCount = newCount;
     }
 
     public override (string, int)? GetItem(bool orig)
     {
         DataStoreRTreasurebox t = GetItemData(orig);
-        return (t.s11ItemResourceId_string, t.iItemCount);
+        return (t.s11ItemResourceId, t.iItemCount);
     }
 
     public DataStoreRTreasurebox GetItemData(bool orig)
@@ -61,12 +61,12 @@ public class TreasureLocation : ItemLocation, IDataStoreItemProvider<DataStoreRT
 
     public override bool CanReplace(ItemLocation location)
     {
-        if (GetItemData(true).s11ItemResourceId_string == "")
+        if (GetItemData(true).s11ItemResourceId == "")
         {
             // Gil can go in other treasures except for battle or trade rewards
             return location is TreasureLocation && !location.Traits.Contains("Battle") && !location.Traits.Contains("Trade");
         }
-        else if (GetItemData(true).s11ItemResourceId_string.StartsWith("it"))
+        else if (GetItemData(true).s11ItemResourceId.StartsWith("it"))
         {
             // Consumables cannot go in quest or battle rewards
             if (location.Traits.Contains("Quest") || location.Traits.Contains("Battle"))
@@ -74,7 +74,7 @@ public class TreasureLocation : ItemLocation, IDataStoreItemProvider<DataStoreRT
                 return false;
             }
         }
-        else if(GetItemData(true).s11ItemResourceId_string.StartsWith("ti") || GetItemData(true).s11ItemResourceId_string == "at900_00")
+        else if(GetItemData(true).s11ItemResourceId.StartsWith("ti") || GetItemData(true).s11ItemResourceId == "at900_00")
         {
             // EP abilities cannot go in CoP, quest, battle, or trade rewards
             if (location.Traits.Contains("CoP") || location.Traits.Contains("Quest") || location.Traits.Contains("Battle") || location.Traits.Contains("Trade"))

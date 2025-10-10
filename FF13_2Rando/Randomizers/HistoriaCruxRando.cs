@@ -14,8 +14,8 @@ namespace FF13_2Rando;
 
 public partial class HistoriaCruxRando : Randomizer
 {
-    public DataStoreDB3<DataStoreRGateTable> gateTable = new();
-    public DataStoreDB3<DataStoreRGateTable> gateTableOrig = new();
+    public DataStoreWDB<DataStoreRGateTable> gateTable = new();
+    public DataStoreWDB<DataStoreRGateTable> gateTableOrig = new();
 
     public Dictionary<string, GateData> gateData = new();
     public Dictionary<string, AreaData> areaData = new();
@@ -56,7 +56,7 @@ public partial class HistoriaCruxRando : Randomizer
             List<string> openings = gateData.Keys
                 .Where(id => !gateData[id].Traits.Contains("Paradox"))
                 .Where(id => FF13_2Flags.Other.RandoDLC.Enabled || !gateData[id].Traits.Contains("DLC"))
-                .Select(id => gateTable[id].sOpenHistoria1_string)
+                .Select(id => gateTable[id].sOpenHistoria1)
                 .Select(s => s.Substring(0, s.Length - 2))
                 .Distinct().ToList();
 
@@ -74,12 +74,12 @@ public partial class HistoriaCruxRando : Randomizer
 
             placement.Keys.ToList().ForEach(open =>
             {
-                gateTable.Keys.Where(id => gateTableOrig[id].sOpenHistoria1_string.StartsWith(open)).ToList().ForEach(id => gateTable[id].sOpenHistoria1_string = placement[open] + "_a");
+                gateTable.Keys.Where(id => gateTableOrig[id].sOpenHistoria1.StartsWith(open)).ToList().ForEach(id => gateTable[id].sOpenHistoria1 = placement[open] + "_a");
             });
 
             if (placement.ContainsKey("h_hm_AD0003"))
             {
-                gateTable["hs_hmaa10_zz"].sArea_string = placement["h_hm_AD0003"];
+                gateTable["hs_hmaa10_zz"].sArea = placement["h_hm_AD0003"];
             }
 
             RandomNum.ClearRand();
@@ -135,7 +135,7 @@ public partial class HistoriaCruxRando : Randomizer
 
     public List<string> GetIDsForOpening(string open, bool orig = true)
     {
-        return gateData.Keys.Where(id => (orig ? gateTableOrig[id] : gateTable[id]).sOpenHistoria1_string.StartsWith(open)).ToList();
+        return gateData.Keys.Where(id => (orig ? gateTableOrig[id] : gateTable[id]).sOpenHistoria1.StartsWith(open)).ToList();
     }
 
     private bool IsAllowed(string open, Dictionary<string, string> soFar, List<string> available)
@@ -397,7 +397,7 @@ public partial class HistoriaCruxRando : Randomizer
         page.HTMLElements.Add(new Table("", (new string[] { "Original Gate", "New Location", "Estimated Battle Difficulty of New Location" }).ToList(), (new int[] { 40, 40, 20 }).ToList(),
             gateData.Values.Where(g => !g.Traits.Contains("Paradox")).Select(g =>
           {
-              string id = gateTable[g.ID].sOpenHistoria1_string;
+              string id = gateTable[g.ID].sOpenHistoria1;
               string shortID = id.Substring(0, id.Length - 2);
               return (new string[] { g.GateOriginal, areaData[shortID].Name, diffs.ContainsKey(shortID) ? diffs[shortID].ToString() : "-" }).ToList();
           }).ToList()));

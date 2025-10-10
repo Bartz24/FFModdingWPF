@@ -2,18 +2,14 @@
 
 namespace Bartz24.FF13_2;
 
-public class DataStoreItem : DataStoreDB3SubEntry
+public class DataStoreItem : DataStoreWDBEntry
 {
-    public int sItemNameStringId_pointer { get; set; }
-    public string sItemNameStringId_string { get; set; }
-    public int sHelpStringId_pointer { get; set; }
-    public string sHelpStringId_string { get; set; }
-    public int sScriptId_pointer { get; set; }
-    public string sScriptId_string { get; set; }
+    public string sItemNameStringId { get; set; }
+    public string sHelpStringId { get; set; }
+    public string sScriptId { get; set; }
     public int uPurchasePrice { get; set; }
     public int uSellPrice { get; set; }
-    public int sRequiredItem_pointer { get; set; }
-    public string sRequiredItem_string { get; set; }
+    public string sRequiredItem { get; set; }
     public int u8MenuIcon { get; set; }
     public int u8ItemCategory { get; set; }
     public int i16ScriptArg0 { get; set; }

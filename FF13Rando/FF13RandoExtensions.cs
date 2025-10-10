@@ -1,5 +1,6 @@
 ﻿using Bartz24.Data;
 using Bartz24.FF13;
+using Bartz24.FF13Series;
 using Bartz24.RandoWPF;
 using System.IO;
 

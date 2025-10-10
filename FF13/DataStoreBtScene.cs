@@ -9,7 +9,7 @@ public class DataStoreBtScene : DataStoreWDBEntry
         get => Data.ReadUInt(0x34);
         set => Data.SetUInt(0x34, value);
     }
-    public string sDrop100Id_string { get; set; }
+    public string sDrop100Id { get; set; }
     public byte u8NumDrop100
     {
         get => Data.ReadByte(0x50);

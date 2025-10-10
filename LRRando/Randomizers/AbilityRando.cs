@@ -12,17 +12,17 @@ namespace LRRando;
 
 public class AbilityRando : Randomizer
 {
-    public DataStoreDB3<DataStoreBtAbility> abilities = new();
-    public DataStoreDB3<DataStoreRBtAbiGrow> abilityGrowths = new();
+    public DataStoreWDB<DataStoreBtAbility> abilities = new();
+    public DataStoreWDB<DataStoreRBtAbiGrow> abilityGrowths = new();
 
     public AbilityRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading Ability Data...");
-        abilities.LoadDB3(Generator, "LR", @"\db\resident\bt_ability.wdb");
+        abilities.LoadWDB(Generator, "LR", @"\db\resident\bt_ability.wdb");
         RandoUI.SetUIProgressDeterminate("Loading Ability Data...", 50, 100);
-        abilityGrowths.LoadDB3(Generator, "LR", @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb", false);
+        abilityGrowths.LoadWDB(Generator, "LR", @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb", false);
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
         RandoUI.SetUIProgressDeterminate("Loading Ability Data...", 80, 100);
         treasureRando.AddTreasure("ini_ba_abi", "", 1, "");
@@ -86,9 +86,9 @@ public class AbilityRando : Randomizer
 
             abilityGrowths.Values.ForEach(abi =>
             {
-                // Get all properties of the abi object with the name "sPasvAbility[0-9]*_string"
+                // Get all properties of the abi object with the name "sPasvAbility[0-9]*"
                 PropertyInfo[] pasvAbilityProperties = abi.GetType().GetProperties()
-                    .Where(p => Regex.IsMatch(p.Name, "sPasvAbility[0-9]*_string")).ToArray();
+                    .Where(p => Regex.IsMatch(p.Name, "sPasvAbility[0-9]*")).ToArray();
 
                 // Set the value of each property to a random ability name
                 foreach (PropertyInfo pasvAbilityProp in pasvAbilityProperties)
@@ -96,7 +96,7 @@ public class AbilityRando : Randomizer
                     string propertyValue = pasvAbilityProp.GetValue(abi) as string;
                     if (!string.IsNullOrEmpty(propertyValue) && !propertyValue.Equals("0"))
                     {
-                        pasvAbilityProp.SetValue(abi, RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.name).ToList()));
+                        pasvAbilityProp.SetValue(abi, RandomNum.SelectRandom(equipRando.GetFilteredAbilities().Select(p => p.record).ToList()));
                     }
                 }
             });
@@ -118,18 +118,18 @@ public class AbilityRando : Randomizer
     {
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
         EquipRando equipRando = Generator.Get<EquipRando>();
-        List<DataStoreItem> enumerable = equipRando.GetAbilities(-1).Where(a => a.name.EndsWith("_00")).ToList();
+        List<DataStoreItem> enumerable = equipRando.GetAbilities(-1).Where(a => a.record.EndsWith("_00")).ToList();
         DataStoreItem random = enumerable.ElementAt(RandomNum.RandInt(0, enumerable.Count - 1));
 
-        treasureRando.treasures[name].s11ItemResourceId_string = random.name;
+        treasureRando.treasures[name].s11ItemResourceId = random.record;
     }
 
     public override void Save()
     {
         RandoUI.SetUIProgressIndeterminate("Saving Ability Data...");
-        abilities.SaveDB3(Generator, @"\db\resident\bt_ability.wdb");
+        abilities.SaveWDB(Generator, @"\db\resident\bt_ability.wdb");
         RandoUI.SetUIProgressDeterminate("Saving Ability Data...", 50, 100);
-        abilityGrowths.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb");
+        abilityGrowths.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_bt_abi_grow.wdb");
     }
 }

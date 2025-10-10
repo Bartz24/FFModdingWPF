@@ -180,7 +180,7 @@ public partial class CrystariumRando : Randomizer
             {
                 DataStoreCrystarium firstNode = crystariums[chara][firstNodes[chara][(Role)r]];
                 List<DataStoreCrystarium> stageAbis = crystariums[chara].Values.Where(c => c.iType == CrystariumType.Ability && c.iStage == firstNode.iStage).ToList();
-                DataStoreCrystarium abiNode = stageAbis.First(c => c.iRole == (Role)r && abilityData[c.sAbility_string].Role != Role.None);
+                DataStoreCrystarium abiNode = stageAbis.First(c => c.iRole == (Role)r && abilityData[c.sAbility].Role != Role.None);
                 firstNode.SwapStatsAbilities(abiNode);
             }
         }
@@ -211,9 +211,9 @@ public partial class CrystariumRando : Randomizer
                         next = GetNextAbilityRole(abilitiesPlaced, chara, (Role)r, false, false);
                     } while (abilityData[next].Traits.Contains("Required"));
 
-                    first.sAbility_string = next;
+                    first.sAbility = next;
                     remaining.Remove(first);
-                    abilitiesPlaced.Add(first.sAbility_string);
+                    abilitiesPlaced.Add(first.sAbility);
                 }
 
                 // Set remaining abilities
@@ -226,24 +226,24 @@ public partial class CrystariumRando : Randomizer
                         IEnumerable<AbilityData> required = abilityData.Values.Where(a => a.Characters.Contains(chara) && a.Traits.Contains("Required") && !abilitiesPlaced.Contains(a.ID));
                         if (remaining.Count == required.Count())
                         {
-                            node.sAbility_string = required.Shuffle().Select(a => a.ID).First();
+                            node.sAbility = required.Shuffle().Select(a => a.ID).First();
                             remaining.Remove(node);
-                            abilitiesPlaced.Add(node.sAbility_string);
+                            abilitiesPlaced.Add(node.sAbility);
                             continue;
                         }
 
-                        node.sAbility_string = node.iCPCost > 0 && FF13Flags.Stats.RandCrystAbiAll.Enabled
+                        node.sAbility = node.iCPCost > 0 && FF13Flags.Stats.RandCrystAbiAll.Enabled
                             ? GetNextAbilityAll(abilitiesPlaced, chara, true)
                             : GetNextAbilityRole(abilitiesPlaced, chara, node.iRole, true, true);
 
-                        if (node.sAbility_string == null)
+                        if (node.sAbility == null)
                         {
                             success = false;
                             continue;
                         }
 
                         remaining.Remove(node);
-                        abilitiesPlaced.Add(node.sAbility_string);
+                        abilitiesPlaced.Add(node.sAbility);
                     }
                 }
             } while (attempts < maxAttempts && !success);
@@ -446,7 +446,7 @@ public partial class CrystariumRando : Randomizer
     private string GetFirstRole(string c)
     {
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
-        return treasureRando.treasures.Values.First(t => t.ID.StartsWith("z_ran_" + c) && treasureRando.ItemLocations[t.ID].Traits.Contains("Same")).sItemResourceId_string.Substring($"rol_{c}_".Length);
+        return treasureRando.treasures.Values.First(t => t.ID.StartsWith("z_ran_" + c) && treasureRando.ItemLocations[t.ID].Traits.Contains("Same")).sItemResourceId.Substring($"rol_{c}_".Length);
     }
     public override Dictionary<string, HTMLPage> GetDocumentation()
     {
@@ -503,7 +503,7 @@ public partial class CrystariumRando : Randomizer
                         int roleLevels = roleCrysts.Where(c => c.iType == CrystariumType.RoleLevel).Count();
                         int accessories = roleCrysts.Where(c => c.iType == CrystariumType.Accessory).Count();
                         int atbLevel = roleCrysts.Where(c => c.iType == CrystariumType.ATBLevel).Count();
-                        List<string> abilities = roleCrysts.Where(c => c.iType == CrystariumType.Ability).Select(c => abilityData[c.sAbility_string].Name).ToList();
+                        List<string> abilities = roleCrysts.Where(c => c.iType == CrystariumType.Ability).Select(c => abilityData[c.sAbility].Name).ToList();
                         if (hp > 0)
                         {
                             additions.Add($"HP + {hp}");

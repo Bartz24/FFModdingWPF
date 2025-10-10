@@ -15,10 +15,10 @@ namespace FF13_2Rando;
 
 public partial class BattleRando : Randomizer
 {
-    public DataStoreDB3<DataStoreBtScene> btScenes = new();
-    private readonly DataStoreDB3<DataStoreRCharaSet> charaSets = new();
+    public DataStoreWDB<DataStoreBtScene> btScenes = new();
+    private readonly DataStoreWDB<DataStoreRCharaSet> charaSets = new();
 
-    public Dictionary<string, DataStoreDB3<DataStoreBtSTable>> btTables = new();
+    public Dictionary<string, DataStoreWDB<DataStoreBtSTable>> btTables = new();
     private Dictionary<string, EnemyData> enemyData = new();
     private readonly Dictionary<string, Dictionary<string, BossData>> bossData = new();
     public Dictionary<string, BattleData> battleData = new();
@@ -63,7 +63,7 @@ public partial class BattleRando : Randomizer
         HistoriaCruxRando historiaCruxRando = Generator.Get<HistoriaCruxRando>();
         historiaCruxRando.areaData.Values.Where(a => !string.IsNullOrEmpty(a.BattleTableID)).ForEach(a =>
         {
-            DataStoreDB3<DataStoreBtSTable> table = new();
+            DataStoreWDB<DataStoreBtSTable> table = new();
             table.LoadDB3(Generator, "13-2", @"\db\btscenetable\" + a.BattleTableID + ".wdb");
             btTables.Add(a.BattleTableID, table);
         });
@@ -137,12 +137,12 @@ public partial class BattleRando : Randomizer
                     if (!oldEnemies[0].Traits.Contains("Boss") || FF13_2Flags.Enemies.Bosses.SelectedValues.Count > 0)
                     {
                         List<EnemyData> validEnemies = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).ToList();
-                        if (battleData.ContainsKey(b.name))
+                        if (battleData.ContainsKey(b.record))
                         {
                             validEnemies = validEnemies.Where(e => e.Parts.Count == 0 || oldEnemies.Contains(e)).ToList();
                         }
 
-                        UpdateEnemyLists(oldEnemies, validEnemies, b.name, b.name.StartsWith("btsc011"));
+                        UpdateEnemyLists(oldEnemies, validEnemies, b.record, b.record.StartsWith("btsc011"));
                     }
                 }
             });
@@ -158,7 +158,7 @@ public partial class BattleRando : Randomizer
             int rank = GetBattleRank(b);
             if (rank > 0)
             {
-                List<string> areas = GetAreasWithBattle(b.name);
+                List<string> areas = GetAreasWithBattle(b.record);
                 areas.ForEach(a =>
                 {
                     if (!areaRanks.ContainsKey(a))
@@ -252,9 +252,9 @@ public partial class BattleRando : Randomizer
         }
 
         newEnemy.u12KeepVal = origEnemy.u12KeepVal;
-        newEnemy.s10DropItem0_string = origEnemy.s10DropItem0_string;
-        newEnemy.s10DropItem1_string = origEnemy.s10DropItem1_string;
-        newEnemy.s10DropItem2_string = origEnemy.s10DropItem2_string;
+        newEnemy.s10DropItem0 = origEnemy.s10DropItem0;
+        newEnemy.s10DropItem1 = origEnemy.s10DropItem1;
+        newEnemy.s10DropItem2 = origEnemy.s10DropItem2;
         newEnemy.u8NumDrop0 = origEnemy.u8NumDrop0;
         newEnemy.u8NumDrop1 = origEnemy.u8NumDrop1;
         newEnemy.u8NumDrop2 = origEnemy.u8NumDrop2;
@@ -309,13 +309,13 @@ public partial class BattleRando : Randomizer
             {
                 if (noEntry)
                 {
-                    btScenes[btsceneName].s10BtChEntryId_string = "";
-                    btScenes[btsceneName].s10PartyEntryId_string = "";
+                    btScenes[btsceneName].s10BtChEntryId = "";
+                    btScenes[btsceneName].s10PartyEntryId = "";
                 }
                 else
                 {
-                    btScenes[btsceneName].s10BtChEntryId_string = "btsc_def_e00";
-                    btScenes[btsceneName].s10PartyEntryId_string = "btsc_def_p00";
+                    btScenes[btsceneName].s10BtChEntryId = "btsc_def_e00";
+                    btScenes[btsceneName].s10PartyEntryId = "btsc_def_p00";
                 }
             }
         }
@@ -379,7 +379,7 @@ public partial class BattleRando : Randomizer
                         {
                             List<string> list = charaSets[c].CharaSpecs;
 
-                            string spec = enemyRando.HasEnemy(newEnemy.ID) ? enemyRando.GetEnemy(newEnemy.ID).sCharaSpec_string : newEnemy.ID;
+                            string spec = enemyRando.HasEnemy(newEnemy.ID) ? enemyRando.GetEnemy(newEnemy.ID).sCharaSpec : newEnemy.ID;
                             if (!list.Contains(spec))
                             {
                                 list.Add(spec);
@@ -387,7 +387,7 @@ public partial class BattleRando : Randomizer
 
                             newEnemy.Parts.ForEach(id =>
                             {
-                                string spec = enemyRando.HasEnemy(newEnemy.ID) ? enemyRando.GetEnemy(newEnemy.ID).sCharaSpec_string : newEnemy.ID;
+                                string spec = enemyRando.HasEnemy(newEnemy.ID) ? enemyRando.GetEnemy(newEnemy.ID).sCharaSpec : newEnemy.ID;
                                 if (!list.Contains(spec))
                                 {
                                     list.Add(spec);
@@ -443,7 +443,7 @@ public partial class BattleRando : Randomizer
 
         if (battleData.ContainsKey(btsceneName))
         {
-            charaSpecs.Select(spec => enemyRando.HasEnemy(spec) ? enemyRando.GetEnemy(spec).sCharaSpec_string : spec).ForEach(spec =>
+            charaSpecs.Select(spec => enemyRando.HasEnemy(spec) ? enemyRando.GetEnemy(spec).sCharaSpec : spec).ForEach(spec =>
             {
                 battleData[btsceneName].Charasets.ForEach(c =>
                 {
@@ -509,10 +509,10 @@ public partial class BattleRando : Randomizer
             return new string[] { p.Key, p.Value }.ToList();
         }).ToList()));
 
-        page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID", "Location", "New Enemies" }).ToList(), (new int[] { 20, 20, 60 }).ToList(), btScenes.Values.Where(b => GetAreasWithBattle(b.name).Count > 0).Select(b =>
+        page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID", "Location", "New Enemies" }).ToList(), (new int[] { 20, 20, 60 }).ToList(), btScenes.Values.Where(b => GetAreasWithBattle(b.record).Count > 0).Select(b =>
           {
               List<string> names = b.GetCharSpecs().Take(b.u4BtChInitSetNum > 0 ? b.u4BtChInitSetNum : int.MaxValue).Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : e + " (???)").GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
-              return new string[] { b.name, string.Join("/", GetAreasWithBattle(b.name).Select(a => historiaCruxRando.areaData[a].Name)), string.Join(", ", names) }.ToList();
+              return new string[] { b.record, string.Join("/", GetAreasWithBattle(b.record).Select(a => historiaCruxRando.areaData[a].Name)), string.Join(", ", names) }.ToList();
           }).ToList()));
         pages.Add("encounters", page);
         return pages;

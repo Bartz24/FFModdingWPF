@@ -2,33 +2,21 @@
 
 namespace Bartz24.FF13_2;
 
-public class DataStoreItemWeapon : DataStoreDB3SubEntry
+public class DataStoreItemWeapon : DataStoreWDBEntry
 {
-    public int sWeaponCharaSpecId_pointer { get; set; }
-    public string sWeaponCharaSpecId_string { get; set; }
-    public int sWeaponCharaSpecId2_pointer { get; set; }
-    public string sWeaponCharaSpecId2_string { get; set; }
-    public int sAbility_pointer { get; set; }
-    public string sAbility_string { get; set; }
-    public int sAbility2_pointer { get; set; }
-    public string sAbility2_string { get; set; }
-    public int sAbility3_pointer { get; set; }
-    public string sAbility3_string { get; set; }
-    public int sAbilityName_pointer { get; set; }
-    public string sAbilityName_string { get; set; }
-    public int sOtherItemId_pointer { get; set; }
-    public string sOtherItemId_string { get; set; }
-    public int sDisasItem1_pointer { get; set; }
-    public string sDisasItem1_string { get; set; }
-    public int sDisasItem2_pointer { get; set; }
-    public string sDisasItem2_string { get; set; }
-    public int sDisasItem3_pointer { get; set; }
-    public string sDisasItem3_string { get; set; }
-    public int sDisasItem4_pointer { get; set; }
-    public string sDisasItem4_string { get; set; }
-    public int sDisasItem5_pointer { get; set; }
-    public string sDisasItem5_string { get; set; }
-    public int u1CanRemodel { get; set; }
+    public string sWeaponCharaSpecId { get; set; }
+    public string sWeaponCharaSpecId2 { get; set; }
+    public string sAbility { get; set; }
+    public string sAbility2 { get; set; }
+    public string sAbility3 { get; set; }
+    public string sAbilityName { get; set; }
+    public string sOtherItemId { get; set; }
+    public string sDisasItem1 { get; set; }
+    public string sDisasItem2 { get; set; }
+    public string sDisasItem3 { get; set; }
+    public string sDisasItem4 { get; set; }
+    public string sDisasItem5 { get; set; }
+        public int u1CanRemodel { get; set; }
     public int u7Cost { get; set; }
     public int u8StatusModKind0 { get; set; }
     public int u8StatusModKind1 { get; set; }

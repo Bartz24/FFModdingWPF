@@ -9,7 +9,7 @@ public class DataStoreBtSc : DataStoreWDBEntry
         get => Data.ReadUInt(0x0);
         set => Data.SetUInt(0x0, value);
     }
-    public string sEntryBtChSpec_string { get; set; }
+    public string sEntryBtChSpec { get; set; }
 
     public override int GetDefaultLength()
     {

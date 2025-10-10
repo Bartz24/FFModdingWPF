@@ -1,6 +1,7 @@
 ﻿using Bartz24.Data;
 using Bartz24.Docs;
 using Bartz24.FF13;
+using Bartz24.FF13Series;
 using Bartz24.RandoWPF;
 using FF13Rando;
 using System;
@@ -221,7 +222,7 @@ public partial class BattleRando : Randomizer
             charaSpecs.RemoveAll(spec =>
             {
                 // Skip specs not in enemy rando
-                if (!enemyRando.btCharaSpec.Values.Select(e => e.sCharaSpec_string).Contains(spec))
+                if (!enemyRando.btCharaSpec.Values.Select(e => e.sCharaSpec).Contains(spec))
                 {
                     return false;
                 }
@@ -231,7 +232,7 @@ public partial class BattleRando : Randomizer
                 .Where(btsc =>
                     battleData[btsc.ID].Charasets.Contains(c.ID) &&
                     btsc.Values
-                        .Select(e => enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string)
+                        .Select(e => enemyRando.btCharaSpec[e.sEntryBtChSpec].sCharaSpec)
                         .Contains(spec))
                 .Select(btsc => btsc.ID)
                 .ToList();
@@ -258,7 +259,7 @@ public partial class BattleRando : Randomizer
             List<string> enemies = btscsForLyb
             .SelectMany(
                 b => b.Values.Select(
-                    spec => spec.sEntryBtChSpec_string))
+                    spec => spec.sEntryBtChSpec))
             .Distinct()
             .Where(e => enemyData.ContainsKey(e))
             .ToList();
@@ -271,7 +272,7 @@ public partial class BattleRando : Randomizer
                 enemies.ForEach(enemyId =>
                 {
                     List<string> possible = ResolvePossibleCandidates(enemyId, enemyData.Keys.Where(id=>!mapping.Values.Contains(id)), btscsForLyb
-                        .Where(b => btscs[b.ID].Values.Select(e => e.sEntryBtChSpec_string).Contains(enemyId))
+                        .Where(b => btscs[b.ID].Values.Select(e => e.sEntryBtChSpec).Contains(enemyId))
                         .All(b => battleData[b.ID].Traits.Contains("Event")) ? BattleType.Event : BattleType.NonEvent);
 
                     if (possible.Count == 0)
@@ -282,19 +283,19 @@ public partial class BattleRando : Randomizer
                     string next = RandomNum.SelectRandom(possible);
                     mapping.Add(enemyId, next);
                 });
-            } while (mapping.Count != enemies.Count || mapping.Values.Select(e => enemyRando.btCharaSpec[e].sCharaSpec_string).Distinct().Count() != mapping.Count());
+            } while (mapping.Count != enemies.Count || mapping.Values.Select(e => enemyRando.btCharaSpec[e].sCharaSpec).Distinct().Count() != mapping.Count());
 
             lybMappings.Add(lybId, mapping);
 
             // Replace enemies in lyb looping through the EnemyCharasets
             lybs[lybId].EnemyCharasets.ForEach(pair =>
             {
-                string enemy = mapping.Keys.FirstOrDefault(old => enemyRando.btCharaSpec[old].sCharaSpec_string == pair.Value);
+                string enemy = mapping.Keys.FirstOrDefault(old => enemyRando.btCharaSpec[old].sCharaSpec == pair.Value);
 
                 // Replace the charaset if it exists in the mapping
                 if (enemy != null)
                 {
-                    lybs[lybId].EnemyCharasets[pair.Key] = enemyRando.btCharaSpec[mapping[enemy]].sCharaSpec_string;
+                    lybs[lybId].EnemyCharasets[pair.Key] = enemyRando.btCharaSpec[mapping[enemy]].sCharaSpec;
                 }
             });
 
@@ -308,17 +309,17 @@ public partial class BattleRando : Randomizer
                         enemyData[e].LYBForced
                             .Select(l => $"scene{l.ToString("00000")}")
                             .Contains(lybId))
-                .Select(e => enemyRando.btCharaSpec[e].sCharaSpec_string)
+                .Select(e => enemyRando.btCharaSpec[e].sCharaSpec)
                 .Distinct().Where(spec => charaSpecs.Contains(spec)).ToList();
 
                 for (int i = 0; i < charaSpecs.Count; i++)
                 {
-                    string enemy = mapping.Keys.FirstOrDefault(old => enemyRando.btCharaSpec[old].sCharaSpec_string == charaSpecs[i]);
+                    string enemy = mapping.Keys.FirstOrDefault(old => enemyRando.btCharaSpec[old].sCharaSpec == charaSpecs[i]);
 
                     // Replace the charaset if it exists in the mapping
                     if (enemy != null)
                     {
-                        charaSpecs[i] = enemyRando.btCharaSpec[mapping[enemy]].sCharaSpec_string;
+                        charaSpecs[i] = enemyRando.btCharaSpec[mapping[enemy]].sCharaSpec;
                     }
                 }
 
@@ -332,21 +333,21 @@ public partial class BattleRando : Randomizer
             btscsForLyb.ForEach(btsc =>
             {
                 btsc.Values
-                .Where(spec => mapping.ContainsKey(spec.sEntryBtChSpec_string))
-                .ForEach(spec => spec.sEntryBtChSpec_string = mapping[spec.sEntryBtChSpec_string]);
+                .Where(spec => mapping.ContainsKey(spec.sEntryBtChSpec))
+                .ForEach(spec => spec.sEntryBtChSpec = mapping[spec.sEntryBtChSpec]);
 
                 if (battleData[btsc.ID].Traits.Contains("Mission"))
                 {
                     List<string> notInCharasets = btsc.Values
-                        .Select(b => b.sEntryBtChSpec_string)
+                        .Select(b => b.sEntryBtChSpec)
                         .Where(e => !charaSets.Values
                             .Where(c => battleData[btsc.ID].Charasets.Contains(c.ID))
                             .SelectMany(c => c.GetCharaSpecs())
                             .Distinct()
-                            .Contains(enemyRando.btCharaSpec[e].sCharaSpec_string))
+                            .Contains(enemyRando.btCharaSpec[e].sCharaSpec))
                         .Distinct()
                         .Where(e => !e.StartsWith("pc"))
-                        .Select(e => enemyRando.btCharaSpec[e].sCharaSpec_string)
+                        .Select(e => enemyRando.btCharaSpec[e].sCharaSpec)
                         .ToList();
 
                     if (notInCharasets.Count > 4)
@@ -437,7 +438,7 @@ public partial class BattleRando : Randomizer
             List<string> list = charaSets[cs].GetCharaSpecs();
 
             List<string> battles = battleData.Where(battle => battle.Value.Charasets.Contains(cs)).Select(b => b.Key).ToList();
-            List<string> vanillaEnemies = battles.SelectMany(id => btscs[id].Values.Select(e => e.sEntryBtChSpec_string)).Distinct().ToList();
+            List<string> vanillaEnemies = battles.SelectMany(id => btscs[id].Values.Select(e => e.sEntryBtChSpec)).Distinct().ToList();
             int reservedCapacity = vanillaEnemies.Count;
 
             int nonBattleCharacters = list.Where(cha => !enemyData.ContainsKey(cha)).Count();
@@ -466,7 +467,7 @@ public partial class BattleRando : Randomizer
             //Extract all battles for a given charaset.
             List<string> battles = battleData.Where(battle => battle.Value.Charasets.Contains(charaset)).Select(b => b.Key).ToList();
             //Extract all vanilla enemies across all battles for the charaset
-            List<string> vanillaEnemies = battles.SelectMany(id => btscsOrig[id].Values.Select(e => e.sEntryBtChSpec_string)).Distinct().ToList();
+            List<string> vanillaEnemies = battles.SelectMany(id => btscsOrig[id].Values.Select(e => e.sEntryBtChSpec)).Distinct().ToList();
             int reservedCapacity = vanillaEnemies.Count;
 
             IEnumerable<string> singleSetFights = battles.Where(id => battleData[id].Charasets.Count == 1);
@@ -477,6 +478,7 @@ public partial class BattleRando : Randomizer
                 //Probably fine for now but could be improved.
                 return;
             }
+
             IEnumerable<string> sharedSetFights = battles.Where(id => battleData[id].Charasets.Count > 1);
 
             IEnumerable<int> standardFights = singleSetFights.Select(id => battleData[id].Charasets.Min(c => charasetData[c].Limit));
@@ -492,7 +494,7 @@ public partial class BattleRando : Randomizer
 
                 return ResolvePossibleCandidates(key, enemyData.Keys, 
                     battles
-                        .Where(id => btscsOrig[id].Values.Select(e => e.sEntryBtChSpec_string).Contains(key))
+                        .Where(id => btscsOrig[id].Values.Select(e => e.sEntryBtChSpec).Contains(key))
                         .All(id => battleData[id].Traits.Contains("Event")) ? BattleType.Event : BattleType.NonEvent);
             });
 
@@ -515,12 +517,13 @@ public partial class BattleRando : Randomizer
 
                 foreach (string enemyToAdd in enemiesToAddToSet)
                 {
-                    string charaspecToAdd = enemyRando.btCharaSpec[enemyToAdd].sCharaSpec_string;
+                    string charaspecToAdd = enemyRando.btCharaSpec[enemyToAdd].sCharaSpec;
                     if (!list.Contains(charaspecToAdd))
                     {
                         list.Add(charaspecToAdd);
                     }
                 }
+
                 charaSets[charaset].SetCharaSpecs(list);
             }
 
@@ -551,7 +554,7 @@ public partial class BattleRando : Randomizer
                 for (int i = availablePeerSlotsToFill; i > 0; i--)
                 {
                     string peerEnemy = RandomNum.SelectRandom(enemiesToAddToSet);
-                    string charaspecToAdd = enemyRando.btCharaSpec[peerEnemy].sCharaSpec_string;
+                    string charaspecToAdd = enemyRando.btCharaSpec[peerEnemy].sCharaSpec;
                     if (!peerList.Contains(charaspecToAdd))
                     {
                         peerList.Add(charaspecToAdd);
@@ -573,7 +576,7 @@ public partial class BattleRando : Randomizer
             //Extract all battles for a given charaset.
             List<string> battles = battleData.Where(battle => battle.Value.Charasets.Contains(charaset)).Select(b => b.Key).ToList();
             //Extract all vanilla enemies across all battles for the charaset
-            List<string> vanillaEnemies = battles.SelectMany(id => btscs[id].Values.Select(e => e.sEntryBtChSpec_string)).Distinct().ToList();
+            List<string> vanillaEnemies = battles.SelectMany(id => btscs[id].Values.Select(e => e.sEntryBtChSpec)).Distinct().ToList();
             int reservedCapacity = vanillaEnemies.Count;
 
             IEnumerable<string> singleSetFights = battles.Where(id => battleData[id].Charasets.Count == 1);
@@ -588,12 +591,13 @@ public partial class BattleRando : Randomizer
 
             List<string> peerCharasets = sharedSetFights.SelectMany(id => battleData[id].Charasets).Where(c => c != charaset).ToList();
 
-            List<string> intersectionEnemies = peerCharasets.Select(id => charaSets[id].GetCharaSpecs()).Aggregate(null, (List<string>? prev, List<string> next) =>
+            List<string> intersectionEnemies = peerCharasets.Select(id => charaSets[id].GetCharaSpecs()).Aggregate(null, (List<string> prev, List<string> next) =>
             {
                 if (prev == null)
                 {
                     return next;
                 }
+
                 return prev.Intersect(next).ToList();
             });
             if (intersectionEnemies.Count > 0)
@@ -613,33 +617,33 @@ public partial class BattleRando : Randomizer
             battles.Where(id => battleData[id].Charasets.Count == 1).ForEach(id =>
             {
                 List<string> uniqueMissionEnemies = new();
-                btscs[id].Values.Shuffle().Where(e => enemyData.ContainsKey(e.sEntryBtChSpec_string)).ForEach(e =>
+                btscs[id].Values.Shuffle().Where(e => enemyData.ContainsKey(e.sEntryBtChSpec)).ForEach(e =>
                 {
-                    IEnumerable<string> enemyPool = enemyData.Keys.Where(enemy => candidates.Contains(enemyRando.btCharaSpec[enemy].sCharaSpec_string));
+                    IEnumerable<string> enemyPool = enemyData.Keys.Where(enemy => candidates.Contains(enemyRando.btCharaSpec[enemy].sCharaSpec));
 
                     // If this is a mission battle, leave one of each unique enemy and randomize the rest
                     if (battleData[id].Traits.Contains("Mission"))
                     {
-                        if (!uniqueMissionEnemies.Contains(e.sEntryBtChSpec_string))
+                        if (!uniqueMissionEnemies.Contains(e.sEntryBtChSpec))
                         {
-                            uniqueMissionEnemies.Add(e.sEntryBtChSpec_string);
+                            uniqueMissionEnemies.Add(e.sEntryBtChSpec);
                             return;
                         }
 
                         // Add mission enemies to the pool
                         enemyPool = enemyPool.Union(missions[battleData[id].MissionID].GetCharaSpecs()
-                            .Select(spec => enemyData.Keys.FirstOrDefault(missionEnemy => enemyRando.btCharaSpec[missionEnemy].sCharaSpec_string == spec))
+                            .Select(spec => enemyData.Keys.FirstOrDefault(missionEnemy => enemyRando.btCharaSpec[missionEnemy].sCharaSpec == spec))
                             .Where(e => !string.IsNullOrEmpty(e)));
                     }
 
                     // Use the old vanilla enemy as its rank should be the center instead of the currently replaced enemy
-                    string oldEnemy = btscsOrig[id].Values.First(eOrig => eOrig.ID == e.ID).sEntryBtChSpec_string;
+                    string oldEnemy = btscsOrig[id].Values.First(eOrig => eOrig.ID == e.ID).sEntryBtChSpec;
                     List<string> possible = ResolvePossibleCandidates(oldEnemy, enemyPool, battleData[id].Traits.Contains("Event") ? BattleType.Event : BattleType.NonEvent);
 
                     if (possible.Count > 0)
                     {
                         //Select a new random enemy from the list
-                        e.sEntryBtChSpec_string = RandomNum.SelectRandom(possible);
+                        e.sEntryBtChSpec = RandomNum.SelectRandom(possible);
                     }
                     else
                     {
@@ -658,6 +662,7 @@ public partial class BattleRando : Randomizer
             {
                 return;
             }
+
             BattleData data = battleData[id];
             List<string> dataCharsets = data.Charasets;
             //Resolve all modified charasets available for this battle and take the intersection as enemy candidates.
@@ -665,34 +670,34 @@ public partial class BattleRando : Randomizer
             List<string> intersectionGroup = charasetEnemyGroups.Aggregate((IEnumerable<string>)charasetEnemyGroups[0], (a, b) => a.Intersect(b)).Where(e => enemyData.ContainsKey(e)).ToList();
 
             List<string> uniqueMissionEnemies = new();
-            btscs[id].Values.Shuffle().Where(e => intersectionGroup.Contains(enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string)).ForEach(e =>
+            btscs[id].Values.Shuffle().Where(e => intersectionGroup.Contains(enemyRando.btCharaSpec[e.sEntryBtChSpec].sCharaSpec)).ForEach(e =>
             {
 
-                IEnumerable<string> enemyPool = enemyData.Keys.Where(enemy => intersectionGroup.Contains(enemyRando.btCharaSpec[enemy].sCharaSpec_string));
+                IEnumerable<string> enemyPool = enemyData.Keys.Where(enemy => intersectionGroup.Contains(enemyRando.btCharaSpec[enemy].sCharaSpec));
 
                 // If this is a mission battle, leave one of each unique enemy and randomize the rest
                 if (battleData[id].Traits.Contains("Mission"))
                 {
-                    if (!uniqueMissionEnemies.Contains(e.sEntryBtChSpec_string))
+                    if (!uniqueMissionEnemies.Contains(e.sEntryBtChSpec))
                     {
-                        uniqueMissionEnemies.Add(e.sEntryBtChSpec_string);
+                        uniqueMissionEnemies.Add(e.sEntryBtChSpec);
                         return;
                     }
 
                     // Add mission enemies to the pool
                     enemyPool = enemyPool.Union(missions[battleData[id].MissionID].GetCharaSpecs()
-                        .Select(spec => enemyData.Keys.FirstOrDefault(missionEnemy => enemyRando.btCharaSpec[missionEnemy].sCharaSpec_string == spec))
+                        .Select(spec => enemyData.Keys.FirstOrDefault(missionEnemy => enemyRando.btCharaSpec[missionEnemy].sCharaSpec == spec))
                         .Where(e => !string.IsNullOrEmpty(e)));
                 }
 
                 // Use the old vanilla enemy as its rank should be the center instead of the currently replaced enemy
-                string oldEnemy = btscsOrig[id].Values.First(eOrig => eOrig.ID == e.ID).sEntryBtChSpec_string;
+                string oldEnemy = btscsOrig[id].Values.First(eOrig => eOrig.ID == e.ID).sEntryBtChSpec;
                 List<string> possible = ResolvePossibleCandidates(oldEnemy, enemyPool, battleData[id].Traits.Contains("Event") ? BattleType.Event : BattleType.NonEvent);
 
                 if (possible.Count > 0)
                 {
                     //Select a new random enemy from the list if we have any to save
-                    e.sEntryBtChSpec_string = RandomNum.SelectRandom(possible);
+                    e.sEntryBtChSpec = RandomNum.SelectRandom(possible);
                 }
                 else
                 {
@@ -710,7 +715,7 @@ public partial class BattleRando : Randomizer
             //Extract all battles for a given charaset.
             List<string> battles = battleData.Where(battle => battle.Value.Charasets.Contains(charaset)).Select(b => b.Key).ToList();
             //Extract all used enemies from battles
-            List<string> used = battles.SelectMany(b => btscs[b].Values.Select(e => enemyRando.btCharaSpec[e.sEntryBtChSpec_string].sCharaSpec_string)).Distinct().ToList();
+            List<string> used = battles.SelectMany(b => btscs[b].Values.Select(e => enemyRando.btCharaSpec[e.sEntryBtChSpec].sCharaSpec)).Distinct().ToList();
             //Union all required enemies from battles with the original contents of the character set
             //TODO: When we can update field models, this can be more aggressive to remove unused enemies.
             charaSets[charaset].SetCharaSpecs(used.Union(original).Distinct().ToList());
@@ -733,11 +738,11 @@ public partial class BattleRando : Randomizer
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
         HTMLPage page = new("Encounters", "template/documentation.html");
 
-        Dictionary<string, List<string>> formattedOrig = btscsOrig.ToDictionary(k => k.Key, k => k.Value.Values.Where(e => !e.sEntryBtChSpec_string.StartsWith("pc")).Select(e => enemyData.ContainsKey(e.sEntryBtChSpec_string) ? enemyData[e.sEntryBtChSpec_string].Name : e.sEntryBtChSpec_string + " (???)").GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList());
+        Dictionary<string, List<string>> formattedOrig = btscsOrig.ToDictionary(k => k.Key, k => k.Value.Values.Where(e => !e.sEntryBtChSpec.StartsWith("pc")).Select(e => enemyData.ContainsKey(e.sEntryBtChSpec) ? enemyData[e.sEntryBtChSpec].Name : e.sEntryBtChSpec + " (???)").GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList());
 
         page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID", "Region / Name (If known)", "New Enemies", "Old Enemies" }).ToList(), (new int[] { 5, 15, 40, 40 }).ToList(), btscs.Keys.OrderBy(b => b).Select(b =>
         {
-            List<string> names = btscs[b].Values.Where(e => !e.sEntryBtChSpec_string.StartsWith("pc")).Select(e => enemyData.ContainsKey(e.sEntryBtChSpec_string) ? enemyData[e.sEntryBtChSpec_string].Name : e.sEntryBtChSpec_string + " (???)").GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
+            List<string> names = btscs[b].Values.Where(e => !e.sEntryBtChSpec.StartsWith("pc")).Select(e => enemyData.ContainsKey(e.sEntryBtChSpec) ? enemyData[e.sEntryBtChSpec].Name : e.sEntryBtChSpec + " (???)").GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
             List<string> oldNames = formattedOrig[b];
             string region = battleData[b].Location + " - " + battleData[b].Name;
             return new string[] { b, region, string.Join(", ", names), string.Join(", ", oldNames) }.ToList();

@@ -28,10 +28,10 @@ public class APTextRando : TextRando
             // Unique description per AP item
             string region = apData.ItemPlacements[i].Region;
             string locName = apData.ItemPlacements[i].Name;
-
+            
             string descKey = "$zzz_r_aph_" + idx;
             string fromPart = (!string.IsNullOrWhiteSpace(locName) || !string.IsNullOrWhiteSpace(region))
-                ? $" — from {locName}{(string.IsNullOrWhiteSpace(region) ? string.Empty : " (" + region + ")")}"
+                ? $" from {region}."
                 : string.Empty;
 
             string desc = $"To be sent via Archipelago: {name}{fromPart}.";

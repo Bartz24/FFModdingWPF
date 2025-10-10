@@ -12,12 +12,12 @@ namespace FF13_2Rando;
 
 public partial class TreasureRando : Randomizer
 {
-    public DataStoreDB3<DataStoreRTreasurebox> treasuresOrig = new();
-    public DataStoreDB3<DataStoreRTreasurebox> treasures = new();
-    public DataStoreDB3<DataStoreSearchItem> searchOrig = new();
-    public DataStoreDB3<DataStoreSearchItem> search = new();
+    public DataStoreWDB<DataStoreRTreasurebox> treasuresOrig = new();
+    public DataStoreWDB<DataStoreRTreasurebox> treasures = new();
+    public DataStoreWDB<DataStoreSearchItem> searchOrig = new();
+    public DataStoreWDB<DataStoreSearchItem> search = new();
 
-    public DataStoreDB3<DataStoreRFragment> fragments = new();
+    public DataStoreWDB<DataStoreRFragment> fragments = new();
     private readonly Dictionary<string, HintData> hintData = new();
     private readonly Dictionary<string, FF13_2ItemLocation> ItemLocations = new();
     private readonly Dictionary<string, List<string>> hintsMain = new();
@@ -98,11 +98,11 @@ public partial class TreasureRando : Randomizer
         AddTreasure(treasures, newName, item, count, next);
     }
 
-    private void AddTreasure(DataStoreDB3<DataStoreRTreasurebox> database, string newName, string item, int count, string next)
+    private void AddTreasure(DataStoreWDB<DataStoreRTreasurebox> database, string newName, string item, int count, string next)
     {
-        database.InsertCopyAlphabetical(database.Keys[0], newName);
-        database[newName].s11ItemResourceId_string = item;
-        database[newName].s8NextTreasureBoxResourceId_string = next;
+        database.Copy(database.Keys[0], newName);
+        database[newName].s11ItemResourceId = item;
+        database[newName].s8NextTreasureBoxResourceId = next;
         database[newName].iItemCount = count;
     }
 
@@ -150,16 +150,16 @@ public partial class TreasureRando : Randomizer
         {
             hintData.Values.ForEach(h =>
             {
-                textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId_string] = "";
+                textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId] = "";
                 h.Areas.ForEach(a =>
                 {
                     if (hintsNotesSharedCount[a] > 0)
                     {
-                        textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId_string] += $"{cruxRando.areaData[a].Name} has {hintsNotesUniqueCount[a]} unique important checks and {hintsNotesSharedCount[a]} shared with other time periods.";
+                        textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId] += $"{cruxRando.areaData[a].Name} has {hintsNotesUniqueCount[a]} unique important checks and {hintsNotesSharedCount[a]} shared with other time periods.";
                     }
                     else
                     {
-                        textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId_string] += $"{cruxRando.areaData[a].Name} has {hintsNotesUniqueCount[a]} unique important checks.";
+                        textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId] += $"{cruxRando.areaData[a].Name} has {hintsNotesUniqueCount[a]} unique important checks.";
                     }
                 });
             });
@@ -233,7 +233,7 @@ public partial class TreasureRando : Randomizer
         }
         else if (itemID.StartsWith("frg"))
         {
-            name = textRando.mainSysUS[fragments[itemID].sNameStringId_string];
+            name = textRando.mainSysUS[fragments[itemID].sNameStringId];
             if (name.Contains("{End}"))
             {
                 name = name.Substring(0, name.IndexOf("{End}"));
@@ -241,7 +241,7 @@ public partial class TreasureRando : Randomizer
         }
         else
         {
-            name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId_string];
+            name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId];
             if (name.Contains("{End}"))
             {
                 name = name.Substring(0, name.IndexOf("{End}"));

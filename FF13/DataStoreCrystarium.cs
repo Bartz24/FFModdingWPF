@@ -32,7 +32,7 @@ public class DataStoreCrystarium : DataStoreWDBEntry
         set => Data.SetUInt(0x0, value);
     }
 
-    public string sAbility_string { get; set; }
+    public string sAbility { get; set; }
 
     public uint sAbility_pointer
     {
@@ -85,6 +85,6 @@ public class DataStoreCrystarium : DataStoreWDBEntry
     {
         SwapStats(other);
 
-        (sAbility_string, other.sAbility_string) = (other.sAbility_string, sAbility_string);
+        (sAbility, other.sAbility) = (other.sAbility, sAbility);
     }
 }

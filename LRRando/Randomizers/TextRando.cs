@@ -23,12 +23,12 @@ public class TextRando : Randomizer
             string outPath = Generator.DataOutFolder + @"\txtres\zone\z0100\txtres_us.ztr";
             FileHelpers.CopyFile(path, outPath);
 
-            zone100SysUS.Load(outPath, SetupData.Paths["Nova"]);
+            zone100SysUS.Load("LR", outPath, SetupData.Paths["Nova"]);
         }
 
-        zone100SysUS["$inn_no_time"] = "You usually need an {Color Gold}ID card{Color SkyBlue}. Open at the cost of all EP?";
-        zone100SysUS["$sys_yu_noopn"] = "You need an {Color Gold}ID card{Color SkyBlue} and have to complete the Warehouse to open the gate.";
-        zone100SysUS["$sys_yu_mq2"] = "You need {Color Gold}Serah's Pendant{Color SkyBlue} and have to check the table.";
+        zone100SysUS["$inn_no_time"] = "You usually need an {Color Gold}ID card{Color White}. Open at the cost of all EP?";
+        zone100SysUS["$sys_yu_noopn"] = "You need an {Color Gold}ID card{Color White} and have to complete the Warehouse to open the gate.";
+        zone100SysUS["$sys_yu_mq2"] = "You need {Color Gold}Serah's Pendant{Color White} and have to check the table.";
 
         RandoUI.SetUIProgressDeterminate("Loading Text Data...", 50, 100);
         {
@@ -36,7 +36,7 @@ public class TextRando : Randomizer
             string outPath = Generator.DataOutFolder + @"\txtres\resident\system\txtres_us.ztr";
             FileHelpers.CopyFile(path, outPath);
 
-            mainSysUS.Load(outPath, SetupData.Paths["Nova"]);
+            mainSysUS.Load("LR", outPath, SetupData.Paths["Nova"]);
         }
 
         //mainSysUS["$m_001"] = "Rando: Slaughterhouse Special";
@@ -215,34 +215,34 @@ public class TextRando : Randomizer
             switch (c)
             {
                 case '0':
-                    iconForm += "{Icon Shotgun}";
+                    iconForm += "{Icon Knife}";
                     break;
                 case '1':
-                    iconForm += "{Icon Wrench}";
+                    iconForm += "{Icon Brooch}";
                     break;
                 case '2':
-                    iconForm += "{Icon Eye01}";
+                    iconForm += "{Icon Ring}";
                     break;
                 case '3':
-                    iconForm += "{Icon Doc}";
+                    iconForm += "{Icon Hammer}";
                     break;
                 case '4':
-                    iconForm += "{Icon Potion03}";
+                    iconForm += "{Icon Spear}";
                     break;
                 case '5':
-                    iconForm += "{Icon Feather}";
+                    iconForm += "{Icon Sword}";
                     break;
                 case '6':
-                    iconForm += "{Icon Boomerang}";
+                    iconForm += "{Icon Greatsword}";
                     break;
                 case '7':
-                    iconForm += "{Icon Gunblade}";
+                    iconForm += "{Icon Rapier}";
                     break;
                 case '8':
-                    iconForm += "{Icon Weapon03}";
+                    iconForm += "{Icon Dual_Blades}";
                     break;
                 case '9':
-                    iconForm += "{Icon Clock}";
+                    iconForm += "{Icon Staff}";
                     break;
             }
         }
@@ -255,39 +255,36 @@ public class TextRando : Randomizer
         RandoUI.SetUIProgressIndeterminate("Saving Text Data...");
         string hash = GetHash();
 
-        mainSysUS["$dif_conf_e"] = "{Icon Attention} You have selected {Color Red}EASY MODE{Color SkyBlue}.{Text NewLine}" +
+        mainSysUS["$dif_conf_e"] = "{Icon Warning} You have selected {Color LightRed}EASY MODE{Color White}.{Text NewLine}" +
             "{Text NewLine}" +
-            "{VarFF 208}Battle Difficulty: Easy{Text NewLine}" +
-            "{VarFF 208}Fleeing battle: No penalty{Text NewLine}" +
-            "{VarFF 208}HP (health): Auto-recovery in field{Text NewLine}" +
-            "{VarFF 208}Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
-            "{VarFF 208}Seed Hash (for validation): " + hash + "{Text NewLine}" +
-            "{Text NewLine}" +
-            "Game difficulty cannot be changed once the game has started.{Text NewLine}" +
-            "{Many}Do you want to continue?|Yes|No";
-        mainSysUS["$dif_conf_n"] = "{Icon Attention} You have selected {Color Red}NORMAL MODE{Color SkyBlue}.{Text NewLine}" +
-            "{Text NewLine}" +
-            "{VarFF 208}Battle Difficulty: Normal{Text NewLine}" +
-            "{VarFF 208}Fleeing battle: Penalty imposed{Text NewLine}" +
-            "{VarFF 208}HP (health): No auto-recovery in field{Text NewLine}" +
-            "{VarFF 208}Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
-            "{VarFF 208}Seed Hash (for validation): " + hash + "{Text NewLine}" +
+            "{UnkFF D0}Battle Difficulty: Easy{Text NewLine}" +
+            "{UnkFF D0}Fleeing battle: No penalty{Text NewLine}" +
+            "{UnkFF D0}HP (health): Auto-recovery in field{Text NewLine}" +
+            "{UnkFF D0}Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
+            "{UnkFF D0}Seed Hash (for validation): " + hash + "{Text NewLine}" +
             "{Text NewLine}" +
             "Game difficulty cannot be changed once the game has started.{Text NewLine}" +
-            "{Many}Do you want to continue?|Yes|No";
-        mainSysUS["$dif_conf_h"] = "{Icon Attention} You have selected {Color Red}HARD MODE{Color SkyBlue}.{Text NewLine}" +
+            "{StraightLine}Do you want to continue?|Yes|No";
+        mainSysUS["$dif_conf_n"] = "{Icon Warning} You have selected {Color LightRed}NORMAL MODE{Color White}.{Text NewLine}" +
             "{Text NewLine}" +
-            "{VarFF 208}Battle Difficulty: Hard{Text NewLine}" +
-            "{VarFF 208}Fleeing battle: Penalty imposed{Text NewLine}" +
-            "{VarFF 208}HP (health): No auto-recovery in field{Text NewLine}" +
-            "{VarFF 208}Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
-            "{VarFF 208}Seed Hash (for validation): " + hash + "{Text NewLine}" +
+            "{UnkFF D0}Battle Difficulty: Normal{Text NewLine}" +
+            "{UnkFF D0}Fleeing battle: Penalty imposed{Text NewLine}" +
+            "{UnkFF D0}HP (health): No auto-recovery in field{Text NewLine}" +
+            "{UnkFF D0}Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
+            "{UnkFF D0}Seed Hash (for validation): " + hash + "{Text NewLine}" +
             "{Text NewLine}" +
             "Game difficulty cannot be changed once the game has started.{Text NewLine}" +
-            "{Many}Do you want to continue?|Yes|No";
-
-        TempTextCleanup(zone100SysUS);
-        TempTextCleanup(mainSysUS);
+            "{StraightLine}Do you want to continue?|Yes|No";
+        mainSysUS["$dif_conf_h"] = "{Icon Warning} You have selected {Color LightRed}HARD MODE{Color White}.{Text NewLine}" +
+            "{Text NewLine}" +
+            "{UnkFF D0}Battle Difficulty: Hard{Text NewLine}" +
+            "{UnkFF D0}Fleeing battle: Penalty imposed{Text NewLine}" +
+            "{UnkFF D0}HP (health): No auto-recovery in field{Text NewLine}" +
+            "UnkFF D0}Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
+            "{UnkFF D0}Seed Hash (for validation): " + hash + "{Text NewLine}" +
+            "{Text NewLine}" +
+            "Game difficulty cannot be changed once the game has started.{Text NewLine}" +
+            "{StraightLine}Do you want to continue?|Yes|No";
 
         {
             string outPath = Generator.DataOutFolder + @"\txtres\zone\z0100\txtres_us.ztr";
@@ -298,16 +295,5 @@ public class TextRando : Randomizer
             string outPath = Generator.DataOutFolder + @"\txtres\resident\system\txtres_us.ztr";
             mainSysUS.Save("LR", outPath, SetupData.Paths["Nova"]);
         }
-    }
-
-    private void TempTextCleanup(DataStoreZTRText text)
-    {
-        text.Keys.ForEach(k =>
-        {
-            text[k] = text[k].Replace("Ⅷ", "");
-            text[k] = text[k].Replace("×", "x");
-            text[k] = text[k].Replace("{VarF5 SkyBlue}", "Soul Seeds");
-            text[k] = text[k].Replace("{VarF2 PurpleDark}", "  ");
-        });
     }
 }

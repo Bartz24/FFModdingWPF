@@ -33,7 +33,7 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
     {
         LogSetItem(newItem, newCount);
         DataStoreRTreasurebox t = GetItemData(false);
-        t.s11ItemResourceId_string = newItem;
+        t.s11ItemResourceId = newItem;
         t.iItemCount = newCount;
     }
 
@@ -42,12 +42,12 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
         DataStoreRTreasurebox t = GetItemData(orig);
 
         int count = t.iItemCount;
-        if (Traits.Contains("Event") && t.s11ItemResourceId_string.StartsWith("frg"))
+        if (Traits.Contains("Event") && t.s11ItemResourceId.StartsWith("frg"))
         {
             count = 1;
         }
 
-        return (t.s11ItemResourceId_string, count);
+        return (t.s11ItemResourceId, count);
     }
 
     public DataStoreRTreasurebox GetItemData(bool orig)

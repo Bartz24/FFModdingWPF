@@ -4,30 +4,21 @@ using System.Linq;
 
 namespace Bartz24.LR;
 
-public class DataStoreBtScene : DataStoreDB3SubEntry
+public class DataStoreBtScene : DataStoreWDBEntry
 {
-    public int sDebugStr_pointer { get; set; }
-    public string sDebugStr_string { get; set; }
-    public int sMapSetId0_pointer { get; set; }
-    public string sMapSetId0_string { get; set; }
-    public int sMapSetId1_pointer { get; set; }
-    public string sMapSetId1_string { get; set; }
-    public int sBtSpaceId_pointer { get; set; }
-    public string sBtSpaceId_string { get; set; }
-    public int sFinCondEntry0_pointer { get; set; }
-    public string sFinCondEntry0_string { get; set; }
-    public int sDropItem0_pointer { get; set; }
-    public string sDropItem0_string { get; set; }
-    public int sEntryBtChSpec1_pointer { get; set; }
-    public string sEntryBtChSpec1_string { get; set; }
-    public int fForcePopPositionX { get; set; }
-    public int fForcePopPositionY { get; set; }
-    public int fForcePopPositionZ { get; set; }
-    public int s10BtSceStrResId_pointer { get; set; }
-    public string s10BtSceStrResId_string { get; set; }
-    public int s10ExEntrySheet0_pointer { get; set; }
-    public string s10ExEntrySheet0_string { get; set; }
-    public int u1NoOpening { get; set; }
+    public string sDebugStr { get; set; }
+    public string sMapSetId0 { get; set; }
+    public string sMapSetId1 { get; set; }
+    public string sBtSpaceId { get; set; }
+    public string sFinCondEntry0 { get; set; }
+    public string sDropItem0 { get; set; }
+    public string sEntryBtChSpec1 { get; set; }
+    public float fForcePopPositionX { get; set; }
+    public float fForcePopPositionY { get; set; }
+    public float fForcePopPositionZ { get; set; }
+    public string s10BtSceStrResId { get; set; }
+    public string s10ExEntrySheet0 { get; set; }
+        public int u1NoOpening { get; set; }
     public int u1NoEnding { get; set; }
     public int u1Seamless { get; set; }
     public int u1NoDispResult { get; set; }
@@ -44,121 +35,84 @@ public class DataStoreBtScene : DataStoreDB3SubEntry
     public int u4BtChInitSetNum { get; set; }
     public int i16FinCondArg0 { get; set; }
     public int u8NumDrop0 { get; set; }
-    public int s8PartyEntryId_pointer { get; set; }
-    public string s8PartyEntryId_string { get; set; }
+    public string s8PartyEntryId { get; set; }
     public int u16DropProb0 { get; set; }
-    public int s8BtChEntryId_pointer { get; set; }
-    public string s8BtChEntryId_string { get; set; }
+    public string s8BtChEntryId { get; set; }
     public int u1EvenNoShift { get; set; }
     public int u1ForceFindPlayer { get; set; }
     public int u1NoMove { get; set; }
     public int u1NoEnhanceDeathZone { get; set; }
-    public int s10EntryBtChSpec2_pointer { get; set; }
-    public string s10EntryBtChSpec2_string { get; set; }
-    public int s10EntryBtChSpec3_pointer { get; set; }
-    public string s10EntryBtChSpec3_string { get; set; }
-    public int s10EntryBtChSpec4_pointer { get; set; }
-    public string s10EntryBtChSpec4_string { get; set; }
-    public int s8EntryBtChSpec5_pointer { get; set; }
-    public string s8EntryBtChSpec5_string { get; set; }
-    public int s8EntryBtChSpec6_pointer { get; set; }
-    public string s8EntryBtChSpec6_string { get; set; }
-    public int s8EntryBtChSpec7_pointer { get; set; }
-    public string s8EntryBtChSpec7_string { get; set; }
-    public int s8EntryBtChSpec8_pointer { get; set; }
-    public string s8EntryBtChSpec8_string { get; set; }
-    public int s8EntryBtChSpec9_pointer { get; set; }
-    public string s8EntryBtChSpec9_string { get; set; }
-    public int s8EntryBtChSpec10_pointer { get; set; }
-    public string s8EntryBtChSpec10_string { get; set; }
-    public int s8BgmResourceId_pointer { get; set; }
-    public string s8BgmResourceId_string { get; set; }
-    public int s8DominantBgmResourceId_pointer { get; set; }
-    public string s8DominantBgmResourceId_string { get; set; }
-
-    public override Dictionary<string, int> GetStringArrayMapping()
-    {
-        Dictionary<string, int> mapping = new()
-        {
-            { nameof(s10BtSceStrResId_pointer), 0 },
-            { nameof(s10ExEntrySheet0_pointer), 1 },
-            { nameof(s8PartyEntryId_pointer), 2 },
-            { nameof(s8BtChEntryId_pointer), 3 },
-            { nameof(s10EntryBtChSpec2_pointer), 4 },
-            { nameof(s10EntryBtChSpec3_pointer), 5 },
-            { nameof(s10EntryBtChSpec4_pointer), 6 },
-            { nameof(s8EntryBtChSpec5_pointer), 7 },
-            { nameof(s8EntryBtChSpec6_pointer), 8 },
-            { nameof(s8EntryBtChSpec7_pointer), 9 },
-            { nameof(s8EntryBtChSpec8_pointer), 10 },
-            { nameof(s8EntryBtChSpec9_pointer), 11 },
-            { nameof(s8EntryBtChSpec10_pointer), 12 },
-            { nameof(s8BgmResourceId_pointer), 13 },
-            { nameof(s8DominantBgmResourceId_pointer), 14 }
-        };
-        return mapping;
-    }
-
+    public string s10EntryBtChSpec2 { get; set; }
+    public string s10EntryBtChSpec3 { get; set; }
+    public string s10EntryBtChSpec4 { get; set; }
+    public string s8EntryBtChSpec5 { get; set; }
+    public string s8EntryBtChSpec6 { get; set; }
+    public string s8EntryBtChSpec7 { get; set; }
+    public string s8EntryBtChSpec8 { get; set; }
+    public string s8EntryBtChSpec9 { get; set; }
+    public string s8EntryBtChSpec10 { get; set; }
+    public string s8BgmResourceId { get; set; }
+    public string s8DominantBgmResourceId { get; set; }
     public void SetCharSpecs(List<string> list)
     {
-        sEntryBtChSpec1_string = "";
-        s10EntryBtChSpec2_string = "";
-        s10EntryBtChSpec3_string = "";
-        s10EntryBtChSpec4_string = "";
-        s8EntryBtChSpec5_string = "";
-        s8EntryBtChSpec6_string = "";
-        s8EntryBtChSpec7_string = "";
-        s8EntryBtChSpec8_string = "";
-        s8EntryBtChSpec9_string = "";
-        s8EntryBtChSpec10_string = "";
+        sEntryBtChSpec1 = "";
+        s10EntryBtChSpec2 = "";
+        s10EntryBtChSpec3 = "";
+        s10EntryBtChSpec4 = "";
+        s8EntryBtChSpec5 = "";
+        s8EntryBtChSpec6 = "";
+        s8EntryBtChSpec7 = "";
+        s8EntryBtChSpec8 = "";
+        s8EntryBtChSpec9 = "";
+        s8EntryBtChSpec10 = "";
         if (list.Count > 0)
         {
-            sEntryBtChSpec1_string = list[0];
+            sEntryBtChSpec1 = list[0];
         }
 
         if (list.Count > 1)
         {
-            s10EntryBtChSpec2_string = list[1];
+            s10EntryBtChSpec2 = list[1];
         }
 
         if (list.Count > 2)
         {
-            s10EntryBtChSpec3_string = list[2];
+            s10EntryBtChSpec3 = list[2];
         }
 
         if (list.Count > 3)
         {
-            s10EntryBtChSpec4_string = list[3];
+            s10EntryBtChSpec4 = list[3];
         }
 
         if (list.Count > 4)
         {
-            s8EntryBtChSpec5_string = list[4];
+            s8EntryBtChSpec5 = list[4];
         }
 
         if (list.Count > 5)
         {
-            s8EntryBtChSpec6_string = list[5];
+            s8EntryBtChSpec6 = list[5];
         }
 
         if (list.Count > 6)
         {
-            s8EntryBtChSpec7_string = list[6];
+            s8EntryBtChSpec7 = list[6];
         }
 
         if (list.Count > 7)
         {
-            s8EntryBtChSpec8_string = list[7];
+            s8EntryBtChSpec8 = list[7];
         }
 
         if (list.Count > 8)
         {
-            s8EntryBtChSpec9_string = list[8];
+            s8EntryBtChSpec9 = list[8];
         }
 
         if (list.Count > 9)
         {
-            s8EntryBtChSpec10_string = list[9];
+            s8EntryBtChSpec10 = list[9];
         }
     }
 
@@ -166,16 +120,16 @@ public class DataStoreBtScene : DataStoreDB3SubEntry
     {
         List<string> list = new()
         {
-            sEntryBtChSpec1_string,
-            s10EntryBtChSpec2_string,
-            s10EntryBtChSpec3_string,
-            s10EntryBtChSpec4_string,
-            s8EntryBtChSpec5_string,
-            s8EntryBtChSpec6_string,
-            s8EntryBtChSpec7_string,
-            s8EntryBtChSpec8_string,
-            s8EntryBtChSpec9_string,
-            s8EntryBtChSpec10_string
+            sEntryBtChSpec1,
+            s10EntryBtChSpec2,
+            s10EntryBtChSpec3,
+            s10EntryBtChSpec4,
+            s8EntryBtChSpec5,
+            s8EntryBtChSpec6,
+            s8EntryBtChSpec7,
+            s8EntryBtChSpec8,
+            s8EntryBtChSpec9,
+            s8EntryBtChSpec10
         };
         return list.Where(s => s != "").ToList();
     }

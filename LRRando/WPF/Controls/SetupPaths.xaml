@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LRRando"
+             xmlns:local="clr-namespace:LRRando" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" d:DesignWidth="920.67" d:DesignHeight="171.409" >
     <Grid>
         <Grid.Resources >
@@ -14,13 +14,14 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="130px" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="250px" />
+            <ColumnDefinition Width="125px" />
+            <ColumnDefinition Width="125px" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <!--<RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <!--<RowDefinition Height="*" />
             <RowDefinition Height="*" />-->
         </Grid.RowDefinitions>
         <Border Grid.Column="0" Grid.Row="0">
@@ -29,8 +30,13 @@
         <Border Grid.Column="1" Grid.Row="0">
             <TextBox x:Name="steamPathLRText" IsReadOnly="True" Text="{Binding LRPath, Mode=OneWay}" Foreground="Gray"/>
         </Border>
-        <Border Grid.Column="2" Grid.Row="0">
-            <Button x:Name="steamPathLRButton" Click="steamPathLRButton_Click" Content="Select LR:FF13 Folder"/>
+        <Border Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2">
+            <Button x:Name="steamPathLRButton" Click="steamPathLRButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Folder"/>
+                    <Label Margin="0 -6">Select LR:FF13 Folder</Label>
+                </StackPanel>
+            </Button>
         </Border>
         <Border Grid.Column="0" Grid.Row="1">
             <Label HorizontalAlignment="Right">Nova Chrysalia Path</Label>
@@ -39,7 +45,26 @@
             <TextBox x:Name="novaPathText" IsReadOnly="True" Text="{Binding NovaPath, Mode=OneWay}" Foreground="Gray"/>
         </Border>
         <Border Grid.Column="2" Grid.Row="1">
-            <Button x:Name="novaPathButton" Click="novaPathButton_Click" Content="Select Nova Executable"/>
+            <Button x:Name="novaDownloadButton" Click="novaDownloadButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Download"/>
+                    <Label Margin="0 -6">Download</Label>
+                </StackPanel>
+            </Button>
+        </Border>
+        <Border Grid.Column="3" Grid.Row="1">
+            <Button x:Name="novaPathButton" Click="novaPathButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Folder"/>
+                    <Label Margin="0 -6">Select EXE</Label>
+                </StackPanel>                
+            </Button>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="2">
+            <Label HorizontalAlignment="Right" VerticalAlignment="Center">Nova Chysalia Version</Label>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="2">
+            <Label x:Name="NovaVersionLabel" VerticalAlignment="Center" Content="{Binding NovaVersionText, Mode=OneWay}" Foreground="{Binding NovaVersionColor, Mode=OneWay}"/>
         </Border>
         <!--<Border Grid.ColumnSpan="3" Grid.Row="3">
             <Label FontSize="14">Music Rando Only:</Label>

@@ -1,5 +1,6 @@
 ﻿using Bartz24.Data;
 using Bartz24.FF13_2_LR;
+using Bartz24.FF13Series;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
 using LRRando;
@@ -10,7 +11,7 @@ namespace LRRando;
 
 public class EnemyRando : Randomizer
 {
-    public DataStoreDB3<DataStoreBtCharaSpec> enemies = new();
+    public DataStoreWDB<DataStoreBtCharaSpec> enemies = new();
 
     public EnemyRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -26,11 +27,11 @@ public class EnemyRando : Randomizer
         enemies["m375_break2"].fBrkLoopTime3 = 1203982208;
         enemies["m375_break3"].fBrkLoopTime3 = 1203982208;
         enemies["m375_break4"].fBrkLoopTime3 = 1203982208;
-        enemies["m375"].s8Ability18_string = "m375_ac900";
-        enemies["m375_break1"].s8Ability18_string = "m375_ac900";
-        enemies["m375_break2"].s8Ability18_string = "m375_ac900";
-        enemies["m375_break3"].s8Ability18_string = "m375_ac900";
-        enemies["m375_break4"].s8Ability18_string = "m375_ac900";
+        enemies["m375"].s8Ability18 = "m375_ac900";
+        enemies["m375_break1"].s8Ability18 = "m375_ac900";
+        enemies["m375_break2"].s8Ability18 = "m375_ac900";
+        enemies["m375_break3"].s8Ability18 = "m375_ac900";
+        enemies["m375_break4"].s8Ability18 = "m375_ac900";
 
         enemies["m330"].u16DropGil = 4000;
     }
@@ -42,7 +43,7 @@ public class EnemyRando : Randomizer
 
         if (LRFlags.Enemies.BhuniPlus.FlagEnabled)
         {
-            treasureRando.treasures["ran_bhuni_p"].s11ItemResourceId_string = "true";
+            treasureRando.treasures["ran_bhuni_p"].s11ItemResourceId = "true";
         }
 
         string[] types = { "drop0", "drop1", "dropCnd0", "dropCnd1", "dropCnd2" };
@@ -50,7 +51,7 @@ public class EnemyRando : Randomizer
         RemoveMatDrop(equipRando, matDrops);
         List<string> abiDrops = new();
         RemoveAbiDrop(equipRando, abiDrops);
-        enemies.Values.Where(e => e.sBaseBtSpec_string == "").ForEach(baseE =>
+        enemies.Values.Where(e => e.sBaseBtSpec == "").ForEach(baseE =>
         {
             foreach (string type in types)
             {
@@ -65,7 +66,7 @@ public class EnemyRando : Randomizer
                 if (LRFlags.Enemies.AbiDrops.FlagEnabled && equipRando.IsAbility(baseItem))
                 {
                     string lv = baseItem.Substring(baseItem.Length - 3);
-                    string next = equipRando.items[abiDrops.First()].sScriptId_string;
+                    string next = equipRando.items[abiDrops.First()].sScriptId;
                     newBaseItem = next + lv;
                     RemoveAbiDrop(equipRando, abiDrops);
                 }
@@ -75,7 +76,7 @@ public class EnemyRando : Randomizer
                     SetDrop(baseE, type, newBaseItem);
                 }
 
-                enemies.Values.Where(e => e.sBaseBtSpec_string == baseE.name).ForEach(e =>
+                enemies.Values.Where(e => e.sBaseBtSpec == baseE.record).ForEach(e =>
                 {
                     string item = GetDrop(e, type);
                     string newItem = null;
@@ -132,7 +133,7 @@ public class EnemyRando : Randomizer
 
         if (list.Count == 0)
         {
-            list.AddRange(equipRando.GetAbilities(-1).Shuffle().Select(i => i.name));
+            list.AddRange(equipRando.GetAbilities(-1).Shuffle().Select(i => i.record));
         }
 
         RandomNum.ClearRand();
@@ -142,11 +143,11 @@ public class EnemyRando : Randomizer
     {
         return type switch
         {
-            "drop0" => e.s10DropItem0_string,
-            "drop1" => e.s10DropItem1_string,
-            "dropCnd0" => e.sDropCndItem0_string,
-            "dropCnd1" => e.sDropCndItem1_string,
-            "dropCnd2" => e.sDropCndItem2_string,
+            "drop0" => e.s10DropItem0,
+            "drop1" => e.s10DropItem1,
+            "dropCnd0" => e.sDropCndItem0,
+            "dropCnd1" => e.sDropCndItem1,
+            "dropCnd2" => e.sDropCndItem2,
             _ => null,
         };
     }
@@ -156,19 +157,19 @@ public class EnemyRando : Randomizer
         switch (type)
         {
             case "drop0":
-                e.s10DropItem0_string = item;
+                e.s10DropItem0 = item;
                 return;
             case "drop1":
-                e.s10DropItem1_string = item;
+                e.s10DropItem1 = item;
                 return;
             case "dropCnd0":
-                e.sDropCndItem0_string = item;
+                e.sDropCndItem0 = item;
                 return;
             case "dropCnd1":
-                e.sDropCndItem1_string = item;
+                e.sDropCndItem1 = item;
                 return;
             case "dropCnd2":
-                e.sDropCndItem2_string = item;
+                e.sDropCndItem2 = item;
                 return;
         }
     }
@@ -177,6 +178,6 @@ public class EnemyRando : Randomizer
     {
         RandoUI.SetUIProgressIndeterminate("Saving Enemy Data...");
         string outPath = Generator.DataOutFolder + @"\db\resident\bt_chara_spec.wdb";
-        enemies.Save(outPath, SetupData.Paths["Nova"]);
+        enemies.Save("LR", outPath, SetupData.Paths["Nova"]);
     }
 }

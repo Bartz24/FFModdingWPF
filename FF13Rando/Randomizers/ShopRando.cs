@@ -147,7 +147,7 @@ public class ShopRando : Randomizer
         }
         else
         {
-            name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId_string];
+            name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId];
             if (name.Contains("{End}"))
             {
                 name = name.Substring(0, name.IndexOf("{End}"));

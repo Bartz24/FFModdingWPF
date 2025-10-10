@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Bartz24.Data;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace Bartz24.Data;
+namespace Bartz24.FF13Series;
 
 public class Nova
 {
@@ -89,10 +90,40 @@ public class Nova
         RunCommand(novaPath, $"wdbtodb3 \"{Path.GetFullPath(path)}\" {gameIndex}", false);
     }
 
-    public static void ConvertDB3ToWDB(string path, string novaPath)
+    public static void ConvertDB3ToWDB(string game, string path, string novaPath)
     {
-        RunCommand(novaPath, $"db3towdb \"{Path.GetFullPath(path)}\"", false);
+        string gameIndex = GetGameIndex(game);
+        RunCommand(novaPath, $"db3towdb \"{Path.GetFullPath(path)}\" {gameIndex}", false);
         File.Delete(path);
+    }
+
+    public static void ConvertWDBToJSON(string game, string path, string novaPath)
+    {
+        string gameIndex = GetGameIndex(game);
+        RunCommand(novaPath, $"wdbtojson \"{Path.GetFullPath(path)}\" {gameIndex}", false);
+    }
+
+    public static void ConvertJSONToWDB(string game, string path, string novaPath)
+    {
+        string gameIndex = GetGameIndex(game);
+        string jsonPath = Path.GetDirectoryName(Path.GetFullPath(path)) + "\\" + Path.GetFileNameWithoutExtension(path) + ".json";
+        //RunCommand(novaPath, $"jsontowdb \"{jsonPath}\" {gameIndex}", false);
+
+        // Special case where Nova doesn't end properly and requires an input after seeing the "Nova Chrysalia has finished..." message
+        using (Process process = new())
+        {
+            process.StartInfo.FileName = novaPath;
+            process.StartInfo.Arguments = "jsontowdb \"" + jsonPath + "\" " + gameIndex;
+            process.StartInfo.WorkingDirectory = Path.GetDirectoryName(novaPath);
+            //process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardInput = true;
+            process.Start();
+            process.StandardInput.WriteLine();
+            process.WaitForExit();
+        }
+
+        File.Delete(jsonPath);
     }
 
     public static void UnpackWPD(string path, string novaPath)
@@ -120,16 +151,17 @@ public class Nova
         Directory.Delete($"{Path.GetDirectoryName(Path.GetFullPath(path))}\\_{Path.GetFileName(Path.GetFullPath(path))}", true);
     }
 
-    public static void UnpackZTR(string path, string novaPath)
+    public static void ConvertZTRToTXT(string game, string path, string novaPath)
     {
-        RunCommand(novaPath, $"unpackztr \"{Path.GetFullPath(path)}\"", false);
+        string gameIndex = GetGameIndex(game);
+        RunCommand(novaPath, $"ztrTotxt \"{Path.GetFullPath(path)}\" {gameIndex} 1", false);
     }
 
-    public static void InjectZTR(string game, string path, string novaPath)
+    public static void ConvertTXTToZTR(string game, string path, string novaPath)
     {
         string gameIndex = GetGameIndex(game);
         string pathTxt = Path.GetDirectoryName(Path.GetFullPath(path)) + "\\" + Path.GetFileNameWithoutExtension(path) + ".txt";
-        RunCommand(novaPath, $"injectztr \"{Path.GetFullPath(path)}\" \"{pathTxt}\" {gameIndex}", false);
+        RunCommand(novaPath, $"txtToztr \"{pathTxt}\" {gameIndex} 1", false);
         File.Delete(pathTxt);
     }
 
@@ -185,5 +217,42 @@ public class Nova
         IniFile ini = new(iniPath);
 
         return ini.Read("Installed", "NovaChysaliaConfig") == "true";
+    }
+
+    public static string GetVersion(string novaPath)
+    {
+        // Run "NovaChrysalia.exe version" and get output
+        ProcessStartInfo startInfo = new()
+        {
+            FileName = novaPath,
+            Arguments = "version",
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            WorkingDirectory = Path.GetDirectoryName(novaPath)
+        };
+
+        string regexPattern = @"v2\.\d+\.\d+";
+
+        using (Process process = Process.Start(startInfo))
+        {
+            string output = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+
+            System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(output, regexPattern);
+            if (match.Success)
+            {
+                return match.Value;
+            }
+            else
+            {
+                return "v1.X.X or unknown"; // Default to v1 if not found
+            }
+        }
+    }
+
+    public static bool IsNovaVersion2(string novaPath)
+    {
+        return GetVersion(novaPath).StartsWith("v2.");
     }
 }

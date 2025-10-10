@@ -30,14 +30,14 @@ public class BattleDropData : FF13ItemLocation, IDataStoreItemProvider<DataStore
     {
         LogSetItem(newItem, newCount);
         DataStoreBtScene s = GetItemData(false);
-        s.sDrop100Id_string = newItem;
+        s.sDrop100Id = newItem;
         s.u8NumDrop100 = (byte)newCount;
     }
 
     public override (string, int)? GetItem(bool orig)
     {
         DataStoreBtScene s = GetItemData(orig);
-        return (s.sDrop100Id_string, s.u8NumDrop100);
+        return (s.sDrop100Id, s.u8NumDrop100);
     }
 
     public DataStoreBtScene GetItemData(bool orig)

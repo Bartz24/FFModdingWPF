@@ -14,9 +14,9 @@ namespace FF13_2Rando;
 
 public partial class CrystariumRando : Randomizer
 {
-    public DataStoreDB3<DataStoreRGrowPc> crystSerah = new();
-    public DataStoreDB3<DataStoreRGrowPc> crystNoel = new();
-    public DataStoreDB3<DataStoreRGrowSt> crystMonster = new();
+    public DataStoreWDB<DataStoreRGrowPc> crystSerah = new();
+    public DataStoreWDB<DataStoreRGrowPc> crystNoel = new();
+    public DataStoreWDB<DataStoreRGrowSt> crystMonster = new();
 
     public Dictionary<string, AbilityData> abilityData = new();
 
@@ -47,25 +47,25 @@ public partial class CrystariumRando : Randomizer
             FF13_2Flags.Stats.RandCrystAbi.SetRand();
             {
                 List<string> learned = new();
-                crystSerah.Values.Where(c => c.sAbilityId_string != "").ForEach(c =>
+                crystSerah.Values.Where(c => c.sAbilityId != "").ForEach(c =>
                 {
                     string next = GetPossiblePc(learned, GetPcRole(c.u4Role), c.u7Lv == 1).Shuffle().First();
                     learned.Add(next);
-                    c.sAbilityId_string = next;
+                    c.sAbilityId = next;
                 });
             }
 
             {
                 List<string> learned = new();
-                crystNoel.Values.Where(c => c.sAbilityId_string != "").ForEach(c =>
+                crystNoel.Values.Where(c => c.sAbilityId != "").ForEach(c =>
                 {
                     string next = GetPossiblePc(learned, GetPcRole(c.u4Role), c.u7Lv == 1).Shuffle().First();
                     learned.Add(next);
-                    c.sAbilityId_string = next;
+                    c.sAbilityId = next;
                 });
             }
 
-            crystMonster.Values.Where(m => !m.name.StartsWith("pc") && m.u5RoleStyle % 5 == 1).ForEach(m =>
+            crystMonster.Values.Where(m => !m.record.StartsWith("pc") && m.u5RoleStyle % 5 == 1).ForEach(m =>
               {
                   List<string> learned = new();
                   List<string> orig = m.GetAbilities();

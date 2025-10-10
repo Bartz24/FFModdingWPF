@@ -5,77 +5,43 @@ using System.Linq;
 
 namespace Bartz24.LR;
 
-public class DataStoreShop : DataStoreDB3SubEntry
+public class DataStoreShop : DataStoreWDBEntry
 {
-    public int sShopNameLabel_pointer { get; set; }
-    public string sShopNameLabel_string { get; set; }
-    public int sBaseId_pointer { get; set; }
-    public string sBaseId_string { get; set; }
-    public int sItemLabel1_pointer { get; set; }
-    public string sItemLabel1_string { get; set; }
-    public int sItemLabel2_pointer { get; set; }
-    public string sItemLabel2_string { get; set; }
-    public int sItemLabel3_pointer { get; set; }
-    public string sItemLabel3_string { get; set; }
-    public int sItemLabel4_pointer { get; set; }
-    public string sItemLabel4_string { get; set; }
-    public int sItemLabel5_pointer { get; set; }
-    public string sItemLabel5_string { get; set; }
-    public int sItemLabel6_pointer { get; set; }
-    public string sItemLabel6_string { get; set; }
-    public int sItemLabel7_pointer { get; set; }
-    public string sItemLabel7_string { get; set; }
-    public int sItemLabel8_pointer { get; set; }
-    public string sItemLabel8_string { get; set; }
-    public int sItemLabel9_pointer { get; set; }
-    public string sItemLabel9_string { get; set; }
-    public int sItemLabel10_pointer { get; set; }
-    public string sItemLabel10_string { get; set; }
-    public int sItemLabel11_pointer { get; set; }
-    public string sItemLabel11_string { get; set; }
-    public int sItemLabel12_pointer { get; set; }
-    public string sItemLabel12_string { get; set; }
-    public int sItemLabel13_pointer { get; set; }
-    public string sItemLabel13_string { get; set; }
-    public int sItemLabel14_pointer { get; set; }
-    public string sItemLabel14_string { get; set; }
-    public int sItemLabel15_pointer { get; set; }
-    public string sItemLabel15_string { get; set; }
-    public int sItemLabel16_pointer { get; set; }
-    public string sItemLabel16_string { get; set; }
-    public int sItemLabel17_pointer { get; set; }
-    public string sItemLabel17_string { get; set; }
-    public int sItemLabel18_pointer { get; set; }
-    public string sItemLabel18_string { get; set; }
-    public int sItemLabel19_pointer { get; set; }
-    public string sItemLabel19_string { get; set; }
-    public int sItemLabel20_pointer { get; set; }
-    public string sItemLabel20_string { get; set; }
-    public int sItemLabel21_pointer { get; set; }
-    public string sItemLabel21_string { get; set; }
-    public int sItemLabel22_pointer { get; set; }
-    public string sItemLabel22_string { get; set; }
-    public int sItemLabel23_pointer { get; set; }
-    public string sItemLabel23_string { get; set; }
-    public int sItemLabel24_pointer { get; set; }
-    public string sItemLabel24_string { get; set; }
-    public int sItemLabel25_pointer { get; set; }
-    public string sItemLabel25_string { get; set; }
-    public int sItemLabel26_pointer { get; set; }
-    public string sItemLabel26_string { get; set; }
-    public int sItemLabel27_pointer { get; set; }
-    public string sItemLabel27_string { get; set; }
-    public int sItemLabel28_pointer { get; set; }
-    public string sItemLabel28_string { get; set; }
-    public int sItemLabel29_pointer { get; set; }
-    public string sItemLabel29_string { get; set; }
-    public int sItemLabel30_pointer { get; set; }
-    public string sItemLabel30_string { get; set; }
-    public int sItemLabel31_pointer { get; set; }
-    public string sItemLabel31_string { get; set; }
-    public int sItemLabel32_pointer { get; set; }
-    public string sItemLabel32_string { get; set; }
-    public int u3Category { get; set; }
+    public string sShopNameLabel { get; set; }
+    public string sBaseId { get; set; }
+    public string sItemLabel1 { get; set; }
+    public string sItemLabel2 { get; set; }
+    public string sItemLabel3 { get; set; }
+    public string sItemLabel4 { get; set; }
+    public string sItemLabel5 { get; set; }
+    public string sItemLabel6 { get; set; }
+    public string sItemLabel7 { get; set; }
+    public string sItemLabel8 { get; set; }
+    public string sItemLabel9 { get; set; }
+    public string sItemLabel10 { get; set; }
+    public string sItemLabel11 { get; set; }
+    public string sItemLabel12 { get; set; }
+    public string sItemLabel13 { get; set; }
+    public string sItemLabel14 { get; set; }
+    public string sItemLabel15 { get; set; }
+    public string sItemLabel16 { get; set; }
+    public string sItemLabel17 { get; set; }
+    public string sItemLabel18 { get; set; }
+    public string sItemLabel19 { get; set; }
+    public string sItemLabel20 { get; set; }
+    public string sItemLabel21 { get; set; }
+    public string sItemLabel22 { get; set; }
+    public string sItemLabel23 { get; set; }
+    public string sItemLabel24 { get; set; }
+    public string sItemLabel25 { get; set; }
+    public string sItemLabel26 { get; set; }
+    public string sItemLabel27 { get; set; }
+    public string sItemLabel28 { get; set; }
+    public string sItemLabel29 { get; set; }
+    public string sItemLabel30 { get; set; }
+    public string sItemLabel31 { get; set; }
+    public string sItemLabel32 { get; set; }
+        public int u3Category { get; set; }
     public int u4Day { get; set; }
     public int u8SaveIndex { get; set; }
     public int u7PowRate { get; set; }
@@ -123,7 +89,7 @@ public class DataStoreShop : DataStoreDB3SubEntry
         List<string> list = new();
         for (int i = 1; i <= 32; i++)
         {
-            list.Add(this.GetPropValue<string>($"sItemLabel{i}_string"));
+            list.Add(this.GetPropValue<string>($"sItemLabel{i}"));
         }
 
         return list.Where(s => s != "").ToList();
@@ -142,7 +108,7 @@ public class DataStoreShop : DataStoreDB3SubEntry
     {
         for (int i = 1; i <= 32; i++)
         {
-            this.SetPropValue($"sItemLabel{i}_string", i > list.Count ? "" : list[i - 1]);
+            this.SetPropValue($"sItemLabel{i}", i > list.Count ? "" : list[i - 1]);
         }
     }
     public void SetItemFlags(List<int> list)

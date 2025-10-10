@@ -3,90 +3,53 @@ using System.Collections.Generic;
 
 namespace Bartz24.FF13_2;
 
-public class DataStoreBtCharaSpec : DataStoreDB3SubEntry
+public class DataStoreBtCharaSpec : DataStoreWDBEntry
 {
-    public int sCharaSpec_pointer { get; set; }
-    public string sCharaSpec_string { get; set; }
-    public int sBaseBtSpec_pointer { get; set; }
-    public string sBaseBtSpec_string { get; set; }
-    public int sNameStrResID_pointer { get; set; }
-    public string sNameStrResID_string { get; set; }
-    public int sNameStrRsv0_pointer { get; set; }
-    public string sNameStrRsv0_string { get; set; }
-    public int sWandIdNag_pointer { get; set; }
-    public string sWandIdNag_string { get; set; }
-    public int sWandIdAg_pointer { get; set; }
-    public string sWandIdAg_string { get; set; }
-    public int fAtkLen { get; set; }
-    public int sScriptId_pointer { get; set; }
-    public string sScriptId_string { get; set; }
-    public int sAiSheetName_pointer { get; set; }
-    public string sAiSheetName_string { get; set; }
-    public int sAbility0_pointer { get; set; }
-    public string sAbility0_string { get; set; }
-    public int sAbility1_pointer { get; set; }
-    public string sAbility1_string { get; set; }
-    public int sAbility2_pointer { get; set; }
-    public string sAbility2_string { get; set; }
-    public int sAbility3_pointer { get; set; }
-    public string sAbility3_string { get; set; }
-    public int sAbility4_pointer { get; set; }
-    public string sAbility4_string { get; set; }
-    public int sAbility5_pointer { get; set; }
-    public string sAbility5_string { get; set; }
-    public int sAbility6_pointer { get; set; }
-    public string sAbility6_string { get; set; }
-    public int sAbility7_pointer { get; set; }
-    public string sAbility7_string { get; set; }
-    public int sAbility8_pointer { get; set; }
-    public string sAbility8_string { get; set; }
-    public int sAbility9_pointer { get; set; }
-    public string sAbility9_string { get; set; }
-    public int sAbility10_pointer { get; set; }
-    public string sAbility10_string { get; set; }
-    public int sAbility11_pointer { get; set; }
-    public string sAbility11_string { get; set; }
-    public int sAbility12_pointer { get; set; }
-    public string sAbility12_string { get; set; }
-    public int sAbility13_pointer { get; set; }
-    public string sAbility13_string { get; set; }
-    public int sAbility14_pointer { get; set; }
-    public string sAbility14_string { get; set; }
-    public int sAbility15_pointer { get; set; }
-    public string sAbility15_string { get; set; }
-    public int fFReserve0 { get; set; }
-    public int fFReserve1 { get; set; }
-    public int fFReserve2 { get; set; }
-    public int fFReserve3 { get; set; }
-    public int sEffId0_pointer { get; set; }
-    public string sEffId0_string { get; set; }
+    public string sCharaSpec { get; set; }
+    public string sBaseBtSpec { get; set; }
+    public string sNameStrResID { get; set; }
+    public string sNameStrRsv0 { get; set; }
+    public string sWandIdNag { get; set; }
+    public string sWandIdAg { get; set; }
+        public float fAtkLen { get; set; }
+    public string sScriptId { get; set; }
+    public string sAiSheetName { get; set; }
+    public string sAbility0 { get; set; }
+    public string sAbility1 { get; set; }
+    public string sAbility2 { get; set; }
+    public string sAbility3 { get; set; }
+    public string sAbility4 { get; set; }
+    public string sAbility5 { get; set; }
+    public string sAbility6 { get; set; }
+    public string sAbility7 { get; set; }
+    public string sAbility8 { get; set; }
+    public string sAbility9 { get; set; }
+    public string sAbility10 { get; set; }
+    public string sAbility11 { get; set; }
+    public string sAbility12 { get; set; }
+    public string sAbility13 { get; set; }
+    public string sAbility14 { get; set; }
+    public string sAbility15 { get; set; }
+        public float fFReserve0 { get; set; }
+    public float fFReserve1 { get; set; }
+    public float fFReserve2 { get; set; }
+    public float fFReserve3 { get; set; }
+    public string sEffId0 { get; set; }
     public int iEffArg0 { get; set; }
-    public int sSndId0_pointer { get; set; }
-    public string sSndId0_string { get; set; }
-    public int sEffId1_pointer { get; set; }
-    public string sEffId1_string { get; set; }
-    public int iEffArg1 { get; set; }
-    public int sSndId1_pointer { get; set; }
-    public string sSndId1_string { get; set; }
-    public int sPartCharSpec0_pointer { get; set; }
-    public string sPartCharSpec0_string { get; set; }
-    public int sPartCharSpec1_pointer { get; set; }
-    public string sPartCharSpec1_string { get; set; }
-    public int sPartCharSpec2_pointer { get; set; }
-    public string sPartCharSpec2_string { get; set; }
-    public int sPartCharSpec3_pointer { get; set; }
-    public string sPartCharSpec3_string { get; set; }
-    public int sPartCharSpec4_pointer { get; set; }
-    public string sPartCharSpec4_string { get; set; }
-    public int sPartCharSpec5_pointer { get; set; }
-    public string sPartCharSpec5_string { get; set; }
-    public int sPartCharSpec6_pointer { get; set; }
-    public string sPartCharSpec6_string { get; set; }
-    public int sPartCharSpec7_pointer { get; set; }
-    public string sPartCharSpec7_string { get; set; }
-    public int sMogClockId_pointer { get; set; }
-    public string sMogClockId_string { get; set; }
-    public int u6PcKind { get; set; }
+    public string sSndId0 { get; set; }
+    public string sEffId1 { get; set; }
+        public int iEffArg1 { get; set; }
+    public string sSndId1 { get; set; }
+    public string sPartCharSpec0 { get; set; }
+    public string sPartCharSpec1 { get; set; }
+    public string sPartCharSpec2 { get; set; }
+    public string sPartCharSpec3 { get; set; }
+    public string sPartCharSpec4 { get; set; }
+    public string sPartCharSpec5 { get; set; }
+    public string sPartCharSpec6 { get; set; }
+    public string sPartCharSpec7 { get; set; }
+    public string sMogClockId { get; set; }
+        public int u6PcKind { get; set; }
     public int u6RoleStyle { get; set; }
     public int u8Rank { get; set; }
     public int u1NoHide { get; set; }
@@ -188,34 +151,21 @@ public class DataStoreBtCharaSpec : DataStoreDB3SubEntry
     public int u12Reserve3 { get; set; }
     public int u6Reserve4 { get; set; }
     public int u14NameElemId { get; set; }
-    public int s10DropItem0_pointer { get; set; }
-    public string s10DropItem0_string { get; set; }
+    public string s10DropItem0 { get; set; }
     public int u14ElemIdRsv0 { get; set; }
     public int u14ElemIdRsv1 { get; set; }
     public int u14EffPos0 { get; set; }
     public int u14EffPos1 { get; set; }
     public int u14TgElemId0 { get; set; }
     public int u8NumDrop0 { get; set; }
-    public int s10DropItem1_pointer { get; set; }
-    public string s10DropItem1_string { get; set; }
+    public string s10DropItem1 { get; set; }
     public int u24AbilityPoint { get; set; }
     public int u8NumDrop1 { get; set; }
     public int u14DropProb0 { get; set; }
     public int u14DropProb1 { get; set; }
-    public int s10DropItem2_pointer { get; set; }
-    public string s10DropItem2_string { get; set; }
+    public string s10DropItem2 { get; set; }
     public int u8NumDrop2 { get; set; }
     public int u14DropProb2 { get; set; }
     public int u16DropGil { get; set; }
     public int u16ResultTime { get; set; }
-    public override Dictionary<string, int> GetStringArrayMapping()
-    {
-        Dictionary<string, int> mapping = new()
-        {
-            { nameof(s10DropItem0_pointer), 0 },
-            { nameof(s10DropItem1_pointer), 1 },
-            { nameof(s10DropItem2_pointer), 2 }
-        };
-        return mapping;
-    }
 }
