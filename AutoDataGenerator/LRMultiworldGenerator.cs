@@ -26,7 +26,7 @@ internal class LRMultiworldGenerator
     public LRMultiworldGenerator(string inputDir, string outputDir)
     {
         SetupData.Paths["LR"] = "G:\\SteamLibrary\\steamapps\\common\\LIGHTNING RETURNS FINAL FANTASY XIII";
-        SetupData.Paths["Nova"] = "S:\\Games\\FF13Series\\Nova Chrysalia v1.0.1\\NovaChrysalia.exe";
+        SetupData.Paths["Nova"] = "S:\\Games\\FF13Series\\Nova Chrysalia v2.0.3\\NovaChrysalia.exe";
         DataExtensions.Mode = ByteMode.BigEndian;
         LRFlags.Init();
         SetupData.Seed = "1234567890";
@@ -68,6 +68,7 @@ internal class LRMultiworldGenerator
             "    code: Optional[int] = None\n" +
             "    str_id: str = \"\"\n" +
             "    classification: ItemClassification = ItemClassification.filler\n" +
+            "    category: str = \"\"\n" +
             "    weight: int = 0\n" +
             "    amount: int = 1\n" +
             "    duplicate_amount: int = 1\n" +
@@ -120,7 +121,7 @@ internal class LRMultiworldGenerator
                     }
                 }
 
-                script = AddItemToItemsScript(script, i.Name, i.ID, nextIndex, type, weight, 1, duplicates);
+                script = AddItemToItemsScript(script, i.Name, i.ID, nextIndex, type, i.Category, weight, 1, duplicates);
                 nextIndex++;
             }
         });
@@ -129,7 +130,7 @@ internal class LRMultiworldGenerator
         int[] gilWeights = new[] { 50, 700, 900, 600, 400, 100 };
         for (int i = 0; i < gilAmounts.Length; i++)
         {
-            script = AddItemToItemsScript(script, $"{gilAmounts[i]} Gil", "", nextIndex, "filler", gilWeights[i], gilAmounts[i], 0);
+            script = AddItemToItemsScript(script, $"{gilAmounts[i]} Gil", "", nextIndex, "filler", "Gil", gilWeights[i], gilAmounts[i], 0);
             nextIndex++;
         }
 
@@ -146,13 +147,14 @@ internal class LRMultiworldGenerator
         File.WriteAllText(Path.Combine(OutputDir, "Items.py"), script);
     }
 
-    private string AddItemToItemsScript(string script, string name, string id, int intIndex, string type, int weight, int amount, int duplicates)
+    private string AddItemToItemsScript(string script, string name, string id, int intIndex, string type, string category, int weight, int amount, int duplicates)
     {
         script +=
             $"    \"{name}\": LRFF13ItemData(\n" +
             $"        code={intIndex},\n" +
             $"        str_id=\"{id}\",\n" +
-            $"        classification=ItemClassification.{type}";
+            $"        classification=ItemClassification.{type},\n" +
+            $"        category=\"{category}\"";
         if (weight > 0)
         {
             script += $",\n" +
@@ -375,12 +377,13 @@ internal class LRMultiworldGenerator
     {
         string script =
             "from typing import Callable, Dict, List, Tuple\n" +
-            "from BaseClasses import CollectionState\n" +
-            "from .RuleLogic import state_has_at_least" +
+            "from BaseClasses import CollectionState, Item\n" +
+            "from .RuleLogic import state_has_at_least, item_is_category" +
             "\n" +
             "\n";
 
-        Dictionary<string, string> locationToRules = new();
+    Dictionary<string, string> locationToRules = new();
+    Dictionary<string, string> itemRules = new();
         Dictionary<(string From, string To), string> entranceToRules = new();
         List<string> rules = new();
 
@@ -393,6 +396,21 @@ internal class LRMultiworldGenerator
             }
 
             locationToRules.Add(locations[l], ruleStr);
+
+            // Build item rule for Same-type restricted locations
+            if (l.Traits != null && l.Traits.Contains("Same"))
+            {
+                var tItem = l?.GetItem(true);
+                string origId = tItem?.Item1;
+
+                if (!string.IsNullOrEmpty(origId) && EquipRando.itemData.ContainsKey(origId))
+                {
+                    string category = EquipRando.itemData[origId].Category;
+                    // Lambda that checks item's category using RuleLogic.item_is_category
+                    string itemRule = $"lambda item: item_is_category(item.name, \"{category}\")";
+                    itemRules[locations[l]] = itemRule;
+                }
+            }
         });
 
         // Add any extra locations (e.g., event splits for amounts)
@@ -446,6 +464,14 @@ internal class LRMultiworldGenerator
             script += $"    \"{l}\": rule_data_list[{rules.IndexOf(locationToRules[l])}],\n";
         });
 
+        script += "}\n";
+
+        // Emit item rules for Same-type restrictions
+        script += "\nitem_rule_data_table: Dict[str, Callable[[Item], bool]] = {\n";
+        foreach (var kvp in itemRules)
+        {
+            script += $"    \"{kvp.Key}\": {kvp.Value},\n";
+        }
         script += "}\n";
 
         script += "\nentrance_rule_data_table: Dict[Tuple[str, str], Callable[[CollectionState, int], bool]] = {\n";

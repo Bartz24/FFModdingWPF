@@ -68,8 +68,8 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Grid.Row="0" Padding="10,0" Margin="5,0,5,10" x:Name="importPreviousButton" Click="importSeedHistoryButton_Click" ToolTip="Load a seed from seed history.">
                 <StackPanel Orientation="Horizontal">
@@ -92,7 +92,7 @@
             <Button Grid.Column="1" Grid.Row="1" Padding="10,0" Margin="5,0,5,10"  x:Name="importHistoryButton" Click="importHistoryButton_Click" ToolTip="Load a seed from a Documentation ZIP file.">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Import" Margin="0,1"/>
-                    <TextBlock Text="Load from Docs ZIP"/>
+                    <TextBlock x:Name="zipImportText" Text="Load from ZIP"/>
                 </StackPanel>
             </Button>
         </Grid>

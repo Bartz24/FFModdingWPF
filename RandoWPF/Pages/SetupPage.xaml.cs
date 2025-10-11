@@ -21,6 +21,8 @@ public partial class SetupPage : UserControl
         typeof(SetupPage),
         new PropertyMetadata());
     private static bool settingSeed = false;
+    private string zipFilter = "ZIP(*.zip)|*.zip";
+
     public string Seed
     {
         get => SetupData.Seed;
@@ -70,6 +72,12 @@ public partial class SetupPage : UserControl
         SetupData.SeedChanged += (s, e) => Seed = SetupData.Seed;
     }
 
+    public void SetAPFileExtension(string ext)
+    {
+        zipImportText.Text = "Load from ZIP/" + ext.ToUpper().Trim('.');
+        zipFilter = "ZIP or " + ext.ToUpper().Trim('.') + "(*.zip;*" + ext.ToLower() + ")|*.zip;*" + ext.ToLower();
+    }
+
     private void importJSONButton_Click(object sender, RoutedEventArgs e)
     {
         VistaOpenFileDialog dialog = new()
@@ -108,9 +116,9 @@ public partial class SetupPage : UserControl
     {
         VistaOpenFileDialog dialog = new()
         {
-            Title = "Please select a ZIP documentation.",
+            Title = "Please select a ZIP documentation or AP world patch.",
             Multiselect = false,
-            Filter = "Zip|*.zip"
+            Filter = zipFilter
         };
         if ((bool)dialog.ShowDialog())
         {
@@ -128,7 +136,7 @@ public partial class SetupPage : UserControl
                 {
                     using (ZipArchive archive = ZipFile.OpenRead(path))
                     {
-                        ZipArchiveEntry entry = archive.Entries.First(e => e.Name.EndsWith("_Seed.json"));
+                        ZipArchiveEntry entry = archive.Entries.First(e => e.Name.EndsWith("_Seed.json") || e.Name == "seed.json");
                         entry.ExtractToFile(outFolder + @"\seed.json");
                     }
 
