@@ -265,10 +265,10 @@ tre_w_apple2,Wildlands,Aryas Village Apple,SideKey,I(MQ3|3),1,
 tre_w_apple3,Wildlands,Aryas Village Apple,SideKey,I(MQ3|3),1,
 tre_wea_oa02,Wildlands,Wildlands Boss Drop,Battle,I(MQ3|3),7,
 tre_box_b_002,Yusnaan,Reveler's Quarter Lapis Lazuli Treasure,CoPKey,,0,YusnaanRevelerHedge
-tre_box_b_003,Yusnaan,Industrial Area Power Booster,CoPKey,I(key_y_ticket|1),2,
+tre_box_b_003,Yusnaan,Industrial Area Power Booster,CoPKey,I(MQ2|2),2,
 tre_box_b_012,Yusnaan,Tunnel Oath of the Merchants Guild Treasure,CoPKey,,0,YusnaanOathMerchant
-tre_box_b_013,Yusnaan,Industrial Area Jade Hair Comb,CoPKey,I(Q_Death|1),2,
-tre_box_b_014,Yusnaan,Industrial Area Bronze Pocket Watch,CoPKey,I(key_y_ticket|1),1,YusnaanIndustrialPocketWatch
+tre_box_b_013,Yusnaan,Industrial Area Jade Hair Comb,CoPKey,I(MQ2|2),2,
+tre_box_b_014,Yusnaan,Industrial Area Bronze Pocket Watch,CoPKey,I(MQ2|2),1,YusnaanIndustrialPocketWatch
 tre_key_b_20,Yusnaan,Chocobo Girl Poster,CoPKey,,0,YusnaanChocoPoster
 tre_box_y_000,Yusnaan,Glutton's Quarter Treasure,,,0,YusnaanGluttonQuarter
 tre_box_y_001,Yusnaan,Aromatic Market Treasure,,,0,YusnaanAromaticMarket
