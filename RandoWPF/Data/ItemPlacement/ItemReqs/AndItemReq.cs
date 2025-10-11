@@ -25,6 +25,18 @@ public class AndItemReq : ItemReq
         return true;
     }
 
+    public override bool HasUpperBound()
+    {
+        foreach(ItemReq req in reqs)
+        {
+            if (req.HasUpperBound())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected override List<string> GetPossibleRequirementsImpl()
     {
         return reqs.SelectMany(r => r.GetPossibleRequirements()).Distinct().ToList();
