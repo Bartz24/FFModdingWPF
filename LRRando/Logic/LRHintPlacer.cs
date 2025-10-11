@@ -85,7 +85,6 @@ public class LRHintPlacer : HintPlacer<string, ItemLocation, LRItemPlacer>
                 return true;
             }
 
-            // This crashes?
             var hintFake = treasureRando.ItemLocations[treasureRando.hintData[hint].FakeLocationLink];
             return ItemPlacer.SphereCalculator.Spheres[hintFake] < ItemPlacer.SphereCalculator.Spheres[location];
         }).DefaultIfEmpty("fl_mnyu_001e");

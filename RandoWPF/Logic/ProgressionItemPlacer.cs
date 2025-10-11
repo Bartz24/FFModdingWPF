@@ -101,11 +101,6 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
             T replacement = RemainingToPlace.Dequeue();
 
-            if(replacement.ID == "trd_ticket")
-            {
-                Debug.WriteLine("attempting to place ticket");
-            }
-
             // The initial depth is based on remaining items. The more items remaining, the higher the depth can be.
             // This allows items early on (first 50%) to be placed in newly unlocked areas more often.
             // Limited by the depth difficulty with a floor of 1
@@ -200,11 +195,11 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         var remainingFixedWithInterest = FixedLocations.Where(loc => loc.Requirements.GetPossibleRequirements().Contains(itemType)).Count();
         // Min bound is adjusted downwards by how many locations are immediately unlocked by this item, as well as the number of overall locations still locked by this item in some way.
         // Max bound as adjusted downwards by the number of overall locations still locked by this item in some way.
-        // The idea being that items which unlock large segments of the game (e.g. LR greens/ticket) are weighted to fall much earlier generally speaking
+        // The idea being that items which unlock large segments of the game are weighted to fall much earlier generally speaking
         // TODO: refine weighting here.
         if(remainingWithInterest > 0 || remainingFixedWithInterest > 0)
         {
-            Debug.WriteLine($"Item {itemType} unlocks {remainingWithInterest} locations ({remainingFixedWithInterest} fixed)");
+            Generator.Logger.LogDebug($"Item {itemType} unlocks {remainingWithInterest} locations ({remainingFixedWithInterest} fixed)");
         }
         return (-unlockingWeight - remainingWithInterest, -remainingFixedWithInterest*5 - remainingWithInterest*5);
     }

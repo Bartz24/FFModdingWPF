@@ -104,8 +104,8 @@ CoP Dead Dunes,Flower in the Sands,_207,I(Day|1),CoP,1,C_Flower*1
 CoP Dead Dunes,Biologically Speaking,_208,I(Day|1),CoP,2,C_Bio*1
 CoP Dead Dunes,Lucky Charm,_209,,CoP,3,C_Charm*1
 CoP Dead Dunes,Pride and Greed I,_210,I(Day|3),CoP,2,C_Pride*1
-CoP Dead Dunes,Pride and Greed II,_211,AND(I(Day|6)|I(ExtraDay|1)|I(C_Pride|1)),CoP,3,C_Pride*1
-CoP Dead Dunes,Pride and Greed III,_212,AND(I(Day|6)|I(ExtraDay|3)|I(C_Pride|2)),CoP,9,C_Pride*1
+CoP Dead Dunes,Pride and Greed II,_211,AND(I(Day|6)|I(MQDone|1)|I(C_Pride|1)),CoP,3,C_Pride*1
+CoP Dead Dunes,Pride and Greed III,_212,AND(I(Day|6)|I(MQDone|3)|I(C_Pride|2)),CoP,9,C_Pride*1
 CoP Luxerion,Revenge is Sweet,_213,,CoP,2,C_Revenge*1
 CoP Luxerion,Gift of Gratitude,_214,,CoP,2,C_Gratitude*1
 CoP Luxerion,A Song for God,_215,I(Day|3),CoP,2,C_Song*1
@@ -122,7 +122,7 @@ CoP Wildlands,Fresh Fertilizer,_225,I(Q_Forebears|1),CoP,3,C_Fresh*1
 CoP Wildlands,For the Future,_226,I(Day|3),CoP,1,C_Future*1
 CoP Wildlands,Echoes of a Drum,_227,I(Day|3),CoP,2,C_Drum*1
 CoP Wildlands,A Voice from Below,_228,I(Day|3),CoP,3,C_Below*1
-CoP Wildlands,Brain Over Brawn,_229,AND(I(Day|6)|I(ExtraDay|1)),CoP,4,C_Brain*1
+CoP Wildlands,Brain Over Brawn,_229,AND(I(Day|6)|I(MQDone|1)),CoP,4,C_Brain*1
 CoP Wildlands,Hunter's Challenge,_230,I(Day|3),CoP,1,C_Hunter*1
 CoP Wildlands,Moghan's Plea,_231,I(Q_Peace|1),CoP,3,C_Plea*1
 CoP Wildlands,Gatekeeper's Curiosity,_232,I(Day|5),CoP,4,C_Gatekeeper*1
@@ -133,5 +133,5 @@ CoP Yusnaan,A Dangerous Cocktail,_236,I(Day|3),CoP,2,C_Dangerous*1
 CoP Yusnaan,A Man for a Chocobo Girl,_237,AND(I(key_b_20|1)|I(Q_Actress|1)),CoP,4,C_Girl*1,
 CoP Yusnaan,Source of Inspiration,_238,I(Day|5),CoP,2,C_Inspiration*1
 CoP Yusnaan,True Colors,_239,I(Day|5),CoP,3,C_Colors*1
-CoP Yusnaan,Youth Potion,_240,AND(I(Day|6)|I(ExtraDay|1)),CoP,5,C_Youth*1
-CoP Yusnaan,Spell for Spell,_241,AND(I(Day|6)|I(ExtraDay|1)),CoP,6,C_Spell*1
+CoP Yusnaan,Youth Potion,_240,AND(I(Day|6)|I(MQDone|1)),CoP,5,C_Youth*1
+CoP Yusnaan,Spell for Spell,_241,AND(I(Day|6)|I(MQDone|1)),CoP,6,C_Spell*1
