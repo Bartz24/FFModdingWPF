@@ -42,6 +42,7 @@ public partial class MainWindow : RandoMainWindow
         InitializeComponent();
         DataContext = this;
         DataExtensions.Mode = ByteMode.BigEndian;
+        lrSetupPage.SetAPFileExtension(".aplrff13");
 
         if (string.IsNullOrEmpty(SetupData.Paths["Nova"]))
         {

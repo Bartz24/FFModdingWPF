@@ -106,7 +106,7 @@
                             </Button>
                             <TextBlock Margin="5"/>
                         </DockPanel>
-                        <rando:SetupPage>
+                        <rando:SetupPage x:Name="lrSetupPage">
                             <local:SetupPaths/>
                         </rando:SetupPage>                        
                     </DockPanel>

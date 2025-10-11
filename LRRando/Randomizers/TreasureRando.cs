@@ -129,7 +129,8 @@ public partial class TreasureRando : Randomizer
 
         AddTreasure("ran_rando_id", "false", 1, "");
         AddTreasure("ran_bhuni_p", "false", 1, "");
-        AddTreasure("ran_multi", "rando_multi_item", 9999, "");
+        AddTreasure("ran_mfind", "rando_findstring", 32658, "");
+        AddTreasure("ran_multi", RandoFlags.Mode == RandoFlags.SeedMode.Archipelago ? "rando_multi_item" : "DISABLED", 32500, "");
 
         treasures.Swap("tre_box_p_000", "tre_box_p_003");
         treasuresOrig.Swap("tre_box_p_000", "tre_box_p_003");

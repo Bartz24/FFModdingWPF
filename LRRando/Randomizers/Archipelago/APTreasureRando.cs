@@ -18,16 +18,27 @@ public class APTreasureRando : TreasureRando
     {
         // Then overwrite with unique AP items according to LRArchipelagoData order
         var apData = RandoFlags.GetArchipelagoData<LRArchipelagoData>();
+        // Build a quick lookup for local item placements
+        var localMap = apData.LocalItemPlacements.ToDictionary(p => p.LocationID, p => p.ItemID, StringComparer.Ordinal);
         for (int i = 0; i < apData.ItemPlacements.Count; i++)
         {
-            var (ID, Name, Region) = apData.ItemPlacements[i];
-            string idx = (i + 1).ToString("D4");
+            var (ID, Name, Region, Address) = apData.ItemPlacements[i];
+            string idx = Address.ToString("D4");
             string itemId = $"key_r_ap_{idx}";
 
             // Find matching location by ID (CSV-defined IDs should match placement.ID)
             if (ItemLocations.TryGetValue(ID, out var loc))
             {
-                loc.SetItem(itemId, 1);
+                // If the location has the 'Same' trait, use the local item placement instead of the AP-specific item
+                bool same = loc.Traits != null && loc.Traits.Any(t => t == "Same");
+                if (same && localMap.TryGetValue(ID, out var localItem) && !string.IsNullOrWhiteSpace(localItem))
+                {
+                    loc.SetItem(localItem, 1);
+                }
+                else
+                {
+                    loc.SetItem(itemId, 1);
+                }
             }
             else
             {

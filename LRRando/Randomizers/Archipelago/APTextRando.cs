@@ -12,11 +12,11 @@ public class APTextRando : TextRando
 
         // Create display names for unique AP items based on LRArchipelagoData
         var apData = RandoFlags.GetArchipelagoData<LRArchipelagoData>();
-        for (int i = 0; i < apData.ItemPlacements.Count; i++)
+        foreach (var placement in apData.ItemPlacements)
         {
-            string idx = (i + 1).ToString("D4");
+            var (id, name, region, address) = placement;
+            string idx = address.ToString("D4");
             string key = $"$zzz_r_ap_{idx}";
-            string name = apData.ItemPlacements[i].Name;
             if (!string.IsNullOrWhiteSpace(name))
             {
                 mainSysUS[key] = name;
@@ -25,17 +25,37 @@ public class APTextRando : TextRando
             {
                 mainSysUS.Add(key, $"AP Item {idx}");
             }
-            // Unique description per AP item
-            string region = apData.ItemPlacements[i].Region;
-            string locName = apData.ItemPlacements[i].Name;
-            
+            // Unique description per AP item            
             string descKey = "$zzz_r_aph_" + idx;
-            string fromPart = (!string.IsNullOrWhiteSpace(locName) || !string.IsNullOrWhiteSpace(region))
-                ? $" from {region}."
+            string fromPart = (!string.IsNullOrWhiteSpace(name) || !string.IsNullOrWhiteSpace(region))
+                ? $" from {region}"
                 : string.Empty;
 
             string desc = $"To be sent via Archipelago: {name}{fromPart}.";
             mainSysUS[descKey] = desc;
+        }
+
+        // Add text for key_r_multi_# items
+        // Treated as being base-50 for each "digit"
+        var multiItems = Generator.Get<EquipRando>().items.Values.Where(i => i.record.StartsWith("key_r_multi_"));
+        foreach (var item in multiItems)
+        {
+            string idx = item.record.Split('_').Last();
+            string key = $"$zzz_r_multi_{idx}";
+            if (!mainSysUS.Keys.Contains(key))
+            {
+                mainSysUS.Add(key, $"AP Item Count Tracker #{idx}");
+            }
+            string descKey = "$zzz_r_multih_" + idx;
+            string desc = $"Tracks the number of items received from Archipelago in base-50 counting (digit=count - 1).";
+            mainSysUS[descKey] = desc;
+        }
+
+        // Add text for key_r_added
+        if (!mainSysUS.Keys.Contains("$zzz_r_added"))
+        {
+            mainSysUS.Add("$zzz_r_added", "AP Item Added");
+            mainSysUS.Add("$zzz_r_addedh", "Indicates an item has been received and added to your inventory.");
         }
     }
 }

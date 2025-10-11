@@ -32,5 +32,30 @@ public class APEquipRando : EquipRando
                 apUnique.u16SortCategoryByCategory = 151;
             }
         }
+
+        // Create key_r_multi_# for tracking number of AP items collected
+        // Treated as being base-50 for each "digit"
+        for (int i = 0; i < 3; i++)
+        {
+            string itemId = $"key_r_multi_{i}";
+            if (!items.Keys.Contains(itemId))
+            {
+                var apMulti = items.Copy("key_b_20", itemId);
+                apMulti.sItemNameStringId = $"$zzz_r_multi_{i}"; // Name will be populated in TextRando
+                apMulti.sHelpStringId = $"$zzz_r_multih_{i}";
+                apMulti.u16SortAllByKCategory = 101;
+                apMulti.u16SortCategoryByCategory = 150;
+            }
+        }
+
+        // Add key_r_added to indicate the game successfully added AP items to inventory
+        if (!items.Keys.Contains("key_r_added"))
+        {
+            var apAdded = items.Copy("key_b_20", "key_r_added");
+            apAdded.sItemNameStringId = "$zzz_r_added"; // Name will be populated in TextRando
+            apAdded.sHelpStringId = "$zzz_r_addedh";
+            apAdded.u16SortAllByKCategory = 101;
+            apAdded.u16SortCategoryByCategory = 152;
+        }
     }
 }
