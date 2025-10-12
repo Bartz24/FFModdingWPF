@@ -16,8 +16,28 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 
     public LRJunkItemPlacer JunkPlacer { get; set; }
 
+    public List<string> ProgressionAdornments { get; set; }
+
     public LRItemPlacer(SeedGenerator generator, AreaGraph areaGraph) : base(generator, areaGraph)
     {
+        InitProgressionAdornments();
+    }
+
+    private void InitProgressionAdornments()
+    {
+        // Always add Always adornments to progression pool
+        ProgressionAdornments = Generator.Get<EquipRando>().itemData
+                    .Where(kvp => kvp.Value.Category == "Adornment" && kvp.Value.Traits.Contains("Always"))
+                    .Select(kvp => kvp.Key)
+                    .ToList();
+
+        // Determine a set of 70-100 adornments to mark as progression
+        ProgressionAdornments = Generator.Get<EquipRando>().itemData
+            .Where(kvp => kvp.Value.Category == "Adornment" && !kvp.Value.Traits.Contains("Remove") && !kvp.Value.Traits.Contains("Always"))
+            .Select(kvp => kvp.Key)
+            .Shuffle()
+            .Take(RandomNum.RandInt(70, 101) - ProgressionAdornments.Count)
+            .ToList();
     }
 
     protected override int GetDifficultyIndex()
@@ -92,6 +112,11 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
                 return false;
             }
 
+            if (Generator.Get<EquipRando>().itemData.GetValueOrDefault(l.GetItem(true)?.Item, null)?.Category == "Adornment")
+            {
+                return ProgressionAdornments.Contains(l.GetItem(true)?.Item);
+            }
+
             foreach (string item in LRFlags.Items.KeyItems.DictValues.Keys)
             {
                 if (LRFlags.Items.KeyItems.SelectedKeys.Contains(item) && l.GetItem(true)?.Item == item)
@@ -148,9 +173,17 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         {
             return remaining.Where(l =>
             {
+                string locationItem = l.GetItem(true)?.Item;
+
+                // If it's a progression adornment, allow it
+                if (Generator.Get<EquipRando>().itemData.GetValueOrDefault(locationItem, null)?.Category == "Adornment")
+                {
+                    return ProgressionAdornments.Contains(locationItem);
+                }
+
                 foreach (string item in LRFlags.Items.KeyItems.DictValues.Keys)
                 {
-                    if (LRFlags.Items.KeyItems.SelectedKeys.Contains(item) && l.GetItem(true)?.Item == item)
+                    if (LRFlags.Items.KeyItems.SelectedKeys.Contains(item) && locationItem == item)
                     {
                         return true;
                     }

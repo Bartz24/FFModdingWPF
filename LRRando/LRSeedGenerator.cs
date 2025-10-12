@@ -5,6 +5,7 @@ using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection.Emit;
 
 namespace LRRando;
@@ -17,6 +18,8 @@ public class LRSeedGenerator : SeedGenerator
 
         PackPrefixName = "LRRando";
         DocsDisplayName = "LR Randomizer";
+
+        ItemReq.ItemProvider = () => Get<EquipRando>().itemData.ToDictionary(kv => kv.Key, i => (IItem)i.Value);
     }
 
     public override void PrepareData()

@@ -25,8 +25,7 @@ public class LRJunkItemPlacer : JunkItemPlacer<ItemLocation>
         string repItem = null;
         int amount = orig.Amount;
 
-        if (!equipRando.itemData.ContainsKey(orig.Item) || 
-            equipRando.itemData[orig.Item].Category == "Adornment" && equipRando.itemData[orig.Item].Traits.Contains("Always"))
+        if (!equipRando.itemData.ContainsKey(orig.Item))
         {
             repItem = orig.Item;
         }
@@ -35,13 +34,15 @@ public class LRJunkItemPlacer : JunkItemPlacer<ItemLocation>
             do
             {
                 string category = equipRando.itemData[orig.Item1].Category;
-                if (equipRando.itemData[orig.Item].Category == "Adornment" && equipRando.itemData[orig.Item].Traits.Contains(item: "Remove"))
+                // Always replace junk adornments with materials
+                if (equipRando.itemData[orig.Item].Category == "Adornment")
                 {
                     category = "Material";
                 }
                 else if (LRFlags.Items.ReplaceAny.Enabled && !location.Traits.Contains("Same"))
                 {
-                    category = equipRando.itemData.Values.Select(i => i.Category).Distinct().Shuffle().First();
+                    category = equipRando.itemData.Values.Select(i => i.Category).Distinct()
+                        .Where(c=>c != "Key" && c != "Adornment").Shuffle().First();
                 }
 
                 int rankRange = LRFlags.Items.ReplaceRank.Value;
@@ -49,13 +50,8 @@ public class LRJunkItemPlacer : JunkItemPlacer<ItemLocation>
                     i.Category == category &&
                     i.Rank >= equipRando.itemData[orig.Item1].Rank - rankRange &&
                     i.Rank <= equipRando.itemData[orig.Item1].Rank + rankRange &&
-                    !i.Traits.Contains("Ignore"));
-                // Remove adornments with the "Always" or "Remove" traits or used items
-                possible = possible.Where(i => 
-                    !(i.Category == "Adornment" && i.Traits.Contains("Always")) && 
-                    !(i.Category == "Adornment" && i.Traits.Contains("Remove")) &&
-                    !usedItems.Contains(i.ID)
-                    );
+                    !i.Traits.Contains("Ignore") &&
+                    !i.Traits.Contains("Key"));
                 if (!LRFlags.Items.IncludeDLCItems.Enabled)
                 {
                     possible = possible.Where(i => !i.Traits.Contains("DLC"));
@@ -64,7 +60,7 @@ public class LRJunkItemPlacer : JunkItemPlacer<ItemLocation>
                 repItem = RandomNum.SelectRandomOrDefault(possible)?.ID;
             } while (repItem == null);
 
-            // Add to used items if an adornment, weapon, shield, garb, or accessory
+            // Add to used items if an weapon, shield, garb, or accessory
             if (equipRando.itemData[repItem].Category == "Adornment" ||
                 equipRando.itemData[repItem].Category == "Weapon" ||
                 equipRando.itemData[repItem].Category == "Shield" ||

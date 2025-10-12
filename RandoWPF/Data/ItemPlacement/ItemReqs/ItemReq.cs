@@ -9,6 +9,9 @@ public abstract class ItemReq
 {
     public static readonly BoolItemReq TRUE = new(true);
     public static readonly BoolItemReq FALSE = new(false);
+
+    public static Func<Dictionary<string, IItem>> ItemProvider { get; set; }
+
     public bool IsValid(Dictionary<string, int> itemsAvailable)
     {
         if (ValidationStack.Count > 100)
@@ -74,6 +77,7 @@ public abstract class ItemReq
         parseMapping.Add("OR", args => Or(args.Select(s => Parse(s)).ToArray()));
         parseMapping.Add("I", args => args.Count > 1 ? Item(args[0], int.Parse(args[1])) : Item(args[0], 1));
         parseMapping.Add("M", args => args.Count > 1 ? Max(args[0], int.Parse(args[1])) : Max(args[0], 1));
+        parseMapping.Add("C", args => args.Count > 1 ? Category(args[0], int.Parse(args[1])) : Category(args[0], 1));
         parseMapping.Add("SELECT", args => Select(int.Parse(args[0]), args.Skip(1).Select(s => Parse(s)).ToArray()));
     }
 
@@ -84,6 +88,10 @@ public abstract class ItemReq
     public static ItemReq Max(string item, int amount = 1)
     {
         return new MaxAmountItemReq(item, amount);
+    }
+    public static ItemReq Category(string category, int amount = 1)
+    {
+        return new CategoryAmountItemReq(category, amount);
     }
     public static ItemReq And(params string[] items)
     {
@@ -174,12 +182,17 @@ public abstract class ItemReq
 
     public string GetDisplay()
     {
-        return GetDisplay(_ => "");
+        return GetDisplay(s => s);
     }
 
     public virtual string GetDisplay(Func<string, string> itemNameFunc)
     {
         return "None";
+    }
+
+    public override string ToString()
+    {
+        return GetDisplay();
     }
 
     public override bool Equals(object obj)

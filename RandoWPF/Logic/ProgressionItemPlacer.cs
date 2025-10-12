@@ -46,7 +46,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             if (!success)
             {
                 Generator.Logger.LogDebug($"Failed to place {RemainingToPlace.Count + RemainingFixed.Count} remaining replacements.");
-                Generator.Logger.LogDebug($"Remaining to place: {string.Join(",", RemainingToPlace.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}]"))}{string.Join(",", RemainingFixed.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}]"))}");
+                Generator.Logger.LogDebug($"Remaining to place: {string.Join(",", RemainingToPlace.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}, item: {x.GetItem(true).Value.Item}]"))}{string.Join(",", RemainingFixed.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}, item: {x.GetItem(true).Value.Item}]"))}");
             }
         }
         while (!success);
