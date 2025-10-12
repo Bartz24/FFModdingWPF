@@ -45,6 +45,8 @@ public class APTreasureRando : TreasureRando
                 throw new Exception($"AP Item placement ID '{ID}' not found in item locations.");
             }
         }
+
+        HandleIDCardBuyOption();
     }
 
     public override Dictionary<string, HTMLPage> GetDocumentation()

@@ -78,6 +78,13 @@ public class AbilityRando : Randomizer
             RandomNum.ClearRand();
         }
 
+        if (LRFlags.StatsAbilities.FreeEPCosts.FlagEnabled)
+        {
+            // Set Teleport and Chronostasis costs to 0 if FreeEPCosts is enabled
+            abilities["ti810_00"].i17AtbCount = 0;
+            abilities["ti840_00"].i17AtbCount = 0;
+        }
+
         RandoUI.SetUIProgressDeterminate("Randomizing Ability Data...", 80, 100);
         if (LRFlags.StatsAbilities.AbilityPassives.FlagEnabled)
         {

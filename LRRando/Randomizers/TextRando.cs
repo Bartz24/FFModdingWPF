@@ -41,6 +41,13 @@ public class TextRando : Randomizer
 
         //mainSysUS["$m_001"] = "Rando: Slaughterhouse Special";
         //mainSysUS["$m_001_ac000"] = "Used for tracking in the randomizer. You have checked the Fragment of Courage location in Yusnaan.";
+
+        // Add text for key_r_victory
+        if (!mainSysUS.Keys.Contains("key_r_victory"))
+        {
+            mainSysUS.Add("key_r_victory", "Victory!");
+            mainSysUS.Add("key_r_victoryh", "Used for tracking in the randomizer. You have won. Yay. If you see this, hi :)");
+        }
     }
     public override void Randomize()
     {

@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.7.6.9",
+  "version": "0.8.1.24",
   "flags": [
     {
       "FlagEnabled": false,
@@ -23,12 +23,12 @@
       "FlagProperties": [
         {
           "SelectedValues": [
-            "Curaga",
             "Arise",
-            "Esunada",
-            "Quake",
             "Army of One",
-            "Decoy"
+            "Curaga",
+            "Decoy",
+            "Esunada",
+            "Quake"
           ],
           "ID": "EPAbiPool"
         }
@@ -58,6 +58,11 @@
       ]
     },
     {
+      "FlagEnabled": true,
+      "FlagID": "FreeEPCosts",
+      "FlagProperties": []
+    },
+    {
       "FlagEnabled": false,
       "FlagID": "AbiPass",
       "FlagProperties": []
@@ -85,11 +90,11 @@
         },
         {
           "SelectedValues": [
-            "Prologue Zaltys",
-            "Noel Kreiss",
-            "Snow Villiers",
             "Caius Ballad",
-            "Grendel/Parandus"
+            "Grendel/Parandus",
+            "Noel Kreiss",
+            "Prologue Zaltys",
+            "Snow Villiers"
           ],
           "ID": "RandBoss"
         }
@@ -117,6 +122,10 @@
         {
           "SelectedValues": [],
           "ID": "KeyItems"
+        },
+        {
+          "Enabled": false,
+          "ID": "IncludeEP"
         },
         {
           "Enabled": false,
@@ -157,6 +166,10 @@
         {
           "Enabled": false,
           "ID": "ReplaceJunkAny"
+        },
+        {
+          "Enabled": false,
+          "ID": "IncludeDLC"
         }
       ]
     },
@@ -196,23 +209,12 @@
         {
           "Enabled": true,
           "ID": "HintsDepth"
+        },
+        {
+          "SelectedValue": "None",
+          "ID": "HintsBosses"
         }
       ]
-    },
-    {
-      "FlagEnabled": true,
-      "FlagID": "HintsArea",
-      "FlagProperties": []
-    },
-    {
-      "FlagEnabled": true,
-      "FlagID": "HintsEP",
-      "FlagProperties": []
-    },
-    {
-      "FlagEnabled": false,
-      "FlagID": "HintsPilgrim",
-      "FlagProperties": []
     }
   ]
 }

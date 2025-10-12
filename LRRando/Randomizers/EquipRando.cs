@@ -91,6 +91,16 @@ public partial class EquipRando : Randomizer
             RemainingEquip.RemoveAll(i => itemData[i].Traits.Contains("DLC"));
             RemainingAdorn.RemoveAll(i => itemData[i].Traits.Contains("DLC"));
         }
+
+        // Add rando victory item
+        if (!items.Keys.Contains("key_r_victory"))
+        {
+            var apAdded = items.Copy("key_b_20", "key_r_victory");
+            apAdded.sItemNameStringId = "$zzz_r_victory";
+            apAdded.sHelpStringId = "$zzz_r_victoryh";
+            apAdded.u16SortAllByKCategory = 101;
+            apAdded.u16SortCategoryByCategory = 152;
+        }
     }
     public override void Randomize()
     {

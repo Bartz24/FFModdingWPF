@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 namespace LRRando;
 public class APEquipRando : EquipRando
 {
+    private HashSet<string> usedItems = new();
+
     public APEquipRando(SeedGenerator randomizers) : base(randomizers)
     {
     }
@@ -57,5 +59,26 @@ public class APEquipRando : EquipRando
             apAdded.u16SortAllByKCategory = 101;
             apAdded.u16SortCategoryByCategory = 152;
         }
+
+        usedItems = apData.UsedItems;
+    }
+
+    public override void PostLoad()
+    {
+        base.PostLoad();
+
+        var usedIds = usedItems.Select(dispName =>
+        {
+            // Find the item ID by display name (ignoring case and whitespace)
+            var match = itemData.Values.FirstOrDefault(item => dispName == GetItemName(item.ID));
+            if (match != null)
+            {
+                return match.ID;
+            }
+
+            return null;
+        }).Where(id => id != null).ToList();
+
+        RemainingEquip = RemainingEquip.Where(id => !usedIds.Contains(id)).ToList();
     }
 }

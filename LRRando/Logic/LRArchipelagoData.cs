@@ -15,8 +15,9 @@ public class LRArchipelagoData : ArchipelagoData
 
 	// All local item placements with their local string IDs
 	public List<(string LocationID, string ItemID)> LocalItemPlacements { get; set; } = new();
+    public HashSet<string> UsedItems { get; set; } = new();
 
-	public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.1.0" };
+    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.1.0" };
 
 	public override void Parse(IDictionary<string, object> data)
 	{
@@ -26,11 +27,13 @@ public class LRArchipelagoData : ArchipelagoData
 		if (!CompatibleAPVersions.Any(v => Version.StartsWith(v)))
 		{
 			throw new RandoException("LR AP World version " + Version + " is not compatible with this version of the randomizer.", "Incompatible Version");
-		}
+        }
 
-		// Expected structure similar to FF12's filler placements but generalized:
-		// item_placements: [ { id, name, region } ]
-		if (data.ContainsKey("item_placements"))
+        UsedItems = ((List<object>)data["used_items"]).Select(o => (string)o).ToHashSet();
+
+        // Expected structure similar to FF12's filler placements but generalized:
+        // item_placements: [ { id, name, region } ]
+        if (data.ContainsKey("item_placements"))
 		{
 			ItemPlacements = ((List<object>)data["item_placements"]).Select(o =>
 			{
@@ -85,6 +88,7 @@ public class LRArchipelagoData : ArchipelagoData
 		return new Dictionary<string, object>
 		{
 			{ "version", Version },
+			{ "used_items", UsedItems.ToList() },
 			{ "item_placements", itemPlacements },
             { "local_item_placements", localItemPlacements }
 		};

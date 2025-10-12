@@ -182,10 +182,15 @@ public partial class TreasureRando : Randomizer
 
             RandomNum.ClearRand();
 
-            if (LRFlags.Items.IDCardBuy.Enabled)
-            {
-                treasures["ran_rando_id"].s11ItemResourceId = "true";
-            }
+            HandleIDCardBuyOption();
+        }
+    }
+
+    protected void HandleIDCardBuyOption()
+    {
+        if (LRFlags.Items.IDCardBuy.Enabled)
+        {
+            treasures["ran_rando_id"].s11ItemResourceId = "true";
         }
     }
 

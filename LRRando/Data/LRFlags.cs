@@ -20,7 +20,7 @@ public class LRFlags
     }
     public class StatsAbilities
     {
-        public static Flag EPAbilities, NerfOC, EPCosts;
+        public static Flag EPAbilities, NerfOC, EPCosts, FreeEPCosts;
         public static ToggleFlagProperty EPCostsZero;
         public static DictListBoxFlagProperty<string> EPAbilitiesPool;
         public static NumberFlagProperty EPCostsRange, EPCostMax;
@@ -54,7 +54,8 @@ public class LRFlags
             {
                 Text = "Shuffle EP Abilities",
                 FlagID = "EPAbi",
-                DescriptionFormat = "Shuffles all selected EP abilities between each other."
+                DescriptionFormat = "Shuffles all selected EP abilities between each other.",
+                HasArchipelagoOverride = true
             }.Register(FlagType.StatsAbilities);
 
             EPAbilitiesPool = new DictListBoxFlagProperty<string>()
@@ -73,7 +74,8 @@ public class LRFlags
                     { "ti830_00", "Escape" },
                     { "ti840_00", "Chronostasis" },
                     { "at900_00", "Army of One" }
-                }
+                },
+                DisabledByArchipelago = true
             }.Register(EPAbilities);
 
             Quests = new Flag()
@@ -121,6 +123,13 @@ public class LRFlags
                 MinValue = 1,
                 MaxValue = 9
             }.Register(EPCosts);
+
+            FreeEPCosts = new Flag()
+            {
+                Text = "Free Teleport and Chronostasis",
+                FlagID = "FreeEPCosts",
+                DescriptionFormat = "Teleport and Chronostasis (and Escape as always) will have their EP cost set to 0."
+            }.Register(FlagType.StatsAbilities);
 
             AbilityPassives = new Flag()
             {
@@ -235,7 +244,8 @@ public class LRFlags
                 Text = "Randomize Item Locations",
                 FlagID = "Treasures",
                 DescriptionFormat = "Randomize treasures, quest rewards, battle rewards, non-repeatable pickups, soul seed rewards, non-repeatable item appraisal rewards, and shuffled EP abilities.\n" +
-                "Does not include key items unless they are selected."
+                "Does not include key items unless they are selected.",
+                HasArchipelagoOverride = true
             }.Register(FlagType.Items);
 
             KeyItems = new DictListBoxFlagProperty<string>()
@@ -315,56 +325,64 @@ public class LRFlags
                     {"key_b_10", "Key to the Green Gate" },
                     {"key_b_11", "Bandit's Bloodseal" },
                     {"key_b_12", "Oath of the Merchants Guild" },
-                }
+                },
+                DisabledByArchipelago = true
             }.Register(Treasures);
 
             IncludeEPAbilities = new ToggleFlagProperty()
             {
                 Text = "Include EP Abilities",
                 ID = "IncludeEP",
-                Description = "Include selected EP abilities in the item pool. Non-selected EP abilities from the 'EP Abilities' option will stay in their normal location."
+                Description = "Include selected EP abilities in the item pool. Non-selected EP abilities from the 'EP Abilities' option will stay in their normal location.",
+                DisabledByArchipelago = true
             }.Register(Treasures);
 
             EPMissable = new ToggleFlagProperty()
             {
                 Text = "Allow EP Abilities in Missable Locations",
                 ID = "EPMiss",
-                Description = "EP Abilities will be allowed to appear in missable or late game locations Day 10 or later."
+                Description = "EP Abilities will be allowed to appear in missable or late game locations Day 10 or later.",
+                DisabledByArchipelago = true
             }.Register(Treasures);
 
             KeyPlaceTreasure = new ToggleFlagProperty()
             {
                 Text = "Key Item Placement - Treasures",
                 ID = "KeyPlaceTreas",
-                Description = "Key items are also allowed in treasures and other misc item locations."
+                Description = "Key items are also allowed in treasures and other misc item locations.",
+                DisabledByArchipelago = true
             }.Register(Treasures);
 
             KeyPlaceQuest = new ToggleFlagProperty()
             {
                 Text = "Key Item Placement - Quests",
                 ID = "KeyPlaceQuest",
-                Description = "Key items are also allowed in side quests and Global Canvas of Prayers."
+                Description = "Key items are also allowed in side quests and Global Canvas of Prayers.",
+                DisabledByArchipelago = true
             }.Register(Treasures);
 
             KeyPlaceCoP = new ToggleFlagProperty()
             {
                 Text = "Key Item Placement - Canvas of Prayers",
                 ID = "KeyPlaceCoP",
-                Description = "Key items are also allowed in non-global Canvas of Prayers."
+                Description = "Key items are also allowed in non-global Canvas of Prayers.",
+                DisabledByArchipelago = true
             }.Register(Treasures);
 
             KeyPlaceSuperboss = new ToggleFlagProperty()
             {
                 Text = "Key Item Placement - Superbosses",
                 ID = "KeyPlaceSuperboss",
-                Description = "Key items are also allowed on Aeronite and Ereshkigal drops and rewards."
+                Description = "Key items are also allowed on Aeronite and Ereshkigal drops and rewards.",
+                DisabledByArchipelago = true
             }.Register(Treasures);
 
             KeyPlaceGrindy = new ToggleFlagProperty()
             {
                 Text = "Key Item Placement - Grindy",
                 ID = "KeyPlaceGrindy",
-                Description = "Key items are also allowed in 20+ Soul Seed rewards and 10+ Unappraised Items."
+                Description = "Key items are also allowed in 20+ Soul Seed rewards and 10+ Unappraised Items.",
+                DisabledByArchipelago = true
             }.Register(Treasures);
 
             KeyDepth = new ComboBoxFlagProperty()
@@ -378,7 +396,8 @@ public class LRFlags
                 "    Hard+ - Each level of depth/difficulty increases likelihood of that location by 1.20x.\n" +
                 "    Hard++ - Each level of depth/difficulty increases likelihood of that location by 1.50x.\n" +
                 "    Hard+++ - Each level of depth/difficulty increases likelihood of that location by 2.00x.",
-                Values = ["Normal", "Hard", "Hard+", "Hard++", "Hard+++" ]
+                Values = ["Normal", "Hard", "Hard+", "Hard++", "Hard+++" ],
+                DisabledByArchipelago = true
             }.Register(Treasures);
 
             IDCardBuy = new ToggleFlagProperty()
@@ -410,7 +429,8 @@ public class LRFlags
                 Description = "'Junk' items (consumables, weapons, shields, garbs, accessories, and materials) will be replaced by items within the specified value of its \"Rank\".",
                 ValueText = "Item Rank +/-",
                 MinValue = 0,
-                MaxValue = 10
+                MaxValue = 10,
+                DisabledByArchipelago = true
             }.Register(Treasures);
 
             ReplaceAny = new ToggleFlagProperty()
@@ -418,7 +438,8 @@ public class LRFlags
                 Text = "Replace Junk Items From Any Category",
                 ID = "ReplaceJunkAny",
                 Description = "Allow 'Junk' items (consumables, weapons, shields, garbs, accessories, and materials) to be replaced by items of other types.\n" +
-                "Ex: Potions can be replaced with Bronze Malistones."
+                "Ex: Potions can be replaced with Bronze Malistones.",
+                DisabledByArchipelago = true
             }.Register(Treasures);
 
             IncludeDLCItems = new ToggleFlagProperty()
@@ -426,7 +447,8 @@ public class LRFlags
                 Text = "Include DLC Items",
                 ID = "IncludeDLC",
                 Description = "Include DLC equipment and adornments in the item pool.\n" +
-                "Note: Be sure to also enable the DLC content in the in-game settings menu."
+                "Note: Be sure to also enable the DLC content in the in-game settings menu.",
+                DisabledByArchipelago = true
             }.Register(Treasures);
         }
     }
@@ -469,7 +491,8 @@ public class LRFlags
                 Text = "Hints by Item",
                 FlagID = "HintsMain",
                 DescriptionFormat = "Each part of a main quest completed could reveal exact locations of some randomized important key items in the Quests menu.",
-                Aesthetic = true
+                Aesthetic = true,
+                HasArchipelagoOverride = true
             }.Register(FlagType.Other);
 
             HintsSpecific = new ComboBoxFlagProperty()
@@ -483,14 +506,16 @@ public class LRFlags
                 "    Vague Area - Hints give the exact item in the area.\n" +
                 "    Unknown but Exact Location - Hints will hint that something ('?????') is in the exact location.\n" +
                 "    Random - Each hint will use one of the above rules.",
-                Values = ["Exact", "Vague Type", "Vague Area", "Unknown but Exact Location", "Random"]
+                Values = ["Exact", "Vague Type", "Vague Area", "Unknown but Exact Location", "Random"],
+                DisabledByArchipelago = true
             }.Register(HintsMain);
 
             HintsDepth = new ToggleFlagProperty()
             {
                 Text = "Hints at Earlier Locations",
                 ID = "HintsDepth",
-                Description = "Hints for items will prioritize locations of lower than or equal to depths of the item itself."
+                Description = "Hints for items will prioritize locations of lower than or equal to depths of the item itself.",
+                DisabledByArchipelago = true
             }.Register(HintsMain);
 
             HintsBosses = new ComboBoxFlagProperty()
@@ -506,7 +531,8 @@ public class LRFlags
                 "    Target Initial - The first main quest hint for an area will tell you where the boss from that quest has been placed.\n" +
                 "    Target Random - The target hint will be in a random hint in this quest.\n" +
                 "    Random - Each hint will use one of the above rules (excluding None).",
-                Values = ["None", "Source Initial", "Source Random", "Target Initial", "Target Random", "Random"]
+                Values = ["None", "Source Initial", "Source Random", "Target Initial", "Target Random", "Random"],
+                DisabledByArchipelago = true
             }.Register(HintsMain);
         }
     }

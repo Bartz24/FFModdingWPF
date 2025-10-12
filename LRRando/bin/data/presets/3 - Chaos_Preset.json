@@ -1,6 +1,6 @@
 {
   "name": "3 - Chaos",
-  "version": "0.7.6.9",
+  "version": "0.8.1.24",
   "flags": [
     {
       "FlagEnabled": true,
@@ -23,14 +23,14 @@
       "FlagProperties": [
         {
           "SelectedValues": [
-            "Curaga",
             "Arise",
+            "Army of One",
+            "Chronostasis",
+            "Curaga",
+            "Decoy",
             "Esunada",
             "Quake",
-            "Decoy",
-            "Teleport",
-            "Chronostasis",
-            "Army of One"
+            "Teleport"
           ],
           "ID": "EPAbiPool"
         }
@@ -61,6 +61,11 @@
     },
     {
       "FlagEnabled": true,
+      "FlagID": "FreeEPCosts",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": true,
       "FlagID": "AbiPass",
       "FlagProperties": []
     },
@@ -87,13 +92,13 @@
         },
         {
           "SelectedValues": [
-            "Prologue Zaltys",
-            "Noel Kreiss",
-            "Snow Villiers",
+            "Aeronite",
             "Caius Ballad",
-            "Grendel/Parandus",
             "Ereshkigal",
-            "Aeronite"
+            "Grendel/Parandus",
+            "Noel Kreiss",
+            "Prologue Zaltys",
+            "Snow Villiers"
           ],
           "ID": "RandBoss"
         }
@@ -120,77 +125,81 @@
       "FlagProperties": [
         {
           "SelectedValues": [
-            "Sneaking-In Special Ticket",
-            "ID Card",
-            "Midnight Mauve",
-            "Serah's Pendant",
+            "3 Aryas Apples",
             "3 Tablets",
+            "Arithmometer",
+            "Bandit's Bloodseal",
+            "Beloved's Gift",
+            "Broken Gyroscope",
+            "Bronze Pocket Watch",
+            "Chaos Glyphs",
+            "Chocobo Girl's Phone No.",
+            "Civet Musk",
             "Crux Base",
             "Crux Body",
             "Crux Tip",
-            "Main Story Gysahl Greens",
-            "Seedhunter Membership Card",
-            "Moogle Fragment",
-            "Beloved's Gift",
-            "Fragment of Mischief",
-            "Fragment of Courage",
-            "Fragment of Smiles",
-            "Fragment of Radiance",
-            "Fragment of Kindness",
-            "Rubber Ball",
-            "Talbot's Gratitude",
-            "Quill Pen",
-            "Supply Sphere Password",
-            "Green Carbuncle Doll",
-            "Red Carbuncle Doll",
-            "Phantom Rose",
-            "Thunderclap Cap",
-            "Shaolong Gui Shell",
-            "Mandragora Root",
-            "Spectral Elixir",
             "Cursed Dragon Claw",
-            "Service Entrance Key",
-            "Musical Treasure Sphere Key",
-            "Nostalgic Score: Chorus",
-            "Nostalgic Score: Refrain",
-            "Nostalgic Score: Coda",
-            "Music Satchel",
-            "Civet Musk",
-            "Gordon Gourmet's Recipe",
-            "Steak a la Civet",
-            "Father's Letter",
-            "Pilgrim's Cruxes",
-            "Loupe",
-            "Arithmometer",
-            "Monster Flesh",
-            "Goddess Glyphs",
-            "Chaos Glyphs",
-            "Plate Metal Fragment",
-            "Silvered Metal Fragment",
-            "Golden Metal Fragment",
             "Data Recorder",
-            "3 Aryas Apples",
-            "Mystery Egg",
-            "Proof of Overcoming Limits",
-            "Proof of Legendary Title",
-            "Proof of Courage",
-            "Violet Amulet",
-            "Chocobo Girl's Phone No.",
-            "Lapis Lazuli",
-            "Power Booster",
-            "Jade Hair Comb",
-            "Bronze Pocket Watch",
-            "Golden Scarab",
-            "Moogle Dust",
-            "Old-Fashioned Photo Frame",
             "Etro's Forbidden Tome",
-            "Broken Gyroscope",
-            "Key to the Sand Gate",
+            "Father's Letter",
+            "Fragment of Courage",
+            "Fragment of Kindness",
+            "Fragment of Mischief",
+            "Fragment of Radiance",
+            "Fragment of Smiles",
+            "Goddess Glyphs",
+            "Golden Metal Fragment",
+            "Golden Scarab",
+            "Gordon Gourmet's Recipe",
+            "Green Carbuncle Doll",
+            "ID Card",
+            "Jade Hair Comb",
             "Key to the Green Gate",
-            "Bandit's Bloodseal",
-            "Oath of the Merchants Guild"
+            "Key to the Sand Gate",
+            "Lapis Lazuli",
+            "Loupe",
+            "Main Story Gysahl Greens",
+            "Mandragora Root",
+            "Midnight Mauve",
+            "Monster Flesh",
+            "Moogle Dust",
+            "Moogle Fragment",
+            "Music Satchel",
+            "Musical Treasure Sphere Key",
+            "Mystery Egg",
+            "Nostalgic Score: Chorus",
+            "Nostalgic Score: Coda",
+            "Nostalgic Score: Refrain",
+            "Oath of the Merchants Guild",
+            "Old-Fashioned Photo Frame",
+            "Phantom Rose",
+            "Pilgrim's Cruxes",
+            "Plate Metal Fragment",
+            "Power Booster",
+            "Proof of Courage",
+            "Proof of Legendary Title",
+            "Proof of Overcoming Limits",
+            "Quill Pen",
+            "Red Carbuncle Doll",
+            "Rubber Ball",
+            "Seedhunter Membership Card",
+            "Serah's Pendant",
+            "Service Entrance Key",
+            "Shaolong Gui Shell",
+            "Silvered Metal Fragment",
+            "Sneaking-In Special Ticket",
+            "Spectral Elixir",
+            "Steak a la Civet",
+            "Supply Sphere Password",
+            "Talbot's Gratitude",
+            "Thunderclap Cap",
+            "Violet Amulet"
           ],
           "ID": "KeyItems"
+        },
+        {
+          "Enabled": false,
+          "ID": "IncludeEP"
         },
         {
           "Enabled": false,
@@ -231,6 +240,10 @@
         {
           "Enabled": true,
           "ID": "ReplaceJunkAny"
+        },
+        {
+          "Enabled": false,
+          "ID": "IncludeDLC"
         }
       ]
     },
@@ -270,23 +283,12 @@
         {
           "Enabled": true,
           "ID": "HintsDepth"
+        },
+        {
+          "SelectedValue": "None",
+          "ID": "HintsBosses"
         }
       ]
-    },
-    {
-      "FlagEnabled": true,
-      "FlagID": "HintsArea",
-      "FlagProperties": []
-    },
-    {
-      "FlagEnabled": true,
-      "FlagID": "HintsEP",
-      "FlagProperties": []
-    },
-    {
-      "FlagEnabled": false,
-      "FlagID": "HintsPilgrim",
-      "FlagProperties": []
     }
   ]
 }
