@@ -1,6 +1,7 @@
 ﻿using Bartz24.RandoWPF;
 using Bartz24.RandoWPF.Data.Areas;
 using Bartz24.RandoWPF.Logic;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,24 +21,30 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 
     public LRItemPlacer(SeedGenerator generator, AreaGraph areaGraph) : base(generator, areaGraph)
     {
-        InitProgressionAdornments();
     }
 
     private void InitProgressionAdornments()
     {
+        var vanillaLocs = Generator.Get<TreasureRando>().ItemLocations;
         // Always add Always adornments to progression pool
-        ProgressionAdornments = Generator.Get<EquipRando>().itemData
+        var alwaysAdornments = Generator.Get<EquipRando>().itemData
                     .Where(kvp => kvp.Value.Category == "Adornment" && kvp.Value.Traits.Contains("Always"))
                     .Select(kvp => kvp.Key)
                     .ToList();
 
         // Determine a set of 70-100 adornments to mark as progression
+        // Only choose adornments whose vanilla location is a treasure, not a shop.
         ProgressionAdornments = Generator.Get<EquipRando>().itemData
             .Where(kvp => kvp.Value.Category == "Adornment" && !kvp.Value.Traits.Contains("Remove") && !kvp.Value.Traits.Contains("Always"))
             .Select(kvp => kvp.Key)
+            .Where(key => vanillaLocs.Where(kvp => kvp.Value.GetItem(true)?.Item == key).Count() > 0)
             .Shuffle()
-            .Take(RandomNum.RandInt(70, 101) - ProgressionAdornments.Count)
+            .Take(RandomNum.RandInt(70, 101) - alwaysAdornments.Count)
+            .Concat(alwaysAdornments)
             .ToList();
+
+        Generator.Logger.LogDebug("Progression adornments:");
+        Generator.Logger.LogDebug(String.Join(",", ProgressionAdornments));
     }
 
     protected override int GetDifficultyIndex()
@@ -112,7 +119,9 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
                 return false;
             }
 
-            if (Generator.Get<EquipRando>().itemData.GetValueOrDefault(l.GetItem(true)?.Item, null)?.Category == "Adornment")
+            var currentItem = Generator.Get<EquipRando>().itemData.GetValueOrDefault(l.GetItem(true)?.Item, null);
+
+            if (currentItem?.Category == "Adornment")
             {
                 return ProgressionAdornments.Contains(l.GetItem(true)?.Item);
             }
@@ -210,6 +219,7 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 
     protected override void RebuildPlacers()
     {
+        InitProgressionAdornments();
         Dictionary<string, double> areaMults = PossibleLocations.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
 
         areaMults.Keys.Where(a => a.StartsWith("CoP")).ToList().ForEach(a => areaMults[a] *= 0.1d);
