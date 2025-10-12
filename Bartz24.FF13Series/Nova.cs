@@ -221,6 +221,11 @@ public class Nova
 
     public static string GetVersion(string novaPath)
     {
+        if (!File.Exists(novaPath))
+        {
+            return "N/A";
+        }
+
         // Run "NovaChrysalia.exe version" and get output
         ProcessStartInfo startInfo = new()
         {

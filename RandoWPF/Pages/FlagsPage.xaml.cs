@@ -62,7 +62,7 @@ public partial class FlagsPage : UserControl
                 return true;
             }
 
-            return flag.FlagPropertiesDebugIncluded.Where(p => p.HasArchipelagoOverride).Count() == 0;
+            return flag.FlagPropertiesDebugIncluded.Where(p => p.DisabledByArchipelago).Count() == 0;
         }
         // Never show debug flags otherwise
         return !flag.Debug

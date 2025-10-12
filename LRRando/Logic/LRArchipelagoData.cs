@@ -17,7 +17,7 @@ public class LRArchipelagoData : ArchipelagoData
 	public List<(string LocationID, string ItemID)> LocalItemPlacements { get; set; } = new();
     public HashSet<string> UsedItems { get; set; } = new();
 
-    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.1.0" };
+    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.1.0", "0.1.1" };
 
 	public override void Parse(IDictionary<string, object> data)
 	{

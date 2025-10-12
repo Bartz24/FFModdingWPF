@@ -33,7 +33,7 @@ public class FlagProperty : INotifyPropertyChanged
     public bool Experimental { get; set; }
     public bool Debug { get; set; }
 
-    public bool HasArchipelagoOverride { get; set; }
+    public bool DisabledByArchipelago { get; set; }
 
     public Visibility TextVisibility => string.IsNullOrEmpty(Text) ? Visibility.Collapsed : Visibility.Visible;
     public Visibility HelpVisibility => string.IsNullOrEmpty(Description) ? Visibility.Collapsed : Visibility.Visible;

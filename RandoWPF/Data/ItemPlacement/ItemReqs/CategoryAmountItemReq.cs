@@ -60,6 +60,6 @@ public class CategoryAmountItemReq : ItemReq
 
     public override string GetArchipelagoRule(Func<string, string> itemNameFunc)
     {
-        return $"state_has_category(\"{category}\", {amount})";
+        return $"state_has_category(state, player, \"{category}\", {amount})";
     }
 }

@@ -145,6 +145,8 @@ public abstract class SeedGenerator : IDisposable
             r.Load();
             RandoUI.IncrementTotalProgressUI();
         });
+
+        Randomizers.ForEach(r => r.PostLoad());
     }
 
     public virtual void Randomize()

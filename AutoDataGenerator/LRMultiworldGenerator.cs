@@ -72,6 +72,7 @@ internal class LRMultiworldGenerator
             "    weight: int = 0\n" +
             "    amount: int = 1\n" +
             "    duplicate_amount: int = 1\n" +
+            "    traits: list = []\n" +
             "\n" +
             "\n" +
             "item_data_table: Dict[str, LRFF13ItemData] = {\n";
@@ -99,13 +100,9 @@ internal class LRMultiworldGenerator
                 {
                     type = "progression";
                 }
-                else if (i.Category == "EP Ability")
+                else if (i.Category == "EP Ability" || i.Category == "Garb" || i.Category == "Weapon" || i.Category == "Shield" || i.Category == "Accessory")
                 {
                     type = "useful";
-                }
-                else if (i.Category == "Material")
-                {
-                    weight = 15;
                 }
                 else if (i.Category == "Adornment")
                 {
@@ -117,11 +114,15 @@ internal class LRMultiworldGenerator
                     weight = i.Rank > 10 ? 1 : (int)Math.Ceiling(20 * Math.Pow(0.7, i.Rank) * 10);
                     if (i.Category == "Item")
                     {
-                        weight = (int)(weight * 2.5);
+                        weight = (int)(weight * 90);
+                    }
+                    else if (i.Category == "Material")
+                    {
+                        weight = (int)(weight * 160);
                     }
                 }
 
-                script = AddItemToItemsScript(script, i.Name, i.ID, nextIndex, type, i.Category, weight, 1, duplicates);
+                script = AddItemToItemsScript(script, i.Name, i.ID, nextIndex, type, i.Category, weight, 1, duplicates, i.Traits);
                 nextIndex++;
             }
         });
@@ -130,7 +131,7 @@ internal class LRMultiworldGenerator
         int[] gilWeights = new[] { 50, 700, 900, 600, 400, 100 };
         for (int i = 0; i < gilAmounts.Length; i++)
         {
-            script = AddItemToItemsScript(script, $"{gilAmounts[i]} Gil", "", nextIndex, "filler", "Gil", gilWeights[i], gilAmounts[i], 0);
+            script = AddItemToItemsScript(script, $"{gilAmounts[i]} Gil", "", nextIndex, "filler", "Gil", gilWeights[i], gilAmounts[i], 0, new List<string>());
             nextIndex++;
         }
 
@@ -147,7 +148,7 @@ internal class LRMultiworldGenerator
         File.WriteAllText(Path.Combine(OutputDir, "Items.py"), script);
     }
 
-    private string AddItemToItemsScript(string script, string name, string id, int intIndex, string type, string category, int weight, int amount, int duplicates)
+    private string AddItemToItemsScript(string script, string name, string id, int intIndex, string type, string category, int weight, int amount, int duplicates, List<string> traits)
     {
         script +=
             $"    \"{name}\": LRFF13ItemData(\n" +
@@ -171,6 +172,13 @@ internal class LRMultiworldGenerator
         {
             script += $",\n" +
                 $"        duplicate_amount={duplicates}";
+        }
+
+        if (traits != null && traits.Count > 0)
+        {
+            string traitList = string.Join(", ", traits.Select(t => $"\"{t}\""));
+            script += $",\n" +
+                $"        traits=[{traitList}]";
         }
 
         script += "\n    ),\n";
@@ -207,7 +215,8 @@ internal class LRMultiworldGenerator
         TreasureRando.ItemLocations.Values.Where(l => l is not FakeLocation).ToList().ForEach(l =>
         {
             string classification = "DEFAULT";
-            if (l.Traits.Contains("Missable"))
+            // Max EP randomization isn't implemented for AP yet, so exclude EP locations
+            if (l.Traits.Contains("Missable") || l.Traits.Contains("EP"))
             {
                 classification = "EXCLUDED";
             }
@@ -233,6 +242,8 @@ internal class LRMultiworldGenerator
 
             // Use the first area as the region name for this location
             var regionName = l.Areas != null && l.Areas.Count > 0 ? l.Areas[0] : "Initial";
+
+            name = $"{regionName} - {name}";
 
             switch (l)
             {
@@ -378,7 +389,7 @@ internal class LRMultiworldGenerator
         string script =
             "from typing import Callable, Dict, List, Tuple\n" +
             "from BaseClasses import CollectionState, Item\n" +
-            "from .RuleLogic import state_has_at_least, item_is_category, state_has_max" +
+            "from .RuleLogic import state_has_at_least, item_is_category, state_has_category" +
             "\n" +
             "\n";
 
