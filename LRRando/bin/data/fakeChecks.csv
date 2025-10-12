@@ -10,7 +10,7 @@ Dead Dunes,Main Quest 4,_15,AND(I(MQ4|5)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_
 Luxerion,Main Quest 1,_16,AND(I(MQ1|4)|I(Day|2)),Main,3,MQ1*1|MQDone
 Wildlands,Main Quest 3,_17,AND(I(MQ3|3)|I(Day|3)),Main,3,MQ3*1|MQDone
 Yusnaan,Main Quest 2,_18,AND(I(MQ2|3)|I(key_y_serap)|I(Day|3)),Main,4,MQ2*1|MQDone
-Wildlands,Main Quest 5,_19,AND(I(MQ3|3)|I(key_s_kairaku|1)|I(key_s_hiai|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1)|I(Day|3)),Main,6,MQDone
+Wildlands,Main Quest 5,_19,AND(I(MQ3|3)|I(key_s_kairaku|1)|I(key_s_hiai|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1)|I(Day|3)),Main,6,MQ5*1|MQDone
 Luxerion,The Things She Lost Quest,_20,AND(I(key_kb_g|1)|I(key_kb_r|1)),,2,
 Luxerion,"Where Are You, Holmes? Quest",_21,,,0,
 Luxerion,Like Clockwork Quest,_22,I(MQ1|4),,1,
@@ -23,8 +23,8 @@ Luxerion,Treasured Ball Quest,_28,AND(I(key_ball|1)|I(MQ1|5)),,2,
 Luxerion,The Angel's Tears Quest,_29,I(MQ1|2),,3,
 Luxerion,The Saint's Stone Quest,_30,I(MQ1|5),,2,Q_Saint*1
 Luxerion,Whither Faith Quest,_31,,,0,
-Luxerion,The Avid Reader Quest,_32,,,3,
-Luxerion,Buried Passion Quest,_33,AND(I(key_l_pen|1)|I(MQ1|4)),,2,Q_BuriedPassion*1
+Luxerion,The Avid Reader Quest,_32,I(MQ1|5),,3,
+Luxerion,Buried Passion Quest,_33,AND(I(key_l_pen|1)|M(Day|6)|I(MQ1|4)),,2,Q_BuriedPassion*1
 Luxerion,The Girl Who Cried Wolf Quest,_34,I(MQ1|5),,3,
 Luxerion,Stuck in a Gem Quest,_35,,,2,
 Luxerion,Get the Girl Quest,_36,I(MQ1|5),,2,

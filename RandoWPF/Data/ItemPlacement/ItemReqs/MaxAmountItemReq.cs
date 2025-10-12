@@ -65,13 +65,16 @@ public class MaxAmountItemReq : ItemReq
 
     public override string GetArchipelagoRule(Func<string, string> itemNameFunc)
     {
-        if (amount == 1)
+        // TODO: Archipelago doen't support not state.has, so until then...just return true
+        return "True";
+
+        /*if (amount == 1)
         {
             return $"not state.has(\"{itemNameFunc(item)}\", player)";
         }
         else
         {
             return $"not state.has(\"{itemNameFunc(item)}\", player, {amount})";
-        }
+        }*/
     }
 }

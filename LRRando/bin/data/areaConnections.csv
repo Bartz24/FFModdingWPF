@@ -1,14 +1,14 @@
 ﻿Name,From,To,Requirements,Traits,Base Difficulty
 Start,Initial,Ark,,,0
-Dead Dunes,Luxerion,Dead Dunes,I(Eradia|100),,0
+Dead Dunes,Luxerion,Dead Dunes,I(Day|2),,0
 Luxerion,Ark,Luxerion,,,0
-Wildlands,Luxerion,Wildlands,I(Eradia|100),,0
-Yusnaan,Luxerion,Yusnaan,I(Eradia|100),,0
-CoP Dead Dunes,Dead Dunes,CoP Dead Dunes,I(Eradia|100),,0
-CoP Luxerion,Luxerion,CoP Luxerion,I(Eradia|100),,0
-CoP Wildlands,Wildlands,CoP Wildlands,I(Eradia|100),,0
-CoP Yusnaan,Yusnaan,CoP Yusnaan,I(Eradia|100),,0
-CoP Global,Ark,CoP Global,I(Eradia|100),,0
-Soul Seeds/Unappraised,Dead Dunes,Soul Seeds/Unappraised,I(Eradia|100),,1
-Ultimate Lair,Ark,Ultimate Lair,I(Eradia|200),,1
+Wildlands,Luxerion,Wildlands,I(Day|2),,0
+Yusnaan,Luxerion,Yusnaan,I(Day|2),,0
+CoP Dead Dunes,Dead Dunes,CoP Dead Dunes,I(Day|2),,0
+CoP Luxerion,Luxerion,CoP Luxerion,I(Day|2),,0
+CoP Wildlands,Wildlands,CoP Wildlands,I(Day|2),,0
+CoP Yusnaan,Yusnaan,CoP Yusnaan,I(Day|2),,0
+CoP Global,Ark,CoP Global,I(Day|2),,0
+Soul Seeds/Unappraised,Dead Dunes,Soul Seeds/Unappraised,I(Day|2),,1
+Ultimate Lair,Ark,Ultimate Lair,I(Day|3),,1
 Final Day,Ark,Final Day,I(MQDone|5),,8

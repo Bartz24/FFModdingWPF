@@ -378,7 +378,7 @@ internal class LRMultiworldGenerator
         string script =
             "from typing import Callable, Dict, List, Tuple\n" +
             "from BaseClasses import CollectionState, Item\n" +
-            "from .RuleLogic import state_has_at_least, item_is_category" +
+            "from .RuleLogic import state_has_at_least, item_is_category, state_has_max" +
             "\n" +
             "\n";
 

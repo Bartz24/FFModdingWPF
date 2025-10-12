@@ -386,7 +386,6 @@ tre_box_p_111,Ark,Ark Final Day,Missable,AND(I(MQDone|5)|I(Day|6)),10,
 tre_box_p_111_2,Ark,Ark Final Day,Missable,AND(I(MQDone|5)|I(Day|6)),10,
 tre_box_p_111_3,Ark,Ark Final Day,Missable,AND(I(MQDone|5)|I(Day|6)),10,
 tre_box_p_112,Ark,Ark Extra Day,Missable,AND(I(MQDone|5)|I(Day|6)|I(MQ1|5)|I(MQ2|4)|I(MQ3|4)|I(MQ4|6)|I(MQ5|2)),11,
->>>>>>> 4bc3072c (Rework LR checks to remove eradia and link quests better)
 tre_ti000,Ark,Replace Curaga,,,0,
 tre_ti810,Ark,Replace Teleport,,,0,
 tre_ti830,Ark,Replace Escape,,,0,

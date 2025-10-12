@@ -44,19 +44,20 @@ public class FF12ProgressionItemPlacer : ProgressionItemPlacer<ItemLocation>
         return base.GetSimilarItemType(location);
     }
 
-    protected override int GetLocationOffset(ItemLocation location, string itemType)
+    protected override (int,int) GetLocationOffsets(ItemLocation location, string itemType)
     {
-        int offset = base.GetLocationOffset(location, itemType);
+        var offset = base.GetLocationOffsets(location, itemType);
+        int adjust = 0;
         if (itemType == "Cid2Unlock")
         {
-            offset += RandomNum.RandInt(5, 50);
+            adjust = RandomNum.RandInt(5, 50);
         }
         if (itemType == "Esper")
         {
-            offset += RandomNum.RandInt(10, 30);
+            adjust = RandomNum.RandInt(10, 30);
         }
 
-        return offset;
+        return (offset.Item1 + adjust, offset.Item2 + adjust);
     }
 
     protected override void PlaceFixed()
