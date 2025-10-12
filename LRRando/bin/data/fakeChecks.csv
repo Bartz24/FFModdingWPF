@@ -24,7 +24,7 @@ Luxerion,The Angel's Tears Quest,_29,I(MQ1|2),,3,
 Luxerion,The Saint's Stone Quest,_30,I(MQ1|5),,2,Q_Saint*1
 Luxerion,Whither Faith Quest,_31,,,0,
 Luxerion,The Avid Reader Quest,_32,I(MQ1|5),,3,
-Luxerion,Buried Passion Quest,_33,AND(I(key_l_pen|1)|M(Day|6)|I(MQ1|4)),,2,Q_BuriedPassion*1
+Luxerion,Buried Passion Quest,_33,AND(I(key_l_pen|1)|I(MQ1|4)),,2,Q_BuriedPassion*1
 Luxerion,The Girl Who Cried Wolf Quest,_34,I(MQ1|5),,3,
 Luxerion,Stuck in a Gem Quest,_35,,,2,
 Luxerion,Get the Girl Quest,_36,I(MQ1|5),,2,
@@ -37,7 +37,7 @@ Dead Dunes,His Wife's Dream Quest,_42,I(key_d_keisan|1),,2,
 Dead Dunes,Tool of the Trade Quest,_43,I(key_d_lupe|1),,1,
 Dead Dunes,Adonis's Audition Quest,_44,I(MQ4|1),,1,
 Dead Dunes,What Rough Beast Slouches Quest,_45,AND(I(key_d_niku|1)|I(MQ4|3)),,3,
-Dead Dunes,Skeletons In The Closet Quest,_46,AND(I(key_d_sekiban|1)|I(MQ4|4)),,6,
+Dead Dunes,Skeletons In The Closet Quest,_46,AND(I(key_d_sekiban|1)|I(MQ4|4)|I(MQDone|1)),,6,
 Dead Dunes,Last One Standing Quest,_47,,,10,
 Wildlands,A Father's Request Quest,_48,AND(I(key_w_yasai_t|1)|I(MQ3|1)),,1,Q_Father*1
 Wildlands,The Hunter's Challenge Quest,_49,AND(I(key_w_yasai_t|1)|I(Q_RightStuff|1)|I(MQ3|1)),,3,Q_Hunter*1
@@ -68,20 +68,20 @@ Yusnaan,Stolen Things Quest,_73,I(key_y_letter|1),,1,
 Yusnaan,Fireworks for a Steal Quest,_74,I(MQ2|2),,2,
 Yusnaan,A Testing Proposition Quest,_75,,,4,
 Yusnaan,Last Date Quest,_76,I(MQ2|4),Missable,5,
-Yusnaan,Free Will Quest,_77,,,6,
+Yusnaan,Free Will Quest,_77,I(MQDone|1),,6,
 Yusnaan,Friends Forever Quest,_78,I(MQ2|4),,5,
 Yusnaan,Family Food Quest,_79,AND(I(key_y_bashira|1)|I(key_y_recipe|1)|I(key_y_cream|1)),,3,Q_Food*1
 Yusnaan,Tanbam's Taboo Quest,_80,I(MQ2|4),,5,
 Yusnaan,Play It for Me Quest,_81,AND(I(key_y_kagi2|1)|I(key_y_kagi3|1)|I(key_y_rappa|1)),,3,
-Yusnaan,Adoring Adornments Quest,_82,AND(I(MQ2|2)|C(Adornment|55)),,2,Q_Adorn*1
-Yusnaan,Adoring Candice Quest,_83,AND(I(MQ2|4)|I(Q_Adorn|1)),,4,
+Yusnaan,Adoring Adornments Quest,_82,AND(I(MQ2|2)|C(Adornment|55)),Grindy,2,Q_Adorn*1
+Yusnaan,Adoring Candice Quest,_83,AND(I(MQ2|4)|I(Q_Adorn|1)),Grindy,4,
 Yusnaan,Death Safari Quest,_84,I(MQ2|2),,5,Q_Death*1
 Yusnaan,Death Game Quest,_85,AND(I(MQ2|2)|I(Q_Death|1)),,7,
 Luxerion,Main Quest 1-1,_100,,Main,1,MQ1*1
 Luxerion,Main Quest 1-2,_101,I(MQ1|1),Main,1,MQ1*1
 Luxerion,Main Quest 1-3,_102,I(MQ1|2),Main,2,MQ1*1
 Luxerion,Main Quest 1-4,_103,I(MQ1|3),Main,2,MQ1*1
-Yusnaan,Main Quest 2-1 cyclops,_110,AND(I(key_y_ticket|1)|M(Day|5)),Main,1,MQ2*1
+Yusnaan,Main Quest 2-1 cyclops,_110,I(key_y_ticket|1),Main,1,MQ2*1
 Yusnaan,Main Quest 2-1,_111,AND(I(MQ2|1)|I(key_y_id|1)),Main,2,MQ2*1
 Yusnaan,Main Quest 2-2,_112,AND(I(MQ2|2)|I(cos_fa00|1)),Main,3,MQ2*1
 Wildlands,Main Quest 3-1,_120,,Main,1,MQ3*1

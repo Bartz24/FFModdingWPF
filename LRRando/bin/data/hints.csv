@@ -21,4 +21,4 @@ fl_mnsz_002e,5-2,Wildlands,AND(I(key_w_yasai_t|1)|I(MQ5|1))
 fl_mnsz_003e,5-3,Wildlands,AND(I(key_s_okuri|1)|I(key_w_yasai_t|1)|I(MQ5|1))
 fl_mnsz_004e,5-4,Wildlands,AND(I(key_w_mogsoul|1)|I(key_w_yasai_t|1)|I(key_soulcd|1)|I(MQ5|1))
 fl_mnsz_005e,5-5,Wildlands,AND(I(key_w_yasai_t|1)|I(MQ5|1))
-fl_mnsz_006e,5-6,Wildlands,
+fl_mnsz_006e,5-6,Wildlands,I(key_d_key|1)
