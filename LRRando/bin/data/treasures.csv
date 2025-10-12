@@ -1,6 +1,6 @@
 ﻿ID,Area,Name,Traits,Requirements,Difficulty,Location Image Path
 tre_box_b_008,Dead Dunes,Golden Scarab Treasure,CoPKey,,1,DunesScorchedEarthGoldenScarab
-tre_box_b_009,Dead Dunes,Oasis Lighthouse Treasure,CoPKey,,1,DunesOasisLighthouse
+tre_box_b_009,Dead Dunes,Oasis Lighthouse Treasure,CoPKey,I(key_d_key|1),1,DunesOasisLighthouse
 tre_box_b_011,Dead Dunes,Grave of the Colossi Shrine Treasure,CoPKey,,0,DunesShrineGOTCChest
 tre_box_d_001,Dead Dunes,Giant's Sandbox Treasure,,,0,DunesGiantSandbox
 tre_box_d_002,Dead Dunes,Golden Chamber Lower Treasure,,,1,DunesGoldenLowerOdd
@@ -9,37 +9,37 @@ tre_box_d_004,Dead Dunes,Giant's Sandbox Treasure,,,0,DunesGiantSandbox3
 tre_box_d_005,Dead Dunes,Giant's Sandbox Treasure,,,0,DunesGiantSandbox4
 tre_box_d_006,Dead Dunes,Ruffian Outdoor Treasure,,,0,DunesRuffianCliff
 tre_box_d_007,Dead Dunes,Dry Floodlands Treasure,,,0,DunesDryFloodSouth
-tre_box_d_008,Dead Dunes,Oasis Lighthouse Treasure,,,1,DunesOasisLighthouse2
-tre_box_d_009,Dead Dunes,Oasis Lighthouse Treasure,,,1,DunesOasisLighthouse3
+tre_box_d_008,Dead Dunes,Oasis Lighthouse Treasure,,I(key_d_key|1),1,DunesOasisLighthouse2
+tre_box_d_009,Dead Dunes,Oasis Lighthouse Treasure,,I(key_d_key|1),1,DunesOasisLighthouse3
 tre_box_d_010,Dead Dunes,Atomos's Sand Treasure,,,0,DunesAtomosSandFromRuffian
 tre_box_d_011,Dead Dunes,Grave of the Colossi Treasure,,,0,DunesGraveColossi2
-tre_box_d_012,Dead Dunes,Grave of the Colossi Treasure,,,0,DunesArithrometerArea4EP
+tre_box_d_012,Dead Dunes,Grave of the Colossi Treasure,EP,I(key_d_key|1),0,DunesArithrometerArea4EP
 tre_box_d_013,Dead Dunes,Grave of the Colossi Treasure,,,0,DunesGraveColossi1
 tre_box_d_014,Dead Dunes,Atomos's Sand Treasure,,,0,DunesAtomos
 tre_box_d_015,Dead Dunes,Ruffian 2nd Floor Treasure,,,0,DunesRuffian2ndFloor
-tre_box_d_016,Dead Dunes,Temple Ruins Chamber of Dusk (Upper) Treasure,,,1,DunesChamberDuskUpper
-tre_box_d_017,Dead Dunes,Temple Ruins Chamber of Plenilune (Upper) Treasure,,,1,DunesChamberPleniluneNW
-tre_box_d_018,Dead Dunes,Temple Ruins Chamber of Plenilune (Upper) Treasure,,,1,DunesChamberPleniluneW
-tre_box_d_019,Dead Dunes,Temple Ruins Chamber of Plenilune (Upper) Treasure,,,1,DunesChamberPleniluneSW
-tre_box_d_020,Dead Dunes,Temple Ruins Chamber of Plenilune (Lower) Treasure,,,1,DunesChamberPleniluneLowerNE
-tre_box_d_021,Dead Dunes,Temple Ruins Chamber of Plenilune (Lower) Treasure,,,1,DunesChamberPleniluneLowerSE
-tre_box_d_022,Dead Dunes,Temple Ruins Chamber of Plenilune (Lower) Treasure,,,1,DunesChamberPleniluneLowerNW
-tre_box_d_023,Dead Dunes,Temple Ruins Sacred Grove Treasure,,,1,DunesSacredGroveChest
-tre_box_d_024,Dead Dunes,Temple Ruins Golden Chamber (Upper) Treasure,,,1,DunesGoldenUpper
+tre_box_d_016,Dead Dunes,Temple Ruins Chamber of Dusk (Upper) Treasure,,I(MQ4|2),1,DunesChamberDuskUpper
+tre_box_d_017,Dead Dunes,Temple Ruins Chamber of Plenilune (Upper) Treasure,,I(MQ4|2),1,DunesChamberPleniluneNW
+tre_box_d_018,Dead Dunes,Temple Ruins Chamber of Plenilune (Upper) Treasure,,I(MQ4|2),1,DunesChamberPleniluneW
+tre_box_d_019,Dead Dunes,Temple Ruins Chamber of Plenilune (Upper) Treasure,,I(MQ4|2),1,DunesChamberPleniluneSW
+tre_box_d_020,Dead Dunes,Temple Ruins Chamber of Plenilune (Lower) Treasure,,I(MQ4|2),1,DunesChamberPleniluneLowerNE
+tre_box_d_021,Dead Dunes,Temple Ruins Chamber of Plenilune (Lower) Treasure,,I(MQ4|2),1,DunesChamberPleniluneLowerSE
+tre_box_d_022,Dead Dunes,Temple Ruins Chamber of Plenilune (Lower) Treasure,,I(MQ4|2),1,DunesChamberPleniluneLowerNW
+tre_box_d_023,Dead Dunes,Temple Ruins Sacred Grove Treasure,,I(MQ4|3),1,DunesSacredGroveChest
+tre_box_d_024,Dead Dunes,Temple Ruins Golden Chamber (Upper) Treasure,,I(MQ4|3),1,DunesGoldenUpper
 tre_box_d_025,Dead Dunes,Dry Floodlands Shrine Treasure,,,0,DunesShrineDryFloodChest
-tre_box_d_026,Dead Dunes,Temple Ruins Golden Chamber (Lower) Treasure,,,1,DunesGoldenLower2
-tre_box_d_027,Dead Dunes,Temple Ruins Golden Chamber (Lower) Treasure,,,1,DunesGoldenLowerClosedIn
-tre_box_d_028,Dead Dunes,Temple Ruins Golden Chamber (Lower) Treasure,,,1,DunesGoldenLower
-tre_box_d_029,Dead Dunes,Temple Ruins Scorched Earth (Lower) Treasure,EP,,5,DunesScorchedEarthOdd6EP
-tre_box_d_030,Dead Dunes,Temple Ruins Scorched Earth (Upper) Treasure,,,1,DunesScorchedEarthUpperLedge
-tre_box_d_031,Dead Dunes,Temple Ruins Scorched Earth (Upper) Treasure,,,1,DunesScorchedEarthUpperGurangatch
-tre_box_d_032,Dead Dunes,Temple Ruins Golden Chamber (Upper) Treasure,,,1,DunesGoldenUpper2
+tre_box_d_026,Dead Dunes,Temple Ruins Golden Chamber (Lower) Treasure,,I(MQ4|3),1,DunesGoldenLower2
+tre_box_d_027,Dead Dunes,Temple Ruins Golden Chamber (Lower) Treasure,,I(MQ4|3),1,DunesGoldenLowerClosedIn
+tre_box_d_028,Dead Dunes,Temple Ruins Golden Chamber (Lower) Treasure,,I(MQ4|3),1,DunesGoldenLower
+tre_box_d_029,Dead Dunes,Temple Ruins Scorched Earth (Lower) Treasure,EP,I(MQ4|3),5,DunesScorchedEarthOdd6EP
+tre_box_d_030,Dead Dunes,Temple Ruins Scorched Earth (Upper) Treasure,,I(MQ4|3),1,DunesScorchedEarthUpperLedge
+tre_box_d_031,Dead Dunes,Temple Ruins Scorched Earth (Upper) Treasure,,I(MQ4|3),1,DunesScorchedEarthUpperGurangatch
+tre_box_d_032,Dead Dunes,Temple Ruins Golden Chamber (Upper) Treasure,,I(MQ4|3),1,DunesGoldenUpper2
 tre_box_d_033,Dead Dunes,Atomos's Sands Shrine Treasure,,,0,DunesAtomosShrine
 tre_box_d_034,Dead Dunes,Giant's Sandbox Treasure,,,0,DunesGiantSandbox5
 tre_box_d_035,Dead Dunes,Dry Floodlands Treasure,,,0,DunesDryFloods
-tre_d_seki_1,Dead Dunes,Grave of the Colossi Shrine Tablet,MainKey,,1,DunesGOTCShrineTablet
-tre_d_seki_2,Dead Dunes,Dry Floodlands Shrine Tablet,MainKey,,1,DunesDryFloodShrineTablet
-tre_d_seki_3,Dead Dunes,Atomos's Sands Shrine Tablet,MainKey,,1,DunesAtomosShrineTablet
+tre_d_seki_1,Dead Dunes,Grave of the Colossi Shrine Tablet,MainKey,I(key_d_key|1),1,DunesGOTCShrineTablet
+tre_d_seki_2,Dead Dunes,Dry Floodlands Shrine Tablet,MainKey,I(key_d_key|1),1,DunesDryFloodShrineTablet
+tre_d_seki_3,Dead Dunes,Atomos's Sands Shrine Tablet,MainKey,I(key_d_key|1),1,DunesAtomosShrineTablet
 tre_d_base,Dead Dunes,Temple Ruins Mural Crux Base,MainKey,I(key_d_sekiban|3),2,
 tre_d_wing,Dead Dunes,Temple Ruins Mural Crux Body,MainKey,I(key_d_sekiban|2),1,
 tre_d_top,Dead Dunes,Temple Ruins Mural Crux Tip,MainKey,I(key_d_sekiban|2),1,
@@ -71,8 +71,8 @@ tre_qst_046,Dead Dunes,Adonis's Audition Quest,Quest,I(MQ4|1),1,
 tre_qst_046_2,Dead Dunes,Adonis's Audition Quest,Quest,I(MQ4|1),1,
 tre_qst_047,Dead Dunes,What Rough Beast Slouches Quest,Quest,AND(I(key_d_niku|1)|I(MQ4|3)),4,
 tre_qst_047_2,Dead Dunes,What Rough Beast Slouches Quest,Quest,AND(I(key_d_niku|1)|I(MQ4|3)),4,
-tre_qst_048,Dead Dunes,Skeletons In The Closet Quest,Quest,AND(I(key_d_sekiban|1)|I(MQ4|4)),6,
-tre_qst_048_2,Dead Dunes,Skeletons In The Closet Quest,Quest,AND(I(key_d_sekiban|1)|I(MQ4|4)),6,
+tre_qst_048,Dead Dunes,Skeletons In The Closet Quest,Quest,AND(I(key_d_sekiban|1)|I(MQ4|4)|I(MQDone|1)),6,
+tre_qst_048_2,Dead Dunes,Skeletons In The Closet Quest,Quest,AND(I(key_d_sekiban|1)|I(MQ4|4)|I(MQDone|1)),6,
 tre_qst_049,Dead Dunes,Last One Standing Quest,Missable|Quest,,10,
 tre_qst_049_2,Dead Dunes,Last One Standing Quest,Missable|Quest,,10,
 tre_qst_049_3,Dead Dunes,Last One Standing Quest,Missable|Quest,,10,
@@ -93,10 +93,10 @@ tre_box_l_010,Luxerion,Warehouse District (Supply Sphere) Treasure,,I(key_kyu_pa
 tre_box_l_011,Luxerion,Residences (Supply Sphere) Treasure,,I(key_kyu_pass|1),2,LuxerionResidencesSupply
 tre_box_l_012,Luxerion,Forsaken Graveyard Treasure,,I(MQ1|3),1,LuxerionForsakenGraveyard
 tre_box_l_013,Luxerion,Den Of Shadows Treasure,,I(MQ1|4),1,LuxerionDenShadows1
-tre_box_l_014,Luxerion,Luxerion After 1st Phone,,,0,LuxerionNearPhone0
+tre_box_l_014,Luxerion,Luxerion After 1st Phone,,I(MQ1|2),0,LuxerionNearPhone0
 tre_box_l_015,Luxerion,Den Of Shadows Treasure,,I(MQ1|4),1,LuxerionDenShadows2
-tre_box_l_016,Luxerion,Luxerion After 1st Phone,,,0,LuxerionNearPhone1
-tre_box_l_017,Luxerion,Luxerion After 1st Phone,,,0,LuxerionNearPhone2
+tre_box_l_016,Luxerion,Luxerion After 1st Phone,,I(MQ1|2),0,LuxerionNearPhone1
+tre_box_l_017,Luxerion,Luxerion After 1st Phone,,I(MQ1|2),0,LuxerionNearPhone2
 tre_box_l_019,Luxerion,Luxerion Marketplace Treasure,,,0,LuxerionMarketplace
 tre_box_l_020,Luxerion,Forsaken Graveyard Treasure,,I(MQ1|3),1,LuxerionForsakenGraveyard2
 tre_key_l_ball,Luxerion,1st Ave Rubber Ball,SideKey,I(MQ1|5),2,Luxerion1stAvenueBall
@@ -143,9 +143,8 @@ tre_qst_012,Luxerion,Whither Faith Quest,Missable|Quest,,0,
 tre_qst_012_2,Luxerion,Whither Faith Quest,Missable|Quest,,0,
 tre_qst_013,Luxerion,The Avid Reader Quest,Missable|Quest,I(MQ1|5),3,
 tre_qst_013_2,Luxerion,The Avid Reader Quest,Missable|Quest,I(MQ1|5),3,
-# Buried passion must be in the chain at day 5 latest, to allow for the 3 returns (->day 8) and only MQ1 assumed possible.
-tre_qst_014,Luxerion,Buried Passion Quest,Quest,AND(I(key_l_pen|1)|M(Day|6)|I(MQ1|4)),2,
-tre_qst_014_2,Luxerion,Buried Passion Quest,Quest,AND(I(key_l_pen|1)|M(Day|6)|I(MQ1|4)),2,
+tre_qst_014,Luxerion,Buried Passion Quest,Quest,AND(I(key_l_pen|1)|I(MQ1|4)),2,
+tre_qst_014_2,Luxerion,Buried Passion Quest,Quest,AND(I(key_l_pen|1)|I(MQ1|4)),2,
 tre_qst_015,Luxerion,The Girl Who Cried Wolf Quest,Missable|Quest,I(MQ1|5),3,
 tre_qst_015_2,Luxerion,The Girl Who Cried Wolf Quest,Missable|Quest,I(MQ1|5),3,
 tre_qst_016,Luxerion,Stuck in a Gem Quest,Quest,,2,
@@ -163,8 +162,8 @@ tre_qst_091_2,Luxerion,To Save the Sinless Quest,Missable|Quest,AND(I(Q_BuriedPa
 tre_ti840,Luxerion,Replace Chronostasis,,,0,
 tre_wea_oa00,Luxerion,Luxerion Boss Drop,Battle,I(MQ1|4),7,
 tre_wea_oa01,Luxerion,Luxerion Boss+ Only Missable Drop,Missable,I(MQ1|4),8,
-tre_box_b_004,Wildlands,Moogle Village Moogle Dust Treasure,CoPKey,,2,WildlandsMoogleVillageDust
-tre_box_b_005,Wildlands,Research Camp Photo Frame Treasure,CoPKey,,2,WildlandsResearchPhoto
+tre_box_b_004,Wildlands,Moogle Village Moogle Dust Treasure,CoPKey,,1,WildlandsMoogleVillageDust
+tre_box_b_005,Wildlands,Research Camp Photo Frame Treasure,CoPKey,,1,WildlandsResearchPhoto
 tre_box_b_006,Wildlands,Poltae Etro's Forbidden Tome,CoPKey,,2,WildlandsPoltaeForbiddenTome
 tre_box_b_007,Wildlands,Eremite Plains Broken Gyroscope Treasure,CoPKey,I(MQ3|3),2,WildlandsBrokenGyroscope
 tre_box_b_010,Wildlands,Aryas Village Treasure,CoPKey,,0,WildlandsAryasOutsideWreckage
@@ -328,9 +327,9 @@ tre_qst_066,Yusnaan,A Testing Proposition Quest,Quest,,3,
 tre_qst_066_2,Yusnaan,A Testing Proposition Quest,Quest,,3,
 tre_qst_067,Yusnaan,Last Date Quest,Missable|Quest,I(MQ2|4),5,
 tre_qst_067_2,Yusnaan,Last Date Quest,Missable|Quest,I(MQ2|4),5,
-tre_qst_068,Yusnaan,Free Will Quest,Quest,,6,
-tre_qst_068_2,Yusnaan,Free Will Quest,Quest,,6,
-tre_qst_068_3,Yusnaan,Free Will Quest,Quest,,6,
+tre_qst_068,Yusnaan,Free Will Quest,Quest,I(MQDone|1),6,
+tre_qst_068_2,Yusnaan,Free Will Quest,Quest,I(MQDone|1),6,
+tre_qst_068_3,Yusnaan,Free Will Quest,Quest,I(MQDone|1),6,
 tre_qst_069,Yusnaan,Friends Forever Quest,Quest,I(MQ2|4),5,
 tre_qst_069_2,Yusnaan,Friends Forever Quest,Quest,I(MQ2|4),5,
 tre_qst_069_3,Yusnaan,Friends Forever Quest,Quest,I(MQ2|4),5,
@@ -632,40 +631,40 @@ tre_key_d_kant2,Soul Seeds/Unappraised,5 Unappraised,Quest,I(key_d_lupe|1),2,
 tre_key_d_kant3,Soul Seeds/Unappraised,10 Unappraised,Grindy|Quest,I(key_d_lupe|1),4,
 tre_key_d_kant4,Soul Seeds/Unappraised,20 Unappraised,Grindy|Quest,I(key_d_lupe|1),6,
 tre_key_d_kant5,Soul Seeds/Unappraised,50 Unappraised,Grindy|Quest,I(key_d_lupe|1),8,
-tre_acc_b_9030,Ultimate Lair,Floor 1 Hoplite Omega Drop,Battle,,3,
-tre_acc_a_9090,Ultimate Lair,Floor 2 Niblet Omega Drop,Battle,,3,
-tre_acc_a_9010,Ultimate Lair,Floor 3 Zaltys Omega Drop,Battle,,5,
-tre_acc_b_9050,Ultimate Lair,Floor 4 Gaunt Omega Drop,Battle,,4,
-tre_acc_a_9080,Ultimate Lair,Floor 5 Gremlin Omega Drop,Battle,,3,
-tre_acc_b_9020,Ultimate Lair,Floor 6 Dreadnought Omega Drop,Battle,,5,
-tre_acc_a_9000,Ultimate Lair,Floor 7 Gorgonopsid Omega Drop,Battle,,4,
-tre_acc_a_9100,Ultimate Lair,Floor 8 Goblot Omega Drop,Battle,,3,
-tre_acc_a_9220,Ultimate Lair,Floor 9 Gurangatch Omega Drop,Battle,,4,
-tre_acc_b_9080,Ultimate Lair,Floor 10 Ectopudding Omega Drop,Battle,,4,
-tre_acc_a_9020,Ultimate Lair,Floor 11 Miniflan Omega Drop,Battle,,3,
-tre_acc_b_9040,Ultimate Lair,Floor 12 Aster Protoflorian Omega Drop,Battle,,6,
-tre_acc_a_9120,Ultimate Lair,Floor 13 Schrodinger Omega Drop,Battle,,5,
-tre_acc_a_9070,Ultimate Lair,Floor 14 Goblin Omega Drop,Battle,,4,
-tre_wea_oa07,Ultimate Lair,Floor 15 Reaver Omega Drop,Battle,,6,
-tre_acc_b_9090,Ultimate Lair,Floor 16 Meonekton Omega Drop,Battle,,5,
-tre_acc_a_9190,Ultimate Lair,Floor 17 Cactuar Omega Drop,Battle,,5,
-tre_acc_a_9110,Ultimate Lair,Floor 18 Triffid Omega Drop,Battle,,5,
-tre_wea_oa05,Ultimate Lair,Floor 19 Cyclops Omega Drop,Battle,,6,
-tre_wea_oa13,Ultimate Lair,Floor 20 Skeleton Omega Drop,Battle,,5,
-tre_acc_a_9150,Ultimate Lair,Floor 21 Desert Sahagin Omega Drop,Battle,,6,
-tre_acc_a_9130,Ultimate Lair,Floor 22 Earth Eater Omega Drop,Battle,,7,
-tre_acc_b_9000,Ultimate Lair,Floor 23 Skata'ne Omega Drop,Battle,,6,
-tre_acc_a_9030,Ultimate Lair,Floor 24 Hanuman Omega Drop,Battle,,6,
-tre_acc_a_9040,Ultimate Lair,Floor 25 Zomok Omega Drop,Battle,,7,
-tre_acc_b_9010,Ultimate Lair,Floor 26 Dryad Omega Drop,Battle,,6,
-tre_acc_a_9180,Ultimate Lair,Floor 27 Rafflesia Omega Drop,Battle,,6,
-tre_acc_a_9140,Ultimate Lair,Floor 28 Chocobo Eater Omega Drop,Battle,,6,
-tre_box_e_000,Ultimate Lair,Floor 29 UL Treasure,Battle,,6,
-tre_box_e_001,Ultimate Lair,Floor 30 UL Treasure,Battle,,6,
-tre_box_e_002,Ultimate Lair,Floor 31 UL Treasure,Battle,,6,
-tre_box_e_003,Ultimate Lair,Floor 32 UL Treasure,Battle,,6,
-tre_acc_a_9210,Ultimate Lair,Ultimate Lair Boss Drop,Battle,,8,
-tre_qst_099,Ultimate Lair,Ultimate Lair Boss Reward,Quest|Superboss,,8,
+tre_acc_b_9030,Ultimate Lair,Floor 1 Hoplite Omega Drop,Battle,I(MQDone|1),3,
+tre_acc_a_9090,Ultimate Lair,Floor 2 Niblet Omega Drop,Battle,I(MQDone|1),3,
+tre_acc_a_9010,Ultimate Lair,Floor 3 Zaltys Omega Drop,Battle,I(MQDone|3),5,
+tre_acc_b_9050,Ultimate Lair,Floor 4 Gaunt Omega Drop,Battle,I(MQDone|2),4,
+tre_acc_a_9080,Ultimate Lair,Floor 5 Gremlin Omega Drop,Battle,I(MQDone|1),3,
+tre_acc_b_9020,Ultimate Lair,Floor 6 Dreadnought Omega Drop,Battle,I(MQDone|3),5,
+tre_acc_a_9000,Ultimate Lair,Floor 7 Gorgonopsid Omega Drop,Battle,I(MQDone|2),4,
+tre_acc_a_9100,Ultimate Lair,Floor 8 Goblot Omega Drop,Battle,I(MQDone|1),3,
+tre_acc_a_9220,Ultimate Lair,Floor 9 Gurangatch Omega Drop,Battle,I(MQDone|2),4,
+tre_acc_b_9080,Ultimate Lair,Floor 10 Ectopudding Omega Drop,Battle,I(MQDone|2),4,
+tre_acc_a_9020,Ultimate Lair,Floor 11 Miniflan Omega Drop,Battle,I(MQDone|1),3,
+tre_acc_b_9040,Ultimate Lair,Floor 12 Aster Protoflorian Omega Drop,Battle,I(MQDone|3),6,
+tre_acc_a_9120,Ultimate Lair,Floor 13 Schrodinger Omega Drop,Battle,I(MQDone|3),5,
+tre_acc_a_9070,Ultimate Lair,Floor 14 Goblin Omega Drop,Battle,I(MQDone|1),4,
+tre_wea_oa07,Ultimate Lair,Floor 15 Reaver Omega Drop,Battle,I(MQDone|3),6,
+tre_acc_b_9090,Ultimate Lair,Floor 16 Meonekton Omega Drop,Battle,I(MQDone|3),5,
+tre_acc_a_9190,Ultimate Lair,Floor 17 Cactuar Omega Drop,Battle,I(MQDone|1),5,
+tre_acc_a_9110,Ultimate Lair,Floor 18 Triffid Omega Drop,Battle,I(MQDone|3),5,
+tre_wea_oa05,Ultimate Lair,Floor 19 Cyclops Omega Drop,Battle,I(MQDone|3),6,
+tre_wea_oa13,Ultimate Lair,Floor 20 Skeleton Omega Drop,Battle,I(MQDone|1),5,
+tre_acc_a_9150,Ultimate Lair,Floor 21 Desert Sahagin Omega Drop,Battle,I(MQDone|3),6,
+tre_acc_a_9130,Ultimate Lair,Floor 22 Earth Eater Omega Drop,Battle,I(MQDone|3),7,
+tre_acc_b_9000,Ultimate Lair,Floor 23 Skata'ne Omega Drop,Battle,I(MQDone|1),6,
+tre_acc_a_9030,Ultimate Lair,Floor 24 Hanuman Omega Drop,Battle,I(MQDone|3),6,
+tre_acc_a_9040,Ultimate Lair,Floor 25 Zomok Omega Drop,Battle,I(MQDone|3),7,
+tre_acc_b_9010,Ultimate Lair,Floor 26 Dryad Omega Drop,Battle,I(MQDone|1),6,
+tre_acc_a_9180,Ultimate Lair,Floor 27 Rafflesia Omega Drop,Battle,I(MQDone|3),6,
+tre_acc_a_9140,Ultimate Lair,Floor 28 Chocobo Eater Omega Drop,Battle,I(MQDone|3),6,
+tre_box_e_000,Ultimate Lair,Floor 29 UL Treasure,Battle,I(MQDone|1),6,
+tre_box_e_001,Ultimate Lair,Floor 30 UL Treasure,Battle,I(MQDone|1),6,
+tre_box_e_002,Ultimate Lair,Floor 31 UL Treasure,Battle,I(MQDone|1),6,
+tre_box_e_003,Ultimate Lair,Floor 32 UL Treasure,Battle,I(MQDone|1),6,
+tre_acc_a_9210,Ultimate Lair,Ultimate Lair Boss Drop,Battle,I(MQDone|4),8,
+tre_qst_099,Ultimate Lair,Ultimate Lair Boss Reward,Quest|Superboss,I(MQDone|4),8,
 tre_acc_b_9070,Final Day,Arcangeli Omega Drop,Battle|Missable,AND(I(MQDone|5)|I(Day|6)),6,
 tre_acc_a_9160,Final Day,Sugriva Omega Drop,Battle|Missable,AND(I(MQDone|5)|I(Day|6)),6,
 tre_acc_a_9170,Final Day,Chimera Omega Drop,Battle|Missable,AND(I(MQDone|5)|I(Day|6)),6,
