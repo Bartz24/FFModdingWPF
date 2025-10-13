@@ -17,7 +17,9 @@ public class LRArchipelagoData : ArchipelagoData
 	public List<(string LocationID, string ItemID, int Amount)> LocalItemPlacements { get; set; } = new();
     public HashSet<string> UsedItems { get; set; } = new();
 
-    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.1.0", "0.1.1" };
+	public bool AllowDLCItems { get; set; } = false;
+
+    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.2.0" };
 
 	public override void Parse(IDictionary<string, object> data)
 	{
@@ -68,6 +70,8 @@ public class LRArchipelagoData : ArchipelagoData
         {
             LocalItemPlacements = new();
         }
+
+		AllowDLCItems = data.ContainsKey("allow_dlc_items") && (bool)data["allow_dlc_items"];
 	}
 
 	public override IDictionary<string, object> ToJsonObj()
@@ -92,7 +96,8 @@ public class LRArchipelagoData : ArchipelagoData
 			{ "version", Version },
 			{ "used_items", UsedItems.ToList() },
 			{ "item_placements", itemPlacements },
-            { "local_item_placements", localItemPlacements }
+            { "local_item_placements", localItemPlacements },
+			{ "allow_dlc_items", AllowDLCItems }
 		};
 	}
 }

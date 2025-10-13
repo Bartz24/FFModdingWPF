@@ -451,6 +451,17 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
         }
+
+        public static bool IsIncludeDLCItems()
+        {
+            if (RandoFlags.Mode == RandoFlags.SeedMode.Archipelago)
+            {
+                var apData = RandoFlags.GetArchipelagoData<LRArchipelagoData>();
+                return apData.AllowDLCItems;
+            }
+
+            return IncludeDLCItems.Enabled;
+        }
     }
     public class Other
     {

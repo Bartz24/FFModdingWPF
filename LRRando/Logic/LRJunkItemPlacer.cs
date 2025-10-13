@@ -52,7 +52,7 @@ public class LRJunkItemPlacer : JunkItemPlacer<ItemLocation>
                     i.Rank <= equipRando.itemData[orig.Item1].Rank + rankRange &&
                     !i.Traits.Contains("Ignore") &&
                     !i.Traits.Contains("Key"));
-                if (!LRFlags.Items.IncludeDLCItems.Enabled)
+                if (!LRFlags.Items.IsIncludeDLCItems())
                 {
                     possible = possible.Where(i => !i.Traits.Contains("DLC"));
                 }

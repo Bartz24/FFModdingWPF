@@ -20,9 +20,9 @@ public class APEquipRando : EquipRando
 
         // Create unique AP key items based on LRArchipelagoData item placements
         var apData = RandoFlags.GetArchipelagoData<LRArchipelagoData>();
-        for (int i = 0; i < apData.ItemPlacements.Count; i++)
+        foreach (var placement in apData.ItemPlacements)
         {
-            string idx = (i + 1).ToString("D4");
+            string idx = placement.Address.ToString("D4");
             string itemId = $"key_r_ap_{idx}";
 
             if (!items.Keys.Contains(itemId))
@@ -80,5 +80,7 @@ public class APEquipRando : EquipRando
         }).Where(id => id != null).ToList();
 
         RemainingEquip = RemainingEquip.Where(id => !usedIds.Contains(id)).ToList();
+
+        FilterOutDLCItems();
     }
 }

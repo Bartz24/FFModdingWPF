@@ -18,30 +18,35 @@ public class APTreasureRando : TreasureRando
     {
         // Then overwrite with unique AP items according to LRArchipelagoData order
         var apData = RandoFlags.GetArchipelagoData<LRArchipelagoData>();
-        // Build a quick lookup for local item placements
-        var localMap = apData.LocalItemPlacements.ToDictionary(p => p.LocationID, p => (p.ItemID, p.Amount), StringComparer.Ordinal);
-        for (int i = 0; i < apData.ItemPlacements.Count; i++)
+        foreach (var placement in apData.ItemPlacements)
         {
-            var (ID, Name, Region, Address) = apData.ItemPlacements[i];
+            var (ID, Name, Region, Address) = placement;
             string idx = Address.ToString("D4");
             string itemId = $"key_r_ap_{idx}";
 
             // Find matching location by ID (CSV-defined IDs should match placement.ID)
             if (ItemLocations.TryGetValue(ID, out var loc))
             {
-                // If the location has local item placement, use that instead of the AP-specific item
-                if (localMap.TryGetValue(ID, out var localItem))
-                {
-                    loc.SetItem(localItem.ItemID, localItem.Amount);
-                }
-                else
-                {
-                    loc.SetItem(itemId, 1);
-                }
+                loc.SetItem(itemId, 1);
             }
             else
             {
                 throw new Exception($"AP Item placement ID '{ID}' not found in item locations.");
+            }
+        }
+
+        // Build a quick lookup for local item placements
+        var localMap = apData.LocalItemPlacements.ToDictionary(p => p.LocationID, p => (p.ItemID, p.Amount), StringComparer.Ordinal);
+        foreach (var loc in localMap.Keys)
+        {
+            if (ItemLocations.TryGetValue(loc, out var location))
+            {
+                var (itemId, amount) = localMap[loc];
+                location.SetItem(itemId, amount);
+            }
+            else
+            {
+                throw new Exception($"Local item placement ID '{loc}' not found in item locations.");
             }
         }
 
