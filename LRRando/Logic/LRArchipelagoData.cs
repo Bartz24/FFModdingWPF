@@ -14,7 +14,7 @@ public class LRArchipelagoData : ArchipelagoData
 	public List<(string ID, string Name, string Region, int Address)> ItemPlacements { get; set; } = new();
 
 	// All local item placements with their local string IDs
-	public List<(string LocationID, string ItemID)> LocalItemPlacements { get; set; } = new();
+	public List<(string LocationID, string ItemID, int Amount)> LocalItemPlacements { get; set; } = new();
     public HashSet<string> UsedItems { get; set; } = new();
 
     public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.1.0", "0.1.1" };
@@ -51,7 +51,7 @@ public class LRArchipelagoData : ArchipelagoData
 			ItemPlacements = new();
 		}
 
-        // local_item_placements: [ { location_id, item_id } ]
+        // local_item_placements: [ { location_id, item_id, amount } ]
         if (data.ContainsKey("local_item_placements"))
         {
             LocalItemPlacements = ((List<object>)data["local_item_placements"]).Select(o =>
@@ -59,7 +59,8 @@ public class LRArchipelagoData : ArchipelagoData
                 var placement = (IDictionary<string, object>)o;
                 return (
                     LocationID: placement.ContainsKey("location_id") ? (string)placement["location_id"] : string.Empty,
-                    ItemID: placement.ContainsKey("item_id") ? (string)placement["item_id"] : string.Empty
+                    ItemID: placement.ContainsKey("item_id") ? (string)placement["item_id"] : string.Empty,
+					Amount: placement.ContainsKey("amount") ? Convert.ToInt32(placement["amount"]) : 1
                 );
             }).ToList();
         }
@@ -82,7 +83,8 @@ public class LRArchipelagoData : ArchipelagoData
         var localItemPlacements = LocalItemPlacements.Select(p => new Dictionary<string, object>
         {
             { "location_id", p.LocationID },
-            { "item_id", p.ItemID }
+            { "item_id", p.ItemID },
+			{ "amount", p.Amount }
         }).ToList();
 
 		return new Dictionary<string, object>
