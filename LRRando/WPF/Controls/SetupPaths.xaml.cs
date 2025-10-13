@@ -88,7 +88,16 @@ public partial class SetupPaths : UserControl
 
     private void UpdateText()
     {
-        NovaVersionText = (Nova.IsNovaVersion2(NovaPath) ? "" : "Currently installed version is unsupported (requires v2.0.0+): ") + Nova.GetVersion(NovaPath);
+        string version = Nova.GetVersion(NovaPath);
+        if (version.StartsWith("Please close"))
+        {
+            NovaVersionText = version;
+        }
+        else
+        {
+            NovaVersionText = Nova.IsNovaVersion2(NovaPath) ? $"Version {version}" : $"Version {version} (Unsupported)";
+        }
+
         NovaVersionColor = Nova.IsNovaVersion2(NovaPath) ? Brushes.LightGreen : Brushes.Orange;
         NovaVersionLabel.GetBindingExpression(ContentProperty).UpdateTarget();
         NovaVersionLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
