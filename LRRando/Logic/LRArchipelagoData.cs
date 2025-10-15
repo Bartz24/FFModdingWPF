@@ -15,11 +15,11 @@ public class LRArchipelagoData : ArchipelagoData
 
 	// All local item placements with their local string IDs
 	public List<(string LocationID, string ItemID, int Amount)> LocalItemPlacements { get; set; } = new();
-    public HashSet<string> UsedItems { get; set; } = new();
+	public HashSet<string> UsedItems { get; set; } = new();
 
 	public bool AllowDLCItems { get; set; } = false;
 
-    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.2.0" };
+    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.2.0", "0.2.1" };
 
 	public override void Parse(IDictionary<string, object> data)
 	{
