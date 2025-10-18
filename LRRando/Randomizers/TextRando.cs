@@ -54,12 +54,13 @@ public class TextRando : Randomizer
         RandoUI.SetUIProgressIndeterminate("Randomizing Text Data...");
         if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
         {
-            mainSysUS["$m_355"] += " (I may crash with {Key R2})";
-            mainSysUS["$m_455"] += " (I may crash with {Key R2})";
-            mainSysUS["$m_805"] += " (I may crash with {Key R2})";
-            mainSysUS["$m_806w"] += " (I may crash with {Key R2})";
-            mainSysUS["$m_821w"] += " (I may crash with {Key R2})";
-            mainSysUS["$m_896w"] += " (I may crash with {Key R2})";
+            const string warn = " (I may crash with {Btn RT})";
+            mainSysUS["$m_355"] += warn;
+            mainSysUS["$m_455"] += warn;
+            mainSysUS["$m_805"] += warn;
+            mainSysUS["$m_806w"] += warn;
+            mainSysUS["$m_821w"] += warn;
+            mainSysUS["$m_896w"] += warn;
         }
 
         LRFlags.Other.LoadingText.SetRand();
