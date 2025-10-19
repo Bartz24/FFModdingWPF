@@ -18,8 +18,10 @@ public class ItemData : CSVDataRow, IItem
     [RowIndex(5)]
     public int OverrideBuyGil { get; set; }
     [RowIndex(6)]
-    public int OverrideBuyEP { get; set; }
+    public int OverrideSellGil { get; set; }
     [RowIndex(7)]
+    public int OverrideBuyEP { get; set; }
+    [RowIndex(8)]
     public int OverrideCount { get; set; }
     public ItemData(string[] row) : base(row)
     {

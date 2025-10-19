@@ -69,20 +69,10 @@ public partial class EquipRando : Randomizer
         }, FileHelpers.CSVFileHeader.HasHeader);
 
         RandoUI.SetUIProgressDeterminate("Loading Equip Data...", 90, 100);
-        itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
-        itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
-
-        upgrades.Values.Where(u => u.i16AtbSpdLimit >= 32768).ForEach(u => u.i16AtbSpdLimit -= 65536);
-        upgrades.Values.Where(u => u.i16BrkBonusLimit >= 32768).ForEach(u => u.i16BrkBonusLimit -= 65536);
-
-        autoAbilities.Values.Where(a => a.i16AutoAblArgInt0 >= 32768).ForEach(a => a.i16AutoAblArgInt0 -= 65536);
-        autoAbilities.Values.Where(a => a.i16AutoAblArgInt1 >= 32768).ForEach(a => a.i16AutoAblArgInt1 -= 65536);
-
-        itemAbilities.Values.Where(i => i.i8AtbDec >= 128).ForEach(i => i.i8AtbDec -= 256);
-        itemAbilitiesOrig.Values.Where(i => i.i8AtbDec >= 128).ForEach(i => i.i8AtbDec -= 256);
 
         itemData.Values.Where(i => i.OverrideBuyGil != -1).ForEach(i => items[i.ID].uPurchasePrice = i.OverrideBuyGil);
-        itemData.Values.Where(i => i.OverrideBuyEP != -1).ForEach(i => items[i.ID].uGpCost = i.OverrideBuyEP * 1000);
+        itemData.Values.Where(i => i.OverrideSellGil != -1).ForEach(i => items[i.ID].uSellPrice = i.OverrideSellGil);
+        itemData.Values.Where(i => i.OverrideBuyEP != -1).ForEach(i => items[i.ID].uGpCost = i.OverrideBuyEP * 2000);
 
         RemainingEquip = itemData.Values.Where(i => (i.Category == "Weapon" || i.Category == "Shield" || i.Category == "Garb" || i.Category == "Accessory") && !i.Traits.Contains("Key")).Select(i => i.ID).ToList();
         RemainingAdorn = itemData.Values.Where(i => i.Category == "Adornment" && !i.Traits.Contains("Remove")).Select(i => i.ID).ToList();
@@ -793,14 +783,6 @@ public partial class EquipRando : Randomizer
 
     public override void Save()
     {
-        itemWeapons.Values.Where(w => w.i16AtbSpeedModVal < 0).ForEach(w => w.i16AtbSpeedModVal += 65536);
-        itemWeapons.Values.Where(w => w.i16MagicModVal < 0).ForEach(w => w.i16MagicModVal += 65536);
-
-        upgrades.Values.Where(u => u.i16AtbSpdLimit < 0).ForEach(u => u.i16AtbSpdLimit += 65536);
-        upgrades.Values.Where(u => u.i16BrkBonusLimit < 0).ForEach(u => u.i16BrkBonusLimit += 65536);
-
-        itemAbilities.Values.Where(i => i.i8AtbDec < 0).ForEach(i => i.i8AtbDec += 256);
-
         RandoUI.SetUIProgressIndeterminate("Saving Equip Data...");
         itemWeapons.SaveWDB(Generator, @"\db\resident\item_weapon.wdb");
         RandoUI.SetUIProgressDeterminate("Saving Equip Data...", 20, 100);
@@ -819,8 +801,6 @@ public partial class EquipRando : Randomizer
     public override Dictionary<string, HTMLPage> GetDocumentation()
     {
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
-        itemWeapons.Values.Where(w => w.i16AtbSpeedModVal >= 32768).ForEach(w => w.i16AtbSpeedModVal -= 65536);
-        itemWeapons.Values.Where(w => w.i16MagicModVal >= 32768).ForEach(w => w.i16MagicModVal -= 65536);
 
         HTMLPage page = new("Equipment", "template/documentation.html");
 
@@ -875,9 +855,6 @@ public partial class EquipRando : Randomizer
 
             return new string[] { name, string.Join(", ", passiveNames) }.ToList();
         }).ToList()));
-
-        itemWeapons.Values.Where(w => w.i16AtbSpeedModVal < 0).ForEach(w => w.i16AtbSpeedModVal += 65536);
-        itemWeapons.Values.Where(w => w.i16MagicModVal < 0).ForEach(w => w.i16MagicModVal += 65536);
 
         pages.Add("equipment", page);
         return pages;

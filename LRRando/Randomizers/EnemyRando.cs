@@ -22,11 +22,11 @@ public class EnemyRando : Randomizer
         string outPath = Generator.DataOutFolder + @"\db\resident\bt_chara_spec.wdb";
         FileHelpers.CopyFile(path, outPath);
         enemies.Load("LR", outPath, SetupData.Paths["Nova"]);
-        enemies["m375"].fBrkLoopTime3 = 1203982208;
-        enemies["m375_break1"].fBrkLoopTime3 = 1203982208;
-        enemies["m375_break2"].fBrkLoopTime3 = 1203982208;
-        enemies["m375_break3"].fBrkLoopTime3 = 1203982208;
-        enemies["m375_break4"].fBrkLoopTime3 = 1203982208;
+        enemies["m375"].fBrkLoopTime3 = 100000;
+        enemies["m375_break1"].fBrkLoopTime3 = 100000;
+        enemies["m375_break2"].fBrkLoopTime3 = 100000;
+        enemies["m375_break3"].fBrkLoopTime3 = 100000;
+        enemies["m375_break4"].fBrkLoopTime3 = 100000;
         enemies["m375"].s8Ability18 = "m375_ac900";
         enemies["m375_break1"].s8Ability18 = "m375_ac900";
         enemies["m375_break2"].s8Ability18 = "m375_ac900";
