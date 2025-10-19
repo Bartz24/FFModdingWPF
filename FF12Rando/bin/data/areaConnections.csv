@@ -1,0 +1,124 @@
+﻿Name,From,To,Requirements,Traits,Base Difficulty
+Start,Initial,Rabanastre,,,0
+Rabanastre <-> Lowtown North End,Rabanastre,Lowtown,,BothWays,0
+Rabanastre <-> Lowtown East End,Rabanastre,Lowtown,,BothWays,0
+Rabanastre <-> Lowtown Southgate,Rabanastre,Lowtown,,BothWays,0
+Rabanastre <-> Giza Dry,Rabanastre,Giza Plains Dry,,BothWays,1
+Rabanastre <-> Giza Rains,Rabanastre,Giza Plains Rains,I(80E0),BothWays,1
+Rabanastre <-> Estersand,Rabanastre,Dalmasca Estersand,,BothWays,1
+Rabanastre <-> Westersand,Rabanastre,Dalmasca Westersand,,BothWays,1
+Rabanastre <-> Clan Hall,Rabanastre,Clan Hall,I(8071),BothWays,0
+Lowtown <-> Garamsythe,Lowtown,Garamsythe Waterway,,BothWays,0
+Lowtown -> Royal Palace,Lowtown,Royal Palace,I(8080),,1
+Royal Palace -> Nalbina Dungeon,Royal Palace,Nalbina Dungeon,,,1
+Nalbina Dungeon -> Barheim Passage Shop,Nalbina Dungeon,Barheim Passage Shop,,,1
+Royal Palace -> Barheim Passage Story,Royal Palace,Barheim Passage Story,,,1
+Barheim Passage Story -> Estersand,Barheim Passage Story,Dalmasca Estersand,,,1
+Barheim Passage -> Garamsythe,Barheim Passage,Garamsythe Waterway,A(Barheim Passage),,4
+Estersand <-> Barheim Passage,Barheim Passage,Dalmasca Estersand,I(8093),BothWays,4
+Estersand <-> Nalbina,Dalmasca Estersand,Nalbina Fortress,,BothWays,1
+Estersand <-> Giza Dry,Dalmasca Estersand,Giza Plains Dry,,BothWays,1
+Estersand <-> Giza Rains,Dalmasca Estersand,Giza Plains Rains,I(80E0),BothWays,1
+Estersand -> Estersand North,Dalmasca Estersand,Dalmasca Estersand North,AND(I(8073)|I(Defeat Vossler)),,1
+Estersand North <-> Westersand,Dalmasca Estersand North,Dalmasca Westersand,I(Defeat Earth Tyrant),BothWays,4
+Estersand North <-> Mosphoran,Dalmasca Estersand North,Mosphoran Highwaste,,BothWays,2
+Westersand <-> Zertinan NE,Dalmasca Westersand,Zertinan Caverns NE,,BothWays,1
+Westersand <-> Giza Dry,Dalmasca Westersand,Giza Plains Dry,,BothWays,1
+Westersand <-> Giza Rains,Dalmasca Westersand,Giza Plains Rains,I(80E0),BothWays,1
+Westersand <-> Ogir Sandsea,Dalmasca Westersand,Ogir-Yensa Sandsea,I(Defeat Ghis),BothWays,1
+Barheim Passage -> Barheim Passage Shop,Barheim Passage,Barheim Passage Shop,,,1
+Nalbina <-> Mosphoran,Nalbina Fortress,Mosphoran Highwaste,I(Defeat Bergan),BothWays,2
+Mosphoran -> Mosphoran Upper,Mosphoran Highwaste,Mosphoran Highwaste Upper,I(Defeat Bergan),,2
+Mosphoran <-> Salikawood,Mosphoran Highwaste,Salikawood,,BothWays,2
+Salikawood <-> Salikawood NW,Salikawood,Salikawood NW,,BothWays,5
+Ogir Sandsea <-> Zertinan N,Ogir-Yensa Sandsea,Zertinan Caverns N,,BothWays,1
+Ogir Sandsea <-> Zertinan Connector N,Ogir-Yensa Sandsea,Zertinan Caverns Connector N,,BothWays,1
+Ogir Sandsea <-> Nam Sandsea N,Ogir-Yensa Sandsea,Nam-Yensa Sandsea,,BothWays,1
+Ogir Sandsea <-> Nam Sandsea S,Ogir-Yensa Sandsea,Nam-Yensa Sandsea,,BothWays,1
+Nam Sandsea Belito <-> Zertinan Connector N,Nam-Yensa Sandsea Belito,Zertinan Caverns Connector N,,BothWays,1
+Nam Sandsea <-> Zertinan NW,Nam-Yensa Sandsea,Zertinan Caverns NW,,BothWays,1
+Nam Sandsea <-> Raithwall,Nam-Yensa Sandsea,Tomb of Raithwall,,BothWays,1
+Zertinan N -> Zertinan Center,Zertinan Caverns N,Zertinan Caverns Center,,,3
+Zertinan Center <-> Zertinan NE,Zertinan Caverns Center,Zertinan Caverns NE,I(80E0),BothWays,3
+Zertinan Center <-> Zertinan NW,Zertinan Caverns Center,Zertinan Caverns NW,I(80E0),BothWays,3
+Zertinan Center <-> Zertinan N,Zertinan Caverns Center,Zertinan Caverns N,I(80E0),BothWays,3
+Zertinan Connector N -> Zertinan NW,Zertinan Caverns Connector N,Zertinan Caverns NW,I(80E0),,1
+Zertinan Center <-> Zertinan S,Zertinan Caverns Center,Zertinan Caverns S,I(80E0),BothWays,3
+Ozmone <-> Zertinan S,Ozmone Plain,Zertinan Caverns S,,BothWays,2
+Ozmone <-> Giza Dry,Ozmone Plain,Giza Plains Dry,I(80E0),BothWays,1
+Ozmone <-> Giza Rains,Ozmone Plain,Giza Plains Rains,I(80E0),BothWays,1
+Ozmone <-> Jahara,Ozmone Plain,Jahara,,BothWays,1
+Ozmone <-> Golmore NW,Ozmone Plain,Golmore Jungle NW,,BothWays,1
+Ozmone <-> Henne,Ozmone Plain,Henne Mines,,BothWays,1
+Henne -> Henne Difficult,Henne Mines,Henne Mines Deep,I(Esper|10),,8
+Henne Difficult -> Henne Feywood,Henne Mines Deep,Henne Mines Feywood,,,8
+Henne Feywood <-> Feywood,Henne Mines Feywood,Feywood,,BothWays,3
+Golmore NW <-> Eruyt,Golmore Jungle NW,Eruyt Village,,BothWays,2
+Golmore NW <-> Golmore S,Golmore Jungle NW,Golmore Jungle S,I(80B7),BothWays,2
+Golmore NW <-> Golmore E,Golmore Jungle NW,Golmore Jungle E,I(80B7),BothWays,2
+Golmore S <-> Feywood,Golmore Jungle S,Feywood,,BothWays,3
+Golmore E <-> Paramina,Golmore Jungle E,Paramina Rift,,BothWays,3
+Paramina <-> Omisace,Paramina Rift,Mt. Bur-Omisace,,BothWays,2
+Paramina <-> Feywood,Paramina Rift,Feywood,,BothWays,3
+Paramina <-> Miriam,Paramina Rift,Stilshrine of Miriam,,BothWays,3
+Feywood -> Giruvegan,Feywood,Giruvegan,I(C012),,3
+Giruvegan <-> Great Crystal,Giruvegan,Great Crystal,,BothWays,4
+Great Crystal <-> Giruvegan End,Great Crystal,Giruvegan End,,BothWays,4
+Henne -> Eruyt,Henne Mines,Eruyt Village,,,2
+Giruvegan End -> Giruvegan,Giruvegan End,Giruvegan,,,5
+Nabudis <-> Salikawood NW,Necrohol of Nabudis,Salikawood NW,,BothWays,6
+Nabreus <-> Salikawood NW,Nabreus Deadlands,Salikawood NW,,BothWays,5
+Phon Coast <-> Salikawood,Phon Coast,Salikawood,,BothWays,2
+Phon Coast <-> Tchita,Tchita Uplands,Phon Coast,,BothWays,3
+Tchita <-> Sochen S,Tchita Uplands,Sochen Cave Palace S,,BothWays,3
+Tchita <-> Cerobi,Tchita Uplands,Cerobi Steppe,,BothWays,5
+Balfonheim <-> Cerobi,Balfonheim,Cerobi Steppe,,BothWays,5
+Sochen S <-> Sochen Middle,Sochen Cave Palace S,Sochen Cave Palace Middle,I(80B6),BothWays,3
+Sochen N <-> Sochen Middle,Sochen Cave Palace N,Sochen Cave Palace Middle,I(80B6),BothWays,3
+Sochen N <-> Old Archades,Sochen Cave Palace N,Old Archades,,BothWays,0
+Old Archades <-> Archades,Old Archades,Archades,,BothWays,0
+Archades <-> Draklor Lab,Archades,Draklor Laboratory,OR(I(2113|3)|I(2112)),BothWays,0
+Bhujerba <-> Lhusu,Bhujerba,Lhusu Mines,,BothWays,1
+Ridorana <-> Pharos,Ridorana Cataract,Pharos of Ridorana,,BothWays,5
+Pharos <-> Subterra,Pharos of Ridorana,Pharos of Ridorana Subterra,,BothWays,7
+Rabanastre <-> Nalbina Airship,Rabanastre,Nalbina Fortress,AND(I(80E1)|I(80E2)),BothWays,0
+Rabanastre <-> Bhujerba Airship,Rabanastre,Bhujerba,AND(I(80E1)|I(80E3)),BothWays,0
+Rabanastre <-> Archades Airship,Rabanastre,Archades,AND(I(80E1)|I(80E4)),BothWays,0
+Nalbina <-> Archades Airship,Nalbina Fortress,Archades,AND(I(80E2)|I(80E4)),BothWays,0
+Nalbina <-> Balfonheim Airship,Nalbina Fortress,Balfonheim,AND(I(80E2)|I(80E5)),BothWays,0
+Bhujerba <-> Balfonheim Airship,Bhujerba,Balfonheim,AND(I(80E3)|I(80E5)),BothWays,0
+Archades <-> Balfonheim Airship,Archades,Balfonheim,AND(I(80E4)|I(80E5)),BothWays,0
+Rabanastre <-> Strahl,Rabanastre,Strahl,I(2118|1),BothWays,0
+Bhujerba <-> Strahl,Bhujerba,Strahl,I(2118|1),BothWays,0
+Nalbina <-> Strahl,Nalbina Fortress,Strahl,I(2118|1),BothWays,0
+Archades <-> Strahl,Archades,Strahl,I(2118|3),BothWays,0
+Balfonheim <-> Strahl,Balfonheim,Strahl,I(2118|3),BothWays,0
+Estersand <-> Strahl,Dalmasca Estersand,Strahl,I(2118|1),BothWays,1
+Westersand <-> Strahl,Dalmasca Westersand,Strahl,I(2118|1),BothWays,1
+Giza Dry <-> Strahl,Giza Plains Dry,Strahl,I(2118|1),BothWays,1
+Giza Rains <-> Strahl,Giza Plains Rains,Strahl,AND(I(2118|1)|I(80E0)),BothWays,2
+Ogir Sandsea <-> Strahl,Ogir-Yensa Sandsea,Strahl,I(2118|1),BothWays,1
+Nam Sandsea <-> Strahl,Nam-Yensa Sandsea,Strahl,I(2118|1),BothWays,1
+Ozmone <-> Strahl,Ozmone Plain,Strahl,I(2118|2),BothWays,2
+Paramina <-> Strahl,Paramina Rift,Strahl,I(2118|2),BothWays,2
+Mosphoran <-> Strahl,Mosphoran Highwaste,Strahl,I(2118|3),BothWays,2
+Phon <-> Strahl,Phon Coast,Strahl,I(2118|3),BothWays,2
+Tchita <-> Strahl,Tchita Uplands,Strahl,I(2118|3),BothWays,3
+Cerobi <-> Strahl,Cerobi Steppe,Strahl,I(2118|3),BothWays,5
+Ridorana <-> Strahl,Ridorana Cataract,Strahl,I(2118|2),BothWays,5
+Rabanastre <-> Nalbina Skyferry,Initial,Rabanastre <-> Nalbina Skyferry,AND(I(80E1)|I(80E2)|A(Rabanastre)|A(Nalbina Fortress)),,0
+Rabanastre <-> Bhujerba Skyferry,Initial,Rabanastre <-> Bhujerba Skyferry,AND(I(80E1)|I(80E3)|A(Rabanastre)|A(Bhujerba)),,0
+Rabanastre <-> Archades Skyferry,Initial,Rabanastre <-> Archades Skyferry,AND(I(80E1)|I(80E4)|A(Rabanastre)|A(Archades)),,0
+Nalbina <-> Archades Skyferry,Initial,Nalbina <-> Archades Skyferry,AND(I(80E2)|I(80E4)|A(Nalbina Fortress)|A(Archades)),,0
+Nalbina <-> Balfonheim Skyferry,Initial,Nalbina <-> Balfonheim Skyferry,AND(I(80E2)|I(80E5)|A(Nalbina Fortress)|A(Balfonheim)),,0
+Bhujerba <-> Balfonheim Skyferry,Initial,Bhujerba <-> Balfonheim Skyferry,AND(I(80E3)|I(80E5)|A(Bhujerba)|A(Balfonheim)),,0
+Archades <-> Balfonheim Skyferry,Initial,Archades <-> Balfonheim Skyferry,AND(I(80E4)|I(80E5)|A(Archades)|A(Balfonheim)),,0
+Bhujerba -> Leviathan,Bhujerba,Dreadnought Leviathan,OR(I(Basch)|I(80AC)),,1
+Draklor -> Balfonheim,Draklor Laboratory,Balfonheim,I(809E),,5
+Skyferry,Initial,Skyferry,OR(A(Rabanastre <-> Nalbina Skyferry)|A(Rabanastre <-> Bhujerba Skyferry)|A(Rabanastre <-> Archades Skyferry)|A(Nalbina <-> Archades Skyferry)|A(Nalbina <-> Balfonheim Skyferry)|A(Bhujerba <-> Balfonheim Skyferry)|A(Archades <-> Balfonheim Skyferry)),,0
+Bahamut Unlock,Rabanastre,Bahamut,AND(I(8070)|I(2118)),,5
+Rabanastre -> Aerodrome,Rabanastre,Aerodrome,,,0
+Bhujerba -> Aerodrome,Bhujerba,Aerodrome,,,0
+Nalbina -> Aerodrome,Nalbina Fortress,Aerodrome,,,0
+Archades -> Aerodrome,Archades,Aerodrome,,,0
+Balfonheim -> Aerodrome,Balfonheim,Aerodrome,,,0

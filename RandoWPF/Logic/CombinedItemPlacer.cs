@@ -19,7 +19,7 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
 
     public CombinedItemPlacer(SeedGenerator generator, AreaGraph areaGraph) : base(generator)
     {
-        SphereCalculator = new(Generator);
+        SphereCalculator = new(Generator, areaGraph);
         AreaGraph = areaGraph;
     }
 
@@ -105,13 +105,15 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
         }
 
         ClearUnsetLocations();
+        PostPlacement();
+
         CalculateSpheres();
         ReorderItems();
     }
 
     protected virtual void CalculateSpheres()
     {
-        SphereCalculator = new SphereCalculator<L>(Generator);
+        SphereCalculator = new SphereCalculator<L>(Generator, AreaGraph);
         SphereCalculator.CalculateSpheres(PossibleLocations);
     }
 
@@ -123,6 +125,11 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
     {
         var itemReorderer = new ItemReorderer<L, I>(Generator, GetReorderItemCategories(), GetReorderItems());
         itemReorderer.ReorderItems(PossibleLocations, SphereCalculator);
+    }
+
+    protected virtual void PostPlacement()
+    {
+
     }
 
     protected abstract int GetDifficultyIndex();

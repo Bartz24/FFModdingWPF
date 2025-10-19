@@ -3,7 +3,6 @@ using Bartz24.Docs;
 using Bartz24.FF12;
 using Bartz24.RandoWPF;
 using Bartz24.RandoWPF.Data.Areas;
-using FF12Rando.Logic;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -125,7 +124,7 @@ public partial class TreasureRando : Randomizer
 
         List<string> hintsNotesLocations = ItemLocations.Values.SelectMany(l => l.Areas).Distinct().ToList();
 
-        AreaGraph = new(Generator);
+        AreaGraph = new(Generator, (g, s) => new FF12AreaConnection(g, s));
         AreaGraph.ReadFromCSVs(@"data\areas.csv", @"data\areaConnections.csv");
     }
     public override void Randomize()
@@ -150,28 +149,31 @@ public partial class TreasureRando : Randomizer
 
             SetTreasureRespawns(ItemPlacer.FinalPlacement.Keys.Where(l => l is TreasureLocation).Select(l => (TreasureLocation)l).ToList());
 
-            // Set random linked missable chests
-            foreach (var location in ItemLocations.Values.Where(l => l is TreasureLocation && l.Traits.Contains("Missable")))
+            // Set random linked missable chests if max sphere option is disabled
+            if (!FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalMaxSphere))
             {
-                if (RandomNum.RandInt(0, 99) < 20)
+                foreach (var location in ItemLocations.Values.Where(l => l is TreasureLocation && l.Traits.Contains("Missable")))
                 {
-                    continue;
+                    if (RandomNum.RandInt(0, 99) < 20)
+                    {
+                        continue;
+                    }
+
+                    TreasureLocation missable = (TreasureLocation)location;
+
+                    // Find another non missable chest
+                    TreasureLocation other = RandomNum.SelectRandom(ItemLocations.Values.Where(l => l is TreasureLocation && !l.Traits.Contains("Missable") && l.GetItem(false) != null).Select(l => (TreasureLocation)l));
+
+                    // Copy item
+                    var item = other.GetItem(false);
+                    missable.SetItem(item.Value.Item, item.Value.Amount);
+
+                    // Copy respawn and spawn chance
+                    DataStoreTreasure treasureMissable = ebpAreas[missable.MapID].TreasureList[missable.Index];
+                    DataStoreTreasure treasureOther = ebpAreas[other.MapID].TreasureList[other.Index];
+                    treasureMissable.Respawn = treasureOther.Respawn;
+                    treasureMissable.SpawnChance = treasureOther.SpawnChance;
                 }
-
-                TreasureLocation missable = (TreasureLocation)location;
-
-                // Find another non missable chest
-                TreasureLocation other = RandomNum.SelectRandom(ItemLocations.Values.Where(l => l is TreasureLocation && !l.Traits.Contains("Missable") && l.GetItem(false) != null).Select(l => (TreasureLocation)l));
-
-                // Copy item
-                var item = other.GetItem(false);
-                missable.SetItem(item.Value.Item, item.Value.Amount);
-
-                // Copy respawn and spawn chance
-                DataStoreTreasure treasureMissable = ebpAreas[missable.MapID].TreasureList[missable.Index];
-                DataStoreTreasure treasureOther = ebpAreas[other.MapID].TreasureList[other.Index];
-                treasureMissable.Respawn = treasureOther.Respawn;
-                treasureMissable.SpawnChance = treasureOther.SpawnChance;
             }
 
             HintPlacer = new(Generator, ItemPlacer, Enumerable.Range(0, 35).ToHashSet());

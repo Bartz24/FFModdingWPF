@@ -25,9 +25,9 @@ public abstract class ItemLocation : CSVDataRow
         return components;
     }
 
-    public bool AreItemReqsMet(Dictionary<string, int> items)
+    public bool AreItemReqsMet(ProgressionState state)
     {
-        return GetComponents().All(c => c.AreItemReqsMet(items));
+        return state.AreasAccessible.Intersect(Areas).Count() > 0 && GetComponents().All(c => c.AreItemReqsMet(state));
     }
 
     public abstract bool CanReplace(ItemLocation location);
@@ -40,9 +40,9 @@ public abstract class ItemLocation : CSVDataRow
         Generator = generator;
     }
 
-    public int GetDifficulty(Dictionary<string, int> items)
+    public int GetDifficulty(ProgressionState state)
     {
-        int reqDiff = Requirements.GetDifficulty(items);
+        int reqDiff = Requirements.GetDifficulty(state);
         if (reqDiff < 0)
         {
             reqDiff = 0;

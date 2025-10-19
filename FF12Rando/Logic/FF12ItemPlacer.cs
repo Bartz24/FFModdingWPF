@@ -217,23 +217,31 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         Placers = new() { ProgressionPlacer, UsefulPlacer, JunkPlacer };
     }
 
-    public override void ApplyToGameData()
+    protected override void PostPlacement()
     {
-        base.ApplyToGameData();
+        base.PostPlacement();
 
-        EquipRando equipRando = Generator.Get<EquipRando>();
-        var categories = GetReorderItemCategories();
+        PlaceMaxWrit();
+    }
 
+    private void PlaceMaxWrit()
+    {
         // Place a Writ of Transit in a location in the max sphere that is non-missable
         if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalMaxSphere))
         {
-            int sphere = SphereCalculator.Spheres.Values.Max();
+            EquipRando equipRando = Generator.Get<EquipRando>();
+            var categories = GetReorderItemCategories();
+
+            SphereCalculator<ItemLocation> calc = new (Generator, AreaGraph);
+            calc.CalculateSpheres(PossibleLocations, false);
+
+            int sphere = calc.Spheres.Values.Max();
             bool placed = false;
             while (!placed)
             {
                 HashSet<ItemLocation> maxSphere = PossibleLocations.Where(l =>
                 {
-                    return SphereCalculator.Spheres.GetValueOrDefault(l, 0) == sphere
+                    return calc.Spheres.GetValueOrDefault(l, 0) == sphere
                             && l is not FakeLocation
                             && !l.Traits.Contains("Missable")
                             && (l.GetItem(false) == null ||

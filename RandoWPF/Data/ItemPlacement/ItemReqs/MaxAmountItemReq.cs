@@ -15,9 +15,9 @@ public class MaxAmountItemReq : ItemReq
         this.item = item;
         this.amount = amount;
     }
-    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(ProgressionState state)
     {
-        return itemsAvailable.ContainsKey(item) && itemsAvailable[item] < amount;
+        return state.ItemsAvailable.ContainsKey(item) && state.ItemsAvailable[item] < amount;
     }
 
     public override bool HasUpperBound()
@@ -41,14 +41,14 @@ public class MaxAmountItemReq : ItemReq
         return $"{itemNameFunc(item)} < {amount}";
     }
 
-    public override int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    public override int GetDifficulty(ProgressionState state)
     {
-        if (!IsValid(itemsAvailable))
+        if (!IsValid(state))
         {
             return -1;
         }
 
-        return base.GetDifficulty(itemsAvailable) + amount;
+        return base.GetDifficulty(state) + amount;
     }
 
     public override bool Equals(object obj)

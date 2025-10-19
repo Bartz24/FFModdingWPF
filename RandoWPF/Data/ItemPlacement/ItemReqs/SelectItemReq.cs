@@ -15,9 +15,9 @@ public class SelectItemReq : ItemReq
         this.reqs = reqs;
         this.count = count;
     }
-    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(ProgressionState state)
     {
-        return reqs.Where(r => r.IsValid(itemsAvailable)).Count() >= count;
+        return reqs.Where(r => r.IsValid(state)).Count() >= count;
     }
 
     public override bool HasUpperBound()
@@ -43,15 +43,15 @@ public class SelectItemReq : ItemReq
         return $"At least {count} of ({string.Join(", ", reqs.Select(r => r.GetDisplay(itemNameFunc)))})";
     }
 
-    public override int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    public override int GetDifficulty(ProgressionState state)
     {
         int minDiff = int.MaxValue;
         foreach (List<ItemReq> reqSubset in reqs.GetAllSubsets(count))
         {
             ItemReq and = ItemReq.And(reqSubset.ToArray());
-            int diff = and.GetDifficulty(itemsAvailable);
+            int diff = and.GetDifficulty(state);
 
-            if (and.IsValid(itemsAvailable) && diff >= 0)
+            if (and.IsValid(state) && diff >= 0)
             {
                 minDiff = Math.Min(minDiff, diff);
             }
@@ -62,7 +62,7 @@ public class SelectItemReq : ItemReq
             return -1;
         }
 
-        return base.GetDifficulty(itemsAvailable) + minDiff;
+        return base.GetDifficulty(state) + minDiff;
     }
 
     public override bool Equals(object obj)

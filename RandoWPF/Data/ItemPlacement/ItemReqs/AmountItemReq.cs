@@ -13,9 +13,9 @@ public class AmountItemReq : ItemReq
         this.item = item;
         this.amount = amount;
     }
-    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(ProgressionState state)
     {
-        return itemsAvailable.ContainsKey(item) && itemsAvailable[item] >= amount;
+        return state.ItemsAvailable.ContainsKey(item) && state.ItemsAvailable[item] >= amount;
     }
 
     protected override List<string> GetPossibleRequirementsImpl()
@@ -34,14 +34,14 @@ public class AmountItemReq : ItemReq
         return $"{itemNameFunc(item)} x {amount}";
     }
 
-    public override int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    public override int GetDifficulty(ProgressionState state)
     {
-        if (!IsValid(itemsAvailable))
+        if (!IsValid(state))
         {
             return -1;
         }
 
-        return base.GetDifficulty(itemsAvailable) + amount;
+        return base.GetDifficulty(state) + amount;
     }
 
     public override bool Equals(object obj)

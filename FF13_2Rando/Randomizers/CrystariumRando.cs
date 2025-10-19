@@ -92,7 +92,9 @@ public partial class CrystariumRando : Randomizer
     {
         List<AbilityData> list = abilityData.Values.Where(a => a.Role == role && !a.Traits.Contains("Mon") && !learned.Contains(a.ID)).ToList();
 
-        list = list.Where(a => a.Requirements.IsValid(learned.ToDictionary(a => a, _ => 1))).ToList();
+        ProgressionState state = new();
+        state.ItemsAvailable = learned.ToDictionary(a => a, _ => 1);
+        list = list.Where(a => a.Requirements.IsValid(state)).ToList();
 
         if (level1)
         {
@@ -109,7 +111,9 @@ public partial class CrystariumRando : Randomizer
         {
             list = abilityData.Values.Where(a => (a.Role == role || a.Role == "") && !learned.Contains(a.ID)).ToList();
 
-            list = list.Where(a => a.Requirements.IsValid(learned.ToDictionary(a => a, _ => 1))).ToList();
+            ProgressionState state = new();
+            state.ItemsAvailable = learned.ToDictionary(a => a, _ => 1);
+            list = list.Where(a => a.Requirements.IsValid(state)).ToList();
 
             if (learned.Count == 0)
             {

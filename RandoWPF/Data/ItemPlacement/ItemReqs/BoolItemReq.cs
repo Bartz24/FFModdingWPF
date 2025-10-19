@@ -14,7 +14,7 @@ public class BoolItemReq : ItemReq
         Value = value;
     }
 
-    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(ProgressionState state)
     {
         return Value;
     }

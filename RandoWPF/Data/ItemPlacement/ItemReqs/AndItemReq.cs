@@ -12,11 +12,11 @@ public class AndItemReq : ItemReq
     {
         this.reqs = reqs;
     }
-    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(ProgressionState state)
     {
         foreach (ItemReq req in reqs)
         {
-            if (!req.IsValid(itemsAvailable))
+            if (!req.IsValid(state))
             {
                 return false;
             }
@@ -48,19 +48,19 @@ public class AndItemReq : ItemReq
         return $"({string.Join(" AND ", reqs.Select(r => r.GetDisplay(itemNameFunc)))})";
     }
 
-    public override int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    public override int GetDifficulty(ProgressionState state)
     {
         List<int> diffs = new();
         foreach (ItemReq req in reqs)
         {
-            int diff = req.GetDifficulty(itemsAvailable);
-            if (!req.IsValid(itemsAvailable) || diff < 0)
+            int diff = req.GetDifficulty(state);
+            if (!req.IsValid(state) || diff < 0)
             {
                 return -1;
             }
         }
 
-        return base.GetDifficulty(itemsAvailable) + diffs.DefaultIfEmpty(0).Sum();
+        return base.GetDifficulty(state) + diffs.DefaultIfEmpty(0).Sum();
     }
 
     public override bool Equals(object obj)

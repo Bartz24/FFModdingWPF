@@ -13,9 +13,15 @@ public class AreaGraph
 
     public List<AreaConnection> Connections { get; set; } = new List<AreaConnection>();
 
-    public AreaGraph(SeedGenerator generator)
+    private Func<SeedGenerator, string[], AreaConnection> CreateConnection { get; set; } = (g, s) => new AreaConnection(g, s);
+
+    public AreaGraph(SeedGenerator generator, Func<SeedGenerator, string[], AreaConnection> createFunc = null)
     {
         SeedGenerator = generator;
+        if (createFunc != null)
+        {
+            CreateConnection = createFunc;
+        }
     }
 
     public void ReadFromCSVs(string areaCsv, string areaConnectionsCsv)
@@ -28,8 +34,15 @@ public class AreaGraph
 
         FileHelpers.ReadCSVFile(areaConnectionsCsv, (row) =>
         {
-            AreaConnection connection = new(SeedGenerator, row);
+            AreaConnection connection = CreateConnection(SeedGenerator, row);
             Connections.Add(connection);
+
+            // If it has the "BothWays" trait, add the reverse connection as well
+            if (connection.Traits.Contains("BothWays"))
+            {
+                AreaConnection reverseConnection = connection.CreateReverse();
+                Connections.Add(reverseConnection);
+            }
         }, FileHelpers.CSVFileHeader.HasHeader);
     }
 
@@ -48,17 +61,17 @@ public class AreaGraph
         }
     }
 
-    public List<AreaConnection> GetValidConnectionsFrom(string areaName, Dictionary<string, int> items)
+    public List<AreaConnection> GetValidConnectionsFrom(string areaName, ProgressionState state)
     {
-        return Connections.Where(c => c.FromAreaName == areaName && c.Requirements.IsValid(items)).ToList();
+        return Connections.Where(c => c.FromAreaName == areaName && c.AreItemReqsMet(state)).ToList();
     }
 
-    public List<AreaConnection> GetValidConnectionsTo(string areaName, Dictionary<string, int> items)
+    public List<AreaConnection> GetValidConnectionsTo(string areaName, ProgressionState state)
     {
-        return Connections.Where(c => c.ToAreaName == areaName && c.Requirements.IsValid(items)).ToList();
+        return Connections.Where(c => c.ToAreaName == areaName && c.AreItemReqsMet(state)).ToList();
     }
 
-    public List<Area> GetAllAccessibleAreas(List<string> startAreas, Dictionary<string, int> items)
+    public List<Area> GetAllAccessibleAreas(List<string> startAreas, ProgressionState state)
     {
         HashSet<string> accessibleAreas = new(startAreas);
         Queue<string> areasToCheck = new(startAreas);
@@ -66,7 +79,7 @@ public class AreaGraph
         while (areasToCheck.Count > 0)
         {
             string currentArea = areasToCheck.Dequeue();
-            foreach (var connection in GetValidConnectionsFrom(currentArea, items))
+            foreach (var connection in GetValidConnectionsFrom(currentArea, state))
             {
                 if (!accessibleAreas.Contains(connection.ToAreaName))
                 {
@@ -79,8 +92,8 @@ public class AreaGraph
         return accessibleAreas.Select(areaName => Areas[areaName]).ToList();
     }
 
-    public List<Area> GetAllAccessibleAreas(string startArea, Dictionary<string, int> items)
+    public List<Area> GetAllAccessibleAreas(string startArea, ProgressionState state)
     {
-        return GetAllAccessibleAreas(new List<string> { startArea }, items);
+        return GetAllAccessibleAreas(new List<string> { startArea }, state);
     }
 }

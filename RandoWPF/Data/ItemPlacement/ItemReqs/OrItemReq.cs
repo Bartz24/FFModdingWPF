@@ -11,11 +11,11 @@ public class OrItemReq : ItemReq
     {
         this.reqs = reqs;
     }
-    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(ProgressionState state)
     {
         foreach (ItemReq req in reqs)
         {
-            if (req.IsValid(itemsAvailable))
+            if (req.IsValid(state))
             {
                 return true;
             }
@@ -47,13 +47,13 @@ public class OrItemReq : ItemReq
         return $"({string.Join(" OR ", reqs.Select(r => r.GetDisplay(itemNameFunc)))})";
     }
 
-    public override int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    public override int GetDifficulty(ProgressionState state)
     {
         int minDiff = int.MaxValue;
         foreach (ItemReq req in reqs)
         {
-            int diff = req.GetDifficulty(itemsAvailable);
-            if (req.IsValid(itemsAvailable) && diff >= 0)
+            int diff = req.GetDifficulty(state);
+            if (req.IsValid(state) && diff >= 0)
             {
                 minDiff = Math.Min(minDiff, diff);
             }
@@ -64,7 +64,7 @@ public class OrItemReq : ItemReq
             return -1;
         }
 
-        return base.GetDifficulty(itemsAvailable) + minDiff;
+        return base.GetDifficulty(state) + minDiff;
     }
 
     public override bool Equals(object obj)

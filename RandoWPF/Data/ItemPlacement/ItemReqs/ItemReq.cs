@@ -12,7 +12,7 @@ public abstract class ItemReq
 
     public static Func<Dictionary<string, IItem>> ItemProvider { get; set; }
 
-    public bool IsValid(Dictionary<string, int> itemsAvailable)
+    public bool IsValid(ProgressionState state)
     {
         if (ValidationStack.Count > 100)
         {
@@ -26,12 +26,12 @@ public abstract class ItemReq
         }
 
         ValidationStack.Push(this);
-        bool valid = IsMet(itemsAvailable);
+        bool valid = IsMet(state);
         ValidationStack.Pop();
 
         return valid;
     }
-    protected virtual bool IsMet(Dictionary<string, int> itemsAvailable) { return true; }
+    protected virtual bool IsMet(ProgressionState state) { return true; }
 
     public virtual bool HasUpperBound()
     {
@@ -63,9 +63,9 @@ public abstract class ItemReq
 
     protected int BaseDifficulty { get; set; } = 0;
 
-    public virtual int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    public virtual int GetDifficulty(ProgressionState state)
     {
-        return IsValid(itemsAvailable) ? BaseDifficulty : -1;
+        return IsValid(state) ? BaseDifficulty : -1;
     }
 
     public static Stack<ItemReq> ValidationStack { get; set; } = new();
@@ -79,6 +79,7 @@ public abstract class ItemReq
         parseMapping.Add("M", args => args.Count > 1 ? Max(args[0], int.Parse(args[1])) : Max(args[0], 1));
         parseMapping.Add("C", args => args.Count > 1 ? Category(args[0], int.Parse(args[1])) : Category(args[0], 1));
         parseMapping.Add("SELECT", args => Select(int.Parse(args[0]), args.Skip(1).Select(s => Parse(s)).ToArray()));
+        parseMapping.Add("A", args => Area(args[0]));
     }
 
     public static ItemReq Item(string item, int amount = 1)
@@ -112,6 +113,10 @@ public abstract class ItemReq
     public static ItemReq Select(int count, params ItemReq[] reqs)
     {
         return new SelectItemReq(count, reqs.ToList());
+    } 
+    public static ItemReq Area(string areaName)
+    {
+        return new AreaItemReq(areaName);
     }
 
     private static Dictionary<string, Func<List<string>, ItemReq>> parseMapping = new();

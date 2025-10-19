@@ -15,9 +15,9 @@ public class CategoryAmountItemReq : ItemReq
         this.category = category;
         this.amount = amount;
     }
-    protected override bool IsMet(Dictionary<string, int> itemsAvailable)
+    protected override bool IsMet(ProgressionState state)
     {
-        return itemsAvailable.Where(kv =>
+        return state.ItemsAvailable.Where(kv =>
         {
             var dict = ItemReq.ItemProvider();
             return dict.ContainsKey(kv.Key) && dict[kv.Key].Category == category;
@@ -36,14 +36,14 @@ public class CategoryAmountItemReq : ItemReq
         return $"{amount} {category}(s)";
     }
 
-    public override int GetDifficulty(Dictionary<string, int> itemsAvailable)
+    public override int GetDifficulty(ProgressionState state)
     {
-        if (!IsValid(itemsAvailable))
+        if (!IsValid(state))
         {
             return -1;
         }
 
-        return base.GetDifficulty(itemsAvailable) + amount;
+        return base.GetDifficulty(state) + amount;
     }
 
     public override bool Equals(object obj)

@@ -15,14 +15,15 @@ public class CharReqComponent : ItemLocationReqComponent
         BaseDifficulty = baseDifficulty;
     }
 
-    public override bool AreItemReqsMet(Dictionary<string, int> items)
+    public override bool AreItemReqsMet(ProgressionState state)
     {
-        return HasEnoughChars(items);
+        return HasEnoughChars(state);
     }
 
-    private int GetCharCount(Dictionary<string, int> items)
+    private int GetCharCount(ProgressionState state)
     {
         int count = 0;
+        var items = state.ItemsAvailable;
         if (items.ContainsKey("Vaan") && items["Vaan"] > 0)
         {
             count++;
@@ -61,11 +62,12 @@ public class CharReqComponent : ItemLocationReqComponent
         return count;
     }
 
-    private bool HasEnoughChars(Dictionary<string, int> items)
+    private bool HasEnoughChars(ProgressionState state)
     {
         if (FF12Flags.Items.CharacterScale.Enabled)
         {
-            int charCount = GetCharCount(items);
+            int charCount = GetCharCount(state);
+            var items = state.ItemsAvailable;
             int diff = BaseDifficulty;
 
             if (diff >= 7)

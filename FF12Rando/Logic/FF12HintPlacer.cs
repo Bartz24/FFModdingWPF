@@ -105,6 +105,6 @@ public class FF12HintPlacer : HintPlacer<int, ItemLocation, FF12ItemPlacer>
     protected override IEnumerable<int> GetPossibleLocations(ItemLocation location)
     {
         var possible = base.GetPossibleLocations(location);
-        return possible.Where(i => ItemPlacer.SphereCalculator.Spheres[location] < i + 5 + RandomNum.RandInt(0, 5)).DefaultIfEmpty(possible.Max());
+        return possible.Where(i => ItemPlacer.SphereCalculator.Spheres.GetValueOrDefault(location, int.MaxValue) < i + 5 + RandomNum.RandInt(0, 5)).DefaultIfEmpty(possible.Max());
     }
 }

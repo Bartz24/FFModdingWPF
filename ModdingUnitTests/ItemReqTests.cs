@@ -1,5 +1,3 @@
-using FF12Rando.Logic;
-
 namespace Bartz24.RandoWPF.Tests;
 
 [TestClass]
@@ -87,29 +85,5 @@ public class ItemReqTests
     public void TestInvalidReqs()
     {
         Assert.ThrowsException<Exception>(() => ItemReq.Parse("I(80B1)|I(80B2)"));
-    }
-
-    [TestMethod]
-    public void TestAeropassReqs()
-    {
-        AeropassItemReq.Init();
-
-        Assert.IsTrue(AeropassItemReq.Aero("80E1").IsValid(GetAeropassItems("80E1", "80E2")));
-        Assert.IsTrue(AeropassItemReq.Aero("80E2").IsValid(GetAeropassItems("80E1", "80E2")));
-        Assert.IsFalse(AeropassItemReq.Aero("80E2").IsValid(GetAeropassItems("80E2", "80E3")));
-        Assert.IsFalse(AeropassItemReq.Aero("80E3").IsValid(GetAeropassItems("80E2", "80E3")));
-        Assert.IsFalse(AeropassItemReq.Aero("80E3").IsValid(GetAeropassItems("80E3", "80E4")));
-        Assert.IsFalse(AeropassItemReq.Aero("80E4").IsValid(GetAeropassItems("80E4", "80E5")));
-        Assert.IsFalse(AeropassItemReq.Aero("80E5").IsValid(GetAeropassItems("80E4", "80E5")));
-    }
-
-    private Dictionary<string, int> GetAeropassItems(params string[] items)
-    {
-        Dictionary<string, int> itemDict = new();
-        foreach (string item in items)
-        {
-            itemDict.Add(item, 1);
-        }
-        return itemDict;
     }
 }

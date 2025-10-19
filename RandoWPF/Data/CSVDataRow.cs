@@ -48,7 +48,8 @@ public class CSVDataRow
     {
         // Use reflection to initialize the properties using the values
         // in the row and the attributes defining the row index for each property
-        PropertyInfo[] properties = propertyCache.ContainsKey(GetType()) ? propertyCache[GetType()] : GetType().GetProperties();
+        PropertyInfo[] properties = propertyCache.ContainsKey(GetType()) ? propertyCache[GetType()] : 
+            GetType().GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
         foreach (PropertyInfo property in properties)
         {
             RowIndexAttribute attribute = property.GetCustomAttribute<RowIndexAttribute>();
@@ -126,10 +127,22 @@ public class CSVDataRow
                 property.SetValue(this, value);
                 break;
             case FieldType.ListString:
+                if (string.IsNullOrEmpty(value))
+                {
+                    property.SetValue(this, new List<string>());
+                    break;
+                }
+
                 List<string> strings = value.Split("|").Where(s => !string.IsNullOrEmpty(s)).ToList();
                 property.SetValue(this, strings);
                 break;
             case FieldType.ListInt:
+                if (string.IsNullOrEmpty(value))
+                {
+                    property.SetValue(this, new List<int>());
+                    break;
+                }
+
                 List<int> ints = value.Split("|").Where(s => !string.IsNullOrEmpty(s)).Select(s => int.Parse(s)).ToList();
                 property.SetValue(this, ints);
                 break;

@@ -13,7 +13,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     public HashSet<T> FixedLocations { get; set; } = new();
     protected AreaGraph AreaGraph { get; set; }
 
-    protected Dictionary<string, int> FoundItems { get; set; } = new();
+    protected ProgressionState ProgState { get; set; } = new();
 
     protected List<string> UnlockedAreas { get; set; } = new();
 
@@ -45,14 +45,15 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             success = TryPlaceItems();
             if (!success)
             {
+                const string EMPTY = "empty";
                 Generator.Logger.LogDebug($"Failed to place {RemainingToPlace.Count + RemainingFixed.Count} remaining replacements.");
-                Generator.Logger.LogDebug($"Remaining to place: {string.Join(",", RemainingToPlace.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}, item: {x.GetItem(true).Value.Item}]"))}{string.Join(",", RemainingFixed.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}, item: {x.GetItem(true).Value.Item}]"))}");
+                Generator.Logger.LogDebug($"Remaining to place: {string.Join(",", RemainingToPlace.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}, item: {x.GetItem(true).Value.Item}]"))}{string.Join(",", RemainingFixed.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}, item: {(x.GetItem(true) != null ? x.GetItem(true).Value.Item : EMPTY)}]"))}");
             }
         }
         while (!success);
     }
 
-    protected bool ensureCompletable(HashSet<T> remainingFixed)
+    protected bool EnsureCompletable(HashSet<T> remainingFixed)
     {
         var trueFixedLocations = remainingFixed.Where(item => !(item is FakeLocation)).ToArray();
         if (trueFixedLocations.Length > 0)
@@ -74,7 +75,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
     protected virtual bool TryPlaceItems()
     {
-        FoundItems = new();
+        ProgState = new();
         RemainingFixed = new(FixedLocations);
         RemainingToPlace = new(GetInitialReplacementOrder());
         FinalPlacement.Clear();
@@ -92,7 +93,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             if (RemainingToPlace.Count == 0)
             {
                 // This is technically fine if the remaining item set doesn't include critical path items.
-                return ensureCompletable(RemainingFixed);
+                return EnsureCompletable(RemainingFixed);
             }
 
             // Update unlocked areas and locations
@@ -212,6 +213,8 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         // Repeat as fixed locations can unlock other fixed locations
         do
         {
+            UpdatedUnlockedAreas();
+
             HashSet<T> toRemove = new();
             placed = false;
             foreach (var loc in RemainingFixed.OrderBy(i => i.BaseDifficulty).ToList())
@@ -220,7 +223,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
                 {
                     continue;
                 }
-                if (loc.AreItemReqsMet(FoundItems))
+                if (loc.AreItemReqsMet(ProgState))
                 {
                     PlaceItem(loc, loc);
                     toRemove.Add(loc);
@@ -250,24 +253,24 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         }
     }
 
-    protected virtual void AddFoundItem(T location, Dictionary<string, int> foundItems = null)
+    protected virtual void AddFoundItem(T location, ProgressionState foundItems = null)
     {
         if (foundItems == null)
         {
-            foundItems = FoundItems;
+            foundItems = ProgState;
         }
 
         var item = location.GetItem(true);
         if (item != null)
         {
             var (itemID, amount) = item.Value;
-            if (foundItems.ContainsKey(itemID))
+            if (foundItems.ItemsAvailable.ContainsKey(itemID))
             {
-                foundItems[itemID] += amount;
+                foundItems.ItemsAvailable[itemID] += amount;
             }
             else
             {
-                foundItems.Add(itemID, amount);
+                foundItems.ItemsAvailable.Add(itemID, amount);
             }
         }
     }
@@ -275,7 +278,8 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     protected virtual void UpdatedUnlockedAreas()
     {
         // Update UnlockedAreas based on FoundItems and AreaGraph
-        UnlockedAreas = AreaGraph.GetAllAccessibleAreas("Initial", FoundItems).Select(a => a.Name).ToList();
+        UnlockedAreas = AreaGraph.GetAllAccessibleAreas("Initial", ProgState).Select(a => a.Name).ToList();
+        ProgState.AreasAccessible = new HashSet<string>(UnlockedAreas);
     }
 
     protected virtual void UpdatedUnlockedLocations()
@@ -303,12 +307,12 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         }
 
         // Then, find any newly accessible locations and add them to UnlockedLocations with depth 0        
-        HashSet<T> newlyAccessible = GetNewlyAccessible(newUnlockedLocations, FoundItems);
+        HashSet<T> newlyAccessible = GetNewlyAccessible(newUnlockedLocations, ProgState);
 
         newUnlockedLocations.Add(0, newlyAccessible);
 
         // Remove any locations which now cannot be accessed.
-        HashSet<T> newlyInaccessible = GetNewlyInaccessible(newUnlockedLocations, FoundItems);
+        HashSet<T> newlyInaccessible = GetNewlyInaccessible(newUnlockedLocations, ProgState);
 
         if (newlyInaccessible.Count > 0)
         {
@@ -324,19 +328,19 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
     private HashSet<T> GetNewlyAccessibleWithLocation(Dictionary<int, HashSet<T>> unlockedLocations, T addLocation)
     {
-        var foundItems = new Dictionary<string, int>(FoundItems);
-        AddFoundItem(addLocation, foundItems);
-        return GetNewlyAccessible(unlockedLocations, foundItems);
+        var state = new ProgressionState(ProgState);
+        AddFoundItem(addLocation, state);
+        return GetNewlyAccessible(unlockedLocations, state);
     }
 
     private HashSet<T> GetNewlyInaccessibleWithLocation(Dictionary<int, HashSet<T>> unlockedLocations, T addLocation)
     {
-        var foundItems = new Dictionary<string, int>(FoundItems);
-        AddFoundItem(addLocation, foundItems);
-        return GetNewlyInaccessible(unlockedLocations, foundItems);
+        var state = new ProgressionState(ProgState);
+        AddFoundItem(addLocation, state);
+        return GetNewlyInaccessible(unlockedLocations, state);
     }
 
-    private HashSet<T> GetNewlyInaccessible(Dictionary<int, HashSet<T>> unlockedLocations, Dictionary<string, int> foundItems)
+    private HashSet<T> GetNewlyInaccessible(Dictionary<int, HashSet<T>> unlockedLocations, ProgressionState state)
     {
         var previouslyFound = unlockedLocations.SelectMany(p => p.Value).ToHashSet();
         HashSet<T> newlyInaccessible = new();
@@ -344,7 +348,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         {
             var finalPlacementContains = FinalPlacement.ContainsKey(loc);
             var prevFound = previouslyFound.Contains(loc);
-            var reqMet = loc.AreItemReqsMet(foundItems);
+            var reqMet = loc.AreItemReqsMet(state);
             if (!finalPlacementContains && prevFound && !reqMet)
             {
                 newlyInaccessible.Add(loc);
@@ -354,19 +358,13 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         return newlyInaccessible;
     }
 
-    private HashSet<T> GetNewlyAccessible(Dictionary<int, HashSet<T>> unlockedLocations, Dictionary<string, int> foundItems)
+    private HashSet<T> GetNewlyAccessible(Dictionary<int, HashSet<T>> unlockedLocations, ProgressionState state)
     {
         var previouslyFound = unlockedLocations.SelectMany(p => p.Value).ToHashSet();
         HashSet<T> newlyAccessible = new();
         foreach (var loc in PossibleLocations)
         {
-            // Skip if no areas are unlocked for this location
-            if (loc.Areas.Intersect(UnlockedAreas).Count() == 0)
-            {
-                continue;
-            }
-
-            if (!FinalPlacement.ContainsKey(loc) && !previouslyFound.Contains(loc) && loc.AreItemReqsMet(foundItems))
+            if (!FinalPlacement.ContainsKey(loc) && !previouslyFound.Contains(loc) && loc.AreItemReqsMet(state))
             {
                 newlyAccessible.Add(loc);
             }

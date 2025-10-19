@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Bartz24.RandoWPF.Data.Areas;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,16 +16,18 @@ public class SphereCalculator<T> where T : ItemLocation
     public Dictionary<T, int> Spheres { get; set; } = new();
 
     private SeedGenerator Generator { get; set; }
+    private AreaGraph AreaGraph { get; set; }
 
-    public SphereCalculator(SeedGenerator generator)
+    public SphereCalculator(SeedGenerator generator, AreaGraph areaGraph)
     {
         Generator = generator;
+        AreaGraph = areaGraph;
     }
 
-    public void CalculateSpheres(HashSet<T> locations)
+    public void CalculateSpheres(HashSet<T> locations, bool errorWhenInvalid = true)
     {
         Spheres.Clear();
-        Dictionary<string, int> items = new();
+        ProgressionState state = new();
 
         HashSet<T> remaining = new(locations.Where(l => !l.Traits.Contains("Missable")));
 
@@ -34,12 +37,13 @@ public class SphereCalculator<T> where T : ItemLocation
         {
             RandoUI.SetUIProgressIndeterminate($"Calculating sphere {sphere} items.");
             Generator.Logger.LogDebug($"Calculating sphere {sphere} items.");
+            state.AreasAccessible.UnionWith(AreaGraph.GetAllAccessibleAreas("Initial", state).Select(a => a.Name));
 
             HashSet<T> addedThisSphere = new();
             bool valid = false;
             foreach (T loc in remaining)
             {
-                if (loc.AreItemReqsMet(items))
+                if (loc.AreItemReqsMet(state))
                 {
                     valid = true;
 
@@ -57,14 +61,17 @@ public class SphereCalculator<T> where T : ItemLocation
 
             foreach (var loc in addedThisSphere)
             {
-                (string itemID, int amount) = loc.GetItem(false).Value;
-                if (items.ContainsKey(itemID))
+                if (loc.GetItem(false) != null)
                 {
-                    items[itemID] += amount;
-                }
-                else
-                {
-                    items.Add(itemID, amount);
+                    (string itemID, int amount) = loc.GetItem(false).Value;
+                    if (state.ItemsAvailable.ContainsKey(itemID))
+                    {
+                        state.ItemsAvailable[itemID] += amount;
+                    }
+                    else
+                    {
+                        state.ItemsAvailable.Add(itemID, amount);
+                    }
                 }
             }
 
@@ -74,10 +81,13 @@ public class SphereCalculator<T> where T : ItemLocation
 
             if (!valid)
             {
-                Generator.Logger.LogDebug($"Remaining locations: {string.Join(",",remaining.Select(r => r.ID))}");
-                string msg = "Could not find a path to all items placed. This seed might be unbeatable. Report this to the dev with the seed and flags used. After this seed finishes generating, go to the History tab and share the seed.";
-                Generator.Logger.LogError(msg);
-                MessageBox.Show(msg);
+                if (errorWhenInvalid)
+                {
+                    Generator.Logger.LogDebug($"Remaining locations: {string.Join(",", remaining.Select(r => r.ID))}");
+                    string msg = "Could not find a path to all items placed. This seed might be unbeatable. Report this to the dev with the seed and flags used. After this seed finishes generating, go to the History tab and share the seed.";
+                    Generator.Logger.LogError(msg);
+                    MessageBox.Show(msg);
+                }
 
                 return;
             }

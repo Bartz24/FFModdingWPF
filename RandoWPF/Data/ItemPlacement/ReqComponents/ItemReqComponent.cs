@@ -14,8 +14,8 @@ public class ItemReqComponent : ItemLocationReqComponent
         Requirements = req;
     }
 
-    public override bool AreItemReqsMet(Dictionary<string, int> items)
+    public override bool AreItemReqsMet(ProgressionState state)
     {
-        return Requirements.IsValid(items);
+        return Requirements.IsValid(state);
     }
 }
