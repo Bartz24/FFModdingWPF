@@ -339,11 +339,12 @@ public partial class ShopRando : Randomizer
                     possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x3000 and < 0x5000).Select(i => i.ID).ToList();
                     break;
                 case 3:// Loot
-                    possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x2000 and < 0x3000 and not 0x2112 and not 0x2113 and not 0x2116).Select(i => i.ID).ToList();
+                    possible = equipRando.itemData.Values.Where(i => i.IntID is >= 0x2000 and < 0x3000).Select(i => i.ID).ToList();
                     break;
             }
 
             possible.RemoveAll(i => equipRando.itemData.ContainsKey(i) && equipRando.itemData[i].Traits.Contains("Ignore"));
+            possible.RemoveAll(i => equipRando.itemData.ContainsKey(i) && equipRando.itemData[i].Traits.Contains("BazaarIgnore"));
 
             possible.RemoveAll(i => bazaarUsed.Contains(i));
         }
