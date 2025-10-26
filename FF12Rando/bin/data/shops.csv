@@ -16,7 +16,7 @@ Clan Provisioner 8,6,Rabanastre,Unique,AND(I(8071)|I(Hunt|16))
 Clan Provisioner 9,5,Rabanastre,Unique,AND(I(8071)|I(Hunt|24))
 Clan Provisioner 10,4,Rabanastre,Unique,AND(I(8071)|I(Hunt|28))
 Clan Provisioner 11,3,Rabanastre,Unique,AND(I(8071)|I(Hunt|32))
-Clan Provisioner 12,2,Rabanastre,Unique|Missable,AND(I(8071)|I(Hunt|45)|I(Esper|13)|I(HuntClubKill|30)|I(80B6)|I(80B5))
+Clan Provisioner 12,2,Rabanastre,Unique|Missable,AND(I(8071)|I(Hunt|45)|C(Esper|13)|I(HuntClubKill|30)|I(80B6)|I(80B5))
 Travelling Merchant North,0,Lowtown,,
 Travelling Merchant South,1,Lowtown,,
 Weapons of War,14,Nalbina Fortress,,
@@ -57,11 +57,11 @@ Luccio,34,Mosphoran Highwaste,,
 Vendor of Goods,35,Phon Coast,,
 Stranded Merchant,36,Old Archades,,
 Baknamy,27,Necrohol of Nabudis,Unique,
-Storekeeper (Rabanastre <-> Bhujerba),40,Rabanastre <-> Bhujerba Skyferry,,
-Storekeeper (Rabanastre <-> Nalbina),41,Rabanastre <-> Nalbina Skyferry,,
-Storekeeper (Rabanastre <-> Archades),42,Rabanastre <-> Archades Skyferry,,
-Storekeeper (Nalbina <-> Archades),43,Nalbina <-> Archades Skyferry,,
-Storekeeper (Nalbina <-> Balfonheim),44,Nalbina <-> Balfonheim Skyferry,,
-Storekeeper (Bhujerba <-> Balfonheim),45,Bhujerba <-> Balfonheim Skyferry,,
-Storekeeper (Archades <-> Balfonheim),46,Archades <-> Balfonheim Skyferry,,
+Storekeeper (Rabanastre <-> Bhujerba),40,Skyferry,,AND(I(80E1)|I(80E3)|A(Rabanastre)|A(Bhujerba))
+Storekeeper (Rabanastre <-> Nalbina),41,Skyferry,,AND(I(80E1)|I(80E2)|A(Rabanastre)|A(Nalbina Fortress))
+Storekeeper (Rabanastre <-> Archades),42,Skyferry,,AND(I(80E1)|I(80E4)|A(Rabanastre)|A(Archades))
+Storekeeper (Nalbina <-> Archades),43,Skyferry,,AND(I(80E2)|I(80E4)|A(Nalbina Fortress)|A(Archades))
+Storekeeper (Nalbina <-> Balfonheim),44,Skyferry,,AND(I(80E2)|I(80E5)|A(Nalbina Fortress)|A(Balfonheim))
+Storekeeper (Bhujerba <-> Balfonheim),45,Skyferry,,AND(I(80E3)|I(80E5)|A(Bhujerba)|A(Balfonheim))
+Storekeeper (Archades <-> Balfonheim),46,Skyferry,,AND(I(80E4)|I(80E5)|A(Archades)|A(Balfonheim))
 Storekeeper (All),47,Skyferry,,

@@ -1,37 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF;
 
-public class AmountItemReq : ItemReq
+public class LocationTraitsItemReq : ItemReq
 {
-    private readonly string item;
+    private readonly string trait;
     private readonly int amount;
-    public AmountItemReq(string item, int amount)
+    public LocationTraitsItemReq(string trait, int amount)
     {
-        this.item = item;
+        this.trait = trait;
         this.amount = amount;
     }
     protected override bool IsMet(ProgressionState state)
     {
-        return state.ItemsAvailable.ContainsKey(item) && state.ItemsAvailable[item] >= amount;
+        var dict = ItemLocationProvider();
+        return state.LocationsCompleted.Where(name => dict[name].Traits.Contains(trait)).Count() >= amount;
     }
 
     protected override List<string> GetPossibleRequirementsImpl()
     {
-        return new string[] { item }.ToList();
+        var dict = ItemLocationProvider();
+        return dict.Where(kv => kv.Value != null && kv.Value.Traits.Contains(trait)).Select(kv => kv.Key).ToList();
     }
     public override int GetPossibleRequirementsCount() { return amount; }
 
     public override string GetDisplay(Func<string, string> itemNameFunc)
     {
-        if (amount == 1)
-        {
-            return itemNameFunc(item);
-        }
-
-        return $"{itemNameFunc(item)} x {amount}";
+        return $"{amount} {trait}(s)";
     }
 
     public override int GetDifficulty(ProgressionState state)
@@ -41,30 +40,23 @@ public class AmountItemReq : ItemReq
             return -1;
         }
 
-        return base.GetDifficulty(state) + (int)Math.Round(Math.Sqrt(amount));
+        return base.GetDifficulty(state) + amount;
     }
 
     public override bool Equals(object obj)
     {
-        return obj is AmountItemReq req &&
-               item == req.item &&
+        return obj is LocationTraitsItemReq req &&
+               trait == req.trait &&
                amount == req.amount;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(item, amount);
+        return HashCode.Combine(trait, amount);
     }
 
     public override string GetArchipelagoRule(Func<string, string> itemNameFunc)
     {
-        if (amount == 1)
-        {
-            return $"state.has(\"{itemNameFunc(item)}\", player)";
-        }
-        else
-        {
-            return $"state.has(\"{itemNameFunc(item)}\", player, {amount})";
-        }
+        return $"state_has_location_trait(state, player, \"{trait}\", {amount})";
     }
 }

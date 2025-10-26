@@ -14,14 +14,23 @@ namespace Bartz24.RandoWPF;
 public class SphereCalculator<T> where T : ItemLocation
 {
     public Dictionary<T, int> Spheres { get; set; } = new();
+    public ProgressionState FinalProgressionState { get; set; } = new();
 
-    private SeedGenerator Generator { get; set; }
-    private AreaGraph AreaGraph { get; set; }
+    public SeedGenerator Generator { get; set; }
+    public AreaGraph AreaGraph { get; set; }
 
     public SphereCalculator(SeedGenerator generator, AreaGraph areaGraph)
     {
         Generator = generator;
         AreaGraph = areaGraph;
+    }
+
+    public SphereCalculator(SphereCalculator<T> other)
+    {
+        Generator = other.Generator;
+        AreaGraph = other.AreaGraph;
+        Spheres = new Dictionary<T, int>(other.Spheres);
+        FinalProgressionState = other.FinalProgressionState;
     }
 
     public void CalculateSpheres(HashSet<T> locations, bool errorWhenInvalid = true)
@@ -35,7 +44,8 @@ public class SphereCalculator<T> where T : ItemLocation
 
         for (int sphere = 0; remaining.Count > 0; sphere++)
         {
-            RandoUI.SetUIProgressIndeterminate($"Calculating sphere {sphere} items.");
+            // Hide progress cuz spoilers :)
+            //RandoUI.SetUIProgressIndeterminate($"Calculating sphere {sphere} items.");
             Generator.Logger.LogDebug($"Calculating sphere {sphere} items.");
             state.AreasAccessible.UnionWith(AreaGraph.GetAllAccessibleAreas("Initial", state).Select(a => a.Name));
 
@@ -73,11 +83,12 @@ public class SphereCalculator<T> where T : ItemLocation
                         state.ItemsAvailable.Add(itemID, amount);
                     }
                 }
+                state.LocationsCompleted.Add(loc.ID);
             }
 
             // TODO:
             // Improve validation for "missable" quests like buried passion where it depends on placement but is safe
-            // Improve chain checks
+            // Improve chain checks            
 
             if (!valid)
             {
@@ -89,8 +100,12 @@ public class SphereCalculator<T> where T : ItemLocation
                     MessageBox.Show(msg);
                 }
 
+                FinalProgressionState = state;
+
                 return;
             }
         }
+
+        FinalProgressionState = state;
     }
 }

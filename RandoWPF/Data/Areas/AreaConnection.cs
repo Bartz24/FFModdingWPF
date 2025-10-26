@@ -17,7 +17,7 @@ public class AreaConnection : CSVDataRow
     public string ToAreaName { get; set; }
 
     [RowIndex(3)]
-    protected ItemReq Requirements { get; set; }
+    public ItemReq Requirements { get; set; }
     [RowIndex(4)]
     public List<string> Traits { get; set; }
     [RowIndex(5)]

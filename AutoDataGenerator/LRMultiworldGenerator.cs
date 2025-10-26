@@ -77,7 +77,7 @@ internal class LRMultiworldGenerator
             "\n" +
             "item_data_table: Dict[str, LRFF13ItemData] = {\n";
 
-        int nextIndex = 0;
+        int nextIndex = 1;
         EquipRando.itemData.Values.ForEach(i =>
         {
             if (!i.Traits.Contains("Ignore") && !i.Traits.Contains("Remove"))
@@ -100,13 +100,13 @@ internal class LRMultiworldGenerator
                 {
                     type = "progression";
                 }
-                else if (i.Category == "EP Ability" || i.Category == "Garb" || i.Category == "Weapon" || i.Category == "Shield" || i.Category == "Accessory")
+                else if (i.Category == "EP Ability")
                 {
                     type = "useful";
                 }
-                else if (i.Category == "Adornment")
+                else if (i.Category == "Adornment" || i.Category == "Garb" || i.Category == "Weapon" || i.Category == "Shield" || i.Category == "Accessory")
                 {
-                    weight = 5;
+                    weight = 50;
                 }
                 else
                 {
@@ -122,13 +122,24 @@ internal class LRMultiworldGenerator
                     }
                 }
 
+                if (i.ID.StartsWith("libra_"))
+                {
+                    type = "filler";
+                    weight = 0;
+                }
+
+                if (i.Category == "Adornment")
+                {
+                    type = "progression_deprioritized_skip_balancing";
+                }
+
                 script = AddItemToItemsScript(script, i.Name, i.ID, nextIndex, type, i.Category, weight, 1, duplicates, i.Traits);
                 nextIndex++;
             }
         });
 
-        int[] gilAmounts = new[] { 10, 500, 1000, 2500, 7500, 20000 };
-        int[] gilWeights = new[] { 50, 700, 900, 600, 400, 100 };
+        int[] gilAmounts = [10, 500, 1000, 2500, 7500, 20000];
+        int[] gilWeights = [500, 7000, 9000, 6000, 4000, 1000];
         for (int i = 0; i < gilAmounts.Length; i++)
         {
             script = AddItemToItemsScript(script, $"{gilAmounts[i]} Gil", "", nextIndex, "filler", "Gil", gilWeights[i], gilAmounts[i], 0, new List<string>());
@@ -208,7 +219,7 @@ internal class LRMultiworldGenerator
 
         locations.Clear();
 
-        int nextIndex = 0;
+        int nextIndex = 1;
         Dictionary<string, int> nameCounts = TreasureRando.ItemLocations.Values.Select(l => l.Name).GroupBy(n => n).ToDictionary(g => g.Key, g => g.Count());
         Dictionary<string, int> usedNames = new();
 

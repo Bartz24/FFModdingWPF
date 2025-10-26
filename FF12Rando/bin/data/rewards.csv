@@ -137,7 +137,7 @@ Clan Hall,Clan Rank: Riskbreaker,9036,I(Hunt|16),8,ClanRank
 Clan Hall,Clan Rank: Paragon of Justice,9037,I(Hunt|24),9,ClanRank
 Clan Hall,Clan Rank: High Guardian,9038,I(Hunt|28),10,ClanRank
 Clan Hall,Clan Rank: Knight of the Round,9039,I(Hunt|32),11,ClanRank
-Clan Hall,Clan Rank: Order of Ambrosia,903A,AND(I(Hunt|45)|I(Esper|13)|I(HuntClubKill|30)|I(80B6)|I(80B5)),12,ClanRank|Missable
+Clan Hall,Clan Rank: Order of Ambrosia,903A,AND(I(Hunt|45)|C(Esper|13)|I(HuntClubKill|30)|I(80B6)|I(80B5)),12,ClanRank|Missable
 Clan Hall,Clan Boss: Flans,903B,A(Nalbina Dungeon),1,ClanBoss
 Clan Hall,Clan Boss: Firemane,903C,A(Nalbina Dungeon),1,ClanBoss
 Clan Hall,Clan Boss: Earth Tyrant,903D,I(Defeat Earth Tyrant),4,ClanBoss
@@ -158,10 +158,10 @@ Clan Hall,Clan Boss: Hydro,904B,A(Ridorana Cataract),5,ClanBoss
 Clan Hall,Clan Boss: Humbaba Mistant,904C,AND(I(8081)|I(8084)|A(Necrohol of Nabudis)),7,ClanBoss
 Clan Hall,Clan Boss: Fury,904D,AND(I(8083)|I(8084)|A(Necrohol of Nabudis)),7,ClanBoss
 Clan Hall,Clan Boss: Omega Mark XII,905A,A(Great Crystal),8,ClanBoss
-Clan Hall,Clan Esper: Control 1,904E,I(Esper|1),1,ClanEsper
-Clan Hall,Clan Esper: Control 4,904F,I(Esper|4),3,ClanEsper
-Clan Hall,Clan Esper: Control 8,9050,I(Esper|8),5,ClanEsper
-Clan Hall,Clan Esper: Control 13,9051,I(Esper|13),8,ClanEsper
+Clan Hall,Clan Esper: Control 1,904E,C(Esper|1),1,ClanEsper
+Clan Hall,Clan Esper: Control 4,904F,C(Esper|4),3,ClanEsper
+Clan Hall,Clan Esper: Control 8,9050,C(Esper|8),5,ClanEsper
+Clan Hall,Clan Esper: Control 13,9051,C(Esper|13),8,ClanEsper
 Dalmasca Estersand,Flowering Cactoid Drop,916D,,1,
 Dalmasca Estersand,Patient Barheim Key,916E,AND(I(8073)|I(Defeat Vossler)),2,
 Dalmasca Estersand,Dantro's Wife Give Cactus Flower,9081,AND(I(8073)|I(Defeat Vossler)),1,
@@ -195,9 +195,9 @@ Lowtown,Samal Blackened Fragment,917C,AND(I(8071)|I(8092)|I(Fran)|I(Ashe)|I(Pene
 Garamsythe Waterway,Dull Fragment,9186,AND(I(80AF)|A(Nabreus Deadlands)),0,
 Rabanastre,Grimy Fragment,9187,A(Nabreus Deadlands),5,
 Old Archades,Moonsilver Medallion,9188,AND(A(Nabreus Deadlands)|A(Archades)),5,
-Nabreus Deadlands,Nabreus Medallion 1,9189,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,
-Nabreus Deadlands,Nabreus Medallion 2,918A,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,
-Nabreus Deadlands,Nabreus Medallion 3,918B,AND(I(808F)|I(8090)|I(8091)|I(80A3)),6,
+Nabreus Deadlands,Nabreus Medallion 1,9189,AND(I(808F)|I(8090)|I(8091)|I(80A3)|A(Archades)),6,
+Nabreus Deadlands,Nabreus Medallion 2,918A,AND(I(808F)|I(8090)|I(8091)|I(80A3)|A(Archades)),6,
+Nabreus Deadlands,Nabreus Medallion 3,918B,AND(I(808F)|I(8090)|I(8091)|I(80A3)|A(Archades)),6,
 Necrohol of Nabudis,Medallion of Might,918C,AND(I(8081)|I(8083)|I(8084)),7,
 Rabanastre,Viera Rendezvous,9056,,1,
 Rabanastre,Ktjn Reward,9058,A(Clan Hall),2,

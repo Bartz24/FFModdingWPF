@@ -14,6 +14,7 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
     public List<ItemPlacer<L>> Placers { get; set; } = new();
 
     public SphereCalculator<L> SphereCalculator { get; set; }
+    public PlaythroughCalculator<L> PlaythroughCalculator { get; set; } = null;
 
     protected AreaGraph AreaGraph { get; set; }
 
@@ -108,6 +109,7 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
         PostPlacement();
 
         CalculateSpheres();
+        CalculatePlaythrough();
         ReorderItems();
     }
 
@@ -115,6 +117,16 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
     {
         SphereCalculator = new SphereCalculator<L>(Generator, AreaGraph);
         SphereCalculator.CalculateSpheres(PossibleLocations);
+    }
+
+    protected virtual void CalculatePlaythrough()
+    {
+        // TODO: Improve performance as it takes 5-10 min and it doesn't work yet without being way too slow.
+#if DEBUG
+        //PlaythroughCalculator = new PlaythroughCalculator<L>(SphereCalculator);
+        //ProgressionItemPlacer<L> progressionPlacer = (ProgressionItemPlacer<L>)Placers.FirstOrDefault(x => x is ProgressionItemPlacer<L>);
+        //PlaythroughCalculator.CalculatePlaythrough(progressionPlacer.ProgressionLocations, true);
+#endif
     }
 
     protected abstract HashSet<string> GetReorderItemCategories();

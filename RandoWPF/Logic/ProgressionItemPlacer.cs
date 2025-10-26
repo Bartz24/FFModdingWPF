@@ -28,6 +28,11 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
     protected Dictionary<string, double> AreaMultipliers { get; set; } = new();
 
+    /// <summary>
+    /// Locations that have progression items placed in them. This is used to track which locations have had items placed in them during the placement process.
+    /// </summary>
+    public HashSet<T> ProgressionLocations { get; set; } = new();
+
     public ProgressionItemPlacer(SeedGenerator generator, AreaGraph areaGraph, int depthDiff, Dictionary<string, double> areaMults) : base(generator)
     {
         DepthDifficulty = depthDiff;
@@ -77,11 +82,16 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     {
         ProgState = new();
         RemainingFixed = new(FixedLocations);
-        RemainingToPlace = new(GetInitialReplacementOrder());
+        RemainingToPlace = new(GetReplacementOrder());
         FinalPlacement.Clear();
         UnlockedLocations.Clear();
+        ProgressionLocations.Clear();
 
         int initialRemaining = RemainingToPlace.Count;
+
+        // Refresh more frequently at the start to allow for more dynamic unlocking of areas and locations and then slow down.
+        int nextPercentageQueueRefreshIndex = 0;
+        double[] refreshIncrements = new double[] { 0.05, 0.1, 0.2, 0.4, 0.8, double.MaxValue };
 
         T firstFailure = null;
         while (RemainingToPlace.Count > 0 || RemainingFixed.Count > 0)
@@ -98,7 +108,13 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
             // Update unlocked areas and locations
             UpdatedUnlockedAreas();
-            UpdatedUnlockedLocations();
+            if (UpdatedUnlockedLocations() && (initialRemaining - RemainingToPlace.Count) / (double)initialRemaining >= refreshIncrements[nextPercentageQueueRefreshIndex])
+            {
+                // Reorder the remaining items based on the new unlocked locations every 20% of placed items. This allows items that were previously unplaceable to be attempted again sooner if they unlock new areas. This is important for progression items that may have been blocked by earlier placements. By reordering, we can ensure that we are always trying to place items in the most optimal order based on the current state of the game world.
+                nextPercentageQueueRefreshIndex = Math.Min(nextPercentageQueueRefreshIndex + 1, refreshIncrements.Length - 1);
+                var newOrder = GetReplacementOrder();
+                RemainingToPlace = new Queue<T>(newOrder.Where(item => RemainingToPlace.Contains(item)));
+            }            
 
             T replacement = RemainingToPlace.Dequeue();
 
@@ -146,10 +162,10 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     }
 
     /// <summary>
-    /// Prioritize placing items that immediately unlock other locations, or that have maximal depth requirements.
+    /// Groups items of similar types together and assigns them a random index within a certain range.
     /// </summary>
     /// <returns></returns>
-    private List<T> GetInitialReplacementOrder()
+    private List<T> GetReplacementOrder()
     {
         Dictionary<int, T> newOrder = new();
         bool[] usedIndices = new bool[100000];
@@ -165,12 +181,21 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             }
             else
             {
-                minIndex = RandomNum.RandInt(15, 70);
-                var (minAdjust, maxAdjust) = GetLocationOffsets(next, similarItemType);
-                minIndex = Math.Clamp(minIndex + minAdjust, 0, 80);
-                var rangeCap = Math.Max(100 + maxAdjust, 31);
-                int range = RandomNum.RandInt(0, 99) < 30 ? rangeCap : RandomNum.RandInt(30, rangeCap);
-                maxIndex = Math.Min(minIndex + range, 100);
+                var customRange = GetCustomItemTypeRange(similarItemType);
+                if (customRange == null)
+                {
+                    minIndex = RandomNum.RandInt(15, 70);
+                    var (minAdjust, maxAdjust) = GetLocationOffsets(next, similarItemType);
+                    minIndex = Math.Clamp(minIndex + minAdjust, 0, 80);
+                    var rangeCap = Math.Max(100 + maxAdjust, 31);
+                    int range = RandomNum.RandInt(0, 99) < 30 ? rangeCap : RandomNum.RandInt(30, rangeCap);
+                    maxIndex = Math.Min(minIndex + range, 100);
+                }
+                else
+                {
+                    minIndex = customRange.Value.min;
+                    maxIndex = customRange.Value.max;
+                }
 
                 itemRanges.Add(similarItemType, (minIndex, maxIndex));
             }
@@ -185,7 +210,8 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             usedIndices[index] = true;
         }
 
-        return newOrder.Keys.OrderBy(i => i).Select(i => newOrder[i]).ToList();
+        var newList = newOrder.Keys.OrderBy(i => i).Select(i => newOrder[i]).ToList();
+        return newList;
     }
 
     protected virtual (int,int) GetLocationOffsets(T location, string itemType)
@@ -223,6 +249,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
                 {
                     continue;
                 }
+
                 if (loc.AreItemReqsMet(ProgState))
                 {
                     PlaceItem(loc, loc);
@@ -251,6 +278,8 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         {
             group.Remove(location);
         }
+
+        ProgressionLocations.Add(location);
     }
 
     protected virtual void AddFoundItem(T location, ProgressionState foundItems = null)
@@ -272,6 +301,8 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             {
                 foundItems.ItemsAvailable.Add(itemID, amount);
             }
+
+            foundItems.LocationsCompleted.Add(location.ID);
         }
     }
 
@@ -282,7 +313,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         ProgState.AreasAccessible = new HashSet<string>(UnlockedAreas);
     }
 
-    protected virtual void UpdatedUnlockedLocations()
+    protected virtual bool UpdatedUnlockedLocations()
     {
         // Increment all group keys in UnlockedLocations by 1, and move any that are depth 10 or higher into the same group of depth 10
         Dictionary<int, HashSet<T>> newUnlockedLocations = new();
@@ -323,16 +354,20 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             }
         }
 
+        bool countChanged = UnlockedLocations.Values.Sum(g => g.Count) != newUnlockedLocations.Values.Sum(g => g.Count);
         UnlockedLocations = newUnlockedLocations;
+        return countChanged;
     }
 
     private HashSet<T> GetNewlyAccessibleWithLocation(Dictionary<int, HashSet<T>> unlockedLocations, T addLocation)
     {
         var state = new ProgressionState(ProgState);
         AddFoundItem(addLocation, state);
+        state.AreasAccessible = new (AreaGraph.GetAllAccessibleAreas("Initial", state).Select(a => a.Name));
         return GetNewlyAccessible(unlockedLocations, state);
     }
 
+    [Obsolete("Unused?")]
     private HashSet<T> GetNewlyInaccessibleWithLocation(Dictionary<int, HashSet<T>> unlockedLocations, T addLocation)
     {
         var state = new ProgressionState(ProgState);
@@ -414,5 +449,10 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         }
 
         return item?.Item;
+    }
+
+    protected virtual (int min, int max)? GetCustomItemTypeRange(string itemTypeName)
+    {
+        return null;
     }
 }

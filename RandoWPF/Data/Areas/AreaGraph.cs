@@ -73,18 +73,25 @@ public class AreaGraph
 
     public List<Area> GetAllAccessibleAreas(List<string> startAreas, ProgressionState state)
     {
+        var tempState = new ProgressionState(state);
         HashSet<string> accessibleAreas = new(startAreas);
-        Queue<string> areasToCheck = new(startAreas);
 
-        while (areasToCheck.Count > 0)
+        bool foundNewArea = true;
+        while (foundNewArea)
         {
-            string currentArea = areasToCheck.Dequeue();
-            foreach (var connection in GetValidConnectionsFrom(currentArea, state))
+            // Update the tempState with any new areas that have been added to accessibleAreas
+            tempState.AreasAccessible.UnionWith(accessibleAreas);
+
+            foundNewArea = false;
+            foreach (var areaName in accessibleAreas.ToList())
             {
-                if (!accessibleAreas.Contains(connection.ToAreaName))
+                foreach (var connection in GetValidConnectionsFrom(areaName, tempState))
                 {
-                    accessibleAreas.Add(connection.ToAreaName);
-                    areasToCheck.Enqueue(connection.ToAreaName);
+                    if (!accessibleAreas.Contains(connection.ToAreaName))
+                    {
+                        accessibleAreas.Add(connection.ToAreaName);
+                        foundNewArea = true;
+                    }
                 }
             }
         }

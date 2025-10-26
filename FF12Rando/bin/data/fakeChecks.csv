@@ -55,19 +55,6 @@ Lowtown,Hunt 42: Behemoth King,_53,AND(A(Feywood)|I(8071)),,7,Hunt
 Balfonheim,Hunt 43: Ixion,_54,AND(I(8071)|A(Pharos of Ridorana Subterra)),,6,Hunt
 Clan Hall,Hunt 44: Shadowseer,_55,AND(I(8071)|A(Pharos of Ridorana Subterra)|I(2116|24)),,6,Hunt
 Clan Hall,Hunt 45: Yiazmat,_56,AND(I(8071)|A(Ridorana Cataract)),,8,Hunt
-Initial,Belias,_57,I(C012),,0,Esper
-Initial,Mateus,_58,I(C013),,0,Esper
-Initial,Adrammelech,_59,I(C014),,0,Esper
-Initial,Zalera,_60,I(C018),,0,Esper
-Initial,Shemhazai,_61,I(C019),,0,Esper
-Initial,Hashmal,_62,I(C015),,0,Esper
-Initial,Cuchulainn,_63,I(C016),,0,Esper
-Initial,Zeromus,_64,I(C01B),,0,Esper
-Initial,Exodus,_65,I(C01C),,0,Esper
-Initial,Famfrit,_66,I(C017),,0,Esper
-Initial,Chaos,_67,I(C01A),,0,Esper
-Initial,Ultima,_68,I(C01D),,0,Esper
-Initial,Zodiark,_69,I(C01E),,0,Esper
 Balfonheim,Reddas,_70,AND(I(Defeat Cid)|I(808C)),,0,Guest
 Lowtown,Basch,_71,I(8075),,0,Basch
 Phon Coast,Thalassinon - Shelled Trophy,_72,,,6,HuntClubStart

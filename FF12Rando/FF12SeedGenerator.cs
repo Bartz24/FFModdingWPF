@@ -105,6 +105,9 @@ public class FF12SeedGenerator : SeedGenerator
         PackPrefixName = "FF12Rando";
         DocsDisplayName = "FF12 Randomizer";
         DocsOutFolder = "docs";
+
+        ItemReq.ItemProvider = () => Get<EquipRando>().itemData.ToDictionary(kv => kv.Key, i => (IItem)i.Value);
+        ItemReq.ItemLocationProvider = () => Get<TreasureRando>().ItemLocations;
     }
 
     protected override void SetRandomizers()

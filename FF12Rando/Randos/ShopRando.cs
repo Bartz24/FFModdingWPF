@@ -306,7 +306,16 @@ public partial class ShopRando : Randomizer
     protected virtual int GetSphere(DataStoreShop shop)
     {
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
-        return treasureRando.ItemPlacer.SphereCalculator.Spheres.GetValueOrDefault(treasureRando.ItemLocations[shopData[shop.ID].ShopFakeLocationLink], 0);
+        // If all shops in an area are shared, use the lowest sphere of any shop in that area. Otherwise, use the sphere of the shop itself. This is to ensure that shared shops don't get higher spheres than they should.
+        if (FF12Flags.Items.ShopsShared.Enabled && shopData[shop.ID].Traits.Contains("Shared"))
+        {
+            var sharedShops = shopData.Values.Where(s => s.Area == shopData[shop.ID].Area).Select(s => shops[s.ID]);
+            return sharedShops.Min(s => treasureRando.ItemPlacer.SphereCalculator.Spheres.GetValueOrDefault(treasureRando.ItemLocations[shopData[s.ID].ShopFakeLocationLink], 0));
+        }
+        else
+        {
+            return treasureRando.ItemPlacer.SphereCalculator.Spheres.GetValueOrDefault(treasureRando.ItemLocations[shopData[shop.ID].ShopFakeLocationLink], 0);
+        }
     }
 
     protected virtual HashSet<string> GetUsedAbilities()

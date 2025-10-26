@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static FF12Rando.TreasureRando;
 
 namespace FF12Rando;
 public class FF12ProgressionItemPlacer : ProgressionItemPlacer<ItemLocation>
@@ -44,20 +45,34 @@ public class FF12ProgressionItemPlacer : ProgressionItemPlacer<ItemLocation>
         return base.GetSimilarItemType(location);
     }
 
-    protected override (int,int) GetLocationOffsets(ItemLocation location, string itemType)
+    protected override (int min, int max)? GetCustomItemTypeRange(string itemTypeName)
     {
-        var offset = base.GetLocationOffsets(location, itemType);
-        int adjust = 0;
-        if (itemType == "Cid2Unlock")
+        // Trophies should not be limited
+        if (itemTypeName == "Trophy")
         {
-            adjust = RandomNum.RandInt(5, 50);
+            return (0, 100);
         }
-        if (itemType == "Esper")
+        // Black orbs should appear in later half at minimum most of the time
+        else if (itemTypeName == "2116" && RandomNum.RandInt(0, 99) < 60)
         {
-            adjust = RandomNum.RandInt(10, 30);
+            int min = RandomNum.RandInt(50, 90);
+            int max = Math.Min(min + RandomNum.RandInt(10, 30), 100);
+            return (min, max);
+        }
+        else if (itemTypeName == "Cid2Unlock")
+        {
+            int min = RandomNum.RandInt(5, 60);
+            int max = Math.Min(min + RandomNum.RandInt(10, 50), 100);
+            return (min, max);
+        }
+        else if (itemTypeName == "Esper")
+        {
+            int min = RandomNum.RandInt(20, 90);
+            int max = Math.Min(min + RandomNum.RandInt(10, 60), 100);
+            return (min, max);
         }
 
-        return (offset.Item1 + adjust, offset.Item2 + adjust);
+        return base.GetCustomItemTypeRange(itemTypeName);
     }
 
     protected override void PlaceFixed()

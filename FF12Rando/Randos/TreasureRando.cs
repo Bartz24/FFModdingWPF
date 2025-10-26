@@ -388,70 +388,21 @@ public partial class TreasureRando : Randomizer
 
         page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Sphere" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), ItemLocations.Values.Select(l =>
         {
-            string display = "";
-            if (l is FakeLocation f)
-            {
-                display = f.FakeItem;
-            }
-            else if (l is TreasureLocation t)
-            {
-                DataStoreTreasure treasure = ebpAreas[t.MapID].TreasureList[t.Index];
-                if (treasure.SpawnChance == 0)
-                {
-                    return null;
-                }
-
-                display = GetTreasureDisplay(treasure);
-            }
-            else if (l is RewardLocation r)
-            {
-                if (r.Index > 0)
-                {
-                    return null;
-                }
-
-                DataStoreReward reward = rewards[r.IntID - 0x9000];
-                display = GetRewardDisplay(reward);
-            }
-            else if (l is StartingInvLocation s)
-            {
-                if (s.Index > 0)
-                {
-                    return null;
-                }
-
-                DataStorePartyMember chara = partyRando.party[s.IntID];
-                display = GetPartyMemberDisplay(chara);
-            }
-            else
-            {
-                throw new Exception("Unsupported item location type found");
-            }
-
-            string reqsDisplay = l.Requirements.GetDisplay(GetItemName);
-            if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
-            {
-                reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
-            }
-
-            string name = l.Name;
-            if (l is FakeLocation)
-            {
-                name += " (Unlock Event)";
-            }
-
-            TableCellMultiple nameCell = new(new List<string>());
-            nameCell.Elements.Add($"<div style=\"margin-right: auto\">{name}</div>");
-            if (reqsDisplay != ItemReq.TRUE.GetDisplay())
-            {
-                nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
-            }
-
-            string sphere = ItemPlacer != null && ItemPlacer.SphereCalculator.Spheres.ContainsKey(l) ? ItemPlacer.SphereCalculator.Spheres[l].ToString() : "N/A";
-
-            return new object[] { nameCell, display, sphere }.ToList();
+            return GetLocationDocumentationLine(l, partyRando);
         }).Where(l => l != null).ToList(), "itemlocations"));
         pages.Add("item_locations", page);
+
+        // Add table for progression playthrough
+        if (ItemPlacer.PlaythroughCalculator != null)
+        {
+            HTMLPage playPage = new("Progression Playthrough", "template/documentation.html");
+            playPage.HTMLElements.Add(new Table("Progression Playthrough", (new string[] { "Name", "New Contents", "Sphere" }).ToList(), (new int[] { 45, 45, 10 }).ToList(),
+                ItemPlacer.PlaythroughCalculator.FinalLocations.Select(l =>
+            {
+                return GetLocationDocumentationLine(l.loc, partyRando);
+            }).Where(l => l != null).ToList(), "progressionplaythrough"));
+            pages.Add("progression_playthrough", playPage);
+        }
 
         // Add hints page
         if (HintPlacer != null)
@@ -462,6 +413,72 @@ public partial class TreasureRando : Randomizer
         }
 
         return pages;
+    }
+
+    private List<object> GetLocationDocumentationLine(ItemLocation l, PartyRando partyRando)
+    {
+        string display = "";
+        if (l is FakeLocation f)
+        {
+            display = f.FakeItem;
+        }
+        else if (l is TreasureLocation t)
+        {
+            DataStoreTreasure treasure = ebpAreas[t.MapID].TreasureList[t.Index];
+            if (treasure.SpawnChance == 0)
+            {
+                return null;
+            }
+
+            display = GetTreasureDisplay(treasure);
+        }
+        else if (l is RewardLocation r)
+        {
+            if (r.Index > 0)
+            {
+                return null;
+            }
+
+            DataStoreReward reward = rewards[r.IntID - 0x9000];
+            display = GetRewardDisplay(reward);
+        }
+        else if (l is StartingInvLocation s)
+        {
+            if (s.Index > 0)
+            {
+                return null;
+            }
+
+            DataStorePartyMember chara = partyRando.party[s.IntID];
+            display = GetPartyMemberDisplay(chara);
+        }
+        else
+        {
+            throw new Exception("Unsupported item location type found");
+        }
+
+        string reqsDisplay = l.Requirements.GetDisplay(GetItemName);
+        if (reqsDisplay.StartsWith("(") && reqsDisplay.EndsWith(")"))
+        {
+            reqsDisplay = reqsDisplay.Substring(1, reqsDisplay.Length - 2);
+        }
+
+        string name = l.Name;
+        if (l is FakeLocation)
+        {
+            name += " (Unlock Event)";
+        }
+
+        TableCellMultiple nameCell = new(new List<string>());
+        nameCell.Elements.Add($"<div style=\"margin-right: auto\">{name}</div>");
+        if (reqsDisplay != ItemReq.TRUE.GetDisplay())
+        {
+            nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", "Requires: " + reqsDisplay).ToString());
+        }
+
+        string sphere = ItemPlacer != null && ItemPlacer.SphereCalculator.Spheres.ContainsKey(l) ? ItemPlacer.SphereCalculator.Spheres[l].ToString() : "N/A";
+
+        return new object[] { nameCell, display, sphere }.ToList();
     }
 
     public string GetItemName(string id)
