@@ -102,4 +102,27 @@ public class RandomNumTests
     {
         return Enumerable.Range(0, listCount).Select(i => RandomNum.RandLong(0, (long)1e9).GetHashCode().ToString()).ToList();
     }
+
+    [TestMethod()]
+    [DataRow(2, 0, 9, 8, 1.60, new double[] { 0, 0, 0, 0, 0, 0, 0.15, 0.27, 0.32, 0.27 })]
+    [DataRow(3, 0, 9, 1, 1.6, new double[] { 0.25, 0.30, 0.25, 0.14, 0.05, 0, 0, 0, 0, 0 })]
+    public void RandomTruncGaussianTest(int delta, int low, int high, int center, double sigma, double[] expectedProbs)
+    {
+        int trials = 100000;
+        int[] counts = new int[high - low + 1];
+        for (int i = 0; i < trials; i++)
+        {
+            int value = RandomNum.RandomTruncGaussian(center, sigma, delta, low, high);
+            if (value >= low && value <= high)
+            {
+                counts[value - low]++;
+            }
+        }
+
+        for (int i = 0; i < counts.Length; i++)
+        {
+            double actualProb = counts[i] / (double)trials;
+            Assert.AreEqual(expectedProbs[i], actualProb, 0.01, $"Expected Probs: {string.Join(", ", expectedProbs)}, Actual Probs: {string.Join(", ", counts.Select(c => c / (double)trials))}");
+        }
+    }
 }

@@ -214,4 +214,44 @@ public class RandomNum
 
         return s;
     }
+
+    // Sample from discrete truncated Gaussian over intersection:
+    // [lo..hi] in [original - maxDelta .. original + maxDelta]
+    // with weights  exp(-(k-original)^2 / (2sigma^2)).
+    public static int RandomTruncGaussian(int original, double sigma, int maxDelta, int low, int high)
+    {
+        if (sigma <= 0)
+        {
+            return Math.Clamp(original, low, high);
+        }
+
+        int left = Math.Max(low, original - maxDelta);
+        int right = Math.Min(high, original + maxDelta);
+        if (left > right)
+        {
+            return Math.Clamp(original, low, high);
+        }
+
+        int n = right - left + 1;
+        double inv2Sig2 = 1.0 / (2.0 * sigma * sigma);
+
+        // Build weights
+        double[] w = new double[n];
+        double sum = 0.0;
+        for (int i = 0; i < n; i++)
+        {
+            int k = left + i;
+            double d = k - original;
+            double wk = Math.Exp(-(d * d) * inv2Sig2);
+            w[i] = wk;
+            sum += wk;
+        }
+
+        if (sum <= 0)
+        {
+            return original;
+        }
+
+        return left + SelectRandomWeighted(Enumerable.Range(0, n).ToList(), i => (long)(w[i] * 1000000));
+    }
 }

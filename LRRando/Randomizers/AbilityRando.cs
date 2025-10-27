@@ -1,4 +1,5 @@
-﻿using Bartz24.FF13_2_LR;
+﻿using Bartz24.Docs;
+using Bartz24.FF13_2_LR;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
 using LRRando;
@@ -14,6 +15,8 @@ public class AbilityRando : Randomizer
 {
     public DataStoreWDB<DataStoreBtAbility> abilities = new();
     public DataStoreWDB<DataStoreRBtAbiGrow> abilityGrowths = new();
+
+    public string[] EP_ABILITIES = { "ti000_00", "ti020_00", "ti030_00", "ti500_00", "ti600_00", "ti810_00", "ti840_00", "ti900_00", "at900_00" };
 
     public AbilityRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -66,11 +69,10 @@ public class AbilityRando : Randomizer
             int max = LRFlags.StatsAbilities.EPCostMax.Value;
 
             int[] minValues = { min2, min2, min1, min2, min1, min2, min1, min2, min1 };
-            string[] abilityIds = { "ti000_00", "ti020_00", "ti030_00", "ti500_00", "ti600_00", "ti810_00", "ti840_00", "ti900_00", "at900_00" };
 
-            for (int i = 0; i < abilityIds.Length; i++)
+            for (int i = 0; i < EP_ABILITIES.Length; i++)
             {
-                string abilityId = abilityIds[i];
+                string abilityId = EP_ABILITIES[i];
                 int min = minValues[i];
                 abilities[abilityId].i17AtbCount = RandomEPCost(min, max, abilities[abilityId].i17AtbCount / 2000) * 2000;
             }
@@ -118,7 +120,7 @@ public class AbilityRando : Randomizer
 
     private int RandomEPCost(int absMin, int absMax, int val)
     {
-        return RandomNum.RandInt(Math.Max(absMin, val - LRFlags.StatsAbilities.EPCostsRange.Value), Math.Min(val + LRFlags.StatsAbilities.EPCostsRange.Value, absMax));
+        return RandomNum.RandomTruncGaussian(val, 2 + (absMax - 3) * 1.5 / 6.0, LRFlags.StatsAbilities.EPCostsRange.Value, absMin, absMax);
     }
 
     private void RandomizeInitAbility(string name)
@@ -138,5 +140,22 @@ public class AbilityRando : Randomizer
         RandoUI.SetUIProgressDeterminate("Saving Ability Data...", 50, 100);
         abilityGrowths.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_bt_abi_grow.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_bt_abi_grow.wdb");
+    }
+
+    public override Dictionary<string, HTMLPage> GetDocumentation()
+    {
+        Dictionary<string, HTMLPage> pages = base.GetDocumentation();
+
+        HTMLPage page = new("Abilities", "template/documentation.html");
+
+        // EP Costs
+        page.HTMLElements.Add(new Table("EP Costs", (new string[] { "Ability", "EP Cost" }).ToList(), (new int[] { 70, 30 }).ToList(), EP_ABILITIES.Select(abilityId =>
+        {
+            string epCost = (abilities[abilityId].i17AtbCount / 2000).ToString();
+            return new string[] { abilityId, epCost }.ToList();
+        }).ToList()));
+        pages.Add("abilities", page);
+
+        return pages;
     }
 }
