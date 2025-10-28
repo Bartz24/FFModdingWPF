@@ -24,6 +24,22 @@ public class DataStoreARDBasicInfo : DataStore
         get => Data.ReadByte(0x24);
         set => Data.SetByte(0x24, value);
     }
+    public ushort SizeX
+    {
+        get => Data.ReadUShort(0x0A);
+        set => Data.SetUShort(0x0A, value);
+    }
+    public ushort SizeY
+    {
+        get => Data.ReadUShort(0x0C);
+        set => Data.SetUShort(0x0C, value);
+    }
+    public ushort SizeZ
+    {
+        get => Data.ReadUShort(0x0E);
+        set => Data.SetUShort(0x0E, value);
+    }
+
     public override int GetDefaultLength()
     {
         return 0x58;

@@ -31,16 +31,36 @@ public class RandomNum
     /// <param name="low"></param>
     /// <param name="high"></param>
     /// <returns></returns>
+    [Obsolete("Use NextInt(low, high+1) instead")]
     public static int RandInt(int low, int high)
     {
         CheckRand();
         return rand.Next(low, high + 1);
     }
 
+    public static int NextInt(int low, int high)
+    {
+        CheckRand();
+        return rand.Next(low, high);
+    }
+
+    [Obsolete("Use NextIntBounds(min, max, center, range) instead")]
     public static int RandIntBounds(int min, int max, int center, int range)
     {
         CheckRand();
         return RandInt(Math.Max(min, center - range), Math.Min(max, center + range));
+    }
+
+    public static int NextIntBounds(int min, int max, int center, int range)
+    {
+        CheckRand();
+        return NextInt(Math.Max(min, center - range), Math.Min(max, center + range));
+    }
+
+    public static double RandDouble(double low, double high)
+    {
+        CheckRand();
+        return rand.NextDouble() * (high - low) + low;
     }
 
     /// <summary>
@@ -49,10 +69,17 @@ public class RandomNum
     /// <param name="low"></param>
     /// <param name="high"></param>
     /// <returns></returns>
+    [Obsolete("Use NextLong(low, high+1) instead")]
     public static long RandLong(long low, long high)
     {
         CheckRand();
         return rand.NextInt64(low, high + 1);
+    }
+
+    public static long NextLong(long low, long high)
+    {
+        CheckRand();
+        return rand.NextInt64(low, high);
     }
 
     private static void CheckRand()

@@ -9,6 +9,23 @@ using System.Linq;
 
 namespace FF12Rando;
 
+public enum EnemyStatType
+{
+    HP,
+    MP,
+    STR,
+    MAG,
+    VIT,
+    SPD,
+    EVA,
+    DEF,
+    MRES,
+    ATK,
+    LP,
+    EXP,
+    SIZE
+}
+
 public partial class EnemyRando : Randomizer
 {
     private readonly Dictionary<string, DataStoreARD> ards = new();
@@ -34,9 +51,24 @@ public partial class EnemyRando : Randomizer
             enemyData.Add(e.ID, e);
         }, FileHelpers.CSVFileHeader.HasHeader);
     }
+
     public override void Randomize()
     {
         RandoUI.SetUIProgressIndeterminate("Randomizing Enemy Data...");
+        ApplyEXPLPScaling();
+
+        if (FF12Flags.Stats.EnemyStats.FlagEnabled)
+        {
+            FF12Flags.Stats.EnemyStats.SetRand();
+
+            RandomizeStats();
+
+            RandomNum.ClearRand();
+        }
+    }
+
+    private void ApplyEXPLPScaling()
+    {
         ards.ForEach(pair =>
         {
             List<DataStoreARDStats> bossStats = new();
@@ -81,6 +113,281 @@ public partial class EnemyRando : Randomizer
     {
         float lpMult = FF12Flags.Other.LPMult.FlagEnabled ? (isBoss ? FF12Flags.Other.LPMultBossAmt.Value : FF12Flags.Other.LPMultAmt.Value) / 100f : 1;
         stats.LP = (byte)Math.Min(stats.LP * lpMult, 255);
+    }
+
+    private void RandomizeStats()
+    {
+        // Group by enemy name ID to ensure all variants of the same enemy get the same stats
+        Dictionary<int, List<DataStoreARDStats>> enemyStatsGroups = new();
+        foreach (var ard in ards.Values)
+        {
+            foreach (var basicInfo in ard.BasicInfo)
+            {
+                if (!enemyStatsGroups.ContainsKey(basicInfo.NameID))
+                {
+                    enemyStatsGroups[basicInfo.NameID] = new List<DataStoreARDStats>();
+                }
+
+                enemyStatsGroups[basicInfo.NameID].Add(ard.DefaultStats[basicInfo.DefaultStatsIndex]);
+                enemyStatsGroups[basicInfo.NameID].Add(ard.LevelStats[basicInfo.LevelStatsIndex]);
+            }
+        }
+
+        // Randomize stats for each enemy group
+        foreach (var group in enemyStatsGroups)
+        {
+            StatDef<EnemyStatType> size = new()
+            {
+                Type = EnemyStatType.SIZE,
+                MinValue = 1,
+                MaxValue = 300,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemySize.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemySize.Value,
+                RandomizeOrderPriority = 10
+            };
+            StatDef<EnemyStatType> hp = new()
+            {
+                Type = EnemyStatType.HP,
+                MinValue = 10,
+                MaxValue = 999999999,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyHPMP.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyHPMP.Value,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100
+            };
+            StatDef<EnemyStatType> mp = new()
+            {
+                Type = EnemyStatType.MP,
+                MinValue = 0,
+                MaxValue = 9999,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyHPMP.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyHPMP.Value,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100
+            };
+            StatDef<EnemyStatType> str = new()
+            {
+                Type = EnemyStatType.STR,
+                MinValue = 1,
+                MaxValue = 255,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyBaseStats.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyBaseStats.Value,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100
+            };
+            StatDef<EnemyStatType> mag = new()
+            {
+                Type = EnemyStatType.MAG,
+                MinValue = 1,
+                MaxValue = 255,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyBaseStats.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyBaseStats.Value,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100
+            };
+            StatDef<EnemyStatType> vit = new()
+            {
+                Type = EnemyStatType.VIT,
+                MinValue = 1,
+                MaxValue = 255,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyBaseStats.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyBaseStats.Value,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100
+            };
+            StatDef<EnemyStatType> spd = new()
+            {
+                Type = EnemyStatType.SPD,
+                MinValue = 1,
+                MaxValue = 255,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyBaseStats.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyBaseStats.Value,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100
+            };
+            StatDef<EnemyStatType> eva = new()
+            {
+                Type = EnemyStatType.EVA,
+                MinValue = 1,
+                MaxValue = 255,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyBaseStats.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyBaseStats.Value,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100
+            };
+            StatDef<EnemyStatType> def = new()
+            {
+                Type = EnemyStatType.DEF,
+                MinValue = 1,
+                MaxValue = 255,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyBaseStats.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyBaseStats.Value,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100
+            };
+            StatDef<EnemyStatType> mres = new()
+            {
+                Type = EnemyStatType.MRES,
+                MinValue = 1,
+                MaxValue = 255,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyBaseStats.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyBaseStats.Value,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100
+            };
+            StatDef<EnemyStatType> atk = new()
+            {
+                Type = EnemyStatType.ATK,
+                MinValue = 1,
+                MaxValue = 255,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyBaseStats.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyBaseStats.Value,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100
+            };
+            StatDef<EnemyStatType> lp = new()
+            {
+                Type = EnemyStatType.LP,
+                MinValue = 1,
+                MaxValue = 255,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyEXPLP.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyEXPLP.Value,
+                RandomizeOrderPriority = -5,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100 && FF12Flags.Stats.EnemyHPMP.Value == 100 && FF12Flags.Stats.EnemyBaseStats.Value == 100
+            };
+            StatDef<EnemyStatType> exp = new()
+            {
+                Type = EnemyStatType.EXP,
+                MinValue = 0,
+                MaxValue = 999999,
+                MinMultiplier = 1.0 / FF12Flags.Stats.EnemyEXPLP.Value,
+                MaxMultiplier = FF12Flags.Stats.EnemyEXPLP.Value,
+                RandomizeOrderPriority = -5,
+                RandomizeDirectly = FF12Flags.Stats.EnemySize.Value == 100 && FF12Flags.Stats.EnemyHPMP.Value == 100 && FF12Flags.Stats.EnemyBaseStats.Value == 100
+            };
+
+            size.RandomizeFunc = (mult) =>
+            {
+                double newMult = RandomNum.RandDouble(1.0 / (FF12Flags.Stats.EnemySize.Value / 100.0), 1.0 * (FF12Flags.Stats.EnemySize.Value / 100.0)) * mult;
+
+                double substatMult = Math.Sqrt(newMult);
+                if (FF12Flags.Stats.EnemyHPMP.Value > 100)
+                {
+                    hp.RandomizeFunc(substatMult);
+                    mp.RandomizeFunc(substatMult);
+                }
+
+                if (FF12Flags.Stats.EnemyBaseStats.Value > 100)
+                {
+                    str.RandomizeFunc(substatMult);
+                    mag.RandomizeFunc(substatMult);
+                    vit.RandomizeFunc(substatMult);
+                    spd.RandomizeFunc(substatMult);
+                    eva.RandomizeFunc(substatMult);
+                    def.RandomizeFunc(substatMult);
+                    mres.RandomizeFunc(substatMult);
+                    atk.RandomizeFunc(substatMult);
+                }
+
+                if (FF12Flags.Stats.EnemySize.Value > 100)
+                {
+                    size.Multiplier *= newMult;
+                }
+            };
+
+            Func<StatDef<EnemyStatType>, int, Action<double>> statRandomizeFuncBuilder = (statType, flagValue) =>
+            {
+                return (mult) =>
+                {
+                    double newMult = RandomNum.RandDouble(1.0 / (flagValue / 100.0), 1.0 * (flagValue / 100.0)) * mult;
+
+                    if (FF12Flags.Stats.EnemyEXPLP.Value > 100)
+                    {
+                        exp.RandomizeFunc(newMult);
+                        lp.RandomizeFunc(newMult);
+                    }
+
+                    if (flagValue > 100)
+                    {
+                        statType.Multiplier *= newMult;
+                    }
+                };
+            };
+            hp.RandomizeFunc = statRandomizeFuncBuilder(hp, FF12Flags.Stats.EnemyHPMP.Value);
+            mp.RandomizeFunc = statRandomizeFuncBuilder(mp, FF12Flags.Stats.EnemyHPMP.Value);
+            str.RandomizeFunc = statRandomizeFuncBuilder(str, FF12Flags.Stats.EnemyBaseStats.Value);
+            mag.RandomizeFunc = statRandomizeFuncBuilder(mag, FF12Flags.Stats.EnemyBaseStats.Value);
+            vit.RandomizeFunc = statRandomizeFuncBuilder(vit, FF12Flags.Stats.EnemyBaseStats.Value);
+            spd.RandomizeFunc = statRandomizeFuncBuilder(spd, FF12Flags.Stats.EnemyBaseStats.Value);
+            eva.RandomizeFunc = statRandomizeFuncBuilder(eva, FF12Flags.Stats.EnemyBaseStats.Value);
+            def.RandomizeFunc = statRandomizeFuncBuilder(def, FF12Flags.Stats.EnemyBaseStats.Value);
+            mres.RandomizeFunc = statRandomizeFuncBuilder(mres, FF12Flags.Stats.EnemyBaseStats.Value);
+            atk.RandomizeFunc = statRandomizeFuncBuilder(atk, FF12Flags.Stats.EnemyBaseStats.Value);
+
+            exp.RandomizeFunc = (mult) =>
+            {
+                if (FF12Flags.Stats.EnemyEXPLP.Value > 100)
+                {
+                    double newMult = RandomNum.RandDouble(1.0 / (FF12Flags.Stats.EnemyEXPLP.Value / 100.0), 1.0 * (FF12Flags.Stats.EnemyEXPLP.Value / 100.0)) * mult;
+                    exp.Multiplier *= newMult;
+                }
+            };
+            lp.RandomizeFunc = (mult) =>
+            {
+                if (FF12Flags.Stats.EnemyEXPLP.Value > 100)
+                {
+                    double newMult = RandomNum.RandDouble(1.0 / (FF12Flags.Stats.EnemyEXPLP.Value / 100.0), 1.0 * (FF12Flags.Stats.EnemyEXPLP.Value / 100.0)) * mult;
+                    lp.Multiplier *= newMult;
+                }
+            };
+
+            StatRandomizer<EnemyStatType> statRandomizer = new();
+            statRandomizer[EnemyStatType.HP] = hp;
+            statRandomizer[EnemyStatType.MP] = mp;
+            statRandomizer[EnemyStatType.STR] = str;
+            statRandomizer[EnemyStatType.MAG] = mag;
+            statRandomizer[EnemyStatType.VIT] = vit;
+            statRandomizer[EnemyStatType.SPD] = spd;
+            statRandomizer[EnemyStatType.EVA] = eva;
+            statRandomizer[EnemyStatType.DEF] = def;
+            statRandomizer[EnemyStatType.MRES] = mres;
+            statRandomizer[EnemyStatType.ATK] = atk;
+            statRandomizer[EnemyStatType.LP] = lp;
+            statRandomizer[EnemyStatType.EXP] = exp;
+            statRandomizer[EnemyStatType.SIZE] = size;
+
+            statRandomizer.Randomize();
+
+            foreach (var stats in group.Value)
+            {
+                if (FF12Flags.Stats.EnemyHPMP.Value > 100)
+                {
+                    stats.HP = (uint)statRandomizer[EnemyStatType.HP].ApplyMult((int)stats.HP);
+                    stats.MP = (ushort)statRandomizer[EnemyStatType.MP].ApplyMult((int)stats.MP);
+                }
+
+                if (FF12Flags.Stats.EnemyBaseStats.Value > 100)
+                {
+                    stats.Strength = (byte)statRandomizer[EnemyStatType.STR].ApplyMult((int)stats.Strength);
+                    stats.MagickPower = (byte)statRandomizer[EnemyStatType.MAG].ApplyMult((int)stats.MagickPower);
+                    stats.Vitality = (byte)statRandomizer[EnemyStatType.VIT].ApplyMult((int)stats.Vitality);
+                    stats.Speed = (byte)statRandomizer[EnemyStatType.SPD].ApplyMult((int)stats.Speed);
+                    stats.Evade = (byte)statRandomizer[EnemyStatType.EVA].ApplyMult((int)stats.Evade);
+                    stats.Defense = (byte)statRandomizer[EnemyStatType.DEF].ApplyMult((int)stats.Defense);
+                    stats.MagickResist = (byte)statRandomizer[EnemyStatType.MRES].ApplyMult((int)stats.MagickResist);
+                    stats.AttackPower = (byte)statRandomizer[EnemyStatType.ATK].ApplyMult((int)stats.AttackPower);
+                }
+
+                if (FF12Flags.Stats.EnemyEXPLP.Value > 100)
+                {
+                    stats.LP = (byte)statRandomizer[EnemyStatType.LP].ApplyMultControlled((int)stats.LP);
+                    stats.Experience = (uint)statRandomizer[EnemyStatType.EXP].ApplyMultControlled((int)stats.Experience);
+                }
+            }
+
+            // Apply size updates
+            // Find any basic info entries with the same name ID as the current group
+            if (FF12Flags.Stats.EnemySize.Value > 100)
+            {
+                var basicInfoEntries = ards.Values.SelectMany(ard => ard.BasicInfo).Where(b => b.NameID == group.Key);
+                foreach (var basicInfo in basicInfoEntries)
+                {
+                    basicInfo.SizeX = (ushort)statRandomizer[EnemyStatType.SIZE].ApplyMult((int)basicInfo.SizeX);
+                    basicInfo.SizeY = (ushort)statRandomizer[EnemyStatType.SIZE].ApplyMult((int)basicInfo.SizeY);
+                    basicInfo.SizeZ = (ushort)statRandomizer[EnemyStatType.SIZE].ApplyMult((int)basicInfo.SizeZ);
+                }
+            }
+        }
     }
 
     public override void Save()

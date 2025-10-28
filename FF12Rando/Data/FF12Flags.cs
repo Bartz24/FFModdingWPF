@@ -22,8 +22,9 @@ public class FF12Flags
     }
     public class Stats
     {
-        public static Flag EquipStats, EquipElements, EquipStatus, EquipAugments;
+        public static Flag EquipStats, EquipElements, EquipStatus, EquipAugments, EnemyStats;
         public static ToggleFlagProperty EquipHiddenStats;
+        public static NumberFlagProperty EnemyHPMP, EnemyBaseStats, EnemySize, EnemyEXPLP;
         internal static void Init()
         {
             EquipStats = new Flag()
@@ -65,6 +66,62 @@ public class FF12Flags
                 DescriptionFormat = "Randomize equipment on-hit, on-equip, and immunity status effects.\n" +
                 "Also affects enemies."
             }.Register(FlagType.Items);
+
+            EnemyStats = new Flag()
+            {
+                Text = "Randomize Enemy Stats",
+                FlagID = "EnemyStats",
+                DescriptionFormat = "Randomize enemy stats such as HP, Strength, Magic, Defense, and Evasion."
+            }.Register(FlagType.Items);
+
+            EnemyHPMP = new NumberFlagProperty()
+            {
+                Text = "Enemy HP/MP Multiplier %",
+                ID = "EnemyHPMP",
+                Description = "HP/MP values for enemies can be multiplied or divided up to this percentage.",
+                ValueText = "Multiplier:",
+                MinValue = 100,
+                MaxValue = 1000,
+                StepSize = 10,
+                Value = 100
+            }.Register(EnemyStats);
+
+            EnemyBaseStats = new NumberFlagProperty()
+            {
+                Text = "Enemy Base Stats Multiplier %",
+                ID = "EnemyBaseStats",
+                Description = "Base stats (Strength, Magic, Vitality, etc.) for enemies can be multiplied or divided up to this percentage.",
+                ValueText = "Multiplier:",
+                MinValue = 100,
+                MaxValue = 200,
+                StepSize = 10,
+                Value = 100
+            }.Register(EnemyStats);
+
+            EnemySize = new NumberFlagProperty()
+            {
+                Text = "Enemy Size Multiplier %",
+                ID = "EnemySize",
+                Description = "Size for enemies can be multiplied or divided up to this percentage.\n" +
+                "Affects hitbox size and the other stats of the enemy (larger enemies tend to have HP/STR/VIT/DEF/ATK and smaller enemies tend to have higher MP/MAP/SPD/EVA/MRES).",
+                ValueText = "Multiplier:",
+                MinValue = 100,
+                MaxValue = 300,
+                StepSize = 10,
+                Value = 100
+            }.Register(EnemyStats);
+
+            EnemyEXPLP = new NumberFlagProperty()
+            {
+                Text = "Enemy EXP/LP Multiplier %",
+                ID = "EnemyEXPLP",
+                Description = "EXP/LP values for enemies can be multiplied or divided up to this percentage.",
+                ValueText = "Multiplier:",
+                MinValue = 100,
+                MaxValue = 1000,
+                StepSize = 10,
+                Value = 100
+            }.Register(EnemyStats);
         }
     }
 
