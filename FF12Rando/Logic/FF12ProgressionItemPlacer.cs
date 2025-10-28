@@ -50,10 +50,10 @@ public class FF12ProgressionItemPlacer : ProgressionItemPlacer<ItemLocation>
         // Trophies should not be limited
         if (itemTypeName == "Trophy")
         {
-            return (0, 100);
+            return (20, 100);
         }
-        // Black orbs should appear in later half at minimum most of the time
-        else if (itemTypeName == "2116" && RandomNum.RandInt(0, 99) < 60)
+        // Black orbs should appear later
+        else if (itemTypeName == "2116")
         {
             int min = RandomNum.RandInt(50, 90);
             int max = Math.Min(min + RandomNum.RandInt(10, 30), 100);
@@ -67,7 +67,7 @@ public class FF12ProgressionItemPlacer : ProgressionItemPlacer<ItemLocation>
         }
         else if (itemTypeName == "Esper")
         {
-            int min = RandomNum.RandInt(20, 90);
+            int min = RandomNum.RandInt(30, 90);
             int max = Math.Min(min + RandomNum.RandInt(10, 60), 100);
             return (min, max);
         }
@@ -81,7 +81,7 @@ public class FF12ProgressionItemPlacer : ProgressionItemPlacer<ItemLocation>
         // Clan Primer
         else if (itemTypeName == "8071")
         {
-            int min = RandomNum.RandInt(10, 60);
+            int min = RandomNum.RandInt(20, 60);
             int max = Math.Min(min + RandomNum.RandInt(50, 80), 100);
             return (min, max);
         }
@@ -107,5 +107,17 @@ public class FF12ProgressionItemPlacer : ProgressionItemPlacer<ItemLocation>
         {
             base.PlaceFixed();
         }
+    }
+
+    protected override long GetLocationWeight(ItemLocation l)
+    {
+        long weight = base.GetLocationWeight(l);
+
+        if (l is StartingInvLocation)
+        {
+            weight /= 10;
+        }
+
+        return weight;
     }
 }

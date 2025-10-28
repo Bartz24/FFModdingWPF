@@ -91,7 +91,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
         // Refresh more frequently at the start to allow for more dynamic unlocking of areas and locations and then slow down.
         int nextPercentageQueueRefreshIndex = 0;
-        double[] refreshIncrements = new double[] { 0.05, 0.2, 0.4, 0.7, double.MaxValue };
+        double[] refreshIncrements = new double[] { 0.1, 0.4, 0.7, double.MaxValue };
 
         T firstFailure = null;
         while (RemainingToPlace.Count > 0 || RemainingFixed.Count > 0)
@@ -185,8 +185,8 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
                 if (customRange == null)
                 {
                     minIndex = RandomNum.RandInt(15, 70);
-                    //var (minAdjust, maxAdjust) = GetLocationOffsets(next, similarItemType);
-                    var (minAdjust, maxAdjust) = (0, 0);
+                    var (minAdjust, maxAdjust) = GetLocationOffsets(next, similarItemType);
+                    //var (minAdjust, maxAdjust) = (0, 0);
                     minIndex = Math.Clamp(minIndex + minAdjust, 0, 80);
                     var rangeCap = Math.Max(100 + maxAdjust, 31);
                     int range = RandomNum.RandInt(0, 99) < 30 ? rangeCap : RandomNum.RandInt(30, rangeCap);
@@ -218,7 +218,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     protected virtual (int,int) GetLocationOffsets(T location, string itemType)
     {
         var newlyAccessible = GetNewlyAccessibleWithLocation(UnlockedLocations, location);
-        var unlockingWeight = newlyAccessible.Count / 10;
+        var unlockingWeight = newlyAccessible.Count;
         var remainingWithInterest = PossibleLocations.Where(loc => loc.Requirements.GetPossibleRequirements().Contains(itemType)).Count();
         var remainingFixedWithInterest = FixedLocations.Where(loc => loc.Requirements.GetPossibleRequirements().Contains(itemType)).Count();
         // Min bound is adjusted downwards by how many locations are immediately unlocked by this item, as well as the number of overall locations still locked by this item in some way.
@@ -412,7 +412,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     protected T SelectLocation(T replacement, int n)
     {
         // Select the first n groups. If it is empty, grow the search by 1 each time
-        var possibleLocations = UnlockedLocations.Keys.OrderBy(k => k).Take(n).SelectMany(k => UnlockedLocations[k]).ToHashSet();       
+        var possibleLocations = UnlockedLocations.Keys.OrderBy(k => k).Take(n).SelectMany(k => UnlockedLocations[k]).ToHashSet();
 
         // Remove any locations where the replacement cannot be placed
         possibleLocations.RemoveWhere(l => !replacement.CanReplace(l));
@@ -429,12 +429,15 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             }
         }
 
-        return RandomNum.SelectRandomWeighted(possibleLocations, l => (long)(
-                    GetAreaWeight(l) 
-                    * Math.Pow(l.BaseDifficulty + 1, 1.02 + .02 * Math.Max(0, 10 - DepthDifficulty)) 
-                    * 100));
+        return RandomNum.SelectRandomWeighted(possibleLocations, GetLocationWeight);
 
     }
+
+    protected virtual long GetLocationWeight(T l)
+    {
+        return (long)(GetAreaWeight(l) * Math.Pow(l.BaseDifficulty + 1, 1.02 + .01 * Math.Max(0, 10 - DepthDifficulty)) * 100);
+    }
+
     protected virtual double GetAreaWeight(T location)
     {
         return Math.Max(1, location.Areas.Select(a => AreaMultipliers[a]).Average());

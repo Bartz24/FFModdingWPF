@@ -156,7 +156,6 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 
     public override bool IsFixedLocation(ItemLocation location)
     {
-
         if (!FF12Flags.Items.KeyStartingInv.Enabled)
         {
             if (location is StartingInvLocation s)

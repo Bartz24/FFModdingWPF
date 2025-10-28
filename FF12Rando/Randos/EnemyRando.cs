@@ -1,4 +1,5 @@
 ﻿using Bartz24.Data;
+using Bartz24.Docs;
 using Bartz24.FF12;
 using Bartz24.RandoWPF;
 using FF12Rando;
@@ -118,14 +119,14 @@ public partial class EnemyRando : Randomizer
     private void RandomizeStats()
     {
         // Group by enemy name ID to ensure all variants of the same enemy get the same stats
-        Dictionary<int, List<DataStoreARDStats>> enemyStatsGroups = new();
+        Dictionary<int, HashSet<DataStoreARDStats>> enemyStatsGroups = new();
         foreach (var ard in ards.Values)
         {
             foreach (var basicInfo in ard.BasicInfo)
             {
                 if (!enemyStatsGroups.ContainsKey(basicInfo.NameID))
                 {
-                    enemyStatsGroups[basicInfo.NameID] = new List<DataStoreARDStats>();
+                    enemyStatsGroups[basicInfo.NameID] = new HashSet<DataStoreARDStats>();
                 }
 
                 enemyStatsGroups[basicInfo.NameID].Add(ard.DefaultStats[basicInfo.DefaultStatsIndex]);
@@ -258,7 +259,7 @@ public partial class EnemyRando : Randomizer
 
             size.RandomizeFunc = (mult) =>
             {
-                double newMult = RandomNum.RandDouble(1.0 / (FF12Flags.Stats.EnemySize.Value / 100.0), 1.0 * (FF12Flags.Stats.EnemySize.Value / 100.0)) * mult;
+                double newMult = RandomNum.RandMultiplier(FF12Flags.Stats.EnemySize.Value) * mult;
 
                 double substatMult = Math.Sqrt(newMult);
                 if (FF12Flags.Stats.EnemyHPMP.Value > 100)
@@ -289,7 +290,7 @@ public partial class EnemyRando : Randomizer
             {
                 return (mult) =>
                 {
-                    double newMult = RandomNum.RandDouble(1.0 / (flagValue / 100.0), 1.0 * (flagValue / 100.0)) * mult;
+                    double newMult = RandomNum.RandMultiplier(flagValue) * mult;
 
                     if (FF12Flags.Stats.EnemyEXPLP.Value > 100)
                     {
@@ -318,7 +319,7 @@ public partial class EnemyRando : Randomizer
             {
                 if (FF12Flags.Stats.EnemyEXPLP.Value > 100)
                 {
-                    double newMult = RandomNum.RandDouble(1.0 / (FF12Flags.Stats.EnemyEXPLP.Value / 100.0), 1.0 * (FF12Flags.Stats.EnemyEXPLP.Value / 100.0)) * mult;
+                    double newMult = RandomNum.RandMultiplier(FF12Flags.Stats.EnemyEXPLP.Value) * mult;
                     exp.Multiplier *= newMult;
                 }
             };
@@ -326,7 +327,7 @@ public partial class EnemyRando : Randomizer
             {
                 if (FF12Flags.Stats.EnemyEXPLP.Value > 100)
                 {
-                    double newMult = RandomNum.RandDouble(1.0 / (FF12Flags.Stats.EnemyEXPLP.Value / 100.0), 1.0 * (FF12Flags.Stats.EnemyEXPLP.Value / 100.0)) * mult;
+                    double newMult = RandomNum.RandMultiplier(FF12Flags.Stats.EnemyEXPLP.Value) * mult;
                     lp.Multiplier *= newMult;
                 }
             };
@@ -397,5 +398,90 @@ public partial class EnemyRando : Randomizer
         {
             File.WriteAllBytes($"{Generator.DataOutFolder}\\plan_master\\in\\plan_map\\{p.Key}\\area\\{p.Key}.ard", p.Value.Data);
         });
+    }
+
+    public override Dictionary<string, HTMLPage> GetDocumentation()
+    {
+        var pages = base.GetDocumentation();
+
+        HTMLPage page = new("Enemies", "template/documentation.html");
+
+        // For each ARD area, add a table of enemies present with their stats
+        foreach (var areaPair in ards.OrderBy(p => p.Key))
+        {
+            string areaName = areaPair.Key;
+            var ard = areaPair.Value;
+
+            // Group basic infos by NameID (enemy kind)
+            var groups = ard.BasicInfo.GroupBy(b => b.NameID);
+
+            List<List<object>> rows = new();
+
+            foreach (var g in groups)
+            {
+                int nameId = g.Key;
+
+                // Pick a display name from enemies.csv if available, else fallback to ID
+                string enemyName = enemyData.Values.FirstOrDefault(e => e.IntID == nameId)?.Name ?? $"{nameId}";
+
+                // Use the first entry for size display (sizes may vary slightly per placement)
+                var bfSample = g.First();
+                string sizeDisp = $"{bfSample.SizeX}";
+
+                // Collect distinct default/level stats indices referenced by this enemy in this ARD
+                var defaultIdxs = g.Select(b => (int)b.DefaultStatsIndex).Distinct().ToList();
+                var levelIdxs = g.Select(b => (int)b.LevelStatsIndex).Distinct().ToList();
+
+                // Default stats rows
+                foreach (int idx in defaultIdxs)
+                {
+                    var s = ard.DefaultStats[idx];
+
+                    rows.Add(new List<object>
+                    {
+                        enemyName,
+                        s.HP,
+                        s.MP,
+                        s.Strength,
+                        s.MagickPower,
+                        s.Vitality,
+                        s.Speed,
+                        s.Evade,
+                        s.Defense,
+                        s.MagickResist,
+                        s.AttackPower,
+                        s.LP,
+                        s.Experience,
+                        sizeDisp
+                    });
+                }
+            }
+
+            // Sort rows by enemy name then by stats type (Default before Level)
+            rows = rows
+                .OrderBy(r => r[0].ToString())
+                .ThenBy(r => r[1].ToString())
+                .ToList();
+
+            if (rows.Count == 0)
+            {
+                // Nothing to show for this area (rare), skip adding empty table
+                continue;
+            }
+
+            // Build table for this area
+            var columns = new List<string>
+            {
+                "Name",
+                "HP","MP","STR","MAG","VIT","SPD","EVA","DEF","MRES","ATK","LP","EXP",
+                "Size"
+            };
+            var widths = new List<int> { 14, 8, 8, 6, 6, 6, 6, 6, 6, 6, 6, 6, 8, 8 };
+
+            page.HTMLElements.Add(new Table(areaName, columns, widths, rows, id: $"enemies_{areaName.Replace(" ", "_").ToLower()}"));
+        }
+
+        pages.Add("enemies", page);
+        return pages;
     }
 }

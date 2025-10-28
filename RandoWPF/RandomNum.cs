@@ -63,6 +63,13 @@ public class RandomNum
         return rand.NextDouble() * (high - low) + low;
     }
 
+    public static double RandMultiplier(int multPercent)
+    {
+        CheckRand();
+        double absVal = RandDouble(1.0, multPercent / 100.0);
+        return rand.Next(0, 2) == 0 ? absVal : 1.0 / absVal;
+    }
+
     /// <summary>
     /// Gets a random number from (low, high)
     /// </summary>
