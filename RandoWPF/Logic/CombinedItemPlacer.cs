@@ -121,12 +121,9 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
 
     protected virtual void CalculatePlaythrough()
     {
-        // TODO: Improve performance as it takes 5-10 min and it doesn't work yet without being way too slow.
-#if DEBUG
         PlaythroughCalculator = new PlaythroughCalculator<L>(SphereCalculator);
         ProgressionItemPlacer<L> progressionPlacer = (ProgressionItemPlacer<L>)Placers.FirstOrDefault(x => x is ProgressionItemPlacer<L>);
         PlaythroughCalculator.CalculatePlaythrough(progressionPlacer.ProgressionLocations, true);
-#endif
     }
 
     protected abstract HashSet<string> GetReorderItemCategories();
