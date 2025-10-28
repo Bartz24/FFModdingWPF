@@ -17,13 +17,13 @@ public class LocationTraitsItemReq : ItemReq
     }
     protected override bool IsMet(ProgressionState state)
     {
-        var dict = ItemLocationProvider();
+        var dict = GetItemLocations();
         return state.LocationsCompleted.Where(name => dict[name].Traits.Contains(trait)).Count() >= amount;
     }
 
     protected override List<string> GetPossibleRequirementsImpl()
     {
-        var dict = ItemLocationProvider();
+        var dict = GetItemLocations();
         return dict.Where(kv => kv.Value != null && kv.Value.Traits.Contains(trait)).Select(kv => kv.Key).ToList();
     }
     public override int GetPossibleRequirementsCount() { return amount; }

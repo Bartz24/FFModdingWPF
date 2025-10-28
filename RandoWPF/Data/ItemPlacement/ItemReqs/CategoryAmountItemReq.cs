@@ -19,14 +19,14 @@ public class CategoryAmountItemReq : ItemReq
     {
         return state.ItemsAvailable.Where(kv =>
         {
-            var dict = ItemReq.ItemProvider();
+            var dict = ItemReq.GetItems();
             return dict.ContainsKey(kv.Key) && dict[kv.Key].Category == category;
         }).Sum(kv => kv.Value) >= amount;
     }
 
     protected override List<string> GetPossibleRequirementsImpl()
     {
-        var dict = ItemReq.ItemProvider();
+        var dict = ItemReq.GetItems();
         return dict.Where(kv => kv.Value?.Category == category).Select(kv => kv.Key).ToList();
     }
     public override int GetPossibleRequirementsCount() { return amount; }

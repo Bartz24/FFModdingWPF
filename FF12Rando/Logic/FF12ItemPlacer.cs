@@ -230,7 +230,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         if (FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalMaxSphere))
         {
             EquipRando equipRando = Generator.Get<EquipRando>();
-            var categories = GetReorderItemCategories();
+            HashSet<string> categories = ["Item", "Weapon", "Armor", "Accessory", "Loot"];
 
             SphereCalculator<ItemLocation> calc = new (Generator, AreaGraph);
             calc.CalculateSpheres(PossibleLocations, false);
@@ -256,6 +256,10 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
                     ItemLocation l = RandomNum.SelectRandom(maxSphere);
                     l.SetItem("8070", 1);
                     placed = true;
+
+                    // Add to progression locations along with the victory location since they may not be in the set yet
+                    ProgressionPlacer.ProgressionLocations.Add(l);
+                    ProgressionPlacer.ProgressionLocations.Add(PossibleLocations.First(loc => loc.GetItem(false)?.Item == "Victory"));
                 }
                 else
                 {
@@ -267,7 +271,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 
     protected override HashSet<string> GetReorderItemCategories()
     {
-        return new() { "Item", "Weapon", "Armor", "Accessory" };
+        return ["Item", "Weapon", "Armor", "Accessory", "Ability"];
     }
 
     protected override Dictionary<string, ItemData> GetReorderItems()

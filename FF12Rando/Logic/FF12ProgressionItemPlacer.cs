@@ -71,6 +71,26 @@ public class FF12ProgressionItemPlacer : ProgressionItemPlacer<ItemLocation>
             int max = Math.Min(min + RandomNum.RandInt(10, 60), 100);
             return (min, max);
         }
+        // Cactus Flower
+        else if (itemTypeName == "8073")
+        {
+            int min = RandomNum.RandInt(50, 70);
+            int max = Math.Min(min + RandomNum.RandInt(20, 30), 100);
+            return (min, max);
+        }
+        // Clan Primer
+        else if (itemTypeName == "8071")
+        {
+            int min = RandomNum.RandInt(10, 60);
+            int max = Math.Min(min + RandomNum.RandInt(50, 80), 100);
+            return (min, max);
+        }
+        else if (itemTypeName == "Aeropass")
+        {
+            int min = RandomNum.RandInt(30, 90);
+            int max = Math.Min(min + RandomNum.RandInt(40, 60), 100);
+            return (min, max);
+        }
 
         return base.GetCustomItemTypeRange(itemTypeName);
     }

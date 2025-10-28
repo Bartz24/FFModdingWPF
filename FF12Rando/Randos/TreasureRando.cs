@@ -135,6 +135,9 @@ public partial class TreasureRando : Randomizer
         {
             FF12Flags.Items.Treasures.SetRand();
 
+            // Apply character rando to fake locations and updating starting inventory requirements
+            UpdateCharacterRandoOnLocations();
+
             CollapseAndSelectTreasures();
 
             Dictionary<string, double> areaMults = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
@@ -189,6 +192,33 @@ public partial class TreasureRando : Randomizer
             {
                 ItemLocations[l.ID].SetItem("10C7", ItemLocations[l.ID].GetItem(false).Value.Item2);
             });
+        }
+    }
+
+    private void UpdateCharacterRandoOnLocations()
+    {
+        // Update fake locations
+        PartyRando partyRando = Generator.Get<PartyRando>();
+        foreach (var location in ItemLocations.Values.Where(l => l is FakeLocation))
+        {
+            FakeLocation fLocation = (FakeLocation)location;
+            var item = fLocation.GetItem(true);
+            if (partyRando.CharacterMapping.Contains(item.Value.Item))
+            {
+                int index = partyRando.CharacterMapping.ToList().IndexOf(item.Value.Item);
+                fLocation.FakeItem = partyRando.CharacterMapping[partyRando.Characters[index]];
+            }
+        }
+
+        // Update starting inventory requirements
+        foreach (var location in ItemLocations.Values.Where(l => l is StartingInvLocation))
+        {
+            StartingInvLocation sLocation = (StartingInvLocation)location;
+            string charName = partyRando.CharacterMapping.FirstOrDefault(name => sLocation.Name.Contains(name));
+            FakeLocation fakeUnlock = ItemLocations.Values.Where(l => l is FakeLocation).Select(l => (FakeLocation)l).FirstOrDefault(f => f.FakeItem == charName);
+            sLocation.Requirements = fakeUnlock.Requirements;
+            sLocation.Areas = fakeUnlock.Areas;
+            sLocation.BaseDifficulty = fakeUnlock.BaseDifficulty;
         }
     }
 
@@ -388,18 +418,19 @@ public partial class TreasureRando : Randomizer
 
         page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Sphere" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), ItemLocations.Values.Select(l =>
         {
-            return GetLocationDocumentationLine(l, partyRando);
+            return GetLocationDocumentationLine(l, partyRando, ItemLocations.Values);
         }).Where(l => l != null).ToList(), "itemlocations"));
         pages.Add("item_locations", page);
 
         // Add table for progression playthrough
         if (ItemPlacer.PlaythroughCalculator != null)
         {
+            var locations = ItemPlacer.PlaythroughCalculator.FinalLocations.Select(l => l.loc).ToList();
             HTMLPage playPage = new("Progression Playthrough", "template/documentation.html");
             playPage.HTMLElements.Add(new Table("Progression Playthrough", (new string[] { "Name", "New Contents", "Sphere" }).ToList(), (new int[] { 45, 45, 10 }).ToList(),
-                ItemPlacer.PlaythroughCalculator.FinalLocations.Select(l =>
+                locations.Select(l =>
             {
-                return GetLocationDocumentationLine(l.loc, partyRando);
+                return GetLocationDocumentationLine(l, partyRando, locations);
             }).Where(l => l != null).ToList(), "progressionplaythrough"));
             pages.Add("progression_playthrough", playPage);
         }
@@ -415,7 +446,7 @@ public partial class TreasureRando : Randomizer
         return pages;
     }
 
-    private List<object> GetLocationDocumentationLine(ItemLocation l, PartyRando partyRando)
+    private List<object> GetLocationDocumentationLine(ItemLocation l, PartyRando partyRando, IEnumerable<ItemLocation> locations)
     {
         string display = "";
         if (l is FakeLocation f)
@@ -434,23 +465,33 @@ public partial class TreasureRando : Randomizer
         }
         else if (l is RewardLocation r)
         {
-            if (r.Index > 0)
+            var allRewardsAtLoc = locations.Where(loc => loc is RewardLocation r2 && r2.IntID == r.IntID).Select(loc => (RewardLocation)loc).ToList();
+
+            if (r.Index == allRewardsAtLoc.Select(ar => ar.Index).Min())
+            {
+                // Only display the reward once for all locations that share it
+                DataStoreReward reward = rewards[r.IntID - 0x9000];
+                display = GetRewardDisplay(reward, allRewardsAtLoc);
+            }
+            else
             {
                 return null;
             }
-
-            DataStoreReward reward = rewards[r.IntID - 0x9000];
-            display = GetRewardDisplay(reward);
         }
         else if (l is StartingInvLocation s)
         {
-            if (s.Index > 0)
+            var allStartingInvsAtLoc = locations.Where(loc => loc is StartingInvLocation s2 && s2.IntID == s.IntID).Select(loc => (StartingInvLocation)loc).ToList();
+
+            if (s.Index == allStartingInvsAtLoc.Select(ar => ar.Index).Min())
+            {
+                // Only display the starting inventory once for all locations that share it
+                DataStorePartyMember chara = partyRando.party[s.IntID];
+                display = GetPartyMemberDisplay(chara, allStartingInvsAtLoc);
+            }
+            else
             {
                 return null;
             }
-
-            DataStorePartyMember chara = partyRando.party[s.IntID];
-            display = GetPartyMemberDisplay(chara);
         }
         else
         {
@@ -585,20 +626,20 @@ public partial class TreasureRando : Randomizer
         return id;
     }
 
-    private string GetRewardDisplay(DataStoreReward reward, bool hintableOnly = false)
+    private string GetRewardDisplay(DataStoreReward reward, List<RewardLocation> locations)
     {
         List<string> stringList = new();
-        if (reward.Gil > 0)
+        if (reward.Gil > 0 && locations.Any(l=>l.Index == 0))
         {
             stringList.Add($"{reward.Gil} Gil");
         }
 
-        if (reward.Item1ID != 0xFFFF)
+        if (reward.Item1ID != 0xFFFF && locations.Any(l => l.Index == 1))
         {
             stringList.Add($"{GetItemName(reward.Item1ID.ToString("X4"))} x {reward.Item1Amount}");
         }
 
-        if (reward.Item2ID != 0xFFFF)
+        if (reward.Item2ID != 0xFFFF && locations.Any(l => l.Index == 2))
         {
             stringList.Add($"{GetItemName(reward.Item2ID.ToString("X4"))} x {reward.Item2Amount}");
         }
@@ -606,12 +647,12 @@ public partial class TreasureRando : Randomizer
         return string.Join(", ", stringList);
     }
 
-    private string GetPartyMemberDisplay(DataStorePartyMember chara, bool hintableOnly = false)
+    private string GetPartyMemberDisplay(DataStorePartyMember chara, List<StartingInvLocation> locations)
     {
         List<string> stringList = new();
         for (int i = 0; i < chara.ItemIDs.Count; i++)
         {
-            if (chara.ItemIDs[i] != 0xFFFF)
+            if (chara.ItemIDs[i] != 0xFFFF && locations.Any(l => l.Index == i))
             {
                 stringList.Add($"{GetItemName(chara.ItemIDs[i].ToString("X4"))} x {chara.ItemAmounts[i]}");
             }

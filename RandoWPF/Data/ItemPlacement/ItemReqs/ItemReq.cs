@@ -10,8 +10,29 @@ public abstract class ItemReq
     public static readonly BoolItemReq TRUE = new(true);
     public static readonly BoolItemReq FALSE = new(false);
 
-    public static Func<Dictionary<string, IItem>> ItemProvider { get; set; }
-    public static Func<Dictionary<string, ItemLocation>> ItemLocationProvider { get; set; }
+    private static Dictionary<string, IItem> itemsCache = null;
+    private static Dictionary<string, ItemLocation> itemLocationsCache = null;
+
+    public static Func<Dictionary<string, IItem>> ItemProvider { private get; set; }
+    public static Func<Dictionary<string, ItemLocation>> ItemLocationProvider { private get; set; }
+
+    public static Dictionary<string, IItem> GetItems()
+    {
+        if (itemsCache == null)
+        {
+            itemsCache = ItemProvider();
+        }
+        return itemsCache;
+    }
+
+    public static Dictionary<string, ItemLocation> GetItemLocations()
+    {
+        if (itemLocationsCache == null)
+        {
+            itemLocationsCache = ItemLocationProvider();
+        }
+        return itemLocationsCache;
+    }
 
     public bool IsValid(ProgressionState state)
     {

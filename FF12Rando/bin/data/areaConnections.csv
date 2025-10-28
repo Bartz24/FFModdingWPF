@@ -38,7 +38,6 @@ Ogir Sandsea <-> Nam Sandsea S,Ogir-Yensa Sandsea,Nam-Yensa Sandsea,,BothWays,1
 Nam Sandsea Belito <-> Zertinan Connector N,Nam-Yensa Sandsea Belito,Zertinan Caverns Connector N,,BothWays,1
 Nam Sandsea <-> Zertinan NW,Nam-Yensa Sandsea,Zertinan Caverns NW,,BothWays,1
 Nam Sandsea <-> Raithwall,Nam-Yensa Sandsea,Tomb of Raithwall,,BothWays,1
-Zertinan N -> Zertinan Center,Zertinan Caverns N,Zertinan Caverns Center,,,3
 Zertinan Center <-> Zertinan NE,Zertinan Caverns Center,Zertinan Caverns NE,I(80E0),BothWays,3
 Zertinan Center <-> Zertinan NW,Zertinan Caverns Center,Zertinan Caverns NW,I(80E0),BothWays,3
 Zertinan Center <-> Zertinan N,Zertinan Caverns Center,Zertinan Caverns N,I(80E0),BothWays,3

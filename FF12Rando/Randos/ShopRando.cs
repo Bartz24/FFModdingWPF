@@ -188,7 +188,7 @@ public partial class ShopRando : Randomizer
                             used.Add(newItem);
                         }
 
-                        if (s.Traits.Contains("Unique") && !newItem.StartsWith("00") && !newItem.StartsWith("20") && !newItem.StartsWith("21"))
+                        if (s.Traits.Contains("Unique"))
                         {
                             shopItems.Remove(newItem);
                         }
@@ -205,101 +205,165 @@ public partial class ShopRando : Randomizer
 
             if (FF12Flags.Items.JunkRankScaleShops.Enabled)
             {
-                // Get all the shop slots with consumables, equipment, and abilities and group by their item type
-                var grouping = shopData.Values
-                    .Where(s => !s.Traits.Contains("Unique") && locationsShared.ContainsValue(s.ID))
-                    .Select(s => shops[s.ID]).SelectMany(shop =>
-                    {
-                        return Enumerable.Range(0, shop.GetItems().Count).Select(index => (shop, index));
-                    }).GroupBy(itemSlot =>
-                    {
-                        string id = itemSlot.shop.GetItems()[itemSlot.index];
-                        int intId = Convert.ToInt32(id, 16);
-                        return intId < 0x1000 ? ItemType.Consumable : intId is >= 0x3000 and < 0x5000 ? ItemType.Ability : ItemType.Equipment;
-                    });
+                ReorderNonUniqueShops(equipRando, locationsShared, locationSharedMapping);
 
-                Dictionary<int, List<string>> newShops = new();
-
-                // Group by type and sort the items by its item rank
-                foreach (var group in grouping)
-                {
-                    List<string> items = group.Shuffle().Select(itemSlot => itemSlot.shop.GetItems()[itemSlot.index]).OrderBy(item =>
-                    {
-                        return equipRando.itemData[item].Rank;
-                    }).ToList();
-                    items = RandomNum.ShuffleLocalized(items, 5);
-
-                    // Sort the shop slots by their shop sphere
-                    var slots = group.Shuffle().OrderBy(itemSlot => GetSphere(itemSlot.shop)).ToList();
-
-                    // Go in order and set the junk items
-                    for (int i = 0; i < items.Count; i++)
-                    {
-                        var shop = shopData[slots[i].shop.ID];
-
-                        if (!newShops.ContainsKey(shop.ID))
-                        {
-                            newShops.Add(shop.ID, new());
-                        }
-
-                        // If the item is a duplicate, find a replacement later in the list and swap with it.
-                        // If a replacement does not exist, mark the slot as removed.
-                        // The slot will be cleared after all the replacements.
-                        string newItem = items[i];
-                        if (newShops[shop.ID].Contains(newItem))
-                        {
-                            int swapIndex = -1;
-                            for (int j = i + 1; j < items.Count; j++)
-                            {
-                                if (!newShops[shop.ID].Contains(items[j]))
-                                {
-                                    swapIndex = j;
-                                    break;
-                                }
-                            }
-
-                            // Just skip adding this item if there is no replacement
-                            if (swapIndex == -1)
-                            {
-                                continue;
-                            }
-
-                            (items[i], items[swapIndex]) = (items[swapIndex], items[i]);
-                            newItem = items[i];
-                        }
-
-                        newShops[slots[i].shop.ID].Add(newItem);
-                    }
-                }
-
-                // Set the shop items
-                foreach (var shop in shops.DataList)
-                {
-                    // Get the items for indices not changed
-                    List<string> items = shop.GetItems()
-                        .Where((_, index) =>
-                            !grouping.SelectMany(g => g.ToList())
-                                     .Any(p => p.shop.ID == shop.ID && p.index == index))
-                        .ToList();
-
-                    // Add new items
-                    if (newShops.ContainsKey(shop.ID))
-                    {
-                        items.AddRange(newShops[shop.ID]);
-                    }
-
-                    // Remove duplicates, sort, and set items
-                    shop.SetItems(items.Distinct().OrderBy(itemId => itemId).ToList());
-                }
-
-                // Set the shared shop items
-                foreach (var pair in locationSharedMapping)
-                {
-                    shops[pair.Key].SetItems(shops[pair.Value].GetItems());
-                }
+                ReorderUniqueShops();
             }
 
             RandomNum.ClearRand();
+        }
+    }
+
+    private void ReorderUniqueShops()
+    {
+        // Since unique items are unique across all unique shops, we can just reorder the non-unique shops to have junk items in order of sphere.
+        var grouping = shopData.Values
+            .Where(s => s.Traits.Contains("Unique"))
+            .Select(s => shops[s.ID]).SelectMany(shop =>
+            {
+                return Enumerable.Range(0, shop.GetItems().Count).Select(index => (shop, index));
+            }).GroupBy(itemSlot =>
+            {
+                string id = itemSlot.shop.GetItems()[itemSlot.index];
+                int intId = Convert.ToInt32(id, 16);
+                return intId < 0x1000 ? ItemType.Consumable : intId is >= 0x3000 and < 0x5000 ? ItemType.Ability : ItemType.Equipment;
+            });
+        Dictionary<int, List<string>> newShops = new();
+
+        // Group by type and sort the items by its item rank
+        foreach (var group in grouping)
+        {
+            List<string> items = group.Shuffle().Select(itemSlot => itemSlot.shop.GetItems()[itemSlot.index]).OrderBy(item =>
+            {
+                EquipRando equipRando = Generator.Get<EquipRando>();
+                return equipRando.itemData[item].Rank;
+            }).ToList();
+            // Sort the shop slots by their shop sphere
+            var slots = group.Shuffle().OrderBy(itemSlot => GetSphere(itemSlot.shop)).ToList();
+            // Go in order and set the junk items
+            for (int i = 0; i < items.Count; i++)
+            {
+                var shop = shopData[slots[i].shop.ID];
+                if (!newShops.ContainsKey(shop.ID))
+                {
+                    newShops.Add(shop.ID, new());
+                }
+                newShops[shop.ID].Add(items[i]);
+            }
+        }
+
+        // Set the shop items
+        foreach (var shop in shops.DataList)
+        {
+            // Get the items for indices not changed
+            List<string> items = shop.GetItems()
+                .Where((_, index) =>
+                    !grouping.SelectMany(g => g.ToList())
+                             .Any(p => p.shop.ID == shop.ID && p.index == index))
+                .ToList();
+            // Add new items
+            if (newShops.ContainsKey(shop.ID))
+            {
+                items.AddRange(newShops[shop.ID]);
+            }
+            // Remove duplicates, sort, and set items
+            shop.SetItems(items.Distinct().OrderBy(itemId => itemId).ToList());
+        }
+    }
+
+    private void ReorderNonUniqueShops(EquipRando equipRando, Dictionary<string, int> locationsShared, Dictionary<int, int> locationSharedMapping)
+    {
+        // Get all the shop slots with consumables, equipment, and abilities and group by their item type
+        var grouping = shopData.Values
+            .Where(s => !s.Traits.Contains("Unique") && locationsShared.ContainsValue(s.ID))
+            .Select(s => shops[s.ID]).SelectMany(shop =>
+            {
+                return Enumerable.Range(0, shop.GetItems().Count).Select(index => (shop, index));
+            }).GroupBy(itemSlot =>
+            {
+                string id = itemSlot.shop.GetItems()[itemSlot.index];
+                int intId = Convert.ToInt32(id, 16);
+                return intId < 0x1000 ? ItemType.Consumable : intId is >= 0x3000 and < 0x5000 ? ItemType.Ability : ItemType.Equipment;
+            });
+
+        Dictionary<int, List<string>> newShops = new();
+
+        // Group by type and sort the items by its item rank
+        foreach (var group in grouping)
+        {
+            List<string> items = group.Shuffle().Select(itemSlot => itemSlot.shop.GetItems()[itemSlot.index]).OrderBy(item =>
+            {
+                return equipRando.itemData[item].Rank;
+            }).ToList();
+            items = RandomNum.ShuffleLocalized(items, 5);
+
+            // Sort the shop slots by their shop sphere
+            var slots = group.Shuffle().OrderBy(itemSlot => GetSphere(itemSlot.shop)).ToList();
+
+            // Go in order and set the junk items
+            for (int i = 0; i < items.Count; i++)
+            {
+                var shop = shopData[slots[i].shop.ID];
+
+                if (!newShops.ContainsKey(shop.ID))
+                {
+                    newShops.Add(shop.ID, new());
+                }
+
+                // If the item is a duplicate, find a replacement later in the list and swap with it.
+                // If a replacement does not exist, mark the slot as removed.
+                // The slot will be cleared after all the replacements.
+                string newItem = items[i];
+                if (newShops[shop.ID].Contains(newItem))
+                {
+                    int swapIndex = -1;
+                    for (int j = i + 1; j < items.Count; j++)
+                    {
+                        if (!newShops[shop.ID].Contains(items[j]))
+                        {
+                            swapIndex = j;
+                            break;
+                        }
+                    }
+
+                    // Just skip adding this item if there is no replacement
+                    if (swapIndex == -1)
+                    {
+                        continue;
+                    }
+
+                    (items[i], items[swapIndex]) = (items[swapIndex], items[i]);
+                    newItem = items[i];
+                }
+
+                newShops[slots[i].shop.ID].Add(newItem);
+            }
+        }
+
+        // Set the shop items
+        foreach (var shop in shops.DataList)
+        {
+            // Get the items for indices not changed
+            List<string> items = shop.GetItems()
+                .Where((_, index) =>
+                    !grouping.SelectMany(g => g.ToList())
+                             .Any(p => p.shop.ID == shop.ID && p.index == index))
+                .ToList();
+
+            // Add new items
+            if (newShops.ContainsKey(shop.ID))
+            {
+                items.AddRange(newShops[shop.ID]);
+            }
+
+            // Remove duplicates, sort, and set items
+            shop.SetItems(items.Distinct().OrderBy(itemId => itemId).ToList());
+        }
+
+        // Set the shared shop items
+        foreach (var pair in locationSharedMapping)
+        {
+            shops[pair.Key].SetItems(shops[pair.Value].GetItems());
         }
     }
 

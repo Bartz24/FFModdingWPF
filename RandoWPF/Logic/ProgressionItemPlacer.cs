@@ -91,7 +91,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
         // Refresh more frequently at the start to allow for more dynamic unlocking of areas and locations and then slow down.
         int nextPercentageQueueRefreshIndex = 0;
-        double[] refreshIncrements = new double[] { 0.05, 0.1, 0.2, 0.4, 0.8, double.MaxValue };
+        double[] refreshIncrements = new double[] { 0.05, 0.2, 0.4, 0.7, double.MaxValue };
 
         T firstFailure = null;
         while (RemainingToPlace.Count > 0 || RemainingFixed.Count > 0)
@@ -108,27 +108,27 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
             // Update unlocked areas and locations
             UpdatedUnlockedAreas();
-            if (UpdatedUnlockedLocations() && (initialRemaining - RemainingToPlace.Count) / (double)initialRemaining >= refreshIncrements[nextPercentageQueueRefreshIndex])
+            double percentComplete = (initialRemaining - RemainingToPlace.Count) / (double)initialRemaining;
+            if (UpdatedUnlockedLocations() && percentComplete >= refreshIncrements[nextPercentageQueueRefreshIndex])
             {
-                // Reorder the remaining items based on the new unlocked locations every 20% of placed items. This allows items that were previously unplaceable to be attempted again sooner if they unlock new areas. This is important for progression items that may have been blocked by earlier placements. By reordering, we can ensure that we are always trying to place items in the most optimal order based on the current state of the game world.
+                // Reorder the remaining items based on the new unlocked locations every so often. This allows items that were previously unplaceable to be attempted again sooner if they unlock new areas. This is important for progression items that may have been blocked by earlier placements. By reordering, we can ensure that we are always trying to place items in the most optimal order based on the current state of the game world.
                 nextPercentageQueueRefreshIndex = Math.Min(nextPercentageQueueRefreshIndex + 1, refreshIncrements.Length - 1);
-                var newOrder = GetReplacementOrder();
+                var newOrder = percentComplete >= 0.25 ? RemainingToPlace.Shuffle() : GetReplacementOrder();
                 RemainingToPlace = new Queue<T>(newOrder.Where(item => RemainingToPlace.Contains(item)));
+                firstFailure = null;
             }            
 
             T replacement = RemainingToPlace.Dequeue();
 
             // The initial depth is based on remaining items. The more items remaining, the higher the depth can be.
-            // This allows items early on (first 50%) to be placed in newly unlocked areas more often.
+            // This allows items early on (first 25%) to be placed in newly unlocked areas more often.
             // Limited by the depth difficulty with a floor of 1
             int depth = 10;
-            if (RemainingToPlace.Count > initialRemaining / 2)
+            if (RemainingToPlace.Count > initialRemaining / 4)
             {
                 int placedCount = initialRemaining - RemainingToPlace.Count;
-                depth = Math.Max(1, (int)Math.Round((double)placedCount / (initialRemaining / 2) * 10));
+                depth = Math.Max(3, DepthDifficulty);
             }
-
-            depth = Math.Min(depth, DepthDifficulty);
 
             // Find location and start with depth difficulty
             T location = SelectLocation(replacement, depth);
@@ -185,7 +185,8 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
                 if (customRange == null)
                 {
                     minIndex = RandomNum.RandInt(15, 70);
-                    var (minAdjust, maxAdjust) = GetLocationOffsets(next, similarItemType);
+                    //var (minAdjust, maxAdjust) = GetLocationOffsets(next, similarItemType);
+                    var (minAdjust, maxAdjust) = (0, 0);
                     minIndex = Math.Clamp(minIndex + minAdjust, 0, 80);
                     var rangeCap = Math.Max(100 + maxAdjust, 31);
                     int range = RandomNum.RandInt(0, 99) < 30 ? rangeCap : RandomNum.RandInt(30, rangeCap);
@@ -430,8 +431,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
         return RandomNum.SelectRandomWeighted(possibleLocations, l => (long)(
                     GetAreaWeight(l) 
-                    * Math.Pow(1.2, Math.Max(0, 10 - DepthDifficulty)) 
-                    * (l.BaseDifficulty + 1) 
+                    * Math.Pow(l.BaseDifficulty + 1, 1.02 + .02 * Math.Max(0, 10 - DepthDifficulty)) 
                     * 100));
 
     }

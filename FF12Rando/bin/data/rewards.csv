@@ -56,8 +56,8 @@ Draklor Laboratory,Lab Access Card,9151,,0,
 Giruvegan End,Defeat Shemhazai,9192,,5,
 Giruvegan End,Treaty-Blade,9152,,5,
 Pharos of Ridorana,Black Orb 1,9153,,6,BlackOrb1
-Pharos of Ridorana,Black Orb 2,9154,I(2118|2),6,BlackOrb2
-Pharos of Ridorana,Black Orb 3,9155,I(2118|2),6,BlackOrb3
+Pharos of Ridorana,Black Orb 2,9154,,6,BlackOrb2
+Pharos of Ridorana,Black Orb 3,9155,,6,BlackOrb3
 Pharos of Ridorana,Defeat Hashmal,9193,I(2116|3),6,
 Pharos of Ridorana,Defeat Famfrit and Cid 2,918F,AND(I(2116|3)|OR(I(808B)|I(808C))|OR(SELECT(2|I(8078)|I(80AC)|I(8089)))),7,WritCid2
 Pharos of Ridorana Subterra,Black Orb 4,9156,I(2116|3),7,BlackOrb4

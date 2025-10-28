@@ -20,14 +20,6 @@ public class FF12FakeLocation : FakeLocation
             return null;
         }
 
-        // If the item is a character, map to the correct one
-        PartyRando partyRando = Generator.Get<PartyRando>();
-        if (partyRando.CharacterMapping.Contains(item.Value.Item))
-        {
-            int index = partyRando.CharacterMapping.ToList().IndexOf(item.Value.Item);
-            return (partyRando.CharacterMapping[partyRando.Characters[index]], item.Value.Amount);
-        }
-
         return item;
     }
 
