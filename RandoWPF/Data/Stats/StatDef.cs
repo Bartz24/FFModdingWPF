@@ -34,7 +34,7 @@ public class StatDef<T> where T : Enum
 
     public int ApplyMult(int original)
     {
-        return (int)Math.Round(original * Multiplier);
+        return (int)Math.Clamp(Math.Round(original * Multiplier), MinValue, MaxValue);
     }
 
     /// <summary>
