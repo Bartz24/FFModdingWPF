@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Reflection.Emit;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -108,6 +109,50 @@ public partial class MainWindow : Window
                 MessageBox.Show("Randomizer encountered an error.\n\n" + ex.Message + "\n\nStack trace:\n" + innerMost.StackTrace, ex.Title);
                 IsEnabled = true;
             }
+        }
+    }
+
+    private async void generateDocsButton_Click(object sender, RoutedEventArgs e)
+    {
+        using (FF13_2SeedGenerator generator = new())
+        {
+            totalProgressBar.TotalSegments = (generator.Randomizers.Count * 2) + 1;
+            totalProgressBar.SetProgress(0, 0);
+
+#if !DEBUG
+            try
+            {
+#endif
+            IsEnabled = false;
+            await Task.Run(() =>
+            {
+                generator.GenerateSeedDryRun();
+            });
+            IsEnabled = true;
+#if !DEBUG
+            }
+            catch (RandoException ex)
+            {
+                if (ex.Title == SeedGenerator.UNEXPECTED_ERROR)
+                {
+                    Exception innerMost = ex;
+                    while (innerMost.InnerException != null)
+                    {
+                        innerMost = innerMost.InnerException;
+                    }
+
+                    MessageBox.Show("Seed generation failed with an unexpected error.\n\n" + ex.Message + "\n\nStack trace:\n" + innerMost.StackTrace, ex.Title);
+                }
+                else
+                {
+                    MessageBox.Show("Seed generation failed.\n\n" + ex.Message, ex.Title);
+                }
+
+                SetProgressBar("Seed generation failed.", 0);
+
+                IsEnabled = true;
+            }
+#endif
         }
     }
 

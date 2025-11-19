@@ -151,17 +151,18 @@ public partial class TreasureRando : Randomizer
             hintData.Values.ForEach(h =>
             {
                 textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId] = "";
-                h.Areas.ForEach(a =>
-                {
-                    if (hintsNotesSharedCount[a] > 0)
-                    {
-                        textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId] += $"{cruxRando.areaData[a].Name} has {hintsNotesUniqueCount[a]} unique important checks and {hintsNotesSharedCount[a]} shared with other time periods.";
-                    }
-                    else
-                    {
-                        textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId] += $"{cruxRando.areaData[a].Name} has {hintsNotesUniqueCount[a]} unique important checks.";
-                    }
-                });
+                // Ignore hints for now
+                //h.Areas.ForEach(a =>
+                //{
+                //    if (hintsNotesSharedCount[a] > 0)
+                //    {
+                //        textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId] += $"{cruxRando.areaData[a].Name} has {hintsNotesUniqueCount[a]} unique important checks and {hintsNotesSharedCount[a]} shared with other time periods.";
+                //    }
+                //    else
+                //    {
+                //        textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId] += $"{cruxRando.areaData[a].Name} has {hintsNotesUniqueCount[a]} unique important checks.";
+                //    }
+                //});
             });
         }
     }
