@@ -21,8 +21,8 @@ public class FF13_2Flags
     {
         public static Flag RandCrystAbi;
         public static Flag InitCP;
-        public static NumberFlagProperty InitCPAmount, WeightRange;
-        public static Flag EquipStats, EquipPassives, EquipWeights;
+        public static NumberFlagProperty InitCPAmount, WeightRange, RunSpeedMultValue;
+        public static Flag EquipStats, EquipPassives, EquipWeights, RunSpeedMult;
 
         internal static void Init()
         {
@@ -84,6 +84,25 @@ public class FF13_2Flags
                 MaxValue = 100,
                 StepSize = 5
             }.Register(EquipWeights);
+
+            RunSpeedMult = new Flag()
+            {
+                Text = "Run Speed Multiplier",
+                FlagID = "RunSpeedMult",
+                DescriptionFormat = "Increases the run speed all the main party members by the percentage specified.\n" +
+                "Hope's run speed will match the others."
+            }.Register(FlagType.Stats);
+
+            RunSpeedMultValue = new NumberFlagProperty()
+            {
+                Text = "",
+                ID = "RunSpeedVal",
+                Description = "",
+                ValueText = "(%): ",
+                MinValue = 100,
+                MaxValue = 200,
+                StepSize = 5
+            }.Register(RunSpeedMult);
         }
     }
     public class Items
@@ -177,8 +196,8 @@ public class FF13_2Flags
     }
     public class Enemies
     {
-        public static Flag EnemyLocations;
-        public static NumberFlagProperty EnemyRank;
+        public static Flag EnemyLocations, EnemyCPMult;
+        public static NumberFlagProperty EnemyRank, EnemyCPMultValue;
         public static ToggleFlagProperty LargeEnc, DLCBosses;
         public static ListBoxFlagProperty Bosses;
 
@@ -241,6 +260,24 @@ public class FF13_2Flags
                 MinValue = 0,
                 MaxValue = 15
             }.Register(EnemyLocations);
+
+            EnemyCPMult = new Flag()
+            {
+                Text = "Enemy CP Multiplier",
+                FlagID = "EnemyCPMult",
+                DescriptionFormat = "Multiply enemy CP by the specified percentage."
+            }.Register(FlagType.Enemies);
+
+            EnemyCPMultValue = new NumberFlagProperty()
+            {
+                Text = "",
+                ID = "EnemyCPMultVal",
+                Description = "",
+                ValueText = "(%): ",
+                MinValue = 100,
+                MaxValue = 1000,
+                StepSize = 5
+            }.Register(EnemyCPMult);
         }
     }
     public class Other
