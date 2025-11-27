@@ -108,15 +108,14 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
             // Update unlocked areas and locations
             UpdatedUnlockedAreas();
-            double percentComplete = (initialRemaining - RemainingToPlace.Count) / (double)initialRemaining;
-            if (UpdatedUnlockedLocations() && percentComplete >= refreshIncrements[nextPercentageQueueRefreshIndex])
+            if (UpdatedUnlockedLocations() && (double)UnlockedLocations.Values.Sum(g => g.Count) / Replacements.Count >= refreshIncrements[nextPercentageQueueRefreshIndex])
             {
                 // Reorder the remaining items based on the new unlocked locations every so often. This allows items that were previously unplaceable to be attempted again sooner if they unlock new areas. This is important for progression items that may have been blocked by earlier placements. By reordering, we can ensure that we are always trying to place items in the most optimal order based on the current state of the game world.
                 nextPercentageQueueRefreshIndex = Math.Min(nextPercentageQueueRefreshIndex + 1, refreshIncrements.Length - 1);
-                var newOrder = percentComplete >= 0.25 ? RemainingToPlace.Shuffle() : GetReplacementOrder();
+                var newOrder = (double)UnlockedLocations.Values.Sum(g => g.Count) / Replacements.Count >= 0.25 ? RemainingToPlace.Shuffle() : GetReplacementOrder();
                 RemainingToPlace = new Queue<T>(newOrder.Where(item => RemainingToPlace.Contains(item)));
                 firstFailure = null;
-            }            
+            }
 
             T replacement = RemainingToPlace.Dequeue();
 

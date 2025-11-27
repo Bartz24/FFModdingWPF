@@ -55,40 +55,47 @@ public class FF12ProgressionItemPlacer : ProgressionItemPlacer<ItemLocation>
         // Black orbs should appear later
         else if (itemTypeName == "2116")
         {
-            int min = RandomNum.RandInt(50, 90);
-            int max = Math.Min(min + RandomNum.RandInt(10, 30), 100);
+            int min = RandomNum.NextInt(50, 90);
+            int max = Math.Min(min + RandomNum.NextInt(10, 30), 100);
             return (min, max);
         }
         else if (itemTypeName == "Cid2Unlock")
         {
-            int min = RandomNum.RandInt(5, 60);
-            int max = Math.Min(min + RandomNum.RandInt(10, 50), 100);
+            int min = RandomNum.NextInt(5, 60);
+            int max = Math.Min(min + RandomNum.NextInt(10, 50), 100);
             return (min, max);
         }
         else if (itemTypeName == "Esper")
         {
-            int min = RandomNum.RandInt(30, 90);
-            int max = Math.Min(min + RandomNum.RandInt(10, 60), 100);
+            int min = RandomNum.NextInt(30, 90);
+            int max = Math.Min(min + RandomNum.NextInt(10, 60), 100);
             return (min, max);
         }
         // Cactus Flower
         else if (itemTypeName == "8073")
         {
-            int min = RandomNum.RandInt(50, 70);
-            int max = Math.Min(min + RandomNum.RandInt(20, 30), 100);
+            int min = RandomNum.NextInt(50, 70);
+            int max = Math.Min(min + RandomNum.NextInt(20, 30), 100);
             return (min, max);
         }
         // Clan Primer
         else if (itemTypeName == "8071")
         {
-            int min = RandomNum.RandInt(20, 60);
-            int max = Math.Min(min + RandomNum.RandInt(50, 80), 100);
+            int min = RandomNum.NextInt(20, 60);
+            int max = Math.Min(min + RandomNum.NextInt(50, 80), 100);
+            return (min, max);
+        }
+        // Systems access key
+        else if (itemTypeName == "2118")
+        {
+            int min = RandomNum.NextInt(20, 80);
+            int max = Math.Min(min + RandomNum.NextInt(50, 80), 100);
             return (min, max);
         }
         else if (itemTypeName == "Aeropass")
         {
-            int min = RandomNum.RandInt(30, 90);
-            int max = Math.Min(min + RandomNum.RandInt(40, 60), 100);
+            int min = RandomNum.NextInt(10, 60);
+            int max = Math.Min(min + RandomNum.NextInt(40, 60), 100);
             return (min, max);
         }
 
