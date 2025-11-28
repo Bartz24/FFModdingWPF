@@ -13,6 +13,7 @@ frg_cmn_hmaa001,Gogmagog Alpha Fragment,h_hm_AD0003,0,,,Event
 frg_cmn_hmaa002,Gogmagog Beta Fragment,h_hm_AD0003,0,,,Event
 key_s_neck,Snow's Necklace,h_hm_AD0003,0,,,Event
 key_l_knife,Lightning's Knife,h_hm_AD0003,0,,,Event
+key_opt_silver,Wild Artefacts,h_hm_AD0003,0,,,Fixed
 tre_hpaa_001,Meteorite Impact Site Fragment,h_zz_NA0950,1,,I(opt_aaea_re|1),
 tre_hpaa_002,Meteorite Impact Site Fragment,h_zz_NA0950,1,,I(opt_aaea_re|1),
 tre_hmaa_015,Beachfront,h_hm_AD0700,1,,,

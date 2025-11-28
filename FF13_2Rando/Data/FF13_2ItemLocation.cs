@@ -11,4 +11,14 @@ public abstract class FF13_2ItemLocation : ItemLocation
 
     public abstract List<string> RequiredAreas { get; set; }
     public abstract int MogLevel { get; set; }
+
+    public override List<ItemLocationReqComponent> GetComponents()
+    {
+        var list = base.GetComponents();
+        if (MogLevel > 0)
+        {
+            list.Add(new MogLevelReqComponent(Generator, MogLevel));
+        }
+        return list;
+    }
 }

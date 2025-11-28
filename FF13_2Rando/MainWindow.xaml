@@ -1,4 +1,4 @@
-﻿<Window x:Class="FF13_2Rando.MainWindow"
+﻿<rando:RandoMainWindow x:Class="FF13_2Rando.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -157,9 +157,9 @@
                                 <Button Margin="2" Grid.Column="1" Grid.Row="0" 
                                         Click="openModpackFolder_Click"
                                         ToolTip="Open the folder containing the packs and documentation spoiler logs.">Open Modpack/Docs Folder</Button>
-                                <Button Margin="2" Grid.Column="0" Grid.Row="1" 
+                                <!--<Button Margin="2" Grid.Column="0" Grid.Row="1" 
                                         Click="shareSeedFolder_Click"
-                                        ToolTip="Export the current seed and flags to a JSON file to share.">Share Current Seed with Flags (JSON)</Button>
+                                        ToolTip="Export the current seed and flags to a JSON file to share.">Share Current Seed with Flags (JSON)</Button>-->
                             </Grid>
                             <Label Margin="10"/>
                             <Button
@@ -200,4 +200,4 @@ ToolTip="Generate the docs for the seed only.">Generate Docs Only</Button>
             </TabControl>
         </DockPanel>
     </materialDesign:DialogHost>
-</Window>
+</rando:RandoMainWindow>

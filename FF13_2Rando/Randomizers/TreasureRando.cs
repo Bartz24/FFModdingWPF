@@ -3,6 +3,10 @@ using Bartz24.Docs;
 using Bartz24.FF13_2;
 using Bartz24.FF13_2_LR;
 using Bartz24.RandoWPF;
+using Bartz24.RandoWPF.Data.Areas;
+using FF13_2Rando.Logic;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -23,11 +27,9 @@ public partial class TreasureRando : Randomizer
     private readonly Dictionary<string, List<string>> hintsMain = new();
     private readonly Dictionary<string, int> hintsNotesUniqueCount = new();
     private readonly Dictionary<string, int> hintsNotesSharedCount = new();
-    //private ItemPlacementAlgorithm<FF13_2ItemLocation> placementAlgoNormal;
-    //private ItemPlacementAlgorithm<FF13_2ItemLocation> placementAlgoBackup;
-    private bool usingBackup = false;
 
-    //public ItemPlacementAlgorithm<FF13_2ItemLocation> PlacementAlgo => usingBackup ? placementAlgoBackup : placementAlgoNormal;
+    public FF13_2ItemPlacer ItemPlacer { get; set; }
+    private bool usingBackup = false;
 
     public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -58,6 +60,25 @@ public partial class TreasureRando : Randomizer
         }, FileHelpers.CSVFileHeader.HasHeader);
         searchData.ForEach(p => ItemLocations.Add(p.Key, p.Value));
 
+        FileHelpers.ReadCSVFile(@"data\fakeChecks.csv", row =>
+        {
+            string[] fakeItems = row[7].Split('|');
+            for (int i = 0; i < fakeItems.Length; i++)
+            {
+                string fakeItem = fakeItems[i];
+                int amount = 1;
+                if (fakeItem.Contains("*"))
+                {
+                    amount = int.Parse(fakeItem.Split('*')[1]);
+                    fakeItem = fakeItem.Split('*')[0];
+                }
+
+                FF13_2FakeItemLocation f = new(Generator, row, fakeItem, amount);
+                f.ID = f.ID + ":" + i;
+                ItemLocations.Add(f.ID, f);
+            }
+        }, FileHelpers.CSVFileHeader.HasHeader);
+
         hintData.Clear();
         FileHelpers.ReadCSVFile(@"data\hints.csv", row =>
         {
@@ -69,7 +90,10 @@ public partial class TreasureRando : Randomizer
         AddTreasure("frg_cmn_hmaa001", "frg_cmn_hmaa001", 1, "");
         AddTreasure("frg_cmn_hmaa002", "frg_cmn_hmaa002", 1, "");
         AddTreasure("key_s_neck", "key_s_neck", 1, "");
-        AddTreasure("key_l_knife", "key_l_knife", 1, "");
+        AddTreasure("key_l_knife", "key_l_knife", 1, "key_opt_silver");
+        // Just grant wild artefacts here for now for clearance purposes?
+        // This adds to the pool so now you have so many. so so many.
+        AddTreasure("key_opt_silver", "opt_silver", 10, "");
 
         // Remove repeatable gil moogle throws
         search.Values.ForEach(s =>
@@ -84,12 +108,6 @@ public partial class TreasureRando : Randomizer
         });
 
         List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
-
-        //placementAlgoNormal = new AssumedItemPlacementAlgorithm<FF13_2ItemLocation>(ItemLocations, hintsNotesLocations, Generator, 3);
-        //placementAlgoNormal.Logic = new FF13_2AssumedItemPlacementLogic(placementAlgoNormal, Generator);
-
-        //placementAlgoBackup = new ItemPlacementAlgorithm<FF13_2ItemLocation>(ItemLocations, hintsNotesLocations, Generator, -1);
-        //placementAlgoBackup.Logic = new FF13_2ItemPlacementLogic(placementAlgoBackup, Generator);
     }
 
     public void AddTreasure(string newName, string item, int count, string next)
@@ -112,23 +130,82 @@ public partial class TreasureRando : Randomizer
         if (FF13_2Flags.Items.Treasures.FlagEnabled)
         {
             FF13_2Flags.Items.Treasures.SetRand();
+            HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
 
-            Dictionary<string, double> areaMults = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
-            //if (!placementAlgoNormal.Randomize(new List<string>(), areaMults))
+            if(cruxRando.rootLocation == null)
             {
-                usingBackup = true;
-                //placementAlgoBackup.Randomize(new List<string>(), areaMults);
+                throw new Exception("Cannot randomised due to split root");
             }
 
-            // Update hints again to reflect actual numbers
-            //PlacementAlgo.HintsByLocation.ForEach(l =>
-            //{
-                //int uniqueCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas.Count == 1 && ItemLocations[t].Areas[0] == l && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
-                //hintsNotesUniqueCount.Add(l, uniqueCount);
+            // Scan through fake locations, find gate open locations, update area to be the incoming side of the link rather than outgoing so it updates properly
+            foreach(var loc in ItemLocations)
+            {
+                if (loc.Value.Traits.Contains("Gate"))
+                {
+                    var gateId = loc.Value.ID.Split(":")[0];
+                    var target = cruxRando.gateTable[gateId].sOpenHistoria1;
+                    var source = cruxRando.gateTable[gateId].sArea;
+                    loc.Value.Areas = new() { source };
+                    Generator.Logger.LogDebug($"Updating gate location with id {gateId} (links {source} -> {target}) to have an area of {source}");
+                }
+            }
 
-                //int sharedCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas.Count > 1 && ItemLocations[t].Areas.Contains(l) && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
-                //hintsNotesSharedCount.Add(l, sharedCount);
-            //});
+
+
+            AreaGraph areaGraph = new(Generator);
+            areaGraph.Areas = cruxRando.areaData.ToDictionary(kvp => kvp.Value.ID, kvp => new Area([kvp.Value.ID]));
+            areaGraph.Connections = cruxRando.gateTable.Values.Select(v =>
+            {
+                // All connections in the crux are one-way so no need to construct reverse links
+                // Ensure any hard item requirements are fulfilled as well as the outgoing link id for artefact tracking
+                List<ItemReq> reqs = new();
+                // If the fake check location has been setup, include it in logic (should all be there now from fake checks)
+                if (ItemLocations.ContainsKey(v.record+":0"))
+                {
+                    reqs.Add(new AmountItemReq(v.record, 1));
+                }
+                // If the link has a known requirement, add it
+                if (cruxRando.gateData.ContainsKey(v.record))
+                {
+                    reqs.Add(cruxRando.gateData[v.record].ItemRequirements);
+                }
+
+                // TODO: Wild artefact requirements
+                // Increase amount of required wild artefacts based on depth? 
+                // Just grant wild artefacts up front for now at starting time?
+
+                ItemReq finalReq;
+                if(reqs.Count == 0)
+                {
+                    finalReq = new BoolItemReq(true);
+                } else if (reqs.Count == 1)
+                {
+                    finalReq = reqs[0];
+                } else
+                {
+                    finalReq = new AndItemReq(reqs);
+                }
+
+                // TODO: traits: DLC, paradox end, etc?
+                // TODO: difficulty, based on depth?
+                return new AreaConnection(Generator, v.record, v.sArea, v.sOpenHistoria1.Substring(0,v.sOpenHistoria1.Length - 2), finalReq, new(), 1);
+            }).Append(
+                // Ensure initial actually connects to something...
+                // TODO: Add DLC checks if enabled
+                new AreaConnection(Generator, "Initial", "Initial", cruxRando.rootLocation, new BoolItemReq(true), new(), 0)
+                ).ToList();
+
+            // Make sure this got built up correctly...
+            areaGraph.VerifyIntegrity();
+
+            // Sphere calc isn't working, step through and figure out why...
+            // Looks like area opening isn't working (despite fake checks now existing?)
+
+            ItemPlacer = new(Generator, areaGraph);
+            ItemPlacer.Replacements = ItemLocations.Values.ToHashSet();
+            ItemPlacer.PossibleLocations = ItemLocations.Values.ToHashSet();
+            ItemPlacer.PlaceItems();
+            ItemPlacer.ApplyToGameData();
 
             RandomNum.ClearRand();
 
@@ -150,7 +227,8 @@ public partial class TreasureRando : Randomizer
         {
             hintData.Values.ForEach(h =>
             {
-                textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId] = "";
+                // TODO: what should hints be now?
+                // textRando.mainSysUS[equipRando.items[h.ID].sHelpStringId] = "";
                 // Ignore hints for now
                 //h.Areas.ForEach(a =>
                 //{
@@ -182,7 +260,9 @@ public partial class TreasureRando : Randomizer
         HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
         HTMLPage page = new("Item Locations", "template/documentation.html");
 
-        page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents" }).ToList(), (new int[] { 50, 50 }).ToList(), ItemLocations.Values.Select(t =>
+        // TODO: add sphere depth to locations
+        page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents","Sphere" }).ToList(), (new int[] { 45, 45,10 }).ToList(), ItemLocations.Values
+            .Where(v => v is not FF13_2FakeItemLocation).Select(t =>
         {
             string itemID = ItemLocations[t.ID].GetItem(false).Value.Item1;
             string name = GetItemName(itemID);
@@ -216,7 +296,7 @@ public partial class TreasureRando : Randomizer
                 nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", disp).ToString());
             }
 
-            return (new object[] { nameCell, $"{name} x {ItemLocations[t.ID].GetItem(false).Value.Item2}" }).ToList();
+            return (new object[] { nameCell, $"{name} x {ItemLocations[t.ID].GetItem(false).Value.Item2}", ItemPlacer.SphereCalculator.Spheres.ContainsKey(t) ? ItemPlacer.SphereCalculator.Spheres[t] : "N/A" }).ToList();
         }).ToList(), "itemlocations"));
 
         pages.Add("item_locations", page);

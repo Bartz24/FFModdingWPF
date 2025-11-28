@@ -76,34 +76,79 @@ public partial class BattleRando : Randomizer
         {
             FF13_2Flags.Enemies.EnemyLocations.SetRand();
 
+            // TODO:
+            // Make smoother scaling based on area depth after crux rando
+            // review enemy/boss data for scaling purposes
+
             areaBounds = GetAreaRankBounds();
             areaBoundsOrig = new Dictionary<string, (int, int)>(areaBounds);
 
             TreasureRando treasureRando = Generator.Get<TreasureRando>();
-            List<string> areaUnlockOrder = new();//treasureRando.PlacementAlgo.Logic.GetPropValue<List<string>>("AreaUnlockOrder");
-            areaUnlockOrder = areaUnlockOrder.Where(a => areaBounds.ContainsKey(a)).ToList();
-            areaUnlockOrder.AddRange(areaBounds.Keys.Where(a => !areaUnlockOrder.Contains(a)));
+            HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
+            //List<string> areaUnlockOrder = new();//treasureRando.PlacementAlgo.Logic.GetPropValue<List<string>>("AreaUnlockOrder");
+            //areaUnlockOrder = areaUnlockOrder.Where(a => areaBounds.ContainsKey(a)).ToList();
+            //areaUnlockOrder.AddRange(areaBounds.Keys.Where(a => !areaUnlockOrder.Contains(a)));
 
-            areaUnlockOrder = RandomNum.ShuffleWeightedOrder(areaUnlockOrder, (i1, a1, i2, a2) =>
-            {
-                return i1 == i2 ? 1 : (i1 < 5 || i2 < 5 ? 0 : Math.Abs(i1 - i2) < 3 ? 1 : 0);
-            });
+            //areaUnlockOrder = RandomNum.ShuffleWeightedOrder(areaUnlockOrder, (i1, a1, i2, a2) =>
+            //{
+            //    return i1 == i2 ? 1 : (i1 < 5 || i2 < 5 ? 0 : Math.Abs(i1 - i2) < 3 ? 1 : 0);
+            //});
             List<int> newMins = areaBounds.Values.Select(t => t.Item1).OrderBy(i => i).ToList();
             int enemyMaxRank = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).Max(e => e.Rank);
-            for (int i = 0; i < areaBounds.Count; i++)
+            var maxAreaDepth = cruxRando.areaDepths.Max(kvp => kvp.Value);
+            float ratio = (float)enemyMaxRank / (float)maxAreaDepth;
+            foreach (var (area, range) in areaBounds)
             {
-                string area = areaUnlockOrder[i];
-                int newMax = newMins[i] + areaBoundsOrig[area].Item2 - areaBoundsOrig[area].Item1;
-                areaBounds[area] = (newMins[i], Math.Min(newMax, enemyMaxRank));
+                var areaDepth = cruxRando.areaDepths[area];
+                var adjusted = areaDepth * ratio;
+                // Overall floor of 5 for max, scales up with areaDepth*0.75
+                int newMax = Math.Max((int)adjusted + 1, 5);
+                // Min is 1 or scaled rank*0.5
+                int newMin = Math.Max(1, (int)(adjusted*0.5));
+                areaBounds[area] = (newMin, Math.Min(newMax, enemyMaxRank));
             }
 
             if (FF13_2Flags.Enemies.Bosses.SelectedValues.Count > 0)
             {
+                Dictionary<string, BossData> reducedBossDataForShuffle = bossData.Keys.Distinct()
+                    .Where(g => FF13_2Flags.Enemies.Bosses.SelectedValues.Contains(g))
+                    .ToDictionary(g => g, g =>bossData[g].Values.First(b => b.Traits.Contains("Main")))
+                    .Where(kvp => !kvp.Value.Traits.Contains("NoShuffle"))
+                    .ToDictionary();
                 List<string> list = bossData.Keys
                     .Where(g => FF13_2Flags.Enemies.Bosses.SelectedValues.Contains(g))
                     .Where(g => !bossData[g].Values.First(b => b.Traits.Contains("Main")).Traits.Contains("NoShuffle"))
                     .ToList();
-                List<string> shuffled = list.Shuffle().ToList();
+
+                // Earlier in this list is an easier boss by rank. Bosses of equivalent rank are randomised in order
+                List<string> bossesByTheirRank = reducedBossDataForShuffle
+                    .GroupBy(kvp => kvp.Value.Rank)
+                    .SelectMany(group => group.Shuffle())
+                    .Select(kvp => kvp.Key)
+                    .ToList();
+
+                // Ordered by where you'll encounter the area, with some variance and then randomised by rank
+                List<string> locationsByTheirDepth = reducedBossDataForShuffle
+                    .GroupBy(kvp =>
+                    {
+                        var location = kvp.Value.Location;
+                        var areaDepth = cruxRando.areaDepths[location];
+                        // Randomise the area ranks to shuffle things up a little
+                        return RandomNum.NextInt(areaDepth - 1, areaDepth + 1);
+                    })
+                    .SelectMany(group => group.Shuffle())
+                    .Select(kvp => kvp.Key)
+                    .ToList();
+
+                // shuffled Bosses should now pick bosses based on a rough mapping of [vanilla boss] => [location depth in shuffled areas] => [boss of equivalent rank to depth]
+                List<string> shuffled = new();
+                for(var i = 0; i < list.Count; i++)
+                {
+                    var originalBossName = list[i];
+                    var locationDepth = locationsByTheirDepth.IndexOf(originalBossName);
+                    var newBoss = bossesByTheirRank[locationDepth];
+                    shuffled.Add(newBoss);
+                }
                 shuffledBosses = Enumerable.Range(0, list.Count).ToDictionary(i => list[i], i => shuffled[i]);
             }
 

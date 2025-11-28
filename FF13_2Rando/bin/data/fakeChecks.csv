@@ -1,0 +1,53 @@
+ID,Name,Areas,MogLevel,RequiredAreas,Requirements,Traits,Fake Items
+# TODO: Fill in to ensure logic is accurate over time,,,,,
+# Gate opening (for area logic),,,,,
+# hs_aaea02_sp,Open Vagabond Gate,hs_aaea02_sp,opt_aaea02_sp,Gate,1,hs_aaea02_sp",,,,,
+hs_aaea01_vp,Gate Open,h_aa_AD0400,,,,Gate,hs_aaea01_vp
+hs_aaea02_sp,Gate Open,h_aa_AD0400,,,,Gate,hs_aaea02_sp
+hs_acea01_gt,Gate Open,h_ac_AD0400,,,,Gate,hs_acea01_gt
+hs_acea02_gy,Gate Open,h_ac_AD0400,,,,Gate,hs_acea02_gy
+hs_acfa01_va,Gate Open,h_zz_NA0980,,,,Gate,hs_acfa01_va
+hs_acfa01_zz,Gate Open,h_ac_AD0500,,,,Gate,hs_acfa01_zz
+hs_bjaa01_gy,Gate Open,h_bj_AD0005,,,,Gate,hs_bjaa01_gy
+hs_bjaa02_sn,Gate Open,h_zz_NA0910,,,,Gate,hs_bjaa02_sn
+hs_bjaa02_zz,Gate Open,h_bj_AD0005,,,,Gate,hs_bjaa02_zz
+hs_bjaa03_bj,Gate Open,h_bj_AD0005,,,,Gate,hs_bjaa03_bj
+hs_bjaa91_gd,Gate Open,h_zz_NA0910,,,,Gate,hs_bjaa91_gd
+hs_bjda01_gy,Gate Open,h_bj_AD0300,,,,Gate,hs_bjda01_gy
+hs_ddha01_hm,Gate Open,h_zz_NA0960,,,,Gate,hs_ddha01_hm
+hs_ddha01_zz,Gate Open,h_dd_AD0700,,,,Gate,hs_ddha01_zz
+hs_ddha02_bj,Gate Open,h_dd_AD0700,,,,Gate,hs_ddha02_bj
+hs_ddha96_dd,Gate Open,h_zz_NA0960,,,,Gate,hs_ddha96_dd
+hs_gdza01_vp,Gate Open,h_gd_NA0000,,,,Gate,hs_gdza01_vp
+hs_ghaa01_ac,Gate Open,h_gh_AD0010,,,,Gate,hs_ghaa01_ac
+hs_ghaa01_cs,Gate Open,h_gh_AD0010,,,,Gate,hs_ghaa01_cs
+hs_ghaa02_gt,Gate Open,h_gh_AD0010,,,,Gate,hs_ghaa02_gt
+hs_gtca01_aa,Gate Open,h_zz_NA0940,,,,Gate,hs_gtca01_aa
+hs_gtca01_zz,Gate Open,h_gt_AD0200,,,,Gate,hs_gtca01_zz
+hs_gtca02_gw,Gate Open,h_gt_AD0200,,,,Gate,hs_gtca02_gw
+hs_gtca94_gt,Gate Open,h_zz_NA0940,,,,Gate,hs_gtca94_gt
+hs_gwca01_gh,Gate Open,h_zz_NA0920,,,,Gate,hs_gwca01_gh
+hs_gwca01_zz,Gate Open,h_gw_AD0200,,,,Gate,hs_gwca01_zz
+hs_gwca92_gw,Gate Open,h_zz_NA0920,,,,Gate,hs_gwca92_gw
+hs_gwda01_gw,Gate Open,h_gw_AD0300,,,,Gate,hs_gwda01_gw
+hs_gyaa01_gw,Gate Open,h_gy_AD0010,,,,Gate,hs_gyaa01_gw
+hs_gyba01_sn,Gate Open,h_gy_AD0100,,,,Gate,hs_gyba01_sn
+hs_hmaa01_bj,Gate Open,h_hm_AD0003,,,,Gate,hs_hmaa01_bj
+hs_hmaa10_zz,Gate Open,h_hm_AD0003,,,,Gate,hs_hmaa10_zz
+hs_hmaa11_va,Gate Open,h_zz_NA0970,,,,Gate,hs_hmaa11_va
+hs_hmaa12_cl,Gate Open,h_zz_NA0970,,,,Gate,hs_hmaa12_cl
+hs_hmaa13_cs,Gate Open,h_zz_NA0970,,,,Gate,hs_hmaa13_cs
+hs_hmaa_def,Gate Open,Initial,,,,,hs_hmaa_def
+hs_hmha01_ac,Gate Open,h_hm_AD0700,,,,Gate,hs_hmha01_ac
+hs_hpaa01_dd,Gate Open,h_zz_NA0950,,,,Gate,hs_hpaa01_dd
+hs_hpaa01_zz,Gate Open,h_hp_AD0003,,,,Gate,hs_hpaa01_zz
+hs_hpaa95_hm,Gate Open,h_zz_NA0950,,,,Gate,hs_hpaa95_hm
+hs_snda01_cl,Gate Open,h_zz_NA0930,,,,Gate,hs_snda01_cl
+hs_snda01_zz,Gate Open,h_sn_AD0300,,,,Gate,hs_snda01_zz
+hs_snda02_gd,Gate Open,h_sn_AD0300,,,,Gate,hs_snda02_gd
+hs_snda03_ac,Gate Open,h_sn_AD0300,,,,Gate,hs_snda03_ac
+hs_snda03_cs,Gate Open,h_sn_AD0300,,,,Gate,hs_snda03_cs
+hs_snda93_sn,Gate Open,h_zz_NA0930,,,,Gate,hs_snda93_sn
+hs_spza02_ac,Gate Open,h_sp_NA0001,,,,Gate,hs_spza02_ac
+hs_spza03_hp,Gate Open,h_sp_NA0100,,,,Gate,hs_spza03_hp
+Victory,Win!,h_va_NA0000,,,,,Victory

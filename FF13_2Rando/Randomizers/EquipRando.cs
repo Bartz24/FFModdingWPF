@@ -15,6 +15,7 @@ public class EquipRando : Randomizer
 {
     public DataStoreWDB<DataStoreItemWeapon> itemWeapons = new();
     public DataStoreWDB<DataStoreItem> items = new();
+    public readonly Dictionary<string, ItemData> itemData = new();
 
     public EquipRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -24,6 +25,12 @@ public class EquipRando : Randomizer
         itemWeapons.LoadDB3(Generator, "13-2", @"\db\resident\item_weapon.wdb");
         FileHelpers.CopyFile(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb", Generator.DataOutFolder + @"\db\resident\item_weapon.wdb.orig");
         items.LoadDB3(Generator, "13-2", @"\db\resident\item.wdb");
+
+        FileHelpers.ReadCSVFile(@"data\items.csv", row =>
+        {
+            ItemData i = new(row);
+            itemData.Add(i.ID, i);
+        }, FileHelpers.CSVFileHeader.HasHeader);
     }
     public override void Randomize()
     {

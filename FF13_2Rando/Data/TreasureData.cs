@@ -23,7 +23,8 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
     [RowIndex(4)]
     public override List<string> RequiredAreas { get; set; }
 
-    public override int BaseDifficulty { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    // TODO: proper impl
+    public override int BaseDifficulty { get => 1; set => throw new NotImplementedException(); }
 
     public TreasureData(SeedGenerator generator, string[] row) : base(generator, row)
     {
@@ -58,6 +59,22 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
 
     public override bool CanReplace(ItemLocation location)
     {
-        throw new NotImplementedException();
+        if (location.Traits.Contains("Brain"))
+        {
+            // TODO
+            return false;
+        }
+
+        if(!FF13_2Flags.Items.KeyPlaceTreasure.Enabled && 
+            (
+                location.Traits.Contains("Wild") || location.Traits.Contains("Graviton")||
+                location.Traits.Contains("SideKey")|| location.Traits.Contains("GateSeal")
+            )
+            )
+        {
+            return false;
+        }
+
+        return true;
     }
 }
