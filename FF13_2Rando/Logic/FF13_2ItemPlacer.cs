@@ -34,7 +34,7 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
             return true;
         }
 
-        if (location.Traits.Contains("Same") || location.Traits.Contains("Fixed") || location.ID == "key_opt_silver")
+        if (location.Traits.Contains("Same") || location.Traits.Contains("Fixed"))
         {
             return true;
         }

@@ -19,7 +19,7 @@ public partial class BattleRando : Randomizer
     private readonly DataStoreWDB<DataStoreRCharaSet> charaSets = new();
 
     public Dictionary<string, DataStoreWDB<DataStoreBtSTable>> btTables = new();
-    private Dictionary<string, EnemyData> enemyData = new();
+    public Dictionary<string, EnemyData> enemyData = new();
     private readonly Dictionary<string, Dictionary<string, BossData>> bossData = new();
     public Dictionary<string, BattleData> battleData = new();
     private Dictionary<string, string> shuffledBosses = new();
@@ -99,12 +99,17 @@ public partial class BattleRando : Randomizer
             float ratio = (float)enemyMaxRank / (float)maxAreaDepth;
             foreach (var (area, range) in areaBounds)
             {
+                // This is working out ok, can potentially bump up more after the first couple of ranks
+                // Especially since the endgame is locked and adds like 6 nodes to depth currently
                 var areaDepth = cruxRando.areaDepths[area];
-                var adjusted = areaDepth * ratio;
+                // Scale upper bound higher once we're more than 3 locations in
+                var offset = areaDepth > 3 ? 2 : 0;
+                var adjusted = (areaDepth + offset) * ratio;
                 // Overall floor of 5 for max, scales up with areaDepth*0.75
                 int newMax = Math.Max((int)adjusted + 1, 5);
                 // Min is 1 or scaled rank*0.5
-                int newMin = Math.Max(1, (int)(adjusted*0.5));
+                var mult = 0.5;
+                int newMin = Math.Max(1, (int)(adjusted* mult));
                 areaBounds[area] = (newMin, Math.Min(newMax, enemyMaxRank));
             }
 
@@ -131,6 +136,7 @@ public partial class BattleRando : Randomizer
                 List<string> locationsByTheirDepth = reducedBossDataForShuffle
                     .GroupBy(kvp =>
                     {
+                        // This basically leaves gog vanilla always - check if I did something silly...
                         var location = kvp.Value.Location;
                         var areaDepth = cruxRando.areaDepths[location];
                         // Randomise the area ranks to shuffle things up a little

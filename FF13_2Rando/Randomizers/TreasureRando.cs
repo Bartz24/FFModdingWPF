@@ -90,10 +90,7 @@ public partial class TreasureRando : Randomizer
         AddTreasure("frg_cmn_hmaa001", "frg_cmn_hmaa001", 1, "");
         AddTreasure("frg_cmn_hmaa002", "frg_cmn_hmaa002", 1, "");
         AddTreasure("key_s_neck", "key_s_neck", 1, "");
-        AddTreasure("key_l_knife", "key_l_knife", 1, "key_opt_silver");
-        // Just grant wild artefacts here for now for clearance purposes?
-        // This adds to the pool so now you have so many. so so many.
-        AddTreasure("key_opt_silver", "opt_silver", 10, "");
+        AddTreasure("key_l_knife", "key_l_knife", 1, "");
 
         // Remove repeatable gil moogle throws
         search.Values.ForEach(s =>
@@ -207,6 +204,11 @@ public partial class TreasureRando : Randomizer
             ItemPlacer.PlaceItems();
             ItemPlacer.ApplyToGameData();
 
+            // Just grant wild artefacts here for now for clearance purposes.
+            // This adds to the pool so now you have so many. so so many.
+            treasures["tre_hmaa_007"].s11ItemResourceId = "opt_silver";
+            treasures["tre_hmaa_007"].iItemCount = 10;
+
             RandomNum.ClearRand();
 
         }
@@ -242,6 +244,55 @@ public partial class TreasureRando : Randomizer
                 //    }
                 //});
             });
+            List<string> gravitonCoreNames = new() { "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta" };
+            for(var i = 1; i<8; i++)
+            {
+                // Graviton core location hints
+                var gravitonCoreItemId = $"frg_cmn_gvtn00{i}";
+                var gravitonCoreHintTextId = $"$cap_core_0{i}_p1";
+                
+                var areaName = "Unknown Location";
+                var dateText = "cannot resolve a fixed date";
+                var dateTextFixedPrefix = "puts the date at ";
+                var accessText = "";
+                var accessTextPrefix = "According to our calculations, such a gate exists within ";
+                var indexName = gravitonCoreNames[i-1];
+                // TODO: this isn't working currently
+                var gravitonCoreRandoLocation = ItemLocations.Where(kvp => kvp.Value.GetItem(false).Value.Equals(gravitonCoreItemId)).Select(kvp => kvp.Value).FirstOrDefault();
+                if(gravitonCoreRandoLocation is TreasureData treasure)
+                {
+                    var treasureArea = treasure.Areas;
+                    var area = treasureArea[0];
+                    var areaSplit = area.Split("_");
+                    var areaPrefix = areaSplit[1];
+                    // Only add the date text if we know exactly where it will end up.
+                    if (treasureArea.Count == 1)
+                    {
+                        var areaTimeMarker = areaSplit[2];
+                        if (areaTimeMarker.StartsWith("NA"))
+                        {
+                            dateText = dateTextFixedPrefix + "??? AF";
+                        }
+                        else if (HistoriaCruxConstants.DATE_SPECIAL_CASES.ContainsKey(area))
+                        {
+                            dateText = dateTextFixedPrefix + HistoriaCruxConstants.DATE_SPECIAL_CASES[area] + " AF";
+                        }
+                        else
+                        {
+                            dateText = areaTimeMarker.Substring(3) + " AF";
+                        }
+                        var parentPrefix = cruxRando.shuffledNodes[area].parent.name.Split("_")[1];
+                        accessText = accessTextPrefix + HistoriaCruxConstants.AREA_PREFIX_LOOKUP[parentPrefix];
+                    }
+                    areaName = dateTextFixedPrefix + HistoriaCruxConstants.AREA_PREFIX_LOOKUP[treasureArea[0].Split("_")[1]];
+                }
+
+                var updatedText = $$"""Graviton Core readings have been detected somewhere in the area of {Color Yellow}{{areaName}}{Color White}.{Text NewLine}{Text NewLine}"""
+                    + $$"""Resonance imaging {{dateText}}. To recover the object, you will need to find a Time Gate that connects to this time period. {{accessText}}{Text NewLine}{Text NewLine}"""
+                    + $$"""We have designated the target {Color IceBlue}Graviton Core {{indexName}}{Color White}. Travel the timeline and bring it back.""";
+
+                textRando.mainSysUS[gravitonCoreHintTextId] = updatedText;
+            }
         }
     }
 
@@ -306,6 +357,7 @@ public partial class TreasureRando : Randomizer
     private string GetItemName(string itemID)
     {
         EquipRando equipRando = Generator.Get<EquipRando>();
+        BattleRando battleRando = Generator.Get<BattleRando>();
         TextRando textRando = Generator.Get<TextRando>();
         string name;
         if (itemID == "")
@@ -322,10 +374,17 @@ public partial class TreasureRando : Randomizer
         }
         else
         {
-            name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId];
-            if (name.Contains("{End}"))
+            try
             {
-                name = name.Substring(0, name.IndexOf("{End}"));
+                name = textRando.mainSysUS[equipRando.items[itemID].sItemNameStringId];
+                if (name.Contains("{End}"))
+                {
+                    name = name.Substring(0, name.IndexOf("{End}"));
+                }
+            } catch
+            {
+                Generator.Logger.LogDebug($"Cannot resolve proper name for item with id {itemID}");
+                name = itemID;
             }
         }
 

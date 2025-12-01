@@ -65,6 +65,12 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
             return false;
         }
 
+        if(location.Traits.Contains("Event") && GetItemData(true).s11ItemResourceId.StartsWith("frg"))
+        {
+            // Fragments can't be placed on event checks (for now at least)
+            return false;
+        }
+
         if(!FF13_2Flags.Items.KeyPlaceTreasure.Enabled && 
             (
                 location.Traits.Contains("Wild") || location.Traits.Contains("Graviton")||

@@ -36,14 +36,19 @@ public class FF13_2JunkItemPlacer : JunkItemPlacer<FF13_2ItemLocation>
                 }
 
                 IEnumerable<ItemData> possible = equipRando.itemData.Values.Where(i =>
-                    i.Category == category);
+                    i.Category == category).Where(i =>
+                    {
+                        // Don't allow dlc items if rando DLC wasn't enabled
+                        return i.Traits.Contains("DLC") ? FF13_2Flags.Other.RandoDLC.Enabled : true;
+                    });
 
                 repItem = RandomNum.SelectRandomOrDefault(possible)?.ID;
             } while (repItem == null);
-            // Add to used items if an weapon, shield, garb, or accessory
+            // Add to used items if an weapon, adornment, monster crystal or accessory
             if (equipRando.itemData[repItem].Category == "Adornment" ||
                 equipRando.itemData[repItem].Category == "Weapon" ||
-                equipRando.itemData[repItem].Category == "Accessory")
+                equipRando.itemData[repItem].Category == "Accessory" ||
+                equipRando.itemData[repItem].Category == "MonsterCrystal")
             {
                 usedItems.Add(repItem);
             }

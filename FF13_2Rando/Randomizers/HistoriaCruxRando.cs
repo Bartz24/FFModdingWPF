@@ -35,6 +35,8 @@ public partial class HistoriaCruxRando : Randomizer
 
     public Dictionary<string, int> areaDepths = new();
 
+    public Dictionary<string, TreeNode> shuffledNodes = new();
+
     public HistoriaCruxRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
@@ -101,9 +103,8 @@ public partial class HistoriaCruxRando : Randomizer
             if (placement.ContainsKey(HistoriaCruxConstants.NEW_BODHUM_3))
             {
                 gateTable["hs_hmaa10_zz"].sArea = placement[HistoriaCruxConstants.NEW_BODHUM_3];
+                gateTable["hs_hmaa_def"].sArea = placement[HistoriaCruxConstants.NEW_BODHUM_3];
             }
-
-            // TODO: fix hs_hmaa_def for starting location if no fixed bodhum start
 
             BuildInitialGateTree();
             // Generate updated gate matrix based on shuffled links
@@ -113,7 +114,7 @@ public partial class HistoriaCruxRando : Randomizer
         }
     }
 
-    private class TreeNode
+    public class TreeNode
     {
         public string name;
         public List<TreeNode> children = new();
@@ -225,6 +226,7 @@ public partial class HistoriaCruxRando : Randomizer
                 }
                 depthList[node.Value] = depth;
             }
+            shuffledNodes = new(nodes);
             if (roots.Count > 1)
             {
                 Generator.Logger.LogDebug("Multiple roots detected in tree!");
@@ -252,14 +254,14 @@ public partial class HistoriaCruxRando : Randomizer
                 coordMap[rootid] = node.name;
                 // DLC placement left of initial root node
                 var dlcBlockId = CoordsToId(1, initialY);
-                coordMap[dlcBlockId] = "h_zz_NA0970";
+                coordMap[dlcBlockId] = HistoriaCruxConstants.BLANK_7;
                 var dlcUpperId = CoordsToId(0, initialY - 1);
-                coordMap[dlcUpperId] = "h_va_NA0001";
+                coordMap[dlcUpperId] = HistoriaCruxConstants.VALHALLA_DLC;
                 var dlcLowerId = CoordsToId(1, initialY + 1);
-                coordMap[dlcLowerId] = "h_cs_NA0001";
+                coordMap[dlcLowerId] = HistoriaCruxConstants.SERENDIPITY_DLC;
                 var dlcLeftId = CoordsToId(0, initialY);
-                coordMap[dlcLeftId] = "h_cl_NA0001";
-                var (success, added) = TryPlaceChildren(node, 2, initialY, coordMap, 0, 1);
+                coordMap[dlcLeftId] = HistoriaCruxConstants.COLISEUM_DLC;
+                var (success, added) = TryPlaceChildren(node, 2, initialY, coordMap, 0);
                 if (!success)
                 {
                     Generator.Logger.LogDebug("Failed to place crux locations!");
@@ -306,9 +308,9 @@ public partial class HistoriaCruxRando : Randomizer
                 var left = linkDetails.sArea;
                 var right = linkDetails.sOpenHistoria1.Substring(0, linkDetails.sOpenHistoria1.Length - 2);
                 // Bodhum 3xx is a fake area, for link purposes just skip through to the next point
-                if(right == "h_hp_AD0003")
+                if(right == HistoriaCruxConstants.NEW_BODHUM_3X)
                 {
-                    right = "h_zz_NA0950";
+                    right = HistoriaCruxConstants.BLANK_5;
                 }
                 if(!updatedLocations.ContainsKey(left) || !updatedLocations.ContainsKey(right))
                 {
@@ -318,7 +320,7 @@ public partial class HistoriaCruxRando : Randomizer
 
                 // TODO: special case for "magic" links to void beyond/serendipity, need to consider left also
                 DataStoreRGateTable incomingLink;
-                if(right != "h_cs_NA0000" && right != "h_sp_NA0001")
+                if(right != HistoriaCruxConstants.SERENDIPITY && right != HistoriaCruxConstants.VOID_BEYOND_A)
                 {
                     incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a");
                 } else
@@ -422,53 +424,53 @@ public partial class HistoriaCruxRando : Randomizer
 
     private readonly Dictionary<string, int> ykdGateOffsets = new Dictionary<string, int>()
     {
-        {"h_zz_NA0970", 0x60f0 },
-        {"h_gt_AD0900", 0x6170 },
-        {"h_gt_AD0200", 0x61f0 },
-        {"h_gt_AD0300", 0x6270 },
-        {"h_ac_AD0400", 0x62f0 },
-        {"h_ac_AD0500", 0x6370 },
+        {HistoriaCruxConstants.BLANK_7, 0x60f0 },
+        {HistoriaCruxConstants.AUGUSTA_900, 0x6170 },
+        {HistoriaCruxConstants.AUGUSTA_200, 0x61f0 },
+        {HistoriaCruxConstants.AUGUSTA_300, 0x6270 },
+        {HistoriaCruxConstants.ACADEMIA_400, 0x62f0 },
+        {HistoriaCruxConstants.ACADEMIA_500, 0x6370 },
         // HC loc is 0100 not 0400
-        {"h_aa_AD0400", 0x63f0 },
-        {"h_vp_AD0010", 0x6470 },
-        {"h_vp_AD0200", 0x64f0 },
-        {"h_cs_NA0000", 0x6570 },
-        {"h_cl_NA0000", 0x65f0 },
-        {"h_sn_AD0900", 0x6670 },
-        {"h_sn_AD0300", 0x66f0 },
-        {"h_sn_AD0400", 0x6770 },
-        {"h_bj_AD0100", 0x67f0 },
-        {"h_bj_AD0300", 0x6870 },
-        {"h_bj_AD0005", 0x68f0 },
-        {"h_hm_AD0900", 0x6970 },
-        {"h_hm_AD0003", 0x69f0 },
-        {"h_hm_AD0700", 0x6a70 },
-        {"h_gy_AD0100", 0x6af0 },
-        {"h_gy_AD0010", 0x6b70 },
+        {HistoriaCruxConstants.ACADEMIA_4XX, 0x63f0 },
+        {HistoriaCruxConstants.VILE_PEAKS_10, 0x6470 },
+        {HistoriaCruxConstants.VILE_PEAKS_200, 0x64f0 },
+        {HistoriaCruxConstants.SERENDIPITY, 0x6570 },
+        {HistoriaCruxConstants.COLISEUM, 0x65f0 },
+        {HistoriaCruxConstants.SUNLETH_900, 0x6670 },
+        {HistoriaCruxConstants.SUNLETH_300, 0x66f0 },
+        {HistoriaCruxConstants.SUNLETH_400, 0x6770 },
+        {HistoriaCruxConstants.BRESHA_RUINS_100, 0x67f0 },
+        {HistoriaCruxConstants.BRESHA_RUINS_300, 0x6870 },
+        {HistoriaCruxConstants.BRESHA_RUINS_5, 0x68f0 },
+        {HistoriaCruxConstants.NEW_BODHUM_900, 0x6970 },
+        {HistoriaCruxConstants.NEW_BODHUM_3, 0x69f0 },
+        {HistoriaCruxConstants.NEW_BODHUM_700, 0x6a70 },
+        {HistoriaCruxConstants.YASCHAS_100, 0x6af0 },
+        {HistoriaCruxConstants.YASCHAS_10, 0x6b70 },
         // 110
-        {"h_gy_AD0200", 0x6bf0 },
-        {"h_gh_AD0010", 0x6c70 },
-        {"h_gw_AD0900", 0x6cf0 },
-        {"h_gw_AD0200", 0x6d70 },
-        {"h_gw_AD0300", 0x6df0 },
-        {"h_gw_AD0400", 0x6e70 },
-        {"h_dd_AD0700", 0x6ef0 },
-        {"h_dd_AD0900", 0x6f70 },
-        {"h_sp_NA0001", 0x6ff0 },
-        {"h_sp_NA0100", 0x7070 },
-        {"h_zz_NA0910", 0x70f0 },
-        {"h_zz_NA0920", 0x7170 },
-        {"h_zz_NA0930", 0x71f0 },
-        {"h_zz_NA0940", 0x7270 },
-        {"h_zz_NA0950", 0x72f0 },
-        {"h_zz_NA0960", 0x7370 },
-        {"h_gd_NA0000", 0x73f0 },
-        {"h_gd_NA0900", 0x7470 },
-        {"h_va_NA0000", 0x74f0 },
-        {"h_va_NA0001", 0x7570 },
-        {"h_cs_NA0001", 0x75f0 },
-        {"h_cl_NA0001", 0x7670 },
-        {"h_zz_NA0980", 0x76f0 },
+        {HistoriaCruxConstants.YASCHAS_110, 0x6bf0 },
+        {HistoriaCruxConstants.YASCHAS_1X, 0x6c70 },
+        {HistoriaCruxConstants.OERBA_900, 0x6cf0 },
+        {HistoriaCruxConstants.OERBA_200, 0x6d70 },
+        {HistoriaCruxConstants.OERBA_300, 0x6df0 },
+        {HistoriaCruxConstants.OERBA_400, 0x6e70 },
+        {HistoriaCruxConstants.DYING_WORLD_700, 0x6ef0 },
+        {HistoriaCruxConstants.DYING_WORLD_900, 0x6f70 },
+        {HistoriaCruxConstants.VOID_BEYOND_A, 0x6ff0 },
+        {HistoriaCruxConstants.VOID_BEYOND_B, 0x7070 },
+        {HistoriaCruxConstants.BLANK_1, 0x70f0 },
+        {HistoriaCruxConstants.BLANK_2, 0x7170 },
+        {HistoriaCruxConstants.BLANK_3, 0x71f0 },
+        {HistoriaCruxConstants.BLANK_4, 0x7270 },
+        {HistoriaCruxConstants.BLANK_5, 0x72f0 },
+        {HistoriaCruxConstants.BLANK_6, 0x7370 },
+        {HistoriaCruxConstants.ARCHYLTE, 0x73f0 },
+        {HistoriaCruxConstants.ARCHYLTE_900, 0x7470 },
+        {HistoriaCruxConstants.VALHALLA_FINAL, 0x74f0 },
+        {HistoriaCruxConstants.VALHALLA_DLC, 0x7570 },
+        {HistoriaCruxConstants.SERENDIPITY_DLC, 0x75f0 },
+        {HistoriaCruxConstants.COLISEUM_DLC, 0x7670 },
+        {HistoriaCruxConstants.BLANK_8, 0x76f0 },
     };
 
     private readonly Dictionary<string, int> ykdLinkOffsets = new Dictionary<string, int>()
@@ -523,7 +525,7 @@ public partial class HistoriaCruxRando : Randomizer
 
     private Dictionary<TreeNode, int> depthList = new();
 
-    private (bool, Dictionary<int, string>) TryPlaceChildren(TreeNode root, int rootX, int rootY, Dictionary<int, string> placed, int incomingDir, int yBias)
+    private (bool, Dictionary<int, string>) TryPlaceChildren(TreeNode root, int rootX, int rootY, Dictionary<int, string> placed, int incomingDir)
     {
         if (root.children.Count == 0)
         {
@@ -542,6 +544,7 @@ public partial class HistoriaCruxRando : Randomizer
         // order children by deepest child to stretch out long chains maybe
         var usedUp = false;
         var usedDown = false;
+        var usedRight = false;
         // Stop ambiguous vertical placements
         if (incomingDir == 4 || incomingDir == 2)
         {
@@ -551,13 +554,20 @@ public partial class HistoriaCruxRando : Randomizer
         {
             usedDown = true;
         }
-        // Special case these as they technically have 4 outgoing links so things are going to get weird no matter what probably...
-        if(root.name == "h_sn_AD0300" || root.name == "h_gh_AD0010")
+        else if (incomingDir == 5)
         {
+            usedRight = true;
+        }
+        // Special case these as they technically have 4 outgoing links so things are going to get weird no matter what probably...
+        if (root.name == HistoriaCruxConstants.SUNLETH_300 || root.name == HistoriaCruxConstants.YASCHAS_1X)
+        {
+            // TODO: ideally want the serendipity and void beyond links to share an up/down direction in this case.
             usedUp = false;
             usedDown = false;
+            usedRight = false;
         }
         // When on the main branch, pick random Y dir if there's multiple children to place
+        int yBias = 0;
         if (incomingDir == 0 && rootY == 6 && root.children.Count == 2)
         {
             yBias = new List<int>() { -1, 1 }.Shuffle()[0];
@@ -570,28 +580,28 @@ public partial class HistoriaCruxRando : Randomizer
                 usedDown = true;
             }
         }
-        //Bounds cehcking
-        //if(rootY < 0)
-        //{
-        //    usedDown = true;
-        //}
-        //if(rootY > 7)
-        //{
-        //    usedUp = true;
-        //}
+        //Bounds checking
+        if(rootX >= 18)
+        {
+            usedRight = true;
+        }
+        if (rootY < 0)
+        {
+            usedUp = true;
+        }
+        if (rootY > 7)
+        {
+            usedDown = true;
+        }
+        // TODO: improve directional preference based on context
+        // Introduce a "gravity" back towards constrained y value maybe, double check usedUp/Down flags are being set right (might be inverted currently)
         for (var direction = 0; direction < 6; direction++)
         {
             var trueDir = direction;
-            //if(yBias == -1)
-            //{
-            //    trueDir = (direction + 3) % 6;
-            //}
             var attemptX = rootX;
             var attemptY = rootY;
             var preferredY = 1;
-            // TODO: ignoring ybias for now because it doens't really work out nicely.
-            var childBias = root.children.Count > 1 ? -yBias : yBias;
-            // TODO: vary based on incomingDir?
+            // Don't allow placement on the incoming direction
             if (trueDir == 5 - incomingDir)
             {
                 continue;
@@ -604,27 +614,31 @@ public partial class HistoriaCruxRando : Randomizer
             {
                 continue;
             }
+            if(usedRight && trueDir < 3)
+            {
+                continue;
+            }
             if (trueDir == 0)
             {
                 attemptX++;
             }
             else if (trueDir == 1)
             {
-                attemptY += preferredY;
+                attemptY -= preferredY;
             }
             else if (trueDir == 2)
             {
                 attemptX++;
-                attemptY -= preferredY;
+                attemptY += preferredY;
             }
             else if (trueDir == 3)
             {
                 attemptX--;
-                attemptY += preferredY;
+                attemptY -= preferredY;
             }
             else if (trueDir == 4)
             {
-                attemptY -= preferredY;
+                attemptY += preferredY;
             }
             else if (trueDir == 5)
             {
@@ -639,14 +653,14 @@ public partial class HistoriaCruxRando : Randomizer
 
 
             var activeChild = orderedPreference[placedChildren];
-            if (root.name == "h_hp_AD0003" && activeChild.name == "h_zz_NA0950")
+            if (root.name == HistoriaCruxConstants.NEW_BODHUM_3X && activeChild.name == HistoriaCruxConstants.BLANK_5)
             {
                 // New Bodhum 3xx is not a real location, so use its slot for the empty node it generates afterwards.
                 placedChildren++;
                 var parentId = CoordsToId(rootX, rootY);
                 newPlacement.Remove(parentId);
                 newPlacement[parentId] = activeChild.name;
-                return TryPlaceChildren(activeChild, rootX, rootY, newPlacement, trueDir, childBias);
+                return TryPlaceChildren(activeChild, rootX, rootY, newPlacement, trueDir);
             }
             var possibleMatch = newPlacement.Values.Where(n => n == activeChild.name);
             if (possibleMatch.Count() > 0)
@@ -660,7 +674,7 @@ public partial class HistoriaCruxRando : Randomizer
                 continue;
             }
             newPlacement[activeChildId] = activeChild.name;
-            var (success, added) = TryPlaceChildren(activeChild, attemptX, attemptY, newPlacement, trueDir, childBias);
+            var (success, added) = TryPlaceChildren(activeChild, attemptX, attemptY, newPlacement, trueDir);
             if (!success)
             {
                 newPlacement.Remove(activeChildId);
@@ -682,7 +696,7 @@ public partial class HistoriaCruxRando : Randomizer
                     usedUp = true;
                 }
                 // Special case these as they technically have 4 outgoing links so things are going to get weird no matter what probably...
-                if (root.name == "h_sn_AD0300" || root.name == "h_gh_AD0010")
+                if (root.name == HistoriaCruxConstants.SUNLETH_300 || root.name == HistoriaCruxConstants.YASCHAS_1X)
                 {
                     usedUp = false;
                     usedDown = false;
@@ -706,54 +720,79 @@ public partial class HistoriaCruxRando : Randomizer
     {
         // Cap horizontal depth somewhat TODO: Doesn't work! Need to propagate the failure up to dump out more things and retry from higher up or it just
         // gets stuck in the while loop where nothing can be placed as its not exhaustive? Should walk back up the tree but seems to not currently...
-        //if(depth >= 14)
-        //{
-        //    shuffleFailures++;
-        //    return (false, soFar);
-        //}
+        // Add in some debug logging to see what it's backtracking up to and figure it out from there.
         List<string> available = GetAvailableLocations(soFar);
-        List<string> remaining = openings.Where(t => !soFar.ContainsValue(t)).Shuffle();
 
-        // Prioritise branched paths over depth, see how the heuristic works out here
-        // Want to deprioritise "terminal" nodes until a bit deeper in the chain generally
-        // Also maybe need to consider wild artefact stuff?
-        // Also need to bias for fixed boss locations (BJ005, SN300, GD000, GT200, AC400, AC500)
-
-        // TODO: optimisation, wasted for loop this either runs always or once?
-        foreach (string rep in remaining)
+        Func<string, long> weightFunc = o =>
         {
-            List<string> possible = openings.Where(o => !soFar.ContainsKey(o) && IsAllowed(o, soFar, available)).Shuffle();
-            if (possible.Count == 0)
+            // Bias the choice based on fixed battle rank, or number of placed locations if the location doesn't have a fixed rank
+            // Also bias areas with higher outgoing links earlier
+            var f = 0;
+            var g = 0;
+            if (areaData.ContainsKey(o))
             {
-                return (false, soFar);
+                // Battle balance for "cinematic" fights which can't be shuffled currently.
+                // Augusta 200 and Acad 400 also fix a lot of the enemy pool, so can't change much in battle balance
+                // Bresha 5 and Sunleth 300 both have 3 outgoing links so are very valuable for early variation
+                // Archylte might be getting this flag removed if we can solve faeryl
+                // Acad 500 is pseudo-fixed currently anyway in the endgame so has no effect here.
+                if (areaData[o].Traits.Contains("Cinematic"))
+                {
+                    // This might bias earlier fixed areas too much, but 2 of them are bresha 5 and sunleth 300 which we want early anyway so it's ok?
+                    f = (12 - areaData[o].FixedBattleRank);
+                }
+                else
+                {
+                    f = 6;
+                }
+                // Prefer areas with multiple outputs, but want to also early-bias this, so higher depth removes this effect somewhat
+                var depthMod = (int)Math.Max(0, 6 - (depth / 3));
+                g = areaData[o].OutgoingLinkCount * depthMod;
             }
+            return g + f;
+        };
+
+        var remainingToShuffle = openings.Where(t => !soFar.ContainsValue(t)).ToList();
+        var shuffledRemaining = new List<string>();
+        while(remainingToShuffle.Count() > 0)
+        {
+            var weightedShuffled = RandomNum.SelectRandomWeighted(remainingToShuffle, weightFunc);
+            shuffledRemaining.Add(weightedShuffled);
+            remainingToShuffle.Remove(weightedShuffled);
+        }
+
+        List<string> remaining = shuffledRemaining;
+
+        List<string> hasOption = openings.Where(o => !soFar.ContainsKey(o) && IsAllowed(o, soFar, available)).Shuffle();
+        if (hasOption.Count == 0)
+        {
+            Generator.Logger.LogDebug($"Ran out of placement options at depth {depth}. Placed {soFar.Count} remaining {remaining.Count}");
+            return (false, soFar);
         }
 
         foreach (string rep in remaining)
         {
-            List<string> possible = openings.Where(o => !soFar.ContainsKey(o) && IsAllowed(o, soFar, available)).ToList();
+            // Gate certain areas to manipulate placement somewhat
+            if (rep == HistoriaCruxConstants.ACADEMIA_400 || rep == HistoriaCruxConstants.AUGUSTA_200)
+            {
+                if (depth <= 3 || soFar.Count <= 8)
+                {
+                    continue;
+                }
+            }
+            else if (rep == HistoriaCruxConstants.ACADEMIA_4XX)
+            {
+                if(depth <= 5 || soFar.Count <= 15)
+                {
+                    continue;
+                }
+            }
+            List<string> possible = openings
+                .Where(o => !soFar.ContainsKey(o) && IsAllowed(o, soFar, available))
+                .ToList();
             while (possible.Count > 0)
             {
-                string next = RandomNum.SelectRandomWeighted(possible, o => {
-                    // Bias the choice based on fixed battle rank, or number of placed locations if the location doesn't have a fixed rank
-                    // Also bias areas with higher outgoing links earlier
-                    var f = 0;
-                    var g = 0;
-                    if (areaData.ContainsKey(o))
-                    {
-                        if (areaData[o].Traits.Contains("Cinematic"))
-                        {
-                            // This might bias earlier fixed areas too much, but 2 of them are bresha 5 and sunleth 300 which we want early anyway so it's ok?
-                            f = (20 - areaData[o].FixedBattleRank);
-                        } else
-                        {
-                            f = 20;
-                        }
-                        g = areaData[o].OutgoingLinkCount * 2;
-                    }
-                    // Max f is around 16, adjust offset/multipliers if needed to heighten effect.
-                    return Math.Max(1, depth + g - f);
-                });
+                string next = RandomNum.SelectRandomWeighted(possible, weightFunc);
                 soFar.Add(next, rep);
                 if (soFar.Count == openings.Count)
                 {
@@ -774,6 +813,7 @@ public partial class HistoriaCruxRando : Randomizer
             }
         }
         shuffleFailures++;
+        Generator.Logger.LogDebug($"Shuffle failure at depth {depth}. Placed {soFar.Count} remaining {remaining.Count}");
         return (false, soFar);
     }
 
@@ -830,7 +870,7 @@ public partial class HistoriaCruxRando : Randomizer
 
     public int GetMogLevel(List<string> available)
     {
-        return available.Contains("h_dd_AD0700") ? 3 : available.Contains("h_sn_AD0300") ? 2 : available.Contains("h_bj_AD0005") ? 1 : 0;
+        return available.Contains(HistoriaCruxConstants.NEW_BODHUM_700) ? 3 : available.Contains(HistoriaCruxConstants.SUNLETH_300) ? 2 : available.Contains(HistoriaCruxConstants.BRESHA_RUINS_5) ? 1 : 0;
     }
 
     private bool HasGravitonLocations(List<string> available)
@@ -841,37 +881,37 @@ public partial class HistoriaCruxRando : Randomizer
             List<string> gravitons = new();
             if (GetMogLevel(available) >= 1)
             {
-                gravitons.Add("h_hm_AD0003"); // Bodhum 3. requires moogle hunt
+                gravitons.Add(HistoriaCruxConstants.NEW_BODHUM_3); // requires moogle hunt
             }
 
             if (GetMogLevel(available) >= 1)
             {
-                gravitons.Add("h_bj_AD0005"); // Bresha 5. requires moogle hunt
+                gravitons.Add(HistoriaCruxConstants.BRESHA_RUINS_5); // requires moogle hunt
             }
 
             if (GetMogLevel(available) >= 1)
             {
-                gravitons.Add("h_gw_AD0200"); // Oerba 200. requires moogle hunt
+                gravitons.Add(HistoriaCruxConstants.OERBA_200); // requires moogle hunt
             }
 
             if (GetMogLevel(available) >= 1)
             {
-                gravitons.Add("h_ac_AD0400"); // Academia 400. requires moogle hunt
+                gravitons.Add(HistoriaCruxConstants.ACADEMIA_400); // requires moogle hunt
             }
 
             if (GetMogLevel(available) >= 1)
             {
-                gravitons.Add("h_gy_AD0100"); // Yaschas 100. requires moogle hunt
+                gravitons.Add(HistoriaCruxConstants.YASCHAS_100); // requires moogle hunt
             }
 
             if (GetMogLevel(available) >= 1)
             {
-                gravitons.Add("h_gw_AD0400"); // Oerba 400. requires moogle hunt
+                gravitons.Add(HistoriaCruxConstants.OERBA_400); // requires moogle hunt
             }
 
             if (GetMogLevel(available) >= 1)
             {
-                gravitons.Add("h_sn_AD0400"); // Sunleth 400. requires moogle hunt
+                gravitons.Add(HistoriaCruxConstants.SUNLETH_400); // requires moogle hunt
             }
 
             if (available.Intersect(gravitons).Count() < 5)
@@ -891,48 +931,49 @@ public partial class HistoriaCruxRando : Randomizer
             List<string> wilds = new();
             if (GetMogLevel(available) >= 1)
             {
-                wilds.Add("h_bj_AD0005"); // Bresha 5. requires moogle hunt
+                wilds.Add(HistoriaCruxConstants.BRESHA_RUINS_5); // requires moogle hunt
             }
 
             if (GetMogLevel(available) >= 1)
             {
-                wilds.Add("h_bj_AD0300"); // Bresha 300. requires moogle hunt
+                wilds.Add(HistoriaCruxConstants.BRESHA_RUINS_300); // Bresha 300. requires moogle hunt
             }
 
             if (GetMogLevel(available) >= 2)
             {
-                wilds.Add("h_gw_AD0200"); // Oerba 200. requires moogle throw
+                wilds.Add(HistoriaCruxConstants.OERBA_200); // Oerba 200. requires moogle throw
             }
 
             if (GetMogLevel(available) >= 2)
             {
-                wilds.Add("h_sn_AD0300"); // Sunleth 300. requires moogle throw
+                wilds.Add(HistoriaCruxConstants.SUNLETH_300); // Sunleth 300. requires moogle throw
             }
 
             if (GetMogLevel(available) >= 2)
             {
-                wilds.Add("h_gd_NA0000"); // Archylte. requires moogle throw
+                wilds.Add(HistoriaCruxConstants.ARCHYLTE); // Archylte. requires moogle throw
             }
 
-            wilds.Add("h_gt_AD0200"); // Augusta 200
+            wilds.Add(HistoriaCruxConstants.AUGUSTA_200); // Augusta 200
             if (GetMogLevel(available) >= 1)
             {
-                wilds.Add("h_aa_AD0400"); // Academia 4XX. requires moogle hunt
+                wilds.Add(HistoriaCruxConstants.ACADEMIA_4XX); // Academia 4XX. requires moogle hunt
             }
 
             if (GetMogLevel(available) >= 2)
             {
-                wilds.Add("h_gy_AD0100"); // Yaschas 100. requires moogle hunt and throw
+                wilds.Add(HistoriaCruxConstants.YASCHAS_100); // Yaschas 100. requires moogle hunt and throw
             }
 
             if (GetMogLevel(available) >= 1)
             {
-                wilds.Add("h_dd_AD0700"); // Dying World 700. requires moogle hunt
+                wilds.Add(HistoriaCruxConstants.DYING_WORLD_700); // Dying World 700. requires moogle hunt
             }
 
-            if (available.Contains("h_sn_AD0300") && available.Contains("h_gd_NA0000") && available.Contains("h_gh_AD0010") && available.Contains("h_cl_NA0000"))
+            if (available.Contains(HistoriaCruxConstants.SUNLETH_300) && available.Contains(HistoriaCruxConstants.ARCHYLTE) &&
+                available.Contains(HistoriaCruxConstants.YASCHAS_1X) && available.Contains(HistoriaCruxConstants.COLISEUM))
             {
-                wilds.Add("h_cs_NA0000"); // Serendipity. requires completing Yaschas 1X and Sunleth 300
+                wilds.Add(HistoriaCruxConstants.SERENDIPITY); // Serendipity. requires completing Yaschas 1X and Sunleth 300 (which then transitively requires the Hole Gems from coliseum/archylte)
             }
 
             int wildsNeeded = GetWildsNeeded(available);
@@ -965,12 +1006,12 @@ public partial class HistoriaCruxRando : Randomizer
         };
         if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 0)
         {
-            list.Add("h_hm_AD0003");
+            list.Add(HistoriaCruxConstants.NEW_BODHUM_3);
         }
 
         if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 1)
         {
-            list.Add("h_bj_AD0005");
+            list.Add(HistoriaCruxConstants.BRESHA_RUINS_5);
         }
 
         list.AddRange(soFar.Values);
@@ -1043,19 +1084,19 @@ public partial class HistoriaCruxRando : Randomizer
 
         Dictionary<string, int> diffs = battleRando.GetAreaDifficulties();
 
-        page.HTMLElements.Add(new Table("", (new string[] { "Original Gate", "New Location", "Estimated Battle Difficulty of New Location" }).ToList(), (new int[] { 40, 40, 20 }).ToList(),
+        page.HTMLElements.Add(new Table("", (new string[] { "Original Gate", "New Location", "Estimated Battle Difficulty of New Location", "Location depth" }).ToList(), (new int[] { 30, 30, 20, 20 }).ToList(),
             gateData.Values.Where(g => !g.Traits.Contains("Paradox")).Select(g =>
           {
               string id = gateTable[g.ID].sOpenHistoria1;
               string shortID = id.Substring(0, id.Length - 2);
-              return (new string[] { g.GateOriginal, areaData[shortID].Name, diffs.ContainsKey(shortID) ? diffs[shortID].ToString() : "-" }).ToList();
+              return (new string[] { g.GateOriginal, areaData[shortID].Name, diffs.ContainsKey(shortID) ? diffs[shortID].ToString() : "-", areaDepths[shortID].ToString() }).ToList();
           }).ToList()));
 
-        page.HTMLElements.Add(new Table("grid", (new string[] { "X", "Y", "Location" }).ToList(), (new int[] { 10, 10, 80 }).ToList(),
+        // Mostly here for debug for now, may replace with a graphical view at some point?
+        page.HTMLElements.Add(new Table("grid", (new string[] { "X", "Y", "Node" }).ToList(), (new int[] { 10, 10, 80 }).ToList(),
             coordMap.Select(kvp =>
             {
                 var (x, y) = MapCoordsToHexGrid(IdToCoords(kvp.Key));
-                // TODO: update placement logic properly, or just remove this block entirely?
                 return (new string[] { x.ToString(), y.ToString(), kvp.Value }).ToList();
             }).ToList()));
 
