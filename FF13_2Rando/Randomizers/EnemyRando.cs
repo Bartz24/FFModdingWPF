@@ -5,6 +5,7 @@ using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace FF13_2Rando;
 
@@ -12,6 +13,9 @@ public class EnemyRando : Randomizer
 {
     public Dictionary<string, DataStoreWDB<DataStoreBtCharaSpec>> enemies = new();
     public Dictionary<string, DataStoreWDB<DataStoreBtCharaSpec>> enemiesOrig = new();
+
+    public DataStoreWDB<DataStoreCharaFamily> charaFamily = new();
+
     private readonly string[] x000 =
     {
         "bt_chsp_x000_2",
@@ -45,6 +49,8 @@ public class EnemyRando : Randomizer
         });
 
         GetEnemies(e => e.u14DropProb2 is > 0 and < 7500).ForEach(e => e.u14DropProb2 = Math.Min((int)(e.u14DropProb2 * 2.5), 7500));
+
+        charaFamily.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_charafamily.wdb", false);
     }
 
     public DataStoreBtCharaSpec GetEnemy(string id, bool orig = false)
@@ -76,6 +82,22 @@ public class EnemyRando : Randomizer
             GetEnemy("pc008").u16StatusMgk = 9999;
             GetEnemy("pc010").u16StatusMgk = 9999;
         }
+
+
+        if (FF13_2Flags.Stats.RunSpeedMult.FlagEnabled)
+        {
+            string[] chars = { "fam_pc_sera", "fam_pc_noel" };
+            chars.ForEach(c => charaFamily[c].f15MoveSpeed = 83f * FF13_2Flags.Stats.RunSpeedMultValue.Value / 100f);
+        }
+
+        if (FF13_2Flags.Enemies.EnemyCPMult.FlagEnabled)
+        {
+            float mult = FF13_2Flags.Enemies.EnemyCPMultValue.Value / 100f;
+            GetEnemies().ForEach(e =>
+            {
+                e.u24AbilityPoint = (int)(e.u24AbilityPoint * mult);
+            });
+        }
     }
 
     public override void Save()
@@ -86,5 +108,7 @@ public class EnemyRando : Randomizer
             enemies[s].SaveDB3(Generator, @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb");
             SetupData.WPDTracking[Generator.DataOutFolder + @"\btscene\pack\wdb\x000.bin"].Add(s + ".wdb");
         });
+
+        charaFamily.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_charafamily.wdb");
     }
 }

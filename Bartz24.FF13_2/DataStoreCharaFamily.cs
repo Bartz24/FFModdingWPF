@@ -1,0 +1,89 @@
+﻿using Bartz24.FF13_2_LR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Bartz24.FF13_2;
+public class DataStoreCharaFamily : DataStoreWDBEntry
+{
+    public float fWalkSpeed { get; set; }
+    public string sSoundMastsParamResourceId { get; set; }
+    public string sEyeElementId1 { get; set; }
+    public string sEyeElementId2 { get; set; }
+    public float fCameraFadeRange { get; set; }
+    public float f9WalkRunSpeedThreashold { get; set; }
+    public float f8MaxJumpHeight { get; set; }
+    public float f7MaxAccell { get; set; }
+    public int u5Type { get; set; }
+    public int u1IsTreasureBox { get; set; }
+    public int u1IsSavePoint { get; set; }
+    public int u1IsSevenSegmentObject { get; set; }
+    public float f15MoveSpeed { get; set; }
+    public int u10WalkMaxRotSpeed { get; set; }
+    public int u5DefaultNaviIconType { get; set; }
+    public int u1disableAggMotForDirectAct { get; set; }
+    public int u1EnableAgg { get; set; }
+    public int u10RunMaxRotSpeed { get; set; }
+    public int u10MaxRotSpeed { get; set; }
+    public float f12AggressiveWalkSpeed { get; set; }
+    public float f12AggressiveRunSpeed { get; set; }
+    public float f12AggressiveWalkSpeed_Field { get; set; }
+    public int u6AutoJumpWeight { get; set; }
+    public int u1EnableMustRootMove { get; set; }
+    public int u1EnableProbablySearch { get; set; }
+    public float f12AggressiveRunSpeed_Field { get; set; }
+    public int u10AggWalkMaxRotSpeed { get; set; }
+    public int u10AggRunMaxRotSpeed { get; set; }
+    public int u10AggMaxRotSpeed { get; set; }
+    public int u10AggressiveDistance { get; set; }
+    public int u10SenseDistance { get; set; }
+    public int u1DisableTurnAndTurn { get; set; }
+    public int u1MustWalkEnd { get; set; }
+    public int u9AggressiveAngle { get; set; }
+    public int u9AggressiveHeightAngle { get; set; }
+    public int u9AggressiveLinkDistance { get; set; }
+    public int u5HiJumpOffset { get; set; }
+    public int u16AggressiveTimer { get; set; }
+    public int u16CautionTimer { get; set; }
+    public int i16AirMoveHeightOffset { get; set; }
+    public int i16AirMoveTopOffset { get; set; }
+    public int u8LookRotRatioAirX { get; set; }
+    public int u20LookRotRatioAirZ { get; set; }
+    public int u1DisableFitGround { get; set; }
+    public int u3SoundRangeTyep { get; set; }
+    public float f15FlyRotSpeedXMax { get; set; }
+    public float f13FlyRotAccelXMax { get; set; }
+    public int u3SoundModelSizeType { get; set; }
+    public int u1UseRootTrans { get; set; }
+    public float f15FlyMoveSpeedYMax { get; set; }
+    public float f10FlyMoveAccelYMax { get; set; }
+    public int u6FootSeRacialType { get; set; }
+    public int u1IsAdaman { get; set; }
+    public int u8AggFlyMoveRotRatio { get; set; }
+    public int i16DeaggRandomAreaSizeMin { get; set; }
+    public int u8IdleLoopCountNag { get; set; }
+    public int u16DeaggRandomAreaSizeVolume { get; set; }
+    public int u16DeaggMoveSleepTimeMin { get; set; }
+    public int u16DeaggMoveSleepTimeVolume { get; set; }
+    public int i9DeaggBattlePartPercent { get; set; }
+    public int u4EyeElementDir1 { get; set; }
+    public int u1IsSpeeder { get; set; }
+    public int u1CameraFadeUseAABB { get; set; }
+    public int u1CameraFadeEnable { get; set; }
+    public int u16BtRotStartLimAgg { get; set; }
+    public int u16BtRotStartLimNag { get; set; }
+    public int u8Idle2LoopCountNag { get; set; }
+    public int u8Idle3LoopCountNag { get; set; }
+    public int u8IdleLoopCountAgg { get; set; }
+    public int u8Idle2LoopCountAgg { get; set; }
+    public int u8Idle3LoopCountAgg { get; set; }
+    public int u4EyeElementDir2 { get; set; }
+    public int u4FieldStretch { get; set; }
+    public int u1HasContact { get; set; }
+    public int u1disableSideMove { get; set; }
+    public int u1AiState1 { get; set; }
+    public int u1AiState2 { get; set; }
+    public int u1DisableResetIdleToIdle { get; set; }
+}
