@@ -23,7 +23,7 @@ public class SearchItemData : FF13_2ItemLocation, IDataStoreItemProvider<DataSto
     [RowIndex(4)]
     public override List<string> RequiredAreas { get; set; }
 
-    public override int BaseDifficulty { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public override int BaseDifficulty { get => 1; set => throw new NotImplementedException(); }
 
     public SearchItemData(SeedGenerator generator, string[] row) : base(generator, row)
     {
@@ -62,6 +62,15 @@ public class SearchItemData : FF13_2ItemLocation, IDataStoreItemProvider<DataSto
 
     public override bool CanReplace(ItemLocation location)
     {
-        throw new NotImplementedException();
+        if (location.GetItem(true).Value.Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowCryst.Enabled)
+        {
+            return false;
+        }
+        if (!location.GetItem(true).Value.Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowJunk.Enabled)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

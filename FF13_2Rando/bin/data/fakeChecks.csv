@@ -1,0 +1,134 @@
+ID,Name,Areas,MogLevel,RequiredAreas,Requirements,Traits,Fake Items
+# Gate opening (for area logic),,,,,
+hs_aaea01_vp,Gate Open,h_aa_AD0400,,,,Gate|NoCascade,hs_aaea01_vp
+hs_aaea02_sp,Gate Open,h_aa_AD0400,,,,Gate|NoCascade,hs_aaea02_sp
+hs_acea01_gt,Gate Open,h_ac_AD0400,,,,Gate|NoCascade,hs_acea01_gt
+hs_acea02_gy,Gate Open,h_ac_AD0400,,,,Gate|NoCascade,hs_acea02_gy
+hs_acfa01_va,Gate Open,h_zz_NA0980,,,,Gate|NoCascade,hs_acfa01_va
+hs_acfa01_zz,Gate Open,h_ac_AD0500,,,,Gate,hs_acfa01_zz
+hs_bjaa01_gy,Eclipse Artefact Gate Open,h_bj_AD0005,,,,Gate|NoCascade,hs_bjaa01_gy
+hs_bjaa02_sn,Reunion Artefact Gate Open,h_zz_NA0910,,,,Gate|NoCascade,hs_bjaa02_sn
+hs_bjaa02_zz,Reunion Artefact Gate Open,h_bj_AD0005,,,,Gate,hs_bjaa02_zz
+hs_bjaa03_bj,Bresha 5 Wild Artefact Gate Open,h_bj_AD0005,,,,Gate|NoCascade,hs_bjaa03_bj
+hs_bjaa91_gd,Bresha 5 Paradox Ending,h_zz_NA0910,,,,Gate|NoCascade,hs_bjaa91_gd
+hs_bjda01_gy,Bresha 300 Wild Artefact Gate Open,h_bj_AD0300,,,,Gate|NoCascade,hs_bjda01_gy
+hs_ddha01_hm,Gate Open,h_zz_NA0960,,,,Gate|NoCascade,hs_ddha01_hm
+hs_ddha01_zz,Gate Open,h_dd_AD0700,,,,Gate,hs_ddha01_zz
+hs_ddha02_bj,Gate Open,h_dd_AD0700,,,,Gate|NoCascade,hs_ddha02_bj
+hs_ddha96_dd,Gate Open,h_zz_NA0960,,,,Gate|NoCascade,hs_ddha96_dd
+hs_gdza01_vp,Gate Open,h_gd_NA0000,,,,Gate|NoCascade,hs_gdza01_vp
+hs_ghaa01_ac,Gate Open,h_gh_AD0010,,,,Gate|NoCascade,hs_ghaa01_ac
+hs_ghaa01_cs,Gate Open,h_gh_AD0010,,,,Gate|NoCascade,hs_ghaa01_cs
+hs_ghaa02_gt,Gate Open,h_gh_AD0010,,,,Gate|NoCascade,hs_ghaa02_gt
+hs_gtca01_aa,Gate Open,h_zz_NA0940,,,,Gate|NoCascade,hs_gtca01_aa
+hs_gtca01_zz,Gate Open,h_gt_AD0200,,,,Gate,hs_gtca01_zz
+hs_gtca02_gw,Gate Open,h_gt_AD0200,,,,Gate|NoCascade,hs_gtca02_gw
+hs_gtca94_gt,Gate Open,h_zz_NA0940,,,,Gate|NoCascade,hs_gtca94_gt
+hs_gwca01_gh,Gate Open,h_zz_NA0920,,,,Gate|NoCascade,hs_gwca01_gh
+hs_gwca01_zz,Gate Open,h_gw_AD0200,,,,Gate,hs_gwca01_zz
+hs_gwca92_gw,Gate Open,h_zz_NA0920,,,,Gate|NoCascade,hs_gwca92_gw
+hs_gwda01_gw,Gate Open,h_gw_AD0300,,,,Gate|NoCascade,hs_gwda01_gw
+hs_gyaa01_gw,Gate Open,h_gy_AD0010,,,,Gate|NoCascade,hs_gyaa01_gw
+hs_gyba01_sn,Gate Open,h_gy_AD0100,,,,Gate|NoCascade,hs_gyba01_sn
+hs_hmaa01_bj,Giant's Artefact Gate Open,h_hm_AD0003,,,,Gate|NoCascade,hs_hmaa01_bj
+hs_hmaa10_zz,Bodhum DLC Link Open,h_hm_AD0003,,,,Gate,hs_hmaa10_zz
+hs_hmaa11_va,DLC Link Open,h_zz_NA0970,,,,Gate|NoCascade,hs_hmaa11_va
+hs_hmaa12_cl,DLC Link Open,h_zz_NA0970,,,,Gate|NoCascade,hs_hmaa12_cl
+hs_hmaa13_cs,DLC Link Open,h_zz_NA0970,,,,Gate|NoCascade,hs_hmaa13_cs
+hs_hmaa_def,Starting Area Unlocked,Initial,,,,,hs_hmaa_def
+hs_hmha01_ac,Artefact of the Ark Gate Open,h_hm_AD0700,,,,Gate|NoCascade,hs_hmha01_ac
+hs_hpaa01_dd,Gate Open,h_zz_NA0950,,,,Gate|NoCascade,hs_hpaa01_dd
+hs_hpaa01_zz,Gate Open,h_hp_AD0003,,,,Gate,hs_hpaa01_zz
+hs_hpaa95_hm,Gate Open,h_zz_NA0950,,,,Gate|NoCasade,hs_hpaa95_hm
+hs_snda01_cl,Gate Open,h_zz_NA0930,,,,Gate|NoCascade,hs_snda01_cl
+hs_snda01_zz,Gate Open,h_sn_AD0300,,,,Gate,hs_snda01_zz
+hs_snda02_gd,Gate Open,h_sn_AD0300,,,,Gate|NoCascade,hs_snda02_gd
+hs_snda03_ac,Gate Open,h_sn_AD0300,,,,Gate|NoCascade,hs_snda03_ac
+hs_snda03_cs,Gate Open,h_sn_AD0300,,,,Gate|NoCascade,hs_snda03_cs
+hs_snda93_sn,Gate Open,h_zz_NA0930,,,,Gate|NoCascade,hs_snda93_sn
+hs_spza02_ac,Gate Open,h_sp_NA0001,,,,Gate|NoCascade,hs_spza02_ac
+hs_spza03_hp,Gate Open,h_sp_NA0100,,,,Gate|NoCascade,hs_spza03_hp
+Victory,Win!,h_va_NA0000,,,,,Victory
+# Area Progression and Side Quest fake/un-randomisable locations
+key_access_50,Access Key 50,h_gt_AD0300,,,,SideKey,key_access_50
+key_access_51,Access Key 51,h_gt_AD0300,,,I(key_access_50|1),SideKey,key_access_51
+key_access_52,Access Key 52,h_gt_AD0300,,,AND(I(key_access_50|1)|I(key_access_51|1)),SideKey,key_access_52
+key_access_la,Top Floor Access Key,h_gt_AD0300,,,AND(I(key_access_50|1)|I(key_access_51|1)|I(key_access_52|1)),SideKey,key_access_la
+key_access_13,Access Key 13,h_gt_AD0200,,,AND(I(key_para50f|1)|I(key_para52f|1)|I(key_paraxxf|1)),SideKey,key_access_13
+key_yukimi,Silver Petal,h_bj_AD0300,,h_bj_AD0005,AND(I(frg_bj_1|1)|I(frg_bj_2|1)|I(frg_bj_3|1)),SideKey,key_yukimi
+key_f_colonel,Commander's Report,h_bj_AD0300,,,,SideKey,key_f_colonel
+key_sone_info,Thorne's Information,h_gy_AD0100,1,h_bj_AD0100,,SideKey,key_sone_info
+key_mon_data,Monster Analysis Report,h_bj_AD0100,1,,,SideKey,key_mon_data
+key_behi_fang,Behemoth Fang,h_gy_AD0010,,,,SideKey,key_behi_fang
+key_y_baggage,Wedding Jewelry,h_gy_AD0200,1,,,SideKey,key_y_baggage
+key_gowa_wool,Rough Wool,h_gd_NA0000,,,,SideKey,key_gowa_wool
+key_moko_wool,Fluffy Wool,h_gd_NA0000,,,,SideKey,key_moko_wool
+key_nuku_wool,Thick Wool,h_gd_NA0000,,,,SideKey,key_nuku_wool
+key_unk_s_opt,Sunleth Mysterious Artefact,h_sn_AD0300,2,,AND(I(frg_gd_1|1)|I(frg_cl_1|1)),SideKey,key_unk_s_opt
+key_unk_y_opt,Yaschas Mysterious Artefact,h_gh_AD0010,1,,,SideKey,key_unk_y_opt
+# Fragments - New Bodhum
+frg_hm_1,Heart Prism,h_hm_AD0003,,,I(key_f_kit|1),Fragment,frg_hm_1
+# Fragmens - Bresha Ruins
+frg_bj_1,Ghast Fragment,h_bj_AD0005,,,,Fragment,frg_bj_1
+frg_bj_2,Unio Mystica,h_bj_AD0005,,,I(key_c_tab|2),Fragment,frg_bj_2
+frg_bj_3,Ars Symphonica,h_bj_AD0005,,,I(key_a_secret|1),Fragment,frg_bj_3
+frg_bj_8,Anima Miseria,h_bj_AD0005,,,AND(I(key_yukimi|1)|I(frg_bj_1|1)|I(frg_bj_2|1)|I(frg_bj_3|1)),Fragment,frg_bj_8
+frg_bj_9,Kalavinka Fragment,h_bj_AD0100,,,I(frg_bj_14|1),Fragment,frg_bj_9
+frg_bj_10,Rhuthenium Ring,h_bj_AD0100,,,,Fragment,frg_bj_10
+frg_bj_11,Rhodium Ring,h_bj_AD0100,,,AND(I(frg_bj_12|1)|I(frg_bj_13|1)|I(frg_bj_10|1)),Fragment,frg_bj_11
+frg_bj_12,Palladium Ring,h_bj_AD0100,,,I(key_wep_sozai|1),Fragment,frg_bj_12
+frg_bj_13,Osmium Ring,h_bj_AD0100,,,I(key_mon_data|1),Fragment,frg_bj_13
+frg_bj_14,Adamantite Ring,h_bj_AD0100,,,AND(I(frg_bj_18|1)|I(frg_gy_17|1)),Fragment,frg_bj_14
+frg_bj_15,Platinum Ring,h_bj_AD0300,,,I(key_f_kioku|1),Fragment,frg_bj_15
+frg_bj_16,Mythril Ring,h_bj_AD0300,,,I(key_f_colonel|1),Fragment,frg_bj_16
+frg_bj_17,Iridium Ring,h_bj_AD0300,,,,Fragment,frg_bj_17
+frg_bj_18,Control Device Password 2,h_bj_AD0300,,,AND(I(frg_bj_15|1)|I(frg_bj_16|1)|I(frg_bj_17|1)),Fragment,frg_bj_18
+# Fragments - Yaschas Massif
+frg_gy_2,Misery's Bead,h_gy_AD0010,,,I(key_behi_fang|1),Fragment,frg_gy_2
+frg_gy_5,Innocence's Sacred Sphere,h_gy_AD0010,,,I(key_miss_watch|1),Fragment,frg_gy_5
+frg_gy_6,Sword of Lachesis,h_gh_AD0010,,,I(key_fenr_flw|1),Fragment,frg_gy_6
+frg_gy_8,Orb of Clotho,h_gh_AD0010,,,I(key_miss_art|1),Fragment,frg_gy_8
+frg_gy_9,Mirror of Atropos,h_gh_AD0010,,,AND(I(key_green_ystn|1)|I(key_black_ystn|1)|I(key_white_ystn|1)),Fragment,frg_gy_9
+frg_gy_10,Schwertleite's Flower,h_gy_AD0100,,,AND(I(key_y_diary|1)|I(frg_gy_11|1)),Fragment,frg_gy_10
+frg_gy_11,Helmwige's Nightshade,h_gy_AD0100,,,I(key_osonae|1),Fragment,frg_gy_11
+frg_gy_12,Siegrune's Spiritbloom,h_gy_AD0100,,,AND(I(key_common_art|1)|I(frg_gy_11|1)),Fragment,frg_gy_12
+frg_gy_13,Rossweisse Skyblossom,h_gy_AD0100,,,AND(I(key_rem_ring|1)|I(frg_gy_11|1)|I(frg_gy_12|1)|I(frg_gy_10|1)),Fragment,frg_gy_13
+frg_gy_14,Book of Shambala,h_gy_AD0100,,,I(frg_gy_13|1),Fragment,frg_gy_14
+# Book of Valhalla
+# Graviton Core Epsilon
+frg_gy_17,Control Device Password 1,h_gy_AD0200,,h_bj_AD0100|h_gy_AD0100,I(key_sone_info|1),Fragment,frg_gy_17
+frg_gy_18,Ugallu Fragment,h_gy_AD0200,,,AND(I(frg_gy_14|1)|I(frg_gy_22|1)),Fragment,frg_gy_18
+frg_gy_19,Waltraute's Flower,h_gy_AD0200,,,I(key_f_manual|1),Fragment,frg_gy_19
+frg_gy_20,Gerhilde's Blossom,h_gy_AD0200,,,I(key_y_baggage|1),Fragment,frg_gy_20
+frg_gy_21,Ortlinde's Bloom,h_gy_AD0200,,,I(key_black_flw|1),Fragment,frg_gy_21
+frg_gy_22,Book of Avalon,h_gy_AD0200,,,I(frg_gy_21|1),Fragment,frg_gy_22
+# Fragments - Oerba
+# Fragments - Sunleth
+# Fragment - Coliseum
+frg_cl_1,White Hole Gem,h_cl_NA0000,,,,Fragment,frg_cl_1
+# Fragments - Archylte
+frg_gd_1,Black Hole Gem,h_gd_NA0000,,,I(frg_gd_7),Fragment,frg_gd_1
+frg_gd_7,Woolly Stone,h_gd_NA0000,,,AND(I(key_gowa_wool|1)|I(key_moko_wool|1)|I(key_nuku_wool|1)),Fragment,frg_gd_7
+# Fragments - Serendipity
+# Fragments - Academia
+frg_ac_2,Academic Rank: Paradox Professor,h_aa_AD0400,,,I(frg_map_complete|10),Fragment,frg_ac_2
+frg_ac_3,Travel Guide: New Bodhum,h_aa_AD0400,,h_hm_AD0003,,Fragment,frg_map_complete
+frg_ac_4,Travel Guide: Bresha Ruins,h_aa_AD0400,,h_bj_AD0005|h_bj_AD0100|h_bj_AD0300,,Fragment,frg_map_complete
+# Technically you need 110 OR 100, but don't currently support that logic so this will assume both are required.
+frg_ac_5,Travel Guide: Yaschas Massif,h_aa_AD0400,,h_gy_AD0100|h_gy_AD0200,,Fragment,frg_map_complete
+frg_ac_6,Travel Guide: Oerba,h_aa_AD0400,,h_gw_AD0400,,Fragment,frg_map_complete
+# Again, union not intersection
+frg_ac_7,Travel Guide: Sunleth Waterscape,h_aa_AD0400,,h_sn_AD0300|h_sn_AD0400,,Fragment,frg_map_complete
+frg_ac_8,Travel Guide: Academia,h_aa_AD0400,,h_aa_AD0400,,Fragment,frg_map_complete
+frg_ac_9,Travel Guide: Augusta Tower,h_aa_AD0400,,h_gt_AD0200|h_gt_AD0300,,Fragment,frg_map_complete
+frg_ac_10,Travel Guide: Vile Peaks,h_aa_AD0400,,h_vp_AD0010,,Fragment,frg_map_complete
+frg_ac_11,Travel Guide: Archylte,h_aa_AD0400,,h_gd_NA0000,,Fragment,frg_map_complete
+frg_ac_12,Travel Guide: A Dying World,h_aa_AD0400,,h_dd_AD0700,,Fragment,frg_map_complete
+# Fragments - Augusta Tower
+frg_gt_2,Idea Circuit,h_gt_AD0200,,,I(key_para50f|1),Fragment,frg_gt_2
+frg_gt_3,Enigma Codex,h_gt_AD0200,,,AND(I(frg_gt_2|1)|I(key_para52f|1)),Fragment,frg_gt_3
+frg_gt_4,Difference Engine,h_gt_AD0200,,,AND(I(frg_gt_3|1)|I(key_paraxxf|1)),Fragment,frg_gt_4
+# Fragments - Vile Peaks
+# Fragments - Dying World
+# Fragments - Void Beyond
+# Fragment Skills - TODO

@@ -23,6 +23,17 @@ public class AreaConnection : CSVDataRow
     [RowIndex(5)]
     public int BaseDifficulty { get; set; }
 
+    public AreaConnection(SeedGenerator generator, string name, string fromAreaName, string toAreaName, ItemReq requirements, List<string> traits, int baseDifficulty): base()
+    {
+        Generator = generator;
+        Name = name;
+        FromAreaName = fromAreaName;
+        ToAreaName = toAreaName;
+        Requirements = requirements;
+        Traits = traits;
+        BaseDifficulty = baseDifficulty;
+    }
+
     public AreaConnection(SeedGenerator generator, string[] row) : base(row)
     {
         Generator = generator;

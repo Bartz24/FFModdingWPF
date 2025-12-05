@@ -25,6 +25,8 @@ public class BossData : CSVDataRow
     public float CPGilMult { get; set; }
     [RowIndex(9)]
     public List<string> Traits { get; set; }
+    [RowIndex(10)]
+    public string Location { get; set; }
 
     public BossData(string[] row) : base(row)
     {

@@ -48,28 +48,28 @@ public class TextRando : Randomizer
                     iconForm += "{Icon Clock}";
                     break;
                 case '1':
-                    iconForm += "{Icon Attention}";
+                    iconForm += "{Icon Warning}";
                     break;
                 case '2':
-                    iconForm += "{Icon Exclamation}";
+                    iconForm += "{Icon Tamed_Crystal}";
                     break;
                 case '3':
-                    iconForm += "{Icon EmptryCirlces}";
+                    iconForm += "{Icon Gil}";
                     break;
                 case '4':
-                    iconForm += "{Icon Greather}";
+                    iconForm += "{Icon Arrow_Right}";
                     break;
                 case '5':
-                    iconForm += "{Icon Less}";
+                    iconForm += "{Icon Arrow_Left}";
                     break;
                 case '6':
-                    iconForm += "{Icon Doc}";
+                    iconForm += "{Icon Lock_Type2}";
                     break;
                 case '7':
-                    iconForm += "{Icon Ok}";
+                    iconForm += "{Icon Check_Mark}";
                     break;
                 case '8':
-                    iconForm += "{Icon FilledCirlces}";
+                    iconForm += "{Icon Monster}";
                     break;
             }
         }
@@ -82,10 +82,10 @@ public class TextRando : Randomizer
         RandoUI.SetUIProgressIndeterminate("Saving Text Data...");
         string hash = GetHash();
 
-        mainSysUS["$dif_conf_e"] = "{Icon Attention} Begin game in {Color Red}EASY MODE{Color SkyBlue}?{Text NewLine}" +
+        mainSysUS["$dif_conf_e"] = "{Icon Warning} Begin game in {Color LightRed}EASY MODE{Color White}?{Text NewLine}" +
             "Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
             "Seed Hash (for validation): " + hash + "{Text NewLine}|Yes|No";
-        mainSysUS["$dif_conf_n"] = "{Icon Attention} Begin game in {Color Red}NORMAL MODE{Color SkyBlue}?{Text NewLine}" +
+        mainSysUS["$dif_conf_n"] = "{Icon Warning} Begin game in {Color LightRed}NORMAL MODE{Color White}?{Text NewLine}" +
             "Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
             "Seed Hash (for validation): " + hash + "{Text NewLine}|Yes|No";
 

@@ -29,4 +29,21 @@ public static class FF13_2RandoExtensions
         string outPath = generator.DataOutFolder + relativePath;
         File.Delete(outPath);
     }
+
+    public static byte[] LoadFile(SeedGenerator generator, string game, string relativePath, bool fromNovaOnly = true)
+    {
+        string outPath = generator.DataOutFolder + relativePath;
+        string path = Nova.GetNovaFile(game, relativePath, SetupData.Paths["Nova"], SetupData.Paths[game], !fromNovaOnly);
+        if (fromNovaOnly || File.Exists(path))
+        {
+            FileHelpers.CopyFile(path, outPath, true);
+        }
+        return File.ReadAllBytes(outPath);
+    }
+
+    public static void SaveFile(SeedGenerator generator, string relativePath, byte[] data)
+    {
+        string outPath = generator.DataOutFolder + relativePath;
+        File.WriteAllBytes(outPath, data);
+    }
 }

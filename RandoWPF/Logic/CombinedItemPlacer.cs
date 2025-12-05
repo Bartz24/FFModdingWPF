@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Bartz24.RandoWPF;
 public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLocation where I : IItem
@@ -91,6 +92,10 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
             placer.Replacements = GetReplacementsForPlacer(usedReplacements, placer);
 
             Generator.Logger.LogDebug($"Starting placer {placer.GetType().Name} with {placer.PossibleLocations.Count} locations and {placer.Replacements.Count} replacements.");
+            if(placer.PossibleLocations.Count < placer.Replacements.Count)
+            {
+                Generator.Logger.LogDebug("More replacements than locations, likely to fail!");
+            }
             placer.PlaceItems();
 
             usedLocations.UnionWith(placer.FinalPlacement.Keys);
@@ -121,9 +126,19 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
 
     protected virtual void CalculatePlaythrough()
     {
-        PlaythroughCalculator = new PlaythroughCalculator<L>(SphereCalculator);
-        ProgressionItemPlacer<L> progressionPlacer = (ProgressionItemPlacer<L>)Placers.FirstOrDefault(x => x is ProgressionItemPlacer<L>);
-        PlaythroughCalculator.CalculatePlaythrough(progressionPlacer.ProgressionLocations, true);
+        try
+        {
+            PlaythroughCalculator = new PlaythroughCalculator<L>(SphereCalculator);
+            ProgressionItemPlacer<L> progressionPlacer = (ProgressionItemPlacer<L>)Placers.FirstOrDefault(x => x is ProgressionItemPlacer<L>);
+            PlaythroughCalculator.CalculatePlaythrough(progressionPlacer.ProgressionLocations, true);
+        }
+        catch (Exception e)
+        {
+            Generator.Logger.LogDebug($"Failed to build playthrough");
+            string msg = "Unable to generate valid playthrough for verification - probably safe to ignore but who knows!";
+            Generator.Logger.LogError(msg);
+            MessageBox.Show(msg);
+        }
     }
 
     protected abstract HashSet<string> GetReorderItemCategories();

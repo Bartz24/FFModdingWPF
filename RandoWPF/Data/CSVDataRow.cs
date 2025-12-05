@@ -44,6 +44,10 @@ public class FieldTypeOverrideAttribute : Attribute
 public class CSVDataRow
 {
     private static readonly Dictionary<Type, PropertyInfo[]> propertyCache = new();
+    public CSVDataRow()
+    {
+
+    }
     public CSVDataRow(string[] row)
     {
         // Use reflection to initialize the properties using the values
