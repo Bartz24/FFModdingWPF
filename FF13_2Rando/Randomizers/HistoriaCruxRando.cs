@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Xps.Packaging;
 
 namespace FF13_2Rando;
@@ -36,6 +37,8 @@ public partial class HistoriaCruxRando : Randomizer
     public Dictionary<string, int> areaDepths = new();
 
     public Dictionary<string, TreeNode> shuffledNodes = new();
+
+    public string overrideInitial;
 
     public HistoriaCruxRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -83,6 +86,10 @@ public partial class HistoriaCruxRando : Randomizer
                 .Select(s => s.Substring(0, s.Length - 2))
                 .Distinct().ToList();
 
+            // TODO: figure out a proper way to allow true random starting location
+            // Existing algorithm seems to either eat nodes, or create strange loops
+            // Need to be able to unravel at the end to set hmaa_def link properly.
+
             if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 0)
             {
                 openings = openings.Where(o => o != HistoriaCruxConstants.NEW_BODHUM_3).ToList();
@@ -93,17 +100,26 @@ public partial class HistoriaCruxRando : Randomizer
                 openings = openings.Where(o => o != HistoriaCruxConstants.BRESHA_RUINS_5).ToList();
             }
 
+            if(FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) == 0)
+            {
+                string msg = "No fixed starting location set. This setting is highly unstable and will crash or fail generation if" +
+                    "a stable tree is not generated to avoid rolling unbeatable seeds from an item logic perspective.\n" +
+                    "You have been warned :)";
+                Generator.Logger.LogError(msg);
+                MessageBox.Show(msg);
+            }
+
             placement = GetPlacement(new Dictionary<string, string>(), openings, 0).Item2;
 
             placement.Keys.ToList().ForEach(open =>
             {
+                Generator.Logger.LogDebug($"Location {open} placed at {placement[open]}");
                 gateTable.Keys.Where(id => gateTableOrig[id].sOpenHistoria1.StartsWith(open)).ToList().ForEach(id => gateTable[id].sOpenHistoria1 = placement[open] + "_a");
             });
 
-            if (placement.ContainsKey(HistoriaCruxConstants.NEW_BODHUM_3))
+            if (placement.ContainsKey("h_hm_AD0003"))
             {
-                gateTable["hs_hmaa10_zz"].sArea = placement[HistoriaCruxConstants.NEW_BODHUM_3];
-                gateTable["hs_hmaa_def"].sArea = placement[HistoriaCruxConstants.NEW_BODHUM_3];
+                gateTable["hs_hmaa10_zz"].sArea = placement["h_hm_AD0003"];
             }
 
             BuildInitialGateTree();
@@ -245,6 +261,11 @@ public partial class HistoriaCruxRando : Randomizer
             foreach (var node in roots)
             {
                 rootLocation = node.name;
+                Generator.Logger.LogDebug($"Initial area which is root of crux tree: {rootLocation}");
+                if(overrideInitial != null && overrideInitial != rootLocation)
+                {
+                    Generator.Logger.LogDebug($"Expected initial to be {overrideInitial} but was {rootLocation} ");
+                }
                 // TODO:
                 // Improve y-axis distribution to ensure we keep in range
                 // Move dead location coords into box for clarity
@@ -318,8 +339,17 @@ public partial class HistoriaCruxRando : Randomizer
                     continue;
                 }
 
-                // TODO: special case for "magic" links to void beyond/serendipity, need to consider left also
-                DataStoreRGateTable incomingLink;
+                // TODO: special case if override initial to ensure initial link gets set properly
+                if (rootLocation != null && right == HistoriaCruxConstants.NEW_BODHUM_3)
+                {
+                    right = rootLocation;
+                } else if (rootLocation != null && right == rootLocation)
+                {
+                    right = HistoriaCruxConstants.NEW_BODHUM_3;
+                }
+
+                    // TODO: special case for "magic" links to void beyond/serendipity, need to consider left also
+                    DataStoreRGateTable incomingLink;
                 if(right != HistoriaCruxConstants.SERENDIPITY && right != HistoriaCruxConstants.VOID_BEYOND_A)
                 {
                     incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a");
@@ -327,6 +357,7 @@ public partial class HistoriaCruxRando : Randomizer
                 {
                     incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a" && v.sArea == left);
                 }
+
                 if (incomingLink == null)
                 {
                     Generator.Logger.LogDebug($"Unable to find incoming link entry for right {right}");
@@ -336,7 +367,7 @@ public partial class HistoriaCruxRando : Randomizer
                 var offset = ykdLinkOffsets.GetValueOrDefault(incomingLink.record, 0);
                 if (offset == 0)
                 {
-                    Generator.Logger.LogDebug($"Unable to locate link offset for link {incomingLink.record}");
+                    Generator.Logger.LogDebug($"Unable to locate link offset for link {incomingLink.record}. Links {left} to {right}");
                     continue;
                 }
                 var validation = BitConverter.ToSingle(hcParts.SubArray(offset, 4));
@@ -752,6 +783,13 @@ public partial class HistoriaCruxRando : Randomizer
             return g + f;
         };
 
+        List<string> hasOption = openings.Where(o => !soFar.ContainsValue(o) && IsAllowed(o, soFar, available)).Shuffle();
+        if (hasOption.Count == 0)
+        {
+            Generator.Logger.LogDebug($"Ran out of placement options at depth {depth}. Placed {soFar.Count} of {openings.Count}");
+            return (false, soFar);
+        }
+
         var remainingToShuffle = openings.Where(t => !soFar.ContainsValue(t)).ToList();
         var shuffledRemaining = new List<string>();
         while(remainingToShuffle.Count() > 0)
@@ -763,26 +801,19 @@ public partial class HistoriaCruxRando : Randomizer
 
         List<string> remaining = shuffledRemaining;
 
-        List<string> hasOption = openings.Where(o => !soFar.ContainsKey(o) && IsAllowed(o, soFar, available)).Shuffle();
-        if (hasOption.Count == 0)
-        {
-            Generator.Logger.LogDebug($"Ran out of placement options at depth {depth}. Placed {soFar.Count} remaining {remaining.Count}");
-            return (false, soFar);
-        }
-
         foreach (string rep in remaining)
         {
             // Gate certain areas to manipulate placement somewhat
             if (rep == HistoriaCruxConstants.ACADEMIA_400 || rep == HistoriaCruxConstants.AUGUSTA_200)
             {
-                if (depth <= 3 || soFar.Count <= 8)
+                if (depth <= 3 || soFar.Count <= 6)
                 {
                     continue;
                 }
             }
             else if (rep == HistoriaCruxConstants.ACADEMIA_4XX)
             {
-                if(depth <= 5 || soFar.Count <= 15)
+                if(depth <= 4 || soFar.Count <= 10)
                 {
                     continue;
                 }
@@ -817,11 +848,6 @@ public partial class HistoriaCruxRando : Randomizer
         return (false, soFar);
     }
 
-    private string SelectNext(IList<string> possible)
-    {
-        return possible[RandomNum.NextInt(0, possible.Count)];
-    }
-
     public List<string> GetIDsForOpening(string open, bool orig = true)
     {
         return gateData.Keys.Where(id => (orig ? gateTableOrig[id] : gateTable[id]).sOpenHistoria1.StartsWith(open)).ToList();
@@ -841,11 +867,13 @@ public partial class HistoriaCruxRando : Randomizer
                 return false;
             }
 
+            // TODO: handle by treasure logic now if cores are randomised?
             if (gateData[id].Traits.Contains("Graviton") && !HasGravitonLocations(available))
             {
                 return false;
             }
 
+            // TODO: handle by treasure logic now if wilds are randomised?
             if (gateData[id].Traits.Contains("Wild") && !HasWildArtefacts(soFar, available))
             {
                 return false;
@@ -1006,12 +1034,12 @@ public partial class HistoriaCruxRando : Randomizer
         };
         if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 0)
         {
-            list.Add(HistoriaCruxConstants.NEW_BODHUM_3);
+            list.Add("h_hm_AD0003");
         }
 
         if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 1)
         {
-            list.Add(HistoriaCruxConstants.BRESHA_RUINS_5);
+            list.Add("h_bj_AD0005");
         }
 
         list.AddRange(soFar.Values);

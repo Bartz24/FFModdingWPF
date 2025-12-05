@@ -265,7 +265,7 @@ public class FF13_2Flags
                 Text = "Forced Start",
                 ID = "ForcedStart",
                 Description = "Options:\n" +
-                "None - Any valid starting area is possible. Highly unstable\n" +
+                "None - Any valid starting area is possible. Highly unstable. Will likely crash generation.\n" +
                 "Bodhum - Force starting in New Bodhum 3 AF.\n" +
                 "Bodhum & Bresha - Force starting in New Bodhum 3 AF leading to Bresha Ruins 5 AF for guaranteed early branching options.",
                 Values = new string[] { "None", "Bodhum", "Bodhum & Bresha" }.ToList()

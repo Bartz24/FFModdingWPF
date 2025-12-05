@@ -75,7 +75,8 @@ public class HistoriaCruxConstants
         {"cl","Coliseum"},
         {"cs","Serendipity"},
         {"dd","A Dying World"},
-        {"sp","The Void Beyond"}
+        {"sp","The Void Beyond"},
+        {"zz","Please alert a rando dev if you see this!" }
     };
 
     public static readonly Dictionary<string, string> DATE_SPECIAL_CASES = new()

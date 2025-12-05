@@ -43,9 +43,15 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
         DataStoreRTreasurebox t = GetItemData(orig);
 
         int count = t.iItemCount;
-        if (Traits.Contains("Event") && t.s11ItemResourceId.StartsWith("frg"))
+        if (t.s11ItemResourceId.StartsWith("frg"))
         {
-            count = 1;
+            if (Traits.Contains("Event"))
+            {
+                count = 1;
+            } else if (Traits.Contains("ScrEvent"))
+            {
+                count = 0;
+            }
         }
 
         return (t.s11ItemResourceId, count);
@@ -62,12 +68,6 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
         if (location.Traits.Contains("Brain"))
         {
             // TODO
-            return false;
-        }
-
-        if(location.Traits.Contains("Event") && GetItemData(true).s11ItemResourceId.StartsWith("frg"))
-        {
-            // Fragments can't be placed on event checks (for now at least)
             return false;
         }
 

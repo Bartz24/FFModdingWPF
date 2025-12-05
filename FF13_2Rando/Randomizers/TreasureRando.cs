@@ -255,13 +255,13 @@ public partial class TreasureRando : Randomizer
                 var dateText = "cannot resolve a fixed date";
                 var dateTextFixedPrefix = "puts the date at ";
                 var accessText = "";
-                var accessTextPrefix = "According to our calculations, such a gate exists within ";
+                var accessTextPrefix = " According to our calculations, such a gate exists within ";
                 var indexName = gravitonCoreNames[i-1];
                 // TODO: this isn't working currently
-                var gravitonCoreRandoLocation = ItemLocations.Where(kvp => kvp.Value.GetItem(false).Value.Equals(gravitonCoreItemId)).Select(kvp => kvp.Value).FirstOrDefault();
-                if(gravitonCoreRandoLocation is TreasureData treasure)
+                var gravitonCoreRandoLocation = ItemLocations.Where(kvp => kvp.Value.GetItem(false).Value.Item == gravitonCoreItemId).Select(kvp => kvp.Value).FirstOrDefault();
+                if(gravitonCoreRandoLocation != null)
                 {
-                    var treasureArea = treasure.Areas;
+                    var treasureArea = gravitonCoreRandoLocation.Areas;
                     var area = treasureArea[0];
                     var areaSplit = area.Split("_");
                     var areaPrefix = areaSplit[1];
@@ -279,16 +279,24 @@ public partial class TreasureRando : Randomizer
                         }
                         else
                         {
-                            dateText = areaTimeMarker.Substring(3) + " AF";
+                            dateText = dateTextFixedPrefix + areaTimeMarker.Substring(3) + " AF";
                         }
-                        var parentPrefix = cruxRando.shuffledNodes[area].parent.name.Split("_")[1];
-                        accessText = accessTextPrefix + HistoriaCruxConstants.AREA_PREFIX_LOOKUP[parentPrefix];
+                        var parent = cruxRando.shuffledNodes[area].parent;
+                        while (parent != null && parent.name.Contains("_zz_"))
+                        {
+                            parent = parent.parent;
+                        }
+                        if (parent != null)
+                        {
+                            var parentPrefix = parent.name.Split("_")[1];
+                            accessText = accessTextPrefix + HistoriaCruxConstants.AREA_PREFIX_LOOKUP[parentPrefix] + ".";
+                        }
                     }
-                    areaName = dateTextFixedPrefix + HistoriaCruxConstants.AREA_PREFIX_LOOKUP[treasureArea[0].Split("_")[1]];
+                    areaName = HistoriaCruxConstants.AREA_PREFIX_LOOKUP[treasureArea[0].Split("_")[1]];
                 }
 
                 var updatedText = $$"""Graviton Core readings have been detected somewhere in the area of {Color Yellow}{{areaName}}{Color White}.{Text NewLine}{Text NewLine}"""
-                    + $$"""Resonance imaging {{dateText}}. To recover the object, you will need to find a Time Gate that connects to this time period. {{accessText}}{Text NewLine}{Text NewLine}"""
+                    + $$"""Resonance imaging {{dateText}}. To recover the object, you will need to find a Time Gate that connects to this time period.{{accessText}}{Text NewLine}{Text NewLine}"""
                     + $$"""We have designated the target {Color IceBlue}Graviton Core {{indexName}}{Color White}. Travel the timeline and bring it back.""";
 
                 textRando.mainSysUS[gravitonCoreHintTextId] = updatedText;
