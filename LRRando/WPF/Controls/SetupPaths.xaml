@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LRRando" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:LRRando"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" d:DesignWidth="920.67" d:DesignHeight="171.409" >
     <Grid>
         <Grid.Resources >
@@ -66,26 +67,5 @@
         <Border Grid.Column="1" Grid.Row="2">
             <Label x:Name="NovaVersionLabel" VerticalAlignment="Center" Content="{Binding NovaVersionText, Mode=OneWay}" Foreground="{Binding NovaVersionColor, Mode=OneWay}"/>
         </Border>
-        <!--<Border Grid.ColumnSpan="3" Grid.Row="3">
-            <Label FontSize="14">Music Rando Only:</Label>
-        </Border>
-        <Border Grid.Column="0" Grid.Row="4">
-            <Label HorizontalAlignment="Right">FF13 Steam Path</Label>
-        </Border>
-        <Border Grid.Column="1" Grid.Row="4">
-            <TextBox x:Name="steamPath13Text" IsReadOnly="True" Text="{Binding FF13Path, Mode=OneWay}"/>
-        </Border>
-        <Border Grid.Column="2" Grid.Row="4">
-            <Button x:Name="steamPath13Button" Click="steamPath13Button_Click" Content="Select FF13 Folder"/>
-        </Border>
-        <Border Grid.Column="0" Grid.Row="5">
-            <Label HorizontalAlignment="Right">FF13-2 Steam Path</Label>
-        </Border>
-        <Border Grid.Column="1" Grid.Row="5">
-            <TextBox x:Name="steamPath13_2Text" IsReadOnly="True" Text="{Binding FF13_2Path, Mode=OneWay}"/>
-        </Border>
-        <Border Grid.Column="2" Grid.Row="5">
-            <Button x:Name="steamPath13_2Button" Click="steamPath13_2Button_Click" Content="Select FF13-2 Folder"/>
-        </Border>-->
     </Grid>
 </UserControl>

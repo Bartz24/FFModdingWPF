@@ -15,8 +15,6 @@ namespace LRRando;
 /// </summary>
 public partial class SetupPaths : UserControl
 {
-    public string FF13Path => SetupData.GetSteamPath("13");
-    public string FF13_2Path => SetupData.GetSteamPath("13-2");
     public string LRPath => SetupData.GetSteamPath("LR");
     public string NovaPath => SetupData.GetSteamPath("Nova", false);
     public string NovaVersionText { get; set; }
@@ -28,8 +26,6 @@ public partial class SetupPaths : UserControl
         DataContext = this;
 
         SetupData.PathFileName = @"data\RandoPaths.csv";
-        SetupData.PathRegistrySearch.Add("13", @"\white_data\prog\win\bin\ffxiiiimg.exe");
-        SetupData.PathRegistrySearch.Add("13-2", @"\alba_data\prog\win\bin\ffxiii2img.exe");
         SetupData.PathRegistrySearch.Add("LR", @"\LRFF13.exe");
 
         SetupData.PathRegistrySearch.Keys.ToList().ForEach(s => SetupData.Paths.Add(s, SetupData.GetSteamPath(s)));

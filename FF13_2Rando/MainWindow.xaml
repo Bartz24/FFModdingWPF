@@ -63,7 +63,20 @@
                 </StackPanel>
             </DockPanel>
             <Separator DockPanel.Dock="Bottom"/>
-            <TabControl x:Name="WindowTabs" TabStripPlacement="Left" Style="{DynamicResource MaterialDesignNavigatilRailTabControl}">
+            <TabControl x:Name="WindowTabs" TabStripPlacement="Left" Style="{DynamicResource MaterialDesignNavigatilRailTabControl}" SelectedIndex="1">
+                <TabItem Width="100" Height="50">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Vertical">
+                            <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="History" TextAlignment="Center"/>
+                            </Button>
+                            <Separator Margin="0,-1,0,0"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <rando:SeedInfoPage/>
+                    </DockPanel>
+                </TabItem>
                 <TabItem Width="100" Height="50">
                     <TabItem.Header>
                         <Button Width="90" Height="40" IsHitTestVisible="False" Margin="5">

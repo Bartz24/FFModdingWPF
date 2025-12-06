@@ -229,7 +229,7 @@ public class Nova
         // Check if there's already a Nova process running
         if (Process.GetProcessesByName("NovaChrysalia").Length > 0)
         {
-            return "Please close Nova Chrysalia before running LR Rando (workaround for a Nova bug).";
+            return "Please close Nova Chrysalia before running the rando (workaround for a Nova bug).";
         }
 
         // Run "NovaChrysalia.exe version" and get output
