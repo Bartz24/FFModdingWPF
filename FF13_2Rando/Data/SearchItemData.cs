@@ -21,7 +21,29 @@ public class SearchItemData : FF13_2ItemLocation, IDataStoreItemProvider<DataSto
     [RowIndex(3)]
     public override List<string> Areas { get; set; }
     [RowIndex(4)]
-    public override List<string> RequiredAreas { get; set; }
+    public List<string> ExtraRequiredAreas { get; set; }
+
+    public override List<string> RequiredAreas
+    {
+        get
+        {
+            // Also include h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000 and oerba 200 as they
+            // are needed to unlock the improved moogle throw fragment skill
+            List<string> reqAreas =
+            [
+                .. ExtraRequiredAreas,
+                HistoriaCruxConstants.YASCHAS_1X,
+                HistoriaCruxConstants.SUNLETH_300,
+                HistoriaCruxConstants.ARCHYLTE,
+                HistoriaCruxConstants.COLISEUM,
+                HistoriaCruxConstants.OERBA_200
+            ];
+
+            return reqAreas;
+        }
+        set => throw new NotImplementedException();
+    }
+
 
     public override int BaseDifficulty { get => 1; set => throw new NotImplementedException(); }
 

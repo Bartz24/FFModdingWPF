@@ -35,6 +35,18 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
         LogSetItem(newItem, newCount);
         DataStoreRTreasurebox t = GetItemData(false);
         t.s11ItemResourceId = newItem;
+
+        if (newItem.StartsWith("frg"))
+        {
+            if (Traits.Contains("Event"))
+            {
+                newCount = 1;
+            }
+            else if (Traits.Contains("ScrEvent"))
+            {
+                newCount = 0;
+            }
+        }
         t.iItemCount = newCount;
     }
 
@@ -45,15 +57,8 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
         int count = t.iItemCount;
         if (t.s11ItemResourceId.StartsWith("frg"))
         {
-            if (Traits.Contains("Event"))
-            {
-                count = 1;
-            } else if (Traits.Contains("ScrEvent"))
-            {
-                count = 0;
-            }
+            count = 1;
         }
-
         return (t.s11ItemResourceId, count);
     }
 

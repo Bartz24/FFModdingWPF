@@ -171,7 +171,7 @@ public partial class BattleRando : Randomizer
                 {
                     for (int i = oldEnemies.Count; i < count; i++)
                     {
-                        oldEnemies.Add(oldEnemies[RandomNum.RandInt(0, oldEnemies.Count - 1)]);
+                        oldEnemies.Add(oldEnemies[RandomNum.NextInt(0, oldEnemies.Count)]);
                     }
                 }
 
@@ -179,7 +179,7 @@ public partial class BattleRando : Randomizer
                 {
                     for (int i = oldEnemies.Count; i > count; i--)
                     {
-                        oldEnemies.RemoveAt(RandomNum.RandInt(0, oldEnemies.Count - 1));
+                        oldEnemies.RemoveAt(RandomNum.NextInt(0, oldEnemies.Count));
                     }
                 }
 
@@ -418,7 +418,24 @@ public partial class BattleRando : Randomizer
                     }
 
                     canAdd = true;
-                    newEnemy = RandomNum.SelectRandomWeighted(possible, _ => 1);
+
+                    // Variety limit is 3 or the vanilla variety + 1, or if specified in battle data
+                    int varietyLimit = Math.Min(3, GetCharaSpecs(oldEnemies).Distinct().Count() + 1);
+                    if (battleData.ContainsKey(btsceneName) && battleData[btsceneName].VarietyLimit != CSVDataRow.CSV_INVALID_VALUE)
+                    {
+                        varietyLimit = battleData[btsceneName].VarietyLimit;
+                    }
+
+                    if (GetCharaSpecs(newEnemies).Distinct().Count() > varietyLimit)
+                    {
+                        // Pick a enemy from the already selected ones
+                        newEnemy = RandomNum.SelectRandom(newEnemies);
+                    }
+                    else
+                    {
+                        newEnemy = RandomNum.SelectRandom(possible);
+                    }
+
                     if (battleData.ContainsKey(btsceneName))
                     {
                         if (oldEnemies.Contains(newEnemy))
@@ -462,16 +479,6 @@ public partial class BattleRando : Randomizer
                         {
                             newEnemy
                         };
-                        // Variety limit is 3 or the vanilla variety + 1
-                        if (GetCharaSpecs(enemies).Distinct().Count() > Math.Min(3, GetCharaSpecs(oldEnemies).Distinct().Count() + 1))
-                        {
-                            canAdd = false;
-                            ignored.Add(newEnemy.ID);
-                            if (possible.Count == 0)
-                            {
-                                newEnemy = oldEnemy;
-                            }
-                        }
                     }
                 } while (!canAdd);
 

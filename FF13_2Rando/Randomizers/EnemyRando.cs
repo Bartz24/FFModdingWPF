@@ -88,7 +88,8 @@ public class EnemyRando : Randomizer
         {
             string[] chars = { "fam_pc_sera", "fam_pc_noel", "fam_pc" };
             chars.ForEach(c => charaFamily[c].f15MoveSpeed = 96f * FF13_2Flags.Stats.RunSpeedMultValue.Value / 100f);
-            chars.ForEach(c => charaFamily[c].f12AggressiveRunSpeed = 160f * FF13_2Flags.Stats.RunSpeedMultValue.Value / 100f);
+            chars.ForEach(c => charaFamily[c].f12AggressiveRunSpeed = 144f * FF13_2Flags.Stats.RunSpeedMultValue.Value / 100f);
+            chars.ForEach(c => charaFamily[c].f12AggressiveRunSpeed_Field = 64f * FF13_2Flags.Stats.RunSpeedMultValue.Value / 100f);
         }
 
         if (FF13_2Flags.Enemies.EnemyCPMult.FlagEnabled)

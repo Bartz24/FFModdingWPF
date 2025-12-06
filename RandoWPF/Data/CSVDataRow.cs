@@ -44,6 +44,9 @@ public class FieldTypeOverrideAttribute : Attribute
 public class CSVDataRow
 {
     private static readonly Dictionary<Type, PropertyInfo[]> propertyCache = new();
+
+    public const int CSV_INVALID_VALUE = -1;
+
     public CSVDataRow()
     {
 
@@ -116,16 +119,16 @@ public class CSVDataRow
         switch (type)
         {
             case FieldType.Int:
-                property.SetValue(this, string.IsNullOrEmpty(value) ? -1 : int.Parse(value));
+                property.SetValue(this, string.IsNullOrEmpty(value) ? CSV_INVALID_VALUE : int.Parse(value));
                 break;
             case FieldType.HexInt:
-                property.SetValue(this, string.IsNullOrEmpty(value) ? -1 : Convert.ToInt32(value, 16));
+                property.SetValue(this, string.IsNullOrEmpty(value) ? CSV_INVALID_VALUE : Convert.ToInt32(value, 16));
                 break;
             case FieldType.Float:
-                property.SetValue(this, string.IsNullOrEmpty(value) ? -1 : float.Parse(value, CultureInfo.InvariantCulture));
+                property.SetValue(this, string.IsNullOrEmpty(value) ? CSV_INVALID_VALUE : float.Parse(value, CultureInfo.InvariantCulture));
                 break;
             case FieldType.FloatFromInt100:
-                property.SetValue(this, string.IsNullOrEmpty(value) ? -1 : int.Parse(value) / 100f);
+                property.SetValue(this, string.IsNullOrEmpty(value) ? CSV_INVALID_VALUE : int.Parse(value) / 100f);
                 break;
             case FieldType.String:
                 property.SetValue(this, value);

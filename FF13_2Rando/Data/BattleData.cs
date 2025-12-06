@@ -19,6 +19,8 @@ public class BattleData : CSVDataRow
     public List<string> Traits { get; set; }
     [RowIndex(6)]
     public int CharasetLimit { get; set; }
+    [RowIndex(7)]
+    public int VarietyLimit { get; set; }
     public BattleData(string[] row) : base(row)
     {
     }
