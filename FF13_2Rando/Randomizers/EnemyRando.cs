@@ -86,8 +86,9 @@ public class EnemyRando : Randomizer
 
         if (FF13_2Flags.Stats.RunSpeedMult.FlagEnabled)
         {
-            string[] chars = { "fam_pc_sera", "fam_pc_noel" };
-            chars.ForEach(c => charaFamily[c].f15MoveSpeed = 83f * FF13_2Flags.Stats.RunSpeedMultValue.Value / 100f);
+            string[] chars = { "fam_pc_sera", "fam_pc_noel", "fam_pc" };
+            chars.ForEach(c => charaFamily[c].f15MoveSpeed = 96f * FF13_2Flags.Stats.RunSpeedMultValue.Value / 100f);
+            chars.ForEach(c => charaFamily[c].f12AggressiveRunSpeed = 160f * FF13_2Flags.Stats.RunSpeedMultValue.Value / 100f);
         }
 
         if (FF13_2Flags.Enemies.EnemyCPMult.FlagEnabled)
@@ -110,5 +111,6 @@ public class EnemyRando : Randomizer
         });
 
         charaFamily.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_charafamily.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_charafamily.wdb");
     }
 }
