@@ -1,9 +1,12 @@
-$SkipCommas = $Args[0]
-$Skip = $SkipCommas.Split(",")
-$Skip12 = $Skip.Contains("xii")
-$Skip13 = $Skip.Contains("xiii")
-$Skip132 = $Skip.Contains("xiii2")
-$SkipLR = $Skip.Contains("lr")
+"Select projects to build (xii,xiii,xiii2,lr) or 'all'"
+$Selection = Read-Host "Enter selection (leave blank for all)"
+if ([string]::IsNullOrWhiteSpace($Selection)) { $Selection = "all" }
+$Targets = $Selection.ToLower().Split(",") | ForEach-Object { $_.Trim() }
+
+$Build12 = ($Targets -contains "xii") -or ($Targets -contains "all")
+$Build13 = ($Targets -contains "xiii") -or ($Targets -contains "all")
+$Build132 = ($Targets -contains "xiii2") -or ($Targets -contains "all")
+$BuildLR = ($Targets -contains "lr") -or ($Targets -contains "all")
 
 $Version = Get-Item -Path VERSION.txt | Get-Content -Tail 1
 
@@ -32,7 +35,7 @@ $VersionFull = "$VersionMajor.$VersionMinor.$VersionBuild.$VersionRevision"
     -replace 'public static string Version \{ get; set; \} = ".*";', "public static string Version { get; set; } = `"$VersionFull`";" |
 Out-File "RandoWPF\data\SetupData.cs"
 
-if ( $Skip12 -eq $false )
+if ( $Build12 )
 {
 "Building FF12 Rando..."
 Push-Location -Path "FF12Rando"
@@ -40,7 +43,7 @@ Invoke-Expression ".\publish.ps1 $VersionFull Y Y"
 Pop-Location
 }
 
-if ( $Skip13 -eq $false )
+if ( $Build13 )
 {
 "Building FF13 Rando..."
 Push-Location -Path "FF13Rando"
@@ -48,7 +51,7 @@ Invoke-Expression ".\publish.ps1 $VersionFull Y Y"
 Pop-Location
 }
 
-if ( $Skip132 -eq $false )
+if ( $Build132 )
 {
 "Building FF13-2 Rando..."
 Push-Location -Path "FF13_2Rando"
@@ -56,7 +59,7 @@ Invoke-Expression ".\publish.ps1 $VersionFull Y Y"
 Pop-Location
 }
 
-if ( $SkipLR -eq $false )
+if ( $BuildLR )
 {
 "Building LR Rando..."
 Push-Location -Path "LRRando"
