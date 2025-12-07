@@ -198,8 +198,6 @@ public partial class TreasureRando : Randomizer
                 }
             }
 
-
-
             AreaGraph areaGraph = new(Generator);
             areaGraph.Areas = cruxRando.areaData.ToDictionary(kvp => kvp.Value.ID, kvp => new Area([kvp.Value.ID]));
             areaGraph.Connections = cruxRando.gateTable.Values.Select(v =>
@@ -264,6 +262,7 @@ public partial class TreasureRando : Randomizer
             // This adds to the pool so now you have so many. so so many.
             treasures["tre_hmaa_007"].s11ItemResourceId = "opt_silver";
             treasures["tre_hmaa_007"].iItemCount = 10;
+
 
             RandomNum.ClearRand();
 
@@ -410,8 +409,8 @@ public partial class TreasureRando : Randomizer
 
                 nameCell.Elements.Add(new IconTooltip("common/images/lock_white_48dp.svg", disp).ToString());
             }
-
-            return (new object[] { nameCell, $"{name} x {ItemLocations[t.ID].GetItem(false).Value.Item2}", ItemPlacer.SphereCalculator.Spheres.ContainsKey(t) ? ItemPlacer.SphereCalculator.Spheres[t] : "N/A" }).ToList();
+            var sphere = ItemPlacer != null && ItemPlacer.SphereCalculator.Spheres.ContainsKey(t) ? ItemPlacer.SphereCalculator.Spheres[t].ToString() : "N/A";
+            return (new object[] { nameCell, $"{name} x {ItemLocations[t.ID].GetItem(false).Value.Item2}", sphere }).ToList();
         }).ToList(), "itemlocations"));
 
         pages.Add("item_locations", page);

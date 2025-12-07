@@ -26,6 +26,8 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
     protected int Attempts { get; set; } = 0;
 
+    private const int MAX_ATTEMPTS = 1000;
+
     protected Dictionary<string, double> AreaMultipliers { get; set; } = new();
 
     /// <summary>
@@ -53,6 +55,10 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
                 const string EMPTY = "empty";
                 Generator.Logger.LogDebug($"Failed to place {RemainingToPlace.Count + RemainingFixed.Count} remaining replacements.");
                 Generator.Logger.LogDebug($"Remaining to place: {string.Join(",", RemainingToPlace.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}, item: {x.GetItem(true).Value.Item}]"))}{string.Join(",", RemainingFixed.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}, item: {(x.GetItem(true) != null ? x.GetItem(true).Value.Item : EMPTY)}]"))}");
+            }
+            if(Attempts > MAX_ATTEMPTS)
+            {
+                throw new Exception($"Unable to place progression items after {Attempts} attempts");
             }
         }
         while (!success);
