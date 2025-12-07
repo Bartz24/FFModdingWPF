@@ -1125,16 +1125,20 @@ public partial class HistoriaCruxRando : Randomizer
           {
               string id = gateTable[g.ID].sOpenHistoria1;
               string shortID = id.Substring(0, id.Length - 2);
-              return (new string[] { g.GateOriginal, areaData[shortID].Name, diffs.ContainsKey(shortID) ? diffs[shortID].ToString() : "-", areaDepths[shortID].ToString() }).ToList();
+              var depth = areaDepths != null && areaDepths.ContainsKey(shortID) ? areaDepths[shortID].ToString() : "Unchanged";
+              return (new string[] { g.GateOriginal, areaData[shortID].Name, diffs.ContainsKey(shortID) ? diffs[shortID].ToString() : "-", depth }).ToList();
           }).ToList()));
 
-        // Mostly here for debug for now, may replace with a graphical view at some point?
-        page.HTMLElements.Add(new Table("grid", (new string[] { "X", "Y", "Node" }).ToList(), (new int[] { 10, 10, 80 }).ToList(),
-            coordMap.Select(kvp =>
-            {
-                var (x, y) = MapCoordsToHexGrid(IdToCoords(kvp.Key));
-                return (new string[] { x.ToString(), y.ToString(), kvp.Value }).ToList();
-            }).ToList()));
+        if (FF13_2Flags.Other.HistoriaCrux.FlagEnabled)
+        {
+            // Mostly here for debug for now, may replace with a graphical view at some point?
+            page.HTMLElements.Add(new Table("grid", (new string[] { "X", "Y", "Node" }).ToList(), (new int[] { 10, 10, 80 }).ToList(),
+                coordMap.Select(kvp =>
+                {
+                    var (x, y) = MapCoordsToHexGrid(IdToCoords(kvp.Key));
+                    return (new string[] { x.ToString(), y.ToString(), kvp.Value }).ToList();
+                }).ToList()));
+        }
 
         pages.Add("historia_crux", page);
         return pages;

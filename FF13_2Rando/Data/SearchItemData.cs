@@ -84,15 +84,6 @@ public class SearchItemData : FF13_2ItemLocation, IDataStoreItemProvider<DataSto
 
     public override bool CanReplace(ItemLocation location)
     {
-        if (location.GetItem(true).Value.Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowCryst.Enabled)
-        {
-            return false;
-        }
-        if (!location.GetItem(true).Value.Item1.StartsWith("mcr") && !FF13_2Flags.Items.KeyPlaceThrowJunk.Enabled)
-        {
-            return false;
-        }
-
         return true;
     }
 }

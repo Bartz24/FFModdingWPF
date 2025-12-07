@@ -38,6 +38,11 @@ public class FF13_2JunkItemPlacer : JunkItemPlacer<FF13_2ItemLocation>
                 IEnumerable<ItemData> possible = equipRando.itemData.Values.Where(i =>
                     i.Category == category).Where(i =>
                     {
+                        // Remove casino items from the pool because they suck.
+                        if (i.Traits.Contains("Casino"))
+                        {
+                            return false;
+                        }
                         // Don't allow dlc items if rando DLC wasn't enabled
                         return i.Traits.Contains("DLC") ? FF13_2Flags.Other.RandoDLC.Enabled : true;
                     });
