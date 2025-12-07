@@ -91,6 +91,57 @@ public partial class TreasureRando : Randomizer
         AddTreasure("frg_cmn_hmaa002", "frg_cmn_hmaa002", 1, "");
         AddTreasure("key_s_neck", "key_s_neck", 1, "");
         AddTreasure("key_l_knife", "key_l_knife", 1, "");
+        // TODO: Following need added to treasure pool, event flags added in scripts, and scripts compiled
+        // Branch in 13-2 scripts: rando_switch_items
+        AddTreasure("opt_hmaa01_bj", "opt_hmaa01_bj", 1, "");
+        AddTreasure("key_tissue", "key_tissue", 1, "");
+        AddTreasure("key_wep_sozai", "key_wep_sozai", 1, "");
+        AddTreasure("key_mon_data", "key_mon_data", 1, "");
+        AddTreasure("key_kansoku", "key_kansoku", 1, "");
+        AddTreasure("key_f_colonel", "key_f_colonel", 1, "");
+        AddTreasure("key_f_message", "key_f_message", 1, "");
+        AddTreasure("key_yukimi", "key_yukimi", 1, "");
+        AddTreasure("tmap_gy", "tmap_gy", 1, "");
+        AddTreasure("opt_gyaa01_gw", "opt_gyaa01_gw", 1, "");
+        AddTreasure("key_sone_info", "key_sone_info", 1, "");
+        AddTreasure("key_y_baggage", "key_y_baggage", 1, "");
+        AddTreasure("key_f_proof", "key_f_proof", 1, "");
+        AddTreasure("tmap_sn", "tmap_sn", 1, "");
+        AddTreasure("opt_snda01_cl", "opt_snda01_cl", 1, "");
+        AddTreasure("opt_snda02_gd", "opt_snda02_gd", 1, "");
+        AddTreasure("opt_gwca01_gh", "opt_gwca01_gh", 1, "");
+        AddTreasure("key_gowa_wool", "key_gowa_wool", 1, "");
+        AddTreasure("key_nuku_wool", "key_nuku_wool", 1, "");
+        AddTreasure("key_moko_wool", "key_moko_wool", 1, "");
+        AddTreasure("tmap_gd", "tmap_gd", 1, "");
+        AddTreasure("key_access_50", "key_access_50", 1, "");
+        AddTreasure("key_access_la", "key_access_la", 1, "");
+        AddTreasure("key_access_52", "key_access_52", 1, "");
+        AddTreasure("key_access_13", "key_access_13", 1, "");
+        AddTreasure("tmap_gt", "tmap_gt", 1, "");
+        AddTreasure("opt_gtca01_aa", "opt_gtca01_aa", 1, "");
+        AddTreasure("tmap_ac", "tmap_ac", 1, "");
+        AddTreasure("opt_acea01_gt", "opt_acea01_gt", 1, "");
+        AddTreasure("frg_cmn_acea012", "frg_cmn_acea012", 1, "");
+        AddTreasure("just_one_gil", "", 1, "");
+        AddTreasure("key_casino_prz", "key_casino_prz", 1, "");
+        AddTreasure("key_chaos_cly", "key_chaos_cly", 1, "");
+        AddTreasure("key_casino_dice", "key_casino_dice", 1, "");
+        AddTreasure("tmap_cs", "tmap_cs", 1, "");
+        AddTreasure("cs_chip_00", "cs_chip_00", 1, "");
+        AddTreasure("frg_cmn_vpba001", "frg_cmn_vpba001", 1, "");
+        AddTreasure("tmap_vp", "tmap_vp", 1, "");
+        AddTreasure("frg_cmn_vpca001", "frg_cmn_vpca001", 1, "");
+        AddTreasure("key_acdmycom", "key_acdmycom", 1, "");
+        AddTreasure("tmap_bj", "tmap_bj", 1, "");
+        AddTreasure("key_behi_fang", "key_behi_fang", 1, "");
+        AddTreasure("frg_cmn_bjaa001", "frg_cmn_bjaa001", 1, "");
+        AddTreasure("frg_pzl_bjaa001", "frg_pzl_bjaa001", 1, "");
+
+        // Mog level items
+        AddTreasure("mog_level_1", "key_mog_level", 1, "");
+        AddTreasure("mog_level_2", "key_mog_level", 1, "");
+        AddTreasure("mog_level_3", "key_mog_level", 1, "");
 
         // Remove repeatable gil moogle throws
         search.Values.ForEach(s =>
@@ -161,10 +212,15 @@ public partial class TreasureRando : Randomizer
                 {
                     reqs.Add(new AmountItemReq(v.record, 1));
                 }
-                // If the link has a known requirement, add it
+                // If the link has known requirement, add it
                 if (cruxRando.gateData.ContainsKey(v.record))
                 {
                     reqs.Add(cruxRando.gateData[v.record].ItemRequirements);
+
+                    if (cruxRando.gateData[v.record].MinMogLevel > 0)
+                    {
+                        reqs.Add(new AmountItemReq("key_mog_level", cruxRando.gateData[v.record].MinMogLevel));
+                    }
                 }
 
                 // TODO: Wild artefact requirements

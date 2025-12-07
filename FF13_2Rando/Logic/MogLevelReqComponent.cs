@@ -24,9 +24,6 @@ public class MogLevelReqComponent: ItemLocationReqComponent
 
     public bool HasMogLevel(ProgressionState state)
     {
-        HistoriaCruxRando cruxRando = generator.Get<HistoriaCruxRando>();
-        var availableAreas = state.AreasAccessible.ToList();
-        var currMogLevel = cruxRando.GetMogLevel(availableAreas);
-        return currMogLevel >= requiredLevel;
+        return state.ItemsAvailable.GetValueOrDefault("key_mog_level", 0) >= requiredLevel;
     }
 }

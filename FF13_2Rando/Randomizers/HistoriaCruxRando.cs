@@ -837,7 +837,7 @@ public partial class HistoriaCruxRando : Randomizer
                 }
                 else
                 {
-                    RandoUI.SetUIProgressDeterminate($"Failures {shuffleFailures}: ", soFar.Count - 1, openings.Count);
+                    RandoUI.SetUIProgressDeterminate($"Historia Crux Rando Failures: {shuffleFailures}", soFar.Count - 1, openings.Count);
                     possible.Remove(next);
                     soFar.Remove(next);
                 }
@@ -898,7 +898,14 @@ public partial class HistoriaCruxRando : Randomizer
 
     public int GetMogLevel(List<string> available)
     {
-        return available.Contains(HistoriaCruxConstants.NEW_BODHUM_700) ? 3 : available.Contains(HistoriaCruxConstants.SUNLETH_300) ? 2 : available.Contains(HistoriaCruxConstants.BRESHA_RUINS_5) ? 1 : 0;
+        if (!FF13_2Flags.Items.Treasures.FlagEnabled || TooSmallOfPool())
+        {
+            return available.Contains(HistoriaCruxConstants.ACADEMIA_4XX) && HasGravitonLocations(available) ? 3 : available.Contains(HistoriaCruxConstants.SUNLETH_300) ? 2 : available.Contains(HistoriaCruxConstants.BRESHA_RUINS_5) ? 1 : 0;
+        }
+        else
+        {
+            return 3;
+        }
     }
 
     private bool HasGravitonLocations(List<string> available)
@@ -1056,8 +1063,9 @@ public partial class HistoriaCruxRando : Randomizer
             list.Add("h_cs_NA0000");
         }
 
-        // Unlock Dying World/Bodhum 700 after Academia 4XX and Graviton and Mog Level >= 1
-        if (list.Contains("h_aa_AD0400") && HasGravitonLocations(list) && GetMogLevel(list) > 0)
+        // Unlock Dying World/Bodhum 700 after Academia 4XX and Graviton and Mog Level >= 3
+        // Currently requires mog level 3 since bodhum 700 artefact requires improved moogle hunt
+        if (list.Contains("h_aa_AD0400") && HasGravitonLocations(list) && GetMogLevel(list) >= 3)
         {
             list.Add("h_dd_AD0700");
             list.Add("h_hm_AD0700");

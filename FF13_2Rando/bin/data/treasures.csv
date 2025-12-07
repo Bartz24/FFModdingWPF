@@ -16,11 +16,13 @@ key_s_neck,Snow's Necklace,h_hm_AD0003,0,,,ScrEvent
 key_l_knife,Lightning's Knife,h_hm_AD0003,0,,,ScrEvent
 tre_hpaa_001,Meteorite Impact Site Fragment,h_hm_AD0003,1,,I(opt_aaea_re|1),
 tre_hpaa_002,Meteorite Impact Site Fragment,h_hm_AD0003,1,,I(opt_aaea_re|1),
+mog_level_3,Unlock Improved Moogle Hunt,h_hm_AD0700,0,,,ScrEvent
 tre_hmaa_015,Beachfront,h_hm_AD0700,1,,,
 tre_hmha_map,Town Square,h_hm_AD0700,3,,,
 tre_hmha_001,Town Square,h_hm_AD0700,3,,,SideKey
 tre_hmha_002,Town Square Fragment,h_hm_AD0700,2,,,
 tre_hmha_003,Town Square Fragment,h_hm_AD0700,2,,,
+mog_level_1,Unlock Moogle Hunt,h_bj_AD0005,0,,,ScrEvent
 tre_bjaa_001,Excavation Site,h_bj_AD0005,0,,,
 tre_bjaa_003,Excavation Site,h_bj_AD0005,0,,,
 tre_bjaa_012,Excavation Site,h_bj_AD0005,1,,,
@@ -117,7 +119,8 @@ tre_snda_002,Animal Trail,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_017,Animal Trail,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_018,Animal Trail,h_sn_AD0300|h_sn_AD0400,2,,,
 tre_snda_019,Warpwood,h_sn_AD0300|h_sn_AD0400,2,,,
-tre_snda_012,Hidden Woodland Area,h_sn_AD0300|h_sn_AD0400,0,,,
+# Vines to Hidden Woodland Area need moogle hunt
+tre_snda_012,Hidden Woodland Area,h_sn_AD0300|h_sn_AD0400,1,,,
 tre_snda_015,Hidden Woodland Area,h_sn_AD0300|h_sn_AD0400,1,,,
 tre_snda_020,Bow Isle,h_sn_AD0300|h_sn_AD0400,0,,,
 tre_snda_011,Isle of Arboreal Embrace,h_sn_AD0300|h_sn_AD0400,2,,,
@@ -125,6 +128,7 @@ tre_snda_013,Lush Woodland Path,h_sn_AD0300|h_sn_AD0400,1,,,
 tre_snda_009,Overgrown Forest,h_sn_AD0300|h_sn_AD0400,1,,,
 tre_snea_reopt,Assembly Area Minflans,h_sn_AD0400,1,,,GateSeal|Event
 tre_gvtn7,Assembly Area Fragment,h_sn_AD0400,1,,,Graviton
+mog_level_2,Unlock Moogle Throw,h_sn_AD0300,0,,,ScrEvent
 tre_snda_016,Overgrown Forest Fragment,h_sn_AD0300,2,,,
 tre_snda_opts1,Animal Trail Wild Artefact,h_sn_AD0300,2,,,Wild
 tre_clza_001,Coliseum,h_cl_NA0000,2,,,

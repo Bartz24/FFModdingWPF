@@ -31,6 +31,7 @@ h_gt_AD0200,hs_gtca01_aa,,h_gt_AD0300,0,Augusta 200 AF -> Academia 4XX AF,
 h_gw_AD0300,hs_gwda01_gw,Wild,,1,Oerba 300 AF -> Oerba 400 AF,I(opt_silver|1)
 h_aa_AD0400,hs_aaea01_vp,Wild,,0,Academia 4XX AF -> Vile 10 AF,I(opt_silver|1)
 # TODO: for now this gate cannot be shuffled/replaced, it is a fixed join
-h_aa_AD0400,hs_aaea02_sp,Fixed|Graviton,,1,Academia 4XX AF -> Void Beyond,C(Graviton|5)
+# Upped to min mog level 3 since bodhum 700 will softlock without it
+h_aa_AD0400,hs_aaea02_sp,Fixed|Graviton,,3,Academia 4XX AF -> Void Beyond,C(Graviton|5)
 h_hm_AD0700,hs_hmha01_ac,Fixed,,1,New Bodhum 700 AF -> Academia 500 AF,
 h_dd_AD0700,hs_ddha02_bj,Wild,,3,Dying World 700 AF -> Bresha 100 AF,I(opt_silver|1)

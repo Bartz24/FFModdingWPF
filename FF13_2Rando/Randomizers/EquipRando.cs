@@ -31,6 +31,10 @@ public class EquipRando : Randomizer
             ItemData i = new(row);
             itemData.Add(i.ID, i);
         }, FileHelpers.CSVFileHeader.HasHeader);
+
+        items.Copy("key_l_knife", "key_mog_level");
+        items["key_mog_level"].sItemNameStringId = "$mog_level";
+        items["key_mog_level"].sHelpStringId = "$mog_levelh";
     }
     public override void Randomize()
     {

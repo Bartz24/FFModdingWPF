@@ -602,6 +602,7 @@ key_s_neck,Snow's Necklace,Key,1,Event,,,
 key_search_pow,Old Battery,Key,1,SideKey,,,
 key_sone_info,Thorne's Information,Key,1,SideKey,,,
 key_tissue,Toilet Paper Coupon,Key,1,SideKey,,,
+key_mog_level,Progressive Mog Level,Key,1,MogLevel,,,3
 # TODO: correct??
 key_unk_s_opt,Mysterious Artefact,Key,1,SideKey,,,
 key_unk_y_opt,Mysterious Artefact,Key,1,SideKey,,,

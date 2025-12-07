@@ -29,6 +29,10 @@ public class TextRando : Randomizer
 
             quizUS.Load("13-2", outPath, SetupData.Paths["Nova"]);
         }
+        
+        EquipRando equipRando = Generator.Get<EquipRando>();
+        mainSysUS[equipRando.items["key_mog_level"].sItemNameStringId] = "Progressive Mog Level{End}{Many}Progressive Mog Levels{End}{Article}a{End}";
+        mainSysUS[equipRando.items["key_mog_level"].sHelpStringId] = "Each obtained unlocks the following in order: Moogle Hunt, Moogle Throw, and Improved Moogle Hunt.";
     }
     public override void Randomize()
     {
