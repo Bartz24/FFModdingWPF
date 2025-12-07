@@ -27,6 +27,8 @@ public class BossData : CSVDataRow
     public List<string> Traits { get; set; }
     [RowIndex(10)]
     public string Location { get; set; }
+    [RowIndex(11)]
+    public int RankOffsetToLocationAvg { get; set; }
 
     public BossData(string[] row) : base(row)
     {

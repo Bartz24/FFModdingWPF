@@ -198,7 +198,7 @@ public class FF13_2Flags
     {
         public static Flag EnemyLocations, EnemyCPMult;
         public static NumberFlagProperty EnemyRank, EnemyCPMultValue;
-        public static ToggleFlagProperty LargeEnc, DLCBosses;
+        public static ToggleFlagProperty LargeEnc, DLCBosses, BossScaling;
         public static ListBoxFlagProperty Bosses;
 
         internal static void Init()
@@ -259,6 +259,14 @@ public class FF13_2Flags
                 ValueText = "Enemy Rank +/-",
                 MinValue = 0,
                 MaxValue = 15
+            }.Register(EnemyLocations);
+
+            BossScaling = new ToggleFlagProperty()
+            {
+                Text = "Scale Boss Stats [EXPERIMENTAL]",
+                ID = "BossScale",
+                Description = "Scales up/down boss stats to be based on the average of the enemy ranks in the area they are placed in.",
+                Experimental = true
             }.Register(EnemyLocations);
 
             EnemyCPMult = new Flag()

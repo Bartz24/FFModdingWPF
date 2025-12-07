@@ -19,12 +19,17 @@ public partial class BattleRando : Randomizer
     private readonly DataStoreWDB<DataStoreRCharaSet> charaSets = new();
 
     public Dictionary<string, DataStoreWDB<DataStoreBtSTable>> btTables = new();
+
     public Dictionary<string, EnemyData> enemyData = new();
     private readonly Dictionary<string, Dictionary<string, BossData>> bossData = new();
     public Dictionary<string, BattleData> battleData = new();
+    public Dictionary<int, BossScalingData> bossScalingData = new();
+
     private Dictionary<string, string> shuffledBosses = new();
     public Dictionary<string, (int, int)> areaBounds = new();
     private Dictionary<string, (int, int)> areaBoundsOrig = new();
+
+    private Dictionary<string, int> newBossRanks = new();
 
     public BattleRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -53,6 +58,12 @@ public partial class BattleRando : Randomizer
                 }
             }
         }
+
+        FileHelpers.ReadCSVFile(@"data\bossscaling.csv", row =>
+        {
+            BossScalingData b = new(row);
+            bossScalingData.Add(b.Rank, b);
+        }, FileHelpers.CSVFileHeader.HasHeader);
 
         FileHelpers.ReadCSVFile(@"data\battlescenes.csv", row =>
         {
@@ -83,122 +94,143 @@ public partial class BattleRando : Randomizer
             areaBounds = GetAreaRankBounds();
             areaBoundsOrig = new Dictionary<string, (int, int)>(areaBounds);
 
-            TreasureRando treasureRando = Generator.Get<TreasureRando>();
-            HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
-            //List<string> areaUnlockOrder = new();//treasureRando.PlacementAlgo.Logic.GetPropValue<List<string>>("AreaUnlockOrder");
-            //areaUnlockOrder = areaUnlockOrder.Where(a => areaBounds.ContainsKey(a)).ToList();
-            //areaUnlockOrder.AddRange(areaBounds.Keys.Where(a => !areaUnlockOrder.Contains(a)));
-
-            //areaUnlockOrder = RandomNum.ShuffleWeightedOrder(areaUnlockOrder, (i1, a1, i2, a2) =>
-            //{
-            //    return i1 == i2 ? 1 : (i1 < 5 || i2 < 5 ? 0 : Math.Abs(i1 - i2) < 3 ? 1 : 0);
-            //});
-            List<int> newMins = areaBounds.Values.Select(t => t.Item1).OrderBy(i => i).ToList();
-            int enemyMaxRank = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).Max(e => e.Rank);
-            var maxAreaDepth = cruxRando.areaDepths.Max(kvp => kvp.Value);
-            float ratio = (float)enemyMaxRank / (float)maxAreaDepth;
-            foreach (var (area, range) in areaBounds)
-            {
-                // This is working out ok, can potentially bump up more after the first couple of ranks
-                // Especially since the endgame is locked and adds like 6 nodes to depth currently
-                var areaDepth = cruxRando.areaDepths[area];
-                // Scale upper bound higher once we're more than 3 locations in
-                var offset = areaDepth > 3 ? 2 : 0;
-                var adjusted = (areaDepth + offset) * ratio;
-                // Overall floor of 5 for max, scales up with areaDepth*0.75
-                int newMax = Math.Max((int)adjusted + 1, 5);
-                // Min is 1 or scaled rank*0.5
-                var mult = 0.5;
-                int newMin = Math.Max(1, (int)(adjusted* mult));
-                areaBounds[area] = (newMin, Math.Min(newMax, enemyMaxRank));
-            }
+            DetermineAreaBounds();
 
             if (FF13_2Flags.Enemies.Bosses.SelectedValues.Count > 0)
             {
-                Dictionary<string, BossData> reducedBossDataForShuffle = bossData.Keys.Distinct()
-                    .Where(g => FF13_2Flags.Enemies.Bosses.SelectedValues.Contains(g))
-                    .ToDictionary(g => g, g =>bossData[g].Values.First(b => b.Traits.Contains("Main")))
-                    .Where(kvp => !kvp.Value.Traits.Contains("NoShuffle"))
-                    .ToDictionary();
-                List<string> list = bossData.Keys
-                    .Where(g => FF13_2Flags.Enemies.Bosses.SelectedValues.Contains(g))
-                    .Where(g => !bossData[g].Values.First(b => b.Traits.Contains("Main")).Traits.Contains("NoShuffle"))
-                    .ToList();
-
-                // Earlier in this list is an easier boss by rank. Bosses of equivalent rank are randomised in order
-                List<string> bossesByTheirRank = reducedBossDataForShuffle
-                    .GroupBy(kvp => kvp.Value.Rank)
-                    .SelectMany(group => group.Shuffle())
-                    .Select(kvp => kvp.Key)
-                    .ToList();
-
-                // Ordered by where you'll encounter the area, with some variance and then randomised by rank
-                List<string> locationsByTheirDepth = reducedBossDataForShuffle
-                    .GroupBy(kvp =>
-                    {
-                        // This basically leaves gog vanilla always - check if I did something silly...
-                        var location = kvp.Value.Location;
-                        var areaDepth = cruxRando.areaDepths[location];
-                        // Randomise the area ranks to shuffle things up a little
-                        return RandomNum.NextInt(areaDepth - 1, areaDepth + 1);
-                    })
-                    .SelectMany(group => group.Shuffle())
-                    .Select(kvp => kvp.Key)
-                    .ToList();
-
-                // shuffled Bosses should now pick bosses based on a rough mapping of [vanilla boss] => [location depth in shuffled areas] => [boss of equivalent rank to depth]
-                List<string> shuffled = new();
-                for(var i = 0; i < list.Count; i++)
-                {
-                    var originalBossName = list[i];
-                    var locationDepth = locationsByTheirDepth.IndexOf(originalBossName);
-                    var newBoss = bossesByTheirRank[locationDepth];
-                    shuffled.Add(newBoss);
-                }
-                shuffledBosses = Enumerable.Range(0, list.Count).ToDictionary(i => list[i], i => shuffled[i]);
+                ShuffleBosses();
             }
 
-            btScenes.Values.Shuffle().ForEach(b =>
+            ApplyEnemyBossPlacementUpdates();
+
+            if (FF13_2Flags.Enemies.BossScaling.Enabled)
             {
-                List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.ContainsKey(s)).Select(s => enemyData[s]).ToList();
-                int count = oldEnemies.Count;
-                if (!FF13_2Flags.Enemies.LargeEnc.Enabled)
-                {
-                    count = Math.Min(4, count);
-                }
+                ApplyBossScalingUpdates();
+            }
 
-                if (count > oldEnemies.Count)
-                {
-                    for (int i = oldEnemies.Count; i < count; i++)
-                    {
-                        oldEnemies.Add(oldEnemies[RandomNum.NextInt(0, oldEnemies.Count)]);
-                    }
-                }
-
-                if (count < oldEnemies.Count)
-                {
-                    for (int i = oldEnemies.Count; i > count; i--)
-                    {
-                        oldEnemies.RemoveAt(RandomNum.NextInt(0, oldEnemies.Count));
-                    }
-                }
-
-                if (count > 0)
-                {
-                    if (!oldEnemies[0].Traits.Contains("Boss") || FF13_2Flags.Enemies.Bosses.SelectedValues.Count > 0)
-                    {
-                        List<EnemyData> validEnemies = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).ToList();
-                        if (battleData.ContainsKey(b.record))
-                        {
-                            validEnemies = validEnemies.Where(e => e.Parts.Count == 0 || oldEnemies.Contains(e)).ToList();
-                        }
-
-                        UpdateEnemyLists(oldEnemies, validEnemies, b.record, b.record.StartsWith("btsc011"));
-                    }
-                }
-            });
             RandomNum.ClearRand();
         }
+    }
+
+    private void DetermineAreaBounds()
+    {
+        HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
+        //List<string> areaUnlockOrder = new();//treasureRando.PlacementAlgo.Logic.GetPropValue<List<string>>("AreaUnlockOrder");
+        //areaUnlockOrder = areaUnlockOrder.Where(a => areaBounds.ContainsKey(a)).ToList();
+        //areaUnlockOrder.AddRange(areaBounds.Keys.Where(a => !areaUnlockOrder.Contains(a)));
+
+        //areaUnlockOrder = RandomNum.ShuffleWeightedOrder(areaUnlockOrder, (i1, a1, i2, a2) =>
+        //{
+        //    return i1 == i2 ? 1 : (i1 < 5 || i2 < 5 ? 0 : Math.Abs(i1 - i2) < 3 ? 1 : 0);
+        //});
+        List<int> newMins = areaBounds.Values.Select(t => t.Item1).OrderBy(i => i).ToList();
+        int enemyMaxRank = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).Max(e => e.Rank);
+        var maxAreaDepth = cruxRando.areaDepths.Max(kvp => kvp.Value);
+        float ratio = (float)enemyMaxRank / (float)maxAreaDepth;
+        foreach (var (area, range) in areaBounds)
+        {
+            // This is working out ok, can potentially bump up more after the first couple of ranks
+            // Especially since the endgame is locked and adds like 6 nodes to depth currently
+            var areaDepth = cruxRando.areaDepths[area];
+            // Scale upper bound higher once we're more than 3 locations in
+            var offset = areaDepth > 3 ? 2 : 0;
+            var adjusted = (areaDepth + offset) * ratio;
+            // Overall floor of 5 for max, scales up with areaDepth*0.75
+            int newMax = Math.Max((int)adjusted + 1, 5);
+            // Min is 1 or scaled rank*0.5
+            var mult = 0.5;
+            int newMin = Math.Max(1, (int)(adjusted * mult));
+            areaBounds[area] = (newMin, Math.Min(newMax, enemyMaxRank));
+        }
+    }
+
+    private void ShuffleBosses()
+    {
+        HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
+        Dictionary<string, BossData> reducedBossDataForShuffle = bossData.Keys.Distinct()
+                            .Where(g => FF13_2Flags.Enemies.Bosses.SelectedValues.Contains(g))
+                            .ToDictionary(g => g, g => bossData[g].Values.First(b => b.Traits.Contains("Main")))
+                            .Where(kvp => !kvp.Value.Traits.Contains("NoShuffle"))
+                            .ToDictionary();
+        List<string> list = bossData.Keys
+            .Where(g => FF13_2Flags.Enemies.Bosses.SelectedValues.Contains(g))
+            .Where(g => !bossData[g].Values.First(b => b.Traits.Contains("Main")).Traits.Contains("NoShuffle"))
+            .ToList();
+
+        // Earlier in this list is an easier boss by rank. Bosses of equivalent rank are randomised in order
+        List<string> bossesByTheirRank = reducedBossDataForShuffle
+            .GroupBy(kvp => kvp.Value.Rank)
+            .SelectMany(group => group.Shuffle())
+            .Select(kvp => kvp.Key)
+            .ToList();
+
+        // Ordered by where you'll encounter the area, with some variance and then randomised by rank
+        List<string> locationsByTheirDepth = reducedBossDataForShuffle
+            .GroupBy(kvp =>
+            {
+                // This basically leaves gog vanilla always - check if I did something silly...
+                var location = kvp.Value.Location;
+                var areaDepth = cruxRando.areaDepths[location];
+                // Randomise the area ranks to shuffle things up a little
+                return RandomNum.NextInt(areaDepth - 1, areaDepth + 1);
+            })
+            .SelectMany(group => group.Shuffle())
+            .Select(kvp => kvp.Key)
+            .ToList();
+
+        // shuffled Bosses should now pick bosses based on a rough mapping of [vanilla boss] => [location depth in shuffled areas] => [boss of equivalent rank to depth]
+        List<string> shuffled = new();
+        for (var i = 0; i < list.Count; i++)
+        {
+            var originalBossName = list[i];
+            var locationDepth = locationsByTheirDepth.IndexOf(originalBossName);
+            var newBoss = bossesByTheirRank[locationDepth];
+            shuffled.Add(newBoss);
+        }
+        shuffledBosses = Enumerable.Range(0, list.Count).ToDictionary(i => list[i], i => shuffled[i]);
+    }
+
+    private void ApplyEnemyBossPlacementUpdates()
+    {
+        btScenes.Values.Shuffle().ForEach(b =>
+        {
+            List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.ContainsKey(s)).Select(s => enemyData[s]).ToList();
+            int count = oldEnemies.Count;
+            if (!FF13_2Flags.Enemies.LargeEnc.Enabled)
+            {
+                count = Math.Min(4, count);
+            }
+
+            if (count > oldEnemies.Count)
+            {
+                for (int i = oldEnemies.Count; i < count; i++)
+                {
+                    oldEnemies.Add(oldEnemies[RandomNum.NextInt(0, oldEnemies.Count)]);
+                }
+            }
+
+            if (count < oldEnemies.Count)
+            {
+                for (int i = oldEnemies.Count; i > count; i--)
+                {
+                    oldEnemies.RemoveAt(RandomNum.NextInt(0, oldEnemies.Count));
+                }
+            }
+
+            if (count > 0)
+            {
+                if (!oldEnemies[0].Traits.Contains("Boss") || FF13_2Flags.Enemies.Bosses.SelectedValues.Count > 0)
+                {
+                    List<EnemyData> validEnemies = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).ToList();
+                    if (battleData.ContainsKey(b.record))
+                    {
+                        validEnemies = validEnemies.Where(e => e.Parts.Count == 0 || oldEnemies.Contains(e)).ToList();
+                    }
+
+                    UpdateEnemyLists(oldEnemies, validEnemies, b.record, b.record.StartsWith("btsc011"));
+                }
+            }
+        });
     }
 
     private Dictionary<string, (int, int)> GetAreaRankBounds()
@@ -530,8 +562,14 @@ public partial class BattleRando : Randomizer
     public Dictionary<string, int> GetAreaDifficulties()
     {
         Dictionary<string, List<int>> diffs = new();
-        btScenes.Keys.ForEach(id =>
+        foreach (string id in btScenes.Keys)
         {
+            // Skip any battles that have bosses in them
+            if (btScenes[id].GetCharSpecs().Where(s => enemyData.ContainsKey(s)).Select(s => enemyData[s]).Any(e => e.Traits.Contains("Boss")))
+            {
+                continue;
+            }
+
             List<string> areas = GetAreasWithBattle(id);
             if (areas.Count > 0)
             {
@@ -540,7 +578,7 @@ public partial class BattleRando : Randomizer
                 if (oldEnemies.Count > 0)
                 {
                     int diff = (int)(oldEnemies.Max(e => e.Rank) * Math.Pow(1.05, oldEnemies.Count));
-                    areas.ForEach(a =>
+                    foreach (string a in areas)
                     {
                         if (!diffs.ContainsKey(a))
                         {
@@ -548,12 +586,68 @@ public partial class BattleRando : Randomizer
                         }
 
                         diffs[a].Add(diff);
-                    });
+                    }
                 }
             }
-        });
+        }
 
         return diffs.ToDictionary(p => p.Key, p => (int)Math.Ceiling(p.Value.Average()));
+    }
+
+    private void ApplyBossScalingUpdates()
+    {
+        var areaDifficulties = GetAreaDifficulties();
+        EnemyRando enemyRando = Generator.Get<EnemyRando>();
+        foreach (var bossGroups in bossData)
+        {
+            var mainBoss = bossGroups.Value.Values.FirstOrDefault(b => b.Traits.Contains("Main"));
+            if (mainBoss.Traits.Contains("NoScaling") || mainBoss == null)
+            {
+                continue;
+            }
+
+            // Determine the new boss replacing this one
+            string newBossGroup = shuffledBosses.ContainsKey(bossGroups.Key) ? shuffledBosses[bossGroups.Key] : bossGroups.Key;
+            var newMainBoss = bossData[newBossGroup].Values.FirstOrDefault(b => b.Traits.Contains("Main"));
+
+            // Get the location avg rank for the original boss
+            int locationAvgRank = areaDifficulties.GetValueOrDefault(mainBoss.Location, -1);
+            if (locationAvgRank == -1)
+            {
+                continue;
+            }
+
+            // Determine the new rank from the original location avg
+            int newRank = locationAvgRank + mainBoss.RankOffsetToLocationAvg;
+            int oldRank = mainBoss.Rank;
+
+            if (oldRank == newRank)
+            {
+                continue;
+            }
+
+            // Clamp new rank to available scaling data
+            newRank = Math.Max(bossScalingData.Keys.Min(), Math.Min(bossScalingData.Keys.Max(), newRank));
+
+            // Apply scaling to HP/STR/MAG based on the rank difference
+            double hpMult = (double)bossScalingData[newRank].HP / bossScalingData[oldRank].HP;
+            double strMagMult = (double)bossScalingData[newRank].STRMAG / bossScalingData[oldRank].STRMAG;
+
+            foreach (var boss in bossData[newBossGroup].Values)
+            {
+                if (!enemyRando.HasEnemy(boss.ID))
+                {
+                    continue;
+                }
+
+                var enemy = enemyRando.GetEnemy(boss.ID);
+                enemy.u24MaxHp = (int)(enemy.u24MaxHp * hpMult);
+                enemy.u16StatusStr = (int)(enemy.u16StatusStr * strMagMult);
+                enemy.u16StatusMgk = (int)(enemy.u16StatusMgk * strMagMult);
+            }              
+            
+            newBossRanks[newMainBoss.Group] = newRank;
+        }
     }
 
     public override Dictionary<string, HTMLPage> GetDocumentation()
@@ -562,9 +656,11 @@ public partial class BattleRando : Randomizer
         Dictionary<string, HTMLPage> pages = base.GetDocumentation();
         HTMLPage page = new("Encounters", "template/documentation.html");
 
-        page.HTMLElements.Add(new Table("Bosses", (new string[] { "Original Boss", "New Boss", }).ToList(), (new int[] { 50, 50 }).ToList(), shuffledBosses.Select(p =>
+        page.HTMLElements.Add(new Table("Bosses", (new string[] { "Original Boss", "New Boss", "New Boss Rank" }).ToList(), (new int[] { 35, 35, 30 }).ToList(), bossData.Keys.Select(name =>
         {
-            return new string[] { p.Key, p.Value }.ToList();
+            string original = name;
+            string newName = shuffledBosses.ContainsKey(name) ? shuffledBosses[name] : name;
+            return new string[] { original, newName, newBossRanks.ContainsKey(newName) ? newBossRanks[newName].ToString() : "N/A" }.ToList();
         }).ToList()));
 
         page.HTMLElements.Add(new Table("Encounters", (new string[] { "ID", "Location", "New Enemies" }).ToList(), (new int[] { 20, 20, 60 }).ToList(), btScenes.Values.Where(b => GetAreasWithBattle(b.record).Count > 0).Select(b =>
