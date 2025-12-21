@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using SharpCompress.Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -39,6 +40,8 @@ public partial class HistoriaCruxRando : Randomizer
     public Dictionary<string, TreeNode> shuffledNodes = new();
 
     public string overrideInitial;
+
+    private bool experimental = true;
 
     public HistoriaCruxRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -78,53 +81,339 @@ public partial class HistoriaCruxRando : Randomizer
         {
             FF13_2Flags.Other.HistoriaCrux.SetRand();
 
-            List<string> openings = gateData.Keys
-                .Where(id => !gateData[id].Traits.Contains("Paradox"))
-                .Where(id => !gateData[id].Traits.Contains("Fixed"))
-                .Where(id => FF13_2Flags.Other.RandoDLC.Enabled || !gateData[id].Traits.Contains("DLC"))
-                .Select(id => gateTable[id].sOpenHistoria1)
-                .Select(s => s.Substring(0, s.Length - 2))
-                .Distinct().ToList();
+            // Update historia.csv to include all gate entries and ykd offset (for ease) - later
+            // Add ykd offsets to areas.csv also for ease of maintenance - later
 
-            // TODO: figure out a proper way to allow true random starting location
-            // Existing algorithm seems to either eat nodes, or create strange loops
-            // Need to be able to unravel at the end to set hmaa_def link properly.
-
-            if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 0)
+            // Setup initial area nodes with no links
+            var nodes = new Dictionary<string, TreeNode>();
+            var coordMap = new Dictionary<int, string>();
+            var locations = gateTable.Values.Select(g => g.sArea).Concat(gateTable.Values.Select(g => g.sOpenHistoria1.Substring(0, g.sOpenHistoria1.Length - 2))).Distinct().ToList();
+            foreach (var area in locations)
             {
-                openings = openings.Where(o => o != HistoriaCruxConstants.NEW_BODHUM_3).ToList();
+                var emptyNode = new TreeNode();
+                emptyNode.name = area;
+                nodes.Add(area, emptyNode);
             }
+            var unplacedStarter = nodes.Keys.ToList();
 
-            if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 1)
+            // Remove the dlc group to be re-added later
+            unplacedStarter.Remove(HistoriaCruxConstants.BLANK_7);
+            unplacedStarter.Remove(HistoriaCruxConstants.COLISEUM_DLC);
+            unplacedStarter.Remove(HistoriaCruxConstants.VALHALLA_DLC);
+            unplacedStarter.Remove(HistoriaCruxConstants.SERENDIPITY_DLC);
+
+            // Place any fixed initial nodes _with coordinates_
+            var startingCoords = (2, 6);
+
+            TreeNode rootNode;
+            var attempts = 0;
+            // Place all remaining nodes
+            // position up to outgoing link count on area
+            // place with placement logic rather than fixed list
+            Dictionary<int, string> finalPlacement;
+            do
             {
-                openings = openings.Where(o => o != HistoriaCruxConstants.BRESHA_RUINS_5).ToList();
+                var unplaced = new List<string>(unplacedStarter);
+                var expectedCount = nodes.Count;
+                // DLC areas
+                expectedCount -= 4;
+                // TODO: redo initial placement flags for flexibility
+                if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 0)
+                {
+                    unplaced.Remove(HistoriaCruxConstants.NEW_BODHUM_3);
+                    var id = CoordsToId(startingCoords.Item1,startingCoords.Item2);
+                    coordMap[id] = HistoriaCruxConstants.NEW_BODHUM_3;
+                    rootNode = nodes[HistoriaCruxConstants.NEW_BODHUM_3];
+                    if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 1)
+                    {
+                        unplaced.Remove(HistoriaCruxConstants.BRESHA_RUINS_5);
+                        var id2 = CoordsToId(startingCoords.Item1 + 1, startingCoords.Item2);
+                        coordMap[id2] = HistoriaCruxConstants.BRESHA_RUINS_5;
+                        rootNode = nodes[HistoriaCruxConstants.BRESHA_RUINS_5];
+                        nodes[HistoriaCruxConstants.NEW_BODHUM_3].children.Add(rootNode);
+                        rootNode.parent = nodes[HistoriaCruxConstants.NEW_BODHUM_3];
+                        expectedCount--;
+                    }
+                } else
+                {
+                    var bannedInitial = new List<string>()
+                    {
+                        // Banned due to fixed fight requirements making this too difficult/awkward
+                        HistoriaCruxConstants.ACADEMIA_400,
+                        HistoriaCruxConstants.AUGUSTA_200,
+                        // Banned as every check requires moogle hunt level 1
+                        HistoriaCruxConstants.OERBA_200,
+                        HistoriaCruxConstants.OERBA_300
+                    };
+                    var initial = RandomNum.SelectRandom(unplaced.Where(r => {
+                        if (bannedInitial.Contains(r)) { return false; }
+                        // if the area has a fixed inbound route, don't allow it to be the starting point.
+                        if (areaData[r].Traits.Contains("FixedInbound")){return false;}
+                        return areaData[r].OutgoingLinkCount > 0;
+                    })); //pick random starting location based on random
+                    unplaced.Remove(initial);
+                    var id = CoordsToId(startingCoords.Item1, startingCoords.Item2);
+                    coordMap[id] = initial;
+                    rootNode = nodes[initial];
+                }
+
+                expectedCount--;
+
+                Generator.Logger.LogDebug($"Attempting to place {unplaced.Count}");
+                var placed = TryPlaceChildrenWithPlacement(rootNode, 2, 6, coordMap, 0, 0, unplaced, nodes, 1.0f, 0);
+
+                if (placed.Item1 && placed.Item2.Count == expectedCount && placed.Item3.Count == 0)
+                {
+                    Generator.Logger.LogDebug($"Placement of crux nodes successful on attempt {attempts}");
+                    finalPlacement = placed.Item2;
+                    coordMap = finalPlacement;
+                    rootLocation = rootNode.name;
+                    break;
+                }
+                else
+                {
+                    attempts++;
+                    Generator.Logger.LogDebug($"Placed {placed.Item2.Count} of {nodes.Count} remaining {placed.Item3.Count}");
+                    foreach(var node in nodes.Values)
+                    {
+                        node.children.Clear();
+                        node.parent = null;
+                    }
+                    if (attempts > 10)
+                    {
+                        throw new Exception("Too many attempts!");
+                    }
+                }
+            } while (true);
+
+            var dlcBlankNode = nodes[HistoriaCruxConstants.BLANK_7];
+            coordMap[CoordsToId(1, 6)] = HistoriaCruxConstants.BLANK_7;
+            rootNode.children.Add(dlcBlankNode);
+            dlcBlankNode.parent = rootNode;
+            dlcBlankNode.children.Add(nodes[HistoriaCruxConstants.COLISEUM_DLC]);
+            nodes[HistoriaCruxConstants.COLISEUM_DLC].parent = dlcBlankNode;
+            dlcBlankNode.children.Add(nodes[HistoriaCruxConstants.SERENDIPITY_DLC]);
+            nodes[HistoriaCruxConstants.SERENDIPITY_DLC].parent = dlcBlankNode;
+            dlcBlankNode.children.Add(nodes[HistoriaCruxConstants.VALHALLA_DLC]);
+            nodes[HistoriaCruxConstants.VALHALLA_DLC].parent = dlcBlankNode;
+            var dlcUpperId = CoordsToId(0, 6 - 1);
+            coordMap[dlcUpperId] = HistoriaCruxConstants.VALHALLA_DLC;
+            var dlcLowerId = CoordsToId(1, 6 + 1);
+            coordMap[dlcLowerId] = HistoriaCruxConstants.SERENDIPITY_DLC;
+            var dlcLeftId = CoordsToId(0, 6);
+            coordMap[dlcLeftId] = HistoriaCruxConstants.COLISEUM_DLC;
+            this.coordMap = coordMap;
+            areaDepths = nodes.Values.ToDictionary(node => node.name, ResolveNodeDepth);
+
+            // Bounds check all coordinates and shift the entire grid over if needed to fit?
+
+            // Replace all historia gate links properly so that the association is correct, and the incoming placement is correct
+            // Special case the hmaa_def link to replace whatever initial area is with wherever new bodhum ends up
+            // Can we just straight swap the lines here or does that break things? only one way to find out I guess.
+            // Might just have a floating line for now?
+
+            //hmaa_def needs to point at initial
+            //otherwise update gates based on target location but needs to be _outgoing_
+            //need to know which link goes with which gate - associate on fixed ones somehow?
+            var unshuffledNodes = new List<string>(){ HistoriaCruxConstants.BLANK_7, HistoriaCruxConstants.COLISEUM_DLC, HistoriaCruxConstants.SERENDIPITY_DLC, HistoriaCruxConstants.VALHALLA_DLC};
+            foreach(var node in nodes.Values){
+                if(unshuffledNodes.Contains(node.name ))
+                {
+                    continue;
+                }
+                Generator.Logger.LogDebug($"Node {node.name} links to {string.Join(",",node.children.Select(s => s.name))}");
+                var outgoingLinks = areaData[node.name].OutgoingGates;
+                // special case 1x/sunleth because its weird...
+                // the void beyond or serendipity is placed first, so go backwards from the bottom for the other outward links
+                if (node.name == HistoriaCruxConstants.SUNLETH_300)
+                {
+                    // blank node
+                    //gateTable["hs_snda01_zz"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
+                    // open link
+                    gateTable["hs_snda02_gd"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
+                    // void beyond
+                    //gateTable["hs_snda03_ac"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
+                    // serendipity
+                    //gateTable["hs_snda03_cs"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
+                }
+                else if (node.name == HistoriaCruxConstants.YASCHAS_1X)
+                {
+                    // void beyond
+                    //gateTable["hs_ghaa01_ac"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
+                    // serendipity
+                    //gateTable["hs_ghaa01_cs"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
+                    // open link
+                    gateTable["hs_ghaa02_gt"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
+                }
+                else
+                {
+                    for(var j = 0; j < outgoingLinks.Count; j++)
+                    {
+                        var link = outgoingLinks[j];
+                        var child = node.children[j];
+                        gateTable[link].sOpenHistoria1 = child.name+"_a";
+                    }
+                }
             }
+            gateTable["hs_hmaa_def"].sArea = rootLocation;
+            gateTable["hs_hmaa_def"].sOpenHistoria1 = rootLocation+"_a";
+            gateTable["hs_hmaa10_zz"].sArea = rootLocation;
 
-            if(FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) == 0)
-            {
-                string msg = "No fixed starting location set. This setting is highly unstable and will crash or fail generation if" +
-                    "a stable tree is not generated to avoid rolling unbeatable seeds from an item logic perspective.\n" +
-                    "You have been warned :)";
-                Generator.Logger.LogError(msg);
-                MessageBox.Show(msg);
-            }
+            shuffledNodes = new(nodes);
 
-            placement = GetPlacement(new Dictionary<string, string>(), openings, 0).Item2;
-
-            placement.Keys.ToList().ForEach(open =>
-            {
-                Generator.Logger.LogDebug($"Location {open} placed at {placement[open]}");
-                gateTable.Keys.Where(id => gateTableOrig[id].sOpenHistoria1.StartsWith(open)).ToList().ForEach(id => gateTable[id].sOpenHistoria1 = placement[open] + "_a");
+            // Do placement from tree
+            var updatedLocations = coordMap.ToDictionary(kvp => kvp.Value, kvp => {
+                var baseCoords = MapCoordsToHexGrid(IdToCoords(kvp.Key));
+                if (kvp.Value.Contains("_zz_") || kvp.Value.Contains("_sp_"))
+                {
+                    // blank items are offset by 5 in each direction
+                    // Void beyond nodes also do this as they show as blank in the main matrix
+                    return (baseCoords.Item1 + 5, baseCoords.Item2 + 5);
+                }
+                return baseCoords;
             });
-
-            if (placement.ContainsKey("h_hm_AD0003"))
+            foreach (var (key, offset) in ykdGateOffsets)
             {
-                gateTable["hs_hmaa10_zz"].sArea = placement["h_hm_AD0003"];
+                var validation = BitConverter.ToSingle(hcParts.SubArray(offset, 4));
+                var originalX = BitConverter.ToSingle(hcParts.SubArray(offset + 0x20, 4));
+                var originalY = BitConverter.ToSingle(hcParts.SubArray(offset + 0x24, 4));
+                // Hide other nodes in the top right
+                var targetCoordsToSet = updatedLocations.GetValueOrDefault(key, (-30, 30));
+                var targetX = BitConverter.GetBytes((float)targetCoordsToSet.Item1);
+                var targetY = BitConverter.GetBytes((float)targetCoordsToSet.Item2);
+                targetX.CopyTo(hcParts, offset + 0x20);
+                targetY.CopyTo(hcParts, offset + 0x24);
+                Generator.Logger.LogDebug($"Updated crux coords for key {key} (original x {originalX} y {originalY}) -> (new x {targetCoordsToSet.Item1} y {targetCoordsToSet.Item2}).");
             }
+            var i = 0;
+            foreach (var link in gateTable.Keys.OrderBy(s => s, StringComparer.Ordinal))
+            {
 
-            BuildInitialGateTree();
-            // Generate updated gate matrix based on shuffled links
-            // TODO: may need to track this from earlier in the process to add in dead nodes
+                var linkDetails = gateTable[link];
+                var left = linkDetails.sArea;
+                var right = linkDetails.sOpenHistoria1.Substring(0, linkDetails.sOpenHistoria1.Length - 2);
+                // Bodhum 3xx is a fake area, for link purposes just skip through to the next point
+                if (right == HistoriaCruxConstants.NEW_BODHUM_3X)
+                {
+                    right = HistoriaCruxConstants.BLANK_5;
+                }
+                if (!updatedLocations.ContainsKey(left) || !updatedLocations.ContainsKey(right))
+                {
+                    Generator.Logger.LogDebug($"Unable to link coords at either end of link {link}");
+                    continue;
+                }
+
+                // TODO: special case if override initial to ensure initial link gets set properly (validate??)
+                if (rootLocation != null && right == HistoriaCruxConstants.NEW_BODHUM_3)
+                {
+                    right = rootLocation;
+                }
+                else if (rootLocation != null && right == rootLocation)
+                {
+                    right = HistoriaCruxConstants.NEW_BODHUM_3;
+                }
+
+                // TODO: special case for "magic" links to void beyond/serendipity, need to consider left also
+                DataStoreRGateTable incomingLink;
+                if (right != HistoriaCruxConstants.SERENDIPITY && right != HistoriaCruxConstants.VOID_BEYOND_A)
+                {
+                    incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a");
+                }
+                else
+                {
+                    incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a" && v.sArea == left);
+                }
+
+                if (incomingLink == null)
+                {
+                    Generator.Logger.LogDebug($"Unable to find incoming link entry for right {right}");
+                    continue;
+                }
+
+                var offset = ykdLinkOffsets.GetValueOrDefault(incomingLink.record, 0);
+                if (offset == 0)
+                {
+                    Generator.Logger.LogDebug($"Unable to locate link offset for link {incomingLink.record}. Links {left} to {right}");
+                    continue;
+                }
+                var validation = BitConverter.ToSingle(hcParts.SubArray(offset, 4));
+                // Not always sensible value?
+                var originalANgle = BitConverter.ToSingle(hcParts.SubArray(offset + 0x20, 4));
+                var originalX = BitConverter.ToSingle(hcParts.SubArray(offset + 0x28, 4));
+                var originalY = BitConverter.ToSingle(hcParts.SubArray(offset + 0x2c, 4));
+                // Not always 13??
+                var originalLen = BitConverter.ToSingle(hcParts.SubArray(offset + 0x48, 4));
+                // Might need to further fine tune the adjustments here
+                var leftPos = updatedLocations[left];
+                if (left.Contains("_sp_") || left.Contains("_zz_"))
+                {
+                    leftPos = (leftPos.Item1 - 5, leftPos.Item2 - 5);
+                }
+                var rightPos = updatedLocations[right];
+                if (right.Contains("_sp_") || right.Contains("_zz_"))
+                {
+                    rightPos = (rightPos.Item1 - 5, rightPos.Item2 - 5);
+                }
+                var midPoint = ((float)(leftPos.Item1 + rightPos.Item1) / 2, ((float)(leftPos.Item2 + rightPos.Item2) / 2) + 7.5f);
+                var dy = rightPos.Item2 - leftPos.Item2;
+                var dx = rightPos.Item1 - leftPos.Item1;
+                double angle;
+                double len;
+                int mode = 2;
+                var pi4 = (float)Math.PI / 4;
+                if (mode == 1)
+                {
+                    angle = Math.Atan2(dy, dx);
+                    // Not sure this is quite correct currently
+                    len = Math.Sqrt(dx * dx + dy * dy);
+                }
+                else
+                {
+                    // Lock angle to just 0, -Pi/4, +Pi/4 based on relative offsets
+                    // Don't adjust length in keeping with vanilla
+                    // Maybe adjust coords slightly
+                    len = 13;
+                    if (leftPos.Item2 == rightPos.Item2)
+                    {
+                        angle = 0;
+                    }
+                    else if (leftPos.Item1 < rightPos.Item1)
+                    {
+                        if (leftPos.Item2 > rightPos.Item2)
+                        {
+                            angle = -pi4;
+                        }
+                        else
+                        {
+                            angle = pi4;
+                        }
+                    }
+                    else
+                    {
+                        if (leftPos.Item2 > rightPos.Item2)
+                        {
+                            angle = pi4;
+                        }
+                        else
+                        {
+                            angle = -pi4;
+                        }
+                    }
+                }
+                // These MUST be single precision floats, not double etc or you'll corrupt the structure :)
+                var targetX = BitConverter.GetBytes((float)midPoint.Item1);
+                var targetY = BitConverter.GetBytes((float)midPoint.Item2);
+                var targetAngle = BitConverter.GetBytes((float)angle);
+                var targetLength = BitConverter.GetBytes((float)len);
+                targetX.CopyTo(hcParts, offset + 0x28);
+                targetY.CopyTo(hcParts, offset + 0x2c);
+                targetAngle.CopyTo(hcParts, offset + 0x20);
+                targetLength.CopyTo(hcParts, offset + 0x48);
+                Generator.Logger.LogDebug($"Linking ({leftPos.Item1}, {leftPos.Item2}) to ({rightPos.Item1},{rightPos.Item2})");
+                Generator.Logger.LogDebug($"Updated crux link for key {incomingLink.record} - links {left} to {right} (x: {originalX}, y: {originalY}, angle: {originalANgle}, len: {originalLen})" +
+                    $" -> (x: {midPoint.Item1}, y: {midPoint.Item2}, angle: {angle}, len: {len}).");
+                i++;
+            }
 
             RandomNum.ClearRand();
         }
@@ -193,264 +482,6 @@ public partial class HistoriaCruxRando : Randomizer
     {
         var (x, y) = xy;
         return ((x - 3) * 30 - 15 * (y-6), (5-y)*15);
-    }
-
-    private void BuildInitialGateTree()
-    {
-        try
-        {
-            // Build tree structure from gate table
-            var nodes = new Dictionary<string, TreeNode>();
-            var locations = gateTable.Values.Select(g => g.sArea).Concat(gateTable.Values.Select(g => g.sOpenHistoria1.Substring(0, g.sOpenHistoria1.Length - 2))).Distinct().ToList();
-            // Setup nodes
-            foreach (var area in locations)
-            {
-                var emptyNode = new TreeNode();
-                emptyNode.name = area;
-                nodes.Add(area, emptyNode);
-            }
-            // Link nodes
-            foreach (var node in nodes)
-            {
-                var children = gateTable.Values.Where(g => g.sArea == node.Value.name).Select(g => g.sOpenHistoria1.Substring(0, g.sOpenHistoria1.Length - 2)).ToList();
-                foreach (var child in children)
-                {
-                    if (child == node.Key)
-                    {
-                        // Don't allow self-links
-                        continue;
-                    }
-                    var childNode = nodes[child];
-                    childNode.parent = node.Value;
-                    node.Value.children.Add(childNode);
-                }
-            }
-            // Calculate depth to find root(s) of area tree
-            // Also locate endgame and its depth
-            var roots = new List<TreeNode>();
-            var valhallaDepth = -1;
-            foreach (var node in nodes)
-            {
-                var depth = ResolveNodeDepth(node.Value);
-                if (depth == 0)
-                {
-                    roots.Add(node.Value);
-                }
-                if (node.Key == HistoriaCruxConstants.VALHALLA_FINAL)
-                {
-                    valhallaDepth = depth;
-                }
-                depthList[node.Value] = depth;
-            }
-            shuffledNodes = new(nodes);
-            if (roots.Count > 1)
-            {
-                Generator.Logger.LogDebug("Multiple roots detected in tree!");
-                Generator.Logger.LogDebug(string.Join(", ", depthList.Select(kvp => $"{kvp.Key.name} - {kvp.Value}")));
-
-                // TODO: handle split root scenario? Impossible?
-                return;
-            }
-            else if (roots.Count == 0)
-            {
-                Generator.Logger.LogDebug("No roots detected in tree!");
-                Generator.Logger.LogDebug(string.Join(", ", depthList.Select(kvp => $"{kvp.Key.name} - {kvp.Value}")));
-                return;
-            }
-            areaDepths = depthList.ToDictionary(kvp => kvp.Key.name, kvp => kvp.Value);
-            foreach (var node in roots)
-            {
-                rootLocation = node.name;
-                Generator.Logger.LogDebug($"Initial area which is root of crux tree: {rootLocation}");
-                if(overrideInitial != null && overrideInitial != rootLocation)
-                {
-                    Generator.Logger.LogDebug($"Expected initial to be {overrideInitial} but was {rootLocation} ");
-                }
-                // TODO:
-                // Improve y-axis distribution to ensure we keep in range
-                // Move dead location coords into box for clarity
-                // Run through a seed to validate link correcness/navigation works as expected
-                var initialY = 6;
-                var rootid = CoordsToId(2, initialY);
-                coordMap[rootid] = node.name;
-                // DLC placement left of initial root node
-                var dlcBlockId = CoordsToId(1, initialY);
-                coordMap[dlcBlockId] = HistoriaCruxConstants.BLANK_7;
-                var dlcUpperId = CoordsToId(0, initialY - 1);
-                coordMap[dlcUpperId] = HistoriaCruxConstants.VALHALLA_DLC;
-                var dlcLowerId = CoordsToId(1, initialY + 1);
-                coordMap[dlcLowerId] = HistoriaCruxConstants.SERENDIPITY_DLC;
-                var dlcLeftId = CoordsToId(0, initialY);
-                coordMap[dlcLeftId] = HistoriaCruxConstants.COLISEUM_DLC;
-                var (success, added) = TryPlaceChildren(node, 2, initialY, coordMap, 0);
-                if (!success)
-                {
-                    Generator.Logger.LogDebug("Failed to place crux locations!");
-                    foreach (var entry in nodes.Values)
-                    {
-                        Generator.Logger.LogDebug($"Node {entry.name} with children {string.Join(",", entry.children.Select(n => n.name).ToArray())}");
-                    }
-                    break;
-                }
-                coordMap.Clear();
-                foreach (var entry in added)
-                {
-                    coordMap.Add(entry.Key, entry.Value);
-                }
-            }
-            var updatedLocations = coordMap.ToDictionary(kvp => kvp.Value, kvp => {
-                var baseCoords = MapCoordsToHexGrid(IdToCoords(kvp.Key));
-                if (kvp.Value.Contains("_zz_") || kvp.Value.Contains("_sp_"))
-                {
-                    // blank items are offset by 5 in each direction
-                    // Void beyond nodes also do this as they show as blank in the main matrix
-                    return (baseCoords.Item1 + 5, baseCoords.Item2 + 5);
-                }
-                return baseCoords;
-                });
-            foreach(var (key, offset) in ykdGateOffsets)
-            {
-                var validation = BitConverter.ToSingle(hcParts.SubArray(offset, 4));
-                var originalX = BitConverter.ToSingle(hcParts.SubArray(offset + 0x20, 4));
-                var originalY = BitConverter.ToSingle(hcParts.SubArray(offset + 0x24, 4));
-                // Hide other nodes in the top right
-                var targetCoordsToSet = updatedLocations.GetValueOrDefault(key, (-30, 30));
-                var targetX = BitConverter.GetBytes((float)targetCoordsToSet.Item1);
-                var targetY = BitConverter.GetBytes((float)targetCoordsToSet.Item2);
-                targetX.CopyTo(hcParts, offset + 0x20);
-                targetY.CopyTo(hcParts, offset + 0x24);
-                Generator.Logger.LogDebug($"Updated crux coords for key {key} (original x {originalX} y {originalY}) -> (new x {targetCoordsToSet.Item1} y {targetCoordsToSet.Item2}).");
-            }
-            var i = 0;
-            foreach(var link in gateTable.Keys.OrderBy(s=>s, StringComparer.Ordinal))
-            {
-
-                var linkDetails = gateTable[link];
-                var left = linkDetails.sArea;
-                var right = linkDetails.sOpenHistoria1.Substring(0, linkDetails.sOpenHistoria1.Length - 2);
-                // Bodhum 3xx is a fake area, for link purposes just skip through to the next point
-                if(right == HistoriaCruxConstants.NEW_BODHUM_3X)
-                {
-                    right = HistoriaCruxConstants.BLANK_5;
-                }
-                if(!updatedLocations.ContainsKey(left) || !updatedLocations.ContainsKey(right))
-                {
-                    Generator.Logger.LogDebug($"Unable to link coords at either end of link {link}");
-                    continue;
-                }
-
-                // TODO: special case if override initial to ensure initial link gets set properly
-                if (rootLocation != null && right == HistoriaCruxConstants.NEW_BODHUM_3)
-                {
-                    right = rootLocation;
-                } else if (rootLocation != null && right == rootLocation)
-                {
-                    right = HistoriaCruxConstants.NEW_BODHUM_3;
-                }
-
-                    // TODO: special case for "magic" links to void beyond/serendipity, need to consider left also
-                    DataStoreRGateTable incomingLink;
-                if(right != HistoriaCruxConstants.SERENDIPITY && right != HistoriaCruxConstants.VOID_BEYOND_A)
-                {
-                    incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a");
-                } else
-                {
-                    incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a" && v.sArea == left);
-                }
-
-                if (incomingLink == null)
-                {
-                    Generator.Logger.LogDebug($"Unable to find incoming link entry for right {right}");
-                    continue;
-                }
-
-                var offset = ykdLinkOffsets.GetValueOrDefault(incomingLink.record, 0);
-                if (offset == 0)
-                {
-                    Generator.Logger.LogDebug($"Unable to locate link offset for link {incomingLink.record}. Links {left} to {right}");
-                    continue;
-                }
-                var validation = BitConverter.ToSingle(hcParts.SubArray(offset, 4));
-                // Not always sensible value?
-                var originalANgle = BitConverter.ToSingle(hcParts.SubArray(offset + 0x20, 4));
-                var originalX = BitConverter.ToSingle(hcParts.SubArray(offset + 0x28, 4));
-                var originalY = BitConverter.ToSingle(hcParts.SubArray(offset + 0x2c, 4));
-                // Not always 13??
-                var originalLen = BitConverter.ToSingle(hcParts.SubArray(offset + 0x48, 4));
-                // Might need to further fine tune the adjustments here
-                var leftPos = updatedLocations[left];
-                if(left.Contains("_sp_") || left.Contains("_zz_"))
-                {
-                    leftPos = (leftPos.Item1 - 5, leftPos.Item2 - 5);
-                }
-                var rightPos = updatedLocations[right];
-                if (right.Contains("_sp_") || right.Contains("_zz_"))
-                {
-                    rightPos = (rightPos.Item1 - 5, rightPos.Item2 - 5);
-                }
-                var midPoint = ((float)(leftPos.Item1 + rightPos.Item1) / 2, ((float)(leftPos.Item2 + rightPos.Item2) / 2) + 7.5f);
-                var dy = rightPos.Item2 - leftPos.Item2;
-                var dx = rightPos.Item1 - leftPos.Item1;
-                double angle;
-                double len;
-                int mode = 2;
-                var pi4 = (float)Math.PI / 4;
-                if( mode== 1)
-                {
-                angle = Math.Atan2(dy, dx);
-                // Not sure this is quite correct currently
-                len = Math.Sqrt(dx * dx + dy * dy);
-                }
-                else
-                {
-                    // Lock angle to just 0, -Pi/4, +Pi/4 based on relative offsets
-                    // Don't adjust length in keeping with vanilla
-                    // Maybe adjust coords slightly
-                    len = 13;
-                    if (leftPos.Item2 == rightPos.Item2)
-                    {
-                        angle = 0;
-                    } else if (leftPos.Item1 < rightPos.Item1)
-                    {
-                        if (leftPos.Item2 > rightPos.Item2)
-                        {
-                            angle = -pi4;
-                        } else
-                        {
-                            angle = pi4;
-                        }
-                    } else
-                    {
-                        if (leftPos.Item2 > rightPos.Item2)
-                        {
-                            angle = pi4;
-                        }
-                        else
-                        {
-                            angle = -pi4;
-                        }
-                    }
-                }
-                // These MUST be single precision floats, not double etc or you'll corrupt the structure :)
-                var targetX = BitConverter.GetBytes((float)midPoint.Item1);
-                var targetY = BitConverter.GetBytes((float)midPoint.Item2);
-                var targetAngle = BitConverter.GetBytes((float)angle);
-                var targetLength = BitConverter.GetBytes((float)len);
-                targetX.CopyTo(hcParts, offset + 0x28);
-                targetY.CopyTo(hcParts, offset + 0x2c);
-                targetAngle.CopyTo(hcParts, offset + 0x20);
-                targetLength.CopyTo(hcParts, offset + 0x48);
-                Generator.Logger.LogDebug($"Linking ({leftPos.Item1}, {leftPos.Item2}) to ({rightPos.Item1},{rightPos.Item2})");
-                Generator.Logger.LogDebug($"Updated crux link for key {incomingLink.record} - links {left} to {right} (x: {originalX}, y: {originalY}, angle: {originalANgle}, len: {originalLen})" +
-                    $" -> (x: {midPoint.Item1}, y: {midPoint.Item2}, angle: {angle}, len: {len}).");
-                i++;
-            }
-        } catch (Exception e)
-        {
-            Generator.Logger.LogError("Error when processing!");
-            Generator.Logger.LogError(e.Message);
-            Generator.Logger.LogError(e.StackTrace);
-        }
     }
 
     private readonly Dictionary<string, int> ykdGateOffsets = new Dictionary<string, int>()
@@ -556,26 +587,302 @@ public partial class HistoriaCruxRando : Randomizer
 
     private Dictionary<TreeNode, int> depthList = new();
 
-    private (bool, Dictionary<int, string>) TryPlaceChildren(TreeNode root, int rootX, int rootY, Dictionary<int, string> placed, int incomingDir)
+    private void UnlinkRecursive(TreeNode node)
     {
-        if (root.children.Count == 0)
+        node.children.ForEach(child =>
         {
-            return (true, placed);
+            UnlinkRecursive(child);
+            child.parent = null;
+        });
+        node.children.Clear();
+    }
+
+    private bool IsLocationAllowed(string location, TreeNode parent, List<string> placed, Dictionary<string, TreeNode> nodes)
+    {
+        // This need to account for shuffle groups on items and ensure the placement is convergent enough with vanilla locations in mind.
+        var areaInfo = areaData[location];
+        var outwardGates = gateData.Values.Where(g => g.Location == location).ToList();
+        var mogLevel = GetMogLevel(placed);
+        var hasGravitons = HasGravitonLocations(placed);
+        var hasWild = HasWildArtefacts(placed);
+
+        // If the location being placed is a dependency on some other location link, then it cannot be placed as a child of that link in the tree.
+        // e.g. Coliseum cannot be placed as a child of Sunleth 300 -> ZZ 930
+        var requirementOf = gateData.Values.Where(g => g.Requirements.Contains(location)).ToList();
+        if(requirementOf.Count > 0)
+        {
+            foreach (var gate in requirementOf) {
+                var gateOrigin = gate.Location;
+                if (placed.Contains(gateOrigin))
+                {
+                    var relative = ResolveNodeDepthRelative(nodes[gateOrigin], parent);
+                    if(relative != -1)
+                    {
+                        return false;
+                    }
+                }
+            }
         }
-        var placedChildren = 0;
-        var newPlacement = new Dictionary<int, string>(placed);
-        var childrenMaxDepth = root.children.Select(node =>
+
+        // TODO: other requirements need to be checked to ensure they don't cross over
+
+        if (outwardGates.Count == 0)
         {
-            var childenOfNode = FlattenChildrenFromNode(node);
-            return (node, childenOfNode.Select(c => depthList[c]).Max());
-        }).ToDictionary();
-        var orderedPreference = childrenMaxDepth.OrderByDescending(kv => kv.Value).Select(kv => kv.Key).ToArray();
+            return true;
+        }
+
+        foreach (var gate in outwardGates)
+        { 
+            // TODO: handle by treasure logic now if cores are randomised?
+            if (gate.Traits.Contains("Graviton") && !hasGravitons)
+            {
+                return false;
+            }
+
+            // TODO: handle by treasure logic now if wilds are randomised?
+            if (gate.Traits.Contains("Wild") && !hasWild)
+            {
+                return false;
+            }
+
+            if (gate.MinMogLevel > mogLevel)
+            {
+                return false;
+            }
+            // Hard code for Bresha 5 wild artefact if key items aren't rando
+            if (!FF13_2Flags.Items.Treasures.FlagEnabled || !FF13_2Flags.Items.KeySide.Enabled || TooSmallOfPool())
+            {
+                if (gate.ItemRequirements.GetPossibleRequirements().Contains("key_lockjail") && 2 >mogLevel)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // 591417063 random start 627779951
+    // 922234770
+    private (bool, Dictionary<int, string>, List<string>, int) TryPlaceChildrenWithPlacement(TreeNode root, int rootX, int rootY, Dictionary<int, string> placed, int incomingDir, int depth, List<string> remaining, Dictionary<string, TreeNode> allNodes, float branchFactor, int openBranchesOrig)
+    {
+        // Because this process is depth first its a little awkward.
+        // Ideally want to allow sub-branches to grow out to a reasonable depth
+        // but need to be careful about overallocating on the initial pass potentially
+
+        // Also need to potentially special case zz nodes etc properly because right now it does not?
+        // need to take into consideration fixed links appropriately
+        // especially since zz nodes don't have an outgoing link count...
+
+        var openBranches = openBranchesOrig;
+
+        var areaInfo = areaData[root.name];
+        if (areaInfo.OutgoingLinkCount == 0)
+        {
+            // Generator.Logger.LogDebug($"Successfully placed terminal node {root.name} at (x: {rootX}, y: {rootY}, depth: {depth}). Placed {placed.Count} Open branches {openBranches}");
+            return (true, placed, remaining, openBranchesOrig-1);
+        } else
+        {
+            // Generator.Logger.LogDebug($"Starting placement of node {root.name} at (x: {rootX}, y: {rootY}, depth: {depth}) with {areaInfo.OutgoingLinkCount} outgoing links. Placed {placed.Count} Open branches {openBranches}");
+            openBranches += areaInfo.OutgoingLinkCount - 1;
+        }
+
+        if(root.children.Count != 0)
+        {
+            // Should never happen, placement should always be done by this algorithm.
+            throw new Exception("Node already has children set!");
+        }
+
+        var newPlacement = new Dictionary<int, string>(placed);
+
+        var newRemaining = new List<string>(remaining);
+
+        Func<string, long> weightFunc = o =>
+        {
+            // Bias the choice based on fixed battle rank, or number of placed locations if the location doesn't have a fixed rank
+            // Also bias areas with higher outgoing links earlier
+            var g = 0;
+            if (areaData.ContainsKey(o))
+            {
+                var odata = areaData[o];
+                // Prefer areas with multiple outputs, with diminsihing returns as the graph widens out
+                var depthMod = 12*branchFactor;
+                if (areaInfo.OutgoingLinkCount == 1)
+                {
+                    // Prefer high branch factor after a straight line
+                    g = (int) (odata.OutgoingLinkCount * depthMod);
+                } else {
+                    // Prefer low branch factor after a branch
+                    g = (int)(Math.Sign(odata.OutgoingLinkCount) * (3 - odata.OutgoingLinkCount) * depthMod);
+                }
+            }
+            return g + 1;
+        };
+
+        // Pick outgoing link count nodes from remaining with weighted shuffle here instead.
+        var orderedPreference = new List<string>();
+
+        orderedPreference.AddRange(areaInfo.FixedLinks);
+        newRemaining.RemoveAll(areaInfo.FixedLinks.Contains);
+
+        if(root.name == HistoriaCruxConstants.SUNLETH_300)
+        {
+            if (remaining.Contains(HistoriaCruxConstants.YASCHAS_1X))
+            {
+                orderedPreference.Add(HistoriaCruxConstants.SERENDIPITY);
+                newRemaining.Remove(HistoriaCruxConstants.SERENDIPITY);
+            } else
+            {
+                orderedPreference.Add(HistoriaCruxConstants.VOID_BEYOND_A);
+                newRemaining.Remove(HistoriaCruxConstants.VOID_BEYOND_A);
+            }
+        }
+        else if (root.name == HistoriaCruxConstants.YASCHAS_1X)
+        {
+            if (remaining.Contains(HistoriaCruxConstants.SUNLETH_300))
+            {
+                orderedPreference.Add(HistoriaCruxConstants.SERENDIPITY);
+                newRemaining.Remove(HistoriaCruxConstants.SERENDIPITY);
+            } else
+            {
+                orderedPreference.Add(HistoriaCruxConstants.VOID_BEYOND_A);
+                newRemaining.Remove(HistoriaCruxConstants.VOID_BEYOND_A);
+            }
+        }
+
+        // Place end game before the chain gets too crazy
+        if(depth >=8 && newRemaining.Contains(HistoriaCruxConstants.ACADEMIA_4XX))
+        {
+            orderedPreference.Add(HistoriaCruxConstants.ACADEMIA_4XX);
+            newRemaining.Remove(HistoriaCruxConstants.ACADEMIA_4XX);
+        }
+
+        var remainingChoices = new List<string>(newRemaining.Where(a => !areaData[a].Traits.Contains("FixedInbound")));
+
+        if (orderedPreference.Count + remainingChoices.Count < areaInfo.OutgoingLinkCount)
+        {
+            // Generator.Logger.LogDebug($"Ran out of placeable locations as children for node {root.name} at depth {depth}. placed {placed.Count}, open branches {openBranches} preference {string.Join(",", orderedPreference)} outgoing {areaInfo.OutgoingLinkCount} remaining {string.Join(",",newRemaining)}");
+            return (false, placed, remaining, openBranchesOrig);
+        }
+
+        var remainingTerminal = remainingChoices.Where(a => areaData[a].OutgoingLinkCount == 0).ToList();
+        var remainingNonTerminalCount = remainingChoices.Count - remainingTerminal.Count;
+
+        var removalReasons = new Dictionary<string, string>();
+
+        while(orderedPreference.Count < areaInfo.OutgoingLinkCount && remainingChoices.Count > 0)
+        {
+            // TODO: may need to fiddle with the bias to kill off links?
+            // Because this is depth first its very likely to end up trying to place a long line
+            // The weighting helps, but might also want to hard kill off chains at some points to force it into line?
+            var selection = RandomNum.SelectRandomWeighted(remainingChoices, weightFunc);
+            var selectionData = areaData[selection];
+            if (selectionData.Traits.Contains("FixedInbound"))
+            {
+                removalReasons.Add(selection, "FixedInbound");
+                remainingChoices.Remove(selection);
+                continue;
+            }
+
+            if(!IsLocationAllowed(selection, root, placed.Values.Concat(orderedPreference).ToList(), allNodes))
+            {
+                removalReasons.Add(selection, "NotAllowed");
+                remainingChoices.Remove(selection);
+                continue;
+            }
+
+            // Prevent placement of terminal nodes until all non-terminal nodes placed?
+            // Will this lead to overlong chains? probably?
+
+            // Only allow a terminal node from dying world to prevent endgame bleed for now
+            if (root.name == HistoriaCruxConstants.DYING_WORLD_700)
+            {
+                if (selectionData.OutgoingLinkCount > 0)
+                {
+                    removalReasons.Add(selection, "Dying world branch");
+                    remainingChoices.Remove(selection);
+                    continue;
+                }
+            }
+            else
+            {
+                // if a terminal node is rolled and we have enough non-terminal nodes to place otherwise
+                if (selectionData.OutgoingLinkCount == 0)
+                {
+                    if(selection == HistoriaCruxConstants.AUGUSTA_300 || selection == HistoriaCruxConstants.COLISEUM)
+                    {
+                        // Just allow these to be placed to ensure augusta 200/sunleth 300 respectively don't get locked out
+                    }
+                    else if (remainingNonTerminalCount - orderedPreference.Count > areaInfo.OutgoingLinkCount)
+                    {
+                        // If we haven't opened up enough branches, don't allow it to be picked
+                        if (openBranches < remainingTerminal.Count - 2)
+                        {
+                            removalReasons.Add(selection, $"Open branches {openBranches} remainingTerminal {remainingTerminal.Count}");
+                            remainingChoices.Remove(selection);
+                            continue;
+                        }
+                        // If there are more nodes to place than branches, remove empty nodes to keep placement going.
+                        else if (remainingNonTerminalCount > openBranches)
+                        {
+                            removalReasons.Add(selection, $"Open branches {openBranches} remainingNonTerminal {remainingNonTerminalCount}");
+                            remainingChoices.Remove(selection);
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            if (depth < 3 && placed.Count < 8 && selection == HistoriaCruxConstants.ACADEMIA_400)
+            {
+                removalReasons.Add(selection, $"Acad 400 check, depth {depth} placed {placed.Count}");
+                remainingChoices.Remove(selection);
+                continue;
+            }
+            if(depth < 4 && placed.Count < 12 && selection == HistoriaCruxConstants.AUGUSTA_200)
+            {
+                removalReasons.Add(selection, $"Augusta 200 check, depth {depth} placed {placed.Count}");
+                remainingChoices.Remove(selection);
+                continue;
+            }
+            orderedPreference.Add(selection);
+            remainingChoices.Remove(selection);
+            newRemaining.Remove(selection);
+        }
+
+        // Prefer placing the higher amount of follow on links to the right
+        orderedPreference = orderedPreference.OrderByDescending(s =>
+        {
+            // Prioritise placing path to endgame
+            if(s == HistoriaCruxConstants.ACADEMIA_4XX || s == HistoriaCruxConstants.DYING_WORLD_700 || s == HistoriaCruxConstants.SERENDIPITY || s == HistoriaCruxConstants.VOID_BEYOND_A)
+            {
+                return 5;
+            }
+            return areaData[s].OutgoingLinkCount;
+        }).ToList();
+
+        if(orderedPreference.Count < areaInfo.OutgoingLinkCount)
+        {
+            // Generator.Logger.LogDebug($"Unable to resolve sufficient allowed locations to be children of {root.name} at depth {depth}. placed {placed.Count}. Resolved allowed {string.Join(",",orderedPreference)} but needed {areaInfo.OutgoingLinkCount} (available {newRemaining.Count})");
+            // Generator.Logger.LogDebug($"Reasons: {string.Join(", ", removalReasons.Select(kvp => kvp.Key+":"+kvp.Value))}");
+            return (false, placed, remaining, openBranchesOrig);
+        }
+
+        if(orderedPreference.Count > orderedPreference.Distinct().Count())
+        {
+            throw new Exception("Collision in ordered preference - what did you do wrong!");
+        }
+
+        // check how many adjacent locations are open and ensure there's enough before going much further?
+        // should avoid some bouncing around with unecessary work
+
         // Directional preference maybe should try and place critical path to valhalla more to the right?
         // Potentially invert this to prioritise nodes torwards longest chain endpoint as rightmost first?
         // order children by deepest child to stretch out long chains maybe
+        List<int> usedDirs = new List<int>() { 5-incomingDir };
         var usedUp = false;
         var usedDown = false;
         var usedRight = false;
+        var usedLeft = false;
         // Stop ambiguous vertical placements
         if (incomingDir == 4 || incomingDir == 2)
         {
@@ -589,40 +896,27 @@ public partial class HistoriaCruxRando : Randomizer
         {
             usedRight = true;
         }
-        // Special case these as they technically have 4 outgoing links so things are going to get weird no matter what probably...
-        if (root.name == HistoriaCruxConstants.SUNLETH_300 || root.name == HistoriaCruxConstants.YASCHAS_1X)
+        else if (incomingDir == 0)
         {
-            // TODO: ideally want the serendipity and void beyond links to share an up/down direction in this case.
-            usedUp = false;
-            usedDown = false;
-            usedRight = false;
+            usedLeft = true;
         }
-        // When on the main branch, pick random Y dir if there's multiple children to place
-        int yBias = 0;
-        if (incomingDir == 0 && rootY == 6 && root.children.Count == 2)
-        {
-            yBias = new List<int>() { -1, 1 }.Shuffle()[0];
-            if (yBias == 1)
-            {
-                usedUp = true;
-            }
-            else if (yBias == -1)
-            {
-                usedDown = true;
-            }
-        }
+        // When on the main branch, pick random Y dir if there's multiple children to place (removed for ease of placement for now...)
         //Bounds checking
-        if(rootX >= 18)
+        if (rootX >= 18)
         {
             usedRight = true;
         }
-        if (rootY < 0)
+        if (rootY < 4)
         {
             usedUp = true;
         }
-        if (rootY > 7)
+        if (rootY > 8)
         {
             usedDown = true;
+        }
+        if (rootX < 2)
+        {
+            usedLeft = true;
         }
         // TODO: improve directional preference based on context
         // Introduce a "gravity" back towards constrained y value maybe, double check usedUp/Down flags are being set right (might be inverted currently)
@@ -645,7 +939,11 @@ public partial class HistoriaCruxRando : Randomizer
             {
                 continue;
             }
-            if(usedRight && trueDir < 3)
+            if (usedRight && trueDir == 0)
+            {
+                continue;
+            }
+            if(usedLeft && (trueDir == 5 || trueDir == 3))
             {
                 continue;
             }
@@ -682,39 +980,66 @@ public partial class HistoriaCruxRando : Randomizer
                 continue;
             }
 
+            // Pick child node from weighted shuffle of outstanding
 
-            var activeChild = orderedPreference[placedChildren];
+            var activeChildArea = orderedPreference[root.children.Count];
+            // Where do the nodes come from here - pass in?
+            // also need to build links between nodes as part of placement.
+            TreeNode activeChild = allNodes[activeChildArea];
             if (root.name == HistoriaCruxConstants.NEW_BODHUM_3X && activeChild.name == HistoriaCruxConstants.BLANK_5)
             {
+                root.children.Add(activeChild);
                 // New Bodhum 3xx is not a real location, so use its slot for the empty node it generates afterwards.
-                placedChildren++;
                 var parentId = CoordsToId(rootX, rootY);
                 newPlacement.Remove(parentId);
                 newPlacement[parentId] = activeChild.name;
-                return TryPlaceChildren(activeChild, rootX, rootY, newPlacement, trueDir);
+                activeChild.parent = root;
+                var placementResult = TryPlaceChildrenWithPlacement(activeChild, rootX, rootY, newPlacement, trueDir, depth+1, newRemaining, allNodes, branchFactor, openBranches);
+                if (placementResult.Item1)
+                {
+                    return placementResult;
+                } else
+                {
+                    activeChild.parent = null;
+                    root.children.Remove(activeChild);
+                    return placementResult;
+                }
             }
             var possibleMatch = newPlacement.Values.Where(n => n == activeChild.name);
             if (possibleMatch.Count() > 0)
             {
-                // Node is already placed
-                placedChildren++;
-                if (placedChildren == root.children.Count)
+                if(activeChild.name == HistoriaCruxConstants.SERENDIPITY || activeChild.name == HistoriaCruxConstants.VOID_BEYOND_A)
                 {
-                    break;
+                    // Double links for serendipity/void beyond
+                    // place the child and move on. (is this enough?)
+                    root.children.Add(activeChild);
+                    activeChild.parent = root;
+                    if (root.children.Count == areaInfo.OutgoingLinkCount)
+                    {
+                        break;
+                    }
+                    continue;
                 }
-                continue;
+                // Node already placed - this should never happen now.
+                throw new Exception($"Node {activeChild.name} has already been placed in placement, skipping. Would have been child of {root.name}");
             }
             newPlacement[activeChildId] = activeChild.name;
-            var (success, added) = TryPlaceChildren(activeChild, attemptX, attemptY, newPlacement, trueDir);
+            root.children.Add(activeChild);
+            activeChild.parent = root;
+            var (success, added, remainingFromChild, nowOpen) = TryPlaceChildrenWithPlacement(activeChild, attemptX, attemptY, newPlacement, trueDir, depth + 1, newRemaining, allNodes, branchFactor / (float)areaInfo.OutgoingLinkCount, openBranches);
             if (!success)
             {
+                activeChild.parent = null;
                 newPlacement.Remove(activeChildId);
+                root.children.Remove(activeChild);
             }
             else
-            {
-                placedChildren++;
+            { 
                 newPlacement = added;
-                if (placedChildren == root.children.Count)
+                newRemaining = remainingFromChild;
+                openBranches = nowOpen;
+                usedDirs.Add(trueDir);
+                if (root.children.Count == areaInfo.OutgoingLinkCount)
                 {
                     break;
                 }
@@ -726,174 +1051,66 @@ public partial class HistoriaCruxRando : Randomizer
                 {
                     usedUp = true;
                 }
+                else if (trueDir == 0)
+                {
+                    usedRight = true;
+                }
+                else if (trueDir == 5)
+                {
+                    usedLeft = true;
+                }
                 // Special case these as they technically have 4 outgoing links so things are going to get weird no matter what probably...
                 if (root.name == HistoriaCruxConstants.SUNLETH_300 || root.name == HistoriaCruxConstants.YASCHAS_1X)
                 {
                     usedUp = false;
                     usedDown = false;
+                    usedRight = false;
+                    usedLeft = false;
                 }
                 // Restart the loop to check all adjacencies properly
                 direction = -1;
             }
         }
-        if(placedChildren< root.children.Count)
+        if (root.children.Count < areaInfo.OutgoingLinkCount)
         {
-            Generator.Logger.LogDebug($"Unable to place children of root node {root.name} (x: {rootX}, y: {rootY})");
+            // Generator.Logger.LogDebug($"Unable to place children of {root.name} (x: {rootX}, y: {rootY}). Placed {root.children.Count} of {areaInfo.OutgoingLinkCount} at depth {depth}. placed {placed.Count} - unwound {newPlacement.Count - placed.Count}. Selected {string.Join(",",orderedPreference)}. Used directions {string.Join(",",usedDirs)}");
+            // Unlink all children for re-placement
+            UnlinkRecursive(root);
             // Potentially need to introduce an offset for an empty node and try again as long as we have some to work with
-            return (false, null);
+            return (false, placed, remaining, openBranchesOrig);
         }
-        return (true, newPlacement);
+        if(depth == 0)
+        {
+            Generator.Logger.LogDebug($"Unplaced: {string.Join(",", newRemaining)}");
+        }
+        // Order placement for gatetable allocation
+        // Fixed links go first then everything else is kind of whatever tbh
+        // Maybe look at further adjustments here?
+        // Broken?
+        root.children = root.children.OrderByDescending(n =>
+        {
+            var s = n.name;
+            // Fixed links top of the list
+            if (areaInfo.FixedLinks.Contains(s))
+            {
+                return 10 - areaInfo.FixedLinks.IndexOf(s);
+            }
+            // Prioritise placing path to endgame
+            if (s == HistoriaCruxConstants.ACADEMIA_4XX || s == HistoriaCruxConstants.DYING_WORLD_700 || s == HistoriaCruxConstants.SERENDIPITY || s == HistoriaCruxConstants.VOID_BEYOND_A)
+            {
+                return 5;
+            }
+            return areaData[s].OutgoingLinkCount;
+        }).ToList();
+        // Generator.Logger.LogDebug($"Finalised placement of {root.name} at (x: {rootX}, y: {rootY}, depth: {depth}) with {areaInfo.OutgoingLinkCount} children ({string.Join(",",root.children.Select(s => s.name))}). Placed {newPlacement.Count} open branches {openBranches}");
+        return (true, newPlacement, newRemaining, openBranches);
     }
 
     int shuffleFailures = 0;
 
-    private (bool, Dictionary<string, string>) GetPlacement(Dictionary<string, string> soFar, List<string> openings, int depth)
-    {
-        // Cap horizontal depth somewhat TODO: Doesn't work! Need to propagate the failure up to dump out more things and retry from higher up or it just
-        // gets stuck in the while loop where nothing can be placed as its not exhaustive? Should walk back up the tree but seems to not currently...
-        // Add in some debug logging to see what it's backtracking up to and figure it out from there.
-        List<string> available = GetAvailableLocations(soFar);
-
-        Func<string, long> weightFunc = o =>
-        {
-            // Bias the choice based on fixed battle rank, or number of placed locations if the location doesn't have a fixed rank
-            // Also bias areas with higher outgoing links earlier
-            var f = 0;
-            var g = 0;
-            if (areaData.ContainsKey(o))
-            {
-                // Battle balance for "cinematic" fights which can't be shuffled currently.
-                // Augusta 200 and Acad 400 also fix a lot of the enemy pool, so can't change much in battle balance
-                // Bresha 5 and Sunleth 300 both have 3 outgoing links so are very valuable for early variation
-                // Archylte might be getting this flag removed if we can solve faeryl
-                // Acad 500 is pseudo-fixed currently anyway in the endgame so has no effect here.
-                if (areaData[o].Traits.Contains("Cinematic"))
-                {
-                    // This might bias earlier fixed areas too much, but 2 of them are bresha 5 and sunleth 300 which we want early anyway so it's ok?
-                    f = (12 - areaData[o].FixedBattleRank);
-                }
-                else
-                {
-                    f = 6;
-                }
-                // Prefer areas with multiple outputs, but want to also early-bias this, so higher depth removes this effect somewhat
-                var depthMod = (int)Math.Max(0, 6 - (depth / 3));
-                g = areaData[o].OutgoingLinkCount * depthMod;
-            }
-            return g + f;
-        };
-
-        List<string> hasOption = openings.Where(o => !soFar.ContainsValue(o) && IsAllowed(o, soFar, available)).Shuffle();
-        if (hasOption.Count == 0)
-        {
-            Generator.Logger.LogDebug($"Ran out of placement options at depth {depth}. Placed {soFar.Count} of {openings.Count}");
-            return (false, soFar);
-        }
-
-        var remainingToShuffle = openings.Where(t => !soFar.ContainsValue(t)).ToList();
-        var shuffledRemaining = new List<string>();
-        while(remainingToShuffle.Count() > 0)
-        {
-            var weightedShuffled = RandomNum.SelectRandomWeighted(remainingToShuffle, weightFunc);
-            shuffledRemaining.Add(weightedShuffled);
-            remainingToShuffle.Remove(weightedShuffled);
-        }
-
-        List<string> remaining = shuffledRemaining;
-
-        foreach (string rep in remaining)
-        {
-            // Gate certain areas to manipulate placement somewhat
-            if (rep == HistoriaCruxConstants.ACADEMIA_400 || rep == HistoriaCruxConstants.AUGUSTA_200)
-            {
-                if (depth <= 3 || soFar.Count <= 6)
-                {
-                    continue;
-                }
-            }
-            else if (rep == HistoriaCruxConstants.ACADEMIA_4XX)
-            {
-                if(depth <= 4 || soFar.Count <= 10)
-                {
-                    continue;
-                }
-            }
-            List<string> possible = openings
-                .Where(o => !soFar.ContainsKey(o) && IsAllowed(o, soFar, available))
-                .ToList();
-            while (possible.Count > 0)
-            {
-                string next = RandomNum.SelectRandomWeighted(possible, weightFunc);
-                soFar.Add(next, rep);
-                if (soFar.Count == openings.Count)
-                {
-                    return (true, soFar);
-                }
-
-                (bool, Dictionary<string, string>) result = GetPlacement(soFar, openings, depth+1);
-                if (result.Item1)
-                {
-                    return result;
-                }
-                else
-                {
-                    RandoUI.SetUIProgressDeterminate($"Historia Crux Rando Failures: {shuffleFailures}", soFar.Count - 1, openings.Count);
-                    possible.Remove(next);
-                    soFar.Remove(next);
-                }
-            }
-        }
-        shuffleFailures++;
-        Generator.Logger.LogDebug($"Shuffle failure at depth {depth}. Placed {soFar.Count} remaining {remaining.Count}");
-        return (false, soFar);
-    }
-
     public List<string> GetIDsForOpening(string open, bool orig = true)
     {
         return gateData.Keys.Where(id => (orig ? gateTableOrig[id] : gateTable[id]).sOpenHistoria1.StartsWith(open)).ToList();
-    }
-
-    private bool IsAllowed(string open, Dictionary<string, string> soFar, List<string> available)
-    {
-        foreach (string id in GetIDsForOpening(open))
-        {
-            if (!available.Contains(gateData[id].Location))
-            {
-                return false;
-            }
-
-            if (available.Intersect(gateData[id].Requirements).Count() != gateData[id].Requirements.Count)
-            {
-                return false;
-            }
-
-            // TODO: handle by treasure logic now if cores are randomised?
-            if (gateData[id].Traits.Contains("Graviton") && !HasGravitonLocations(available))
-            {
-                return false;
-            }
-
-            // TODO: handle by treasure logic now if wilds are randomised?
-            if (gateData[id].Traits.Contains("Wild") && !HasWildArtefacts(soFar, available))
-            {
-                return false;
-            }
-
-            if (gateData[id].MinMogLevel > GetMogLevel(available))
-            {
-                return false;
-            }
-            // Hard code for Bresha 5 wild artefact if key items aren't rando
-            if (!FF13_2Flags.Items.Treasures.FlagEnabled || !FF13_2Flags.Items.KeySide.Enabled || TooSmallOfPool())
-            {
-                if (gateData[id].ItemRequirements.GetPossibleRequirements().Contains("key_lockjail") && 2 > GetMogLevel(available))
-                {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 
     public int GetMogLevel(List<string> available)
@@ -958,7 +1175,7 @@ public partial class HistoriaCruxRando : Randomizer
         return true;
     }
 
-    private bool HasWildArtefacts(Dictionary<string, string> soFar, List<string> available)
+    private bool HasWildArtefacts(List<string> available)
     {
         if (!FF13_2Flags.Items.Treasures.FlagEnabled || !FF13_2Flags.Items.KeyWild.Enabled || TooSmallOfPool())
         {
@@ -1031,48 +1248,6 @@ public partial class HistoriaCruxRando : Randomizer
           g.Requirements.Intersect(available).Count() == g.Requirements.Count &&
           GetMogLevel(available) >= g.MinMogLevel)
         ).Count();
-    }
-
-    private List<string> GetAvailableLocations(Dictionary<string, string> soFar)
-    {
-        List<string> list = new()
-        {
-            "start"
-        };
-        if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 0)
-        {
-            list.Add("h_hm_AD0003");
-        }
-
-        if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 1)
-        {
-            list.Add("h_bj_AD0005");
-        }
-
-        list.AddRange(soFar.Values);
-
-        // Unlock Void after Ch 2
-        if (list.Contains("h_gh_AD0010") && list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000"))
-        {
-            list.Add("h_sp_NA0001");
-        }
-
-        // Unlock Serendipity after Yaschas 1X and Sunleth 300
-        if (list.Contains("h_sn_AD0300") && list.Contains("h_gd_NA0000") && list.Contains("h_gh_AD0010") && list.Contains("h_cl_NA0000"))
-        {
-            list.Add("h_cs_NA0000");
-        }
-
-        // Unlock Dying World/Bodhum 700 after Academia 4XX and Graviton and Mog Level >= 3
-        // Currently requires mog level 3 since bodhum 700 artefact requires improved moogle hunt
-        if (list.Contains("h_aa_AD0400") && HasGravitonLocations(list) && GetMogLevel(list) >= 3)
-        {
-            list.Add("h_dd_AD0700");
-            list.Add("h_hm_AD0700");
-            list.Add("h_zz_NA0950");
-        }
-
-        return list.Distinct().ToList();
     }
 
     private bool TooSmallOfPool()

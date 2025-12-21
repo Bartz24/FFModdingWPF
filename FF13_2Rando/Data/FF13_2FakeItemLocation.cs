@@ -55,4 +55,8 @@ public class FF13_2FakeItemLocation: FF13_2ItemLocation
         // Only if the same as this
         return this == location;
     }
+    public override string GetRequirementString()
+    {
+        return "Location: " + string.Join(",", Areas) + " - Extra Areas: " + string.Join(",", RequiredAreas) + " - Mog level: " + MogLevel + " - " + base.GetRequirementString();
+    }
 }

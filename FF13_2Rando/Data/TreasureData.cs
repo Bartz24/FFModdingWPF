@@ -88,4 +88,9 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
 
         return true;
     }
+
+    public override string GetRequirementString()
+    {
+        return "Location: "+string.Join(",", Areas) +" - Extra Areas: " + string.Join(",", RequiredAreas) + " - Mog level: " + MogLevel + " - " + base.GetRequirementString();
+    }
 }

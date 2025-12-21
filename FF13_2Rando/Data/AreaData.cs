@@ -18,6 +18,10 @@ public class AreaData : CSVDataRow
     public int FixedBattleRank { get; set; }
     [RowIndex(5)]
     public int OutgoingLinkCount { get; set; }
+    [RowIndex(6)]
+    public List<string> FixedLinks { get; set; }
+    [RowIndex(7)]
+    public List<string> OutgoingGates { get; set; }
     public AreaData(string[] row) : base(row)
     {
     }

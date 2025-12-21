@@ -1,49 +1,49 @@
-﻿ID,Name,Battle Table,Traits,FixedBattleRank,OutgoingLinkCount
-Initial,Start,,,,1
-h_va_NA0000,Valhalla,,,19,0
-h_va_NA0001,Valhalla DLC,,,,0
-h_hm_AD0003,Bodhum 3 AF,btstab00010,,,1
-h_hm_AD0700,Bodhum 700 AF,btstab00017,,,1
-h_hm_AD0900,Bodhum PE,,,,0
-h_hp_AD0003,Bodhum 3XX Void,,,,0
-h_bj_AD0005,Bresha 5 AF,btstab00020,Cinematic,3,3
-h_bj_AD0100,Bresha 100 AF,btstab00021,,,0
-h_bj_AD0300,Bresha 300 AF,btstab00023,,,1
-h_gy_AD0010,Yaschas 10 AF,btstab00030,,,1
-h_gy_AD0100,Yaschas 100 AF,btstab00031,,,1
-h_gy_AD0200,Yaschas 110 AF,btstab00032,,,0
-h_gh_AD0010,Yaschas 1X AF,btstab00180,,,2
-h_gw_AD0200,Oerba 200 AF,btstab00052,,,1
-h_gw_AD0300,Oerba 300 AF,btstab00053,,,1
-h_gw_AD0400,Oerba 400 AF,btstab00054,,,0
-h_gw_AD0900,Oerba PE,,,,0
-h_sn_AD0300,Sunleth 300 AF,btstab00043,Cinematic,5,3
-h_sn_AD0400,Sunleth 400 AF,btstab00044,,,0
-h_sn_AD0900,Sunleth PE,,,,0
-h_cl_NA0000,Coliseum,,,,0
-h_cl_NA0001,Coliseum DLC,,,,0
-h_gd_NA0000,Archylte,btstab00080,Cinematic,7,1
-h_gd_NA0900,Archylte PE,,,,0
-h_cs_NA0000,Serendipity,,,,0
-h_cs_NA0001,Serendipity DLC,,,,0
-h_ac_AD0400,Academia 400 AF,btstab00114,Cinematic,9,2
-h_ac_AD0500,Academia 500 AF,btstab00115,Cinematic,16,1
-h_aa_AD0400,Academia 4XX AF,,,,2
-h_gt_AD0200,Augusta 200 AF,btstab00092,Cinematic,11,2
-h_gt_AD0300,Augusta 300 AF,btstab00093,,,0
-h_gt_AD0900,Augusta PE,,,,0
-h_vp_AD0010,Vile Peaks 10 AF,btstab00191,,,0
-h_vp_AD0200,Vile Peaks 200 AF,btstab00192,,,0
-h_dd_AD0700,Dying World 700 AF,btstab00157,,,2
-h_dd_NA0900,Dying World PE,,,,0
-h_sp_NA0001,Void Beyond,btstab00060,,,1
-h_sp_NA0100,Void Beyond B,,,,1
-h_zz_NA0910,,,,,0
-h_zz_NA0920,,,,,0
-h_zz_NA0930,,,,,0
-h_zz_NA0940,,,,,0
+﻿ID,Name,Battle Table,Traits,FixedBattleRank,OutgoingLinkCount,FixedLinks,OutgoingGates
+Initial,Start,,,,1,,hs_hmaa_def|hs_hmaa10_zz,
+h_va_NA0000,Valhalla,,FixedInbound,,0,,,
+h_va_NA0001,Valhalla DLC,,,,0,,,
+h_hm_AD0003,Bodhum 3 AF,btstab00010,,,1,,hs_hmaa01_bj,
+h_hm_AD0700,Bodhum 700 AF,btstab00017,FixedInbound,,1,h_ac_AD0500,hs_hmha01_ac,
+h_hm_AD0900,Bodhum PE,,FixedInbound,,0,,,
+h_hp_AD0003,Bodhum 3XX Void,,FixedInbound,,1,h_zz_NA0950,hs_hpaa01_zz,
+h_bj_AD0005,Bresha 5 AF,btstab00020,Cinematic,,3,h_zz_NA0910,hs_bjaa02_zz|hs_bjaa01_gy|hs_bjaa03_bj,
+h_bj_AD0100,Bresha 100 AF,btstab00021,,,0,,,
+h_bj_AD0300,Bresha 300 AF,btstab00023,,,1,,hs_bjda01_gy,
+h_gy_AD0010,Yaschas 10 AF,btstab00030,,,1,,hs_gyaa01_gw,
+h_gy_AD0100,Yaschas 100 AF,btstab00031,,,1,,hs_gyba01_sn,
+h_gy_AD0200,Yaschas 110 AF,btstab00032,,,0,,,
+h_gh_AD0010,Yaschas 1X AF,btstab00180,,,2,,hs_ghaa02_gt,
+h_gw_AD0200,Oerba 200 AF,btstab00052,,,1,h_zz_NA0920,hs_gwca01_zz,
+h_gw_AD0300,Oerba 300 AF,btstab00053,,,1,,hs_gwda01_gw,
+h_gw_AD0400,Oerba 400 AF,btstab00054,,,0,,,
+h_gw_AD0900,Oerba PE,,FixedInbound,,0,,,
+h_sn_AD0300,Sunleth 300 AF,btstab00043,Cinematic,,3,h_zz_NA0930,hs_snda01_zz|hs_snda02_gd,
+h_sn_AD0400,Sunleth 400 AF,btstab00044,,,0,,,
+h_sn_AD0900,Sunleth PE,,FixedInbound,,0,,,
+h_cl_NA0000,Coliseum,,,,0,,,
+h_cl_NA0001,Coliseum DLC,,,,0,,,
+h_gd_NA0000,Archylte,btstab00080,Cinematic,,1,,hs_gdza01_vp,
+h_gd_NA0900,Archylte PE,,FixedInbound,,0,,,
+h_cs_NA0000,Serendipity,,FixedInbound,,0,,,
+h_cs_NA0001,Serendipity DLC,,,,0,,,
+h_ac_AD0400,Academia 400 AF,btstab00114,Cinematic,9,2,,hs_acea01_gt|hs_acea02_gy,
+h_ac_AD0500,Academia 500 AF,btstab00115,Cinematic|FixedInbound,,1,h_zz_NA0980,hs_acfa01_zz,
+h_aa_AD0400,Academia 4XX AF,,,,2,h_sp_NA0100,hs_aaea02_sp|hs_aaea01_vp,
+h_gt_AD0200,Augusta 200 AF,btstab00092,Cinematic,11,2,h_zz_NA0940,hs_gtca01_zz|hs_gtca02_gw,
+h_gt_AD0300,Augusta 300 AF,btstab00093,,,0,,,
+h_gt_AD0900,Augusta PE,,FixedInbound,,0,,,
+h_vp_AD0010,Vile Peaks 10 AF,btstab00191,,,0,,,
+h_vp_AD0200,Vile Peaks 200 AF,btstab00192,,,0,,,
+h_dd_AD0700,Dying World 700 AF,btstab00157,FixedInbound,,2,h_zz_NA0960,hs_ddha01_zz|hs_ddha02_bj,
+h_dd_NA0900,Dying World PE,,FixedInbound,,0,,,
+h_sp_NA0001,Void Beyond,btstab00060,FixedInbound,,1,,hs_spza02_ac,
+h_sp_NA0100,Void Beyond B,,FixedInbound,,1,h_hp_AD0003,hs_spza03_hp,
+h_zz_NA0910,Bresha 5 blank,,FixedInbound,,2,h_gd_NA0900,hs_bjaa91_gd|hs_bjaa02_sn,
+h_zz_NA0920,Oerba 200 blank,,FixedInbound,,2,h_gw_AD0900,hs_gwca92_gw|hs_gwca01_gh,
+h_zz_NA0930,Sunleth 300 blank,,FixedInbound,,2,h_sn_AD0900,hs_snda93_sn|hs_snda01_cl,
+h_zz_NA0940,Augusta 200 blank,,FixedInbound,,2,h_gt_AD0900,hs_gtca94_gt|hs_gtca01_aa,
 # ZZ is a blank node, not bodhum? Bodhum 3xx is hp_AD0003
-h_zz_NA0950,Bodhum Void Beyond,btstab00170,,,0
-h_zz_NA0960,,,,,0
-h_zz_NA0970,,,,,0
-h_zz_NA0980,,,,,0
+h_zz_NA0950,Bodhum Void Beyond,btstab00170,FixedInbound,,2,h_hm_AD0900|h_dd_AD0700,hs_hpaa95_hm|hs_hpaa01_dd,
+h_zz_NA0960,Dying World blank,,FixedInbound,,2,h_dd_NA0900|h_hm_AD0700,hs_ddha96_dd|hs_ddha01_hm,
+h_zz_NA0970,DLC blank node,,FixedInbound,,3,,hs_hmaa11_va|hs_hmaa12_cl|hs_hmaa13_cs,
+h_zz_NA0980,Acad 500 blank,,FixedInbound,,1,h_va_NA0000,hs_acfa01_va,

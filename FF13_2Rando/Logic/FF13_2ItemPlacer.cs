@@ -39,6 +39,16 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
             return true;
         }
 
+        if(!FF13_2Flags.Items.KeyWild.Enabled && location.Traits.Contains("Wild"))
+        {
+            return true;
+        }
+
+        if (!FF13_2Flags.Items.KeyGraviton.Enabled && location.Traits.Contains("Graviton"))
+        {
+            return true;
+        }
+
         // Other flag inclusions?
 
         return false;

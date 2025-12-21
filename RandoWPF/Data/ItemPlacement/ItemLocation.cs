@@ -70,4 +70,9 @@ public abstract class ItemLocation : CSVDataRow
         ruleStr = $"lambda state, player:\n{string.Join("\n", ruleLines)}";
         return ruleStr;
     }
+
+    public virtual string GetRequirementString()
+    {
+        return Requirements.ToString();
+    }
 }
