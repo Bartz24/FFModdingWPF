@@ -42,7 +42,7 @@ public partial class BattleRando : Randomizer
         charaSets.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
         bossData.Clear();
-        using (CsvParser csv = new(new StreamReader(@"data\bosses.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = true }))
+        using (CsvParser csv = new(new StreamReader(@"data\bosses.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = true, AllowComments = true }))
         {
             while (csv.Read())
             {

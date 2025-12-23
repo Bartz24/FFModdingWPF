@@ -54,7 +54,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             {
                 const string EMPTY = "empty";
                 Generator.Logger.LogDebug($"Failed to place {RemainingToPlace.Count + RemainingFixed.Count} remaining replacements.");
-                Generator.Logger.LogDebug($"Remaining to place: {string.Join(",", RemainingToPlace.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}, item: {x.GetItem(true).Value.Item}]"))}{string.Join(",", RemainingFixed.Select(x => $"[Location: {x.Name}, requires: {x.Requirements}, item: {(x.GetItem(true) != null ? x.GetItem(true).Value.Item : EMPTY)}]"))}");
+                Generator.Logger.LogDebug($"Remaining to place: {string.Join(",", RemainingToPlace.Select(x => $"[Location: {x.Name}, requires: {x.GetRequirementString()}, item: {x.GetItem(true).Value.Item}]"))}{string.Join(",", RemainingFixed.Select(x => $"[Location: {x.Name}, requires: {x.GetRequirementString()}, item: {(x.GetItem(true) != null ? x.GetItem(true).Value.Item : EMPTY)}]"))}");
             }
             if(Attempts > MAX_ATTEMPTS)
             {
@@ -314,8 +314,14 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
     protected virtual void UpdatedUnlockedAreas()
     {
+        var oldUnlocked = UnlockedAreas;
         // Update UnlockedAreas based on FoundItems and AreaGraph
         UnlockedAreas = AreaGraph.GetAllAccessibleAreas("Initial", ProgState).Select(a => a.Name).ToList();
+        var diff = UnlockedAreas.Where(s => !oldUnlocked.Contains(s)).ToList();
+        if(diff.Count > 0)
+        {
+            Generator.Logger.LogDebug("Newly unlocked areas: " + string.Join(",", diff));
+        }
         ProgState.AreasAccessible = new HashSet<string>(UnlockedAreas);
     }
 

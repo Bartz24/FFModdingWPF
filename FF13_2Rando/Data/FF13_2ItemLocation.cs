@@ -26,4 +26,9 @@ public abstract class FF13_2ItemLocation : ItemLocation
         }
         return list;
     }
+
+    public override string GetRequirementString()
+    {
+        return "Extra Areas: " + string.Join(",", RequiredAreas) + " - Mog level: " + MogLevel + " - " + base.GetRequirementString();
+    }
 }
