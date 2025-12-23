@@ -102,16 +102,16 @@ tre_gwca_008,Village Proper (7),h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
 tre_gwca_010,Village Proper (1),h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
 tre_gwca_map,Village Proper (3),h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
 tre_gyaa_reopt,Village Proper (4),h_gw_AD0200,1,,,GateSeal
-tre_acea_reopt,Village Proper (1),h_gw_AD0300,2,,,GateSeal
-tre_gwda_reopt,Village Proper (2),h_gw_AD0300,2,,,GateSeal
-tre_gwea_reopt,Village Proper (4),h_gw_AD0400,2,,,GateSeal
+tre_acea_reopt,Village Proper [1],h_gw_AD0300,2,,,GateSeal
+tre_gwda_reopt,Village Proper [2],h_gw_AD0300,2,,,GateSeal
+tre_gwea_reopt,Village Proper [4],h_gw_AD0400,2,,,GateSeal
 # Requires caius fight in 200, free access in 300/400
 tre_gwca_006,Deserted Schoolhouse (11),h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
 tre_gwca_009,Deserted Schoolhouse (10),h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
 tre_gwca_005,The Ashensand (9),h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
 tre_gwca_007,The Ashensand (2),h_gw_AD0400,1,,,
 tre_gwca_011,The Ashensand (3),h_gw_AD0400,1,,,
-tre_gwca_012,The Ashensand (1),h_gw_AD0400,1,,,
+tre_gwca_012,The Ashensand [1],h_gw_AD0400,0,,,
 tre_gvtn3,Village Proper Fragment [4],h_gw_AD0200,1,,,Graviton
 tre_gwca_024,The Ashensand Fragment [3],h_gw_AD0200,1,,,
 tre_gvtn6,The Ashensand Fragment [1],h_gw_AD0400,1,,,Graviton
