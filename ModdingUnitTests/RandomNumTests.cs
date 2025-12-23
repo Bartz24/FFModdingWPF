@@ -125,4 +125,25 @@ public class RandomNumTests
             Assert.AreEqual(expectedProbs[i], actualProb, 0.01, $"Expected Probs: {string.Join(", ", expectedProbs)}, Actual Probs: {string.Join(", ", counts.Select(c => c / (double)trials))}");
         }
     }
+
+    [TestMethod]
+    [DataRow("Cure", "Curasa")]
+    public void ShuffleTest(string[] items)
+    {
+        // Verify distribution of each ordering is approximately uniform
+        int trials = 100000;
+        Dictionary<string, int> counts = items.ToDictionary(item => item, item => 0);
+        for (int i = 0; i < trials; i++)
+        {
+            var shuffled = items.Shuffle();
+            string key = string.Join(",", shuffled);
+            counts[key]++;
+        }
+
+        double expectedCount = trials / counts.Count;
+        foreach (var count in counts.Values)
+        {
+            Assert.AreEqual(expectedCount, count, 0.02 * trials);
+        }
+    }
 }
