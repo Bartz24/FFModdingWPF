@@ -1,0 +1,101 @@
+﻿<Window x:Class="SOPRando.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SOPRando"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" MinHeight="600" MinWidth="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="1" Padding="5" Margin="-2,-2,-2,10" Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,5">
+                <Label Content="Game Connection:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <Button x:Name="ConnectButton" Content="Connect to Game" Click="ConnectButton_Click" />
+            </StackPanel>
+        </Border>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="-2,0,-2,-2">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Label Content="Map Unlocks" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="10" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,5">
+                            <Label Content="Add Map:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <ComboBox x:Name="MapComboBox" Width="150" Margin="0,0,5,0"/>
+                            <Button x:Name="AddMapButton" Content="Add Map" Click="AddMapButton_Click" />
+                            <Label Content="Right-click below to remove" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="8" FontWeight="Light"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,0,0">
+                            <ListBox x:Name="MapListBox" Width="Auto" Height="200" Margin="0,0,5,0">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <EventSetter Event="PreviewMouseRightButtonDown" Handler="MapListItem_PreviewMouseRightButtonDown"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                            </ListBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <Label Content="Job Unlocks" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="10" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,5">
+                            <Label Content="Add Job:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <ComboBox x:Name="JobComboBox" Width="150" Margin="0,0,5,0"/>
+                            <Button x:Name="AddJobButton" Content="Add Job" Click="AddJobButton_Click" />
+                            <Label Content="Right-click below to remove" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="8" FontWeight="Light"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,0,0">
+                            <ListBox x:Name="JobListBox" Width="Auto" Height="200" Margin="0,0,5,0">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <EventSetter Event="PreviewMouseRightButtonDown" Handler="JobListItem_PreviewMouseRightButtonDown"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                            </ListBox>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Label Content="Difficulty and Job Related Unlocks" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="10" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,5,5,0" Grid.Row="2">
+                    <Label Content="Max Difficulty: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <ComboBox x:Name="MaxDifficultyComboBox" Margin="0,0,5,0" Width="100" SelectionChanged="MaxDifficultyComboBox_SelectionChanged"/>
+                    <Label Content="Trials of the Dragon King: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <CheckBox x:Name="DragonKingTrialsCheckBox" Margin="0,0,5,0" VerticalAlignment="Center" Checked="DragonKingTrialsCheckBox_Changed" Unchecked="DragonKingTrialsCheckBox_Changed"/>
+                    <Label Content="Max Job Level: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <ComboBox x:Name="MaxJobLevelComboBox" Margin="0,0,5,0" Width="50" SelectionChanged="MaxJobLevelComboBox_SelectionChanged"/>
+                    <Label Content="Max Job Affinity: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <ComboBox x:Name="MaxJobAffinityComboBox" Margin="0,0,5,0" Width="50" SelectionChanged="MaxJobAffinityComboBox_SelectionChanged"/>
+                    <Label Content="Master Points/Crystal EXP: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <CheckBox x:Name="MasterPointsCheckBox" Margin="0,0,5,0" VerticalAlignment="Center" Checked="MasterPointsCheckBox_Changed" Unchecked="MasterPointsCheckBox_Changed"/>
+                    <Label Content="Evocation/Ultima Jobs: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <CheckBox x:Name="EvocationUltimaJobsCheckBox" Margin="0,0,5,0" VerticalAlignment="Center" Checked="EvocationUltimaJobsCheckBox_Changed" Unchecked="EvocationUltimaJobsCheckBox_Changed"/>
+                </StackPanel>
+                <Label Content="Smithy/Shop Unlocks" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="10" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,5,5,0" Grid.Row="2">
+                    <Label Content="Higher Rarity Upgrades: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <CheckBox x:Name="HigherRarityUpgradesCheckBox" Margin="0,0,5,0" VerticalAlignment="Center" Checked="HigherRarityUpgradesCheckBox_Changed" Unchecked="HigherRarityUpgradesCheckBox_Changed"/>
+                    <Label Content="Change Special Effects: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <CheckBox x:Name="ChangeSpecialEffectsCheckBox" Margin="0,0,5,0" VerticalAlignment="Center" Checked="ChangeSpecialEffectsCheckBox_Changed" Unchecked="ChangeSpecialEffectsCheckBox_Changed"/>
+                    <Label Content="Affinity Upgrade: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <CheckBox x:Name="AffinityUpgradeCheckBox" Margin="0,0,5,0" VerticalAlignment="Center" Checked="AffinityUpgradeCheckBox_Changed" Unchecked="AffinityUpgradeCheckBox_Changed"/>
+                    <Label Content="Fuse: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <CheckBox x:Name="FuseCheckBox" Margin="0,0,5,0" VerticalAlignment="Center" Checked="FuseCheckBox_Changed" Unchecked="FuseCheckBox_Changed"/>
+                    <Label Content="Replicate: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <CheckBox x:Name="ReplicateCheckBox" Margin="0,0,5,0" VerticalAlignment="Center" Checked="ReplicateCheckBox_Changed" Unchecked="ReplicateCheckBox_Changed"/>
+                    <Label Content="Manikin Materials: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <CheckBox x:Name="ManikinMaterialsCheckBox" Margin="0,0,5,0" VerticalAlignment="Center" Checked="ManikinMaterialsCheckBox_Changed" Unchecked="ManikinMaterialsCheckBox_Changed"/>
+                    <Label Content="Exchange Shop: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <CheckBox x:Name="ExchangeShopCheckBox" Margin="0,0,5,0" VerticalAlignment="Center" Checked="ExchangeShopCheckBox_Changed" Unchecked="ExchangeShopCheckBox_Changed"/>
+                </StackPanel>
+                <Label Content="Materials" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="10" FontWeight="Bold"/>
+                <ListBox x:Name="MaterialListBox" Width="Auto" Height="120" Margin="5,0,5,0"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>
