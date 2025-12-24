@@ -15,26 +15,25 @@ public static class RandoExtensions
 
     public static List<T> Shuffle<T>(this IEnumerable<T> enumerable)
     {
-        List<T> newList = new(enumerable);
-        int n = newList.Count;
-        while (n > 1)
+        List<T> list = enumerable.ToList();
+        Random rand = new();
+        for (int i = 0; i < list.Count; i++)
         {
-            n--;
-            int k = RandomNum.RandInt(0, n - 1);
-            (newList[n], newList[k]) = (newList[k], newList[n]);
+            int j = rand.Next(i, list.Count);
+            (list[i], list[j]) = (list[j], list[i]);
         }
 
-        return newList;
+        return list;
     }
 
     public static void Shuffle<T>(this List<T> list, Action<T, T> swapFunc)
     {
-        int n = list.Count;
-        while (n > 1)
+        Random rand = new();
+        for (int i = 0; i < list.Count; i++)
         {
-            n--;
-            int k = RandomNum.RandInt(0, n - 1);
-            swapFunc.Invoke(list[n], list[k]);
+            int j = rand.Next(i, list.Count);
+            swapFunc(list[i], list[j]);
+            (list[i], list[j]) = (list[j], list[i]);
         }
     }
 

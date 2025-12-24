@@ -127,12 +127,20 @@ public class RandomNumTests
     }
 
     [TestMethod]
-    [DataRow("Cure", "Curasa")]
+    [DataRow(["Cure", "Curasa"])]
+    [DataRow(["Cure", "Curasa", "Esuna"])]
+    [DataRow(["Cure", "Curasa", "Esuna", "Raise"])]
     public void ShuffleTest(string[] items)
     {
         // Verify distribution of each ordering is approximately uniform
         int trials = 100000;
-        Dictionary<string, int> counts = items.ToDictionary(item => item, item => 0);
+        Dictionary<string, int> counts = new();
+        foreach (var perm in GetPermutations(items.ToList()))
+        {
+            string key = string.Join(",", perm);
+            counts[key] = 0;
+        }
+
         for (int i = 0; i < trials; i++)
         {
             var shuffled = items.Shuffle();
@@ -146,4 +154,32 @@ public class RandomNumTests
             Assert.AreEqual(expectedCount, count, 0.02 * trials);
         }
     }
+
+    private List<List<string>> GetPermutations(List<string> list)
+    {
+        var result = new List<List<string>>();
+
+        if (list.Count == 0)
+        {
+            result.Add(new List<string>());
+            return result;
+        }
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            var current = list[i];
+
+            var remaining = new List<string>(list);
+            remaining.RemoveAt(i);
+
+            foreach (var perm in GetPermutations(remaining))
+            {
+                perm.Insert(0, current);
+                result.Add(perm);
+            }
+        }
+
+        return result;
+    }
+
 }
