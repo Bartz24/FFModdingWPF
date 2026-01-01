@@ -41,7 +41,13 @@ public class ComboBoxFlagProperty : FlagProperty
 
     public override void Deserialize(IDictionary<string, object> data)
     {
-        base.Deserialize(data);
+        // Verify that the value exists in the list otherwise default to first value
+        if (!Values.Contains((string)data["SelectedValue"]))
+        {
+            SelectedValue = Values[0];
+            return;
+        }
+
         SelectedValue = (string)data["SelectedValue"];
     }
 

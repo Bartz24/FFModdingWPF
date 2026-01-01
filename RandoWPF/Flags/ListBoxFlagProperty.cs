@@ -43,8 +43,14 @@ public class ListBoxFlagProperty : FlagProperty
 
     public override void Deserialize(IDictionary<string, object> data)
     {
-        base.Deserialize(data);
-        SelectedValues = data[nameof(SelectedValues)] == null ? new List<string>() : ((List<object>)data[nameof(SelectedValues)]).Select(o => (string)o).ToList();
+        if (data[nameof(SelectedValues)] == null)
+        {
+            SelectedValues = new List<string>();
+            return;
+        }
+
+        // Filter out any values that don't exist in the Values list
+        SelectedValues = ((List<object>)data[nameof(SelectedValues)]).Select(o => (string)o).Where(s => Values.Contains(s)).ToList();
     }
 
     public List<int> IndicesOf(List<string> vals)

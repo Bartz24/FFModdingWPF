@@ -45,7 +45,6 @@ public class ToggleFlagProperty : FlagProperty
     }
     public override void Deserialize(IDictionary<string, object> data)
     {
-        base.Deserialize(data);
         Enabled = (bool)data["Enabled"];
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -41,9 +42,10 @@ public class NumberFlagProperty : FlagProperty
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Value)));
         }
     }
+
     public override void Deserialize(IDictionary<string, object> data)
     {
-        base.Deserialize(data);
-        Value = (int)(long)data["Value"];
+        // Limit the value to be within min/max range
+        Value = Math.Max(MinValue, Math.Min(MaxValue, (int)(long)data["Value"]));
     }
 }

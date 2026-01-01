@@ -100,7 +100,7 @@ public class FF13_2Flags
                 Description = "",
                 ValueText = "(%): ",
                 MinValue = 100,
-                MaxValue = 200,
+                MaxValue = 150,
                 StepSize = 5
             }.Register(RunSpeedMult);
         }

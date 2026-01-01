@@ -8,7 +8,7 @@ using System.Windows.Media;
 namespace Bartz24.RandoWPF;
 
 [JsonObject(MemberSerialization.OptIn)]
-public class FlagProperty : INotifyPropertyChanged
+public abstract class FlagProperty : INotifyPropertyChanged
 {
     public EventHandler OnEnable { get; set; }
     public EventHandler OnDisable { get; set; }
@@ -44,8 +44,5 @@ public class FlagProperty : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, e);
     }
 
-    public virtual void Deserialize(IDictionary<string, object> data)
-    {
-
-    }
+    public abstract void Deserialize(IDictionary<string, object> data);
 }
