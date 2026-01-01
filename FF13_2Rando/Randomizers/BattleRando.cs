@@ -37,7 +37,8 @@ public partial class BattleRando : Randomizer
     {
         RandoUI.SetUIProgressIndeterminate("Loading Battle Data...");
         btScenes.LoadDB3(Generator, "13-2", @"\db\resident\bt_scene.wdb");
-        enemyData = File.ReadAllLines(@"data\enemies.csv").Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);
+        // Skip 1 for header
+        enemyData = File.ReadAllLines(@"data\enemies.csv").Skip(1).Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);
 
         charaSets.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
@@ -222,7 +223,7 @@ public partial class BattleRando : Randomizer
                 if (!oldEnemies[0].Traits.Contains("Boss") || FF13_2Flags.Enemies.Bosses.SelectedValues.Count > 0)
                 {
                     List<EnemyData> validEnemies = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).ToList();
-                    if (battleData.ContainsKey(b.record))
+                    if (battleData.ContainsKey(b.record) && !battleData[b.record].Traits.Contains("Info"))
                     {
                         validEnemies = validEnemies.Where(e => e.Parts.Count == 0 || oldEnemies.Contains(e)).ToList();
                     }
@@ -278,7 +279,7 @@ public partial class BattleRando : Randomizer
             .Select(id => historiaCruxRando.areaData.Values.First(a => a.BattleTableID == id).ID)
             .ToList();
 
-        if (battleData.ContainsKey(btsceneName))
+        if (battleData.ContainsKey(btsceneName) && !battleData[btsceneName].Traits.Contains("Info"))
         {
             foreach (string id in battleData[btsceneName].LocationIDs)
             {
@@ -453,7 +454,7 @@ public partial class BattleRando : Randomizer
 
                     // Variety limit is 3 or the vanilla variety + 1, or if specified in battle data
                     int varietyLimit = Math.Min(3, GetCharaSpecs(oldEnemies).Distinct().Count() + 1);
-                    if (battleData.ContainsKey(btsceneName) && battleData[btsceneName].VarietyLimit != CSVDataRow.CSV_INVALID_VALUE)
+                    if (battleData.ContainsKey(btsceneName) && !battleData[btsceneName].Traits.Contains("Info") && battleData[btsceneName].VarietyLimit != CSVDataRow.CSV_INVALID_VALUE)
                     {
                         varietyLimit = battleData[btsceneName].VarietyLimit;
                     }
@@ -468,7 +469,7 @@ public partial class BattleRando : Randomizer
                         newEnemy = RandomNum.SelectRandom(possible);
                     }
 
-                    if (battleData.ContainsKey(btsceneName))
+                    if (battleData.ContainsKey(btsceneName) && !battleData[btsceneName].Traits.Contains("Info"))
                     {
                         if (oldEnemies.Contains(newEnemy))
                         {
@@ -531,7 +532,7 @@ public partial class BattleRando : Randomizer
         List<string> charaSpecs = GetCharaSpecs(newEnemies);
         btScenes[btsceneName].SetCharSpecs(charaSpecs);
 
-        if (battleData.ContainsKey(btsceneName))
+        if (battleData.ContainsKey(btsceneName) && !battleData[btsceneName].Traits.Contains("Info"))
         {
             charaSpecs.Select(spec => enemyRando.HasEnemy(spec) ? enemyRando.GetEnemy(spec).sCharaSpec : spec).ForEach(spec =>
             {
