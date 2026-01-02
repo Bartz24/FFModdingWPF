@@ -13,17 +13,28 @@ public abstract class FlagProperty : INotifyPropertyChanged
     public EventHandler OnEnable { get; set; }
     public EventHandler OnDisable { get; set; }
 
-    public FlagProperty()
+    private object DefaultValue { get; set; }
+
+    protected Flag ParentFlag { get; set; }
+
+    public FlagProperty(object defaultValue)
     {
+        DefaultValue = defaultValue;
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
 
     public virtual FlagProperty Register(Flag parent)
     {
+        ParentFlag = parent;
         parent.FlagPropertiesDebugIncluded.Add(this);
         PropertyChanged += parent.Flag_PropertyChanged;
         return this;
+    }
+
+    public T GetDefaultValue<T>()
+    {
+        return (T)DefaultValue;
     }
 
     public string Text { get; set; }

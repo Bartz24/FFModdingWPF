@@ -27,7 +27,7 @@ public class FF12Flags
         public static NumberFlagProperty EnemyHPMP, EnemyBaseStats, EnemySize, EnemyEXPLP;
         internal static void Init()
         {
-            EquipStats = new Flag()
+            EquipStats = new Flag(false)
             {
                 Text = "Randomize Equipment Stats",
                 FlagID = "EquipStats",
@@ -35,7 +35,7 @@ public class FF12Flags
                 "Also affects enemies."
             }.Register(FlagType.Items);
 
-            EquipHiddenStats = new ToggleFlagProperty()
+            EquipHiddenStats = new ToggleFlagProperty(false)
             {
                 Text = "Include Hidden Stats",
                 ID = "EquipHiddenStat",
@@ -43,7 +43,7 @@ public class FF12Flags
                 "Knockback, Combo/Crit Chance, Charge Time"
             }.Register(EquipStats);
 
-            EquipElements = new Flag()
+            EquipElements = new Flag(false)
             {
                 Text = "Randomize Equipment Elements",
                 FlagID = "EquipElem",
@@ -51,7 +51,7 @@ public class FF12Flags
                 "Also affects enemies."
             }.Register(FlagType.Items);
 
-            EquipAugments = new Flag()
+            EquipAugments = new Flag(false)
             {
                 Text = "Randomize Equipment Augments",
                 FlagID = "EquipAug",
@@ -59,7 +59,7 @@ public class FF12Flags
                 "Also affects enemies."
             }.Register(FlagType.Items);
 
-            EquipStatus = new Flag()
+            EquipStatus = new Flag(false)
             {
                 Text = "Randomize Equipment Status Effects",
                 FlagID = "EquipEff",
@@ -67,14 +67,15 @@ public class FF12Flags
                 "Also affects enemies."
             }.Register(FlagType.Items);
 
-            EnemyStats = new Flag()
+            EnemyStats = new Flag(false)
             {
                 Text = "Randomize Enemy Stats",
                 FlagID = "EnemyStats",
-                DescriptionFormat = "Randomize enemy stats such as HP, Strength, Magic, Defense, and Evasion."
+                DescriptionFormat = "Randomize enemy stats such as HP, Strength, Magic, Defense, and Evasion.",
+                HasArchipelagoOverride = true
             }.Register(FlagType.Items);
 
-            EnemyHPMP = new NumberFlagProperty()
+            EnemyHPMP = new NumberFlagProperty(100)
             {
                 Text = "Enemy HP/MP Multiplier %",
                 ID = "EnemyHPMP",
@@ -82,11 +83,10 @@ public class FF12Flags
                 ValueText = "Multiplier:",
                 MinValue = 100,
                 MaxValue = 1000,
-                StepSize = 10,
-                Value = 100
+                StepSize = 10
             }.Register(EnemyStats);
 
-            EnemyBaseStats = new NumberFlagProperty()
+            EnemyBaseStats = new NumberFlagProperty(100)
             {
                 Text = "Enemy Base Stats Multiplier %",
                 ID = "EnemyBaseStats",
@@ -94,11 +94,10 @@ public class FF12Flags
                 ValueText = "Multiplier:",
                 MinValue = 100,
                 MaxValue = 200,
-                StepSize = 10,
-                Value = 100
+                StepSize = 10
             }.Register(EnemyStats);
 
-            EnemySize = new NumberFlagProperty()
+            EnemySize = new NumberFlagProperty(100)
             {
                 Text = "Enemy Size Multiplier %",
                 ID = "EnemySize",
@@ -107,11 +106,10 @@ public class FF12Flags
                 ValueText = "Multiplier:",
                 MinValue = 100,
                 MaxValue = 300,
-                StepSize = 10,
-                Value = 100
+                StepSize = 10
             }.Register(EnemyStats);
 
-            EnemyEXPLP = new NumberFlagProperty()
+            EnemyEXPLP = new NumberFlagProperty(100)
             {
                 Text = "Enemy EXP/LP Multiplier %",
                 ID = "EnemyEXPLP",
@@ -119,8 +117,7 @@ public class FF12Flags
                 ValueText = "Multiplier:",
                 MinValue = 100,
                 MaxValue = 1000,
-                StepSize = 10,
-                Value = 100
+                StepSize = 10
             }.Register(EnemyStats);
         }
     }
@@ -143,7 +140,7 @@ public class FF12Flags
 
         internal static void Init()
         {
-            Treasures = new Flag()
+            Treasures = new Flag(false)
             {
                 Text = "Randomize Item Locations",
                 FlagID = "Treasures",
@@ -152,7 +149,7 @@ public class FF12Flags
                 HasArchipelagoOverride = true
             }.Register(FlagType.Items);
 
-            WritGoals = new ListBoxFlagProperty()
+            WritGoals = new ListBoxFlagProperty([])
             {
                 Text = "Bahamut Unlock Conditions",
                 ID = "WritGoals",
@@ -169,7 +166,7 @@ public class FF12Flags
                 }
             }.Register(Treasures);
 
-            KeyItems = new DictListBoxFlagProperty<string>()
+            KeyItems = new DictListBoxFlagProperty<string>([])
             {
                 Text = "Include Key Items",
                 ID = "KeyItems",
@@ -280,7 +277,7 @@ public class FF12Flags
                 }
             }.Register(Treasures);
 
-            KeyChops = new NumberFlagProperty()
+            KeyChops = new NumberFlagProperty(0)
             {
                 Text = "Include Pinewood Chops",
                 ID = "KeyChops",
@@ -291,7 +288,7 @@ public class FF12Flags
                 StepSize = 1
             }.Register(Treasures);
 
-            KeyBlackOrbs = new NumberFlagProperty()
+            KeyBlackOrbs = new NumberFlagProperty(0)
             {
                 Text = "Include Black Orbs",
                 ID = "KeyBlackOrbs",
@@ -303,49 +300,49 @@ public class FF12Flags
                 StepSize = 1
             }.Register(Treasures);
 
-            KeyStartingInv = new ToggleFlagProperty()
+            KeyStartingInv = new ToggleFlagProperty(false)
             {
                 Text = "Include Party Member Starting Items",
                 ID = "KeyStartingInv",
                 Description = "The items in the main party members' starting inventories will be included in the pool."
             }.Register(Treasures);
 
-            KeyPlaceTreasure = new ToggleFlagProperty()
+            KeyPlaceTreasure = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Treasures",
                 ID = "KeyPlaceTreas",
                 Description = "Key items are also allowed in treasures and misc rewards."
             }.Register(Treasures);
 
-            KeyPlaceHunt = new ToggleFlagProperty()
+            KeyPlaceHunt = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Hunts",
                 ID = "KeyPlaceHunt",
                 Description = "Key items are also allowed in hunt rewards and Jovy's reward."
             }.Register(Treasures);
 
-            KeyPlaceClanRank = new ToggleFlagProperty()
+            KeyPlaceClanRank = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Clan Rank",
                 ID = "KeyPlaceRank",
                 Description = "Key items are also allowed in clan rank rewards."
             }.Register(Treasures);
 
-            KeyPlaceClanBoss = new ToggleFlagProperty()
+            KeyPlaceClanBoss = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Clan Boss",
                 ID = "KeyPlaceClanBoss",
                 Description = "Key items are also allowed in clan boss rewards."
             }.Register(Treasures);
 
-            KeyPlaceClanEsper = new ToggleFlagProperty()
+            KeyPlaceClanEsper = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Clan Esper",
                 ID = "KeyPlaceClanEsper",
                 Description = "Key items are also allowed in clan esper rewards."
             }.Register(Treasures);
 
-            KeyPlaceGrindy = new ToggleFlagProperty()
+            KeyPlaceGrindy = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Grindy",
                 ID = "KeyPlaceGrindy",
@@ -353,14 +350,14 @@ public class FF12Flags
                 "This includes: Ann's Sister Quest reward, Hunt Club owner rewards"
             }.Register(Treasures);
 
-            KeyPlaceHidden = new ToggleFlagProperty()
+            KeyPlaceHidden = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Hidden Starting Items",
                 ID = "KeyPlaceHidden",
                 Description = "Key items are also allowed in main party member starting inventories."
             }.Register(Treasures);
 
-            KeyDepth = new ComboBoxFlagProperty()
+            KeyDepth = new ComboBoxFlagProperty("Normal")
             {
                 Text = "Item Difficulty Depth",
                 ID = "KeyDepth",
@@ -374,21 +371,21 @@ public class FF12Flags
                 Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
             }.Register(Treasures);
 
-            CharacterScale = new ToggleFlagProperty()
+            CharacterScale = new ToggleFlagProperty(false)
             {
                 Text = "Character Scaled Depth",
                 ID = "KeyPlaceCharScale",
                 Description = "Key items placed in later locations will require a certain amount of characters unlocked and second board will be required for later locations."
             }.Register(Treasures);
 
-            JunkRankScale = new ToggleFlagProperty()
+            JunkRankScale = new ToggleFlagProperty(false)
             {
                 Text = "Junk Scaled Depth",
                 ID = "PlaceJunkScale",
                 Description = "Consumables, equipment, and abilities will generally be placed in order of their sphere unlocks. Better items will appear later."
             }.Register(Treasures);
 
-            ReplaceRank = new NumberFlagProperty()
+            ReplaceRank = new NumberFlagProperty(0)
             {
                 Text = "Junk Item Rank Range",
                 ID = "JunkRange",
@@ -398,7 +395,7 @@ public class FF12Flags
                 MaxValue = 8
             }.Register(Treasures);
 
-            ReplaceAny = new ToggleFlagProperty()
+            ReplaceAny = new ToggleFlagProperty(false)
             {
                 Text = "Replace Junk Items From Any Category",
                 ID = "ReplaceJunkAny",
@@ -406,21 +403,21 @@ public class FF12Flags
                 "Ex: Potions can be replaced with Broadsword."
             }.Register(Treasures);
 
-            Shops = new Flag()
+            Shops = new Flag(false)
             {
                 Text = "Randomize Shops",
                 FlagID = "Shops",
                 DescriptionFormat = "Randomize contents of shops. These items can appear in the item placement pool if that flag is on."
             }.Register(FlagType.Items);
 
-            ShopsShared = new ToggleFlagProperty()
+            ShopsShared = new ToggleFlagProperty(false)
             {
                 Text = "Same Shops in the Same Area",
                 ID = "ShopsSameArea",
                 Description = "Shops in the same area share the same contents."
             }.Register(Shops);
 
-            ShopSize = new NumberFlagProperty()
+            ShopSize = new NumberFlagProperty(0)
             {
                 Text = "",
                 ID = "ShopSize",
@@ -431,21 +428,21 @@ public class FF12Flags
                 StepSize = 1
             }.Register(Shops);
 
-            JunkRankScaleShops = new ToggleFlagProperty()
+            JunkRankScaleShops = new ToggleFlagProperty(false)
             {
                 Text = "Junk Scaled Depth",
                 ID = "ShopJunkScale",
                 Description = "Consumables, equipment, and abilities will generally be placed in shops in order of their sphere unlocks. Better items will appear later. Unique shops (Clan shop, Nabudis, and Leviathan shops) will be unaffected."
             }.Register(Shops);
 
-            Bazaars = new Flag()
+            Bazaars = new Flag(false)
             {
                 Text = "Randomize Bazaars",
                 FlagID = "Bazaars",
                 DescriptionFormat = "Randomize contents of bazaars. They may contain duplicates of items, abilities, and loot found elsewhere. Any monographs not placed in item locations will still show up in bazaars."
             }.Register(FlagType.Items);
 
-            AllowSeitengrat = new Flag()
+            AllowSeitengrat = new Flag(false)
             {
                 Text = "Allow Seitengrat",
                 FlagID = "Seitengrat",
@@ -453,14 +450,14 @@ public class FF12Flags
                 HasArchipelagoOverride = true
             }.Register(FlagType.Items);
 
-            StartingTpStones = new Flag()
+            StartingTpStones = new Flag(false)
             {
                 Text = "Add Teleport Stones to Starting Inventory",
                 FlagID = "StartingTpStone",
                 DescriptionFormat = "Adds the specified number of teleport stones to the starting inventory."
             }.Register(FlagType.Items);
 
-            TpStoneCount = new NumberFlagProperty()
+            TpStoneCount = new NumberFlagProperty(1)
             {
                 Text = "",
                 ID = "TpStoneCount",
@@ -481,14 +478,14 @@ public class FF12Flags
         public const string BoardTypeSplit = "Split";
         internal static void Init()
         {
-            LicenseBoardType = new Flag()
+            LicenseBoardType = new Flag(false)
             {
                 Text = "License Board Type",
                 FlagID = "RandBoards",
                 DescriptionFormat = "Select the base license board type."
             }.Register(FlagType.Licenses);
 
-            BoardType = new ComboBoxFlagProperty()
+            BoardType = new ComboBoxFlagProperty(BoardTypeVanilla)
             {
                 Text = "",
                 ID = "BoardType",
@@ -497,7 +494,7 @@ public class FF12Flags
                 Values = new string[] { BoardTypeVanilla, BoardTypeSplit }.ToList()
             }.Register(LicenseBoardType);
 
-            StartingBoards = new Flag()
+            StartingBoards = new Flag(false)
             {
                 Text = "Randomize Starting License Boards",
                 FlagID = "StartBoards",
@@ -516,7 +513,7 @@ public class FF12Flags
 
         internal static void Init()
         {
-            Party = new Flag()
+            Party = new Flag(false)
             {
                 Text = "Shuffle Main Party",
                 FlagID = "RandParty",
@@ -524,7 +521,7 @@ public class FF12Flags
                 HasArchipelagoOverride = true
             }.Register(FlagType.Other);
 
-            HintsMain = new Flag()
+            HintsMain = new Flag(false)
             {
                 Text = "Hints from Moogles",
                 FlagID = "HintsMain",
@@ -533,7 +530,7 @@ public class FF12Flags
                 HasArchipelagoOverride = true
             }.Register(FlagType.Other);
 
-            HintsSpecific = new ComboBoxFlagProperty()
+            HintsSpecific = new ComboBoxFlagProperty("Exact")
             {
                 Text = "Specificity",
                 ID = "HintsSpecific",
@@ -547,7 +544,7 @@ public class FF12Flags
                 Values = new string[] { "Exact", "Vague Type", "Vague Area", "Unknown but Exact Location", "Random" }.ToList()
             }.Register(HintsMain);
 
-            HintAbilities = new Flag()
+            HintAbilities = new Flag(false)
             {
                 Text = "Hint Abilities",
                 FlagID = "HintAbi",
@@ -555,7 +552,7 @@ public class FF12Flags
                 HasArchipelagoOverride = true
             }.Register(FlagType.Other);
 
-            Music = new Flag()
+            Music = new Flag(false)
             {
                 Text = "Shuffle Music",
                 FlagID = "Music",
@@ -564,7 +561,7 @@ public class FF12Flags
                 Aesthetic = true
             }.Register(FlagType.Other);
 
-            EXPMult = new Flag()
+            EXPMult = new Flag(false)
             {
                 Text = "EXP Multipliers",
                 FlagID = "EXPMult",
@@ -572,7 +569,7 @@ public class FF12Flags
                 Aesthetic = true
             }.Register(FlagType.Other);
 
-            EXPMultAmt = new NumberFlagProperty()
+            EXPMultAmt = new NumberFlagProperty(100)
             {
                 Text = "Normal and Rare Game Enemies",
                 ID = "EXPMultAmt",
@@ -583,7 +580,7 @@ public class FF12Flags
                 StepSize = 10
             }.Register(EXPMult);
 
-            EXPMultBossAmt = new NumberFlagProperty()
+            EXPMultBossAmt = new NumberFlagProperty(100)
             {
                 Text = "Boss and Mark Enemies",
                 ID = "EXPMultBossAmt",
@@ -594,7 +591,7 @@ public class FF12Flags
                 StepSize = 10
             }.Register(EXPMult);
 
-            LPMult = new Flag()
+            LPMult = new Flag(false)
             {
                 Text = "LP Multipliers",
                 FlagID = "LPMult",
@@ -602,7 +599,7 @@ public class FF12Flags
                 Aesthetic = true
             }.Register(FlagType.Other);
 
-            LPMultAmt = new NumberFlagProperty()
+            LPMultAmt = new NumberFlagProperty(100)
             {
                 Text = "Normal and Rare Game Enemies",
                 ID = "LPMultAmt",
@@ -613,7 +610,7 @@ public class FF12Flags
                 StepSize = 10
             }.Register(LPMult);
 
-            LPMultBossAmt = new NumberFlagProperty()
+            LPMultBossAmt = new NumberFlagProperty(100)
             {
                 Text = "Boss and Mark Enemies",
                 ID = "LPMultBossAmt",

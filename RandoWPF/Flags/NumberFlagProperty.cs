@@ -8,6 +8,11 @@ namespace Bartz24.RandoWPF;
 [JsonObject(MemberSerialization.OptIn)]
 public class NumberFlagProperty : FlagProperty
 {
+    public NumberFlagProperty(int defaultValue) : base(defaultValue)
+    {
+        value = defaultValue;
+    }
+
     public override NumberFlagProperty Register(Flag parent)
     {
         base.Register(parent);
@@ -34,7 +39,15 @@ public class NumberFlagProperty : FlagProperty
     [JsonProperty]
     public int Value
     {
-        get => value;
+        get
+        {
+            if (RandoFlags.Mode == RandoFlags.SeedMode.Archipelago && (ParentFlag.HasArchipelagoOverride || DisabledByArchipelago))
+            {
+                return GetDefaultValue<int>();
+            }
+
+            return value;
+        }
         set
         {
             this.value = value;

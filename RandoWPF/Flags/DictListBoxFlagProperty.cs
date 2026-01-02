@@ -10,6 +10,10 @@ namespace Bartz24.RandoWPF;
 [JsonObject(MemberSerialization.OptIn)]
 public class DictListBoxFlagProperty<T> : ListBoxFlagProperty
 {
+    public DictListBoxFlagProperty(List<string> defaultValue) : base(defaultValue)
+    {
+    }
+
     public override DictListBoxFlagProperty<T> Register(Flag parent)
     {
         base.Register(parent);

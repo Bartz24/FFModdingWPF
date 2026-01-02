@@ -7,6 +7,11 @@ namespace Bartz24.RandoWPF;
 [JsonObject(MemberSerialization.OptIn)]
 public class ComboBoxFlagProperty : FlagProperty
 {
+    public ComboBoxFlagProperty(string defaultValue) : base(defaultValue)
+    {
+        selectedValue = defaultValue;
+    }
+
     public override ComboBoxFlagProperty Register(Flag parent)
     {
         base.Register(parent);
@@ -28,7 +33,15 @@ public class ComboBoxFlagProperty : FlagProperty
     [JsonProperty]
     public string SelectedValue
     {
-        get => selectedValue;
+        get
+        {
+            if (RandoFlags.Mode == RandoFlags.SeedMode.Archipelago && (ParentFlag.HasArchipelagoOverride || DisabledByArchipelago))
+            {
+                return GetDefaultValue<string>();
+            }
+
+            return selectedValue;
+        }
         set
         {
             selectedValue = value;

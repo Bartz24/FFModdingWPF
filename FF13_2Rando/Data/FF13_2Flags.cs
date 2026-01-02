@@ -26,7 +26,7 @@ public class FF13_2Flags
 
         internal static void Init()
         {
-            RandCrystAbi = new Flag()
+            RandCrystAbi = new Flag(false)
             {
                 Text = "Randomize Crystarium Abilities",
                 FlagID = "RandCrystAbi",
@@ -34,7 +34,7 @@ public class FF13_2Flags
                 Aesthetic = true
             }.Register(FlagType.Stats);
 
-            InitCP = new Flag()
+            InitCP = new Flag(false)
             {
                 Text = "Start with CP",
                 FlagID = "InitCP",
@@ -42,7 +42,7 @@ public class FF13_2Flags
                 Aesthetic = true
             }.Register(FlagType.Stats);
 
-            InitCPAmount = new NumberFlagProperty()
+            InitCPAmount = new NumberFlagProperty(500)
             {
                 Text = "",
                 ID = "InitCPAmt",
@@ -53,28 +53,28 @@ public class FF13_2Flags
                 StepSize = 500
             }.Register(InitCP);
 
-            EquipStats = new Flag()
+            EquipStats = new Flag(false)
             {
                 Text = "Randomize Weapon Stats",
                 FlagID = "RandEqStat",
                 DescriptionFormat = "Randomize weapon stats."
             }.Register(FlagType.Stats);
 
-            EquipPassives = new Flag()
+            EquipPassives = new Flag(false)
             {
                 Text = "Randomize Equipment Passive Abilities",
                 FlagID = "RandPassive",
                 DescriptionFormat = "Randomize passive abilities on weapons and accessories."
             }.Register(FlagType.Stats);
 
-            EquipWeights = new Flag()
+            EquipWeights = new Flag(false)
             {
                 Text = "Randomize Accessory Weights",
                 FlagID = "RandAccW",
                 DescriptionFormat = "Randomize accessory weights."
             }.Register(FlagType.Stats);
 
-            WeightRange = new NumberFlagProperty()
+            WeightRange = new NumberFlagProperty(0)
             {
                 Text = "",
                 ID = "AccWRange",
@@ -85,7 +85,7 @@ public class FF13_2Flags
                 StepSize = 5
             }.Register(EquipWeights);
 
-            RunSpeedMult = new Flag()
+            RunSpeedMult = new Flag(false)
             {
                 Text = "Run Speed Multiplier",
                 FlagID = "RunSpeedMult",
@@ -93,7 +93,7 @@ public class FF13_2Flags
                 "Hope's run speed will match the others."
             }.Register(FlagType.Stats);
 
-            RunSpeedMultValue = new NumberFlagProperty()
+            RunSpeedMultValue = new NumberFlagProperty(100)
             {
                 Text = "",
                 ID = "RunSpeedVal",
@@ -113,7 +113,7 @@ public class FF13_2Flags
 
         internal static void Init()
         {
-            Treasures = new Flag()
+            Treasures = new Flag(false)
             {
                 Text = "Randomize Item Locations",
                 FlagID = "Treasures",
@@ -122,28 +122,28 @@ public class FF13_2Flags
                 "Does not include normal artefacts and event based items and fragments."
             }.Register(FlagType.Items);
 
-            KeyWild = new ToggleFlagProperty()
+            KeyWild = new ToggleFlagProperty(false)
             {
                 Text = "Include Wild Artefacts",
                 ID = "KeyWild",
                 Description = "Wild Artefacts will be included in the pool of key items."
             }.Register(Treasures);
 
-            KeyGraviton = new ToggleFlagProperty()
+            KeyGraviton = new ToggleFlagProperty(false)
             {
                 Text = "Include Graviton Core Fragments",
                 ID = "KeyGraviton",
                 Description = "The 7 Graviton Core fragments will be included in the pool of key items."
             }.Register(Treasures);
 
-            KeyGateSeal = new ToggleFlagProperty()
+            KeyGateSeal = new ToggleFlagProperty(false)
             {
                 Text = "Include Gate Seals",
                 ID = "KeySeal",
                 Description = "The gate seals will be included in the pool of key items."
             }.Register(Treasures);
 
-            KeySide = new ToggleFlagProperty()
+            KeySide = new ToggleFlagProperty(false)
             {
                 Text = "Include Side Key Items",
                 ID = "KeySide",
@@ -151,35 +151,35 @@ public class FF13_2Flags
                 "Medical Kit, Capsules, Holding Cell Key, Comm Device, Emerald Crystal, Ivory Crystal, Onyx Crystal, Service Manual, Fruit of Fenrir, Tablet of Paddra, Old Battery, Sealed Tablet, Army Comm Device, Recording Device, Picture Frame, Bulb of Hope, Terrorists' Mark, Weapon Material, Outdoor Watch, Personal Notes, Paradox Agent Type A-C, Supply Sphere Access Code"
             }.Register(Treasures);
 
-            KeyPlaceTreasure = new ToggleFlagProperty()
+            KeyPlaceTreasure = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Treasures",
                 ID = "KeyPlaceTreas",
                 Description = "Key items are also allowed in treasures and fragment spots."
             }.Register(Treasures);
 
-            KeyPlaceBrainBlast = new ToggleFlagProperty()
+            KeyPlaceBrainBlast = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Brain Blast",
                 ID = "KeyPlaceBrain",
                 Description = "Key items are also allowed in Brain Blast rewards."
             }.Register(Treasures);
 
-            KeyPlaceThrowCryst = new ToggleFlagProperty()
+            KeyPlaceThrowCryst = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Improved Moogle Throw Monster Crystals",
                 ID = "KeyPlaceMogCryst",
                 Description = "Key items are also allowed to replace Improve Moogle Throw monster crystal locations."
             }.Register(Treasures);
 
-            KeyPlaceThrowJunk = new ToggleFlagProperty()
+            KeyPlaceThrowJunk = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Improved Moogle Throw Junk",
                 ID = "KeyPlaceMogJunk",
                 Description = "Key items are also allowed to replace Improve Moogle Throw junk locations."
             }.Register(Treasures);
 
-            KeyDepth = new ComboBoxFlagProperty()
+            KeyDepth = new ComboBoxFlagProperty("Normal")
             {
                 Text = "Item Difficulty Depth",
                 ID = "KeyDepth",
@@ -203,14 +203,14 @@ public class FF13_2Flags
 
         internal static void Init()
         {
-            EnemyLocations = new Flag()
+            EnemyLocations = new Flag(false)
             {
                 Text = "Randomize Enemy Locations",
                 FlagID = "RandEne",
                 DescriptionFormat = "Randomize normal enemies between each other."
             }.Register(FlagType.Enemies);
 
-            LargeEnc = new ToggleFlagProperty()
+            LargeEnc = new ToggleFlagProperty(false)
             {
                 Text = "Allow Larger Encounters",
                 ID = "LargeEnc",
@@ -219,7 +219,7 @@ public class FF13_2Flags
                 Experimental = true
             }.Register(EnemyLocations);
 
-            Bosses = new ListBoxFlagProperty()
+            Bosses = new ListBoxFlagProperty([])
             {
                 Text = "Shuffled Bosses",
                 ID = "RandBoss",
@@ -251,7 +251,7 @@ public class FF13_2Flags
                 }
             }.Register(EnemyLocations);
 
-            EnemyRank = new NumberFlagProperty()
+            EnemyRank = new NumberFlagProperty(0)
             {
                 Text = "Enemy Rank Range",
                 ID = "EnemyRank",
@@ -261,7 +261,7 @@ public class FF13_2Flags
                 MaxValue = 15
             }.Register(EnemyLocations);
 
-            BossScaling = new ToggleFlagProperty()
+            BossScaling = new ToggleFlagProperty(false)
             {
                 Text = "Scale Boss Stats [EXPERIMENTAL]",
                 ID = "BossScale",
@@ -269,14 +269,14 @@ public class FF13_2Flags
                 Experimental = true
             }.Register(EnemyLocations);
 
-            EnemyCPMult = new Flag()
+            EnemyCPMult = new Flag(false)
             {
                 Text = "Enemy CP Multiplier",
                 FlagID = "EnemyCPMult",
                 DescriptionFormat = "Multiply enemy CP by the specified percentage."
             }.Register(FlagType.Enemies);
 
-            EnemyCPMultValue = new NumberFlagProperty()
+            EnemyCPMultValue = new NumberFlagProperty(100)
             {
                 Text = "",
                 ID = "EnemyCPMultVal",
@@ -297,7 +297,7 @@ public class FF13_2Flags
 
         internal static void Init()
         {
-            HistoriaCrux = new Flag()
+            HistoriaCrux = new Flag(false)
             {
                 Text = "Randomize Historia Crux",
                 FlagID = "HistCrux",
@@ -305,7 +305,7 @@ public class FF13_2Flags
                 Aesthetic = true
             }.Register(FlagType.Other);
 
-            ForcedStart = new ComboBoxFlagProperty()
+            ForcedStart = new ComboBoxFlagProperty("Bodhum")
             {
                 Text = "Forced Start",
                 ID = "ForcedStart",
@@ -316,7 +316,7 @@ public class FF13_2Flags
                 Values = new string[] { "None", "Bodhum", "Bodhum & Bresha" }.ToList()
             }.Register(HistoriaCrux);
 
-            RandoDLC = new ToggleFlagProperty()
+            RandoDLC = new ToggleFlagProperty(false)
             {
                 Text = "Include DLC Areas",
                 ID = "RandDLCCrux",
@@ -325,7 +325,7 @@ public class FF13_2Flags
                 "This requires a separate mod 'DLC Restoration - Console Content' that is provided as a core mod for Nova. Download this mod from the Core Mods download in the Nova discord server."
             }.Register(HistoriaCrux);
 
-            Music = new Flag()
+            Music = new Flag(false)
             {
                 Text = "Shuffle Music",
                 FlagID = "Music",
@@ -340,7 +340,7 @@ public class FF13_2Flags
 
         internal static void Init()
         {
-            HighStats = new Flag()
+            HighStats = new Flag(false)
             {
                 Text = "[DEBUG] High Initial Stats",
                 FlagID = "DbgStats",

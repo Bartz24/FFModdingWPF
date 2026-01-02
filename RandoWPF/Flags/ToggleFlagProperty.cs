@@ -7,6 +7,11 @@ namespace Bartz24.RandoWPF;
 [JsonObject(MemberSerialization.OptIn)]
 public class ToggleFlagProperty : FlagProperty
 {
+    public ToggleFlagProperty(bool defaultValue) : base(defaultValue)
+    {
+        enabled = defaultValue;
+    }
+
     public override ToggleFlagProperty Register(Flag parent)
     {
         base.Register(parent);
@@ -27,7 +32,15 @@ public class ToggleFlagProperty : FlagProperty
     [JsonProperty]
     public bool Enabled
     {
-        get => enabled;
+        get
+        {
+            if (RandoFlags.Mode == RandoFlags.SeedMode.Archipelago && (ParentFlag.HasArchipelagoOverride || DisabledByArchipelago))
+            {
+                return GetDefaultValue<bool>();
+            }
+
+            return enabled;
+        }
         set
         {
             enabled = value;

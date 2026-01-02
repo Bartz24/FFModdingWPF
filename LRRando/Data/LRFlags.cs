@@ -29,28 +29,28 @@ public class LRFlags
 
         internal static void Init()
         {
-            EquipStats = new Flag()
+            EquipStats = new Flag(false)
             {
                 Text = "Randomize Equipment Stats",
                 FlagID = "RandEqStat",
                 DescriptionFormat = "Randomize Garb, Weapon, and Shield stats."
             }.Register(FlagType.StatsAbilities);
 
-            GarbAbilities = new Flag()
+            GarbAbilities = new Flag(false)
             {
                 Text = "Randomize Garb Abilities",
                 FlagID = "RandGarbAbi",
                 DescriptionFormat = "Randomize abilities locked to garbs."
             }.Register(FlagType.StatsAbilities);
 
-            EquipPassives = new Flag()
+            EquipPassives = new Flag(false)
             {
                 Text = "Randomize Equipment Passive Abilities",
                 FlagID = "RandPassive",
                 DescriptionFormat = "Randomize passive abilities on garbs, garb abilities, weapons, shields, and accessories."
             }.Register(FlagType.StatsAbilities);
 
-            EPAbilities = new Flag()
+            EPAbilities = new Flag(false)
             {
                 Text = "Shuffle EP Abilities",
                 FlagID = "EPAbi",
@@ -58,7 +58,7 @@ public class LRFlags
                 HasArchipelagoOverride = true
             }.Register(FlagType.StatsAbilities);
 
-            EPAbilitiesPool = new DictListBoxFlagProperty<string>()
+            EPAbilitiesPool = new DictListBoxFlagProperty<string>([])
             {
                 Text = "",
                 ID = "EPAbiPool",
@@ -78,14 +78,14 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(EPAbilities);
 
-            Quests = new Flag()
+            Quests = new Flag(false)
             {
                 Text = "Randomize Quest Stat Rewards",
                 FlagID = "Quests",
                 DescriptionFormat = "Randomize stats rewarded by quests. Includes Strength, Magic, Max HP, Max EP, Max ATB, and Recovery Item Slots."
             }.Register(FlagType.StatsAbilities);
 
-            EPCosts = new Flag()
+            EPCosts = new Flag(false)
             {
                 Text = "Randomize EP Costs",
                 FlagID = "RandEPCost",
@@ -94,7 +94,7 @@ public class LRFlags
                 "Min of 2 on Normal for Curaga, Arise, Quake, Overclock, Teleport."
             }.Register(FlagType.StatsAbilities);
 
-            EPCostsZero = new ToggleFlagProperty()
+            EPCostsZero = new ToggleFlagProperty(false)
             {
                 Text = "Lower Min EP Cost",
                 ID = "EPZero",
@@ -104,7 +104,7 @@ public class LRFlags
                 "Min of 1 on Normal for Curaga, Arise, Quake, Overclock, Teleport.\n"
             }.Register(EPCosts);
 
-            EPCostMax = new NumberFlagProperty()
+            EPCostMax = new NumberFlagProperty(3)
             {
                 Text = "Max EP Cost",
                 ID = "EPMax",
@@ -114,7 +114,7 @@ public class LRFlags
                 MaxValue = 9
             }.Register(EPCosts);
 
-            EPCostsRange = new NumberFlagProperty()
+            EPCostsRange = new NumberFlagProperty(1)
             {
                 Text = "EP Cost Range",
                 ID = "EPRange",
@@ -124,21 +124,21 @@ public class LRFlags
                 MaxValue = 9
             }.Register(EPCosts);
 
-            FreeEPCosts = new Flag()
+            FreeEPCosts = new Flag(false)
             {
                 Text = "Free Teleport and Chronostasis",
                 FlagID = "FreeEPCosts",
                 DescriptionFormat = "Teleport and Chronostasis (and Escape as always) will have their EP cost set to 0."
             }.Register(FlagType.StatsAbilities);
 
-            AbilityPassives = new Flag()
+            AbilityPassives = new Flag(false)
             {
                 Text = "Randomize Ability Passives",
                 FlagID = "AbiPass",
                 DescriptionFormat = "Randomizes the passives on abilities. Includes synthesized passive abilities and rare passive abilities."
             }.Register(FlagType.StatsAbilities);
 
-            NerfOC = new Flag()
+            NerfOC = new Flag(false)
             {
                 Text = "Increase Overclock EP Cost",
                 FlagID = "NerfOC",
@@ -154,14 +154,14 @@ public class LRFlags
 
         internal static void Init()
         {
-            EnemyLocations = new Flag()
+            EnemyLocations = new Flag(false)
             {
                 Text = "Randomize Enemy Locations",
                 FlagID = "RandEne",
                 DescriptionFormat = "Randomize normal enemies between each other."
             }.Register(FlagType.Enemies);
 
-            EnemiesSize = new ToggleFlagProperty()
+            EnemiesSize = new ToggleFlagProperty(false)
             {
                 Text = "Between Any Size",
                 ID = "RandEneSize",
@@ -169,7 +169,7 @@ public class LRFlags
                 "If turned off, enemies will be randomized with enemies of the same size. Humans are considered mid."
             }.Register(EnemyLocations);
 
-            EncounterSize = new ToggleFlagProperty()
+            EncounterSize = new ToggleFlagProperty(false)
             {
                 Text = "Randomize Encounter Size",
                 ID = "RandEncCount",
@@ -177,7 +177,7 @@ public class LRFlags
                 "If turned off, encounters will remain the same size."
             }.Register(EnemyLocations);
 
-            Prologue = new ToggleFlagProperty()
+            Prologue = new ToggleFlagProperty(false)
             {
                 Text = "Include Prologue Tutorial",
                 ID = "RandProlo",
@@ -185,7 +185,7 @@ public class LRFlags
                 "Enemies replacing prologue enemies are limited to selection of smaller enemies."
             }.Register(EnemyLocations);
 
-            Bosses = new DictListBoxFlagProperty<string>()
+            Bosses = new DictListBoxFlagProperty<string>([])
             {
                 Text = "Shuffle Bosses",
                 ID = "RandBoss",
@@ -204,21 +204,21 @@ public class LRFlags
                 }
             }.Register(EnemyLocations);
 
-            MatDrops = new Flag()
+            MatDrops = new Flag(false)
             {
                 Text = "Randomize Enemy Material Drops",
                 FlagID = "RandMatDrops",
                 DescriptionFormat = "Enemy material drops will be spread evenly between enemies."
             }.Register(FlagType.Enemies);
 
-            AbiDrops = new Flag()
+            AbiDrops = new Flag(false)
             {
                 Text = "Randomize Enemy Ability Drops",
                 FlagID = "RandAbiDrops",
                 DescriptionFormat = "Ability drops will be spread evenly between enemies."
             }.Register(FlagType.Enemies);
 
-            BhuniPlus = new Flag()
+            BhuniPlus = new Flag(false)
             {
                 Text = "Force Bhunivelze+ on NG",
                 FlagID = "BhuniPlus",
@@ -239,7 +239,7 @@ public class LRFlags
         internal static void Init()
         {
 
-            Treasures = new Flag()
+            Treasures = new Flag(false)
             {
                 Text = "Randomize Item Locations",
                 FlagID = "Treasures",
@@ -248,7 +248,7 @@ public class LRFlags
                 HasArchipelagoOverride = true
             }.Register(FlagType.Items);
 
-            KeyItems = new DictListBoxFlagProperty<string>()
+            KeyItems = new DictListBoxFlagProperty<string>([])
             {
                 Text = "Include Key Items",
                 ID = "KeyItems",
@@ -329,7 +329,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
 
-            IncludeEPAbilities = new ToggleFlagProperty()
+            IncludeEPAbilities = new ToggleFlagProperty(false)
             {
                 Text = "Include EP Abilities",
                 ID = "IncludeEP",
@@ -337,7 +337,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
 
-            EPMissable = new ToggleFlagProperty()
+            EPMissable = new ToggleFlagProperty(false)
             {
                 Text = "Allow EP Abilities in Missable Locations",
                 ID = "EPMiss",
@@ -345,7 +345,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
 
-            KeyPlaceTreasure = new ToggleFlagProperty()
+            KeyPlaceTreasure = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Treasures",
                 ID = "KeyPlaceTreas",
@@ -353,7 +353,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
 
-            KeyPlaceQuest = new ToggleFlagProperty()
+            KeyPlaceQuest = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Quests",
                 ID = "KeyPlaceQuest",
@@ -361,7 +361,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
 
-            KeyPlaceCoP = new ToggleFlagProperty()
+            KeyPlaceCoP = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Canvas of Prayers",
                 ID = "KeyPlaceCoP",
@@ -369,7 +369,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
 
-            KeyPlaceSuperboss = new ToggleFlagProperty()
+            KeyPlaceSuperboss = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Superbosses",
                 ID = "KeyPlaceSuperboss",
@@ -377,7 +377,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
 
-            KeyPlaceGrindy = new ToggleFlagProperty()
+            KeyPlaceGrindy = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Grindy",
                 ID = "KeyPlaceGrindy",
@@ -385,7 +385,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
 
-            KeyDepth = new ComboBoxFlagProperty()
+            KeyDepth = new ComboBoxFlagProperty("Normal")
             {
                 Text = "Item Difficulty Depth",
                 ID = "KeyDepth",
@@ -400,14 +400,14 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
 
-            IDCardBuy = new ToggleFlagProperty()
+            IDCardBuy = new ToggleFlagProperty(false)
             {
                 Text = "Randomize Buyable ID Card",
                 ID = "BuyID",
                 Description = "The bought item from the tour guide will be the randomized item assigned in the ID Card location."
             }.Register(Treasures);
 
-            Shops = new Flag()
+            Shops = new Flag(false)
             {
                 Text = "Randomize Shops",
                 FlagID = "Shops",
@@ -415,14 +415,14 @@ public class LRFlags
                 "Hard mode items are included."
             }.Register(FlagType.Items);
 
-            CoPReqs = new Flag()
+            CoPReqs = new Flag(false)
             {
                 Text = "Reduce Requirements for Canvas of Prayers",
                 FlagID = "CoPReqs",
                 DescriptionFormat = "Reduce non-key item requirements for Canvas of Prayers by half (rounds up)."
             }.Register(FlagType.Items);
 
-            ReplaceRank = new NumberFlagProperty()
+            ReplaceRank = new NumberFlagProperty(0)
             {
                 Text = "Junk Item Rank Range",
                 ID = "JunkRange",
@@ -433,7 +433,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
 
-            ReplaceAny = new ToggleFlagProperty()
+            ReplaceAny = new ToggleFlagProperty(false)
             {
                 Text = "Replace Junk Items From Any Category",
                 ID = "ReplaceJunkAny",
@@ -442,7 +442,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(Treasures);
 
-            IncludeDLCItems = new ToggleFlagProperty()
+            IncludeDLCItems = new ToggleFlagProperty(false)
             {
                 Text = "Include DLC Items",
                 ID = "IncludeDLC",
@@ -474,7 +474,7 @@ public class LRFlags
 
         internal static void Init()
         {
-            Music = new Flag()
+            Music = new Flag(false)
             {
                 Text = "Shuffle Music",
                 FlagID = "Music",
@@ -482,14 +482,14 @@ public class LRFlags
                 Aesthetic = true
             }.Register(FlagType.Other);
 
-            FanfareMusic = new ToggleFlagProperty()
+            FanfareMusic = new ToggleFlagProperty(false)
             {
                 Text = "Include Additional Fanfares",
                 ID = "Fanfare",
                 Description = "Include the additional garb specific fanfares in the pool."
             }.Register(Music);
 
-            LoadingText = new Flag()
+            LoadingText = new Flag(false)
             {
                 Text = "Randomize Loading Screen Text",
                 FlagID = "LoadingText",
@@ -497,7 +497,7 @@ public class LRFlags
                 Aesthetic = true
             }.Register(FlagType.Other);
 
-            HintsMain = new Flag()
+            HintsMain = new Flag(false)
             {
                 Text = "Hints by Item",
                 FlagID = "HintsMain",
@@ -506,7 +506,7 @@ public class LRFlags
                 HasArchipelagoOverride = true
             }.Register(FlagType.Other);
 
-            HintsSpecific = new ComboBoxFlagProperty()
+            HintsSpecific = new ComboBoxFlagProperty("Exact")
             {
                 Text = "Specificity",
                 ID = "HintsSpecific",
@@ -521,7 +521,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(HintsMain);
 
-            HintsDepth = new ToggleFlagProperty()
+            HintsDepth = new ToggleFlagProperty(false)
             {
                 Text = "Hints at Earlier Locations",
                 ID = "HintsDepth",
@@ -529,7 +529,7 @@ public class LRFlags
                 DisabledByArchipelago = true
             }.Register(HintsMain);
 
-            HintsBosses = new ComboBoxFlagProperty()
+            HintsBosses = new ComboBoxFlagProperty("None")
             {
                 Text = "Boss Hints",
                 ID = "HintsBosses",

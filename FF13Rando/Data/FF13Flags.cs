@@ -27,49 +27,49 @@ public class FF13Flags
 
         internal static void Init()
         {
-            RandCrystAbi = new Flag()
+            RandCrystAbi = new Flag(false)
             {
                 Text = "Randomize Crystarium Abilities",
                 FlagID = "RandCrystAbi",
                 DescriptionFormat = "Randomizes the crystarium abilities in each role."
             }.Register(FlagType.Stats);
 
-            RandCrystAbiAll = new ToggleFlagProperty()
+            RandCrystAbiAll = new ToggleFlagProperty(false)
             {
                 Text = "Between All Roles",
                 ID = "AbiAll",
                 Description = "Crystarium abilities can appear for a different role."
             }.Register(RandCrystAbi);
 
-            RandCrystStat = new Flag()
+            RandCrystStat = new Flag(false)
             {
                 Text = "Randomize Crystarium Stats",
                 FlagID = "RandCrystStat",
                 DescriptionFormat = "Randomizes the crystarium HP, Strength, and Magic."
             }.Register(FlagType.Stats);
 
-            ShuffleCrystMisc = new ToggleFlagProperty()
+            ShuffleCrystMisc = new ToggleFlagProperty(false)
             {
                 Text = "Shuffle Misc Crystarium Nodes",
                 ID = "ShuffleCrystMisc",
                 Description = "Randomizes the crystarium Accessory and ATB Level nodes. These nodes can replace stat nodes."
             }.Register(RandCrystStat);
 
-            ShuffleCrystRole = new Flag()
+            ShuffleCrystRole = new Flag(false)
             {
                 Text = "Shuffle Crystarium Nodes Per Role",
                 FlagID = "ShuffleCrystRole",
                 DescriptionFormat = "Randomizes the order of the crystarium nodes in each role. Abilities may be out of order in terms of pre-required abilities."
             }.Register(FlagType.Stats);
 
-            ModifiedCPCosts = new Flag()
+            ModifiedCPCosts = new Flag(false)
             {
                 Text = "CP Cost Type",
                 FlagID = "ModifyCPCosts",
                 DescriptionFormat = "Modify the CP Costs. Vanilla is the default option if this is turned off. CP costs will always be adjusted to work with how roles are obtained."
             }.Register(FlagType.Stats);
 
-            CPCostType = new ComboBoxFlagProperty()
+            CPCostType = new ComboBoxFlagProperty("Vanilla-like")
             {
                 Text = "",
                 ID = "CPCostTypeVal",
@@ -80,7 +80,7 @@ public class FF13Flags
                 Values = new string[] { "Vanilla-like", "Lower Secondaries", "Rebalanced" }.ToList()
             }.Register(ModifiedCPCosts);
 
-            CPCostMult = new Flag()
+            CPCostMult = new Flag(false)
             {
                 Text = "CP Cost Multiplier",
                 FlagID = "CPCostMult",
@@ -88,7 +88,7 @@ public class FF13Flags
                 "CP costs will have a minimum CP cost of 5."
             }.Register(FlagType.Stats);
 
-            CPCostMultValue = new NumberFlagProperty()
+            CPCostMultValue = new NumberFlagProperty(100)
             {
                 Text = "",
                 ID = "CPCostVal",
@@ -99,28 +99,28 @@ public class FF13Flags
                 StepSize = 10
             }.Register(CPCostMult);
 
-            RandInitStats = new Flag()
+            RandInitStats = new Flag(false)
             {
                 Text = "Randomize Initial Stats",
                 FlagID = "RandInitStats",
                 DescriptionFormat = "Randomizes the initial HP, Strength, and Magic."
             }.Register(FlagType.Stats);
 
-            RandTPBorders = new Flag()
+            RandTPBorders = new Flag(false)
             {
                 Text = "Randomize TP Borders",
                 FlagID = "RandTPBorder",
                 DescriptionFormat = "Randomizes the borders where you get 1, 2, 3, 4, and 5 TP."
             }.Register(FlagType.Stats);
 
-            RandTPMax = new ToggleFlagProperty()
+            RandTPMax = new ToggleFlagProperty(false)
             {
                 Text = "Randomize Max TP Cost",
                 ID = "RandTPMax",
                 Description = "Randomizes the maximum needed to reach 5 TP."
             }.Register(RandTPBorders);
 
-            TPBorderType = new ComboBoxFlagProperty()
+            TPBorderType = new ComboBoxFlagProperty("Equal")
             {
                 Text = "TP Costs Type",
                 ID = "TPBorderType",
@@ -134,7 +134,7 @@ public class FF13Flags
                 Values = new string[] { "Equal", "Increasing", "Decreasing", "Random Borders", "Random Type" }.ToList()
             }.Register(RandTPBorders);
 
-            RunSpeedMult = new Flag()
+            RunSpeedMult = new Flag(false)
             {
                 Text = "Run Speed Multiplier",
                 FlagID = "RunSpeedMult",
@@ -142,14 +142,14 @@ public class FF13Flags
                 "Hope's run speed will match the others."
             }.Register(FlagType.Stats);
 
-            RunSpeedMultValue = new NumberFlagProperty()
+            RunSpeedMultValue = new NumberFlagProperty(100)
             {
                 Text = "",
                 ID = "RunSpeedVal",
                 Description = "",
                 ValueText = "(%): ",
                 MinValue = 100,
-                MaxValue = 200,
+                MaxValue = 150,
                 StepSize = 5
             }.Register(RunSpeedMult);
         }
@@ -162,21 +162,21 @@ public class FF13Flags
 
         internal static void Init()
         {
-            RandEquipStats = new Flag()
+            RandEquipStats = new Flag(false)
             {
                 Text = "Randomize Weapon Stats",
                 FlagID = "RandEqStat",
                 DescriptionFormat = "Randomizes weapon strength and magic."
             }.Register(FlagType.Equipment);
 
-            RandEquipPassives = new Flag()
+            RandEquipPassives = new Flag(false)
             {
                 Text = "Randomize Equipment Passives",
                 FlagID = "RandEqPassive",
                 DescriptionFormat = "Randomizes the passive abilities on weapons and accessories. The strength of numerical passives are based on the equipment's rank."
             }.Register(FlagType.Equipment);
 
-            EquipSamePassiveCategory = new ComboBoxFlagProperty()
+            EquipSamePassiveCategory = new ComboBoxFlagProperty("Same Category Always")
             {
                 Text = "Upgraded Equipment Behavior",
                 ID = "EqPassiveUpg",
@@ -188,7 +188,7 @@ public class FF13Flags
                 Values = new string[] { "Same Category Always", "Switch Category At Cap (Acc. Only)", "Switch Category At Cap (All)", "Random Always" }.ToList()
             }.Register(RandEquipPassives);
 
-            RandEquipSynthGroup = new Flag()
+            RandEquipSynthGroup = new Flag(false)
             {
                 Text = "Randomize Equipment Synthesis Groups",
                 FlagID = "RandEqSynth",
@@ -206,7 +206,7 @@ public class FF13Flags
 
         internal static void Init()
         {
-            Treasures = new Flag()
+            Treasures = new Flag(false)
             {
                 Text = "Randomize Item Locations",
                 FlagID = "Treasures",
@@ -215,63 +215,63 @@ public class FF13Flags
                 "Does not include roles, crystarium expansions, shops, or Gysahl Reins."
             }.Register(FlagType.Items);
 
-            KeyInitRoles = new ToggleFlagProperty()
+            KeyInitRoles = new ToggleFlagProperty(false)
             {
                 Text = "Include Starting Roles",
                 ID = "KeyInitRoles",
                 Description = "Starting roles given at the start of the game will be included in the pool of key items."
             }.Register(Treasures);
 
-            KeyRoles = new ToggleFlagProperty()
+            KeyRoles = new ToggleFlagProperty(false)
             {
                 Text = "Include Other Roles",
                 ID = "KeyRoles",
                 Description = "Other roles given throughout the game will be included in the pool of key items."
             }.Register(Treasures);
 
-            KeyStages = new ToggleFlagProperty()
+            KeyStages = new ToggleFlagProperty(false)
             {
                 Text = "Include Crystarium Expansions",
                 ID = "KeyStages",
                 Description = "The 9 crystarium expansions will be included in the pool of key items."
             }.Register(Treasures);
 
-            KeyEidolith = new ToggleFlagProperty()
+            KeyEidolith = new ToggleFlagProperty(false)
             {
                 Text = "Include Eidoliths",
                 ID = "KeyEidolith",
                 Description = "The eidoliths will be included in the pool of key items."
             }.Register(Treasures);
 
-            KeyShops = new ToggleFlagProperty()
+            KeyShops = new ToggleFlagProperty(false)
             {
                 Text = "Include Shops",
                 ID = "KeyShops",
                 Description = "The shops, shop upgrades and the Omni-kit will be included in the pool of key items."
             }.Register(Treasures);
 
-            KeyReins = new ToggleFlagProperty()
+            KeyReins = new ToggleFlagProperty(false)
             {
                 Text = "Include Gysahl Reins",
                 ID = "KeyReins",
                 Description = "The Gysahl Reins will be included in the pool of key items."
             }.Register(Treasures);
 
-            KeyPlaceTreasure = new ToggleFlagProperty()
+            KeyPlaceTreasure = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Treasures",
                 ID = "KeyPlaceTreas",
                 Description = "Key items are also allowed in treasures and story rewards/drops."
             }.Register(Treasures);
 
-            KeyPlaceMissions = new ToggleFlagProperty()
+            KeyPlaceMissions = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Missions",
                 ID = "KeyPlaceMissions",
                 Description = "Key items are also allowed in first time mission rewards."
             }.Register(Treasures);
 
-            KeyDepth = new ComboBoxFlagProperty()
+            KeyDepth = new ComboBoxFlagProperty("Normal")
             {
                 Text = "Item Difficulty Depth",
                 ID = "KeyDepth",
@@ -285,7 +285,7 @@ public class FF13Flags
                 Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
             }.Register(Treasures);
 
-            DifficultyScaling = new NumberFlagProperty()
+            DifficultyScaling = new NumberFlagProperty(0)
             {
                 Text = "Difficulty Handicap",
                 ID = "DiffScale",
@@ -295,7 +295,7 @@ public class FF13Flags
                 MaxValue = 5
             }.Register(Treasures);
 
-            ReplaceRank = new NumberFlagProperty()
+            ReplaceRank = new NumberFlagProperty(0)
             {
                 Text = "Junk Item Rank Range",
                 ID = "JunkRange",
@@ -305,7 +305,7 @@ public class FF13Flags
                 MaxValue = 15
             }.Register(Treasures);
 
-            ReplaceAny = new ToggleFlagProperty()
+            ReplaceAny = new ToggleFlagProperty(false)
             {
                 Text = "Replace Junk Items From Any Category",
                 ID = "ReplaceJunkAny",
@@ -313,42 +313,42 @@ public class FF13Flags
                 "Ex: Potions can be replaced with Turbojets."
             }.Register(Treasures);
 
-            ShuffleRoles = new Flag()
+            ShuffleRoles = new Flag(false)
             {
                 Text = "Shuffle Roles",
                 FlagID = "ShuffleRoles",
                 DescriptionFormat = "Shuffle roles for each character. Each character will start with COM or RAV. Sazh always starts with RAV."
             }.Register(FlagType.Items);
 
-            ShuffleShops = new Flag()
+            ShuffleShops = new Flag(false)
             {
                 Text = "Shuffle Shops",
                 FlagID = "ShuffleShops",
                 DescriptionFormat = "Shuffle shops and shop upgrades between themselves."
             }.Register(FlagType.Items);
 
-            StartingEquip = new Flag()
+            StartingEquip = new Flag(false)
             {
                 Text = "Randomize Starting Equipment",
                 FlagID = "StartingEquip",
                 DescriptionFormat = "Randomizes starting equipment with other weapons found in treasures or rewards."
             }.Register(FlagType.Items);
 
-            ShopContents = new Flag()
+            ShopContents = new Flag(false)
             {
                 Text = "Randomize Shop Contents",
                 FlagID = "ShopContents",
                 DescriptionFormat = "Randomizes shop contents within their expected shops. Items required for the Treasure Hunter achievement will be added to shops as well."
             }.Register(FlagType.Items);
 
-            AnyShop = new ToggleFlagProperty()
+            AnyShop = new ToggleFlagProperty(false)
             {
                 Text = "Items Appear in Any Shop",
                 ID = "AnyShop",
                 Description = "Items can appear in other shops aside from their vanilla shops."
             }.Register(ShopContents);
 
-            ShopContentOrder = new ToggleFlagProperty()
+            ShopContentOrder = new ToggleFlagProperty(false)
             {
                 Text = "Late Shop Expansions Contain Better Items",
                 ID = "ShopOrder",
@@ -364,14 +364,14 @@ public class FF13Flags
 
         internal static void Init()
         {
-            EnemiesFlag = new Flag()
+            EnemiesFlag = new Flag(false)
             {
                 Text = "Randomize Enemies",
                 FlagID = "Enemies",
                 DescriptionFormat = "Randomizes enemies."
             }.Register(FlagType.Enemies);
 
-            EnemyVariety = new ComboBoxFlagProperty()
+            EnemyVariety = new ComboBoxFlagProperty("1-1 Only")
             {
                 Text = "Enemy Variety",
                 ID = "EnemyVariety",
@@ -382,7 +382,7 @@ public class FF13Flags
                 Values = new string[] { "1-to-1 Only", "Randomize Each Enemy", "Randomize Each Enemy with New Enemies [EXPERIMENTAL]" }.ToList()
             }.Register(EnemiesFlag);
 
-            EnemyRank = new NumberFlagProperty()
+            EnemyRank = new NumberFlagProperty(0)
             {
                 Text = "Enemy Rank Range",
                 ID = "EnemyRank",
@@ -399,7 +399,7 @@ public class FF13Flags
 
         internal static void Init()
         {
-            Music = new Flag()
+            Music = new Flag(false)
             {
                 Text = "Shuffle Music",
                 FlagID = "Music",
@@ -414,7 +414,7 @@ public class FF13Flags
 
         internal static void Init()
         {
-            HighStats = new Flag()
+            HighStats = new Flag(false)
             {
                 Text = "[DEBUG] High Initial Stats",
                 FlagID = "DbgStats",
@@ -422,7 +422,7 @@ public class FF13Flags
                 Debug = true
             }.Register(FlagType.Debug);
 
-            LowEnemyHP = new Flag()
+            LowEnemyHP = new Flag(false)
             {
                 Text = "[DEBUG] Low Enemy HP",
                 FlagID = "DbgEnemyHP",

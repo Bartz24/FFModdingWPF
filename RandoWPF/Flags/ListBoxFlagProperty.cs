@@ -9,6 +9,11 @@ namespace Bartz24.RandoWPF;
 [JsonObject(MemberSerialization.OptIn)]
 public class ListBoxFlagProperty : FlagProperty
 {
+    public ListBoxFlagProperty(List<string> defaultValue) : base(defaultValue)
+    {
+        selectedValues = defaultValue;
+    }
+
     public override ListBoxFlagProperty Register(Flag parent)
     {
         base.Register(parent);
@@ -30,7 +35,15 @@ public class ListBoxFlagProperty : FlagProperty
     [JsonProperty]
     public virtual IList SelectedValues
     {
-        get => selectedValues?.OrderBy(s => s).ToList();
+        get
+        {
+            if (RandoFlags.Mode == RandoFlags.SeedMode.Archipelago && (ParentFlag.HasArchipelagoOverride || DisabledByArchipelago))
+            {
+                return GetDefaultValue<List<string>>();
+            }
+
+            return selectedValues?.OrderBy(s => s).ToList();
+        }
         set
         {
             selectedValues = value.Cast<string>().ToList();

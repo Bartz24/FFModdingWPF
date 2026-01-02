@@ -13,8 +13,9 @@ namespace Bartz24.RandoWPF;
 [JsonObject(MemberSerialization.OptIn)]
 public class Flag : INotifyPropertyChanged
 {
-    public Flag()
+    public Flag(bool defaultEnabled)
     {
+        DefaultValue = defaultEnabled;
     }
 
     public virtual Flag Register(object type, bool isTweak = false)
@@ -57,6 +58,7 @@ public class Flag : INotifyPropertyChanged
     public bool Experimental { get; set; }
     public bool Aesthetic { get; set; }
     public bool Debug { get; set; }
+    public bool DefaultValue { get; set; } = false;
     public string DescriptionFormat { get; set; } = "";
     public string Description => (Experimental ? "[EXPERIMENTAL]\n" : "") + DescriptionFormatting.Apply(CurrentDescriptionFormat, this);
 
@@ -88,7 +90,15 @@ public class Flag : INotifyPropertyChanged
     [JsonProperty]
     public bool FlagEnabled
     {
-        get => flagEnabled;
+        get
+        {
+            if (RandoFlags.Mode == RandoFlags.SeedMode.Archipelago && HasArchipelagoOverride)
+            {
+                return DefaultValue;
+            }
+
+            return flagEnabled;
+        }
         set
         {
             flagEnabled = value;
@@ -144,7 +154,7 @@ public class Flag : INotifyPropertyChanged
 
     private static Flag EmptyFlag()
     {
-        Flag flag = new()
+        Flag flag = new(false)
         {
             Text = ""
         };
