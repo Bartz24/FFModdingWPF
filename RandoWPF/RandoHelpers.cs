@@ -14,7 +14,7 @@ public class RandoHelpers
 
     public static void SaveSeedJSON(string file)
     {
-        string output = RandoFlags.Serialize(SetupData.Seed.Clean(), SetupData.Version);
+        string output = RandoFlags.Serialize(SetupData.Seed.Clean(1000), SetupData.Version);
         File.WriteAllText(file, output);
     }
 }
