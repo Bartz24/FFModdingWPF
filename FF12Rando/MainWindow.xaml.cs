@@ -82,6 +82,7 @@ public partial class MainWindow : Window
         DataContext = this;
         HideProgressBar();
         DataExtensions.Mode = ByteMode.LittleEndian;
+        ff12SetupPage.SetAPFileExtension(".apff12ow");
 
         APVisible = Visibility.Hidden;
         RandoFlags.SelectedChanged += (s, e) =>

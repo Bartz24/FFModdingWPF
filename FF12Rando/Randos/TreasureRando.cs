@@ -423,7 +423,7 @@ public partial class TreasureRando : Randomizer
         pages.Add("item_locations", page);
 
         // Add table for progression playthrough
-        if (ItemPlacer.PlaythroughCalculator != null)
+        if (ItemPlacer?.PlaythroughCalculator != null)
         {
             var locations = ItemPlacer.PlaythroughCalculator.FinalLocations.Select(l => l.loc).ToList();
             HTMLPage playPage = new("Progression Playthrough", "template/documentation.html");

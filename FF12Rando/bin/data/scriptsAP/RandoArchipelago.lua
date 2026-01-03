@@ -35,25 +35,19 @@ local function onFlipAdd()
 end
 
 local function read_comm_file()
-    -- Read from %LOCALAPPDATA%/FF12OpenWorldAP/items_received.txt
-    local filepath = os.getenv("LOCALAPPDATA") .. "\\FF12OpenWorldAP\\items_received.txt"
-    local file = io.open(filepath, "r")
-    if not file then return nil end  -- Handle missing file or unable to read at the moment
+    -- Read from %LOCALAPPDATA%/FF12OpenWorldAP/items_received_####.txt
 
     local index = getRandoIndex()
+    
+    local filepath = os.getenv("LOCALAPPDATA") .. "\\FF12OpenWorldAP\\items_received_" .. string.format("%04d", index) .. ".txt"
+    local file = io.open(filepath, "r")
+    if not file then return nil end  -- Item not received yet
 
-    local line
-    for i = 0, index do
-        line = file:read("*l")  -- Read line by line
-        if not line or line == "" then
-            file:close()
-            return nil  -- Return nil if index is out of bounds
-        end
-    end
+    -- Parse id num from first line and count num from second line
+    local id = file:read("*l")
+    local count = file:read("*l")
     file:close()
-
-    -- Parse line formatted as <ITEM_ID>|<ITEM_COUNT>
-    local id, count = line:match("(%d+)|(%d+)")
+    
     if id and count then
         return {tonumber(id), tonumber(count)}
     end
@@ -67,13 +61,13 @@ local function addItems()
     local scenario_flag = readScenarioFlag()
 
     if map_id == 0 or map_id > 0xFFFF or map_id <= 12 or map_id == 274 or game_state ~= 0 or scenario_flag < 45 then
-        event.executeAfterMs(100, addItems)
+        event.executeAfterMs(200, addItems)
         return
     end
 
     local next_item = read_comm_file()
     if next_item == nil then
-        event.executeAfterMs(100, addItems)
+        event.executeAfterMs(200, addItems)
         return
     end
 
@@ -88,7 +82,7 @@ local function addItems()
     end
     incRandoIndex()
 
-    event.executeAfterMs(100, addItems)
+    event.executeAfterMs(150, addItems)
 end
 
 
