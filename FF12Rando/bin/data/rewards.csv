@@ -237,7 +237,7 @@ Golmore Jungle S,Biding Mantis - Scythe Trophy,90A1,AND(I(80B8)|I(HuntClubStart)
 Feywood,Dreadguard - Feathered Trophy,90A2,AND(I(80B8)|I(HuntClubStart)),7,
 Great Crystal,Crystal Knight - Skull Trophy,90A3,AND(I(80B8)|I(HuntClubStart)),5,
 Paramina Rift,Ancbolder - Mind Trophy,90A4,AND(I(80B8)|I(HuntClubStart)),5,
-Stilshrine of Miriam,Myath - Eternal Trophy,90A5,AND(I(80B8)|I(HuntClubStart)),5,
+Stilshrine of Miriam,Myath - Eternal Trophy,90A5,AND(I(80B8)|I(HuntClubStart)|I(8078)),5,
 Phon Coast,Skullash - Clawed Trophy,90A6,AND(I(80B8)|I(HuntClubStart)),7,
 Tchita Uplands,Kris - Odiferous Trophy,90A7,AND(I(80B8)|I(HuntClubStart)),7,
 Tchita Uplands,Grimalkin - Whiskered Trophy,90A8,AND(I(80B8)|I(HuntClubStart)),7,

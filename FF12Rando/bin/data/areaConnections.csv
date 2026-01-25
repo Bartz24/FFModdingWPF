@@ -122,3 +122,4 @@ Nalbina -> Aerodrome,Nalbina Fortress,Aerodrome,,,0
 Archades -> Aerodrome,Archades,Aerodrome,,,0
 Balfonheim -> Aerodrome,Balfonheim,Aerodrome,,,0
 Pharos -> Balfonheim,Pharos of Ridorana,Balfonheim,AND(I(2116|3)|OR(I(808B)|I(808C))|OR(SELECT(2|I(8078)|I(80AC)|I(8089)))),,5
+Trials,Initial,Trials,,,0

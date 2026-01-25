@@ -92,10 +92,6 @@ end
 
 print("Rando Open World Archipelago Hook: Applying patch.")
 
--- Delete the items_received.txt file on start up
-local filepath = os.getenv("LOCALAPPDATA") .. "\\FF12OpenWorldAP\\items_received.txt"
-os.remove(filepath)
-
 event.registerEventAsync("onInitDone", addItems)
 event.registerEventAsync("exit", onExit)
 event.registerEventSync("onFlip", onFlipAdd)
