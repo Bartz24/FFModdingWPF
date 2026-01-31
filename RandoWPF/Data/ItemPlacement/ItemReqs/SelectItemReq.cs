@@ -82,4 +82,20 @@ public class SelectItemReq : ItemReq
         string list = $"[{string.Join(",\n", reqs.Select(r => r.GetArchipelagoRule(itemNameFunc)))}]";
         return $"state_has_at_least({list}, {count})";
     }
+
+    public override List<T> GetOf<T>()
+    {
+        List<T> list = new();
+        foreach (ItemReq req in reqs)
+        {
+            if (req is T tReq)
+            {
+                list.Add(tReq);
+            }
+
+            list.AddRange(req.GetOf<T>());
+        }
+
+        return list;
+    }
 }

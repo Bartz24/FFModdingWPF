@@ -6,25 +6,25 @@ namespace Bartz24.RandoWPF;
 
 public class AreaItemReq : ItemReq
 {
-    private readonly string area;
+    public string Area { get; }
     public AreaItemReq(string area)
     {
-        this.area = area;
+        this.Area = area;
     }
     protected override bool IsMet(ProgressionState state)
     {
-        return state.AreasAccessible.Contains(area);
+        return state.AreasAccessible.Contains(Area);
     }
 
     protected override List<string> GetPossibleRequirementsImpl()
     {
-        return new string[] { area }.ToList();
+        return new string[] { Area }.ToList();
     }
     public override int GetPossibleRequirementsCount() { return 1; }
 
     public override string GetDisplay(Func<string, string> itemNameFunc)
     {
-        return $"{area} Access";
+        return $"{Area} Access";
     }
 
     public override int GetDifficulty(ProgressionState state)
@@ -40,16 +40,21 @@ public class AreaItemReq : ItemReq
     public override bool Equals(object obj)
     {
         return obj is AreaItemReq req &&
-               area == req.area;
+               Area == req.Area;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(area);
+        return HashCode.Combine(Area);
     }
 
     public override string GetArchipelagoRule(Func<string, string> itemNameFunc)
     {
-        return $"state.can_reach_region(\"{area}\", player)";
+        return $"state.can_reach_region(\"{Area}\", player)";
+    }
+
+    public override List<T> GetOf<T>()
+    {
+        return new List<T>();
     }
 }

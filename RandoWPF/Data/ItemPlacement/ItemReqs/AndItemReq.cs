@@ -78,4 +78,20 @@ public class AndItemReq : ItemReq
     {
         return $"({string.Join(" and\n", reqs.Select(r => r.GetArchipelagoRule(itemNameFunc)))})";
     }
+
+    public override List<T> GetOf<T>()
+    {
+        List<T> list = new();
+        foreach (ItemReq req in reqs)
+        {
+            if (req is T tReq)
+            {
+                list.Add(tReq);
+            }
+
+            list.AddRange(req.GetOf<T>());
+        }
+
+        return list;
+    }
 }

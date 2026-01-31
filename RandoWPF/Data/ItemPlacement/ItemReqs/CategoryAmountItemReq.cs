@@ -62,4 +62,8 @@ public class CategoryAmountItemReq : ItemReq
     {
         return $"state_has_category(state, player, \"{category}\", {amount})";
     }
+    public override List<T> GetOf<T>()
+    {
+        return new List<T>();
+    }
 }

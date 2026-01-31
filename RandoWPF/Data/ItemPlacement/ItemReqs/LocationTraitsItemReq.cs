@@ -59,4 +59,9 @@ public class LocationTraitsItemReq : ItemReq
     {
         return $"state_has_location_trait(state, player, \"{trait}\", {amount})";
     }
+
+    public override List<T> GetOf<T>()
+    {
+        return new List<T>();
+    }
 }

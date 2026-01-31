@@ -396,6 +396,43 @@ internal class FF12MultiworldGenerator
         });
         script += "}\n";
 
+        // Write table of indirect entrances (area -> entrance tuples)
+        script += "\nindirect_entrance_table: Dict[str, List[Tuple[str, str]]] = {\n";
+        Dictionary<string, List<(string From, string To)>> indirects = new();
+        TreasureRando.AreaGraph.Connections.Where(c=>c.Traits.Contains("Indirect")).ForEach(c =>
+        {
+            // Get the indirect areas of the connection from the area req components
+            var indirectAreas = c.Requirements.GetOf<AreaItemReq>().Select(r => r.Area).Distinct().ToList();
+
+            indirectAreas.ForEach(area =>
+            {
+                if (!indirects.ContainsKey(area))
+                {
+                    indirects[area] = new();
+                }
+
+                indirects[area].Add((c.FromAreaName, c.ToAreaName));
+            });
+        });
+
+        foreach (var kvp in indirects)
+        {
+            script += $"    \"{kvp.Key}\": [";
+            for (int i = 0; i < kvp.Value.Count; i++)
+            {
+                if (i > 0)
+                {
+                    script += ", ";
+                }
+
+                script += $"(\"{kvp.Value[i].From}\", \"{kvp.Value[i].To}\")";
+            }
+
+            script += "],\n";
+        }
+
+        script += "}\n";
+
         File.WriteAllText(Path.Combine(OutputDir, "Rules.py"), script);
 
     }

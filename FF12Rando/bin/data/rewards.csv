@@ -246,7 +246,7 @@ Sochen Cave Palace Middle,Anubys - Ensanguined Trophy,90AA,AND(I(80B8)|I(HuntClu
 Cerobi Steppe,Bluesang - Cruel Trophy,90AB,AND(I(80B8)|I(HuntClubStart)),7,
 Cerobi Steppe,Aspidochelon - Adamantine Trophy,90AC,AND(I(80B8)|I(HuntClubStart)),7,
 Ridorana Cataract,Abelisk - Reptilian Trophy,90AD,AND(I(80B8)|I(HuntClubStart)),7,
-Pharos of Ridorana,Avenger - Vile Trophy,90AE,AND(I(80B8)|I(HuntClubStart)),7,
+Pharos of Ridorana,Avenger - Vile Trophy,90AE,AND(I(80B8)|I(HuntClubStart)|I(2116|3)),7,
 Archades,Hunt Club Owner 5 Trophy Rares Defeated,90F9,AND(I(2112)|I(HuntClubKill|5)),6,Grindy
 Archades,Hunt Club Owner 10 Trophy Rares Defeated,90FA,AND(I(2112)|I(HuntClubKill|10)),7,Grindy
 Archades,Hunt Club Owner 15 Trophy Rares Defeated,90FB,AND(I(2112)|I(HuntClubKill|15)),7,Grindy

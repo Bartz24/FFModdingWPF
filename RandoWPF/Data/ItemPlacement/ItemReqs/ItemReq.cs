@@ -260,4 +260,11 @@ public abstract class ItemReq
     }
 
     public abstract string GetArchipelagoRule(Func<string, string> itemNameFunc);
+
+    /// <summary>
+    /// Get all sub-requirements of type T
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public abstract List<T> GetOf<T>() where T : ItemReq;
 }

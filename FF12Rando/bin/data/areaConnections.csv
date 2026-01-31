@@ -14,7 +14,7 @@ Royal Palace -> Nalbina Dungeon,Royal Palace,Nalbina Dungeon,,,1
 Nalbina Dungeon -> Barheim Passage Shop,Nalbina Dungeon,Barheim Passage Shop,,,1
 Royal Palace -> Barheim Passage Story,Royal Palace,Barheim Passage Story,,,1
 Barheim Passage Story -> Estersand,Barheim Passage Story,Dalmasca Estersand,,,1
-Barheim Passage -> Garamsythe,Barheim Passage,Garamsythe Waterway,A(Barheim Passage),,4
+Barheim Passage -> Garamsythe,Barheim Passage,Garamsythe Waterway,,,4
 Estersand <-> Barheim Passage,Barheim Passage,Dalmasca Estersand,I(8093),BothWays,4
 Estersand <-> Nalbina,Dalmasca Estersand,Nalbina Fortress,,BothWays,1
 Estersand <-> Giza Dry,Dalmasca Estersand,Giza Plains Dry,,BothWays,1
@@ -105,16 +105,29 @@ Phon <-> Strahl,Phon Coast,Strahl,I(2118|3),BothWays,2
 Tchita <-> Strahl,Tchita Uplands,Strahl,I(2118|3),BothWays,3
 Cerobi <-> Strahl,Cerobi Steppe,Strahl,I(2118|3),BothWays,5
 Ridorana <-> Strahl,Ridorana Cataract,Strahl,I(2118|2),BothWays,5
-Rabanastre <-> Nalbina Skyferry,Initial,Rabanastre <-> Nalbina Skyferry,AND(I(80E1)|I(80E2)|A(Rabanastre)|A(Nalbina Fortress)),,0
-Rabanastre <-> Bhujerba Skyferry,Initial,Rabanastre <-> Bhujerba Skyferry,AND(I(80E1)|I(80E3)|A(Rabanastre)|A(Bhujerba)),,0
-Rabanastre <-> Archades Skyferry,Initial,Rabanastre <-> Archades Skyferry,AND(I(80E1)|I(80E4)|A(Rabanastre)|A(Archades)),,0
-Nalbina <-> Archades Skyferry,Initial,Nalbina <-> Archades Skyferry,AND(I(80E2)|I(80E4)|A(Nalbina Fortress)|A(Archades)),,0
-Nalbina <-> Balfonheim Skyferry,Initial,Nalbina <-> Balfonheim Skyferry,AND(I(80E2)|I(80E5)|A(Nalbina Fortress)|A(Balfonheim)),,0
-Bhujerba <-> Balfonheim Skyferry,Initial,Bhujerba <-> Balfonheim Skyferry,AND(I(80E3)|I(80E5)|A(Bhujerba)|A(Balfonheim)),,0
-Archades <-> Balfonheim Skyferry,Initial,Archades <-> Balfonheim Skyferry,AND(I(80E4)|I(80E5)|A(Archades)|A(Balfonheim)),,0
+Rabanastre <-> Nalbina Skyferry from Rabanastre,Rabanastre,Rabanastre <-> Nalbina Skyferry,AND(I(80E1)|I(80E2)),,0
+Rabanastre <-> Nalbina Skyferry from Nalbina,Nalbina Fortress,Rabanastre <-> Nalbina Skyferry,AND(I(80E1)|I(80E2)),,0
+Rabanastre <-> Bhujerba Skyferry from Rabanastre,Rabanastre,Rabanastre <-> Bhujerba Skyferry,AND(I(80E1)|I(80E3)),,0
+Rabanastre <-> Bhujerba Skyferry from Bhujerba,Bhujerba,Rabanastre <-> Bhujerba Skyferry,AND(I(80E1)|I(80E3)),,0
+Rabanastre <-> Archades Skyferry from Rabanastre,Rabanastre,Rabanastre <-> Archades Skyferry,AND(I(80E1)|I(80E4)),,0
+Rabanastre <-> Archades Skyferry from Archades,Archades,Rabanastre <-> Archades Skyferry,AND(I(80E1)|I(80E4)),,0
+Nalbina <-> Archades Skyferry from Nalbina,Nalbina Fortress,Nalbina <-> Archades Skyferry,AND(I(80E2)|I(80E4)),,0
+Nalbina <-> Archades Skyferry from Archades,Archades,Nalbina <-> Archades Skyferry,AND(I(80E2)|I(80E4)),,0
+Nalbina <-> Balfonheim Skyferry from Nalbina,Nalbina Fortress,Nalbina <-> Balfonheim Skyferry,AND(I(80E2)|I(80E5)),,0
+Nalbina <-> Balfonheim Skyferry from Balfonheim,Balfonheim,Nalbina <-> Balfonheim Skyferry,AND(I(80E2)|I(80E5)),,0
+Bhujerba <-> Balfonheim Skyferry from Bhujerba,Bhujerba,Bhujerba <-> Balfonheim Skyferry,AND(I(80E3)|I(80E5)),,0
+Bhujerba <-> Balfonheim Skyferry from Balfonheim,Balfonheim,Bhujerba <-> Balfonheim Skyferry,AND(I(80E3)|I(80E5)),,0
+Archades <-> Balfonheim Skyferry from Archades,Archades,Archades <-> Balfonheim Skyferry,AND(I(80E4)|I(80E5)),,0
+Archades <-> Balfonheim Skyferry from Balfonheim,Balfonheim,Archades <-> Balfonheim Skyferry,AND(I(80E4)|I(80E5)),,0
 Bhujerba -> Leviathan,Bhujerba,Dreadnought Leviathan,OR(I(Basch)|I(80AC)),,1
 Draklor -> Balfonheim,Draklor Laboratory,Balfonheim,I(809E),,5
-Skyferry,Initial,Skyferry,OR(A(Rabanastre <-> Nalbina Skyferry)|A(Rabanastre <-> Bhujerba Skyferry)|A(Rabanastre <-> Archades Skyferry)|A(Nalbina <-> Archades Skyferry)|A(Nalbina <-> Balfonheim Skyferry)|A(Bhujerba <-> Balfonheim Skyferry)|A(Archades <-> Balfonheim Skyferry)),,0
+Skyferry from Rabanastre <-> Nalbina,Rabanastre <-> Nalbina Skyferry,Skyferry,,,0
+Skyferry from Rabanastre <-> Bhujerba,Rabanastre <-> Bhujerba Skyferry,Skyferry,,,0
+Skyferry from Rabanastre <-> Archades,Rabanastre <-> Archades Skyferry,Skyferry,,,0
+Skyferry from Nalbina <-> Archades,Nalbina <-> Archades Skyferry,Skyferry,,,0
+Skyferry from Nalbina <-> Balfonheim,Nalbina <-> Balfonheim Skyferry,Skyferry,,,0
+Skyferry from Bhujerba <-> Balfonheim,Bhujerba <-> Balfonheim Skyferry,Skyferry,,,0
+Skyferry from Archades <-> Balfonheim,Archades <-> Balfonheim Skyferry,Skyferry,,,0
 Bahamut Unlock,Rabanastre,Bahamut,AND(I(8070)|I(2118)),,5
 Rabanastre -> Aerodrome,Rabanastre,Aerodrome,,,0
 Bhujerba -> Aerodrome,Bhujerba,Aerodrome,,,0

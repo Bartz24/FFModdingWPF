@@ -77,4 +77,9 @@ public class MaxAmountItemReq : ItemReq
             return $"not state.has(\"{itemNameFunc(item)}\", player, {amount})";
         }*/
     }
+
+    public override List<T> GetOf<T>()
+    {
+        return new List<T>();
+    }
 }

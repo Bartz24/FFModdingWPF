@@ -46,4 +46,8 @@ public class BoolItemReq : ItemReq
             return "False";
         }
     }
+    public override List<T> GetOf<T>()
+    {
+        return new List<T>();
+    }
 }
