@@ -1,4 +1,5 @@
-﻿using Bartz24.RandoWPF;
+﻿using Bartz24.Data;
+using Bartz24.RandoWPF;
 using Bartz24.RandoWPF.Data.Areas;
 using Bartz24.RandoWPF.Logic;
 using System;
@@ -18,9 +19,9 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 
     }
 
-    protected override HashSet<ItemLocation> GetLocationsForPlacer(HashSet<ItemLocation> usedLocations, ItemPlacer<ItemLocation> placer)
+    protected override OrderedSet<ItemLocation> GetLocationsForPlacer(OrderedSet<ItemLocation> usedLocations, ItemPlacer<ItemLocation> placer)
     {
-        var possible = PossibleLocations.Except(usedLocations).ToHashSet();
+        var possible = PossibleLocations.Except(usedLocations).ToOrderedSet();
 
         if (placer == ProgressionPlacer)
         {
@@ -28,7 +29,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         }
         else if (placer == UsefulPlacer)
         {
-            return possible.Where(l => !l.Traits.Contains("Missable")).ToHashSet();
+            return possible.Where(l => !l.Traits.Contains("Missable")).ToOrderedSet();
         }
         else if (placer == JunkPlacer)
         {
@@ -40,7 +41,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         }
     }
 
-    protected HashSet<ItemLocation> GetProgressionLocations(HashSet<ItemLocation> possible)
+    protected OrderedSet<ItemLocation> GetProgressionLocations(OrderedSet<ItemLocation> possible)
     {
         return possible.Where(l =>
         {
@@ -105,12 +106,12 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
             }
 
             return false;
-        }).ToHashSet();
+        }).ToOrderedSet();
     }
 
-    protected override HashSet<ItemLocation> GetReplacementsForPlacer(HashSet<ItemLocation> usedReplacements, ItemPlacer<ItemLocation> placer)
+    protected override OrderedSet<ItemLocation> GetReplacementsForPlacer(OrderedSet<ItemLocation> usedReplacements, ItemPlacer<ItemLocation> placer)
     {
-        var remaining = Replacements.Except(usedReplacements).ToHashSet();
+        var remaining = Replacements.Except(usedReplacements).ToOrderedSet();
         if (placer == ProgressionPlacer)
         {
             return remaining.Where(l =>
@@ -134,7 +135,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
                 }
 
                 return false;
-            }).ToHashSet();
+            }).ToOrderedSet();
         }
         else if (placer == UsefulPlacer)
         {
@@ -142,7 +143,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
                 .Where(l => 
                     l.GetItem(false).Value.Item.StartsWith("30") ||
                     l.GetItem(false).Value.Item.StartsWith("40"))
-                .ToHashSet();
+                .ToOrderedSet();
         }
         else if (placer == JunkPlacer)
         {
@@ -206,7 +207,9 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 
     protected override void RebuildPlacers()
     {
-        Dictionary<string, double> areaMults = PossibleLocations.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
+        RandomNum.AddTestVal("Rebuild Placers start");
+        Dictionary<string, double> areaMults = PossibleLocations.SelectMany(t => t.Areas).Distinct().OrderBy(a => a).ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
+        RandomNum.AddTestVal("Rebuild Placers after mults");
 
         ProgressionPlacer = new(Generator, AreaGraph, GetDifficulty(), areaMults);
         ProgressionPlacer.FixedLocations = GetFixedLocations();
@@ -214,6 +217,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         JunkPlacer = new(Generator, this);
 
         Placers = new() { ProgressionPlacer, UsefulPlacer, JunkPlacer };
+        RandomNum.AddTestVal("Rebuild Placers end");
     }
 
     protected override void PostPlacement()

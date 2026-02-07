@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Bartz24.Data;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ public class ItemReorderer<T, I> where T : ItemLocation where I : IItem
         Generator = generator;
     }
 
-    public void ReorderItems(HashSet<T> locations, SphereCalculator<T> sphereCalculator)
+    public void ReorderItems(OrderedSet<T> locations, SphereCalculator<T> sphereCalculator)
     {
         RandoUI.SetUIProgressIndeterminate($"Reordering items.");
         // Get all the locations with matching items and group by their item type

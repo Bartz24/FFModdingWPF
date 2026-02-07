@@ -1,4 +1,5 @@
-﻿using Bartz24.RandoWPF.Data.Areas;
+﻿using Bartz24.Data;
+using Bartz24.RandoWPF.Data.Areas;
 using Bartz24.RandoWPF.Logic;
 using Microsoft.Extensions.Logging;
 using System;
@@ -46,7 +47,7 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
     /// <param name="usedLocations"></param>
     /// <param name="placer"></param>
     /// <returns></returns>
-    protected abstract HashSet<L> GetLocationsForPlacer(HashSet<L> usedLocations, ItemPlacer<L> placer);
+    protected abstract OrderedSet<L> GetLocationsForPlacer(OrderedSet<L> usedLocations, ItemPlacer<L> placer);
 
     /// <summary>
     /// Each placer should return assuming the previous placers have already used some replacements.
@@ -55,7 +56,7 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
     /// <param name="usedReplacements"></param>
     /// <param name="placer"></param>
     /// <returns></returns>
-    protected abstract HashSet<L> GetReplacementsForPlacer(HashSet<L> usedReplacements, ItemPlacer<L> placer);
+    protected abstract OrderedSet<L> GetReplacementsForPlacer(OrderedSet<L> usedReplacements, ItemPlacer<L> placer);
 
     /// <summary>
     /// Should include any fake locations as well.
@@ -63,9 +64,9 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
     /// <returns></returns>
     public abstract bool IsFixedLocation(L location);
 
-    public virtual HashSet<L> GetFixedLocations()
+    public virtual OrderedSet<L> GetFixedLocations()
     {
-        return PossibleLocations.Where(IsFixedLocation).ToHashSet();
+        return PossibleLocations.Where(IsFixedLocation).ToOrderedSet();
     }
 
     protected abstract void RebuildPlacers();
@@ -79,13 +80,14 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
             throw new Exception("No placers found");
         }
 
-        HashSet<L> usedLocations = new();
+        OrderedSet<L> usedLocations = new();
         usedLocations.UnionWith(GetFixedLocations());
 
-        HashSet<L> usedReplacements = new();
+        OrderedSet<L> usedReplacements = new();
         usedReplacements.UnionWith(Placers.SelectMany(x => x.Replacements));
         usedReplacements.UnionWith(GetFixedLocations());
 
+        RandomNum.AddTestVal("Before Placers");
         foreach (var placer in Placers)
         {
             placer.PossibleLocations = GetLocationsForPlacer(usedLocations, placer);
@@ -97,6 +99,8 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
                 Generator.Logger.LogDebug("More replacements than locations, likely to fail!");
             }
             placer.PlaceItems();
+
+            RandomNum.AddTestVal(placer.GetType().Name);
 
             usedLocations.UnionWith(placer.FinalPlacement.Keys);
             usedReplacements.UnionWith(placer.FinalPlacement.Values);

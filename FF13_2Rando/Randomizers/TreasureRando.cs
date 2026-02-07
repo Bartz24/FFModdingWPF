@@ -253,8 +253,8 @@ public partial class TreasureRando : Randomizer
             // Looks like area opening isn't working (despite fake checks now existing?)
 
             ItemPlacer = new(Generator, areaGraph);
-            ItemPlacer.Replacements = ItemLocations.Values.ToHashSet();
-            ItemPlacer.PossibleLocations = ItemLocations.Values.ToHashSet();
+            ItemPlacer.Replacements = ItemLocations.Values.ToOrderedSet();
+            ItemPlacer.PossibleLocations = ItemLocations.Values.ToOrderedSet();
             ItemPlacer.PlaceItems();
             ItemPlacer.ApplyToGameData();
 

@@ -1,23 +1,25 @@
-﻿using Bartz24.RandoWPF.Data.Areas;
+﻿using Bartz24.Data;
+using Bartz24.RandoWPF.Data.Areas;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF.Logic;
 public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 {
-    public HashSet<T> FixedLocations { get; set; } = new();
+    public OrderedSet<T> FixedLocations { get; set; } = new();
     protected AreaGraph AreaGraph { get; set; }
 
     protected ProgressionState ProgState { get; set; } = new();
 
     protected List<string> UnlockedAreas { get; set; } = new();
 
-    protected Dictionary<int, HashSet<T>> UnlockedLocations { get; set; } = new();
+    protected Dictionary<int, OrderedSet<T>> UnlockedLocations { get; set; } = new();
 
     protected HashSet<T> RemainingFixed { get; set; } = new();
     protected Queue<T> RemainingToPlace { get; set; } = new();
@@ -100,10 +102,13 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         double[] refreshIncrements = new double[] { 0.1, 0.4, 0.7, double.MaxValue };
 
         T firstFailure = null;
+        int loop = 0;
         while (RemainingToPlace.Count > 0 || RemainingFixed.Count > 0)
         {
+            RandomNum.AddTestVal("Loop " + (++loop));
             // First try to place any fixed locations
             PlaceFixed();
+            RandomNum.AddTestVal($"Loop {loop} after fixed");
 
             // Occurs when fixed locations are the last ones to be placed
             if (RemainingToPlace.Count == 0)
@@ -124,6 +129,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             }
 
             T replacement = RemainingToPlace.Dequeue();
+            RandomNum.AddTestVal($"Loop {loop} after rep dequeue");
 
             // The initial depth is based on remaining items. The more items remaining, the higher the depth can be.
             // This allows items early on (first 25%) to be placed in newly unlocked areas more often.
@@ -136,7 +142,9 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             }
 
             // Find location and start with depth difficulty
+            RandomNum.AddTestVal($"Loop {loop} before selection");
             T location = SelectLocation(replacement, depth);
+            RandomNum.AddTestVal($"Loop {loop} after selection");
             if (location != null)
             {
                 PlaceItem(location, replacement);
@@ -159,6 +167,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
                 // If no location found, add to end of queue
                 RemainingToPlace.Enqueue(replacement);
             }
+            RandomNum.AddTestVal($"Loop {loop} end");
 
             RandoUI.SetUIProgressDeterminate($"Attempt {Attempts}: Placed {FinalPlacement.Count} of {Replacements.Count + FixedLocations.Count} important items.", FinalPlacement.Count, Replacements.Count + FixedLocations.Count);
         }
@@ -328,7 +337,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     protected virtual bool UpdatedUnlockedLocations()
     {
         // Increment all group keys in UnlockedLocations by 1, and move any that are depth 10 or higher into the same group of depth 10
-        Dictionary<int, HashSet<T>> newUnlockedLocations = new();
+        Dictionary<int, OrderedSet<T>> newUnlockedLocations = new();
         foreach (var group in UnlockedLocations)
         {
             int newDepth = group.Key + 1;
@@ -350,12 +359,12 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         }
 
         // Then, find any newly accessible locations and add them to UnlockedLocations with depth 0        
-        HashSet<T> newlyAccessible = GetNewlyAccessible(newUnlockedLocations, ProgState);
+        OrderedSet<T> newlyAccessible = GetNewlyAccessible(newUnlockedLocations, ProgState);
 
         newUnlockedLocations.Add(0, newlyAccessible);
 
         // Remove any locations which now cannot be accessed.
-        HashSet<T> newlyInaccessible = GetNewlyInaccessible(newUnlockedLocations, ProgState);
+        OrderedSet<T> newlyInaccessible = GetNewlyInaccessible(newUnlockedLocations, ProgState);
 
         if (newlyInaccessible.Count > 0)
         {
@@ -371,7 +380,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         return countChanged;
     }
 
-    private HashSet<T> GetNewlyAccessibleWithLocation(Dictionary<int, HashSet<T>> unlockedLocations, T addLocation)
+    private OrderedSet<T> GetNewlyAccessibleWithLocation(Dictionary<int, OrderedSet<T>> unlockedLocations, T addLocation)
     {
         var state = new ProgressionState(ProgState);
         AddFoundItem(addLocation, state);
@@ -380,17 +389,17 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     }
 
     [Obsolete("Unused?")]
-    private HashSet<T> GetNewlyInaccessibleWithLocation(Dictionary<int, HashSet<T>> unlockedLocations, T addLocation)
+    private OrderedSet<T> GetNewlyInaccessibleWithLocation(Dictionary<int, OrderedSet<T>> unlockedLocations, T addLocation)
     {
         var state = new ProgressionState(ProgState);
         AddFoundItem(addLocation, state);
         return GetNewlyInaccessible(unlockedLocations, state);
     }
 
-    private HashSet<T> GetNewlyInaccessible(Dictionary<int, HashSet<T>> unlockedLocations, ProgressionState state)
+    private OrderedSet<T> GetNewlyInaccessible(Dictionary<int, OrderedSet<T>> unlockedLocations, ProgressionState state)
     {
         var previouslyFound = unlockedLocations.SelectMany(p => p.Value).ToHashSet();
-        HashSet<T> newlyInaccessible = new();
+        OrderedSet<T> newlyInaccessible = new();
         foreach (var loc in PossibleLocations)
         {
             var finalPlacementContains = FinalPlacement.ContainsKey(loc);
@@ -405,10 +414,10 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         return newlyInaccessible;
     }
 
-    private HashSet<T> GetNewlyAccessible(Dictionary<int, HashSet<T>> unlockedLocations, ProgressionState state)
+    private OrderedSet<T> GetNewlyAccessible(Dictionary<int, OrderedSet<T>> unlockedLocations, ProgressionState state)
     {
         var previouslyFound = unlockedLocations.SelectMany(p => p.Value).ToHashSet();
-        HashSet<T> newlyAccessible = new();
+        OrderedSet<T> newlyAccessible = new();
         foreach (var loc in PossibleLocations)
         {
             if (!FinalPlacement.ContainsKey(loc) && !previouslyFound.Contains(loc) && loc.AreItemReqsMet(state))
@@ -423,10 +432,13 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     protected T SelectLocation(T replacement, int n)
     {
         // Select the first n groups. If it is empty, grow the search by 1 each time
-        var possibleLocations = UnlockedLocations.Keys.OrderBy(k => k).Take(n).SelectMany(k => UnlockedLocations[k]).ToHashSet();
+        var possibleLocations = UnlockedLocations.Keys.OrderBy(k => k).Take(n).SelectMany(k => UnlockedLocations[k]).ToList();
 
         // Remove any locations where the replacement cannot be placed
-        possibleLocations.RemoveWhere(l => !replacement.CanReplace(l));
+        possibleLocations = possibleLocations.Where(replacement.CanReplace).ToList();
+
+        // TODO This shouldn't be needed
+        possibleLocations = possibleLocations.OrderBy(l => l.ID).ToList();
 
         if (possibleLocations.Count == 0)
         {

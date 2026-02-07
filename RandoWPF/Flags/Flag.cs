@@ -165,7 +165,8 @@ public class Flag : INotifyPropertyChanged
 
     public void ResetRandom(int seed)
     {
-        Random = new Random(seed + (FlagID[0] * FlagID.Length) - Description.Length);
+        int flagSeed = seed + (FlagID[0] * FlagID.Length) - Description.Length;
+        Random = new Random(flagSeed);
     }
 
     public void SetRand()

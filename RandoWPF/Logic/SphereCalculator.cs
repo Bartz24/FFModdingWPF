@@ -1,4 +1,5 @@
-﻿using Bartz24.RandoWPF.Data.Areas;
+﻿using Bartz24.Data;
+using Bartz24.RandoWPF.Data.Areas;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.Logging;
 using System;
@@ -36,12 +37,12 @@ public class SphereCalculator<T> where T : ItemLocation
         stateCache = other.stateCache;
     }
 
-    public void CalculateSpheres(HashSet<T> locations, bool errorWhenInvalid = true)
+    public void CalculateSpheres(OrderedSet<T> locations, bool errorWhenInvalid = true)
     {
         CalculateFromSphere(locations, 0, errorWhenInvalid);
     }
 
-    public void CalculateFromSphere(HashSet<T> locations, int fromSphere, bool errorWhenInvalid = true)
+    public void CalculateFromSphere(OrderedSet<T> locations, int fromSphere, bool errorWhenInvalid = true)
     {
         if (!stateCache.ContainsKey(fromSphere))
         {

@@ -10,6 +10,16 @@ public class RandomNum
 {
     private static Random rand = null;
 
+    /// <summary>
+    /// Set test values to help reproduce why values are changing for the same seed
+    /// </summary>
+    public static Dictionary<string, int> TEST_VALUES = new();
+
+    public static void AddTestVal(string name)
+    {
+        TEST_VALUES[name] = RandomNum.NextInt(0, 1000000);
+    }
+
     public static void SetRand(Random random)
     {
         if (rand != null)
@@ -158,7 +168,7 @@ public class RandomNum
             }
 
             totalWeight += weight;
-            if (RandLong(0, totalWeight - 1) < weight)
+            if (NextLong(0, totalWeight) < weight)
             {
                 selected = item;
             }
@@ -228,17 +238,18 @@ public class RandomNum
             throw new Exception("Base not supported: " + numBase);
         }
 
-        int sum = 0;
+        Dictionary<string, int> flagValues = new Dictionary<string, int>();
         foreach (Flag flag in RandoFlags.FlagsList)
         {
             if (!flag.Aesthetic)
             {
                 flag.SetRand();
-                sum = (sum + RandomNum.RandInt(0, 1000000)) % 10000000;
+                flagValues[flag.FlagID] = RandomNum.RandInt(0, 1000000) % 10000000;
                 ClearRand();
             }
         }
 
+        int sum = flagValues.Values.Sum();
         Random random = new(sum);
         string s = "";
         for (int i = 0; i < length; i++)

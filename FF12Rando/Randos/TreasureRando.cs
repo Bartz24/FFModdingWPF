@@ -144,10 +144,12 @@ public partial class TreasureRando : Randomizer
 
             ItemPlacer = new(Generator, AreaGraph);
             ItemPlacer.Replacements = ItemLocations.Values
-                .Where(l => (l is not TreasureLocation || treasuresToPlace.Contains(l.ID)) && l.GetItem(true) != null).ToHashSet();
+                .Where(l => (l is not TreasureLocation || treasuresToPlace.Contains(l.ID)) && l.GetItem(true) != null).ToOrderedSet();
             ItemPlacer.PossibleLocations = ItemLocations.Values
-                .Where(l => l is not TreasureLocation || treasuresAllowed.Contains(l.ID)).ToHashSet();
+                .Where(l => l is not TreasureLocation || treasuresAllowed.Contains(l.ID)).ToOrderedSet();
+            RandomNum.AddTestVal("FF12 Place items");
             ItemPlacer.PlaceItems();
+            RandomNum.AddTestVal("FF12 After Place Items");
             ItemPlacer.ApplyToGameData();
 
             SetTreasureRespawns(ItemPlacer.FinalPlacement.Keys.Where(l => l is TreasureLocation).Select(l => (TreasureLocation)l).ToList());

@@ -341,4 +341,14 @@ public static class DataExtensions
 
         return cleaned;
     }
+    public static OrderedSet<TSource> ToOrderedSet<TSource>(this IEnumerable<TSource> source)
+    {
+        if (source == null)
+        {
+            throw new ArgumentNullException(nameof(source));
+        }
+
+        // Don't pre-allocate based on knowledge of size, as potentially many elements will be dropped.
+        return new OrderedSet<TSource>(source);
+    }
 }

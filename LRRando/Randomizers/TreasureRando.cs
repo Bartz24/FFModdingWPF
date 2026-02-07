@@ -172,8 +172,8 @@ public partial class TreasureRando : Randomizer
             LRFlags.Items.Treasures.SetRand();
 
             ItemPlacer = new(Generator, AreaGraph);
-            ItemPlacer.Replacements = ItemLocations.Values.ToHashSet();
-            ItemPlacer.PossibleLocations = ItemLocations.Values.ToHashSet();
+            ItemPlacer.Replacements = ItemLocations.Values.ToOrderedSet();
+            ItemPlacer.PossibleLocations = ItemLocations.Values.ToOrderedSet();
             ItemPlacer.PlaceItems();
             ItemPlacer.ApplyToGameData();
 

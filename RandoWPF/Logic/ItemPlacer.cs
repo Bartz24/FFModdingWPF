@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Bartz24.Data;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,12 @@ public abstract class ItemPlacer<T> where T : ItemLocation
     /// <summary>
     /// The items that need to be placed
     /// </summary>
-    public HashSet<T> Replacements { get; set; } = new();
+    public OrderedSet<T> Replacements { get; set; } = new();
 
     /// <summary>
     /// The allowed locations for the items
     /// </summary>
-    public HashSet<T> PossibleLocations { get; set; } = new();
+    public OrderedSet<T> PossibleLocations { get; set; } = new();
 
     public virtual Dictionary<T, T> FinalPlacement { get; set; } = new();
 

@@ -1,4 +1,5 @@
-﻿using Bartz24.RandoWPF.Data.Areas;
+﻿using Bartz24.Data;
+using Bartz24.RandoWPF.Data.Areas;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.Logging;
 using System;
@@ -24,7 +25,7 @@ public class PlaythroughCalculator<T> where T : ItemLocation
     public void CalculatePlaythrough(HashSet<T> locationsIn, bool errorWhenInvalid = true)
     {
         Dictionary<T, int> spheres = new (SphereCalculator.Spheres);
-        HashSet<T> locations = [.. locationsIn];
+        OrderedSet<T> locations = [.. locationsIn];
 
         // Work backwards the max sphere, removing items, and then recalculating the spheres to see if there is still a valid path to victory. If not, put the item back and move on to the next one.
 

@@ -1,4 +1,5 @@
-﻿using Bartz24.RandoWPF;
+﻿using Bartz24.Data;
+using Bartz24.RandoWPF;
 using Bartz24.RandoWPF.Data.Areas;
 using Bartz24.RandoWPF.Logic;
 using System;
@@ -54,9 +55,9 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
         return false;
     }
 
-    protected override HashSet<FF13_2ItemLocation> GetLocationsForPlacer(HashSet<FF13_2ItemLocation> usedLocations, ItemPlacer<FF13_2ItemLocation> placer)
+    protected override OrderedSet<FF13_2ItemLocation> GetLocationsForPlacer(OrderedSet<FF13_2ItemLocation> usedLocations, ItemPlacer<FF13_2ItemLocation> placer)
     {
-        var possible = PossibleLocations.Except(usedLocations).ToHashSet();
+        var possible = PossibleLocations.Except(usedLocations).ToOrderedSet();
 
         if (placer == ProgressionPlacer)
         {
@@ -64,7 +65,7 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
         }
         else if (placer == UsefulPlacer)
         {
-            return possible.Where(l => !l.Traits.Contains("Missable")).ToHashSet();
+            return possible.Where(l => !l.Traits.Contains("Missable")).ToOrderedSet();
         }
         else if (placer == JunkPlacer)
         {
@@ -76,7 +77,7 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
         }
     }
 
-    private HashSet<FF13_2ItemLocation> GetProgressionLocations(HashSet<FF13_2ItemLocation> possible)
+    private OrderedSet<FF13_2ItemLocation> GetProgressionLocations(OrderedSet<FF13_2ItemLocation> possible)
     {
         return possible.Where(l =>
         {
@@ -112,12 +113,12 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
             }
 
             return true;
-        }).ToHashSet();
+        }).ToOrderedSet();
     }
 
-    protected override HashSet<FF13_2ItemLocation> GetReplacementsForPlacer(HashSet<FF13_2ItemLocation> usedReplacements, ItemPlacer<FF13_2ItemLocation> placer)
+    protected override OrderedSet<FF13_2ItemLocation> GetReplacementsForPlacer(OrderedSet<FF13_2ItemLocation> usedReplacements, ItemPlacer<FF13_2ItemLocation> placer)
     {
-        var remaining = Replacements.Except(usedReplacements).ToHashSet();
+        var remaining = Replacements.Except(second: usedReplacements).ToOrderedSet();
         if (placer == ProgressionPlacer)
         {
             return remaining.Where(l =>
@@ -137,7 +138,7 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
                 }
                 // Allow everything to be placed currently?
                 return false;
-            }).ToHashSet();
+            }).ToOrderedSet();
         }
         else if (placer == UsefulPlacer)
         {
