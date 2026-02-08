@@ -40,6 +40,8 @@ public class DataStoreARDBasicInfo : DataStore
         set => Data.SetUShort(0x0E, value);
     }
 
+    public DataStoreARD ParentARD { get; set; }
+
     public override int GetDefaultLength()
     {
         return 0x58;

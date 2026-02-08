@@ -622,6 +622,21 @@ public class FF12Flags
             }.Register(LPMult);
         }
     }
+    public class Debug
+    {
+        public static Flag MaxEnemySize;
+
+        internal static void Init()
+        {
+            MaxEnemySize = new Flag(false)
+            {
+                Text = "[DEBUG] Max Enemy Size",
+                FlagID = "DbgMaxEnemySize",
+                DescriptionFormat = "[DEBUG]\nMaximizes the enemy size to their max known possible value.",
+                Debug = true
+            }.Register(FlagType.Debug);
+        }
+    }
 
     public static void Init()
     {
@@ -630,6 +645,7 @@ public class FF12Flags
         Items.Init();
         Licenses.Init();
         Other.Init();
+        Debug.Init();
         RandoFlags.CategoryMap = ((FlagType[])Enum.GetValues(typeof(FlagType))).ToDictionary(f => (int)f, f => string.Join("/", Regex.Split(f.ToString(), @"(?<!^)(?=[A-Z])")));
         RandoFlags.SelectedCategory = "All";
     }

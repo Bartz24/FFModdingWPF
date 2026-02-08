@@ -238,7 +238,7 @@ public class RandomNum
             throw new Exception("Base not supported: " + numBase);
         }
 
-        Dictionary<string, int> flagValues = new Dictionary<string, int>();
+        Dictionary<string, int> flagValues = new();
         foreach (Flag flag in RandoFlags.FlagsList)
         {
             if (!flag.Aesthetic)

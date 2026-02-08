@@ -22,12 +22,14 @@ public class DataStoreARD : DataStore
         int size = 0x54;
         ExtendedInfo = new DataStoreList<DataStoreARDExtendedInfo>();
         ExtendedInfo.LoadData(data.SubArray(address + 0x20, size * count));
+        ExtendedInfo.ForEach(e => e.ParentARD = this);
 
         address = (int)data.ReadUInt(0x18);
         count = (int)data.ReadUInt(address + 4);
         size = 0x58;
         BasicInfo = new DataStoreList<DataStoreARDBasicInfo>();
         BasicInfo.LoadData(data.SubArray(address + 0x20, size * count));
+        BasicInfo.ForEach(b => b.ParentARD = this);
 
         address = (int)data.ReadUInt(0x24);
         count = (int)data.ReadUInt(address + 4);

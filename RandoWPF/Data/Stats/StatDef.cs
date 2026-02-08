@@ -24,13 +24,7 @@ public class StatDef<T> where T : Enum
     /// /// input2: float to determine how much to randomize. normally 1
     /// output: new mult value
     /// </summary>
-    public Action<double> RandomizeFunc { get; set; }
-
-    /// <summary>
-    /// Higher = randomized earlier
-    /// </summary>
-    public int RandomizeOrderPriority { get; init; } = 0;
-    public bool RandomizeDirectly { get; init; } = true;
+    public Action RandomizeFunc { get; set; }
 
     public int ApplyMult(int original)
     {

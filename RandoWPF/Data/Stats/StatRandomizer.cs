@@ -21,9 +21,9 @@ public class StatRandomizer<T> where T : Enum
 
     public void Randomize()
     {
-        foreach (StatDef<T> stat in Stats.Values.OrderByDescending(s => s.RandomizeOrderPriority).Where(s => s.RandomizeDirectly))
+        foreach (StatDef<T> stat in Stats.Values)
         {
-            stat.RandomizeFunc(1.0);
+            stat.RandomizeFunc();
         }
     }
 }
