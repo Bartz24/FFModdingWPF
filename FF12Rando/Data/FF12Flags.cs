@@ -171,7 +171,7 @@ public class FF12Flags
                 Text = "Include Key Items",
                 ID = "KeyItems",
                 Description = "Key items to be included in the item pool.\n" +
-                "Key items will not appear in missable locations or from Day 10 and later.",
+                "Key items will not appear in missable locations.",
                 DictValues =
                 {
                     {"80E1", "Rabanastre Aeropass" },
