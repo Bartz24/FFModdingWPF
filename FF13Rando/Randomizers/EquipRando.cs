@@ -40,6 +40,7 @@ public partial class EquipRando : Randomizer
         }
 
         items.Copy("key_c_shiva", "cry_stage");
+        items.Copy("key_c_shiva", "ap_item");
 
         for (int i = 1; i <= 13; i++)
         {
@@ -89,14 +90,20 @@ public partial class EquipRando : Randomizer
                 items[name].sItemNameStringId = newNames[0];
                 items[name].sHelpStringId = "$mb_000_00eh";
                 newNames.RemoveAt(0);
-                textRando.mainSysUS[items[name].sItemNameStringId] = $"{charNames[chars.ToList().IndexOf(c)]}'s {roleNames[roles.ToList().IndexOf(r)]} Role" + "{End}";
+                string singular = $"{charNames[chars.ToList().IndexOf(c)]}'s {roleNames[roles.ToList().IndexOf(r)]} Role";
+                textRando.mainSysUS[items[name].sItemNameStringId] = singular + "{End}{StraightLine}" + $"{singular}s" + "{End}{Article}a";
             }
         }
 
         items["cry_stage"].sItemNameStringId = newNames[0];
         items["cry_stage"].sHelpStringId = "$mb_000_00eh";
         newNames.RemoveAt(0);
-        textRando.mainSysUS[items["cry_stage"].sItemNameStringId] = "Crystarium Expansion{End}{Many}Crystarium Expansions{End}{Article}a{End}";
+        textRando.mainSysUS[items["cry_stage"].sItemNameStringId] = "Crystarium Expansion{End}{StraightLine}Crystarium Expansions{End}{Article}a{End}";
+
+        items["ap_item"].sItemNameStringId = "$ap_item";
+        items["ap_item"].sHelpStringId = "$ap_itemh";
+        textRando.mainSysUS.Add(items["ap_item"].sItemNameStringId, "AP Item{End}{StraightLine}AP Items{End}{Article}an");
+        textRando.mainSysUS.Add(items["ap_item"].sHelpStringId, "Archipelago Manual Item");
 
         string chapterProgress = newNames[0];
         newNames.RemoveAt(0);
@@ -109,12 +116,14 @@ public partial class EquipRando : Randomizer
             items["chap_prog_" + i.ToString("00")].sItemNameStringId = newNames[0];
             newNames.RemoveAt(0);
             items["chap_prog_" + i.ToString("00")].sHelpStringId = chapterProgress;
-            textRando.mainSysUS[items["chap_prog_" + i.ToString("00")].sItemNameStringId] = "Chapter " + i + " Progress{End}";
+            string singular = "Chapter " + i + " Progress";
+            textRando.mainSysUS[items["chap_prog_" + i.ToString("00")].sItemNameStringId] = singular + "{End}{StraightLine}" + singular + "s" + "{End}{Article}a";
 
             items["chap_comp_" + i.ToString("00")].sItemNameStringId = newNames[0];
             newNames.RemoveAt(0);
             items["chap_comp_" + i.ToString("00")].sHelpStringId = chapterComplete;
-            textRando.mainSysUS[items["chap_comp_" + i.ToString("00")].sItemNameStringId] = "Chapter " + i + " Completed{End}";
+            string singularComp = "Chapter " + i + " Completed";
+            textRando.mainSysUS[items["chap_comp_" + i.ToString("00")].sItemNameStringId] = singularComp + "{End}{StraightLine}" + singularComp + "s" + "{End}{Article}a";
         }
 
         RandomizeEquipmentPassivesAndStats();

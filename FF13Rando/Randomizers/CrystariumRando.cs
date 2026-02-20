@@ -13,11 +13,15 @@ public partial class CrystariumRando : Randomizer
 {
     public Dictionary<string, DataStoreWDB<DataStoreCrystarium>> crystariums = new();
     public Dictionary<string, float[]> charMults = new();
+
+    /// <summary>
+    /// Ordered in the order they are normally obtained
+    /// </summary>
     public Dictionary<string, Role[]> primaryRoles = new();
 
     public Dictionary<string, AbilityData> abilityData = new();
 
-    private readonly string[] chars = new string[] { "lightning", "fang", "hope", "sazh", "snow", "vanille" };
+    public readonly string[] chars = ["lightning", "fang", "hope", "sazh", "snow", "vanille"];
     public Dictionary<string, Dictionary<Role, string>> firstNodes = new();
 
     public CrystariumRando(SeedGenerator randomizers) : base(randomizers) { }
@@ -25,12 +29,12 @@ public partial class CrystariumRando : Randomizer
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading Crystarium Data...");
-        primaryRoles.Add("lightning", new Role[] { Role.Commando, Role.Ravager, Role.Medic });
-        primaryRoles.Add("fang", new Role[] { Role.Commando, Role.Sentinel, Role.Saboteur });
-        primaryRoles.Add("snow", new Role[] { Role.Commando, Role.Ravager, Role.Sentinel });
-        primaryRoles.Add("sazh", new Role[] { Role.Commando, Role.Ravager, Role.Synergist });
-        primaryRoles.Add("hope", new Role[] { Role.Ravager, Role.Synergist, Role.Medic });
-        primaryRoles.Add("vanille", new Role[] { Role.Ravager, Role.Saboteur, Role.Medic });
+        primaryRoles.Add("lightning", [Role.Commando, Role.Ravager, Role.Medic]);
+        primaryRoles.Add("fang", [Role.Commando, Role.Saboteur, Role.Sentinel]);
+        primaryRoles.Add("snow", [Role.Commando, Role.Ravager, Role.Sentinel]);
+        primaryRoles.Add("sazh", [Role.Ravager, Role.Synergist, Role.Commando]);
+        primaryRoles.Add("hope", [Role.Ravager, Role.Medic, Role.Synergist]);
+        primaryRoles.Add("vanille", [Role.Ravager, Role.Medic, Role.Saboteur]);
 
         crystariums = chars.ToDictionary(c => c, c => new DataStoreWDB<DataStoreCrystarium>());
         chars.ForEach(c => crystariums[c].LoadWDB(Generator, "13", @"\db\crystal\crystal_" + c + ".wdb"));
@@ -272,15 +276,7 @@ public partial class CrystariumRando : Randomizer
     private void UpdateCPCosts()
     {
         Dictionary<string, uint[]> costs = new();
-        Dictionary<string, string[]> primaries = new()
-        {
-            ["lightning"] = new string[] { "com", "rav", "med" },
-            ["sazh"] = new string[] { "com", "rav", "syn" },
-            ["hope"] = new string[] { "syn", "rav", "med" },
-            ["vanille"] = new string[] { "sab", "rav", "med" },
-            ["snow"] = new string[] { "com", "rav", "sen" },
-            ["fang"] = new string[] { "com", "sen", "sab" }
-        };
+        Dictionary<string, string[]> primaries = primaryRoles.ToDictionary(kv => kv.Key, kv => kv.Value.Select(r => r.ToString().Substring(0, 3).ToLower()).ToArray());
         if (FF13Flags.Stats.CPCostType.SelectedValue == "Rebalanced")
         {
             costs = chars.ToDictionary(c => c, _ => new uint[] { 25, 50, 100, 250, 500, 750, 1000, 4000, 10000, 30000 });
@@ -298,7 +294,7 @@ public partial class CrystariumRando : Randomizer
         bool usePrimaries = FF13Flags.Stats.CPCostType.SelectedValue == "Vanilla-like";
         chars.ForEach(c =>
         {
-            UpdateNodeCPCost(GetFirstRole(c.Substring(0, 3)), c, costs[c], usePrimaries ? primaries[c] : null);
+            UpdateNodeCPCost(GetFirstRole(c), c, costs[c], usePrimaries ? primaries[c] : null);
         });
     }
 
@@ -447,10 +443,11 @@ public partial class CrystariumRando : Randomizer
         }
     }
 
-    private string GetFirstRole(string c)
+    public virtual string GetFirstRole(string charName)
     {
+        string c_pre = charName.Substring(0, 3);
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
-        return treasureRando.treasures.Values.First(t => t.ID.StartsWith("z_ran_" + c) && treasureRando.ItemLocations[t.ID].Traits.Contains("Same")).sItemResourceId.Substring($"rol_{c}_".Length);
+        return treasureRando.treasures.Values.First(t => t.ID.StartsWith("z_ran_" + c_pre) && treasureRando.ItemLocations[t.ID].Traits.Contains("Same")).sItemResourceId.Substring($"rol_{c_pre}_".Length);
     }
     public override Dictionary<string, HTMLPage> GetDocumentation()
     {

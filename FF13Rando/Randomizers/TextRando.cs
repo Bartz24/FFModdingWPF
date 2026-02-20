@@ -22,8 +22,8 @@ public class TextRando : Randomizer
 
             mainSysUS.Load("13", outPath, SetupData.Paths["Nova"]);
 
-            mainSysUS["$acc_039_000"] = "Collector Catalog{End}{Many}Collector Catalogs{End}{Article}a";
-            mainSysUS["$acc_039_001"] = "Connoisseur Catalog{End}{Many}Connoisseur Catalogs{End}{Article}a";
+            mainSysUS["$acc_039_000"] = "Collector Catalog{End}{StraightLine}Collector Catalogs{End}{Article}a";
+            mainSysUS["$acc_039_001"] = "Connoisseur Catalog{End}{StraightLine}Connoisseur Catalogs{End}{Article}a";
 
             mainSysUS["$am_000_00h"] = "Chapter 1";
             mainSysUS["$am_010_00"] = "Chapter 2";
@@ -43,7 +43,7 @@ public class TextRando : Randomizer
             mainSysUS["$chpt_save_ttl"] = "Return to the {Italic}Lindblum{Italic}?";
             mainSysUS["$flar_ttl_000"] = "FF13 Randomizer";
 
-            mainSysUS["$pause_03"] = "{Key LSPress}+{Key RSPress}+{Key R1} {Italic}on the field{Italic} Return to Lindblum     {Key Select}Quit     {Key Start}Resume";
+            mainSysUS["$pause_03"] = "{Btn LSPress}+{Btn RSPress}+{Btn RB} {Italic}on the field{Italic} Return to Lindblum     {Btn Back}Quit     {Btn Start}Resume";
 
             string[] randomLocs = { "Somewhere", "Unknown", "Nautilus Park?", "The {Italic}Lindblum{Italic}?", "The {Italic}Palamecia{Italic}?", "", "FINAL FANTASY XIII", "Totally a Hallway", "Before 000 AF", "Hi :)", "Why are you looking here?", "DELETED TEXT" };
             RandomNum.SetRand(new Random(RandomNum.GetIntSeed(SetupData.Seed) + randomLocs.Length));
@@ -73,28 +73,28 @@ public class TextRando : Randomizer
                     iconForm += "{Icon Clock}";
                     break;
                 case '1':
-                    iconForm += "{Icon Attention}";
+                    iconForm += "{Icon Warning}";
                     break;
                 case '2':
-                    iconForm += "{Icon Exclamation}";
+                    iconForm += "{Icon Notification}";
                     break;
                 case '3':
-                    iconForm += "{Icon EmptryCirlces}";
+                    iconForm += "{Icon Gil}";
                     break;
                 case '4':
-                    iconForm += "{Icon Greather}";
+                    iconForm += "{Icon Mission_Note}";
                     break;
                 case '5':
-                    iconForm += "{Icon Less}";
+                    iconForm += "{Icon Check_Mark}";
                     break;
                 case '6':
-                    iconForm += "{Icon Doc}";
+                    iconForm += "{Icon Ability_Synthesized}";
                     break;
                 case '7':
-                    iconForm += "{Icon Ok}";
+                    iconForm += "{Icon Gunblade}";
                     break;
                 case '8':
-                    iconForm += "{Icon FilledCirlces}";
+                    iconForm += "{Icon Pistol}";
                     break;
             }
         }
@@ -107,16 +107,7 @@ public class TextRando : Randomizer
         RandoUI.SetUIProgressIndeterminate("Saving Text Data...");
         string hash = GetHash();
 
-        mainSysUS["$dif_conf_e"] = "{Icon Attention} You have selected {Color Red}EASY MODE{Color SkyBlue} for battles.{Text NewLine}" +
-            "Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
-            "Seed Hash (for validation): " + hash + "{Text NewLine}" +
-            "Begin playing in {Color Red}EASY MODE{Color SkyBlue}?|Yes|No";
-        mainSysUS["$dif_conf_n"] = "{Icon Attention} You have selected {Color Red}NORMAL MODE{Color SkyBlue} for battles.{Text NewLine}" +
-            "Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
-            "Seed Hash (for validation): " + hash + "{Text NewLine}" +
-            "Begin playing in {Color Red}NORMAL MODE{Color SkyBlue}?|Yes|No";
-
-        TempTextCleanup(mainSysUS);
+        SetDiffText(hash);
 
         {
             string outPath = Generator.DataOutFolder + @"\txtres\resident\system\txtres_us.ztr";
@@ -124,12 +115,15 @@ public class TextRando : Randomizer
         }
     }
 
-    private void TempTextCleanup(DataStoreZTRText text)
+    protected virtual void SetDiffText(string hash)
     {
-        text.Keys.ForEach(k =>
-        {
-            text[k] = text[k].Replace("Ⅷ", "");
-            text[k] = text[k].Replace("×", "x");
-        });
+        mainSysUS["$dif_conf_e"] = "{Icon Warning} You have selected {Color LightRed}EASY MODE{Color White} for battles.{Text NewLine}" +
+            "Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
+            "Seed Hash (for validation): " + hash + "{Text NewLine}" +
+            "Begin playing in {Color LightRed}EASY MODE{Color White}?|Yes|No";
+        mainSysUS["$dif_conf_n"] = "{Icon Warning} You have selected {Color LightRed}NORMAL MODE{Color White} for battles.{Text NewLine}" +
+            "Seed (number form): " + RandomNum.GetIntSeed(SetupData.Seed) + "{Text NewLine}" +
+            "Seed Hash (for validation): " + hash + "{Text NewLine}" +
+            "Begin playing in {Color LightRed}NORMAL MODE{Color White}?|Yes|No";
     }
 }

@@ -222,4 +222,34 @@ public partial class MainWindow : Window
     {
 
     }
+
+    private async void generateManualButton_Click(object sender, RoutedEventArgs e)
+    {
+        using (FF13ManualSeedGenerator generator = new())
+        {
+            totalProgressBar.TotalSegments = (generator.Randomizers.Count * 3) + 2;
+            totalProgressBar.SetProgress(0, 0);
+
+            try
+            {
+                IsEnabled = false;
+                await Task.Run(() =>
+                {
+                    generator.GenerateSeed();
+                });
+                IsEnabled = true;
+            }
+            catch (RandoException ex)
+            {
+                Exception innerMost = ex;
+                while (innerMost.InnerException != null)
+                {
+                    innerMost = innerMost.InnerException;
+                }
+
+                MessageBox.Show("Randomizer encountered an error.\n\n" + ex.Message + "\n\nStack trace:\n" + innerMost.StackTrace, ex.Title);
+                IsEnabled = true;
+            }
+        }
+    }
 }
