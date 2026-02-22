@@ -1,6 +1,6 @@
 {
   "name": "4 - Hopeless",
-  "version": "0.8.1.15",
+  "version": "0.8.2.27",
   "flags": [
     {
       "FlagEnabled": true,
@@ -26,6 +26,28 @@
       "FlagEnabled": true,
       "FlagID": "EquipEff",
       "FlagProperties": []
+    },
+    {
+      "FlagEnabled": false,
+      "FlagID": "EnemyStats",
+      "FlagProperties": [
+        {
+          "Value": 100,
+          "ID": "EnemyHPMP"
+        },
+        {
+          "Value": 100,
+          "ID": "EnemyBaseStats"
+        },
+        {
+          "Value": 100,
+          "ID": "EnemySize"
+        },
+        {
+          "Value": 100,
+          "ID": "EnemyEXPLP"
+        }
+      ]
     },
     {
       "FlagEnabled": true,
@@ -70,10 +92,12 @@
             "Exodus Esper",
             "Famfrit Esper",
             "Fanged Trophy",
+            "Feather of the Flock",
             "Feathered Trophy",
             "Fell Trophy",
             "Frigid Trophy",
             "Fur-scaled Trophy",
+            "Gift of the Great-chief",
             "Goddess's Magicite",
             "Gravesoil Trophy",
             "Grimy Fragment",
@@ -312,7 +336,7 @@
     },
     {
       "FlagEnabled": false,
-      "FlagID": "TwoPageDesc",
+      "FlagID": "DbgMaxEnemySize",
       "FlagProperties": []
     }
   ]
