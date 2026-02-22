@@ -17,4 +17,21 @@ public class ManualCrystariumRando : CrystariumRando
     {
         return primaryRoles[c][0].ToString().Substring(0, 3).ToLower();
     }
+
+    public override void Randomize()
+    {
+        base.Randomize();
+
+        // Swap Lightning's Blitz with Attack
+        var attack = abilityData.Values.Where(a => a.Name == "Attack" && a.Characters.Contains("lightning")).First();
+        var blitz = abilityData.Values.Where(a => a.Name == "Blitz" && a.Characters.Contains("lightning")).First();
+
+        // Find the nodes for each ability
+        var attackNode = crystariums["lightning"].Values.Where(n => n.sAbility == attack.ID).First();
+        var blitzNode = crystariums["lightning"].Values.Where(n => n.sAbility == blitz.ID).First();
+
+        // Swap the abilities
+        attackNode.sAbility = blitz.ID;
+        blitzNode.sAbility = attack.ID;
+    }
 }

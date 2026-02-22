@@ -157,7 +157,7 @@ Clan Hall,Clan Boss: Tyrant,904A,A(Giruvegan),5,ClanBoss
 Clan Hall,Clan Boss: Hydro,904B,A(Ridorana Cataract),5,ClanBoss
 Clan Hall,Clan Boss: Humbaba Mistant,904C,AND(I(8081)|I(8084)|A(Necrohol of Nabudis)),7,ClanBoss
 Clan Hall,Clan Boss: Fury,904D,AND(I(8083)|I(8084)|A(Necrohol of Nabudis)),7,ClanBoss
-Clan Hall,Clan Boss: Omega Mark XII,905A,A(Great Crystal),8,ClanBoss
+Clan Hall,Clan Boss: Omega Mark XII,905A,A(Great Crystal Deep),8,ClanBoss
 Clan Hall,Clan Esper: Control 1,904E,C(Esper|1),1,ClanEsper
 Clan Hall,Clan Esper: Control 4,904F,C(Esper|4),3,ClanEsper
 Clan Hall,Clan Esper: Control 8,9050,C(Esper|8),5,ClanEsper
@@ -214,7 +214,7 @@ Garamsythe Waterway,Defeat Cuchulainn,9196,I(80AF),6,
 Stilshrine of Miriam,Defeat Zeromus,9197,I(8085),5,
 Mosphoran Highwaste Upper,Defeat Exodus,9198,,4,
 Necrohol of Nabudis,Defeat Chaos,9199,I(8082),5,
-Great Crystal,Defeat Ultima,919A,,6,
+Great Crystal Deep,Defeat Ultima,919A,,6,
 Henne Mines Deep,Defeat Zodiark,919B,,7,
 Phon Coast,Thalassinon - Shelled Trophy,9090,,6,
 Garamsythe Waterway,Gavial - Fur-scaled Trophy,9091,AND(I(80B8)|I(HuntClubStart)),6,
@@ -235,7 +235,7 @@ Ozmone Plain,Killbug - Metallic Trophy,909F,AND(I(80B8)|I(HuntClubStart)),6,
 Henne Mines,Melt - Slimy Trophy,90A0,AND(I(80B8)|I(HuntClubStart)),7,
 Golmore Jungle S,Biding Mantis - Scythe Trophy,90A1,AND(I(80B8)|I(HuntClubStart)),6,
 Feywood,Dreadguard - Feathered Trophy,90A2,AND(I(80B8)|I(HuntClubStart)),7,
-Great Crystal,Crystal Knight - Skull Trophy,90A3,AND(I(80B8)|I(HuntClubStart)),5,
+Great Crystal Deep,Crystal Knight - Skull Trophy,90A3,AND(I(80B8)|I(HuntClubStart)),5,
 Paramina Rift,Ancbolder - Mind Trophy,90A4,AND(I(80B8)|I(HuntClubStart)),5,
 Stilshrine of Miriam,Myath - Eternal Trophy,90A5,AND(I(80B8)|I(HuntClubStart)|I(8078)),5,
 Phon Coast,Skullash - Clawed Trophy,90A6,AND(I(80B8)|I(HuntClubStart)),7,
@@ -253,40 +253,40 @@ Archades,Hunt Club Owner 15 Trophy Rares Defeated,90FB,AND(I(2112)|I(HuntClubKil
 Archades,Hunt Club Owner 20 Trophy Rares Defeated,90FC,AND(I(2112)|I(HuntClubKill|20)),8,Grindy
 Archades,Hunt Club Owner 25 Trophy Rares Defeated,90FD,AND(I(2112)|I(HuntClubKill|25)),9,Grindy
 Archades,Hunt Club Owner 30 Trophy Rares Defeated,90FE,AND(I(2112)|I(HuntClubKill|30)),10,Grindy
-Phon Coast,All Trophies Atak 16 or more,90F3,AND(I(80B8)|I(HuntClubStart)),10,Missable
-Phon Coast,All Trophies Atak 15 or less,90F4,AND(I(80B8)|I(HuntClubStart)),10,Missable
-Phon Coast,All Trophies Blok 16 or more,90F5,AND(I(80B8)|I(HuntClubStart)),10,Missable
-Phon Coast,All Trophies Blok 15 or less,90F6,AND(I(80B8)|I(HuntClubStart)),10,Missable
-Phon Coast,All Trophies Stok 16 or more,90F7,AND(I(80B8)|I(HuntClubStart)),10,Missable
-Phon Coast,All Trophies Stok 15 or less,90F8,AND(I(80B8)|I(HuntClubStart)),10,Missable
-Phon Coast,"Atak 1, Blok 0, Stok 0 Outfitters",90FF,AND(I(80B8)|I(HuntClubStart)),5,Missable
-Phon Coast,"Atak 0, Blok 1, Stok 0 Outfitters",9100,AND(I(80B8)|I(HuntClubStart)),5,Missable
-Phon Coast,"Atak 0, Blok 0, Stok 1 Outfitters",9101,AND(I(80B8)|I(HuntClubStart)),5,Missable
-Phon Coast,"Atak 5, Blok 0, Stok 0 Outfitters",9102,AND(I(80B8)|I(HuntClubStart)),6,Missable
-Phon Coast,"Atak 0, Blok 5, Stok 0 Outfitters",9103,AND(I(80B8)|I(HuntClubStart)),6,Missable
-Phon Coast,"Atak 0, Blok 0, Stok 5 Outfitters",9104,AND(I(80B8)|I(HuntClubStart)),6,Missable
-Phon Coast,"Atak 10, Blok 0, Stok 0 Outfitters",9105,AND(I(80B8)|I(HuntClubStart)),7,Missable
-Phon Coast,"Atak 0, Blok 10, Stok 0 Outfitters",9106,AND(I(80B8)|I(HuntClubStart)),7,Missable
-Phon Coast,"Atak 0, Blok 0, Stok 10 Outfitters",9107,AND(I(80B8)|I(HuntClubStart)),7,Missable
-Phon Coast,"Atak 15, Blok 0, Stok 0 Outfitters",9108,AND(I(80B8)|I(HuntClubStart)),7,Missable
-Phon Coast,"Atak 0, Blok 15, Stok 0 Outfitters",9109,AND(I(80B8)|I(HuntClubStart)),7,Missable
-Phon Coast,"Atak 0, Blok 0, Stok 15 Outfitters",910A,AND(I(80B8)|I(HuntClubStart)),7,Missable
-Phon Coast,"Atak 10, Blok 5, Stok 0 Outfitters",910B,AND(I(80B8)|I(HuntClubStart)),7,Missable
-Phon Coast,"Atak 20, Blok 0, Stok 0 Outfitters",910C,AND(I(80B8)|I(HuntClubStart)),8,Missable
-Phon Coast,"Atak 0, Blok 20, Stok 0 Outfitters",910D,AND(I(80B8)|I(HuntClubStart)),8,Missable
-Phon Coast,"Atak 0, Blok 0, Stok 20 Outfitters",910E,AND(I(80B8)|I(HuntClubStart)),8,Missable
-Phon Coast,"Atak 5, Blok 10, Stok 5 Outfitters",910F,AND(I(80B8)|I(HuntClubStart)),8,Missable
-Phon Coast,"Atak 25, Blok 0, Stok 0 Outfitters",9110,AND(I(80B8)|I(HuntClubStart)),9,Missable
-Phon Coast,"Atak 0, Blok 25, Stok 0 Outfitters",9111,AND(I(80B8)|I(HuntClubStart)),9,Missable
-Phon Coast,"Atak 0, Blok 0, Stok 25 Outfitters",9112,AND(I(80B8)|I(HuntClubStart)),9,Missable
-Phon Coast,"Atak 5, Blok 5, Stok 15 Outfitters",9113,AND(I(80B8)|I(HuntClubStart)),9,Missable
-Phon Coast,"Atak 30, Blok 0, Stok 0 Outfitters",9114,AND(I(80B8)|I(HuntClubStart)),10,Missable
-Phon Coast,"Atak 0, Blok 30, Stok 0 Outfitters",9115,AND(I(80B8)|I(HuntClubStart)),10,Missable
-Phon Coast,"Atak 0, Blok 0, Stok 30 Outfitters",9116,AND(I(80B8)|I(HuntClubStart)),10,Missable
-Phon Coast,"Atak 10, Blok 10, Stok 10 Outfitters",9117,AND(I(80B8)|I(HuntClubStart)),10,Missable
-Phon Coast,"Atak 25, Blok 1, Stok 1 Outfitters",9118,AND(I(80B8)|I(HuntClubStart)),9,Missable
-Phon Coast,"Atak 1, Blok 25, Stok 1 Outfitters",9119,AND(I(80B8)|I(HuntClubStart)),9,Missable
-Phon Coast,"Atak 1, Blok 1, Stok 25 Outfitters",911A,AND(I(80B8)|I(HuntClubStart)),9,Missable
-Phon Coast,"Atak 12, Blok 5, Stok 5 Outfitters",911B,AND(I(80B8)|I(HuntClubStart)),8,Missable
-Phon Coast,"Atak 5, Blok 12, Stok 5 Outfitters",911C,AND(I(80B8)|I(HuntClubStart)),8,Missable
-Phon Coast,"Atak 5, Blok 5, Stok 12 Outfitters",911D,AND(I(80B8)|I(HuntClubStart)),8,Missable
+Phon Coast,All Trophies Turn In 1,90F3,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
+Phon Coast,All Trophies Turn In 2,90F4,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
+Phon Coast,All Trophies Turn In 3,90F5,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
+Phon Coast,All Trophies Turn In 4,90F6,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
+Phon Coast,All Trophies Turn In 5,90F7,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
+Phon Coast,All Trophies Turn In 6,90F8,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
+Phon Coast,"Atak 1, Blok 0, Stok 0 Outfitters",90FF,AND(I(80B8)|I(HuntClubStart)|T(Trophy|1)),5,
+Phon Coast,"Atak 0, Blok 1, Stok 0 Outfitters",9100,AND(I(80B8)|I(HuntClubStart)|T(Trophy|1)),5,
+Phon Coast,"Atak 0, Blok 0, Stok 1 Outfitters",9101,AND(I(80B8)|I(HuntClubStart)|T(Trophy|1)),5,
+Phon Coast,"Atak 5, Blok 0, Stok 0 Outfitters",9102,AND(I(80B8)|I(HuntClubStart)|T(Trophy|5)),6,
+Phon Coast,"Atak 0, Blok 5, Stok 0 Outfitters",9103,AND(I(80B8)|I(HuntClubStart)|T(Trophy|5)),6,
+Phon Coast,"Atak 0, Blok 0, Stok 5 Outfitters",9104,AND(I(80B8)|I(HuntClubStart)|T(Trophy|5)),6,
+Phon Coast,"Atak 10, Blok 0, Stok 0 Outfitters",9105,AND(I(80B8)|I(HuntClubStart)|T(Trophy|10)),7,
+Phon Coast,"Atak 0, Blok 10, Stok 0 Outfitters",9106,AND(I(80B8)|I(HuntClubStart)|T(Trophy|10)),7,
+Phon Coast,"Atak 0, Blok 0, Stok 10 Outfitters",9107,AND(I(80B8)|I(HuntClubStart)|T(Trophy|10)),7,
+Phon Coast,"Atak 15, Blok 0, Stok 0 Outfitters",9108,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,
+Phon Coast,"Atak 0, Blok 15, Stok 0 Outfitters",9109,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,
+Phon Coast,"Atak 0, Blok 0, Stok 15 Outfitters",910A,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,
+Phon Coast,"Atak 10, Blok 5, Stok 0 Outfitters",910B,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,
+Phon Coast,"Atak 20, Blok 0, Stok 0 Outfitters",910C,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,
+Phon Coast,"Atak 0, Blok 20, Stok 0 Outfitters",910D,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,
+Phon Coast,"Atak 0, Blok 0, Stok 20 Outfitters",910E,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,
+Phon Coast,"Atak 5, Blok 10, Stok 5 Outfitters",910F,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,
+Phon Coast,"Atak 25, Blok 0, Stok 0 Outfitters",9110,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,
+Phon Coast,"Atak 0, Blok 25, Stok 0 Outfitters",9111,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,
+Phon Coast,"Atak 0, Blok 0, Stok 25 Outfitters",9112,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,
+Phon Coast,"Atak 5, Blok 5, Stok 15 Outfitters",9113,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,
+Phon Coast,"Atak 30, Blok 0, Stok 0 Outfitters",9114,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
+Phon Coast,"Atak 0, Blok 30, Stok 0 Outfitters",9115,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
+Phon Coast,"Atak 0, Blok 0, Stok 30 Outfitters",9116,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
+Phon Coast,"Atak 10, Blok 10, Stok 10 Outfitters",9117,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
+Phon Coast,"Atak 25, Blok 1, Stok 1 Outfitters",9118,AND(I(80B8)|I(HuntClubStart)|T(Trophy|27)),9,
+Phon Coast,"Atak 1, Blok 25, Stok 1 Outfitters",9119,AND(I(80B8)|I(HuntClubStart)|T(Trophy|27)),9,
+Phon Coast,"Atak 1, Blok 1, Stok 25 Outfitters",911A,AND(I(80B8)|I(HuntClubStart)|T(Trophy|27)),9,
+Phon Coast,"Atak 12, Blok 5, Stok 5 Outfitters",911B,AND(I(80B8)|I(HuntClubStart)|T(Trophy|22)),8,
+Phon Coast,"Atak 5, Blok 12, Stok 5 Outfitters",911C,AND(I(80B8)|I(HuntClubStart)|T(Trophy|22)),8,
+Phon Coast,"Atak 5, Blok 5, Stok 12 Outfitters",911D,AND(I(80B8)|I(HuntClubStart)|T(Trophy|22)),8,
