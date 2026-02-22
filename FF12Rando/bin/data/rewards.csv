@@ -253,40 +253,74 @@ Archades,Hunt Club Owner 15 Trophy Rares Defeated,90FB,AND(I(2112)|I(HuntClubKil
 Archades,Hunt Club Owner 20 Trophy Rares Defeated,90FC,AND(I(2112)|I(HuntClubKill|20)),8,Grindy
 Archades,Hunt Club Owner 25 Trophy Rares Defeated,90FD,AND(I(2112)|I(HuntClubKill|25)),9,Grindy
 Archades,Hunt Club Owner 30 Trophy Rares Defeated,90FE,AND(I(2112)|I(HuntClubKill|30)),10,Grindy
-Phon Coast,All Trophies Turn In 1,90F3,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
-Phon Coast,All Trophies Turn In 2,90F4,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
-Phon Coast,All Trophies Turn In 3,90F5,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
-Phon Coast,All Trophies Turn In 4,90F6,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
-Phon Coast,All Trophies Turn In 5,90F7,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
-Phon Coast,All Trophies Turn In 6,90F8,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
-Phon Coast,"Atak 1, Blok 0, Stok 0 Outfitters",90FF,AND(I(80B8)|I(HuntClubStart)|T(Trophy|1)),5,
-Phon Coast,"Atak 0, Blok 1, Stok 0 Outfitters",9100,AND(I(80B8)|I(HuntClubStart)|T(Trophy|1)),5,
-Phon Coast,"Atak 0, Blok 0, Stok 1 Outfitters",9101,AND(I(80B8)|I(HuntClubStart)|T(Trophy|1)),5,
-Phon Coast,"Atak 5, Blok 0, Stok 0 Outfitters",9102,AND(I(80B8)|I(HuntClubStart)|T(Trophy|5)),6,
-Phon Coast,"Atak 0, Blok 5, Stok 0 Outfitters",9103,AND(I(80B8)|I(HuntClubStart)|T(Trophy|5)),6,
-Phon Coast,"Atak 0, Blok 0, Stok 5 Outfitters",9104,AND(I(80B8)|I(HuntClubStart)|T(Trophy|5)),6,
-Phon Coast,"Atak 10, Blok 0, Stok 0 Outfitters",9105,AND(I(80B8)|I(HuntClubStart)|T(Trophy|10)),7,
-Phon Coast,"Atak 0, Blok 10, Stok 0 Outfitters",9106,AND(I(80B8)|I(HuntClubStart)|T(Trophy|10)),7,
-Phon Coast,"Atak 0, Blok 0, Stok 10 Outfitters",9107,AND(I(80B8)|I(HuntClubStart)|T(Trophy|10)),7,
-Phon Coast,"Atak 15, Blok 0, Stok 0 Outfitters",9108,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,
-Phon Coast,"Atak 0, Blok 15, Stok 0 Outfitters",9109,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,
-Phon Coast,"Atak 0, Blok 0, Stok 15 Outfitters",910A,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,
-Phon Coast,"Atak 10, Blok 5, Stok 0 Outfitters",910B,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,
-Phon Coast,"Atak 20, Blok 0, Stok 0 Outfitters",910C,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,
-Phon Coast,"Atak 0, Blok 20, Stok 0 Outfitters",910D,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,
-Phon Coast,"Atak 0, Blok 0, Stok 20 Outfitters",910E,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,
-Phon Coast,"Atak 5, Blok 10, Stok 5 Outfitters",910F,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,
-Phon Coast,"Atak 25, Blok 0, Stok 0 Outfitters",9110,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,
-Phon Coast,"Atak 0, Blok 25, Stok 0 Outfitters",9111,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,
-Phon Coast,"Atak 0, Blok 0, Stok 25 Outfitters",9112,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,
-Phon Coast,"Atak 5, Blok 5, Stok 15 Outfitters",9113,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,
-Phon Coast,"Atak 30, Blok 0, Stok 0 Outfitters",9114,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
-Phon Coast,"Atak 0, Blok 30, Stok 0 Outfitters",9115,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
-Phon Coast,"Atak 0, Blok 0, Stok 30 Outfitters",9116,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
-Phon Coast,"Atak 10, Blok 10, Stok 10 Outfitters",9117,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,
-Phon Coast,"Atak 25, Blok 1, Stok 1 Outfitters",9118,AND(I(80B8)|I(HuntClubStart)|T(Trophy|27)),9,
-Phon Coast,"Atak 1, Blok 25, Stok 1 Outfitters",9119,AND(I(80B8)|I(HuntClubStart)|T(Trophy|27)),9,
-Phon Coast,"Atak 1, Blok 1, Stok 25 Outfitters",911A,AND(I(80B8)|I(HuntClubStart)|T(Trophy|27)),9,
-Phon Coast,"Atak 12, Blok 5, Stok 5 Outfitters",911B,AND(I(80B8)|I(HuntClubStart)|T(Trophy|22)),8,
-Phon Coast,"Atak 5, Blok 12, Stok 5 Outfitters",911C,AND(I(80B8)|I(HuntClubStart)|T(Trophy|22)),8,
-Phon Coast,"Atak 5, Blok 5, Stok 12 Outfitters",911D,AND(I(80B8)|I(HuntClubStart)|T(Trophy|22)),8,
+Phon Coast,All Trophies Turn In 1,90F3,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,Grindy
+Phon Coast,All Trophies Turn In 2,90F4,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,Grindy
+Phon Coast,All Trophies Turn In 3,90F5,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,Grindy
+Phon Coast,All Trophies Turn In 4,90F6,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,Grindy
+Phon Coast,All Trophies Turn In 5,90F7,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,Grindy
+Phon Coast,All Trophies Turn In 6,90F8,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,Grindy
+Phon Coast,"Atak 1, Blok 0, Stok 0 Outfitters",90FF,AND(I(80B8)|I(HuntClubStart)|T(Trophy|1)),5,Grindy
+Phon Coast,"Atak 0, Blok 1, Stok 0 Outfitters",9100,AND(I(80B8)|I(HuntClubStart)|T(Trophy|1)),5,Grindy
+Phon Coast,"Atak 0, Blok 0, Stok 1 Outfitters",9101,AND(I(80B8)|I(HuntClubStart)|T(Trophy|1)),5,Grindy
+Phon Coast,"Atak 5, Blok 0, Stok 0 Outfitters",9102,AND(I(80B8)|I(HuntClubStart)|T(Trophy|5)),6,Grindy
+Phon Coast,"Atak 0, Blok 5, Stok 0 Outfitters",9103,AND(I(80B8)|I(HuntClubStart)|T(Trophy|5)),6,Grindy
+Phon Coast,"Atak 0, Blok 0, Stok 5 Outfitters",9104,AND(I(80B8)|I(HuntClubStart)|T(Trophy|5)),6,Grindy
+Phon Coast,"Atak 10, Blok 0, Stok 0 Outfitters",9105,AND(I(80B8)|I(HuntClubStart)|T(Trophy|10)),7,Grindy
+Phon Coast,"Atak 0, Blok 10, Stok 0 Outfitters",9106,AND(I(80B8)|I(HuntClubStart)|T(Trophy|10)),7,Grindy
+Phon Coast,"Atak 0, Blok 0, Stok 10 Outfitters",9107,AND(I(80B8)|I(HuntClubStart)|T(Trophy|10)),7,Grindy
+Phon Coast,"Atak 15, Blok 0, Stok 0 Outfitters",9108,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,Grindy
+Phon Coast,"Atak 0, Blok 15, Stok 0 Outfitters",9109,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,Grindy
+Phon Coast,"Atak 0, Blok 0, Stok 15 Outfitters",910A,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,Grindy
+Phon Coast,"Atak 10, Blok 5, Stok 0 Outfitters",910B,AND(I(80B8)|I(HuntClubStart)|T(Trophy|15)),7,Grindy
+Phon Coast,"Atak 20, Blok 0, Stok 0 Outfitters",910C,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,Grindy
+Phon Coast,"Atak 0, Blok 20, Stok 0 Outfitters",910D,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,Grindy
+Phon Coast,"Atak 0, Blok 0, Stok 20 Outfitters",910E,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,Grindy
+Phon Coast,"Atak 5, Blok 10, Stok 5 Outfitters",910F,AND(I(80B8)|I(HuntClubStart)|T(Trophy|20)),8,Grindy
+Phon Coast,"Atak 25, Blok 0, Stok 0 Outfitters",9110,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,Grindy
+Phon Coast,"Atak 0, Blok 25, Stok 0 Outfitters",9111,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,Grindy
+Phon Coast,"Atak 0, Blok 0, Stok 25 Outfitters",9112,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,Grindy
+Phon Coast,"Atak 5, Blok 5, Stok 15 Outfitters",9113,AND(I(80B8)|I(HuntClubStart)|T(Trophy|25)),9,Grindy
+Phon Coast,"Atak 30, Blok 0, Stok 0 Outfitters",9114,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,Grindy
+Phon Coast,"Atak 0, Blok 30, Stok 0 Outfitters",9115,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,Grindy
+Phon Coast,"Atak 0, Blok 0, Stok 30 Outfitters",9116,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,Grindy
+Phon Coast,"Atak 10, Blok 10, Stok 10 Outfitters",9117,AND(I(80B8)|I(HuntClubStart)|T(Trophy|30)),10,Grindy
+Phon Coast,"Atak 25, Blok 1, Stok 1 Outfitters",9118,AND(I(80B8)|I(HuntClubStart)|T(Trophy|27)),9,Grindy
+Phon Coast,"Atak 1, Blok 25, Stok 1 Outfitters",9119,AND(I(80B8)|I(HuntClubStart)|T(Trophy|27)),9,Grindy
+Phon Coast,"Atak 1, Blok 1, Stok 25 Outfitters",911A,AND(I(80B8)|I(HuntClubStart)|T(Trophy|27)),9,Grindy
+Phon Coast,"Atak 12, Blok 5, Stok 5 Outfitters",911B,AND(I(80B8)|I(HuntClubStart)|T(Trophy|22)),8,Grindy
+Phon Coast,"Atak 5, Blok 12, Stok 5 Outfitters",911C,AND(I(80B8)|I(HuntClubStart)|T(Trophy|22)),8,Grindy
+Phon Coast,"Atak 5, Blok 5, Stok 12 Outfitters",911D,AND(I(80B8)|I(HuntClubStart)|T(Trophy|22)),8,Grindy
+Giza Plains Rains,Feather of the Flock Urn,90AF,,2,
+Rabanastre,Great Cockatrice Escape Renn,9063,AND(I(807B)|A(Giza Plains Dry)),0,
+Jahara,Great Cockatrice Escape Gift of the Great-chief,90B0,AND(I(807B)|A(Giza Plains Dry)),0,
+Jahara,Great Cockatrice Escape Shurry,9064,AND(I(807B)|I(80AD)|A(Giza Plains Dry)),0,
+Balfonheim,Great Cockatrice Escape Moomer,9065,AND(I(807B)|A(Giza Plains Dry)),0,
+Dalmasca Estersand,Great Cockatrice Escape Sassan,9066,AND(I(8073)|I(807B)|A(Giza Plains Dry)),0,
+Eruyt Village,Great Cockatrice Escape Chit,9067,AND(I(807B)|A(Giza Plains Dry)),0,
+Archades,Great Cockatrice Escape Agytha,9068,AND(I(2112)|I(807B)|A(Giza Plains Dry)|A(Old Archades)),0,
+Giza Plains Dry,Great Cockatrice Escape Complete Terra,9069,AND(I(807B)|A(Rabanastre)|A(Jahara)|I(80AD)|A(Balfonheim)|A(Dalmasca Estersand)|I(8073)|A(Eruyt Village)|A(Archades)|A(Old Archades)|I(2112)),0,
+Nabreus Deadlands,Map of Nabreus Deadlands Urn,90B1,,5,
+Ogir-Yensa Sandsea,Map of Ogir-Yensa Sandsea Urn,90B2,,1,
+Ogir-Yensa Sandsea,Map of Nam-Yensa Sandsea Urn,90B3,,1,
+Salikawood,Map of Salikawood Urn,90B4,,2,
+Giruvegan,Map of Giruvegan Urn,90B5,,4,
+Golmore Jungle NW,Map of Golmore Jungle Urn,90B6,,2,
+Garamsythe Waterway,Map of Garamsythe Waterway Urn,90B7,,5,
+Garamsythe Waterway,Candle of Garamsythe Waterway Urn,90B8,,5,
+Henne Mines,Map of Henne Mines Urn,90B9,,2,
+Henne Mines Deep,Candle of Henne Mines Urn,90BA,,8,
+Lhusu Mines,Candle of Lhusu Mines Urn,90BB,AND(I(807E)|I(807F)),2,
+Feywood,Map of Feywood Urn,90BC,,3,
+Feywood,Candle of Feywood Urn,90BD,,3,
+Barheim Passage,Map of Barheim Passage Urn,90BE,,3,
+Barheim Passage,Candle of Barheim Passage Urn,90BF,,3,
+Stilshrine of Miriam,Map of Stilshrine of Miriam Urn,90C0,I(8078),2,
+Pharos of Ridorana,Map of Pharos of Ridorana First Ascent Urn,90C1,,5,
+Pharos of Ridorana,Map of Pharos of Ridorana Second Ascent Urn,90C2,I(2116|3),5,
+Pharos of Ridorana,Map of Pharos of Ridorana Third Ascent Urn,90C3,I(2116|3),5,
+Royal Palace,Map of Royal Palace Urn,90C4,,1,Missable
+Sochen Cave Palace Middle,Map of Sochen Cave Palace Urn,90C5,,3,
+Ridorana Cataract,Map of Ridorana Cataract Urn,90C6,,4,
+Tomb of Raithwall,Map of Tomb of Raithwall Urn,90C7,,1,
+Zertinan Caverns Center,Map of Zertinan Caverns Urn,90C8,,5,
+Necrohol of Nabudis,Map of Necrohol of Nabudis,90C9,AND(OR(I(8081)|I(8083))|I(8084)),7,

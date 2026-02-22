@@ -229,6 +229,8 @@ public class FF12Flags
                     {"809A", "Ring of the Light" },
                     {"808E", "Serpentwyne Must" },
                     {"809B", "Viera Rucksack" },
+                    {"807B", "Feather of the Flock" },
+                    {"80AD", "Gift of the Great-chief" },
                     {"80B8", "Shelled Trophy" },
                     {"80B9", "Fur-scaled Trophy" },
                     {"80BA", "Bony Trophy" },
@@ -347,7 +349,7 @@ public class FF12Flags
                 Text = "Key Item Placement - Grindy",
                 ID = "KeyPlaceGrindy",
                 Description = "Key items are also allowed in grindy rewards.\n" +
-                "This includes: Ann's Sister Quest reward, Hunt Club owner rewards"
+                "This includes: Ann's Sister Quest reward, Hunt Club owner rewards, Trophy turn in rewards"
             }.Register(Treasures);
 
             KeyPlaceHidden = new ToggleFlagProperty(false)
