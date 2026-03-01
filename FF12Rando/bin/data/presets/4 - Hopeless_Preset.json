@@ -1,6 +1,6 @@
 {
   "name": "4 - Hopeless",
-  "version": "0.8.2.27",
+  "version": "0.8.2.29",
   "flags": [
     {
       "FlagEnabled": true,
@@ -265,6 +265,16 @@
           "ID": "TpStoneCount"
         }
       ]
+    },
+    {
+      "FlagEnabled": true,
+      "FlagID": "LowerOutfitters",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": true,
+      "FlagID": "ShufflePrices",
+      "FlagProperties": []
     },
     {
       "FlagEnabled": true,

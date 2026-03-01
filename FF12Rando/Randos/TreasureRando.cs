@@ -20,6 +20,8 @@ public partial class TreasureRando : Randomizer
 
     public Dictionary<string, string> areaMapping = new();
     public Dictionary<string, ItemLocation> ItemLocations = new();
+    public Dictionary<int, PriceData> PriceData = new();
+
     public FF12ItemPlacer ItemPlacer { get; set; }
     public FF12HintPlacer HintPlacer { get; set; }
     public AreaGraph AreaGraph { get; set; }
@@ -71,7 +73,13 @@ public partial class TreasureRando : Randomizer
             ebp.LoadData(File.ReadAllBytes(path));
             return ebp;
         });
-                
+
+        FileHelpers.ReadCSVFile(@"data\prices.csv", row =>
+        {
+            PriceData p = new(row);
+            PriceData.Add(p.ID, p);
+        }, FileHelpers.CSVFileHeader.HasHeader);
+
         PartyRando partyRando = Generator.Get<PartyRando>();
         partyRando.Characters = MathHelpers.DecodeNaturalSequence(prices[0x76].Price, 6, 6).Select(l => (int)l).ToArray();
 
@@ -145,8 +153,18 @@ public partial class TreasureRando : Randomizer
             ItemPlacer = new(Generator, AreaGraph);
             ItemPlacer.Replacements = ItemLocations.Values
                 .Where(l => (l is not TreasureLocation || treasuresToPlace.Contains(l.ID)) && l.GetItem(true) != null).ToOrderedSet();
+
+            // Filter to possible locations based on treasure selection
             ItemPlacer.PossibleLocations = ItemLocations.Values
                 .Where(l => l is not TreasureLocation || treasuresAllowed.Contains(l.ID)).ToOrderedSet();
+
+            // Remove the 2nd slot of the "Outfitters" rewards as they should always be empty for balancing reasons.
+            ItemPlacer.PossibleLocations.Where(l => l is RewardLocation r && r.Traits.Contains("Outfitters") && r.Index == 2).ForEach(l =>
+            {
+                ItemPlacer.PossibleLocations.Remove(l);
+                ItemPlacer.Replacements.Remove(l);
+            });
+
             RandomNum.AddTestVal("FF12 Place items");
             ItemPlacer.PlaceItems();
             RandomNum.AddTestVal("FF12 After Place Items");
@@ -187,6 +205,8 @@ public partial class TreasureRando : Randomizer
             RandomNum.ClearRand();
         }
 
+        UpdateOutfittersText();
+
         if (!FF12Flags.Items.AllowSeitengrat.FlagEnabled)
         {
             // Replace any Seitengrat with the Dhanusha
@@ -195,6 +215,61 @@ public partial class TreasureRando : Randomizer
                 ItemLocations[l.ID].SetItem("10C7", ItemLocations[l.ID].GetItem(false).Value.Item2);
             });
         }
+
+        if (FF12Flags.Items.LowerOutfittersPrices.FlagEnabled)
+        {
+            // Update "Outfitters #" prices to be 10% of their original price
+            IEnumerable<PriceData> outfitters = PriceData.Values.Where(p => p.Name.StartsWith("Hunt Club Outfitters"));
+            if (outfitters.Count() == 0)
+            {
+                throw new Exception("No outfitters found in price data, cannot apply lower outfitters prices option, something is wrong");
+            }
+
+            outfitters.ForEach(p =>
+            {
+                prices[p.ID].Price /= 10;
+            });
+        }
+
+        if (FF12Flags.Items.ShufflePrices.FlagEnabled)
+        {
+            FF12Flags.Items.ShufflePrices.SetRand();
+
+            // Shuffle all prices in PriceData
+            Dictionary<int, uint> originalPrices = PriceData.Keys.ToDictionary(k => k, k => prices[k].Price);
+            List<int> originalIds = PriceData.Keys.ToList();
+            List<int> shuffled = PriceData.Keys.Shuffle();
+
+            for (int i = 0; i < shuffled.Count; i++)
+            {
+                prices[originalIds[i]].Price = originalPrices[shuffled[i]];
+            }
+
+            RandomNum.ClearRand();
+        }
+    }
+
+    private void UpdateOutfittersText()
+    {
+        // Update Phon Coast Hunt Club Outfitters text, index 192
+        TextRando textRando = Generator.Get<TextRando>();
+        DataStoreBinText.StringData outfittersMenuText = textRando.TextEbpZones["fon_b01"].Values[192];
+
+        string newText = "{speed}{npc:1048}\nSort{righttab}Price\n{choice}\n";
+
+        List<RewardLocation> outfitterRewards = ItemLocations.Values.Where(l => l is RewardLocation r && r.Traits.Contains("Outfitters") && r.Index == 0).Select(l => (RewardLocation)l).OrderBy(r => r.IntID).ToList();
+
+        foreach (RewardLocation r in outfitterRewards)
+        {
+            List<RewardLocation> allRewardLocs = ItemLocations.Values.Where(l => l is RewardLocation r2 && r2.IntID == r.IntID).Select(l => (RewardLocation)l).ToList();
+            DataStoreReward reward = rewards[r.IntID - 0x9000];
+            string itemName = GetRewardDisplay(reward, allRewardLocs);
+            // Format: {item}<NAME>{righttab}{macro:<INT>,6,0,0}{/item}
+            newText += $"{{item}}{itemName}{{righttab}}{{macro:{r.IntID - outfitterRewards[0].IntID},6,0,0}}{{/item}}\n";
+        }
+
+        newText += "{item}Do nothing.{/item}\n{/choice}\n{/dialog}";
+        outfittersMenuText.Text = newText;
     }
 
     private void UpdateCharacterRandoOnLocations()
@@ -445,6 +520,11 @@ public partial class TreasureRando : Randomizer
             pages.Add("hints", page);
         }
 
+        // Add prices page
+        page = new("Prices", "template/documentation.html");
+        page.HTMLElements.Add(new Table("Prices", (new string[] { "Item", "Price" }).ToList(), (new int[] { 80, 20 }).ToList(), PriceData.Values.Select(p => new object[] { p.Name, prices[p.ID].Price.ToString() }.ToList()).ToList(), "prices"));
+        pages.Add("prices", page);
+
         return pages;
     }
 
@@ -638,12 +718,26 @@ public partial class TreasureRando : Randomizer
 
         if (reward.Item1ID != 0xFFFF && locations.Any(l => l.Index == 1))
         {
-            stringList.Add($"{GetItemName(reward.Item1ID.ToString("X4"))} x {reward.Item1Amount}");
+            if (reward.Item1Amount > 1)
+            {
+                stringList.Add($"{GetItemName(reward.Item1ID.ToString("X4"))} x {reward.Item1Amount}");
+            }
+            else
+            {
+                stringList.Add($"{GetItemName(reward.Item1ID.ToString("X4"))}");
+            }
         }
 
         if (reward.Item2ID != 0xFFFF && locations.Any(l => l.Index == 2))
         {
-            stringList.Add($"{GetItemName(reward.Item2ID.ToString("X4"))} x {reward.Item2Amount}");
+            if (reward.Item2Amount > 1)
+            {
+                stringList.Add($"{GetItemName(reward.Item2ID.ToString("X4"))} x {reward.Item2Amount}");
+            }
+            else
+            {
+                stringList.Add($"{GetItemName(reward.Item2ID.ToString("X4"))}");
+            }
         }
 
         return string.Join(", ", stringList);

@@ -40,7 +40,8 @@ public class TextRando : Randomizer
 
         List<string> ebpZonesToLoad = new()
         {
-            "rbn_a16"
+            "rbn_a16",
+            "fon_b01"
         };
 
         foreach(string ebp in Directory.GetFiles($"{Generator.DataOutFolder}\\plan_master\\us\\plan_map", "*.ebp", SearchOption.AllDirectories))

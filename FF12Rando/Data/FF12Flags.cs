@@ -124,7 +124,7 @@ public class FF12Flags
 
     public class Items
     {
-        public static Flag Treasures, Shops, Bazaars, StartingTpStones, AllowSeitengrat;
+        public static Flag Treasures, Shops, Bazaars, StartingTpStones, AllowSeitengrat, LowerOutfittersPrices, ShufflePrices;
         public static ToggleFlagProperty KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale, JunkRankScale, ReplaceAny;
         public static ComboBoxFlagProperty KeyDepth;
         public static NumberFlagProperty ShopSize;
@@ -469,6 +469,20 @@ public class FF12Flags
                 MaxValue = 99,
                 StepSize = 1
             }.Register(StartingTpStones);
+
+            LowerOutfittersPrices = new Flag(false)
+            {
+                Text = "Lower Hunt Club Outfitters Prices",
+                FlagID = "LowerOutfitters",
+                DescriptionFormat = "Lower the prices of rewards of the Hunt Club trophy turn ins to 10% of their original costs."
+            }.Register(FlagType.Items);
+
+            ShufflePrices = new Flag(false)
+            {
+                Text = "Shuffle Misc Prices",
+                FlagID = "ShufflePrices",
+                DescriptionFormat = "Miscellaneous prices are shuffled around. This includes the aerodrome flight costs, chocobo costs, hunt club outfitters, map costs, pinewood chop check costs. Takes effect after the 'Lower Hunt Club Outfitters Prices' flag."
+            }.Register(FlagType.Items);
         }
     }
 
