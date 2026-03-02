@@ -30,8 +30,26 @@ class Program
             return;
         }
 
-        GenerateFF12Data(inputDir, Path.Combine(outputDir, "ff12_open_world"));
-        GenerateLRData(inputDir, Path.Combine(outputDir, "lrff13"));
+        // Ask user which data to generate
+        int option = -1;
+        while (option < 0 || option > 2)
+        {
+            Console.WriteLine("Which data to generate? (0 = FF12, 1 = LR, 2 = Both)");
+            string input = Console.ReadLine();
+            if (!int.TryParse(input, out option) || option < 0 || option > 2)
+            {
+                Console.WriteLine("Invalid option. Please enter 0, 1, or 2.");
+            }
+        }
+
+        if (option == 0 || option == 2)
+        {
+            GenerateFF12Data(inputDir, Path.Combine(outputDir, "ff12_open_world"));
+        }
+        if (option == 1 || option == 2)
+        {
+            GenerateLRData(inputDir, Path.Combine(outputDir, "lrff13"));
+        }
     }
 
     private static void GenerateFF12Data(string inputDir, string outputDir)

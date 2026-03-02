@@ -68,7 +68,7 @@ public partial class ShopRando : Randomizer
             );
 
             Dictionary<string, int> maxSizes = shopsDict.Keys.ToDictionary(k => k, k =>
-                shopsDict[k].Count + RandomNum.RandInt(
+                shopsDict[k].Count + RandomNum.NextInt(
                     shopsOrig[k].u3Category is ((int)ShopCategory.Ark) or ((int)ShopCategory.Items) ? 1 : 3,
                     (shopsOrig[k].u3Category is ((int)ShopCategory.Ark) or ((int)ShopCategory.Items) ? 6 : 18) - shopsDict[k].Count)
             );

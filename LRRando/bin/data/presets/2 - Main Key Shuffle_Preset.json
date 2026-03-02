@@ -1,6 +1,6 @@
 {
   "name": "2 - Main Key Shuffle",
-  "version": "0.8.1.24",
+  "version": "0.8.2.30",
   "flags": [
     {
       "FlagEnabled": true,
@@ -214,6 +214,11 @@
     {
       "FlagEnabled": true,
       "FlagID": "LoadingText",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": true,
+      "FlagID": "SheepNames",
       "FlagProperties": []
     },
     {

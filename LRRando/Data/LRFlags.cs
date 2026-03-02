@@ -465,7 +465,7 @@ public class LRFlags
     }
     public class Other
     {
-        public static Flag Music, LoadingText;
+        public static Flag Music, LoadingText, SheepNames;
         public static Flag HintsMain;
         public static ComboBoxFlagProperty HintsSpecific;
         public static ToggleFlagProperty HintsDepth;
@@ -494,6 +494,14 @@ public class LRFlags
                 Text = "Randomize Loading Screen Text",
                 FlagID = "LoadingText",
                 DescriptionFormat = "Randomize the lore on loading screens.",
+                Aesthetic = true
+            }.Register(FlagType.Other);
+
+            SheepNames = new Flag(false)
+            {
+                Text = "Randomize Sheep Names",
+                FlagID = "SheepNames",
+                DescriptionFormat = "Randomize the names of the sheep in the Wildlands.",
                 Aesthetic = true
             }.Register(FlagType.Other);
 

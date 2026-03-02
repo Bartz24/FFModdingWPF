@@ -42,7 +42,7 @@ public class LRJunkItemPlacer : JunkItemPlacer<ItemLocation>
                 else if (LRFlags.Items.ReplaceAny.Enabled && !location.Traits.Contains("Same"))
                 {
                     category = equipRando.itemData.Values.Select(i => i.Category).Distinct()
-                        .Where(c=>c != "Key" && c != "Adornment").Shuffle().First();
+                        .Where(c=>c != "Key" && c != "Adornment" && c != "EP Ability").Shuffle().First();
                 }
 
                 int rankRange = LRFlags.Items.ReplaceRank.Value;

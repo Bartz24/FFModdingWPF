@@ -1,6 +1,6 @@
 {
   "name": "1 - Simple",
-  "version": "0.8.1.24",
+  "version": "0.8.2.30",
   "flags": [
     {
       "FlagEnabled": false,
@@ -196,6 +196,11 @@
     {
       "FlagEnabled": true,
       "FlagID": "LoadingText",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": true,
+      "FlagID": "SheepNames",
       "FlagProperties": []
     },
     {

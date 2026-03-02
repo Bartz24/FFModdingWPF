@@ -63,15 +63,70 @@ public class TextRando : Randomizer
             mainSysUS["$m_896w"] += warn;
         }
 
-        LRFlags.Other.LoadingText.SetRand();
 
-        //EquipRando equipRando = randomizers.Get<EquipRando>();
         if (LRFlags.Other.LoadingText.FlagEnabled)
         {
+            LRFlags.Other.LoadingText.SetRand();
             RandomizeWords(mainSysUS.Keys.Where(k => k.StartsWith("$sns")).ToList());
+            RandomNum.ClearRand();
         }
 
-        RandomNum.ClearRand();
+        if (LRFlags.Other.SheepNames.FlagEnabled)
+        {
+            LRFlags.Other.SheepNames.SetRand();
+            RandomizeSheepNames();
+            RandomNum.ClearRand();
+        }
+
+    }
+
+    private void RandomizeSheepNames()
+    {
+        List<string> sheepNames = new()
+        {
+            "Scared Sheep",
+            "Sacred Sheep",
+            "Fearful Sheep",
+            "Shaken Sheep",
+            "Stirred Sheep",
+            "Sheepish Sheep",
+            "Frightened Sheep",
+            "Startled Sheep",
+            "Panicked Sheep",
+            "Terrified Sheep",
+            "Anxious Sheep",
+            "Worried Sheep",
+            "Nervous Sheep",
+            "Agitated Sheep",
+            "Jittery Sheep",
+            "Sleepy Sheep",
+            "Angry Sheep",
+            "Hopeful Sheep",
+            "Commando Sheep",
+            "Ravager Sheep",
+            "Sentinel Sheep",
+            "Synergist Sheep",
+            "Saboteur Sheep",
+            "Medic Sheep",
+            "Not Dr. Sheep",
+            "Secret Sheep",
+            "Redacted Sheep",
+            "Savior Sheep",
+            "Vanille's Popped Sheep",
+            "Hope",
+            "Sheep 2.0",
+            "Sheepy McSheepface",
+            "Sheep Returns",
+            "Final Fantasy XIII",
+            "The Story So Far",
+            "Kupo?"
+        };
+
+        zone100SysUS["$name_qst_1503"] = RandomNum.SelectRandom(sheepNames);
+        sheepNames.Remove(zone100SysUS["$name_qst_1503"]);
+        zone100SysUS["$name_qst_1504"] = RandomNum.SelectRandom(sheepNames);
+        sheepNames.Remove(zone100SysUS["$name_qst_1504"]);
+        zone100SysUS["$name_qst_1505"] = RandomNum.SelectRandom(sheepNames);
     }
 
     private void RandomizeWords(List<string> validKeys)

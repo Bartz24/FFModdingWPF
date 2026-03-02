@@ -143,9 +143,13 @@ public partial class SetupPage : UserControl
                     Seed = RandoFlags.LoadSeed(outFolder + @"\seed.json");
                     RandoUI.ShowTempUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
                 }
-                catch
+                catch (RandoException ex)
                 {
-                    MessageBox.Show("Failed to load the seed file.");
+                    MessageBox.Show(ex.Message, ex.Title);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to load the seed file.\n\n" + ex.StackTrace);
                 }
 
                 if (File.Exists(outFolder + @"\seed.json"))
