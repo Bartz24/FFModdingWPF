@@ -99,7 +99,7 @@ Giza Dry <-> Strahl,Giza Plains Dry,Strahl,I(2118|1),BothWays,1
 Giza Rains <-> Strahl,Giza Plains Rains,Strahl,AND(I(2118|1)|I(80E0)),BothWays,2
 Ogir Sandsea <-> Strahl,Ogir-Yensa Sandsea,Strahl,I(2118|1),BothWays,1
 Nam Sandsea <-> Strahl,Nam-Yensa Sandsea,Strahl,I(2118|1),BothWays,1
-Ozmone <-> Strahl,Ozmone Plain,Strahl,I(2118|2),BothWays,2
+Ozmone <-> Strahl,Ozmone Plain,Strahl,I(2118|1),BothWays,2
 Paramina <-> Strahl,Paramina Rift,Strahl,I(2118|2),BothWays,2
 Mosphoran <-> Strahl,Mosphoran Highwaste,Strahl,I(2118|3),BothWays,2
 Phon <-> Strahl,Phon Coast,Strahl,I(2118|3),BothWays,2
