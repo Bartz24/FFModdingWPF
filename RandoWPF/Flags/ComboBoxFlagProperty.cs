@@ -27,11 +27,11 @@ public class ComboBoxFlagProperty : FlagProperty
             SelectedValue = Values[0];
         }
     }
-    public List<string> Values { get; set; } = new List<string>();
+    public virtual List<string> Values { get; set; } = new List<string>();
 
     private string selectedValue;
     [JsonProperty]
-    public string SelectedValue
+    public virtual string SelectedValue
     {
         get
         {
