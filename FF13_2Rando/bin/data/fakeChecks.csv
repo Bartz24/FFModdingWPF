@@ -1,7 +1,7 @@
 ID,Name,Areas,MogLevel,RequiredAreas,Requirements,Traits,Fake Items
 # Gate opening (for area logic),,,,,
 hs_aaea01_vp,Gate Open,h_aa_AD0400,,,I(opt_silver|1),Gate|NoCascade,hs_aaea01_vp
-hs_aaea02_sp,Gate Open,h_aa_AD0400,3,,C(Graviton|5),Gate|NoCascade,hs_aaea02_sp
+hs_aaea02_sp,Gate Open,h_aa_AD0400,,,C(Graviton|5),Gate|NoCascade,hs_aaea02_sp
 hs_acea01_gt,Gate Open,h_ac_AD0400,,,,Gate|NoCascade,hs_acea01_gt
 hs_acea02_gy,Gate Open,h_ac_AD0400,,,I(opt_silver|1),Gate|NoCascade,hs_acea02_gy
 hs_acfa01_va,Gate Open,h_zz_NA0980,,,,Gate|NoCascade,hs_acfa01_va
@@ -130,7 +130,7 @@ frg_gt_3,Enigma Codex,h_gt_AD0200,,,AND(I(frg_gt_2|1)|I(key_para52f|1)),Fragment
 frg_gt_4,Difference Engine,h_gt_AD0200,,,AND(I(frg_gt_3|1)|I(key_paraxxf|1)),Fragment,frg_gt_4
 # Fragments - Vile Peaks
 # Fragments - Dying World
-frg_cmn_ddha001,Gogmagog Fragment Gamma,h_dd_AD0700,,,,Fragment,frg_cmn_ddha001
+frg_cmn_ddha001,Gogmagog Fragment Gamma,h_dd_AD0700,1,,,Fragment,frg_cmn_ddha001
 # Fragments - Void Beyond
 # Fragment Skills - TODO
 privilege05,Anti-grav Jump,h_cs_NA0000,,,AND(I(frg_cmn_ddha001|1)|I(key_unk_s_opt|1)|I(key_unk_y_opt|1)),FragmentSkill,privilege05

@@ -96,11 +96,15 @@ public partial class HistoriaCruxRando : Randomizer
             }
             var unplacedStarter = nodes.Keys.ToList();
 
-            // Remove the dlc group to be re-added later
+            // Blank 7 has to be left of root always for now.
             unplacedStarter.Remove(HistoriaCruxConstants.BLANK_7);
-            unplacedStarter.Remove(HistoriaCruxConstants.COLISEUM_DLC);
-            unplacedStarter.Remove(HistoriaCruxConstants.VALHALLA_DLC);
-            unplacedStarter.Remove(HistoriaCruxConstants.SERENDIPITY_DLC);
+            // Remove the dlc group to be re-added later
+            if (!FF13_2Flags.Other.RandoDLC.Enabled)
+            {
+                unplacedStarter.Remove(HistoriaCruxConstants.COLISEUM_DLC);
+                unplacedStarter.Remove(HistoriaCruxConstants.VALHALLA_DLC);
+                unplacedStarter.Remove(HistoriaCruxConstants.SERENDIPITY_DLC);
+            }
 
             // Place any fixed initial nodes _with coordinates_
             var startingCoords = (2, 6);
@@ -116,12 +120,16 @@ public partial class HistoriaCruxRando : Randomizer
                 var unplaced = new List<string>(unplacedStarter);
                 var expectedCount = nodes.Count;
                 // DLC areas
-                expectedCount -= 4;
+                expectedCount -= 1;
+                if (!FF13_2Flags.Other.RandoDLC.Enabled)
+                {
+                    expectedCount -= 3;
+                }
                 // TODO: redo initial placement flags for flexibility
                 if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 0)
                 {
                     unplaced.Remove(HistoriaCruxConstants.NEW_BODHUM_3);
-                    var id = CoordsToId(startingCoords.Item1,startingCoords.Item2);
+                    var id = CoordsToId(startingCoords.Item1, startingCoords.Item2);
                     coordMap[id] = HistoriaCruxConstants.NEW_BODHUM_3;
                     rootNode = nodes[HistoriaCruxConstants.NEW_BODHUM_3];
                     if (FF13_2Flags.Other.ForcedStart.Values.IndexOf(FF13_2Flags.Other.ForcedStart.SelectedValue) > 1)
@@ -143,12 +151,19 @@ public partial class HistoriaCruxRando : Randomizer
                         HistoriaCruxConstants.AUGUSTA_200,
                         // Banned as every check requires moogle hunt level 1
                         HistoriaCruxConstants.OERBA_200,
-                        HistoriaCruxConstants.OERBA_300
+                        HistoriaCruxConstants.OERBA_300,
+                        // Banned due to downstream link constraints
+                        HistoriaCruxConstants.SUNLETH_300,
+                        HistoriaCruxConstants.YASCHAS_1X,
+                        // For obvious reasons...
+                        HistoriaCruxConstants.ACADEMIA_500,
+                        HistoriaCruxConstants.DYING_WORLD_700,
+                        HistoriaCruxConstants.NEW_BODHUM_700
                     };
                     var initial = RandomNum.SelectRandom(unplaced.Where(r => {
                         if (bannedInitial.Contains(r)) { return false; }
                         // if the area has a fixed inbound route, don't allow it to be the starting point.
-                        if (areaData[r].Traits.Contains("FixedInbound")){return false;}
+                        if (areaData[r].Traits.Contains("FixedInbound")) { return false; }
                         return areaData[r].OutgoingLinkCount > 0;
                     })); //pick random starting location based on random
                     unplaced.Remove(initial);
@@ -157,10 +172,19 @@ public partial class HistoriaCruxRando : Randomizer
                     rootNode = nodes[initial];
                 }
 
+                // If the dlc locations are randomised then ensure the "parent" node for them is included in placement logic
+                if (FF13_2Flags.Other.RandoDLC.Enabled)
+                {
+                    rootNode.children.Add(nodes[HistoriaCruxConstants.BLANK_7]);
+                    nodes[HistoriaCruxConstants.BLANK_7].parent = rootNode;
+                    // Blank 7 is "placed" but doesn't follow the same rules for now, so it looks like one node is missing always.
+                    expectedCount++;
+                }
+
                 expectedCount--;
 
-                Generator.Logger.LogDebug($"Attempting to place {unplaced.Count}");
-                var placed = TryPlaceChildrenWithPlacement(rootNode, 2, 6, coordMap, 0, 0, unplaced, nodes, 1.0f, 0);
+                Generator.Logger.LogDebug($"Attempting to place {unplaced.Count} starting on {rootNode.name}");
+                var placed = TryPlaceChildrenWithPlacement(rootNode, 2, 6, coordMap, 0, 0, unplaced, nodes, 1.0f, FF13_2Flags.Other.RandoDLC.Enabled ? 1 : 0);
 
                 if (placed.Item1 && placed.Item2.Count == expectedCount && placed.Item3.Count == 0)
                 {
@@ -173,8 +197,8 @@ public partial class HistoriaCruxRando : Randomizer
                 else
                 {
                     attempts++;
-                    Generator.Logger.LogDebug($"Placed {placed.Item2.Count} of {nodes.Count} remaining {placed.Item3.Count}");
-                    foreach(var node in nodes.Values)
+                    Generator.Logger.LogDebug($"Placed {placed.Item2.Count} of {nodes.Count} (expected {expectedCount}) remaining {placed.Item3.Count}");
+                    foreach (var node in nodes.Values)
                     {
                         node.children.Clear();
                         node.parent = null;
@@ -186,22 +210,26 @@ public partial class HistoriaCruxRando : Randomizer
                 }
             } while (true);
 
-            var dlcBlankNode = nodes[HistoriaCruxConstants.BLANK_7];
-            coordMap[CoordsToId(1, 6)] = HistoriaCruxConstants.BLANK_7;
-            rootNode.children.Add(dlcBlankNode);
-            dlcBlankNode.parent = rootNode;
-            dlcBlankNode.children.Add(nodes[HistoriaCruxConstants.COLISEUM_DLC]);
-            nodes[HistoriaCruxConstants.COLISEUM_DLC].parent = dlcBlankNode;
-            dlcBlankNode.children.Add(nodes[HistoriaCruxConstants.SERENDIPITY_DLC]);
-            nodes[HistoriaCruxConstants.SERENDIPITY_DLC].parent = dlcBlankNode;
-            dlcBlankNode.children.Add(nodes[HistoriaCruxConstants.VALHALLA_DLC]);
-            nodes[HistoriaCruxConstants.VALHALLA_DLC].parent = dlcBlankNode;
-            var dlcUpperId = CoordsToId(0, 6 - 1);
-            coordMap[dlcUpperId] = HistoriaCruxConstants.VALHALLA_DLC;
-            var dlcLowerId = CoordsToId(1, 6 + 1);
-            coordMap[dlcLowerId] = HistoriaCruxConstants.SERENDIPITY_DLC;
-            var dlcLeftId = CoordsToId(0, 6);
-            coordMap[dlcLeftId] = HistoriaCruxConstants.COLISEUM_DLC;
+
+            if (!FF13_2Flags.Other.RandoDLC.Enabled)
+            {
+                var dlcBlankNode = nodes[HistoriaCruxConstants.BLANK_7];
+                coordMap[CoordsToId(1, 6)] = HistoriaCruxConstants.BLANK_7;
+                rootNode.children.Add(dlcBlankNode);
+                dlcBlankNode.parent = rootNode;
+                dlcBlankNode.children.Add(nodes[HistoriaCruxConstants.COLISEUM_DLC]);
+                nodes[HistoriaCruxConstants.COLISEUM_DLC].parent = dlcBlankNode;
+                dlcBlankNode.children.Add(nodes[HistoriaCruxConstants.SERENDIPITY_DLC]);
+                nodes[HistoriaCruxConstants.SERENDIPITY_DLC].parent = dlcBlankNode;
+                dlcBlankNode.children.Add(nodes[HistoriaCruxConstants.VALHALLA_DLC]);
+                nodes[HistoriaCruxConstants.VALHALLA_DLC].parent = dlcBlankNode;
+                var dlcUpperId = CoordsToId(0, 6 - 1);
+                coordMap[dlcUpperId] = HistoriaCruxConstants.VALHALLA_DLC;
+                var dlcLowerId = CoordsToId(1, 6 + 1);
+                coordMap[dlcLowerId] = HistoriaCruxConstants.SERENDIPITY_DLC;
+                var dlcLeftId = CoordsToId(0, 6);
+                coordMap[dlcLeftId] = HistoriaCruxConstants.COLISEUM_DLC;
+            }
             this.coordMap = coordMap;
             areaDepths = nodes.Values.ToDictionary(node => node.name, ResolveNodeDepth);
 
@@ -215,14 +243,28 @@ public partial class HistoriaCruxRando : Randomizer
             //hmaa_def needs to point at initial
             //otherwise update gates based on target location but needs to be _outgoing_
             //need to know which link goes with which gate - associate on fixed ones somehow?
-            var unshuffledNodes = new List<string>(){ HistoriaCruxConstants.BLANK_7, HistoriaCruxConstants.COLISEUM_DLC, HistoriaCruxConstants.SERENDIPITY_DLC, HistoriaCruxConstants.VALHALLA_DLC};
+            var unshuffledNodes = new List<string>() { };
+            if (!FF13_2Flags.Other.RandoDLC.Enabled) {
+                unshuffledNodes.Add(HistoriaCruxConstants.BLANK_7);
+                unshuffledNodes.Add(HistoriaCruxConstants.COLISEUM_DLC);
+                unshuffledNodes.Add(HistoriaCruxConstants.SERENDIPITY_DLC);
+                unshuffledNodes.Add(HistoriaCruxConstants.VALHALLA_DLC);
+            }
             foreach(var node in nodes.Values){
-                if(unshuffledNodes.Contains(node.name ))
+                if(unshuffledNodes.Contains(node.name))
                 {
                     continue;
                 }
                 Generator.Logger.LogDebug($"Node {node.name} links to {string.Join(",",node.children.Select(s => s.name))}");
                 var outgoingLinks = areaData[node.name].OutgoingGates;
+                int childOffset = 0;
+                // special case for root node DLC 970 placement
+                // the zz link is handled outside of this loop, so just skip the child in the node list if its present
+                if(node.name == rootLocation && node.children.Count > outgoingLinks.Count)
+                {
+                    childOffset++;
+                }
+
                 // special case 1x/sunleth because its weird...
                 // the void beyond or serendipity is placed first, so go backwards from the bottom for the other outward links
                 if (node.name == HistoriaCruxConstants.SUNLETH_300)
@@ -250,7 +292,7 @@ public partial class HistoriaCruxRando : Randomizer
                     for(var j = 0; j < outgoingLinks.Count; j++)
                     {
                         var link = outgoingLinks[j];
-                        var child = node.children[j];
+                        var child = node.children[j + childOffset];
                         gateTable[link].sOpenHistoria1 = child.name+"_a";
                     }
                 }
@@ -422,6 +464,7 @@ public partial class HistoriaCruxRando : Randomizer
     public class TreeNode
     {
         public string name;
+        // TODO: associate link name with child for easier lookup?
         public List<TreeNode> children = new();
         public TreeNode parent;
     }
@@ -599,6 +642,14 @@ public partial class HistoriaCruxRando : Randomizer
 
     private bool IsLocationAllowed(string location, TreeNode parent, List<string> placed, Dictionary<string, TreeNode> nodes)
     {
+        // Only allow acad 500 to be selected from blank 5 if the flag is enabled
+        if (FF13_2Flags.Other.ForceAcadVoidEndgame.Enabled)
+        {
+            if ((parent.name == HistoriaCruxConstants.BLANK_5) != (location == HistoriaCruxConstants.ACADEMIA_500))
+            {
+                return false;
+            }
+        }
         // This need to account for shuffle groups on items and ensure the placement is convergent enough with vanilla locations in mind.
         var areaInfo = areaData[location];
         var outwardGates = gateData.Values.Where(g => g.Location == location).ToList();
@@ -618,6 +669,10 @@ public partial class HistoriaCruxRando : Randomizer
                     var relative = ResolveNodeDepthRelative(nodes[gateOrigin], parent);
                     if(relative != -1)
                     {
+                        // TODO: this can be ok if the path uses a side chain?
+                        // Step through affected nodes, review requirements on links and verify?
+                        // e.g. if yaschas 1x is child of sunleth that's valid as long as the child link isn't through the dependent link (in this case void beyond)
+                        Generator.Logger.LogDebug($"Location {location} is not allowed here as it must be placed before {gateOrigin}");
                         return false;
                     }
                 }
@@ -636,17 +691,20 @@ public partial class HistoriaCruxRando : Randomizer
             // TODO: handle by treasure logic now if cores are randomised?
             if (gate.Traits.Contains("Graviton") && !hasGravitons)
             {
+                Generator.Logger.LogDebug($"Location {location} requires gravitons but state does not have them!");
                 return false;
             }
 
             // TODO: handle by treasure logic now if wilds are randomised?
             if (gate.Traits.Contains("Wild") && !hasWild)
             {
+                Generator.Logger.LogDebug($"Location {location} requires wild artefacts but state does not have them!");
                 return false;
             }
 
             if (gate.MinMogLevel > mogLevel)
             {
+                Generator.Logger.LogDebug($"Location {location} requires mog level {gate.MinMogLevel} but state has {mogLevel}");
                 return false;
             }
             // Hard code for Bresha 5 wild artefact if key items aren't rando
@@ -661,8 +719,6 @@ public partial class HistoriaCruxRando : Randomizer
         return true;
     }
 
-    // 591417063 random start 627779951
-    // 922234770
     private (bool, Dictionary<int, string>, List<string>, int) TryPlaceChildrenWithPlacement(TreeNode root, int rootX, int rootY, Dictionary<int, string> placed, int incomingDir, int depth, List<string> remaining, Dictionary<string, TreeNode> allNodes, float branchFactor, int openBranchesOrig)
     {
         // Because this process is depth first its a little awkward.
@@ -678,15 +734,20 @@ public partial class HistoriaCruxRando : Randomizer
         var areaInfo = areaData[root.name];
         if (areaInfo.OutgoingLinkCount == 0)
         {
-            // Generator.Logger.LogDebug($"Successfully placed terminal node {root.name} at (x: {rootX}, y: {rootY}, depth: {depth}). Placed {placed.Count} Open branches {openBranches}");
+            Generator.Logger.LogDebug($"Successfully placed terminal node {root.name} at (x: {rootX}, y: {rootY}, depth: {depth}). Placed {placed.Count} Open branches {openBranches}");
             return (true, placed, remaining, openBranchesOrig-1);
         } else
         {
-            // Generator.Logger.LogDebug($"Starting placement of node {root.name} at (x: {rootX}, y: {rootY}, depth: {depth}) with {areaInfo.OutgoingLinkCount} outgoing links. Placed {placed.Count} Open branches {openBranches}");
+            Generator.Logger.LogDebug($"Starting placement of node {root.name} at (x: {rootX}, y: {rootY}, depth: {depth}) with {areaInfo.OutgoingLinkCount} outgoing links. Placed {placed.Count} Open branches {openBranches}");
             openBranches += areaInfo.OutgoingLinkCount - 1;
+            if(depth == 0 && FF13_2Flags.Other.RandoDLC.Enabled)
+            {
+                // Extra branch if randomising dlc is on
+                openBranches++;
+            }
         }
 
-        if(root.children.Count != 0)
+        if(root.children.Count != 0 && depth > 0)
         {
             // Should never happen, placement should always be done by this algorithm.
             throw new Exception("Node already has children set!");
@@ -719,38 +780,26 @@ public partial class HistoriaCruxRando : Randomizer
         };
 
         // Pick outgoing link count nodes from remaining with weighted shuffle here instead.
-        var orderedPreference = new List<string>();
+        var orderedPreference = new List<string>(root.children.Select(n => n.name));
+        // Hack for depth 0
+        root.children.Clear();
 
         orderedPreference.AddRange(areaInfo.FixedLinks);
         newRemaining.RemoveAll(areaInfo.FixedLinks.Contains);
 
-        if(root.name == HistoriaCruxConstants.SUNLETH_300)
-        {
-            if (remaining.Contains(HistoriaCruxConstants.YASCHAS_1X))
-            {
-                orderedPreference.Add(HistoriaCruxConstants.SERENDIPITY);
-                newRemaining.Remove(HistoriaCruxConstants.SERENDIPITY);
-            } else
-            {
-                orderedPreference.Add(HistoriaCruxConstants.VOID_BEYOND_A);
-                newRemaining.Remove(HistoriaCruxConstants.VOID_BEYOND_A);
-            }
-        }
-        else if (root.name == HistoriaCruxConstants.YASCHAS_1X)
-        {
-            if (remaining.Contains(HistoriaCruxConstants.SUNLETH_300))
-            {
-                orderedPreference.Add(HistoriaCruxConstants.SERENDIPITY);
-                newRemaining.Remove(HistoriaCruxConstants.SERENDIPITY);
-            } else
-            {
-                orderedPreference.Add(HistoriaCruxConstants.VOID_BEYOND_A);
-                newRemaining.Remove(HistoriaCruxConstants.VOID_BEYOND_A);
-            }
-        }
+        //if(root.name == HistoriaCruxConstants.SUNLETH_300)
+        //{
+        //    orderedPreference.Add(HistoriaCruxConstants.VOID_BEYOND_A);
+        //    newRemaining.Remove(HistoriaCruxConstants.VOID_BEYOND_A);
+        //}
+        //else if (root.name == HistoriaCruxConstants.YASCHAS_1X)
+        //{
+        //    orderedPreference.Add(HistoriaCruxConstants.SERENDIPITY);
+        //    newRemaining.Remove(HistoriaCruxConstants.SERENDIPITY);
+        //}
 
         // Place end game before the chain gets too crazy
-        if(depth >=8 && newRemaining.Contains(HistoriaCruxConstants.ACADEMIA_4XX))
+        if (depth >= 8 && newRemaining.Contains(HistoriaCruxConstants.ACADEMIA_4XX))
         {
             orderedPreference.Add(HistoriaCruxConstants.ACADEMIA_4XX);
             newRemaining.Remove(HistoriaCruxConstants.ACADEMIA_4XX);
@@ -758,9 +807,17 @@ public partial class HistoriaCruxRando : Randomizer
 
         var remainingChoices = new List<string>(newRemaining.Where(a => !areaData[a].Traits.Contains("FixedInbound")));
 
-        if (orderedPreference.Count + remainingChoices.Count < areaInfo.OutgoingLinkCount)
+        var locationToPlace = areaInfo.OutgoingLinkCount;
+
+        // Ensure both 970 and the "normal" outgoing links are placed if rando dlc is enabled.
+        if(depth == 0 && FF13_2Flags.Other.RandoDLC.Enabled)
         {
-            // Generator.Logger.LogDebug($"Ran out of placeable locations as children for node {root.name} at depth {depth}. placed {placed.Count}, open branches {openBranches} preference {string.Join(",", orderedPreference)} outgoing {areaInfo.OutgoingLinkCount} remaining {string.Join(",",newRemaining)}");
+            locationToPlace++;
+        }
+
+        if (orderedPreference.Count + remainingChoices.Count < locationToPlace)
+        {
+            Generator.Logger.LogDebug($"Ran out of placeable locations as children for node {root.name} at depth {depth}. placed {placed.Count}, open branches {openBranches} preference {string.Join(",", orderedPreference)} outgoing {areaInfo.OutgoingLinkCount} remaining {string.Join(",",newRemaining)}");
             return (false, placed, remaining, openBranchesOrig);
         }
 
@@ -769,7 +826,7 @@ public partial class HistoriaCruxRando : Randomizer
 
         var removalReasons = new Dictionary<string, string>();
 
-        while(orderedPreference.Count < areaInfo.OutgoingLinkCount && remainingChoices.Count > 0)
+        while(orderedPreference.Count < locationToPlace && remainingChoices.Count > 0)
         {
             // TODO: may need to fiddle with the bias to kill off links?
             // Because this is depth first its very likely to end up trying to place a long line
@@ -793,41 +850,30 @@ public partial class HistoriaCruxRando : Randomizer
             // Prevent placement of terminal nodes until all non-terminal nodes placed?
             // Will this lead to overlong chains? probably?
 
-            // Only allow a terminal node from dying world to prevent endgame bleed for now
-            if (root.name == HistoriaCruxConstants.DYING_WORLD_700)
+            // TODO: force outgoing placement from void beyond B to be acad 500/endgame?
+
+            // if a terminal node is rolled and we have enough non-terminal nodes to place otherwise
+            if (selectionData.OutgoingLinkCount == 0)
             {
-                if (selectionData.OutgoingLinkCount > 0)
+                if(selection == HistoriaCruxConstants.AUGUSTA_300 || selection == HistoriaCruxConstants.COLISEUM)
                 {
-                    removalReasons.Add(selection, "Dying world branch");
-                    remainingChoices.Remove(selection);
-                    continue;
+                    // Just allow these to be placed to ensure augusta 200/sunleth 300 respectively don't get locked out
                 }
-            }
-            else
-            {
-                // if a terminal node is rolled and we have enough non-terminal nodes to place otherwise
-                if (selectionData.OutgoingLinkCount == 0)
+                else if (remainingNonTerminalCount - orderedPreference.Count > locationToPlace)
                 {
-                    if(selection == HistoriaCruxConstants.AUGUSTA_300 || selection == HistoriaCruxConstants.COLISEUM)
+                    // If we haven't opened up enough branches, don't allow it to be picked
+                    if (openBranches < remainingTerminal.Count - 2)
                     {
-                        // Just allow these to be placed to ensure augusta 200/sunleth 300 respectively don't get locked out
+                        removalReasons.Add(selection, $"Open branches {openBranches} remainingTerminal {remainingTerminal.Count}");
+                        remainingChoices.Remove(selection);
+                        continue;
                     }
-                    else if (remainingNonTerminalCount - orderedPreference.Count > areaInfo.OutgoingLinkCount)
+                    // If there are more nodes to place than branches, remove empty nodes to keep placement going.
+                    else if (remainingNonTerminalCount > openBranches)
                     {
-                        // If we haven't opened up enough branches, don't allow it to be picked
-                        if (openBranches < remainingTerminal.Count - 2)
-                        {
-                            removalReasons.Add(selection, $"Open branches {openBranches} remainingTerminal {remainingTerminal.Count}");
-                            remainingChoices.Remove(selection);
-                            continue;
-                        }
-                        // If there are more nodes to place than branches, remove empty nodes to keep placement going.
-                        else if (remainingNonTerminalCount > openBranches)
-                        {
-                            removalReasons.Add(selection, $"Open branches {openBranches} remainingNonTerminal {remainingNonTerminalCount}");
-                            remainingChoices.Remove(selection);
-                            continue;
-                        }
+                        removalReasons.Add(selection, $"Open branches {openBranches} remainingNonTerminal {remainingNonTerminalCount}");
+                        remainingChoices.Remove(selection);
+                        continue;
                     }
                 }
             }
@@ -852,7 +898,7 @@ public partial class HistoriaCruxRando : Randomizer
         // Prefer placing the higher amount of follow on links to the right
         orderedPreference = orderedPreference.OrderByDescending(s =>
         {
-            // Prioritise placing path to endgame
+            // Prioritise placing path to endgame to the right
             if(s == HistoriaCruxConstants.ACADEMIA_4XX || s == HistoriaCruxConstants.DYING_WORLD_700 || s == HistoriaCruxConstants.SERENDIPITY || s == HistoriaCruxConstants.VOID_BEYOND_A)
             {
                 return 5;
@@ -860,10 +906,10 @@ public partial class HistoriaCruxRando : Randomizer
             return areaData[s].OutgoingLinkCount;
         }).ToList();
 
-        if(orderedPreference.Count < areaInfo.OutgoingLinkCount)
+        if(orderedPreference.Count < locationToPlace)
         {
-            // Generator.Logger.LogDebug($"Unable to resolve sufficient allowed locations to be children of {root.name} at depth {depth}. placed {placed.Count}. Resolved allowed {string.Join(",",orderedPreference)} but needed {areaInfo.OutgoingLinkCount} (available {newRemaining.Count})");
-            // Generator.Logger.LogDebug($"Reasons: {string.Join(", ", removalReasons.Select(kvp => kvp.Key+":"+kvp.Value))}");
+            Generator.Logger.LogDebug($"Unable to resolve sufficient allowed locations to be children of {root.name} at depth {depth}. placed {placed.Count}. Resolved allowed {string.Join(",",orderedPreference)} but needed {locationToPlace} (available {newRemaining.Count})");
+            Generator.Logger.LogDebug($"Reasons: {string.Join(", ", removalReasons.Select(kvp => kvp.Key+":"+kvp.Value))}");
             return (false, placed, remaining, openBranchesOrig);
         }
 
@@ -1014,7 +1060,7 @@ public partial class HistoriaCruxRando : Randomizer
                     // place the child and move on. (is this enough?)
                     root.children.Add(activeChild);
                     activeChild.parent = root;
-                    if (root.children.Count == areaInfo.OutgoingLinkCount)
+                    if (root.children.Count == locationToPlace)
                     {
                         break;
                     }
@@ -1026,7 +1072,10 @@ public partial class HistoriaCruxRando : Randomizer
             newPlacement[activeChildId] = activeChild.name;
             root.children.Add(activeChild);
             activeChild.parent = root;
-            var (success, added, remainingFromChild, nowOpen) = TryPlaceChildrenWithPlacement(activeChild, attemptX, attemptY, newPlacement, trueDir, depth + 1, newRemaining, allNodes, branchFactor / (float)areaInfo.OutgoingLinkCount, openBranches);
+            // TODO: this is effectively depth first.
+            // For nodes with high outgoing links, should reserve adjacent locations to ensure placement always works as expected
+            // Otherwise its common to run out of space when generating from a high choice root
+            var (success, added, remainingFromChild, nowOpen) = TryPlaceChildrenWithPlacement(activeChild, attemptX, attemptY, newPlacement, trueDir, depth + 1, newRemaining, allNodes, branchFactor / (float)locationToPlace, openBranches);
             if (!success)
             {
                 activeChild.parent = null;
@@ -1039,7 +1088,7 @@ public partial class HistoriaCruxRando : Randomizer
                 newRemaining = remainingFromChild;
                 openBranches = nowOpen;
                 usedDirs.Add(trueDir);
-                if (root.children.Count == areaInfo.OutgoingLinkCount)
+                if (root.children.Count == locationToPlace)
                 {
                     break;
                 }
@@ -1060,20 +1109,20 @@ public partial class HistoriaCruxRando : Randomizer
                     usedLeft = true;
                 }
                 // Special case these as they technically have 4 outgoing links so things are going to get weird no matter what probably...
-                if (root.name == HistoriaCruxConstants.SUNLETH_300 || root.name == HistoriaCruxConstants.YASCHAS_1X)
-                {
-                    usedUp = false;
-                    usedDown = false;
-                    usedRight = false;
-                    usedLeft = false;
-                }
+                //if (root.name == HistoriaCruxConstants.SUNLETH_300 || root.name == HistoriaCruxConstants.YASCHAS_1X)
+                //{
+                //    usedUp = false;
+                //    usedDown = false;
+                //    usedRight = false;
+                //    usedLeft = false;
+                //}
                 // Restart the loop to check all adjacencies properly
                 direction = -1;
             }
         }
-        if (root.children.Count < areaInfo.OutgoingLinkCount)
+        if (root.children.Count < locationToPlace)
         {
-            // Generator.Logger.LogDebug($"Unable to place children of {root.name} (x: {rootX}, y: {rootY}). Placed {root.children.Count} of {areaInfo.OutgoingLinkCount} at depth {depth}. placed {placed.Count} - unwound {newPlacement.Count - placed.Count}. Selected {string.Join(",",orderedPreference)}. Used directions {string.Join(",",usedDirs)}");
+            Generator.Logger.LogDebug($"Unable to place children of {root.name} (x: {rootX}, y: {rootY}). Placed {root.children.Count} of {locationToPlace} at depth {depth}. placed {placed.Count} - unwound {newPlacement.Count - placed.Count}. Selected {string.Join(",",orderedPreference)}. Used directions {string.Join(",",usedDirs)}");
             // Unlink all children for re-placement
             UnlinkRecursive(root);
             // Potentially need to introduce an offset for an empty node and try again as long as we have some to work with
@@ -1081,7 +1130,8 @@ public partial class HistoriaCruxRando : Randomizer
         }
         if(depth == 0)
         {
-            Generator.Logger.LogDebug($"Unplaced: {string.Join(",", newRemaining)}");
+            Generator.Logger.LogDebug($"Unplaced: {string.Join(",", newRemaining)}, openBranches: {openBranches}");
+            Generator.Logger.LogDebug($"Node stats: {string.Join(", ", allNodes.Values.Select(node => $"{node.name} - children: {node.children.Count} - expected: {areaData[node.name].OutgoingLinkCount}"))}");
         }
         // Order placement for gatetable allocation
         // Fixed links go first then everything else is kind of whatever tbh
@@ -1102,7 +1152,7 @@ public partial class HistoriaCruxRando : Randomizer
             }
             return areaData[s].OutgoingLinkCount;
         }).ToList();
-        // Generator.Logger.LogDebug($"Finalised placement of {root.name} at (x: {rootX}, y: {rootY}, depth: {depth}) with {areaInfo.OutgoingLinkCount} children ({string.Join(",",root.children.Select(s => s.name))}). Placed {newPlacement.Count} open branches {openBranches}");
+        Generator.Logger.LogDebug($"Finalised placement of {root.name} at (x: {rootX}, y: {rootY}, depth: {depth}) with {locationToPlace} children ({string.Join(",",root.children.Select(s => s.name))}). Placed {newPlacement.Count} open branches {openBranches}");
         return (true, newPlacement, newRemaining, openBranches);
     }
 
@@ -1222,10 +1272,9 @@ public partial class HistoriaCruxRando : Randomizer
                 wilds.Add(HistoriaCruxConstants.DYING_WORLD_700); // Dying World 700. requires moogle hunt
             }
 
-            if (available.Contains(HistoriaCruxConstants.SUNLETH_300) && available.Contains(HistoriaCruxConstants.ARCHYLTE) &&
-                available.Contains(HistoriaCruxConstants.YASCHAS_1X) && available.Contains(HistoriaCruxConstants.COLISEUM))
+            if (available.Contains(HistoriaCruxConstants.YASCHAS_1X))
             {
-                wilds.Add(HistoriaCruxConstants.SERENDIPITY); // Serendipity. requires completing Yaschas 1X and Sunleth 300 (which then transitively requires the Hole Gems from coliseum/archylte)
+                wilds.Add(HistoriaCruxConstants.SERENDIPITY); // Serendipity. requires completing Yaschas 1X
             }
 
             int wildsNeeded = GetWildsNeeded(available);

@@ -294,6 +294,7 @@ public class FF13_2Flags
         public static Flag Music;
         public static ComboBoxFlagProperty ForcedStart;
         public static ToggleFlagProperty RandoDLC;
+        public static ToggleFlagProperty ForceAcadVoidEndgame;
 
         internal static void Init()
         {
@@ -323,6 +324,14 @@ public class FF13_2Flags
                 Description = "Includes the Lightning, Sazh, and Coliseum DLC into the pool. Turning this on will also allow 3 additional areas open from the start.\n\n" +
                 "[NOTE]\n" +
                 "This requires a separate mod 'DLC Restoration - Console Content' that is provided as a core mod for Nova. Download this mod from the Core Mods download in the Nova discord server."
+            }.Register(HistoriaCrux);
+
+            ForceAcadVoidEndgame = new ToggleFlagProperty(false)
+            {
+                Text = "Force Acad 4xx / Void Beyond B endgame",
+                ID = "CruxForceAcadEndgame",
+                Description = "Forces the path to Acad 500 to be Acad 4xx -> Void Beyond -> Acad 500 locked behind the Graviton Core hand-ins.\n\n" +
+                "Disabling this flag means that endgame can be placed anywhere in randomisation with potentially low requirements to access."
             }.Register(HistoriaCrux);
 
             Music = new Flag(false)

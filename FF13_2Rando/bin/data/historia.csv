@@ -17,13 +17,12 @@ h_sn_AD0300,hs_snda01_cl,,,0,Sunleth 300 AF -> Coliseum,
 h_sn_AD0300,hs_snda93_sn,Paradox,,0,Sunleth 300 AF -> Paradox,
 h_sn_AD0300,hs_snda02_gd,,,0,Sunleth 300 AF -> Archylte,
 h_gd_NA0000,hs_gdza01_vp,Wild,,0,Archylte -> Vile 200 AF,
-# Augusta 300 is included here as a placement heuristic rather than an actual requirement.
-# Once we can untangle some of these cross-requirements, placement gets easier rather than harder...
-h_gh_AD0010,hs_ghaa01_ac,Fixed,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000|h_gt_AD0300,0,Yaschas 1X -> Void Beyond,
-h_gh_AD0010,hs_ghaa01_cs,Fixed,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000|h_gt_AD0300,0,Yaschas 1X -> Serendipity,
-h_sn_AD0300,hs_snda03_ac,Fixed,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000|h_gt_AD0300,0,Sunleth 300 -> Void Beyond,
-h_sn_AD0300,hs_snda03_cs,Fixed,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000|h_gt_AD0300,0,Sunleth 300 -> Serendipity,
-h_sp_NA0001,hs_spza02_ac,,h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000|h_gt_AD0300,0,Void Beyond -> Academia 400 AF,
+h_gh_AD0010,hs_ghaa01_ac,Fixed,,0,Yaschas 1X -> Void Beyond,
+h_gh_AD0010,hs_ghaa01_cs,Fixed,,0,Yaschas 1X -> Serendipity,
+h_sn_AD0300,hs_snda03_ac,Fixed,,0,Sunleth 300 -> Void Beyond,
+h_sn_AD0300,hs_snda03_cs,Fixed,,0,Sunleth 300 -> Serendipity,
+# Until white/black hole gems are shuffled, need to include the additional areas in the requirements here for placement.
+h_sp_NA0001,hs_spza02_ac,,h_sn_AD0300|h_gd_NA0000|h_cl_NA0000,0,Void Beyond -> Academia 400 AF,
 h_ac_AD0400,hs_acea01_gt,,,0,Academia 400 AF -> Augusta 200 AF,
 h_ac_AD0400,hs_acea02_gy,Wild,,0,Academia 400 AF -> Yaschas 100 AF,
 h_gy_AD0100,hs_gyba01_sn,Wild,,0,Yaschas 100 AF -> Sunleth 400 AF,
@@ -33,8 +32,8 @@ h_gt_AD0200,hs_gtca01_aa,,h_gt_AD0300,0,Augusta 200 AF -> Academia 4XX AF,
 h_gw_AD0300,hs_gwda01_gw,Wild,,0,Oerba 300 AF -> Oerba 400 AF,
 h_aa_AD0400,hs_aaea01_vp,Wild,,0,Academia 4XX AF -> Vile 10 AF,
 # TODO: for now this gate cannot be shuffled/replaced, it is a fixed join
-# Upped to min mog level 3 since bodhum 700 will softlock without it
 h_aa_AD0400,hs_aaea02_sp,Fixed|Graviton,,0,Academia 4XX AF -> Void Beyond,
 h_hm_AD0700,hs_hmha01_ac,Fixed,,0,New Bodhum 700 AF -> Academia 500 AF,
-h_dd_AD0700,hs_ddha02_bj,Wild,,0,Dying World 700 AF -> Bresha 100 AF,
+# Must have mog level 3 to read the wild gate on this one.
+h_dd_AD0700,hs_ddha02_bj,Wild,,3,Dying World 700 AF -> Bresha 100 AF,
 # Add in all missing links with fixed markers for ZZ etc.
