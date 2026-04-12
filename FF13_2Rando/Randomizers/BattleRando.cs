@@ -668,7 +668,7 @@ public partial class BattleRando : Randomizer
           {
               List<string> names = b.GetCharSpecs().Take(b.u4BtChInitSetNum > 0 ? b.u4BtChInitSetNum : int.MaxValue).Select(e => enemyData.ContainsKey(e) ? enemyData[e].Name : e + " (???)").GroupBy(e => e).Select(g => $"{g.Key} x {g.Count()}").ToList();
               string desc = battleData.ContainsKey(b.record) ? battleData[b.record].Name : null;
-              string modifiedId = desc.Length > 0 ? $"{b.record} ({desc})" : b.record;
+              string modifiedId = (desc != null && desc.Length > 0) ? $"{b.record} ({desc})" : b.record;
               return new string[] { modifiedId, string.Join("/", GetAreasWithBattle(b.record).Select(a => historiaCruxRando.areaData[a].Name)), string.Join(", ", names) }.ToList();
           }).ToList()));
         pages.Add("encounters", page);
