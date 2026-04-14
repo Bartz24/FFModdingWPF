@@ -46,9 +46,9 @@ if ($IncrementVersion)
 $VersionFull = "$VersionMajor.$VersionMinor.$VersionBuild.$VersionRevision"
 
 "Updating versions in code..."
-(Get-Content "RandoWPF\data\SetupData.cs") `
+(Get-Content "RandoWPF\Data\SetupData.cs") `
     -replace 'public static string Version \{ get; set; \} = ".*";', "public static string Version { get; set; } = `"$VersionFull`";" |
-Set-Content "RandoWPF\data\SetupData.cs"
+Set-Content "RandoWPF\Data\SetupData.cs"
 
 if ( $Build12 )
 {
