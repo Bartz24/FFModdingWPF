@@ -61,6 +61,15 @@ jobs:
 
           ./publish_all.ps1 -Selection $selection -IncrementVersion:$incrementVersion -NoPause
 
+      - name: Verify version files
+        if: steps.branch_check.outputs.should_publish == 'true' && github.event_name == 'push'
+        shell: pwsh
+        run: |
+          Write-Host "VERSION.txt:"
+          Get-Content VERSION.txt | Select-Object -Last 1
+          Write-Host "SetupData.cs version line:"
+          Select-String -Path RandoWPF/data/SetupData.cs -Pattern 'public static string Version' | ForEach-Object { $_.Line }
+
       - name: Commit version bump
         if: steps.branch_check.outputs.should_publish == 'true' && github.event_name == 'push'
         shell: pwsh
@@ -68,14 +77,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          $dirtyFiles = git diff --name-only -- VERSION.txt RandoWPF/data/SetupData.cs
-          if (-not [string]::IsNullOrWhiteSpace($dirtyFiles)) {
-            git add VERSION.txt RandoWPF/data/SetupData.cs
+          git add -- VERSION.txt RandoWPF/data/SetupData.cs
+
+          $stagedFiles = git diff --cached --name-only -- VERSION.txt RandoWPF/data/SetupData.cs
+          if (-not [string]::IsNullOrWhiteSpace($stagedFiles)) {
+            Write-Host "Staged version files:"
+            $stagedFiles
             $version = (Get-Content VERSION.txt | Select-Object -Last 1).Trim()
             git commit -m "ci: bump version to $version [skip ci]"
             git push origin HEAD:${{ github.ref_name }}
           } else {
-            Write-Host "No version changes to commit."
+            Write-Host "No staged version changes to commit."
           }
 
       - name: Upload publish archives
@@ -89,3 +101,65 @@ jobs:
             FF13_2Rando/bin/publish/FF13_2Randomizer*.7z
             LRRando/bin/publish/LRRandomizer*.7z
           if-no-files-found: ignore
+
+      - name: Publish GitHub pre-release
+        if: steps.branch_check.outputs.should_publish == 'true' && github.ref_name != '' && startsWith(github.ref, 'refs/heads/')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ("${{ github.ref_name }}" -notmatch '^\d+\.\d+$') {
+            Write-Host "Branch ${{ github.ref_name }} is not an X.X release branch. Skipping GitHub pre-release publishing."
+            exit 0
+          }
+
+          $branchVersion = "${{ github.ref_name }}"
+          $tagName = "pre-release-$branchVersion"
+          $releaseName = "$branchVersion Pre-release"
+          $releaseNotes = "Automated pre-release for branch $branchVersion.`n`nThis release is updated in place so there is only one current pre-release link for this release line."
+          $assetPatterns = @(
+            "FF12Rando/bin/publish/FF12Randomizer*.7z",
+            "FF13Rando/bin/publish/FF13Randomizer*.7z",
+            "FF13_2Rando/bin/publish/FF13_2Randomizer*.7z",
+            "LRRando/bin/publish/LRRandomizer*.7z"
+          )
+
+          $assets = @()
+          foreach ($pattern in $assetPatterns) {
+            $assets += Get-ChildItem -Path $pattern -File -ErrorAction SilentlyContinue
+          }
+
+          if ($assets.Count -eq 0) {
+            Write-Host "No release assets found. Skipping GitHub pre-release publishing."
+            exit 0
+          }
+
+          git tag -f $tagName "${{ github.sha }}"
+          git push origin "refs/tags/$tagName" --force
+
+          $releaseExists = $true
+          try {
+            $release = gh api "repos/${{ github.repository }}/releases/tags/$tagName" | ConvertFrom-Json
+          } catch {
+            $releaseExists = $false
+          }
+
+          if (-not $releaseExists) {
+            gh release create $tagName @($assets.FullName) --repo "${{ github.repository }}" --title $releaseName --notes $releaseNotes --prerelease
+            exit 0
+          }
+
+          $updateBody = @{
+            name = $releaseName
+            body = $releaseNotes
+            prerelease = $true
+            draft = $false
+            target_commitish = "${{ github.ref_name }}"
+          } | ConvertTo-Json -Compress
+          $updateBody | gh api "repos/${{ github.repository }}/releases/$($release.id)" --method PATCH --input -
+
+          foreach ($asset in $release.assets) {
+            gh api "repos/${{ github.repository }}/releases/assets/$($asset.id)" --method DELETE
+          }
+
+          gh release upload $tagName @($assets.FullName) --repo "${{ github.repository }}"
