@@ -77,13 +77,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+          $version = (Get-Content VERSION.txt | Select-Object -Last 1).Trim()
+          (Get-Content "RandoWPF/data/SetupData.cs") `
+            -replace 'public static string Version \{ get; set; \} = ".*";', "public static string Version { get; set; } = `"$version`";" |
+          Set-Content "RandoWPF/data/SetupData.cs"
+
           git add -- VERSION.txt RandoWPF/data/SetupData.cs
 
           $stagedFiles = git diff --cached --name-only -- VERSION.txt RandoWPF/data/SetupData.cs
           if (-not [string]::IsNullOrWhiteSpace($stagedFiles)) {
             Write-Host "Staged version files:"
             $stagedFiles
-            $version = (Get-Content VERSION.txt | Select-Object -Last 1).Trim()
             git commit -m "ci: bump version to $version [skip ci]"
             git push origin HEAD:${{ github.ref_name }}
           } else {
@@ -137,29 +141,19 @@ jobs:
           git tag -f $tagName "${{ github.sha }}"
           git push origin "refs/tags/$tagName" --force
 
-          $releaseExists = $true
-          try {
-            $release = gh api "repos/${{ github.repository }}/releases/tags/$tagName" | ConvertFrom-Json
-          } catch {
-            $releaseExists = $false
-          }
+          $releaseJson = gh release view $tagName --repo "${{ github.repository }}" --json assets 2>$null
+          $releaseExists = $LASTEXITCODE -eq 0
 
           if (-not $releaseExists) {
-            gh release create $tagName @($assets.FullName) --repo "${{ github.repository }}" --title $releaseName --notes $releaseNotes --prerelease
+            gh release create $tagName @($assets.FullName) --repo "${{ github.repository }}" --target "${{ github.ref_name }}" --title $releaseName --notes $releaseNotes --prerelease
             exit 0
           }
 
-          $updateBody = @{
-            name = $releaseName
-            body = $releaseNotes
-            prerelease = $true
-            draft = $false
-            target_commitish = "${{ github.ref_name }}"
-          } | ConvertTo-Json -Compress
-          $updateBody | gh api "repos/${{ github.repository }}/releases/$($release.id)" --method PATCH --input -
+          gh release edit $tagName --repo "${{ github.repository }}" --title $releaseName --notes $releaseNotes --prerelease
 
+          $release = $releaseJson | ConvertFrom-Json
           foreach ($asset in $release.assets) {
-            gh api "repos/${{ github.repository }}/releases/assets/$($asset.id)" --method DELETE
+            gh release delete-asset $tagName $asset.name --repo "${{ github.repository }}" --yes
           }
 
-          gh release upload $tagName @($assets.FullName) --repo "${{ github.repository }}"
+          gh release upload $tagName @($assets.FullName) --repo "${{ github.repository }}" --clobber
