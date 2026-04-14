@@ -44,5 +44,4 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
     & "7z.exe" a -t7z -mx=9 "FF13Randomizer$Version.7z" "data" "README.pdf" "FF13Rando.exe" "libs" "*.json" "FF13Rando.dll"
     Pop-Location
 
-    Copy-Item -Path "bin\publish\FF13Randomizer$Version.7z" -Destination "bin\build\FF13RandomizerPreview.7z" -Force
 }

@@ -1,0 +1,91 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - "*"
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: "Projects to build: all, xii, xiii, xiii2, lr"
+        required: false
+        default: "all"
+      increment_version:
+        description: "Increment VERSION.txt before publishing"
+        required: false
+        type: boolean
+        default: true
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: windows-latest
+
+    steps:
+      - name: Check branch name
+        id: branch_check
+        shell: pwsh
+        run: |
+          $shouldPublish = "${{ github.event_name }}" -ne "push" -or "${{ github.ref_name }}" -match '^\d+\.\d+$'
+          "should_publish=$($shouldPublish.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+
+      - name: Checkout
+        if: steps.branch_check.outputs.should_publish == 'true'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        if: steps.branch_check.outputs.should_publish == 'true'
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore solution
+        if: steps.branch_check.outputs.should_publish == 'true'
+        run: dotnet restore FFModdingWPF.sln
+
+      - name: Publish packages
+        if: steps.branch_check.outputs.should_publish == 'true'
+        shell: pwsh
+        run: |
+          $selection = if ("${{ github.event_name }}" -eq "workflow_dispatch") { "${{ inputs.targets }}" } else { "all" }
+          $incrementVersion = if ("${{ github.event_name }}" -eq "workflow_dispatch") { [System.Convert]::ToBoolean("${{ inputs.increment_version }}") } else { $true }
+
+          ./publish_all.ps1 -Selection $selection -IncrementVersion:$incrementVersion -NoPause
+
+      - name: Commit version bump
+        if: steps.branch_check.outputs.should_publish == 'true' && github.event_name == 'push'
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          $dirtyFiles = git diff --name-only -- VERSION.txt RandoWPF/data/SetupData.cs
+          if (-not [string]::IsNullOrWhiteSpace($dirtyFiles)) {
+            git add VERSION.txt RandoWPF/data/SetupData.cs
+            $version = (Get-Content VERSION.txt | Select-Object -Last 1).Trim()
+            git commit -m "ci: bump version to $version [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+          } else {
+            Write-Host "No version changes to commit."
+          }
+
+      - name: Upload publish archives
+        if: steps.branch_check.outputs.should_publish == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-archives
+          path: |
+            FF12Rando/bin/publish/FF12Randomizer*.7z
+            FF13Rando/bin/publish/FF13Randomizer*.7z
+            FF13_2Rando/bin/publish/FF13_2Randomizer*.7z
+            LRRando/bin/publish/LRRandomizer*.7z
+          if-no-files-found: ignore

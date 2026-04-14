@@ -42,5 +42,4 @@ if ( ($Update -eq "Y") -or ($Update -eq "y") )
     & "7z.exe" a -t7z -mx=9 "LRRandomizer$Version.7z" "data" "README.pdf" "LRRando.exe" "libs" "*.json" "LRRando.dll"
     Pop-Location
 
-    Copy-Item -Path "bin\publish\LRRandomizer$Version.7z" -Destination "bin\build\LRRandomizerPreview.7z" -Force
 }

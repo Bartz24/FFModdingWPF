@@ -1,7 +1,17 @@
-"Select projects to build (xii,xiii,xiii2,lr) or 'all'"
-$Selection = Read-Host "Enter selection (leave blank for all)"
+param(
+    [string]$Selection = "",
+    [Nullable[bool]]$IncrementVersion = $null,
+    [switch]$NoPause
+)
+
+if ([string]::IsNullOrWhiteSpace($Selection))
+{
+    "Select projects to build (xii,xiii,xiii2,lr) or 'all'"
+    $Selection = Read-Host "Enter selection (leave blank for all)"
+}
+
 if ([string]::IsNullOrWhiteSpace($Selection)) { $Selection = "all" }
-$Targets = $Selection.ToLower().Split(",") | ForEach-Object { $_.Trim() }
+$Targets = $Selection.ToLower().Split(",") | ForEach-Object { $_.Trim() } | Where-Object { $_ }
 
 $Build12 = ($Targets -contains "xii") -or ($Targets -contains "all")
 $Build13 = ($Targets -contains "xiii") -or ($Targets -contains "all")
@@ -20,12 +30,17 @@ $VersionRevision = [int]$VersionNumbers.Groups[4].Value
 
 "Current version: $VersionMajor.$VersionMinor.$VersionBuild.$VersionRevision"
 
-$Update = Read-Host "Increment version? (Y/N)"
-if ( ($Update -eq "Y") -or ($Update -eq "y") )
+if ($null -eq $IncrementVersion)
 {
-$VersionRevision = $VersionRevision + 1
-"New version: $VersionMajor.$VersionMinor.$VersionBuild.$VersionRevision"
-"$VersionMajor.$VersionMinor.$VersionBuild.$VersionRevision" | Out-File -FilePath VERSION.txt
+    $Update = Read-Host "Increment version? (Y/N)"
+    $IncrementVersion = ($Update -eq "Y") -or ($Update -eq "y")
+}
+
+if ($IncrementVersion)
+{
+    $VersionRevision = $VersionRevision + 1
+    "New version: $VersionMajor.$VersionMinor.$VersionBuild.$VersionRevision"
+    Set-Content -Path VERSION.txt -Value "$VersionMajor.$VersionMinor.$VersionBuild.$VersionRevision"
 }
 
 $VersionFull = "$VersionMajor.$VersionMinor.$VersionBuild.$VersionRevision"
@@ -33,7 +48,7 @@ $VersionFull = "$VersionMajor.$VersionMinor.$VersionBuild.$VersionRevision"
 "Updating versions in code..."
 (Get-Content "RandoWPF\data\SetupData.cs") `
     -replace 'public static string Version \{ get; set; \} = ".*";', "public static string Version { get; set; } = `"$VersionFull`";" |
-Out-File "RandoWPF\data\SetupData.cs"
+Set-Content "RandoWPF\data\SetupData.cs"
 
 if ( $Build12 )
 {
@@ -67,4 +82,7 @@ Invoke-Expression ".\publish.ps1 $VersionFull Y Y"
 Pop-Location
 }
 
-Read-Host -Prompt "Press Enter to exit"
+if (-not $NoPause)
+{
+    Read-Host -Prompt "Press Enter to exit"
+}
