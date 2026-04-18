@@ -550,6 +550,10 @@ public partial class EquipRando : Randomizer
     private void GenerateDescriptionsFile()
     {
         string scriptFolder = $"{SetupData.Paths["12"]}\\x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig";
+        if (!FF12SeedGenerator.DescriptiveInstalled() || !Directory.Exists(scriptFolder))
+        {
+            return;
+        }
 
         List<string> linesPage = new()
         {

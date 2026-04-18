@@ -129,7 +129,7 @@ public class FF12Flags
         public static ComboBoxFlagProperty KeyDepth;
         public static NumberFlagProperty ShopSize;
         public static ToggleFlagProperty ShopsShared, JunkRankScaleShops;
-        public static NumberFlagProperty TpStoneCount, ReplaceRank;
+        public static NumberFlagProperty TpStoneCount, ReplaceRank, ShufflePricesMaxNonOutfitter;
         public static ListBoxFlagProperty WritGoals;
         public const string WritGoalCid2 = "Defeat Cid 2 in Pharos";
         public const string WritGoalAny = "Find in Any Random Location";
@@ -483,6 +483,17 @@ public class FF12Flags
                 FlagID = "ShufflePrices",
                 DescriptionFormat = "Miscellaneous prices are shuffled around. This includes the aerodrome flight costs, chocobo costs, hunt club outfitters, map costs, pinewood chop check costs. Takes effect after the 'Lower Hunt Club Outfitters Prices' flag."
             }.Register(FlagType.Items);
+
+            ShufflePricesMaxNonOutfitter = new NumberFlagProperty(10000)
+            {
+                Text = "Maximum Non-Outfitter Price",
+                ID = "ShufflePricesMaxNonOutfitter",
+                Description = "Caps shuffled miscellaneous prices for everything except Hunt Club outfitter rewards.",
+                ValueText = "Max Price:",
+                MinValue = 1000,
+                MaxValue = 1000000,
+                ScaleType = NumberFlagProperty.NumberScaleType.Logarithmic
+            }.Register(ShufflePrices);
         }
     }
 

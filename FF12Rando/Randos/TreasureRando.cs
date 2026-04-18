@@ -245,6 +245,12 @@ public partial class TreasureRando : Randomizer
                 prices[originalIds[i]].Price = originalPrices[shuffled[i]];
             }
 
+            uint maxNonOutfitterPrice = (uint)FF12Flags.Items.ShufflePricesMaxNonOutfitter.Value;
+            PriceData.Values.Where(p => !p.Name.StartsWith("Hunt Club Outfitters")).ForEach(p =>
+            {
+                prices[p.ID].Price = Math.Min(prices[p.ID].Price, maxNonOutfitterPrice);
+            });
+
             RandomNum.ClearRand();
         }
     }
