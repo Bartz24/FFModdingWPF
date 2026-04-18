@@ -22,9 +22,9 @@
                     <Label Content="{Binding ValueText}"/>
                     <Label Content="{Binding Value}"/>
                 </StackPanel>
-                <Slider Minimum="{Binding MinValue}" Maximum="{Binding MaxValue}" MinWidth="500px" Value="{Binding Value}"
+                <Slider Minimum="{Binding SliderMinimum}" Maximum="{Binding SliderMaximum}" MinWidth="500px" Value="{Binding SliderValue}"
                         Style="{StaticResource MaterialDesignDiscreteSlider}"
-                          TickPlacement="BottomRight" TickFrequency="{Binding StepSize}" />                
+                          TickPlacement="BottomRight" TickFrequency="{Binding SliderTickFrequency}" IsSnapToTickEnabled="True" />                
             </StackPanel>
         </StackPanel>
         <materialDesign:PackIcon ToolTipService.InitialShowDelay="0" ToolTipService.ShowDuration="20000" Visibility="{Binding HelpVisibility}" Width="36" Height="36" Kind="InformationOutline" Grid.Row="0" Grid.Column="1" Foreground="{Binding HelpColor}" Background="Transparent">
