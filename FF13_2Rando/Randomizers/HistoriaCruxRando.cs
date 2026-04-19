@@ -1335,6 +1335,21 @@ public partial class HistoriaCruxRando : Randomizer
         {
             size++;
         }
+
+        if (FF13_2Flags.Items.KeyArtefact.Enabled)
+        {
+            size++;
+        }
+
+        if (FF13_2Flags.Items.KeyParadox.Enabled)
+        {
+            size++;
+        }
+
+        if (FF13_2Flags.Items.KeyFragment.Enabled)
+        {
+            size += 2;
+        }
         // Academia 4XX can softlock without Brain Blast
         if (FF13_2Flags.Items.KeyPlaceBrainBlast.Enabled)
         {

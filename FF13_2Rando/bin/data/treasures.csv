@@ -11,19 +11,19 @@ tre_hmaa_004,Tidal Shallows (7),h_hm_AD0003,0,,,
 tre_hmaa_005,Tidal Shallows (8),h_hm_AD0003,0,,,
 tre_hmaa_007,Meteorite Impact Site (6),h_hm_AD0003,0,,,
 tre_gvtn1,Tidal Shallows Graviton Fragment [4],h_hm_AD0003,1,,,Graviton
-frg_cmn_hmaa001,Gogmagog Alpha Fragment,h_hm_AD0003,0,,,ScrEvent
-frg_cmn_hmaa002,Gogmagog Beta Fragment,h_hm_AD0003,0,,,ScrEvent
+frg_cmn_hmaa001,Gogmagog Alpha Fragment,h_hm_AD0003,0,,,ScrEvent|Fragment
+frg_cmn_hmaa002,Gogmagog Beta Fragment,h_hm_AD0003,0,,,ScrEvent|Fragment
 key_s_neck,Snow's Necklace {Live Trigger},h_hm_AD0003,0,,,ScrEvent
 key_l_knife,Lightning's Knife [1],h_hm_AD0003,0,,,ScrEvent
 # Promises gate seal due to being technically missable unless you re-open from acad 4xx
-tre_hpaa_001,Meteorite Impact Site Fragment,h_hp_AD0003,1,,I(opt_aaea_re|1),
-tre_hpaa_002,Meteorite Impact Site Fragment,h_hp_AD0003,1,,I(opt_aaea_re|1),
+tre_hpaa_001,Meteorite Impact Site Fragment,h_hp_AD0003,1,,I(opt_aaea_re|1),Fragment
+tre_hpaa_002,Meteorite Impact Site Fragment,h_hp_AD0003,1,,I(opt_aaea_re|1),Fragment
 mog_level_3,Unlock Improved Moogle Hunt,h_hm_AD0700,0,,,ScrEvent
 tre_hmaa_015,Beachfront (1),h_hm_AD0700,1,,,
 tre_hmha_map,Town Square [2],h_hm_AD0700,3,,,
 tre_hmha_001,Town Square [3],h_hm_AD0700,3,,,SideKey
-tre_hmha_002,Town Square Fragment [4],h_hm_AD0700,2,,,
-tre_hmha_003,Town Square Fragment [5],h_hm_AD0700,2,,,
+tre_hmha_002,Town Square Fragment [4],h_hm_AD0700,2,,,Fragment
+tre_hmha_003,Town Square Fragment [5],h_hm_AD0700,2,,,Fragment
 # Bresha Ruins
 mog_level_1,Unlock Moogle Hunt,h_bj_AD0005,0,,,ScrEvent
 tre_bjaa_001,Excavation Site (2),h_bj_AD0005,0,,,
@@ -94,7 +94,7 @@ tre_gyaa_007,Paddreaean Archaeopolis [1],h_gh_AD0010,2,,,SideKey
 tre_gyba_reopt,Paddreaean Archaeopolis (1),h_gy_AD0100,2,,,GateSeal
 tre_gyaa_023,Paddreaean Archaeopolis [1],h_gy_AD0200,1,,,SideKey
 tre_gyca_reopt,Paddreaean Archaeopolis (1),h_gy_AD0200,0,,,GateSeal
-tre_gyaa_013,Paddreaean Archaeopolis Fragment [6],h_gy_AD0010,0,,,
+tre_gyaa_013,Paddreaean Archaeopolis Fragment [6],h_gy_AD0010,0,,,Fragment
 tre_gvtn5,Pass of Paddra Fragment [5],h_gy_AD0100,0,,AND(I(key_osonae|1)|I(key_common_art|1)|I(key_y_diary|1)),Graviton
 tre_gyba_opts1,Paddreaean Archaeopolis Wild Artefact [6],h_gy_AD0100,0,,AND(I(key_osonae|1)|I(key_common_art|1)|I(key_y_diary|1)|I(key_rem_ring|1)),Wild|Event
 # TODO: oerba 200 requires mog hunt, but 300/400 don't for chests?
@@ -117,7 +117,7 @@ tre_gwca_007,The Ashensand (2),h_gw_AD0400,1,,,
 tre_gwca_011,The Ashensand (3),h_gw_AD0400,1,,,
 tre_gwca_012,The Ashensand [1],h_gw_AD0400,0,,,
 tre_gvtn3,Village Proper Fragment [4],h_gw_AD0200,1,,,Graviton
-tre_gwca_024,The Ashensand Fragment [3],h_gw_AD0200,1,,,
+tre_gwca_024,The Ashensand Fragment [3],h_gw_AD0200,1,,,Fragment
 tre_gvtn6,The Ashensand Fragment [1],h_gw_AD0400,1,,,Graviton
 tre_gwca_opt01,Village Proper Wild Artefact [1],h_gw_AD0200,2,,,Wild
 tre_snda_010,Base of the Crystal (1),h_sn_AD0300|h_sn_AD0400,0,,,
@@ -136,7 +136,7 @@ tre_snda_009,Overgrown Forest (11),h_sn_AD0300|h_sn_AD0400,1,,,
 tre_snea_reopt,Assembly Area Minflans,h_sn_AD0400,1,,,GateSeal|Event
 tre_gvtn7,Assembly Area Fragment [7],h_sn_AD0400,1,,,Graviton
 mog_level_2,Unlock Moogle Throw,h_sn_AD0300,0,,,ScrEvent
-tre_snda_016,Overgrown Forest Fragment [6],h_sn_AD0300,2,,,
+tre_snda_016,Overgrown Forest Fragment [6],h_sn_AD0300,2,,,Fragment
 tre_snda_opts1,Animal Trail Wild Artefact [2],h_sn_AD0300,2,,,Wild
 tre_clza_001,Coliseum (4),h_cl_NA0000,2,,,
 tre_clza_002,Coliseum (5),h_cl_NA0000,2,,,
@@ -255,9 +255,9 @@ tre_ddha_006,The Farseers' Settlement (11),h_dd_AD0700,3,,,
 tre_ddha_map,The Farseers' Settlement [1],h_dd_AD0700,3,,,
 tre_aaea_reopt,The Farseers' Settlement (13),h_dd_AD0700,3,,,GateSeal
 tre_ddha_002,The Farseers' Relic (14),h_dd_AD0700,3,,,
-tre_ddha_009,Abyssal Fissure Fragment [2],h_dd_AD0700,3,,,
-tre_ddha_012,Abyssal Fissure Fragment [3],h_dd_AD0700,3,,,
-tre_ddha_003,The Farseers' Settlement Fragment [4],h_dd_AD0700,3,,,
+tre_ddha_009,Abyssal Fissure Fragment [2],h_dd_AD0700,3,,,Fragment
+tre_ddha_012,Abyssal Fissure Fragment [3],h_dd_AD0700,3,,,Fragment
+tre_ddha_003,The Farseers' Settlement Fragment [4],h_dd_AD0700,3,,,Fragment
 tre_ddha_opts1,The Farseers' Settlement Wild Artefact [5],h_dd_AD0700,3,,,Wild
 tre_acfa_001,Academia 500 (2),h_ac_AD0500,0,,,
 tre_acfa_002,Academia 500 (6),h_ac_AD0500,0,,I(privilege05|1),
@@ -286,38 +286,38 @@ tre_vpba_008,Wrack and Ruin (4),h_vp_AD0010,0,,,
 tre_vpba_009,Wrack and Ruin (5),h_vp_AD0010,1,,,
 tre_vpba_010,Wrack and Ruin (2),h_vp_AD0010,0,,,
 # Paradox scope and endings
-frg_cmn_acfa002,Paradox Scope,h_va_NA0000,0,,,ScrEvent
-frg_cmn_pdxe001,Transcript: A Giant Mistake,h_gd_NA0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
-frg_cmn_pdxe002,Transcript: Vanille's Truth,h_gw_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
-frg_cmn_pdxe003,Transcript: Mog's Marvelous Flan Plan,h_sn_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
-frg_cmn_pdxe004,Transcript: Test Subjects,h_gt_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
+frg_cmn_acfa002,Paradox Scope,h_va_NA0000,0,,,ScrEvent|Paradox
+frg_cmn_pdxe001,Transcript: A Giant Mistake,h_gd_NA0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
+frg_cmn_pdxe002,Transcript: Vanille's Truth,h_gw_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
+frg_cmn_pdxe003,Transcript: Mog's Marvelous Flan Plan,h_sn_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
+frg_cmn_pdxe004,Transcript: Test Subjects,h_gt_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
 #frg_cmn_pdxe005
-frg_cmn_pdxe006,Transcript: Beneath a Timeless Sky,h_hm_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
-frg_cmn_pdxe007,Transcript: Heir to Chaos,h_dd_NA0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
-frg_cmn_pdxe008,Transcript: Fate and Freedom,h_hp_AD0003,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
+frg_cmn_pdxe006,Transcript: Beneath a Timeless Sky,h_hm_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
+frg_cmn_pdxe007,Transcript: Heir to Chaos,h_dd_NA0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
+frg_cmn_pdxe008,Transcript: Fate and Freedom,h_hp_AD0003,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
 # Other random fragments (TODO: requirements)
-frg_cmn_bjaa001,Atlas Fragment,h_bj_AD0005,0,,,ScrEvent
-frg_cmn_gyaa003,Amur's Sphere,h_gy_AD0010,0,,,ScrEvent
-frg_cmn_snda002,Mutantomato Fragment,h_sn_AD0300,0,,,ScrEvent
-frg_cmn_spza001,Etro's Sorrow,h_sp_NA0100,1,,,ScrEvent
-frg_cmn_spza002,Pulse's Resolution,h_sp_NA0100,1,,,ScrEvent
-frg_cmn_spza003,Lindzei's Desire,h_sp_NA0100,1,,,ScrEvent
-frg_cmn_spza004,Mwynn's Tenderness,h_sp_NA0100,1,,,ScrEvent
-frg_cmn_spza005,Bhunivelze's Sleep,h_sp_NA0100,1,,,ScrEvent
-frg_cmn_clza001,White Hole Gem,h_cl_NA0000,0,,,ScrEvent
+frg_cmn_bjaa001,Atlas Fragment,h_bj_AD0005,0,,,ScrEvent|Fragment
+frg_cmn_gyaa003,Amur's Sphere,h_gy_AD0010,0,,,ScrEvent|Fragment
+frg_cmn_snda002,Mutantomato Fragment,h_sn_AD0300,0,,,ScrEvent|Fragment
+frg_cmn_spza001,Etro's Sorrow,h_sp_NA0100,1,,,ScrEvent|Fragment
+frg_cmn_spza002,Pulse's Resolution,h_sp_NA0100,1,,,ScrEvent|Fragment
+frg_cmn_spza003,Lindzei's Desire,h_sp_NA0100,1,,,ScrEvent|Fragment
+frg_cmn_spza004,Mwynn's Tenderness,h_sp_NA0100,1,,,ScrEvent|Fragment
+frg_cmn_spza005,Bhunivelze's Sleep,h_sp_NA0100,1,,,ScrEvent|Fragment
+frg_cmn_clza001,White Hole Gem,h_cl_NA0000,0,,,ScrEvent|Fragment
 # TODO: not all of these need mog to reveal actually
-frg_cmn_gdza003,Crimson Crystal,h_gd_NA0000,1,,,ScrEvent
-frg_cmn_gdza004,Azure Crystal,h_gd_NA0000,1,,,ScrEvent
-frg_cmn_gdza005,Forest Crystal,h_gd_NA0000,1,,,ScrEvent
-frg_cmn_gdza006,Amber Crystal,h_gd_NA0000,1,,,ScrEvent
-frg_cmn_gdza007,Violet Crystal,h_gd_NA0000,1,,,ScrEvent
-frg_cmn_gtca001,Proto Fal'Cie Adam Fragment,h_gt_AD0200,1,,,ScrEvent
-frg_cmn_acfa001,Amethyst and Luvulite Fragment,h_ac_AD0500,0,h_cs_NA0000,I(frg_cmn_ddha001|1),ScrEvent
-frg_cmn_vpca005,Falcon's Last Light,h_vp_AD0200,1,,,ScrEvent
+frg_cmn_gdza003,Crimson Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+frg_cmn_gdza004,Azure Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+frg_cmn_gdza005,Forest Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+frg_cmn_gdza006,Amber Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+frg_cmn_gdza007,Violet Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+frg_cmn_gtca001,Proto Fal'Cie Adam Fragment,h_gt_AD0200,1,,,ScrEvent|Fragment
+frg_cmn_acfa001,Amethyst and Luvulite Fragment,h_ac_AD0500,0,h_cs_NA0000,I(frg_cmn_ddha001|1),ScrEvent|Fragment
+frg_cmn_vpca005,Falcon's Last Light,h_vp_AD0200,1,,,ScrEvent|Fragment
 # Artefacts
-opt_aaea02_sp,Vagabond Artefact,h_aa_AD0400,0,,C(Graviton|5),ScrEvent
-opt_acea01_gt,Tower Artefact,h_ac_AD0400,0,,,ScrEvent
-opt_gtca01_aa,Artefact of Rebirth,h_gt_AD0200,0,,,ScrEvent
-opt_gwca01_gh,Artefact of Origins,h_gw_AD0200,1,,,ScrEvent
-opt_gyaa01_gw,Hollow Artefact,h_gy_AD0010,1,,,ScrEvent
-opt_hmaa01_bj,Giant's Artefact,h_hm_AD0003,0,,,ScrEvent
+opt_aaea02_sp,Vagabond Artefact,h_aa_AD0400,0,,C(Graviton|5),ScrEvent|Artefact
+opt_acea01_gt,Tower Artefact,h_ac_AD0400,0,,,ScrEvent|Artefact
+opt_gtca01_aa,Artefact of Rebirth,h_gt_AD0200,0,,,ScrEvent|Artefact
+opt_gwca01_gh,Artefact of Origins,h_gw_AD0200,1,,,ScrEvent|Artefact
+opt_gyaa01_gw,Hollow Artefact,h_gy_AD0010,1,,,ScrEvent|Artefact
+opt_hmaa01_bj,Giant's Artefact,h_hm_AD0003,0,,,ScrEvent|Artefact

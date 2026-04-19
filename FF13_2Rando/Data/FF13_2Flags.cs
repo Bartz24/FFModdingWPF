@@ -108,7 +108,8 @@ public class FF13_2Flags
     public class Items
     {
         public static Flag Treasures;
-        public static ToggleFlagProperty KeyWild, KeyGraviton, KeyGateSeal, KeySide, KeyPlaceTreasure, KeyPlaceBrainBlast, KeyPlaceThrowCryst, KeyPlaceThrowJunk;
+        public static ToggleFlagProperty KeyWild, KeyGraviton, KeyFragment, KeyGateSeal, KeySide, KeyParadox, KeyArtefact;
+        public static ToggleFlagProperty KeyPlaceTreasure, KeyPlaceBrainBlast, KeyPlaceThrowCryst, KeyPlaceThrowJunk, KeyPlaceParadox;
         public static ComboBoxFlagProperty KeyDepth;
 
         internal static void Init()
@@ -136,6 +137,17 @@ public class FF13_2Flags
                 Description = "The 7 Graviton Core fragments will be included in the pool of key items."
             }.Register(Treasures);
 
+            KeyFragment = new ToggleFlagProperty(false)
+            {
+                Text = "Include Additional Fragments",
+                ID = "KeyFragment",
+                Description = "The additional fragments will be included in the pool of key items.\n" +
+                "Checks that require the presence of the vanilla fragments will still be available in the shuffled location (such as Fragment Skill unlock conditions)\n"+
+                "Paradox Ending fragments are not included by this flag, see Include Paradox Scope and Endings below."
+                // I'm not listing out all of the fragments in the pool there's like 30 of them already and its only going to go up.
+                // In the future might want to sub-categorise
+            }.Register(Treasures);
+
             KeyGateSeal = new ToggleFlagProperty(false)
             {
                 Text = "Include Gate Seals",
@@ -151,11 +163,26 @@ public class FF13_2Flags
                 "Medical Kit, Capsules, Holding Cell Key, Comm Device, Emerald Crystal, Ivory Crystal, Onyx Crystal, Service Manual, Fruit of Fenrir, Tablet of Paddra, Old Battery, Sealed Tablet, Army Comm Device, Recording Device, Picture Frame, Bulb of Hope, Terrorists' Mark, Weapon Material, Outdoor Watch, Personal Notes, Paradox Agent Type A-C, Supply Sphere Access Code"
             }.Register(Treasures);
 
+            KeyParadox = new ToggleFlagProperty(false)
+            {
+                Text = "Include Paradox Scope and Endings",
+                ID = "KeyParadox",
+                Description = "The Paradox Scope and all Paradox Ending Fragments (Transcript: {x}) will be included in the key item pool."
+            }.Register(Treasures);
+
+            KeyArtefact = new ToggleFlagProperty(false)
+            {
+                Text = "Include Additional Aretfacts",
+                ID = "KeyArtefact",
+                Description = "The following artefacts will be included in the key item pool:\n" +
+                "Vagabond Artefact, Tower Artefact, Artefact of Rebirth, Artefact of Origins, Hollow Artefact, Giant's Artefact"
+            }.Register(Treasures);
+
             KeyPlaceTreasure = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Treasures",
                 ID = "KeyPlaceTreas",
-                Description = "Key items are also allowed in treasures and fragment spots."
+                Description = "Key items are also allowed in treasures and fragment/artefact spots."
             }.Register(Treasures);
 
             KeyPlaceBrainBlast = new ToggleFlagProperty(false)
@@ -177,6 +204,13 @@ public class FF13_2Flags
                 Text = "Key Item Placement - Improved Moogle Throw Junk",
                 ID = "KeyPlaceMogJunk",
                 Description = "Key items are also allowed to replace Improve Moogle Throw junk locations."
+            }.Register(Treasures);
+
+            KeyPlaceParadox = new ToggleFlagProperty(false)
+            {
+                Text = "Key Item Placement - Paradox Endings",
+                ID = "KeyPlaceParadox",
+                Description = "Key items are also allowed to be placed in Paradox Ending fragment locations"
             }.Register(Treasures);
 
             KeyDepth = new ComboBoxFlagProperty("Normal")

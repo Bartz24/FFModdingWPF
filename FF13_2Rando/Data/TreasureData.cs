@@ -79,9 +79,15 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
         if(!FF13_2Flags.Items.KeyPlaceTreasure.Enabled && 
             (
                 location.Traits.Contains("Wild") || location.Traits.Contains("Graviton")||
-                location.Traits.Contains("SideKey")|| location.Traits.Contains("GateSeal")
+                location.Traits.Contains("SideKey")|| location.Traits.Contains("GateSeal") ||
+                location.Traits.Contains("Fragment") || location.Traits.Contains("Artefact")
             )
             )
+        {
+            return false;
+        }
+
+        if(!FF13_2Flags.Items.KeyPlaceParadox.Enabled && location.Traits.Contains("Paradox"))
         {
             return false;
         }

@@ -50,6 +50,31 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
             return true;
         }
 
+        if (!FF13_2Flags.Items.KeyArtefact.Enabled && location.Traits.Contains("Artefact"))
+        {
+            return true;
+        }
+
+        if (!FF13_2Flags.Items.KeyGateSeal.Enabled && location.Traits.Contains("GateSeal"))
+        {
+            return true;
+        }
+
+        if (!FF13_2Flags.Items.KeyFragment.Enabled && location.Traits.Contains("Fragment"))
+        {
+            return true;
+        }
+
+        if (!FF13_2Flags.Items.KeySide.Enabled && location.Traits.Contains("SideKey"))
+        {
+            return true;
+        }
+
+        if (!FF13_2Flags.Items.KeyParadox.Enabled && location.Traits.Contains("Paradox"))
+        {
+            return true;
+        }
+
         // Other flag inclusions?
 
         return false;
@@ -99,6 +124,14 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
                 return false;
             }
             if (!FF13_2Flags.Items.KeyGateSeal.Enabled && l.Traits.Contains("GateSeal"))
+            {
+                return false;
+            }
+            if (!FF13_2Flags.Items.KeyArtefact.Enabled && l.Traits.Contains("Artefact"))
+            {
+                return false;
+            }
+            if (!FF13_2Flags.Items.KeyParadox.Enabled && l.Traits.Contains("Paradox"))
             {
                 return false;
             }
