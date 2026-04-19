@@ -165,6 +165,27 @@ public partial class BattleRando : Randomizer
             .Select(kvp => kvp.Key)
             .ToList();
 
+        if (FF13_2Flags.Enemies.FullRandomShuffleBosses.Enabled)
+        {
+            bossesByTheirRank = bossesByTheirRank.Shuffle();
+        }
+        if (FF13_2Flags.Enemies.DeprioritiseCaius.Enabled)
+        {
+            bossesByTheirRank.Sort((l, r) =>
+            {
+                var lIsCaius = reducedBossDataForShuffle[l].Traits.Contains("Caius");
+                var rIsCaius = reducedBossDataForShuffle[r].Traits.Contains("Caius");
+                if (lIsCaius == rIsCaius)
+                {
+                    return 0;
+                } else if (!rIsCaius)
+                {
+                    return 1;
+                }
+                return -1;
+            });
+        }
+
         // Ordered by where you'll encounter the area, with some variance and then randomised by rank
         List<string> locationsByTheirDepth = reducedBossDataForShuffle
             .GroupBy(kvp =>

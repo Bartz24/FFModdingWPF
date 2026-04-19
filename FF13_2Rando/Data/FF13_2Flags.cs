@@ -198,7 +198,7 @@ public class FF13_2Flags
     {
         public static Flag EnemyLocations, EnemyCPMult;
         public static NumberFlagProperty EnemyRank, EnemyCPMultValue;
-        public static ToggleFlagProperty LargeEnc, DLCBosses, BossScaling;
+        public static ToggleFlagProperty LargeEnc, DLCBosses, BossScaling, DeprioritiseCaius, FullRandomShuffleBosses;
         public static ListBoxFlagProperty Bosses;
 
         internal static void Init()
@@ -266,6 +266,22 @@ public class FF13_2Flags
                 Text = "Scale Boss Stats [EXPERIMENTAL]",
                 ID = "BossScale",
                 Description = "Scales up/down boss stats to be based on the average of the enemy ranks in the area they are placed in.",
+                Experimental = true
+            }.Register(EnemyLocations);
+
+            DeprioritiseCaius = new ToggleFlagProperty(false)
+            {
+                Text = "Deprioritise Caius Boss Shuffle [EXPERIMENTAL]",
+                ID = "CaiusBossShuffle",
+                Description = "When enabled, pushes caius fights later in the shuffle to make them less likely to appear in the main story fights.",
+                Experimental = true
+            }.Register(EnemyLocations);
+
+            FullRandomShuffleBosses = new ToggleFlagProperty(false)
+            {
+                Text = "Full random shuffle bosses [EXPERIMENTAL]",
+                ID = "FullRandomBosses",
+                Description = "Remove some guardrails when shuffling bosses. Silly situations may occur.",
                 Experimental = true
             }.Register(EnemyLocations);
 
