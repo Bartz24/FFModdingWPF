@@ -109,7 +109,7 @@ public class FF13_2Flags
     {
         public static Flag Treasures;
         public static ToggleFlagProperty KeyWild, KeyGraviton, KeyFragment, KeyGateSeal, KeySide, KeyParadox, KeyArtefact;
-        public static ToggleFlagProperty KeyPlaceTreasure, KeyPlaceBrainBlast, KeyPlaceThrowCryst, KeyPlaceThrowJunk, KeyPlaceParadox;
+        public static ToggleFlagProperty KeyPlaceTreasure, KeyPlaceBrainBlast, KeyPlaceThrowCryst, KeyPlaceThrowJunk, KeyPlaceParadox, KeyPlaceAreaBias;
         public static ComboBoxFlagProperty KeyDepth;
 
         internal static void Init()
@@ -225,6 +225,14 @@ public class FF13_2Flags
                 "    Hard++ - Each level of depth/difficulty increases likelihood of that location by 1.50x.\n" +
                 "    Hard+++ - Each level of depth/difficulty increases likelihood of that location by 2.00x.",
                 Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
+            }.Register(Treasures);
+
+            KeyPlaceAreaBias = new ToggleFlagProperty(false)
+            {
+                Text = "Item Placement Accessibility Bias [EXPERIMENTAL]",
+                ID = "KeyAccessibilityBias",
+                Description = "Instructs the placement logic to bias unlocking items by area accessibility.\n\n" +
+                "The intent of this change is to hopefully downgrade items with wide impacts but low immediate gain (such as mog levels) for more local progression."
             }.Register(Treasures);
         }
     }

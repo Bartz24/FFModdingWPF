@@ -195,6 +195,10 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
 
         ProgressionPlacer = new(Generator, AreaGraph, GetDifficulty(), areaMults);
         ProgressionPlacer.FixedLocations = GetFixedLocations();
+        if (FF13_2Flags.Items.KeyPlaceAreaBias.Enabled)
+        {
+            ProgressionPlacer.locationAccessibilityBias = true;
+        }
         UsefulPlacer = new(Generator, false);
         JunkPlacer = new(Generator);
 
