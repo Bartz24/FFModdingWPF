@@ -87,13 +87,13 @@ public partial class TreasureRando : Randomizer
         }, FileHelpers.CSVFileHeader.HasHeader);
 
         AddTreasure("ran_init_cp", "", 0, "");
+        AddTreasure("ran_init_silver", "opt_silver", 10, "");
         AddTreasure("frg_cmn_hmaa001", "frg_cmn_hmaa001", 1, "");
         AddTreasure("frg_cmn_hmaa002", "frg_cmn_hmaa002", 1, "");
         AddTreasure("key_s_neck", "key_s_neck", 1, "");
         AddTreasure("key_l_knife", "key_l_knife", 1, "");
         // TODO: Following need added to treasure pool, event flags added in scripts, and scripts compiled
         // Branch in 13-2 scripts: rando_switch_items
-        AddTreasure("opt_hmaa01_bj", "opt_hmaa01_bj", 1, "");
         AddTreasure("key_tissue", "key_tissue", 1, "");
         AddTreasure("key_wep_sozai", "key_wep_sozai", 1, "");
         AddTreasure("key_mon_data", "key_mon_data", 1, "");
@@ -102,14 +102,12 @@ public partial class TreasureRando : Randomizer
         AddTreasure("key_f_message", "key_f_message", 1, "");
         AddTreasure("key_yukimi", "key_yukimi", 1, "");
         AddTreasure("tmap_gy", "tmap_gy", 1, "");
-        AddTreasure("opt_gyaa01_gw", "opt_gyaa01_gw", 1, "");
         AddTreasure("key_sone_info", "key_sone_info", 1, "");
         AddTreasure("key_y_baggage", "key_y_baggage", 1, "");
         AddTreasure("key_f_proof", "key_f_proof", 1, "");
         AddTreasure("tmap_sn", "tmap_sn", 1, "");
         AddTreasure("opt_snda01_cl", "opt_snda01_cl", 1, "");
         AddTreasure("opt_snda02_gd", "opt_snda02_gd", 1, "");
-        AddTreasure("opt_gwca01_gh", "opt_gwca01_gh", 1, "");
         AddTreasure("key_gowa_wool", "key_gowa_wool", 1, "");
         AddTreasure("key_nuku_wool", "key_nuku_wool", 1, "");
         AddTreasure("key_moko_wool", "key_moko_wool", 1, "");
@@ -119,9 +117,7 @@ public partial class TreasureRando : Randomizer
         AddTreasure("key_access_52", "key_access_52", 1, "");
         AddTreasure("key_access_13", "key_access_13", 1, "");
         AddTreasure("tmap_gt", "tmap_gt", 1, "");
-        AddTreasure("opt_gtca01_aa", "opt_gtca01_aa", 1, "");
         AddTreasure("tmap_ac", "tmap_ac", 1, "");
-        AddTreasure("opt_acea01_gt", "opt_acea01_gt", 1, "");
         AddTreasure("frg_cmn_acea012", "frg_cmn_acea012", 1, "");
         AddTreasure("just_one_gil", "", 1, "");
         AddTreasure("key_casino_prz", "key_casino_prz", 1, "");
@@ -135,13 +131,48 @@ public partial class TreasureRando : Randomizer
         AddTreasure("key_acdmycom", "key_acdmycom", 1, "");
         AddTreasure("tmap_bj", "tmap_bj", 1, "");
         AddTreasure("key_behi_fang", "key_behi_fang", 1, "");
-        AddTreasure("frg_cmn_bjaa001", "frg_cmn_bjaa001", 1, "");
         AddTreasure("frg_pzl_bjaa001", "frg_pzl_bjaa001", 1, "");
 
         // Mog level items
         AddTreasure("mog_level_1", "key_mog_level", 1, "");
         AddTreasure("mog_level_2", "key_mog_level", 1, "");
         AddTreasure("mog_level_3", "key_mog_level", 1, "");
+
+        // Fragment experimenting
+        AddTreasure("frg_cmn_acfa002", "frg_cmn_acfa002", 1, "");
+        AddTreasure("frg_cmn_pdxe001", "frg_cmn_pdxe001", 1, "");
+        AddTreasure("frg_cmn_pdxe002", "frg_cmn_pdxe002", 1, "");
+        AddTreasure("frg_cmn_pdxe003", "frg_cmn_pdxe003", 1, "");
+        AddTreasure("frg_cmn_pdxe004", "frg_cmn_pdxe004", 1, "");
+        // 5 needs an event flag so intentionally omitted for now
+        AddTreasure("frg_cmn_pdxe006", "frg_cmn_pdxe006", 1, "");
+        AddTreasure("frg_cmn_pdxe007", "frg_cmn_pdxe007", 1, "");
+        AddTreasure("frg_cmn_pdxe008", "frg_cmn_pdxe008", 1, "");
+        AddTreasure("frg_cmn_bjaa001", "frg_cmn_bjaa001", 1, "");
+        AddTreasure("frg_cmn_gyaa003", "frg_cmn_gyaa003", 1, "");
+        AddTreasure("frg_cmn_snda002", "frg_cmn_snda002", 1, "");
+        AddTreasure("frg_cmn_spza001", "frg_cmn_spza001", 1, "");
+        AddTreasure("frg_cmn_spza002", "frg_cmn_spza002", 1, "");
+        AddTreasure("frg_cmn_spza003", "frg_cmn_spza003", 1, "");
+        AddTreasure("frg_cmn_spza004", "frg_cmn_spza004", 1, "");
+        AddTreasure("frg_cmn_spza005", "frg_cmn_spza005", 1, "");
+        AddTreasure("frg_cmn_clza001", "frg_cmn_clza001", 1, "");
+        AddTreasure("frg_cmn_gdza003", "frg_cmn_gdza003", 1, "");
+        AddTreasure("frg_cmn_gdza004", "frg_cmn_gdza004", 1, "");
+        AddTreasure("frg_cmn_gdza005", "frg_cmn_gdza005", 1, "");
+        AddTreasure("frg_cmn_gdza006", "frg_cmn_gdza006", 1, "");
+        AddTreasure("frg_cmn_gdza007", "frg_cmn_gdza007", 1, "");
+        AddTreasure("frg_cmn_gtca001", "frg_cmn_gtca001", 1, "");
+        AddTreasure("frg_cmn_acfa001", "frg_cmn_acfa001", 1, "");
+        AddTreasure("frg_cmn_vpca005", "frg_cmn_vpca005", 1, "");
+
+        // Artefact experimenting
+        AddTreasure("opt_aaea02_sp", "opt_aaea02_sp", 1, "");
+        AddTreasure("opt_acea01_gt", "opt_acea01_gt", 1, "");
+        AddTreasure("opt_gtca01_aa", "opt_gtca01_aa", 1, "");
+        AddTreasure("opt_gwca01_gh", "opt_gwca01_gh", 1, "");
+        AddTreasure("opt_gyaa01_gw", "opt_gyaa01_gw", 1, "");
+        AddTreasure("opt_hmaa01_bj", "opt_hmaa01_bj", 1, "");
 
         // Remove repeatable gil moogle throws
         search.Values.ForEach(s =>
@@ -257,11 +288,6 @@ public partial class TreasureRando : Randomizer
             ItemPlacer.PossibleLocations = ItemLocations.Values.ToOrderedSet();
             ItemPlacer.PlaceItems();
             ItemPlacer.ApplyToGameData();
-
-            // Just grant wild artefacts here for now for clearance purposes.
-            // This adds to the pool so now you have so many. so so many.
-            treasures["tre_hmaa_007"].s11ItemResourceId = "opt_silver";
-            treasures["tre_hmaa_007"].iItemCount = 10;
 
 
             RandomNum.ClearRand();

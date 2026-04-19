@@ -127,7 +127,7 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
                 var itemData = Generator.Get<EquipRando>().itemData.GetValueOrDefault(locationItem, null);
                 if (itemData != null)
                 {
-                    var progressionCategories = new List<string>() { "Graviton", "SideKey", "GateSeal", "Wild", "Fragment", "MogLevel" };
+                    var progressionCategories = new List<string>() { "Graviton", "SideKey", "GateSeal", "Wild", "Fragment", "MogLevel", "Artefact" };
                     foreach (var category in progressionCategories)
                     {
                         if (itemData.Traits.Contains(category))

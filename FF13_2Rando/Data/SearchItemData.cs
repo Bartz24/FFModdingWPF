@@ -27,15 +27,12 @@ public class SearchItemData : FF13_2ItemLocation, IDataStoreItemProvider<DataSto
     {
         get
         {
-            // Also include h_gh_AD0010|h_sn_AD0300|h_gd_NA0000|h_cl_NA0000 and oerba 200 as they
+            // Also include serendipity and oerba 200 as they
             // are needed to unlock the improved moogle throw fragment skill
             List<string> reqAreas =
             [
                 .. ExtraRequiredAreas,
-                HistoriaCruxConstants.YASCHAS_1X,
-                HistoriaCruxConstants.SUNLETH_300,
-                HistoriaCruxConstants.ARCHYLTE,
-                HistoriaCruxConstants.COLISEUM,
+                HistoriaCruxConstants.SERENDIPITY,
                 HistoriaCruxConstants.OERBA_200
             ];
 

@@ -235,6 +235,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         var unlockingWeight = newlyAccessible.Count;
         var remainingWithInterest = PossibleLocations.Where(loc => loc.Requirements.GetPossibleRequirements().Contains(itemType)).Count();
         var remainingFixedWithInterest = FixedLocations.Where(loc => loc.Requirements.GetPossibleRequirements().Contains(itemType)).Count();
+        // TODO: adjust fixed lookup by accesibility as well as requirements?
         // Min bound is adjusted downwards by how many locations are immediately unlocked by this item, as well as the number of overall locations still locked by this item in some way.
         // Max bound as adjusted downwards by the number of overall locations still locked by this item in some way.
         // The idea being that items which unlock large segments of the game are weighted to fall much earlier generally speaking

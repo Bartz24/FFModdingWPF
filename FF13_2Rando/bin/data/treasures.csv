@@ -1,4 +1,6 @@
 ﻿ID,Name,Possible Locations,Mog Level,Additional Required Locations,Required Items,Traits
+ran_init_silver,Initial Wild Artefacts,Initial,0,,,Fixed
+# New Bodhum
 tre_hmaa_001,Winding Way (1),h_hm_AD0003,0,,,
 tre_hmaa_002,Winding Way (3),h_hm_AD0003,0,,,
 tre_hmaa_003,Winding Way (4),h_hm_AD0003,0,,,
@@ -7,8 +9,7 @@ tre_hmaa_006,Winding Way (5),h_hm_AD0003,0,,,
 tre_hmaa_024,Winding Way [3],h_hm_AD0003,0,,,SideKey
 tre_hmaa_004,Tidal Shallows (7),h_hm_AD0003,0,,,
 tre_hmaa_005,Tidal Shallows (8),h_hm_AD0003,0,,,
-# This chest is used for dumping 10 wild artefacts currently
-tre_hmaa_007,Meteorite Impact Site (6),h_hm_AD0003,0,,,Fixed
+tre_hmaa_007,Meteorite Impact Site (6),h_hm_AD0003,0,,,
 tre_gvtn1,Tidal Shallows Graviton Fragment [4],h_hm_AD0003,1,,,Graviton
 frg_cmn_hmaa001,Gogmagog Alpha Fragment,h_hm_AD0003,0,,,ScrEvent
 frg_cmn_hmaa002,Gogmagog Beta Fragment,h_hm_AD0003,0,,,ScrEvent
@@ -23,6 +24,7 @@ tre_hmha_map,Town Square [2],h_hm_AD0700,3,,,
 tre_hmha_001,Town Square [3],h_hm_AD0700,3,,,SideKey
 tre_hmha_002,Town Square Fragment [4],h_hm_AD0700,2,,,
 tre_hmha_003,Town Square Fragment [5],h_hm_AD0700,2,,,
+# Bresha Ruins
 mog_level_1,Unlock Moogle Hunt,h_bj_AD0005,0,,,ScrEvent
 tre_bjaa_001,Excavation Site (2),h_bj_AD0005,0,,,
 tre_bjaa_003,Excavation Site (1),h_bj_AD0005,0,,,
@@ -48,6 +50,8 @@ tre_bjaa_021,Echoes of the Past [11],h_bj_AD0005,0,,I(key_lockjail|1),SideKey
 tre_bjaa_006,Echoes of the Past (2),h_bj_AD0100,0,,,
 tre_bjaa_016,Echoes of the Past (3),h_bj_AD0100,0,,,
 tre_bjba_001,Echoes of the Past [1],h_bj_AD0100,3,,,SideKey
+tre_bjaa_opt01,Eclipse Artefact,h_bj_AD0005,1,,,Artefact
+tre_bjaa_opt02,Reunion Artefact,h_bj_AD0005,1,,,Artefact
 tre_bjba_reopt,Echoes of the Past (4),h_bj_AD0100,3,,,GateSeal
 tre_csza_reopt,Echoes of the Past (1),h_bj_AD0100,0,,,GateSeal
 tre_bjaa_025,Echoes of the Past (1),h_bj_AD0300,0,,,
@@ -281,3 +285,39 @@ tre_vpba_007,Wrack and Ruin (8),h_vp_AD0010,1,,,
 tre_vpba_008,Wrack and Ruin (4),h_vp_AD0010,0,,,
 tre_vpba_009,Wrack and Ruin (5),h_vp_AD0010,1,,,
 tre_vpba_010,Wrack and Ruin (2),h_vp_AD0010,0,,,
+# Paradox scope and endings
+frg_cmn_acfa002,Paradox Scope,h_va_NA0000,0,,,ScrEvent
+frg_cmn_pdxe001,Transcript: A Giant Mistake,h_gd_NA0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
+frg_cmn_pdxe002,Transcript: Vanille's Truth,h_gw_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
+frg_cmn_pdxe003,Transcript: Mog's Marvelous Flan Plan,h_sn_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
+frg_cmn_pdxe004,Transcript: Test Subjects,h_gt_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
+#frg_cmn_pdxe005
+frg_cmn_pdxe006,Transcript: Beneath a Timeless Sky,h_hm_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
+frg_cmn_pdxe007,Transcript: Heir to Chaos,h_dd_NA0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
+frg_cmn_pdxe008,Transcript: Fate and Freedom,h_hp_AD0003,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent
+# Other random fragments (TODO: requirements)
+frg_cmn_bjaa001,Atlas Fragment,h_bj_AD0005,0,,,ScrEvent
+frg_cmn_gyaa003,Amur's Sphere,h_gy_AD0010,0,,,ScrEvent
+frg_cmn_snda002,Mutantomato Fragment,h_sn_AD0300,0,,,ScrEvent
+frg_cmn_spza001,Etro's Sorrow,h_sp_NA0100,1,,,ScrEvent
+frg_cmn_spza002,Pulse's Resolution,h_sp_NA0100,1,,,ScrEvent
+frg_cmn_spza003,Lindzei's Desire,h_sp_NA0100,1,,,ScrEvent
+frg_cmn_spza004,Mwynn's Tenderness,h_sp_NA0100,1,,,ScrEvent
+frg_cmn_spza005,Bhunivelze's Sleep,h_sp_NA0100,1,,,ScrEvent
+frg_cmn_clza001,White Hole Gem,h_cl_NA0000,0,,,ScrEvent
+# TODO: not all of these need mog to reveal actually
+frg_cmn_gdza003,Crimson Crystal,h_gd_NA0000,1,,,ScrEvent
+frg_cmn_gdza004,Azure Crystal,h_gd_NA0000,1,,,ScrEvent
+frg_cmn_gdza005,Forest Crystal,h_gd_NA0000,1,,,ScrEvent
+frg_cmn_gdza006,Amber Crystal,h_gd_NA0000,1,,,ScrEvent
+frg_cmn_gdza007,Violet Crystal,h_gd_NA0000,1,,,ScrEvent
+frg_cmn_gtca001,Proto Fal'Cie Adam Fragment,h_gt_AD0200,1,,,ScrEvent
+frg_cmn_acfa001,Amethyst and Luvulite Fragment,h_ac_AD0500,0,h_cs_NA0000,I(frg_cmn_ddha001|1),ScrEvent
+frg_cmn_vpca005,Falcon's Last Light,h_vp_AD0200,1,,,ScrEvent
+# Artefacts
+opt_aaea02_sp,Vagabond Artefact,h_aa_AD0400,0,,C(Graviton|5),ScrEvent
+opt_acea01_gt,Tower Artefact,h_ac_AD0400,0,,,ScrEvent
+opt_gtca01_aa,Artefact of Rebirth,h_gt_AD0200,0,,,ScrEvent
+opt_gwca01_gh,Artefact of Origins,h_gw_AD0200,1,,,ScrEvent
+opt_gyaa01_gw,Hollow Artefact,h_gy_AD0010,1,,,ScrEvent
+opt_hmaa01_bj,Giant's Artefact,h_hm_AD0003,0,,,ScrEvent
