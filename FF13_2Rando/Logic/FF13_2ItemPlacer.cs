@@ -160,7 +160,7 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
                 var itemData = Generator.Get<EquipRando>().itemData.GetValueOrDefault(locationItem, null);
                 if (itemData != null)
                 {
-                    var progressionCategories = new List<string>() { "Graviton", "SideKey", "GateSeal", "Wild", "Fragment", "MogLevel", "Artefact" };
+                    var progressionCategories = new List<string>() { "Graviton", "SideKey", "GateSeal", "Wild", "Fragment", "MogLevel", "Artefact", "Event" };
                     foreach (var category in progressionCategories)
                     {
                         if (itemData.Traits.Contains(category))
@@ -176,7 +176,7 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
         else if (placer == UsefulPlacer)
         {
             // TODO: figure out what counts as useful and filter
-            // Monster crystals? Maps?
+            // Monster crystals? Maps? Move gate seals here? Other random key item junk?
             return new();
         }
         else if (placer == JunkPlacer)

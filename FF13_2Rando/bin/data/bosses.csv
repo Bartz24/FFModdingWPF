@@ -63,11 +63,11 @@ Snow,29,m973_a,100,39,39,100,90,100,NoScaling,h_ac_AD0500,10
 Snow,29,m973_b,100,45,45,100,75,100,NoScaling,h_ac_AD0500,10
 Snow,29,m973_c,100,52,52,100,105,100,NoScaling,h_ac_AD0500,10
 Gilgamesh 1,31,m967_x1,100,70,70,100,100,100,ForceEntry|Main|NoScaling,h_ac_AD0500,12
-Gilgamesh 2,33,m967,100,70,70,100,100,100,ForceEntry|Main|NoScaling,h_ac_AD0500,14
-Gilgamesh 2,33,m967_brk,100,40,70,100,125,100,NoScaling,h_ac_AD0500,14
-Gilgamesh 2,33,m967_lv2,100,70,70,100,100,100,NoScaling,h_ac_AD0500,14
-Gilgamesh 2,33,m967_lv3,100,70,70,100,100,100,NoScaling,h_ac_AD0500,14
-Gilgamesh 2,33,m967_max,100,110,140,100,100,100,NoScaling,h_ac_AD0500,14
+Gilgamesh 2,33,m967,50,70,70,100,100,100,ForceEntry|Main|NoScaling,h_ac_AD0500,10
+Gilgamesh 2,33,m967_brk,50,40,70,100,125,100,NoScaling,h_ac_AD0500,10
+Gilgamesh 2,33,m967_lv2,50,70,70,100,100,100,NoScaling,h_ac_AD0500,10
+Gilgamesh 2,33,m967_lv3,50,70,70,100,100,100,NoScaling,h_ac_AD0500,10
+Gilgamesh 2,33,m967_max,50,110,140,100,100,100,NoScaling,h_ac_AD0500,10
 Kalavinka,18,m049,100,100,100,100,100,100,Main,h_bj_AD0100,2
 Ugallu,18,m417,100,60,60,100,100,100,Main,h_gy_AD0200,6
 Gorgyra,18,m200,100,70,70,100,100,100,Main,h_gh_AD0010,8

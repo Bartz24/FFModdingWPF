@@ -86,6 +86,10 @@ public partial class TreasureRando : Randomizer
             hintData.Add(h.ID, h);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
+        // TODO: modifications to also add flags to r_eventflag for treasures being added
+        // This then also allows us to modify scripts in such a way that we can check if a treasure is granted
+        // Will also need to allow for extra arbitrary event flags for other things (like side quest checks), so might need to maintain a separate csv for that to combine it together.
+
         AddTreasure("ran_init_cp", "", 0, "");
         AddTreasure("ran_init_silver", "opt_silver", 10, "");
         AddTreasure("frg_cmn_hmaa001", "frg_cmn_hmaa001", 1, "");
@@ -157,11 +161,12 @@ public partial class TreasureRando : Randomizer
         AddTreasure("frg_cmn_spza004", "frg_cmn_spza004", 1, "");
         AddTreasure("frg_cmn_spza005", "frg_cmn_spza005", 1, "");
         AddTreasure("frg_cmn_clza001", "frg_cmn_clza001", 1, "");
-        AddTreasure("frg_cmn_gdza003", "frg_cmn_gdza003", 1, "");
-        AddTreasure("frg_cmn_gdza004", "frg_cmn_gdza004", 1, "");
-        AddTreasure("frg_cmn_gdza005", "frg_cmn_gdza005", 1, "");
-        AddTreasure("frg_cmn_gdza006", "frg_cmn_gdza006", 1, "");
-        AddTreasure("frg_cmn_gdza007", "frg_cmn_gdza007", 1, "");
+        // These actually need event flags
+        //AddTreasure("frg_cmn_gdza003", "frg_cmn_gdza003", 1, "");
+        //AddTreasure("frg_cmn_gdza004", "frg_cmn_gdza004", 1, "");
+        //AddTreasure("frg_cmn_gdza005", "frg_cmn_gdza005", 1, "");
+        //AddTreasure("frg_cmn_gdza006", "frg_cmn_gdza006", 1, "");
+        //AddTreasure("frg_cmn_gdza007", "frg_cmn_gdza007", 1, "");
         AddTreasure("frg_cmn_gtca001", "frg_cmn_gtca001", 1, "");
         AddTreasure("frg_cmn_acfa001", "frg_cmn_acfa001", 1, "");
         AddTreasure("frg_cmn_vpca005", "frg_cmn_vpca005", 1, "");

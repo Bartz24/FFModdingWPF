@@ -7,9 +7,9 @@ hs_acea01_gt,Tower Artefact Gate Open,h_ac_AD0400,,,I(opt_acea01_gt|1),Gate,hs_a
 hs_acea02_gy,Gate Open,h_ac_AD0400,,,I(opt_silver|1),Gate,hs_acea02_gy
 hs_acfa01_va,Gate Open,h_zz_NA0980,,,,Gate,hs_acfa01_va
 hs_acfa01_zz,Gate Open,h_ac_AD0500,,,,Gate,hs_acfa01_zz
-hs_bjaa01_gy,Eclipse Artefact Gate Open,h_bj_AD0005,1,,,Gate,hs_bjaa01_gy
-hs_bjaa02_sn,Reunion Artefact Gate Open,h_zz_NA0910,1,,,Gate,hs_bjaa02_sn
-hs_bjaa02_zz,Reunion Artefact Gate Open,h_bj_AD0005,,,,Gate,hs_bjaa02_zz
+hs_bjaa01_gy,Eclipse Artefact Gate Open,h_bj_AD0005,1,,I(opt_bjaa01_gy|1),Gate,hs_bjaa01_gy
+hs_bjaa02_sn,Reunion Artefact Gate Open,h_zz_NA0910,1,,I(opt_bjaa02_sn|1),Gate,hs_bjaa02_sn
+hs_bjaa02_zz,Reunion Artefact Gate Open,h_bj_AD0005,,,I(opt_bjaa02_sn|1),Gate,hs_bjaa02_zz
 hs_bjaa03_bj,Bresha 5 Wild Artefact Gate Open,h_bj_AD0005,,,AND(I(opt_silver|1)|I(key_lockjail|1)),Gate,hs_bjaa03_bj
 hs_bjaa91_gd,Bresha 5 Paradox Ending,h_zz_NA0910,1,,,Gate,hs_bjaa91_gd
 hs_bjda01_gy,Bresha 300 Wild Artefact Gate Open,h_bj_AD0300,,,I(opt_silver|1),Gate,hs_bjda01_gy
@@ -38,7 +38,7 @@ hs_hmaa11_va,DLC Link Open,h_zz_NA0970,,,,Gate,hs_hmaa11_va
 hs_hmaa12_cl,DLC Link Open,h_zz_NA0970,,,,Gate,hs_hmaa12_cl
 hs_hmaa13_cs,DLC Link Open,h_zz_NA0970,,,,Gate,hs_hmaa13_cs
 hs_hmaa_def,Starting Area Unlocked,Initial,,,,,hs_hmaa_def
-hs_hmha01_ac,Artefact of the Ark Gate Open,h_hm_AD0700,1,,,Gate,hs_hmha01_ac
+hs_hmha01_ac,Artefact of the Ark Gate Open,h_hm_AD0700,3,,,Gate,hs_hmha01_ac
 hs_hpaa01_dd,Gate Open,h_zz_NA0950,,,,Gate,hs_hpaa01_dd
 hs_hpaa01_zz,Gate Open,h_hp_AD0003,,,,Gate,hs_hpaa01_zz
 hs_hpaa95_hm,Gate Open,h_zz_NA0950,,,,Gate|NoCasade,hs_hpaa95_hm
@@ -54,9 +54,9 @@ hs_spza03_hp,Gate Open,h_sp_NA0100,,,,Gate,hs_spza03_hp
 Victory,Win!,h_va_NA0000,,,,,Victory
 # Area Progression and Side Quest fake/un-randomisable locations
 key_access_50,Access Key 50,h_gt_AD0300,,,,SideKey,key_access_50
-key_access_51,Access Key 51,h_gt_AD0300,,,I(key_access_50|1),SideKey,key_access_51
-key_access_52,Access Key 52,h_gt_AD0300,,,AND(I(key_access_50|1)|I(key_access_51|1)),SideKey,key_access_52
-key_access_la,Top Floor Access Key,h_gt_AD0300,,,AND(I(key_access_50|1)|I(key_access_51|1)|I(key_access_52|1)),SideKey,key_access_la
+key_access_51,Access Key 51,h_gt_AD0200,,,I(key_access_50|1),SideKey,key_access_51
+key_access_52,Access Key 52,h_gt_AD0200,,,AND(I(key_access_50|1)|I(key_access_51|1)),SideKey,key_access_52
+key_access_la,Top Floor Access Key,h_gt_AD0200,,,AND(I(key_access_50|1)|I(key_access_51|1)|I(key_access_52|1)),SideKey,key_access_la
 key_access_13,Access Key 13,h_gt_AD0200,,,AND(I(key_para50f|1)|I(key_para52f|1)|I(key_paraxxf|1)),SideKey,key_access_13
 key_yukimi,Silver Petal,h_bj_AD0300,,h_bj_AD0005,AND(I(frg_bj_1|1)|I(frg_bj_2|1)|I(frg_bj_3|1)),SideKey,key_yukimi
 key_f_colonel,Commander's Report,h_bj_AD0300,,,,SideKey,key_f_colonel

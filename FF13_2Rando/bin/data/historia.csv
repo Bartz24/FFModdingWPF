@@ -32,8 +32,9 @@ h_gt_AD0200,hs_gtca01_aa,,h_gt_AD0300,0,Augusta 200 AF -> Academia 4XX AF,
 h_gw_AD0300,hs_gwda01_gw,Wild,,0,Oerba 300 AF -> Oerba 400 AF,
 h_aa_AD0400,hs_aaea01_vp,Wild,,0,Academia 4XX AF -> Vile 10 AF,
 # TODO: for now this gate cannot be shuffled/replaced, it is a fixed join
-h_aa_AD0400,hs_aaea02_sp,Fixed|Graviton,,0,Academia 4XX AF -> Void Beyond,
+h_aa_AD0400,hs_aaea02_sp,Fixed|Graviton,,0,Academia 4XX AF -> Void Beyond,AND(C(Graviton|5)|I(opt_aaea02_sp|1))
 h_hm_AD0700,hs_hmha01_ac,Fixed,,0,New Bodhum 700 AF -> Academia 500 AF,
+h_ac_AD0500,hs_acfa01_va,Fixed,,0,Academia 500 AF -> Valhalla,
 # Must have mog level 3 to reach the wild gate on this one.
 h_dd_AD0700,hs_ddha02_bj,Wild,,3,Dying World 700 AF -> Bresha 100 AF,
 # Add in all missing links with fixed markers for ZZ etc.

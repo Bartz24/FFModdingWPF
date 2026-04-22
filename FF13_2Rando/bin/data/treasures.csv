@@ -285,16 +285,16 @@ tre_vpba_007,Wrack and Ruin (8),h_vp_AD0010,1,,,
 tre_vpba_008,Wrack and Ruin (4),h_vp_AD0010,0,,,
 tre_vpba_009,Wrack and Ruin (5),h_vp_AD0010,1,,,
 tre_vpba_010,Wrack and Ruin (2),h_vp_AD0010,0,,,
-# Paradox scope and endings
+# Paradox scope and endings - require 35 gate unlocks to force them to be quite "deep" in spheres if allowed.
 frg_cmn_acfa002,Paradox Scope,h_va_NA0000,0,,,ScrEvent|Paradox
-frg_cmn_pdxe001,Transcript: A Giant Mistake,h_gd_NA0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
-frg_cmn_pdxe002,Transcript: Vanille's Truth,h_gw_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
-frg_cmn_pdxe003,Transcript: Mog's Marvelous Flan Plan,h_sn_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
-frg_cmn_pdxe004,Transcript: Test Subjects,h_gt_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
+frg_cmn_pdxe001,Transcript: A Giant Mistake,h_gd_NA0900,0,h_cs_NA0000|h_bj_AD0005,AND(I(opt_bjaa_re|1)|C(Gate|35)),ScrEvent|Paradox
+frg_cmn_pdxe002,Transcript: Vanille's Truth,h_gw_AD0900,0,h_cs_NA0000|h_gw_AD0200,AND(I(frg_cmn_acfa002|1)|I(opt_gwca_re|1)|C(Gate|35)),ScrEvent|Paradox
+frg_cmn_pdxe003,Transcript: Mog's Marvelous Flan Plan,h_sn_AD0900,0,h_cs_NA0000|h_sn_AD0300,AND(I(frg_cmn_acfa002|1)|I(opt_snda_re|1)|C(Gate|35)),ScrEvent|Paradox
+frg_cmn_pdxe004,Transcript: Test Subjects,h_gt_AD0900,0,h_cs_NA0000|h_gt_AD0200,AND(I(frg_cmn_acfa002|1)|I(opt_gtca_re|1)|C(Gate|35)),ScrEvent|Paradox
 #frg_cmn_pdxe005
-frg_cmn_pdxe006,Transcript: Beneath a Timeless Sky,h_hm_AD0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
-frg_cmn_pdxe007,Transcript: Heir to Chaos,h_dd_NA0900,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
-frg_cmn_pdxe008,Transcript: Fate and Freedom,h_hp_AD0003,0,h_cs_NA0000,I(frg_cmn_acfa002|1),ScrEvent|Paradox
+frg_cmn_pdxe006,Transcript: Beneath a Timeless Sky,h_hm_AD0900,0,h_cs_NA0000|h_sp_NA0100,AND(I(frg_cmn_acfa002|1)|I(opt_aaea_re|1)|C(Gate|35)),ScrEvent|Paradox
+frg_cmn_pdxe007,Transcript: Heir to Chaos,h_dd_NA0900,0,h_cs_NA0000|h_dd_AD0700,AND(I(frg_cmn_acfa002|1)|I(opt_ddha_re|1)|C(Gate|35)),ScrEvent|Paradox|Missable
+frg_cmn_pdxe008,Transcript: Fate and Freedom,h_hp_AD0003,0,h_cs_NA0000|h_sp_NA0100,AND(I(opt_aaea_re|1)|C(Gate|35)),ScrEvent|Paradox
 # Other random fragments (TODO: requirements)
 frg_cmn_bjaa001,Atlas Fragment,h_bj_AD0005,0,,,ScrEvent|Fragment
 frg_cmn_gyaa003,Amur's Sphere,h_gy_AD0010,0,,,ScrEvent|Fragment
@@ -305,19 +305,19 @@ frg_cmn_spza003,Lindzei's Desire,h_sp_NA0100,1,,,ScrEvent|Fragment
 frg_cmn_spza004,Mwynn's Tenderness,h_sp_NA0100,1,,,ScrEvent|Fragment
 frg_cmn_spza005,Bhunivelze's Sleep,h_sp_NA0100,1,,,ScrEvent|Fragment
 frg_cmn_clza001,White Hole Gem,h_cl_NA0000,0,,,ScrEvent|Fragment
-# TODO: not all of these need mog to reveal actually
-frg_cmn_gdza003,Crimson Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
-frg_cmn_gdza004,Azure Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
-frg_cmn_gdza005,Forest Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
-frg_cmn_gdza006,Amber Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
-frg_cmn_gdza007,Violet Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
-frg_cmn_gtca001,Proto Fal'Cie Adam Fragment,h_gt_AD0200,1,,,ScrEvent|Fragment
+# TODO: not all of these need mog to reveal actually - also didn't actually do the scripts properly here oops...
+# frg_cmn_gdza003,Crimson Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+# frg_cmn_gdza004,Azure Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+# frg_cmn_gdza005,Forest Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+# frg_cmn_gdza006,Amber Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+# frg_cmn_gdza007,Violet Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+frg_cmn_gtca001,Proto Fal'Cie Adam Fragment,h_gt_AD0200,1,h_gt_AD0300,I(key_access_la|1),ScrEvent|Fragment
 frg_cmn_acfa001,Amethyst and Luvulite Fragment,h_ac_AD0500,0,h_cs_NA0000,I(frg_cmn_ddha001|1),ScrEvent|Fragment
 frg_cmn_vpca005,Falcon's Last Light,h_vp_AD0200,1,,,ScrEvent|Fragment
 # Artefacts
 opt_aaea02_sp,Vagabond Artefact,h_aa_AD0400,0,,C(Graviton|5),ScrEvent|Artefact
 opt_acea01_gt,Tower Artefact,h_ac_AD0400,0,,,ScrEvent|Artefact
-opt_gtca01_aa,Artefact of Rebirth,h_gt_AD0200,0,,,ScrEvent|Artefact
+opt_gtca01_aa,Artefact of Rebirth,h_gt_AD0200,0,h_gt_AD0300,I(key_access_la|1),ScrEvent|Artefact
 opt_gwca01_gh,Artefact of Origins,h_gw_AD0200,1,,,ScrEvent|Artefact
 opt_gyaa01_gw,Hollow Artefact,h_gy_AD0010,1,,,ScrEvent|Artefact
 opt_hmaa01_bj,Giant's Artefact,h_hm_AD0003,0,,,ScrEvent|Artefact
