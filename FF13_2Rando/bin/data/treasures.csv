@@ -16,16 +16,17 @@ frg_cmn_hmaa002,Gogmagog Beta Fragment,h_hm_AD0003,0,,,ScrEvent|Fragment
 key_s_neck,Snow's Necklace {Live Trigger},h_hm_AD0003,0,,,ScrEvent
 key_l_knife,Lightning's Knife [1],h_hm_AD0003,0,,,ScrEvent
 # Promises gate seal due to being technically missable unless you re-open from acad 4xx
-tre_hpaa_001,Meteorite Impact Site Fragment,h_hp_AD0003,1,,I(opt_aaea_re|1),Fragment
-tre_hpaa_002,Meteorite Impact Site Fragment,h_hp_AD0003,1,,I(opt_aaea_re|1),Fragment
-mog_level_3,Unlock Improved Moogle Hunt,h_hm_AD0700,0,,,ScrEvent
+tre_hpaa_001,Meteorite Impact Site Fragment,h_hp_AD0003,1,,I(opt_aaea_re|1),Fragment|Missable
+tre_hpaa_002,Meteorite Impact Site Fragment,h_hp_AD0003,1,,I(opt_aaea_re|1),Fragment|Missable
+mog_level_3,Unlock Improved Moogle Hunt,h_hm_AD0700,0,,,ScrEvent|Missable
 tre_hmaa_015,Beachfront (1),h_hm_AD0700,1,,,
 tre_hmha_map,Town Square [2],h_hm_AD0700,3,,,
 tre_hmha_001,Town Square [3],h_hm_AD0700,3,,,SideKey
 tre_hmha_002,Town Square Fragment [4],h_hm_AD0700,2,,,Fragment
 tre_hmha_003,Town Square Fragment [5],h_hm_AD0700,2,,,Fragment
+tre_hmha_opt01,Artefact of the Ark,h_hm_AD0700,3,,,Artefact
 # Bresha Ruins
-mog_level_1,Unlock Moogle Hunt,h_bj_AD0005,0,,,ScrEvent
+mog_level_1,Unlock Moogle Hunt,h_bj_AD0005,0,,,ScrEvent|Missable
 tre_bjaa_001,Excavation Site (2),h_bj_AD0005,0,,,
 tre_bjaa_003,Excavation Site (1),h_bj_AD0005,0,,,
 tre_bjaa_012,Excavation Site (12),h_bj_AD0005,1,,,
@@ -47,15 +48,15 @@ tre_bjaa_023,Echoes of the Past (5),h_bj_AD0005,0,,,
 tre_bjaa_010,Echoes of the Past (16),h_bj_AD0005,2,,I(key_lockjail|1),
 tre_bjaa_019,Echoes of the Past (15),h_bj_AD0005,2,,I(key_lockjail|1),
 tre_bjaa_021,Echoes of the Past [11],h_bj_AD0005,0,,I(key_lockjail|1),SideKey
-tre_bjaa_006,Echoes of the Past (2),h_bj_AD0100,0,,,
+tre_bjaa_006,Echoes of the Past (2),h_bj_AD0100,3,,,
 tre_bjaa_016,Echoes of the Past (3),h_bj_AD0100,0,,,
-tre_bjba_001,Echoes of the Past [1],h_bj_AD0100,3,,,SideKey
+tre_bjba_001,Echoes of the Past [1],h_bj_AD0100,0,,,SideKey
 tre_bjaa_opt01,Eclipse Artefact,h_bj_AD0005,1,,,Artefact
 tre_bjaa_opt02,Reunion Artefact,h_bj_AD0005,1,,,Artefact
 tre_bjba_reopt,Echoes of the Past (4),h_bj_AD0100,3,,,GateSeal
 tre_csza_reopt,Echoes of the Past (1),h_bj_AD0100,0,,,GateSeal
 tre_bjaa_025,Echoes of the Past (1),h_bj_AD0300,0,,,
-tre_bjda_001,Echoes of the Past [1],h_bj_AD0300,1,,,SideKey
+tre_bjda_001,Echoes of the Past Recording Device,h_bj_AD0300,1,,,SideKey
 tre_bjda_reopt,Echoes of the Past (2),h_bj_AD0300,0,,,GateSeal
 tre_gvtn2,Echoes of the Past Fragment [8],h_bj_AD0005,1,,,Graviton
 tre_bjaa_opts1,Echoes of the Past Wild Artefact [2],h_bj_AD0005,1,,,Wild
@@ -75,7 +76,7 @@ tre_gyaa_025,Pass of Paddra [3],h_gy_AD0010,0,,,SideKey
 tre_bjaa_reopt,Pass of Paddra (8),h_gy_AD0010,0,,,GateSeal
 tre_gyaa_026,Pass of Paddra [4],h_gh_AD0010,0,,,SideKey
 tre_gyaa_027,Pass of Paddra [5],h_gh_AD0010,0,,,SideKey
-tre_gyaa_028,Pass of Paddr [3]a,h_gh_AD0010,2,,,SideKey
+tre_gyaa_028,Pass of Paddra [3],h_gh_AD0010,2,,,SideKey
 tre_gwca_reopt,Pass of Paddra (1),h_gh_AD0010,0,,,GateSeal
 tre_gyaa_010,Pass of Paddra (2),h_gy_AD0100,0,,,
 tre_gyaa_019,Pass of Paddra [3],h_gy_AD0100,1,,,SideKey
@@ -135,7 +136,7 @@ tre_snda_013,Lush Woodland Path (12),h_sn_AD0300|h_sn_AD0400,1,,,
 tre_snda_009,Overgrown Forest (11),h_sn_AD0300|h_sn_AD0400,1,,,
 tre_snea_reopt,Assembly Area Minflans,h_sn_AD0400,1,,,GateSeal|Event
 tre_gvtn7,Assembly Area Fragment [7],h_sn_AD0400,1,,,Graviton
-mog_level_2,Unlock Moogle Throw,h_sn_AD0300,0,,,ScrEvent
+mog_level_2,Unlock Moogle Throw,h_sn_AD0300,0,,,ScrEvent|Missable
 tre_snda_016,Overgrown Forest Fragment [6],h_sn_AD0300,2,,,Fragment
 tre_snda_opts1,Animal Trail Wild Artefact [2],h_sn_AD0300,2,,,Wild
 tre_clza_001,Coliseum (4),h_cl_NA0000,2,,,
@@ -230,12 +231,12 @@ tre_gtda_007,15th Floor (7),h_gt_AD0300,2,,,
 tre_gtda_009,13th Floor (8),h_gt_AD0300,2,,I(key_access_13|1),
 tre_gtda_010,13th Floor (9),h_gt_AD0300,2,,I(key_access_13|1),
 tre_gtda_011,13th Floor (10),h_gt_AD0300,1,,I(key_access_13|1),
-tre_spza_001,Throne of the Goddess (1),h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),
-tre_spza_002,Throne of the Goddess (2),h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),
-tre_spza_map,Throne of the Goddess [1],h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),
+tre_spza_001,Throne of the Goddess (1),h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Missable
+tre_spza_002,Throne of the Goddess (2),h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Missable
+tre_spza_map,Throne of the Goddess [1],h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Missable
 tre_clza_reopt,Throne of the Goddess (3),h_sp_NA0001|h_sp_NA0100,2,h_dd_AD0700,I(opt_aaea_re|1),GateSeal|Missable
 tre_gdza_reopt,Throne of the Goddess (4),h_sp_NA0001|h_sp_NA0100,2,h_dd_AD0700,I(opt_aaea_re|1),GateSeal|Missable
-tre_spza_005,Walk of Time (5),h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),
+tre_spza_005,Walk of Time (5),h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Missable
 tre_csza_002,Temptation Plaza (1),h_cs_NA0000,0,h_gh_AD0010,,
 tre_ghaa_reopt,Temptation Plaza (2),h_cs_NA0000,0,h_gh_AD0010,,GateSeal
 tre_csza_opts1,Wild Artefact [2],h_cs_NA0000,0,h_gh_AD0010,,Wild|Fixed
@@ -287,30 +288,30 @@ tre_vpba_009,Wrack and Ruin (5),h_vp_AD0010,1,,,
 tre_vpba_010,Wrack and Ruin (2),h_vp_AD0010,0,,,
 # Paradox scope and endings - require 35 gate unlocks to force them to be quite "deep" in spheres if allowed.
 frg_cmn_acfa002,Paradox Scope,h_va_NA0000,0,,,ScrEvent|Paradox
-frg_cmn_pdxe001,Transcript: A Giant Mistake,h_gd_NA0900,0,h_cs_NA0000|h_bj_AD0005,AND(I(opt_bjaa_re|1)|C(Gate|35)),ScrEvent|Paradox
-frg_cmn_pdxe002,Transcript: Vanille's Truth,h_gw_AD0900,0,h_cs_NA0000|h_gw_AD0200,AND(I(frg_cmn_acfa002|1)|I(opt_gwca_re|1)|C(Gate|35)),ScrEvent|Paradox
-frg_cmn_pdxe003,Transcript: Mog's Marvelous Flan Plan,h_sn_AD0900,0,h_cs_NA0000|h_sn_AD0300,AND(I(frg_cmn_acfa002|1)|I(opt_snda_re|1)|C(Gate|35)),ScrEvent|Paradox
-frg_cmn_pdxe004,Transcript: Test Subjects,h_gt_AD0900,0,h_cs_NA0000|h_gt_AD0200,AND(I(frg_cmn_acfa002|1)|I(opt_gtca_re|1)|C(Gate|35)),ScrEvent|Paradox
-#frg_cmn_pdxe005
-frg_cmn_pdxe006,Transcript: Beneath a Timeless Sky,h_hm_AD0900,0,h_cs_NA0000|h_sp_NA0100,AND(I(frg_cmn_acfa002|1)|I(opt_aaea_re|1)|C(Gate|35)),ScrEvent|Paradox
-frg_cmn_pdxe007,Transcript: Heir to Chaos,h_dd_NA0900,0,h_cs_NA0000|h_dd_AD0700,AND(I(frg_cmn_acfa002|1)|I(opt_ddha_re|1)|C(Gate|35)),ScrEvent|Paradox|Missable
-frg_cmn_pdxe008,Transcript: Fate and Freedom,h_hp_AD0003,0,h_cs_NA0000|h_sp_NA0100,AND(I(opt_aaea_re|1)|C(Gate|35)),ScrEvent|Paradox
+frg_cmn_pdxe001,Transcript: A Giant Mistake,h_gd_NA0900,0,h_cs_NA0000|h_bj_AD0005,AND(I(opt_bjaa_re|1)|T(Gate|35)),ScrEvent|Paradox
+frg_cmn_pdxe002,Transcript: Vanille's Truth,h_gw_AD0900,0,h_cs_NA0000|h_gw_AD0200,AND(I(frg_cmn_acfa002|1)|I(opt_gwca_re|1)|T(Gate|35)),ScrEvent|Paradox
+frg_cmn_pdxe003,Transcript: Mog's Marvelous Flan Plan,h_sn_AD0900,0,h_cs_NA0000|h_sn_AD0300,AND(I(frg_cmn_acfa002|1)|I(opt_snda_re|1)|T(Gate|35)),ScrEvent|Paradox
+frg_cmn_pdxe004,Transcript: Test Subjects,h_gt_AD0900,0,h_cs_NA0000|h_gt_AD0200,AND(I(frg_cmn_acfa002|1)|I(opt_gtca_re|1)|T(Gate|35)),ScrEvent|Paradox
+frg_cmn_pdxe005,Transcript: The Future Is Hope,h_aa_AD0400,0,h_cs_NA0000|h_aa_AD0400,AND(I(frg_cmn_acfa002|1)|I(opt_aaea_re|1)),ScrEvent|Paradox
+frg_cmn_pdxe006,Transcript: Beneath a Timeless Sky,h_hm_AD0900,0,h_cs_NA0000|h_sp_NA0100,AND(I(frg_cmn_acfa002|1)|I(opt_aaea_re|1)|T(Gate|35)),ScrEvent|Paradox|Missable
+frg_cmn_pdxe007,Transcript: Heir to Chaos,h_dd_NA0900,0,h_cs_NA0000|h_dd_AD0700,AND(I(frg_cmn_acfa002|1)|I(opt_ddha_re|1)|T(Gate|35)),ScrEvent|Paradox|Missable
+frg_cmn_pdxe008,Transcript: Fate and Freedom,h_hp_AD0003,0,h_cs_NA0000|h_sp_NA0100,AND(I(opt_aaea_re|1)|T(Gate|35)),ScrEvent|Paradox|Missable
 # Other random fragments (TODO: requirements)
-frg_cmn_bjaa001,Atlas Fragment,h_bj_AD0005,0,,,ScrEvent|Fragment
+frg_cmn_bjaa001,Atlas Fragment,h_bj_AD0005,0,,I(boss_atlas|1),ScrEvent|Fragment
 frg_cmn_gyaa003,Amur's Sphere,h_gy_AD0010,0,,,ScrEvent|Fragment
 frg_cmn_snda002,Mutantomato Fragment,h_sn_AD0300,0,,,ScrEvent|Fragment
-frg_cmn_spza001,Etro's Sorrow,h_sp_NA0100,1,,,ScrEvent|Fragment
-frg_cmn_spza002,Pulse's Resolution,h_sp_NA0100,1,,,ScrEvent|Fragment
-frg_cmn_spza003,Lindzei's Desire,h_sp_NA0100,1,,,ScrEvent|Fragment
-frg_cmn_spza004,Mwynn's Tenderness,h_sp_NA0100,1,,,ScrEvent|Fragment
-frg_cmn_spza005,Bhunivelze's Sleep,h_sp_NA0100,1,,,ScrEvent|Fragment
+frg_cmn_spza001,Etro's Sorrow,h_sp_NA0100,1,,,ScrEvent|Fragment|Missable
+frg_cmn_spza002,Pulse's Resolution,h_sp_NA0100,1,,,ScrEvent|Fragment|Missable
+frg_cmn_spza003,Lindzei's Desire,h_sp_NA0100,1,,,ScrEvent|Fragment|Missable
+frg_cmn_spza004,Mwynn's Tenderness,h_sp_NA0100,1,,,ScrEvent|Fragment|Missable
+frg_cmn_spza005,Bhunivelze's Sleep,h_sp_NA0100,1,,,ScrEvent|Fragment|Missable
 frg_cmn_clza001,White Hole Gem,h_cl_NA0000,0,,,ScrEvent|Fragment
-# TODO: not all of these need mog to reveal actually - also didn't actually do the scripts properly here oops...
-# frg_cmn_gdza003,Crimson Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
-# frg_cmn_gdza004,Azure Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
-# frg_cmn_gdza005,Forest Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
-# frg_cmn_gdza006,Amber Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
-# frg_cmn_gdza007,Violet Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+# TODO: not all of these need mog to reveal actually
+frg_cmn_gdza003,Crimson Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+frg_cmn_gdza004,Azure Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+frg_cmn_gdza005,Forest Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+frg_cmn_gdza006,Amber Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+frg_cmn_gdza007,Violet Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
 frg_cmn_gtca001,Proto Fal'Cie Adam Fragment,h_gt_AD0200,1,h_gt_AD0300,I(key_access_la|1),ScrEvent|Fragment
 frg_cmn_acfa001,Amethyst and Luvulite Fragment,h_ac_AD0500,0,h_cs_NA0000,I(frg_cmn_ddha001|1),ScrEvent|Fragment
 frg_cmn_vpca005,Falcon's Last Light,h_vp_AD0200,1,,,ScrEvent|Fragment
@@ -321,3 +322,42 @@ opt_gtca01_aa,Artefact of Rebirth,h_gt_AD0200,0,h_gt_AD0300,I(key_access_la|1),S
 opt_gwca01_gh,Artefact of Origins,h_gw_AD0200,1,,,ScrEvent|Artefact
 opt_gyaa01_gw,Hollow Artefact,h_gy_AD0010,1,,,ScrEvent|Artefact
 opt_hmaa01_bj,Giant's Artefact,h_hm_AD0003,0,,,ScrEvent|Artefact
+# Other Key Items (TODO categorise/area sort)
+key_tissue,Toilet Paper Coupon,h_bj_AD0100,0,,,ScrEvent|SideKey
+key_wep_sozai,Weapon Material,h_bj_AD0100,3,,,ScrEvent|SideKey
+key_mon_data,Monster Analysis Report,h_bj_AD0100,3,,,ScrEvent|SideKey
+key_kansoku,Old Device,h_bj_AD0300,0,,,ScrEvent|SideKey
+key_f_colonel,Commander's Report,h_bj_AD0300,0,,,ScrEvent|SideKey
+key_f_message,My Buddy's Message,h_bj_AD0300,0,,,ScrEvent|SideKey
+key_yukimi,Silver Petal,h_bj_AD0300,0,,I(frg_bj_8_init|1),ScrEvent|SideKey
+tmap_gy,Map of the Yaschas Massif,h_gy_AD0010,0,,,ScrEvent|Map
+key_sone_info,Thorne's Information,h_gy_AD0100,0,,I(frg_bj_14_init|1),ScrEvent|SideKey
+key_y_baggage,Wedding Jewelry,h_gy_AD0200,1,,,ScrEvent|SideKey
+key_f_proof,Technician's Note,h_gy_AD0200,0,,,ScrEvent|SideKey
+tmap_sn,Map of the Sunleth Waterscape,h_sn_AD0300,0,,,ScrEvent|Map
+opt_snda01_cl,Combat Artefact,h_sn_AD0300,1,,,ScrEvent|Artefact
+opt_snda02_gd,Thundering Artefact,h_sn_AD0300,1,,,ScrEvent|Artefact
+key_gowa_wool,Rough Wool,h_gd_NA0000,0,,,ScrEvent|SideKey
+key_nuku_wool,Thick Wool,h_gd_NA0000,0,,,ScrEvent|SideKey
+key_moko_wool,Fluffy Wool,h_gd_NA0000,0,,,ScrEvent|SideKey
+tmap_gd,Map of the Steppe,h_gd_NA0000,0,,,ScrEvent|Map
+key_access_50,Access Key 50,h_gt_AD0300,0,,,ScrEvent|SideKey
+key_access_13,Access Key 13,h_gt_AD0200,0,,AND(I(frg_gt_3|1)|I(key_paraxxf|1)),ScrEvent|SideKey
+tmap_gt,Map of Augusta Tower,h_gt_AD0200,0,,,ScrEvent|Map
+tmap_ac,Map of Academia,h_aa_AD0400|h_ac_AD0400,0,,,ScrEvent|Map
+frg_cmn_acea012,Zenobia Fragment,h_ac_AD0400,0,,,ScrEvent|Fragment
+tmap_cs,Map of Serendipity,h_cs_NA0000,0,,,ScrEvent|Map
+cs_chip_00,Casino Ticket,h_cs_NA0000,0,,,ScrEvent|Casino
+frg_cmn_vpba001,Baxter's Last Light,h_vp_AD0010,1,,,ScrEvent|Fragment
+tmap_vp,Map of the Vile Peaks,h_vp_AD0200,1,,,ScrEvent|Map
+frg_cmn_vpca001,Torreno's Last Light,h_vp_AD0200,1,,,ScrEvent|Fragment
+key_acdmycom,Academy Communicator,h_bj_AD0005,0,,,ScrEvent|SideKey
+tmap_bj,Map of the Bresha Ruins,h_bj_AD0005,0,,,ScrEvent|Map
+key_behi_fang,Behemoth Fang,h_gy_AD0010,0,,,ScrEvent|SideKey
+frg_pzl_bjaa001,Delicate Crystal,h_bj_AD0005,0,,I(atlas_weakened|1),ScrEvent|Fragment
+frg_cmn_snea001,Lapis Lazuli,h_sn_AD0400,0,,,ScrEvent|Fragment
+frg_cmn_snea002,Heliodor Ore,h_sn_AD0400,0,,,ScrEvent|Fragment
+frg_cmn_snea003,Carnelian,h_sn_AD0400,0,,,ScrEvent|Fragment
+frg_cmn_snea004,Celestine,h_sn_AD0400,0,,,ScrEvent|Fragment
+frg_cmn_snea005,Cosmo Aura,h_sn_AD0400,0,,,ScrEvent|Fragment
+frg_cmn_snea006,Miniflan Fragment,h_sn_AD0400,0,,AND(I(frg_cmn_snea001|1)|I(frg_cmn_snea002|1)|I(frg_cmn_snea003|1)|I(frg_cmn_snea004|1)|I(frg_cmn_snea005|1)),ScrEvent|Fragment

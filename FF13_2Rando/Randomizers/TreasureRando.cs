@@ -21,6 +21,9 @@ public partial class TreasureRando : Randomizer
     public DataStoreWDB<DataStoreSearchItem> searchOrig = new();
     public DataStoreWDB<DataStoreSearchItem> search = new();
 
+    public DataStoreWDB<DataStoreREventFlag> eventFlagsOrig = new();
+    public DataStoreWDB<DataStoreREventFlag> eventFlags = new();
+
     public DataStoreWDB<DataStoreRFragment> fragments = new();
     private readonly Dictionary<string, HintData> hintData = new();
     private readonly Dictionary<string, FF13_2ItemLocation> ItemLocations = new();
@@ -41,6 +44,8 @@ public partial class TreasureRando : Randomizer
         searchOrig.LoadDB3(Generator, "13-2", @"\db\resident\searchitem.wdb");
         search.LoadDB3(Generator, "13-2", @"\db\resident\searchitem.wdb");
         fragments.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_fragment.wdb", false);
+        eventFlagsOrig.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_eventflag.wdb", false);
+        eventFlags.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_eventflag.wdb", false);
 
         ItemLocations.Clear();
 
@@ -86,18 +91,36 @@ public partial class TreasureRando : Randomizer
             hintData.Add(h.ID, h);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
+        List<EventFlagData> extraFlags = new List<EventFlagData>();
+        FileHelpers.ReadCSVFile(@"data\eventflags.csv", row =>
+        {
+            EventFlagData e = new(row);
+            extraFlags.Add(e);
+        }, FileHelpers.CSVFileHeader.HasHeader);
+
+        foreach(var flag in extraFlags)
+        {
+            AddFlag(eventFlags, flag.ID, GetMaxFlagIndex(eventFlags) + 1);
+        }
+
         // TODO: modifications to also add flags to r_eventflag for treasures being added
         // This then also allows us to modify scripts in such a way that we can check if a treasure is granted
         // Will also need to allow for extra arbitrary event flags for other things (like side quest checks), so might need to maintain a separate csv for that to combine it together.
 
-        AddTreasure("ran_init_cp", "", 0, "");
-        AddTreasure("ran_init_silver", "opt_silver", 10, "");
+        // Initial treasures don't need flags as they aren't referenced again in the scripts.
+        AddTreasure("ran_init_cp", "", 0, "", false);
+        AddTreasure("ran_init_silver", "opt_silver", 10, "", false);
+
+        // Mog level items
+        AddTreasure("mog_level_1", "key_mog_level", 1, "");
+        AddTreasure("mog_level_2", "key_mog_level", 1, "");
+        AddTreasure("mog_level_3", "key_mog_level", 1, "");
+
+        // Other assorted key items etc.
         AddTreasure("frg_cmn_hmaa001", "frg_cmn_hmaa001", 1, "");
         AddTreasure("frg_cmn_hmaa002", "frg_cmn_hmaa002", 1, "");
         AddTreasure("key_s_neck", "key_s_neck", 1, "");
         AddTreasure("key_l_knife", "key_l_knife", 1, "");
-        // TODO: Following need added to treasure pool, event flags added in scripts, and scripts compiled
-        // Branch in 13-2 scripts: rando_switch_items
         AddTreasure("key_tissue", "key_tissue", 1, "");
         AddTreasure("key_wep_sozai", "key_wep_sozai", 1, "");
         AddTreasure("key_mon_data", "key_mon_data", 1, "");
@@ -117,18 +140,18 @@ public partial class TreasureRando : Randomizer
         AddTreasure("key_moko_wool", "key_moko_wool", 1, "");
         AddTreasure("tmap_gd", "tmap_gd", 1, "");
         AddTreasure("key_access_50", "key_access_50", 1, "");
-        AddTreasure("key_access_la", "key_access_la", 1, "");
-        AddTreasure("key_access_52", "key_access_52", 1, "");
+        AddTreasure("key_access_la", "key_access_la", 1, ""); //skip
+        AddTreasure("key_access_52", "key_access_52", 1, ""); //skip
         AddTreasure("key_access_13", "key_access_13", 1, "");
         AddTreasure("tmap_gt", "tmap_gt", 1, "");
         AddTreasure("tmap_ac", "tmap_ac", 1, "");
         AddTreasure("frg_cmn_acea012", "frg_cmn_acea012", 1, "");
-        AddTreasure("just_one_gil", "", 1, "");
-        AddTreasure("key_casino_prz", "key_casino_prz", 1, "");
-        AddTreasure("key_chaos_cly", "key_chaos_cly", 1, "");
-        AddTreasure("key_casino_dice", "key_casino_dice", 1, "");
+        // AddTreasure("just_one_gil", "", 1, ""); - what is this even doing?
+        AddTreasure("key_casino_prz", "key_casino_prz", 1, "", false); // skip - vanilla flag?
+        AddTreasure("key_chaos_cly", "key_chaos_cly", 1, "", false); // skip - vanilla flag?
+        AddTreasure("key_casino_dice", "key_casino_dice", 1, "", false); // skip - vanilla flag?
         AddTreasure("tmap_cs", "tmap_cs", 1, "");
-        AddTreasure("cs_chip_00", "cs_chip_00", 1, "");
+        AddTreasure("cs_chip_00", "cs_chip_00", 1, "", false); // Skip flag - tied to above
         AddTreasure("frg_cmn_vpba001", "frg_cmn_vpba001", 1, "");
         AddTreasure("tmap_vp", "tmap_vp", 1, "");
         AddTreasure("frg_cmn_vpca001", "frg_cmn_vpca001", 1, "");
@@ -137,18 +160,13 @@ public partial class TreasureRando : Randomizer
         AddTreasure("key_behi_fang", "key_behi_fang", 1, "");
         AddTreasure("frg_pzl_bjaa001", "frg_pzl_bjaa001", 1, "");
 
-        // Mog level items
-        AddTreasure("mog_level_1", "key_mog_level", 1, "");
-        AddTreasure("mog_level_2", "key_mog_level", 1, "");
-        AddTreasure("mog_level_3", "key_mog_level", 1, "");
-
         // Fragment experimenting
         AddTreasure("frg_cmn_acfa002", "frg_cmn_acfa002", 1, "");
         AddTreasure("frg_cmn_pdxe001", "frg_cmn_pdxe001", 1, "");
         AddTreasure("frg_cmn_pdxe002", "frg_cmn_pdxe002", 1, "");
         AddTreasure("frg_cmn_pdxe003", "frg_cmn_pdxe003", 1, "");
         AddTreasure("frg_cmn_pdxe004", "frg_cmn_pdxe004", 1, "");
-        // 5 needs an event flag so intentionally omitted for now
+        AddTreasure("frg_cmn_pdxe005", "frg_cmn_pdxe005", 1, "");
         AddTreasure("frg_cmn_pdxe006", "frg_cmn_pdxe006", 1, "");
         AddTreasure("frg_cmn_pdxe007", "frg_cmn_pdxe007", 1, "");
         AddTreasure("frg_cmn_pdxe008", "frg_cmn_pdxe008", 1, "");
@@ -161,15 +179,21 @@ public partial class TreasureRando : Randomizer
         AddTreasure("frg_cmn_spza004", "frg_cmn_spza004", 1, "");
         AddTreasure("frg_cmn_spza005", "frg_cmn_spza005", 1, "");
         AddTreasure("frg_cmn_clza001", "frg_cmn_clza001", 1, "");
-        // These actually need event flags
-        //AddTreasure("frg_cmn_gdza003", "frg_cmn_gdza003", 1, "");
-        //AddTreasure("frg_cmn_gdza004", "frg_cmn_gdza004", 1, "");
-        //AddTreasure("frg_cmn_gdza005", "frg_cmn_gdza005", 1, "");
-        //AddTreasure("frg_cmn_gdza006", "frg_cmn_gdza006", 1, "");
-        //AddTreasure("frg_cmn_gdza007", "frg_cmn_gdza007", 1, "");
+        AddTreasure("frg_cmn_gdza003", "frg_cmn_gdza003", 1, "");
+        AddTreasure("frg_cmn_gdza004", "frg_cmn_gdza004", 1, "");
+        AddTreasure("frg_cmn_gdza005", "frg_cmn_gdza005", 1, "");
+        AddTreasure("frg_cmn_gdza006", "frg_cmn_gdza006", 1, "");
+        AddTreasure("frg_cmn_gdza007", "frg_cmn_gdza007", 1, "");
         AddTreasure("frg_cmn_gtca001", "frg_cmn_gtca001", 1, "");
         AddTreasure("frg_cmn_acfa001", "frg_cmn_acfa001", 1, "");
         AddTreasure("frg_cmn_vpca005", "frg_cmn_vpca005", 1, "");
+        AddTreasure("frg_cmn_snea001", "frg_cmn_snea001", 1, "");
+        AddTreasure("frg_cmn_snea002", "frg_cmn_snea002", 1, "");
+        AddTreasure("frg_cmn_snea003", "frg_cmn_snea003", 1, "");
+        AddTreasure("frg_cmn_snea004", "frg_cmn_snea004", 1, "");
+        AddTreasure("frg_cmn_snea005", "frg_cmn_snea005", 1, "");
+        AddTreasure("frg_cmn_snea006", "frg_cmn_snea006", 1, "");
+        //AddTreasure("frg_itm_bjba001", "frg_itm_bjba001", 1, "");
 
         // Artefact experimenting
         AddTreasure("opt_aaea02_sp", "opt_aaea02_sp", 1, "");
@@ -194,10 +218,27 @@ public partial class TreasureRando : Randomizer
         List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
     }
 
-    public void AddTreasure(string newName, string item, int count, string next)
+    public int GetMaxFlagIndex(DataStoreWDB<DataStoreREventFlag> store)
+    {
+        // Set 6000 as base index to space apart from existing flags.
+        // Even if we assume its 14bit for some wild reason that still gives us up to 8192, loads of headroom.
+        return Math.Max(6000, store.Values.Max(r => r.iFlagIndex));
+    }
+
+    public void AddTreasure(string newName, string item, int count, string next, bool addFlag = true)
     {
         AddTreasure(treasuresOrig, newName, item, count, next);
         AddTreasure(treasures, newName, item, count, next);
+        if (addFlag)
+        {
+            AddFlag(eventFlags, newName, GetMaxFlagIndex(eventFlags)+1);
+        }
+    }
+
+    private void AddFlag(DataStoreWDB<DataStoreREventFlag> database, string name, int id)
+    {
+        database.Copy(database.Keys[0], name);
+        database[name].iFlagIndex = id;
     }
 
     private void AddTreasure(DataStoreWDB<DataStoreRTreasurebox> database, string newName, string item, int count, string next)
@@ -396,6 +437,8 @@ public partial class TreasureRando : Randomizer
         SaveHints();
         treasures.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_treasurebox.wdb");
+        eventFlags.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_eventflag.wdb");
+        SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_eventflag.wdb");
         search.SaveDB3(Generator, @"\db\resident\searchitem.wdb");
     }
 
@@ -458,7 +501,7 @@ public partial class TreasureRando : Randomizer
         {
             name = "Gil";
         }
-        else if (itemID.StartsWith("frg"))
+        else if (itemID.StartsWith("frg") && fragments.Keys.Contains(itemID))
         {
             name = textRando.mainSysUS[fragments[itemID].sNameStringId];
             if (name.Contains("{End}"))
