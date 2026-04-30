@@ -164,6 +164,7 @@ public partial class HistoriaCruxRando : Randomizer
                         if (bannedInitial.Contains(r)) { return false; }
                         // if the area has a fixed inbound route, don't allow it to be the starting point.
                         if (areaData[r].Traits.Contains("FixedInbound")) { return false; }
+                        // Allow terminal nodes if DLC shuffle is on
                         return areaData[r].OutgoingLinkCount > 0;
                     })); //pick random starting location based on random
                     unplaced.Remove(initial);
@@ -260,10 +261,10 @@ public partial class HistoriaCruxRando : Randomizer
                 int childOffset = 0;
                 // special case for root node DLC 970 placement
                 // the zz link is handled outside of this loop, so just skip the child in the node list if its present
-                if(node.name == rootLocation && node.children.Count > outgoingLinks.Count)
-                {
-                    childOffset++;
-                }
+                //if(node.name == rootLocation && node.children.Count > outgoingLinks.Count)
+                //{
+                //    childOffset++;
+                //}
 
                 // special case 1x/sunleth because its weird...
                 // the void beyond or serendipity is placed first, so go backwards from the bottom for the other outward links
@@ -291,8 +292,16 @@ public partial class HistoriaCruxRando : Randomizer
                 {
                     for(var j = 0; j < outgoingLinks.Count; j++)
                     {
-                        var link = outgoingLinks[j];
                         var child = node.children[j + childOffset];
+                        // special case for root node DLC 970 placement
+                        // the zz link is handled outside of this loop, so just skip the child in the node list if its present
+                        if (node.name == rootLocation && child.name == HistoriaCruxConstants.BLANK_7)
+                        {
+                            childOffset++;
+                            j--;
+                            continue;
+                        }
+                        var link = outgoingLinks[j];
                         gateTable[link].sOpenHistoria1 = child.name+"_a";
                     }
                 }
@@ -1325,6 +1334,21 @@ public partial class HistoriaCruxRando : Randomizer
         if (FF13_2Flags.Items.KeyGateSeal.Enabled)
         {
             size++;
+        }
+
+        if (FF13_2Flags.Items.KeyArtefact.Enabled)
+        {
+            size++;
+        }
+
+        if (FF13_2Flags.Items.KeyParadox.Enabled)
+        {
+            size++;
+        }
+
+        if (FF13_2Flags.Items.KeyFragment.Enabled)
+        {
+            size += 2;
         }
         // Academia 4XX can softlock without Brain Blast
         if (FF13_2Flags.Items.KeyPlaceBrainBlast.Enabled)

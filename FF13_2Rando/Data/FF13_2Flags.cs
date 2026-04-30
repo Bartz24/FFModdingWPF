@@ -108,7 +108,8 @@ public class FF13_2Flags
     public class Items
     {
         public static Flag Treasures;
-        public static ToggleFlagProperty KeyWild, KeyGraviton, KeyGateSeal, KeySide, KeyPlaceTreasure, KeyPlaceBrainBlast, KeyPlaceThrowCryst, KeyPlaceThrowJunk;
+        public static ToggleFlagProperty KeyWild, KeyGraviton, KeyFragment, KeyGateSeal, KeySide, KeyParadox, KeyArtefact;
+        public static ToggleFlagProperty KeyPlaceTreasure, KeyPlaceBrainBlast, KeyPlaceThrowCryst, KeyPlaceThrowJunk, KeyPlaceParadox, KeyPlaceAreaBias;
         public static ComboBoxFlagProperty KeyDepth;
 
         internal static void Init()
@@ -136,6 +137,17 @@ public class FF13_2Flags
                 Description = "The 7 Graviton Core fragments will be included in the pool of key items."
             }.Register(Treasures);
 
+            KeyFragment = new ToggleFlagProperty(false)
+            {
+                Text = "Include Additional Fragments",
+                ID = "KeyFragment",
+                Description = "The additional fragments will be included in the pool of key items.\n" +
+                "Checks that require the presence of the vanilla fragments will still be available in the shuffled location (such as Fragment Skill unlock conditions)\n"+
+                "Paradox Ending fragments are not included by this flag, see Include Paradox Scope and Endings below."
+                // I'm not listing out all of the fragments in the pool there's like 30 of them already and its only going to go up.
+                // In the future might want to sub-categorise
+            }.Register(Treasures);
+
             KeyGateSeal = new ToggleFlagProperty(false)
             {
                 Text = "Include Gate Seals",
@@ -151,11 +163,26 @@ public class FF13_2Flags
                 "Medical Kit, Capsules, Holding Cell Key, Comm Device, Emerald Crystal, Ivory Crystal, Onyx Crystal, Service Manual, Fruit of Fenrir, Tablet of Paddra, Old Battery, Sealed Tablet, Army Comm Device, Recording Device, Picture Frame, Bulb of Hope, Terrorists' Mark, Weapon Material, Outdoor Watch, Personal Notes, Paradox Agent Type A-C, Supply Sphere Access Code"
             }.Register(Treasures);
 
+            KeyParadox = new ToggleFlagProperty(false)
+            {
+                Text = "Include Paradox Scope and Endings",
+                ID = "KeyParadox",
+                Description = "The Paradox Scope and all Paradox Ending Fragments (Transcript: {x}) will be included in the key item pool."
+            }.Register(Treasures);
+
+            KeyArtefact = new ToggleFlagProperty(false)
+            {
+                Text = "Include Additional Aretfacts",
+                ID = "KeyArtefact",
+                Description = "The following artefacts will be included in the key item pool:\n" +
+                "Vagabond Artefact, Tower Artefact, Artefact of Rebirth, Artefact of Origins, Hollow Artefact, Giant's Artefact"
+            }.Register(Treasures);
+
             KeyPlaceTreasure = new ToggleFlagProperty(false)
             {
                 Text = "Key Item Placement - Treasures",
                 ID = "KeyPlaceTreas",
-                Description = "Key items are also allowed in treasures and fragment spots."
+                Description = "Key items are also allowed in treasures and fragment/artefact spots."
             }.Register(Treasures);
 
             KeyPlaceBrainBlast = new ToggleFlagProperty(false)
@@ -179,6 +206,13 @@ public class FF13_2Flags
                 Description = "Key items are also allowed to replace Improve Moogle Throw junk locations."
             }.Register(Treasures);
 
+            KeyPlaceParadox = new ToggleFlagProperty(false)
+            {
+                Text = "Key Item Placement - Paradox Endings",
+                ID = "KeyPlaceParadox",
+                Description = "Key items are also allowed to be placed in Paradox Ending fragment locations"
+            }.Register(Treasures);
+
             KeyDepth = new ComboBoxFlagProperty("Normal")
             {
                 Text = "Item Difficulty Depth",
@@ -192,13 +226,21 @@ public class FF13_2Flags
                 "    Hard+++ - Each level of depth/difficulty increases likelihood of that location by 2.00x.",
                 Values = new string[] { "Normal", "Hard", "Hard+", "Hard++", "Hard+++" }.ToList()
             }.Register(Treasures);
+
+            KeyPlaceAreaBias = new ToggleFlagProperty(false)
+            {
+                Text = "Item Placement Accessibility Bias [EXPERIMENTAL]",
+                ID = "KeyAccessibilityBias",
+                Description = "Instructs the placement logic to bias unlocking items by area accessibility.\n\n" +
+                "The intent of this change is to hopefully downgrade items with wide impacts but low immediate gain (such as mog levels) for more local progression."
+            }.Register(Treasures);
         }
     }
     public class Enemies
     {
         public static Flag EnemyLocations, EnemyCPMult;
         public static NumberFlagProperty EnemyRank, EnemyCPMultValue;
-        public static ToggleFlagProperty LargeEnc, DLCBosses, BossScaling;
+        public static ToggleFlagProperty LargeEnc, DLCBosses, BossScaling, DeprioritiseCaius, FullRandomShuffleBosses;
         public static ListBoxFlagProperty Bosses;
 
         internal static void Init()
@@ -266,6 +308,22 @@ public class FF13_2Flags
                 Text = "Scale Boss Stats [EXPERIMENTAL]",
                 ID = "BossScale",
                 Description = "Scales up/down boss stats to be based on the average of the enemy ranks in the area they are placed in.",
+                Experimental = true
+            }.Register(EnemyLocations);
+
+            DeprioritiseCaius = new ToggleFlagProperty(false)
+            {
+                Text = "Deprioritise Caius Boss Shuffle [EXPERIMENTAL]",
+                ID = "CaiusBossShuffle",
+                Description = "When enabled, pushes caius fights later in the shuffle to make them less likely to appear in the main story fights.",
+                Experimental = true
+            }.Register(EnemyLocations);
+
+            FullRandomShuffleBosses = new ToggleFlagProperty(false)
+            {
+                Text = "Full random shuffle bosses [EXPERIMENTAL]",
+                ID = "FullRandomBosses",
+                Description = "Remove some guardrails when shuffling bosses. Silly situations may occur.",
                 Experimental = true
             }.Register(EnemyLocations);
 

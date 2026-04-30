@@ -5,6 +5,7 @@ using Bartz24.FF13_2_LR;
 using Bartz24.RandoWPF;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -131,7 +132,6 @@ public partial class BattleRando : Randomizer
         foreach (var (area, range) in areaBounds)
         {
             // This is working out ok, can potentially bump up more after the first couple of ranks
-            // Especially since the endgame is locked and adds like 6 nodes to depth currently
             var areaDepth = cruxRando.areaDepths[area];
             // Scale upper bound higher once we're more than 3 locations in
             var offset = areaDepth > 3 ? 2 : 0;
@@ -164,6 +164,27 @@ public partial class BattleRando : Randomizer
             .SelectMany(group => group.Shuffle())
             .Select(kvp => kvp.Key)
             .ToList();
+
+        if (FF13_2Flags.Enemies.FullRandomShuffleBosses.Enabled)
+        {
+            bossesByTheirRank = bossesByTheirRank.Shuffle();
+        }
+        if (FF13_2Flags.Enemies.DeprioritiseCaius.Enabled)
+        {
+            bossesByTheirRank.Sort((l, r) =>
+            {
+                var lIsCaius = reducedBossDataForShuffle[l].Traits.Contains("Caius");
+                var rIsCaius = reducedBossDataForShuffle[r].Traits.Contains("Caius");
+                if (lIsCaius == rIsCaius)
+                {
+                    return 0;
+                } else if (!rIsCaius)
+                {
+                    return 1;
+                }
+                return -1;
+            });
+        }
 
         // Ordered by where you'll encounter the area, with some variance and then randomised by rank
         List<string> locationsByTheirDepth = reducedBossDataForShuffle
@@ -566,7 +587,7 @@ public partial class BattleRando : Randomizer
         foreach (string id in btScenes.Keys)
         {
             // Skip any battles that have bosses in them
-            if (btScenes[id].GetCharSpecs().Where(s => enemyData.ContainsKey(s)).Select(s => enemyData[s]).Any(e => e.Traits.Contains("Boss")))
+            if (btScenes[id].GetCharSpecs().Where(s => enemyData.ContainsKey(s)).Select(s => enemyData[s]).Any(e => e.Traits.Contains("Boss") || e.Traits.Contains("Info")))
             {
                 continue;
             }
@@ -597,35 +618,44 @@ public partial class BattleRando : Randomizer
 
     private void ApplyBossScalingUpdates()
     {
-        var areaDifficulties = GetAreaDifficulties();
         EnemyRando enemyRando = Generator.Get<EnemyRando>();
         foreach (var bossGroups in bossData)
         {
             var mainBoss = bossGroups.Value.Values.FirstOrDefault(b => b.Traits.Contains("Main"));
-            if (mainBoss.Traits.Contains("NoScaling") || mainBoss == null)
-            {
-                continue;
-            }
+            int oldRank = mainBoss.Rank;
 
             // Determine the new boss replacing this one
             string newBossGroup = shuffledBosses.ContainsKey(bossGroups.Key) ? shuffledBosses[bossGroups.Key] : bossGroups.Key;
             var newMainBoss = bossData[newBossGroup].Values.FirstOrDefault(b => b.Traits.Contains("Main"));
 
-            // Get the location avg rank for the original boss
-            int locationAvgRank = areaDifficulties.GetValueOrDefault(mainBoss.Location, -1);
+            if (mainBoss.Traits.Contains("NoScaling") || mainBoss == null)
+            {
+                newBossRanks[newMainBoss.Group] = oldRank;
+                Generator.Logger.LogDebug($"Boss {mainBoss.Group} does not scale");
+                continue;
+            }
+
+            Generator.Logger.LogDebug($"Boss {mainBoss.Group} -> {newBossGroup}");
+
+            // Get the location min rank for the original boss, plus a slight bump
+            var locationBounds = areaBounds[mainBoss.Location];
+            int locationAvgRank = locationBounds.Item1 + 2;
             if (locationAvgRank == -1)
             {
+                newBossRanks[newMainBoss.Group] = oldRank;
                 continue;
             }
 
             // Determine the new rank from the original location avg
             int newRank = locationAvgRank + mainBoss.RankOffsetToLocationAvg;
-            int oldRank = mainBoss.Rank;
-
+            
             if (oldRank == newRank)
             {
+                newBossRanks[newMainBoss.Group] = oldRank;
                 continue;
             }
+
+            Generator.Logger.LogDebug($"Boss {newBossGroup} rank change {oldRank} -> {newRank}");
 
             // Clamp new rank to available scaling data
             newRank = Math.Max(bossScalingData.Keys.Min(), Math.Min(bossScalingData.Keys.Max(), newRank));

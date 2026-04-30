@@ -26,6 +26,8 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
 
     protected int DepthDifficulty { get; set; }
 
+    public bool locationAccessibilityBias { get; set; }
+
     protected int Attempts { get; set; } = 0;
 
     private const int MAX_ATTEMPTS = 1000;
@@ -233,8 +235,16 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     {
         var newlyAccessible = GetNewlyAccessibleWithLocation(UnlockedLocations, location);
         var unlockingWeight = newlyAccessible.Count;
-        var remainingWithInterest = PossibleLocations.Where(loc => loc.Requirements.GetPossibleRequirements().Contains(itemType)).Count();
-        var remainingFixedWithInterest = FixedLocations.Where(loc => loc.Requirements.GetPossibleRequirements().Contains(itemType)).Count();
+        // If locationAccessibilityBias is set, then locations are also checked by whether you have access to the location from area links.
+        // This should effectively downgrade items with wide reaching implications but narrow immediate impact, and give more
+        // dynamic shuffling as the placement progresses until all areas are open.
+        var remainingWithInterest = PossibleLocations.Where(loc => {
+            return loc.Requirements.GetPossibleRequirements().Contains(itemType) && (!locationAccessibilityBias || loc.Areas.Intersect(UnlockedAreas).Count() > 0);
+        }).Count();
+        var remainingFixedWithInterest = FixedLocations.Where(loc =>
+        {
+            return loc.Requirements.GetPossibleRequirements().Contains(itemType) && (!locationAccessibilityBias || loc.Areas.Intersect(UnlockedAreas).Count() > 0);
+        }).Count();
         // Min bound is adjusted downwards by how many locations are immediately unlocked by this item, as well as the number of overall locations still locked by this item in some way.
         // Max bound as adjusted downwards by the number of overall locations still locked by this item in some way.
         // The idea being that items which unlock large segments of the game are weighted to fall much earlier generally speaking
