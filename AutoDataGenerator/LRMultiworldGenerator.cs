@@ -1,37 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
-using Bartz24.Data;
-using Bartz24.FF12;
+﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
-using static System.Windows.Forms.AxHost;
-using System.Xml.Linq;
 using LRRando;
-using System.IO;
 
 namespace AutoDataGenerator;
-internal class LRMultiworldGenerator
+internal class LRMultiworldGenerator : MultiworldGeneratorBase
 {
-    public string OutputDir { get; }
-
     TreasureRando TreasureRando { get; }
     EquipRando EquipRando { get; }
 
     Dictionary<ItemLocation, string> locations = new();
     List<(ItemLocation Location, string Name)> extraLocations = new();
 
-    public LRMultiworldGenerator(string inputDir, string outputDir)
+    public LRMultiworldGenerator(string inputDir, string outputDir) : base(outputDir)
     {
         SetupData.Paths["LR"] = "G:\\SteamLibrary\\steamapps\\common\\LIGHTNING RETURNS FINAL FANTASY XIII";
         SetupData.Paths["Nova"] = "S:\\Games\\FF13Series\\Nova Chrysalia v2.0.3\\NovaChrysalia.exe";
         DataExtensions.Mode = ByteMode.BigEndian;
         LRFlags.Init();
         SetupData.Seed = "1234567890";
-
-        OutputDir = outputDir;
         var seedGenerator = new LRSeedGenerator();
         TreasureRando = seedGenerator.Get<TreasureRando>();
         EquipRando = seedGenerator.Get<EquipRando>();
@@ -43,16 +29,7 @@ internal class LRMultiworldGenerator
         seedGenerator.Load();
     }
 
-    public void Generate()
-    {
-        GenerateItemsScript();
-        GenerateLocationsScript();
-        GenerateEventsScript();
-        GenerateRulesScript();
-        GenerateRegionsScript();
-    }
-
-    private void GenerateItemsScript()
+    protected override void GenerateItemsScript()
     {
         // Auto generate the Items.py script
         string script =
@@ -196,7 +173,7 @@ internal class LRMultiworldGenerator
         return script;
     }
 
-    private void GenerateLocationsScript()
+    protected override void GenerateLocationsScript()
     {
         string script =
             "from typing import Dict, NamedTuple, Optional\n" +
@@ -300,53 +277,14 @@ internal class LRMultiworldGenerator
         return script;
     }
 
-    private void GenerateRegionsScript()
+    protected override void GenerateRegionsScript()
     {
-        StringBuilder sb = new();
-        sb.Append(
-            "from typing import Dict, List, NamedTuple, Optional\n" +
-            "from BaseClasses import Region\n\n" +
-            "class LRFF13Region(Region):\n" +
-            "    game: str = \"Lightning Returns: Final Fantasy XIII\"\n\n" +
-            "class LRFF13RegionData(NamedTuple):\n" +
-            "    connecting_regions: List[str]\n" +
-            "    map_id: Optional[int] = None\n" +
-            "    secondary_index: Optional[int] = None\n\n" +
-            "region_data_table: Dict[str, LRFF13RegionData] = {\n");
-
-        // Build regions dynamically from AreaGraph
-        var areas = TreasureRando.AreaGraph.Areas.Keys.ToList();
-        areas.Sort(StringComparer.Ordinal);
-        for (int i = 0; i < areas.Count; i++)
-        {
-            var areaName = areas[i];
-            var connections = TreasureRando.AreaGraph.Connections
-                .Where(c => c.FromAreaName == areaName)
-                .Select(c => c.ToAreaName)
-                .Distinct()
-                .OrderBy(n => n, StringComparer.Ordinal)
-                .ToList();
-
-            sb.Append($"    \"{areaName}\": LRFF13RegionData(connecting_regions=[");
-            for (int j = 0; j < connections.Count; j++)
-            {
-                if (j > 0)
-                {
-                    sb.Append(", ");
-                }
-
-                sb.Append($"\"{connections[j]}\"");
-            }
-
-            sb.Append("]),\n");
-        }
-
-        sb.Append("}\n");
-
-        File.WriteAllText(Path.Combine(OutputDir, "Regions.py"), sb.ToString());
+        File.WriteAllText(
+            Path.Combine(OutputDir, "Regions.py"),
+            BuildRegionScript("LRFF13RegionData", "LRFF13Region", "Lightning Returns: Final Fantasy XIII", TreasureRando.AreaGraph));
     }
 
-    private void GenerateEventsScript()
+    protected override void GenerateEventsScript()
     {
         extraLocations.Clear();
 
@@ -395,29 +333,16 @@ internal class LRMultiworldGenerator
         File.WriteAllText(Path.Combine(OutputDir, "Events.py"), script);
     }
 
-    private void GenerateRulesScript()
+    protected override void GenerateRulesScript()
     {
-        string script =
-            "from typing import Callable, Dict, List, Tuple\n" +
-            "from BaseClasses import CollectionState, Item\n" +
-            "from .RuleLogic import state_has_at_least, item_is_category, state_has_category" +
-            "\n" +
-            "\n";
-
-    Dictionary<string, string> locationToRules = new();
-    Dictionary<string, string> itemRules = new();
-        Dictionary<(string From, string To), string> entranceToRules = new();
-        List<string> rules = new();
+        string gameName = "Lightning Returns: Final Fantasy XIII";
+        RuleModuleData data = CreateRuleModuleData();
+        Dictionary<string, string> itemRules = new();
+        bool needsItemCategoryHelper = false;
 
         locations.Keys.ForEach(l =>
         {
-            string ruleStr = l.GetArchipelagoRule(EquipRando.GetItemName);
-            if (!rules.Contains(ruleStr))
-            {
-                rules.Add(ruleStr);
-            }
-
-            locationToRules.Add(locations[l], ruleStr);
+            AddLocationRule(data, gameName, l, locations[l], EquipRando.GetItemName);
 
             // Build item rule for Same-type restricted locations
             if (l.Traits != null && l.Traits.Contains("Same"))
@@ -429,8 +354,9 @@ internal class LRMultiworldGenerator
                 {
                     string category = EquipRando.itemData[origId].Category;
                     // Lambda that checks item's category using RuleLogic.item_is_category
-                    string itemRule = $"lambda item: item_is_category(item.name, \"{category}\")";
+                    string itemRule = $"lambda item: item_is_category(item.name, \"{ItemReq.EscapePythonString(category)}\")";
                     itemRules[locations[l]] = itemRule;
+                    needsItemCategoryHelper = true;
                 }
             }
         });
@@ -440,72 +366,21 @@ internal class LRMultiworldGenerator
         {
             var l = tuple.Location;
             var name = tuple.Name;
-            string ruleStr = l.GetArchipelagoRule(EquipRando.GetItemName);
-            if (!rules.Contains(ruleStr))
+            AddLocationRule(data, gameName, l, name, EquipRando.GetItemName);
+        });
+
+        AddEntranceRules(data, gameName, TreasureRando.AreaGraph, EquipRando.GetItemName);
+
+        string script = BuildRulesModule(data, "location_rule_data_table", needsItemCategoryHelper, (sb, _) =>
+        {
+            sb.Append("\nitem_rule_data_table: Dict[str, Callable[[Item], bool]] = {\n");
+            foreach (var kvp in itemRules)
             {
-                rules.Add(ruleStr);
+                sb.Append($"    \"{ItemReq.EscapePythonString(kvp.Key)}\": {kvp.Value},\n");
             }
-
-            locationToRules[name] = ruleStr;
+            sb.Append("}\n");
         });
-
-        // Build entrance rules from AreaGraph connections BEFORE emitting rule_data_list
-        TreasureRando.AreaGraph.Connections.ForEach(c =>
-        {
-            // Format rule similar to ItemLocation.GetArchipelagoRule
-            string ruleStr = c.Requirements.GetArchipelagoRule(EquipRando.GetItemName);
-            List<string> ruleLines = ruleStr.Split('\n').ToList();
-            for (int i = 0; i < ruleLines.Count; i++)
-            {
-                int indent = i == 0 ? 4 : ruleLines[i - 1].TakeWhile(ch => ch == ' ' || ch == '(').Count();
-                ruleLines[i] = new string(' ', indent) + ruleLines[i];
-            }
-
-            ruleStr = $"lambda state, player:\n{string.Join("\n", ruleLines)}";
-
-            if (!rules.Contains(ruleStr))
-            {
-                rules.Add(ruleStr);
-            }
-
-            entranceToRules[(c.FromAreaName, c.ToAreaName)] = ruleStr;
-        });
-
-        // Emit full rule_data_list now that we've collected both location and entrance rules
-        script += "rule_data_list: List[Callable[[CollectionState, int], bool]] = [\n";
-        for (int i = 0; i < rules.Count; i++)
-        {
-            script += $"    {rules[i]},  # Rule {i}\n";
-        }
-
-        script += "]\n\n";
-
-        script += "location_rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {\n";
-        locationToRules.Keys.ForEach(l =>
-        {
-            script += $"    \"{l}\": rule_data_list[{rules.IndexOf(locationToRules[l])}],\n";
-        });
-
-        script += "}\n";
-
-        // Emit item rules for Same-type restrictions
-        script += "\nitem_rule_data_table: Dict[str, Callable[[Item], bool]] = {\n";
-        foreach (var kvp in itemRules)
-        {
-            script += $"    \"{kvp.Key}\": {kvp.Value},\n";
-        }
-        script += "}\n";
-
-        script += "\nentrance_rule_data_table: Dict[Tuple[str, str], Callable[[CollectionState, int], bool]] = {\n";
-        entranceToRules.Keys.ForEach(k =>
-        {
-            var ruleStr = entranceToRules[k];
-            var idx = rules.IndexOf(ruleStr);
-            script += $"    (\"{k.From}\", \"{k.To}\"): rule_data_list[{idx}],\n";
-        });
-        script += "}\n";
 
         File.WriteAllText(Path.Combine(OutputDir, "Rules.py"), script);
-
     }
 }

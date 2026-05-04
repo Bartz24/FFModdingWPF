@@ -1,21 +1,10 @@
-﻿using FF12Rando;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
-using Bartz24.Data;
-using Bartz24.FF12;
+﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
-using static System.Windows.Forms.AxHost;
-using System.Xml.Linq;
+using FF12Rando;
 
 namespace AutoDataGenerator;
-internal class FF12MultiworldGenerator
+internal class FF12MultiworldGenerator : MultiworldGeneratorBase
 {
-    public string OutputDir { get; }
-
     TreasureRando TreasureRando { get; }
     EquipRando EquipRando { get; }
     PartyRando PartyRando { get; }
@@ -23,13 +12,11 @@ internal class FF12MultiworldGenerator
 
     Dictionary<ItemLocation, string> locations = new();
 
-    public FF12MultiworldGenerator(string inputDir, string outputDir)
+    public FF12MultiworldGenerator(string inputDir, string outputDir) : base(outputDir)
     {
         SetupData.Paths["12"] = "G:\\SteamLibrary\\steamapps\\common\\FINAL FANTASY XII THE ZODIAC AGE\\x64\\FFXII_TZA.exe";
         DataExtensions.Mode = ByteMode.LittleEndian;
         FF12Flags.Init();
-
-        OutputDir = outputDir;
         var seedGenerator = new FF12SeedGenerator();
         TreasureRando = seedGenerator.Get<TreasureRando>();
         EquipRando = seedGenerator.Get<EquipRando>();
@@ -47,17 +34,8 @@ internal class FF12MultiworldGenerator
         ShopRando.Load();
     }
 
-    public void Generate()
+    protected override void GenerateItemsScript()
     {
-        GenerateItemsScript();
-        GenerateLocationsScript();
-        GenerateEventsScript();
-        GenerateRulesScript();
-        GenerateRegionsScript();
-    }
-
-    private void GenerateItemsScript()
-    {        
         // Auto generate the Items.py script
         string script =
             "from typing import Dict, NamedTuple, Optional\n" +
@@ -114,7 +92,7 @@ internal class FF12MultiworldGenerator
                     // Weight is a value based on rank using exponential decay from 200 to 10
                     // Rank goes up to 10 using this formula
                     // Weapons and armor are weighted lower for ranks 0-3
-                    weight = i.Rank > 10 ? 1 : 
+                    weight = i.Rank > 10 ? 1 :
                     i.Rank <= 3 && (i.Category == "Weapon" || i.Category == "Armor") ? 5 :
                     (int)Math.Ceiling(20 * Math.Pow(0.7, i.Rank) * 10);
 
@@ -150,7 +128,7 @@ internal class FF12MultiworldGenerator
 
     private static string AddItemToItemsScript(string script, string name, int id, string type, string category, int weight, int amount, int duplicates)
     {
-        script += 
+        script +=
             $"    \"{name}\": FF12OpenWorldItemData(\n" +
             $"        code={id},\n" +
             $"        classification=ItemClassification.{type},\n" +
@@ -178,7 +156,7 @@ internal class FF12MultiworldGenerator
         return script;
     }
 
-    private void GenerateLocationsScript()
+    protected override void GenerateLocationsScript()
     {
         string script =
             "from typing import Dict, NamedTuple, Optional\n" +
@@ -274,7 +252,7 @@ internal class FF12MultiworldGenerator
         return script;
     }
 
-    private void GenerateEventsScript()
+    protected override void GenerateEventsScript()
     {
         string script =
             "from typing import Dict, NamedTuple\n" +
@@ -316,168 +294,31 @@ internal class FF12MultiworldGenerator
         File.WriteAllText(Path.Combine(OutputDir, "Events.py"), script);
     }
 
-    private void GenerateRulesScript()
+    protected override void GenerateRulesScript()
     {
-        string script =
-            "from typing import Callable, Dict, List, Tuple\n" +
-            "from BaseClasses import CollectionState\n" +
-            "from .RuleLogic import state_has_at_least, state_has_category" +
-            "\n" +
-            "\n" +
-            "rule_data_list: List[Callable[[CollectionState, int], bool]] = [\n";
+        string gameName = "Final Fantasy 12 Open World";
+        RuleModuleData data = CreateRuleModuleData();
 
-        Dictionary<string, string> locationToRules = new();
-        Dictionary<(string From, string To), string> entranceToRules = new();
-        List<string> rules = new();
+        locations.Keys.ForEach(l => AddLocationRule(data, gameName, l, locations[l], TreasureRando.GetItemName));
+        AddEntranceRules(data, gameName, TreasureRando.AreaGraph, TreasureRando.GetItemName);
 
-        locations.Keys.ForEach(l =>
+        string script = BuildRulesModule(data, "rule_data_table", false, (sb, _) =>
         {
-            string ruleStr = l.GetArchipelagoRule(TreasureRando.GetItemName);
-            if (!rules.Contains(ruleStr))
+            sb.Append("\nentrance_rule_difficulty_table: Dict[Tuple[str, str], int] = {\n");
+            TreasureRando.AreaGraph.Connections.ForEach(c =>
             {
-                rules.Add(ruleStr);
-            }
-
-            locationToRules.Add(locations[l], ruleStr);
-        });
-
-        // Build entrance rules from AreaGraph connections BEFORE emitting rule_data_list
-        TreasureRando.AreaGraph.Connections.ForEach(c =>
-        {
-            string ruleStr = c.Requirements.GetArchipelagoRule(TreasureRando.GetItemName);
-            List<string> ruleLines = ruleStr.Split('\n').ToList();
-            for (int i = 0; i < ruleLines.Count; i++)
-            {
-                int indent = i == 0 ? 4 : ruleLines[i - 1].TakeWhile(ch => ch == ' ' || ch == '(').Count();
-                ruleLines[i] = new string(' ', indent) + ruleLines[i];
-            }
-
-            ruleStr = $"lambda state, player:\n{string.Join("\n", ruleLines)}";
-
-            if (!rules.Contains(ruleStr))
-            {
-                rules.Add(ruleStr);
-            }
-
-            entranceToRules[(c.FromAreaName, c.ToAreaName)] = ruleStr;
-        });
-
-        for (int i = 0; i < rules.Count; i++)
-        {
-            script += $"    {rules[i]},  # Rule {i}\n";
-        }
-
-        script += "]\n\n";
-
-        script += "rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {\n";
-        locationToRules.Keys.ForEach(l =>
-        {
-            script += $"    \"{l}\": rule_data_list[{rules.IndexOf(locationToRules[l])}],\n";
-        });
-
-        script += "}\n";
-
-        // Emit entrance rules table
-        script += "\nentrance_rule_data_table: Dict[Tuple[str, str], Callable[[CollectionState, int], bool]] = {\n";
-        entranceToRules.Keys.ForEach(k =>
-        {
-            var ruleStr = entranceToRules[k];
-            var idx = rules.IndexOf(ruleStr);
-            script += $"    (\"{k.From}\", \"{k.To}\"): rule_data_list[{idx}],\n";
-        });
-        script += "}\n";
-
-        // Write entrance rule difficulty table
-        script += "\nentrance_rule_difficulty_table: Dict[Tuple[str, str], int] = {\n";
-        TreasureRando.AreaGraph.Connections.ForEach(c =>
-        {
-            FF12AreaConnection conn = (FF12AreaConnection)c;
-            script += $"    (\"{conn.FromAreaName}\", \"{conn.ToAreaName}\"): {conn.BaseDifficulty},\n";
-        });
-        script += "}\n";
-
-        // Write table of indirect entrances (area -> entrance tuples)
-        script += "\nindirect_entrance_table: Dict[str, List[Tuple[str, str]]] = {\n";
-        Dictionary<string, List<(string From, string To)>> indirects = new();
-        TreasureRando.AreaGraph.Connections.Where(c=>c.Traits.Contains("Indirect")).ForEach(c =>
-        {
-            // Get the indirect areas of the connection from the area req components
-            var indirectAreas = c.Requirements.GetOf<AreaItemReq>().Select(r => r.Area).Distinct().ToList();
-
-            indirectAreas.ForEach(area =>
-            {
-                if (!indirects.ContainsKey(area))
-                {
-                    indirects[area] = new();
-                }
-
-                indirects[area].Add((c.FromAreaName, c.ToAreaName));
+                FF12AreaConnection conn = (FF12AreaConnection)c;
+                sb.Append($"    (\"{conn.FromAreaName}\", \"{conn.ToAreaName}\"): {conn.BaseDifficulty},\n");
             });
+            sb.Append("}\n");
         });
-
-        foreach (var kvp in indirects)
-        {
-            script += $"    \"{kvp.Key}\": [";
-            for (int i = 0; i < kvp.Value.Count; i++)
-            {
-                if (i > 0)
-                {
-                    script += ", ";
-                }
-
-                script += $"(\"{kvp.Value[i].From}\", \"{kvp.Value[i].To}\")";
-            }
-
-            script += "],\n";
-        }
-
-        script += "}\n";
 
         File.WriteAllText(Path.Combine(OutputDir, "Rules.py"), script);
-
     }
-    private void GenerateRegionsScript()
+    protected override void GenerateRegionsScript()
     {
-        StringBuilder sb = new();
-        sb.Append(
-            "from typing import Dict, List, NamedTuple, Optional\n" +
-            "from BaseClasses import Region\n\n" +
-            "class FF12OpenWorldRegion(Region):\n" +
-            "    game: str = \"Final Fantasy 12 Open World\"\n\n" +
-            "class FF12OpenWorldRegionData(NamedTuple):\n" +
-            "    connecting_regions: List[str]\n" +
-            "    map_id: Optional[int] = None\n" +
-            "    secondary_index: Optional[int] = None\n\n" +
-            "region_data_table: Dict[str, FF12OpenWorldRegionData] = {\n");
-
-        var areas = TreasureRando.AreaGraph.Areas.Keys.ToList();
-        areas.Sort(StringComparer.Ordinal);
-        for (int i = 0; i < areas.Count; i++)
-        {
-            var areaName = areas[i];
-            var connections = TreasureRando.AreaGraph.Connections
-                .Where(c => c.FromAreaName == areaName)
-                .Select(c => c.ToAreaName)
-                .Distinct()
-                .OrderBy(n => n, StringComparer.Ordinal)
-                .ToList();
-
-            sb.Append($"    \"{areaName}\": FF12OpenWorldRegionData(connecting_regions=[");
-            for (int j = 0; j < connections.Count; j++)
-            {
-                if (j > 0)
-                {
-                    sb.Append(", ");
-                }
-
-                sb.Append($"\"{connections[j]}\"");
-            }
-
-            sb.Append("]),\n");
-        }
-
-        sb.Append("}\n");
-
-        File.WriteAllText(Path.Combine(OutputDir, "Regions.py"), sb.ToString());
+        File.WriteAllText(
+            Path.Combine(OutputDir, "Regions.py"),
+            BuildRegionScript("FF12OpenWorldRegionData", "FF12OpenWorldRegion", "Final Fantasy 12 Open World", TreasureRando.AreaGraph));
     }
 }
