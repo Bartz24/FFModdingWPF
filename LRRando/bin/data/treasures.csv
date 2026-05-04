@@ -43,7 +43,16 @@ tre_d_seki_3,Dead Dunes,Atomos's Sands Shrine Tablet,MainKey,I(key_d_key|1),1,Du
 tre_d_base,Dead Dunes,Temple Ruins Mural Crux Base,MainKey,I(key_d_sekiban|3),2,
 tre_d_wing,Dead Dunes,Temple Ruins Mural Crux Body,MainKey,I(key_d_sekiban|2),1,
 tre_d_top,Dead Dunes,Temple Ruins Mural Crux Tip,MainKey,I(key_d_sekiban|2),1,
-tre_key_d_bakt,Dead Dunes,Temple Ruins Bhakti Reward,Missable|Quest,,1,DunesBhakti
+tre_d_oil1,Dead Dunes,Bhakti Oil 1,,,1,
+tre_d_oil2,Dead Dunes,Bhakti Oil 2,,,1,
+tre_d_oil3,Dead Dunes,Bhakti Oil 3,,,1,
+tre_d_oil4,Dead Dunes,Bhakti Oil 4,,,1,
+tre_d_oil5,Dead Dunes,Bhakti Oil 5,,,1,
+tre_d_oil6,Dead Dunes,Bhakti Oil 6,,,1,
+tre_d_oil7,Dead Dunes,Bhakti Oil 7,,,1,
+tre_d_bakt_oil,Dead Dunes,Bhakti Reward Oil,,I(key_d_oil|3),1,DunesBhakti
+tre_d_bakt_key,Dead Dunes,Bhakti Reward Key,,I(key_d_oil|3),1,DunesBhakti
+tre_key_d_bakt,Dead Dunes,Bhakti Reward,,I(key_d_oil|3),1,DunesBhakti
 tre_key_dkye1,Dead Dunes,Grave of the Colossi Pilgrim's Crux,Pilgrim,,0,DunesPilgrimCrux2
 tre_key_dkye10,Dead Dunes,Temple Ruins Scorched Earth Pilgrim's Crux,Pilgrim,,0,DunesCruxScorchedEarth
 tre_key_dkye11,Dead Dunes,Temple Ruins Golden Chamber (Lower) Pilgrim's Crux,Pilgrim,,0,DunesCruxGoldenLowerEven

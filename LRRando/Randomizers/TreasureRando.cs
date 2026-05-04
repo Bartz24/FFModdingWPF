@@ -104,6 +104,15 @@ public partial class TreasureRando : Randomizer
         AddTreasure("tre_d_base", "key_d_base", 1, "");
         AddTreasure("tre_d_wing", "key_d_wing", 1, "");
         AddTreasure("tre_d_top", "key_d_top", 1, "");
+        AddTreasure("tre_d_oil1", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil2", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil3", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil4", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil5", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil6", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil7", "key_d_oil", 1, "");
+        AddTreasure("tre_d_bakt_oil", "key_d_oil", 1, "");
+        AddTreasure("tre_d_bakt_key", "key_d_key", 1, "");
         AddTreasure("tre_libra_m375", "libra_m375", 1, "");
         AddTreasure("tre_w_tane", "key_w_tane", 5, "");
         AddTreasure("tre_w_tamago", "key_w_tamago", 1, "");
