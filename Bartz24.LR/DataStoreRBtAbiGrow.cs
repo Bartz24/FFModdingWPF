@@ -11,7 +11,7 @@ public class DataStoreRBtAbiGrow : DataStoreWDBEntry
     public string sRankupItem3 { get; set; }
     public string sRankupItem4 { get; set; }
     public string sRankupItem5 { get; set; }
-        public int iPowMin1 { get; set; }
+    public int iPowMin1 { get; set; }
     public int iPowUnit1 { get; set; }
     public int iPowMin2 { get; set; }
     public int iPowUnit2 { get; set; }
@@ -37,7 +37,7 @@ public class DataStoreRBtAbiGrow : DataStoreWDBEntry
     public string sPasvAbility14 { get; set; }
     public string sPasvAbility15 { get; set; }
     public string sPasvAbility16 { get; set; }
-        public int u2Category { get; set; }
+    public int u2Category { get; set; }
     public int u5AttackCount { get; set; }
     public int u7RankupItemCount2 { get; set; }
     public int i8RankupAtbDec2 { get; set; }

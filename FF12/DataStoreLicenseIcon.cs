@@ -1,6 +1,4 @@
 ﻿using Bartz24.Data;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Bartz24.FF12;
@@ -18,7 +16,7 @@ public class DataStoreLicenseIcon : DataStore
 
     public override void LoadData(byte[] data, int offset = 0)
     {
-        AvailableLayers = new ();
+        AvailableLayers = new();
         AvailableLayers.LoadData(data.SubArray(offset, 0x20));
 
         ObtainedLayers = new();

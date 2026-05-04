@@ -76,10 +76,10 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
             return false;
         }
 
-        if(!FF13_2Flags.Items.KeyPlaceTreasure.Enabled && 
+        if (!FF13_2Flags.Items.KeyPlaceTreasure.Enabled &&
             (
-                location.Traits.Contains("Wild") || location.Traits.Contains("Graviton")||
-                location.Traits.Contains("SideKey")|| location.Traits.Contains("GateSeal") ||
+                location.Traits.Contains("Wild") || location.Traits.Contains("Graviton") ||
+                location.Traits.Contains("SideKey") || location.Traits.Contains("GateSeal") ||
                 location.Traits.Contains("Fragment") || location.Traits.Contains("Artefact")
             )
             )
@@ -87,7 +87,7 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
             return false;
         }
 
-        if(!FF13_2Flags.Items.KeyPlaceParadox.Enabled && location.Traits.Contains("Paradox"))
+        if (!FF13_2Flags.Items.KeyPlaceParadox.Enabled && location.Traits.Contains("Paradox"))
         {
             return false;
         }
@@ -97,6 +97,6 @@ public class TreasureData : FF13_2ItemLocation, IDataStoreItemProvider<DataStore
 
     public override string GetRequirementString()
     {
-        return "Location: "+string.Join(",", Areas) +" - Extra Areas: " + string.Join(",", RequiredAreas) + " - Mog level: " + MogLevel + " - " + base.GetRequirementString();
+        return "Location: " + string.Join(",", Areas) + " - Extra Areas: " + string.Join(",", RequiredAreas) + " - Mog level: " + MogLevel + " - " + base.GetRequirementString();
     }
 }

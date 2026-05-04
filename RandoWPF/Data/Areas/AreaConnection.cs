@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF;
 public class AreaConnection : CSVDataRow
@@ -23,7 +20,7 @@ public class AreaConnection : CSVDataRow
     [RowIndex(5)]
     public int BaseDifficulty { get; set; }
 
-    public AreaConnection(SeedGenerator generator, string name, string fromAreaName, string toAreaName, ItemReq requirements, List<string> traits, int baseDifficulty): base()
+    public AreaConnection(SeedGenerator generator, string name, string fromAreaName, string toAreaName, ItemReq requirements, List<string> traits, int baseDifficulty) : base()
     {
         Generator = generator;
         Name = name;

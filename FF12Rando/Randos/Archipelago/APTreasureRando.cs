@@ -1,12 +1,9 @@
 ﻿using Bartz24.Data;
-using Bartz24.Docs;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace FF12Rando;
 class APTreasureRando : TreasureRando
@@ -18,7 +15,7 @@ class APTreasureRando : TreasureRando
     public override void Randomize()
     {
         ItemLocations.Values.ForEach(l => l.SetItem("80E6", 1));
-        ItemLocations.Values.Where(l=>l is RewardLocation r && r.Index != 1).ForEach(l => l.SetItem(null, 0));
+        ItemLocations.Values.Where(l => l is RewardLocation r && r.Index != 1).ForEach(l => l.SetItem(null, 0));
         ItemLocations.Values.Where(l => l is StartingInvLocation s && s.Index > 0).ForEach(l => l.SetItem(null, 0));
 
         // Set filler items from AP data
@@ -32,7 +29,8 @@ class APTreasureRando : TreasureRando
             try
             {
                 intID = Convert.ToInt32(data.ID, 16);
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 // Ignore as some are strings
             }
@@ -42,7 +40,7 @@ class APTreasureRando : TreasureRando
             if (itemID == null)
             {
                 // If the name matches the pattern <Number> Gil, then it's a gil item
-                if (Regex.IsMatch(data.Item, @"^\d+ Gil$"))                
+                if (Regex.IsMatch(data.Item, @"^\d+ Gil$"))
                 {
                     itemID = "Gil";
                 }

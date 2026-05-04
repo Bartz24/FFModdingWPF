@@ -50,7 +50,7 @@ public class AreaItemReq : ItemReq
 
     public override string GetArchipelagoRule(Func<string, string> itemNameFunc)
     {
-        return $"state.can_reach_region(\"{Area}\", player)";
+        return $"CanReachRegion(\"{EscapePythonString(Area)}\")";
     }
 
     public override List<T> GetOf<T>()

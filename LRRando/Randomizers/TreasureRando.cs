@@ -4,13 +4,8 @@ using Bartz24.FF13_2_LR;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
 using Bartz24.RandoWPF.Data.Areas;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Windows.Forms;
-using System.Windows.Input;
-using static LRRando.EquipRando;
 
 namespace LRRando;
 
@@ -314,7 +309,7 @@ public partial class TreasureRando : Randomizer
                     // For each main quest, identify what kind of hint type we're doing:
                     var hintType = LRFlags.Other.HintsBosses.SelectedIndex;
                     LRFlags.Other.HintsMain.SetRand();
-                    if(hintType == 5)
+                    if (hintType == 5)
                     {
                         hintType = RandomNum.RandInt(1, 4);
                     }
@@ -335,7 +330,7 @@ public partial class TreasureRando : Randomizer
 
                     var hintText = "";
 
-                    switch ((hintType+1)/2)
+                    switch ((hintType + 1) / 2)
                     {
                         case 1:
                             // Source
@@ -373,7 +368,7 @@ public partial class TreasureRando : Randomizer
                 {
                     lines.Add("There is nothing left to hint.");
                 }
-                
+
 
                 textRando.mainSysUS["$" + h] = string.Join("{Text NewLine}{Text NewLine}", lines);
             });

@@ -16,11 +16,11 @@ public class DataStoreItemWeapon : DataStoreWDBEntry
     public string sCosAbilityCro { get; set; }
     public string sCosAbilityTri { get; set; }
     public string sCosAbilitySqu { get; set; }
-        public int iBreakBonus { get; set; }
+    public int iBreakBonus { get; set; }
     public int iGuardModVal { get; set; }
     public string sNextItemId { get; set; }
     public string sUpgradeId { get; set; }
-        public int iRankupGil { get; set; }
+    public int iRankupGil { get; set; }
     public string sRankupItem1 { get; set; }
     public string sRankupItem2 { get; set; }
     public string sRankupItem3 { get; set; }

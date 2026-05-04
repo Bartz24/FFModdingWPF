@@ -1,5 +1,4 @@
-﻿using Bartz24.RandoWPF;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -55,7 +54,7 @@ public class CSVDataRow
     {
         // Use reflection to initialize the properties using the values
         // in the row and the attributes defining the row index for each property
-        PropertyInfo[] properties = propertyCache.ContainsKey(GetType()) ? propertyCache[GetType()] : 
+        PropertyInfo[] properties = propertyCache.ContainsKey(GetType()) ? propertyCache[GetType()] :
             GetType().GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
         foreach (PropertyInfo property in properties)
         {

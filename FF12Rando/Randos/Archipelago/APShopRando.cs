@@ -1,10 +1,7 @@
 ﻿using Bartz24.FF12;
 using Bartz24.RandoWPF;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF12Rando;
 public class APShopRando : ShopRando

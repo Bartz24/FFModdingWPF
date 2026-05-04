@@ -55,7 +55,7 @@ public partial class FlagsPage : UserControl
             if (flag.HasArchipelagoOverride)
             {
                 return false;
-            }    
+            }
 
             if (flag.FlagPropertiesDebugIncluded.Count == 0)
             {

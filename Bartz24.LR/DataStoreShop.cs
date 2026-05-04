@@ -41,7 +41,7 @@ public class DataStoreShop : DataStoreWDBEntry
     public string sItemLabel30 { get; set; }
     public string sItemLabel31 { get; set; }
     public string sItemLabel32 { get; set; }
-        public int u3Category { get; set; }
+    public int u3Category { get; set; }
     public int u4Day { get; set; }
     public int u8SaveIndex { get; set; }
     public int u7PowRate { get; set; }

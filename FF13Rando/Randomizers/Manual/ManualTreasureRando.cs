@@ -1,10 +1,5 @@
-﻿using Bartz24.Data;
-using Bartz24.Docs;
-using Bartz24.FF13;
-using Bartz24.RandoWPF;
-using System;
+﻿using Bartz24.RandoWPF;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FF13Rando;
 

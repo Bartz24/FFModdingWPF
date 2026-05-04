@@ -5,4 +5,4 @@ namespace Bartz24.LR;
 public class DataStoreRStyles : DataStoreWDBEntry
 {
     public string sResourceId { get; set; }
-    }
+}

@@ -9,8 +9,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using System.Windows.Input;
 
 namespace FF13_2Rando;
 
@@ -98,7 +96,7 @@ public partial class TreasureRando : Randomizer
             extraFlags.Add(e);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
-        foreach(var flag in extraFlags)
+        foreach (var flag in extraFlags)
         {
             AddFlag(eventFlags, flag.ID, GetMaxFlagIndex(eventFlags) + 1);
         }
@@ -231,7 +229,7 @@ public partial class TreasureRando : Randomizer
         AddTreasure(treasures, newName, item, count, next);
         if (addFlag)
         {
-            AddFlag(eventFlags, newName, GetMaxFlagIndex(eventFlags)+1);
+            AddFlag(eventFlags, newName, GetMaxFlagIndex(eventFlags) + 1);
         }
     }
 
@@ -257,13 +255,13 @@ public partial class TreasureRando : Randomizer
             FF13_2Flags.Items.Treasures.SetRand();
             HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
 
-            if(cruxRando.rootLocation == null)
+            if (cruxRando.rootLocation == null)
             {
                 throw new Exception("Cannot randomised due to split root");
             }
 
             // Scan through fake locations, find gate open locations, update area to be the incoming side of the link rather than outgoing so it updates properly
-            foreach(var loc in ItemLocations)
+            foreach (var loc in ItemLocations)
             {
                 if (loc.Value.Traits.Contains("Gate"))
                 {
@@ -283,7 +281,7 @@ public partial class TreasureRando : Randomizer
                 // Ensure any hard item requirements are fulfilled as well as the outgoing link id for artefact tracking
                 List<ItemReq> reqs = new();
                 // If the fake check location has been setup, include it in logic (should all be there now from fake checks)
-                if (ItemLocations.ContainsKey(v.record+":0"))
+                if (ItemLocations.ContainsKey(v.record + ":0"))
                 {
                     reqs.Add(new AmountItemReq(v.record, 1));
                 }
@@ -303,20 +301,22 @@ public partial class TreasureRando : Randomizer
                 // Just grant wild artefacts up front for now at starting time?
 
                 ItemReq finalReq;
-                if(reqs.Count == 0)
+                if (reqs.Count == 0)
                 {
                     finalReq = new BoolItemReq(true);
-                } else if (reqs.Count == 1)
+                }
+                else if (reqs.Count == 1)
                 {
                     finalReq = reqs[0];
-                } else
+                }
+                else
                 {
                     finalReq = new AndItemReq(reqs);
                 }
 
                 // TODO: traits: DLC, paradox end, etc?
                 // TODO: difficulty, based on depth?
-                return new AreaConnection(Generator, v.record, v.sArea, v.sOpenHistoria1.Substring(0,v.sOpenHistoria1.Length - 2), finalReq, new(), 1);
+                return new AreaConnection(Generator, v.record, v.sArea, v.sOpenHistoria1.Substring(0, v.sOpenHistoria1.Length - 2), finalReq, new(), 1);
             }).Append(
                 // Ensure initial actually connects to something...
                 // TODO: Add DLC checks if enabled
@@ -372,21 +372,21 @@ public partial class TreasureRando : Randomizer
                 //});
             });
             List<string> gravitonCoreNames = new() { "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta" };
-            for(var i = 1; i<8; i++)
+            for (var i = 1; i < 8; i++)
             {
                 // Graviton core location hints
                 var gravitonCoreItemId = $"frg_cmn_gvtn00{i}";
                 var gravitonCoreHintTextId = $"$cap_core_0{i}_p1";
-                
+
                 var areaName = "Unknown Location";
                 var dateText = "cannot resolve a fixed date";
                 var dateTextFixedPrefix = "puts the date at ";
                 var accessText = "";
                 var accessTextPrefix = " According to our calculations, such a gate exists within ";
-                var indexName = gravitonCoreNames[i-1];
+                var indexName = gravitonCoreNames[i - 1];
                 // TODO: this isn't working currently
                 var gravitonCoreRandoLocation = ItemLocations.Where(kvp => kvp.Value.GetItem(false).Value.Item == gravitonCoreItemId).Select(kvp => kvp.Value).FirstOrDefault();
-                if(gravitonCoreRandoLocation != null)
+                if (gravitonCoreRandoLocation != null)
                 {
                     var treasureArea = gravitonCoreRandoLocation.Areas;
                     var area = treasureArea[0];
@@ -449,7 +449,7 @@ public partial class TreasureRando : Randomizer
         HTMLPage page = new("Item Locations", "template/documentation.html");
 
         // TODO: add sphere depth to locations
-        page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents","Sphere" }).ToList(), (new int[] { 45, 45,10 }).ToList(), ItemLocations.Values
+        page.HTMLElements.Add(new Table("Item Locations", (new string[] { "Name", "New Contents", "Sphere" }).ToList(), (new int[] { 45, 45, 10 }).ToList(), ItemLocations.Values
             .Where(v => v is not FF13_2FakeItemLocation).Select(t =>
         {
             string itemID = ItemLocations[t.ID].GetItem(false).Value.Item1;
@@ -518,7 +518,8 @@ public partial class TreasureRando : Randomizer
                 {
                     name = name.Substring(0, name.IndexOf("{End}"));
                 }
-            } catch
+            }
+            catch
             {
                 Generator.Logger.LogDebug($"Cannot resolve proper name for item with id {itemID}");
                 name = itemID;

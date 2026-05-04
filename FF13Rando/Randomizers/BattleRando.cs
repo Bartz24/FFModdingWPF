@@ -3,16 +3,12 @@ using Bartz24.Docs;
 using Bartz24.FF13;
 using Bartz24.FF13Series;
 using Bartz24.RandoWPF;
-using FF13Rando;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Input;
-using static System.Net.WebRequestMethods;
 using File = System.IO.File;
 
 namespace FF13Rando;
@@ -71,7 +67,7 @@ public partial class BattleRando : Randomizer
         RandoUI.SetUIProgressDeterminate("Loading Battle Data...", 90, 100);
         FileHelpers.ReadCSVFile(@"data\enemies.csv", row =>
         {
-            EnemyData e = new( row);
+            EnemyData e = new(row);
             enemyData.Add(e.ID, e);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
@@ -93,8 +89,8 @@ public partial class BattleRando : Randomizer
         charaSetsOrig = charaSets.Keys.ToDictionary(k => k, k => charaSets[k].GetCharaSpecs());
 
         charasetData.Keys
-            .Where(c=>c.StartsWith("chset_z"))
-            .Select(c=> GetLybId(c)).Distinct()
+            .Where(c => c.StartsWith("chset_z"))
+            .Select(c => GetLybId(c)).Distinct()
             .ForEach(lybId =>
         {
             string relative = @"scene\lay\" + lybId + @"\bin\" + lybId + ".win32.lyb";
@@ -102,7 +98,7 @@ public partial class BattleRando : Randomizer
             string outPath = Generator.DataOutFolder + "\\" + relative;
             FileHelpers.CopyFile(path, outPath);
 
-            DataStoreLYB lyb = new ();
+            DataStoreLYB lyb = new();
             lyb.LoadData(File.ReadAllBytes(outPath));
             lybs.Add(lybId, lyb);
         });
@@ -271,7 +267,7 @@ public partial class BattleRando : Randomizer
                 mapping.Clear();
                 enemies.ForEach(enemyId =>
                 {
-                    List<string> possible = ResolvePossibleCandidates(enemyId, enemyData.Keys.Where(id=>!mapping.Values.Contains(id)), btscsForLyb
+                    List<string> possible = ResolvePossibleCandidates(enemyId, enemyData.Keys.Where(id => !mapping.Values.Contains(id)), btscsForLyb
                         .Where(b => btscs[b.ID].Values.Select(e => e.sEntryBtChSpec).Contains(enemyId))
                         .All(b => battleData[b.ID].Traits.Contains("Event")) ? BattleType.Event : BattleType.NonEvent);
 
@@ -300,7 +296,7 @@ public partial class BattleRando : Randomizer
             });
 
             // Replace charasets
-            charaSets.Values.Where(c=>GetLybId(c.ID) == lybId).ForEach(c =>
+            charaSets.Values.Where(c => GetLybId(c.ID) == lybId).ForEach(c =>
             {
                 List<string> charaSpecs = c.GetCharaSpecs();
 
@@ -492,7 +488,7 @@ public partial class BattleRando : Randomizer
                     return new();
                 }
 
-                return ResolvePossibleCandidates(key, enemyData.Keys, 
+                return ResolvePossibleCandidates(key, enemyData.Keys,
                     battles
                         .Where(id => btscsOrig[id].Values.Select(e => e.sEntryBtChSpec).Contains(key))
                         .All(id => battleData[id].Traits.Contains("Event")) ? BattleType.Event : BattleType.NonEvent);

@@ -1,12 +1,8 @@
 ﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace FF12Rando;
 public class FF12SeedGenerator : SeedGenerator
@@ -54,7 +50,7 @@ public class FF12SeedGenerator : SeedGenerator
                 throw new RandoException("Missing steam path", "Invalid path");
             }
 
-            return new() 
+            return new()
             {
                 Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsDescriptiveInventory.lua"),
                 Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsDescriptiveInventory\\helpers.lua"),
@@ -133,7 +129,7 @@ public class FF12SeedGenerator : SeedGenerator
             throw new RandoException("Text and script tools are not properly installed. Download and install them on 1. Setup.", "Tools missing.");
         }
 
-        if(!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+        if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
         {
             throw new RandoException("Missing steam path", "Invalid path");
         }
@@ -163,7 +159,7 @@ public class FF12SeedGenerator : SeedGenerator
 
         if (Directory.Exists(OutFolder))
         {
-            List<string> denyList = new (){
+            List<string> denyList = new(){
                 Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\image\\ff12\\in\\common\\pc_skillmotion.bin"),
                 Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\obj_finish\\in\\chara"),
             };

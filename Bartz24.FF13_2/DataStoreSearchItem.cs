@@ -13,7 +13,7 @@ public class DataStoreSearchItem : DataStoreWDBEntry
     public string sItemName5 { get; set; }
     public string sItemName6 { get; set; }
     public string sItemName7 { get; set; }
-        public int u8Count0 { get; set; }
+    public int u8Count0 { get; set; }
     public int u8Random0 { get; set; }
     public int u8Max0 { get; set; }
     public int u8Count1 { get; set; }

@@ -1,13 +1,10 @@
 ﻿using Bartz24.Data;
 using Bartz24.FF12;
 using Bartz24.RandoWPF;
-using FF12Rando;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Shapes;
-using static FF12Rando.EquipRando;
 
 namespace FF12Rando;
 
@@ -29,7 +26,7 @@ public class LicenseRando : Randomizer
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading License Data...");
-        licenses = new ();
+        licenses = new();
         licenses.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_012.bin"));
         // Update IDs
         for (int i = 0; i < licenses.DataList.Count; i++)
@@ -37,7 +34,7 @@ public class LicenseRando : Randomizer
             licenses.DataList[i].IntID = i;
         }
 
-        licensesOrig = new ();
+        licensesOrig = new();
         licensesOrig.LoadData(File.ReadAllBytes($"data\\ps2data\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_012.bin"));
         // Update IDs
         for (int i = 0; i < licensesOrig.DataList.Count; i++)
@@ -99,7 +96,7 @@ public class LicenseRando : Randomizer
             textRando.TextLicenses[license.NameAddress - 0x1800].Text = l.Name;
             license.Type = l.Type;
             license.LPCost = (byte)l.LPCost;
-            if (l.Type != DataStoreLicense.LicenseType.Esper 
+            if (l.Type != DataStoreLicense.LicenseType.Esper
                 && l.Type != DataStoreLicense.LicenseType.Quickening
                 && l.Type != DataStoreLicense.LicenseType.SecondBoard)
             {
@@ -107,7 +104,7 @@ public class LicenseRando : Randomizer
 
                 bool[] unlocks = new bool[8];
 
-                partyRando.CharacterMapping.ForEach(c=>
+                partyRando.CharacterMapping.ForEach(c =>
                 {
                     unlocks[partyRando.CharacterMapping.ToList().IndexOf(c)] = l.DefaultCharacters.Contains(c);
                 });
@@ -153,9 +150,9 @@ public class LicenseRando : Randomizer
             DataStoreLicense license = licenses.DataList[i];
             DataStoreLicenseIcon licenseIcon = licenseIcons[i];
 
-            if (license.Type is 
-                DataStoreLicense.LicenseType.Esper or 
-                DataStoreLicense.LicenseType.Quickening or 
+            if (license.Type is
+                DataStoreLicense.LicenseType.Esper or
+                DataStoreLicense.LicenseType.Quickening or
                 DataStoreLicense.LicenseType.SecondBoard or
                 DataStoreLicense.LicenseType.Unused or
                 DataStoreLicense.LicenseType.Unused2 or

@@ -396,7 +396,7 @@ public class LRFlags
                 "    Hard+ - Each level of depth/difficulty increases likelihood of that location by 1.20x.\n" +
                 "    Hard++ - Each level of depth/difficulty increases likelihood of that location by 1.50x.\n" +
                 "    Hard+++ - Each level of depth/difficulty increases likelihood of that location by 2.00x.",
-                Values = ["Normal", "Hard", "Hard+", "Hard++", "Hard+++" ],
+                Values = ["Normal", "Hard", "Hard+", "Hard++", "Hard+++"],
                 DisabledByArchipelago = true
             }.Register(Treasures);
 

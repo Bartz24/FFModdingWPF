@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Bartz24.Data;
 
@@ -12,7 +11,7 @@ public class StringHasher
 
     public StringHasher(uint numBits = 32)
     {
-        UsedValues = new ();
+        UsedValues = new();
         NumBits = numBits;
     }
 

@@ -132,7 +132,7 @@ public class DataStoreWDB<T> : DataStoreWDBEntry where T : DataStoreWDBEntry, ne
     {
         File.WriteAllBytes(path, Data);
     }
-    
+
     public override byte[] Data
     {
         get

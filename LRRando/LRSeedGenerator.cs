@@ -2,11 +2,9 @@
 using Bartz24.Data;
 using Bartz24.FF13Series;
 using Bartz24.RandoWPF;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection.Emit;
 
 namespace LRRando;
 public class LRSeedGenerator : SeedGenerator
@@ -26,7 +24,7 @@ public class LRSeedGenerator : SeedGenerator
     {
         if (string.IsNullOrEmpty(SetupData.Paths["LR"]) || !Directory.Exists(SetupData.Paths["LR"]))
         {
-           throw new RandoException("The path for LR is not valid. Setup the path in the '1. Setup' step.", "LR not found.");
+            throw new RandoException("The path for LR is not valid. Setup the path in the '1. Setup' step.", "LR not found.");
         }
 
         if (string.IsNullOrEmpty(SetupData.Paths["Nova"]) || !File.Exists(SetupData.Paths["Nova"]))

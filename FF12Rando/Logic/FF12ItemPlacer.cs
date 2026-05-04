@@ -1,11 +1,9 @@
 ﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
 using Bartz24.RandoWPF.Data.Areas;
-using Bartz24.RandoWPF.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 
 namespace FF12Rando;
 public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
@@ -15,7 +13,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
     public FF12JunkItemPlacer JunkPlacer { get; set; }
 
     public FF12ItemPlacer(SeedGenerator generator, AreaGraph areaGraph) : base(generator, areaGraph)
-    { 
+    {
 
     }
 
@@ -140,7 +138,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         else if (placer == UsefulPlacer)
         {
             return remaining
-                .Where(l => 
+                .Where(l =>
                     l.GetItem(false).Value.Item.StartsWith("30") ||
                     l.GetItem(false).Value.Item.StartsWith("40"))
                 .ToOrderedSet();
@@ -235,7 +233,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
             EquipRando equipRando = Generator.Get<EquipRando>();
             HashSet<string> categories = ["Item", "Weapon", "Armor", "Accessory", "Loot"];
 
-            SphereCalculator<ItemLocation> calc = new (Generator, AreaGraph);
+            SphereCalculator<ItemLocation> calc = new(Generator, AreaGraph);
             calc.CalculateSpheres(PossibleLocations, false);
 
             int sphere = calc.Spheres.Values.Max();

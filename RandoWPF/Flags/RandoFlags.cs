@@ -3,7 +3,6 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
@@ -164,7 +163,7 @@ public class RandoFlags
     // Store a class type which inherits from ArchipelagoData
     public static Type ArchipelagoDataType { get; set; }
 
-    public static ArchipelagoData ArchipelagoData { get; set; }    
+    public static ArchipelagoData ArchipelagoData { get; set; }
 
     public static T GetArchipelagoData<T>() where T : ArchipelagoData
     {

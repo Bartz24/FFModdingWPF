@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Bartz24.Data;
+﻿namespace Bartz24.Data;
 
 public static class ValueByte
 {

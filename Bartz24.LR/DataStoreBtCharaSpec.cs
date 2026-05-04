@@ -10,7 +10,7 @@ public class DataStoreBtCharaSpec : DataStoreWDBEntry
     public string sBaseBtSpec { get; set; }
     public string sNameStrResID { get; set; }
     public string sWandIdAg { get; set; }
-        public float fAtkLen { get; set; }
+    public float fAtkLen { get; set; }
     public string sScriptId { get; set; }
     public string sAiSheetName { get; set; }
     public string sAbility0 { get; set; }
@@ -21,12 +21,12 @@ public class DataStoreBtCharaSpec : DataStoreWDBEntry
     public string sAbility5 { get; set; }
     public string sAbility6 { get; set; }
     public string sAbility7 { get; set; }
-        public float fFReserve0 { get; set; }
+    public float fFReserve0 { get; set; }
     public string sEffId0 { get; set; }
     public int iEffArg0 { get; set; }
     public string sSndId0 { get; set; }
     public string sEffId1 { get; set; }
-        public int iEffArg1 { get; set; }
+    public int iEffArg1 { get; set; }
     public string sSndId1 { get; set; }
     public string sDropCndItem0 { get; set; }
     public string sDropCndItem1 { get; set; }
@@ -159,7 +159,7 @@ public class DataStoreBtCharaSpec : DataStoreWDBEntry
     public string s8Ability29 { get; set; }
     public string s8Ability30 { get; set; }
     public string s8Ability31 { get; set; }
-        public int u6Reserve4 { get; set; }
+    public int u6Reserve4 { get; set; }
     public string s8PartCharSpec2 { get; set; }
     public int u1BrkEnbFly1 { get; set; }
     public int u1BrkValReset1 { get; set; }
@@ -181,7 +181,7 @@ public class DataStoreBtCharaSpec : DataStoreWDBEntry
     public string s8PartCharSpec5 { get; set; }
     public string s8PartCharSpec6 { get; set; }
     public string s8PartCharSpec7 { get; set; }
-        public int u7NumDrop0 { get; set; }
+    public int u7NumDrop0 { get; set; }
     public int u1BrkEnbFly3 { get; set; }
     public int u14TgElemId0 { get; set; }
     public string s10DropItem0 { get; set; }

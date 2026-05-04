@@ -142,7 +142,7 @@ public class FF13_2Flags
                 Text = "Include Additional Fragments",
                 ID = "KeyFragment",
                 Description = "The additional fragments will be included in the pool of key items.\n" +
-                "Checks that require the presence of the vanilla fragments will still be available in the shuffled location (such as Fragment Skill unlock conditions)\n"+
+                "Checks that require the presence of the vanilla fragments will still be available in the shuffled location (such as Fragment Skill unlock conditions)\n" +
                 "Paradox Ending fragments are not included by this flag, see Include Paradox Scope and Endings below."
                 // I'm not listing out all of the fragments in the pool there's like 30 of them already and its only going to go up.
                 // In the future might want to sub-categorise

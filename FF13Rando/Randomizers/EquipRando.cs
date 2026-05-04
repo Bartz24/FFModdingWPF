@@ -2,8 +2,6 @@
 using Bartz24.Docs;
 using Bartz24.FF13;
 using Bartz24.RandoWPF;
-using FF13Rando;
-using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;

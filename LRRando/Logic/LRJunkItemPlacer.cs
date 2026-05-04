@@ -1,14 +1,11 @@
 ﻿using Bartz24.RandoWPF;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LRRando;
 public class LRJunkItemPlacer : JunkItemPlacer<ItemLocation>
 {
-    private HashSet<string> usedItems = new ();
+    private HashSet<string> usedItems = new();
     public LRJunkItemPlacer(SeedGenerator generator) : base(generator)
     {
     }
@@ -42,7 +39,7 @@ public class LRJunkItemPlacer : JunkItemPlacer<ItemLocation>
                 else if (LRFlags.Items.ReplaceAny.Enabled && !location.Traits.Contains("Same"))
                 {
                     category = equipRando.itemData.Values.Select(i => i.Category).Distinct()
-                        .Where(c=>c != "Key" && c != "Adornment" && c != "EP Ability").Shuffle().First();
+                        .Where(c => c != "Key" && c != "Adornment" && c != "EP Ability").Shuffle().First();
                 }
 
                 int rankRange = LRFlags.Items.ReplaceRank.Value;

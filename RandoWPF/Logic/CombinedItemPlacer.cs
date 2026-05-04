@@ -5,9 +5,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Bartz24.RandoWPF;
@@ -94,7 +91,7 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
             placer.Replacements = GetReplacementsForPlacer(usedReplacements, placer);
 
             Generator.Logger.LogDebug($"Starting placer {placer.GetType().Name} with {placer.PossibleLocations.Count} locations and {placer.Replacements.Count} replacements.");
-            if(placer.PossibleLocations.Count < placer.Replacements.Count)
+            if (placer.PossibleLocations.Count < placer.Replacements.Count)
             {
                 Generator.Logger.LogDebug("More replacements than locations, likely to fail!");
             }

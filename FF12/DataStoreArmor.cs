@@ -29,8 +29,8 @@ public class DataStoreArmor : DataStoreEquip
 
     public ArmorType ArmorCategory
     {
-        get => 
-            Icon is 19 or 22 ? ArmorType.LightArmor : 
+        get =>
+            Icon is 19 or 22 ? ArmorType.LightArmor :
             Icon is 20 or 23 ? ArmorType.MysticArmor :
             Icon is 21 or 24 ? ArmorType.HeavyArmor :
             ArmorType.Unknown;

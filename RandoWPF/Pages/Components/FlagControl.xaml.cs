@@ -1,5 +1,4 @@
-﻿using Bartz24.RandoWPF;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;

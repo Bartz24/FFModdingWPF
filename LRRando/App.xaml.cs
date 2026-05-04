@@ -1,9 +1,8 @@
+using System;
+using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
-using System;
 using System.Windows;
-using Bartz24.RandoWPF;
-using System.IO;
 
 namespace LRRando;
 
@@ -11,7 +10,7 @@ namespace LRRando;
 /// Interaction logic for App.xaml
 /// </summary>
 public partial class App : Application
-{    
+{
     static App()
     {
         AssemblyLoadContext.Default.Resolving += OnAssemblyResolving;

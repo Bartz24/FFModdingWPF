@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bartz24.FF12;
+﻿namespace Bartz24.FF12;
 public class DataStoreEbpBinText : DataStoreBinText
 {
     public DataStoreEbpBinText() : base()

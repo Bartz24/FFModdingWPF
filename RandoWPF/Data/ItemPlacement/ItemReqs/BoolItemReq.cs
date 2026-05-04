@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF;
 public class BoolItemReq : ItemReq
@@ -39,11 +36,11 @@ public class BoolItemReq : ItemReq
     {
         if (Value)
         {
-            return "True";
+            return "True_()";
         }
         else
         {
-            return "False";
+            return "False_()";
         }
     }
     public override List<T> GetOf<T>()

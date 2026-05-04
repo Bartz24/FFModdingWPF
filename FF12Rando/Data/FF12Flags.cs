@@ -1,10 +1,7 @@
 ﻿using Bartz24.RandoWPF;
-using MaterialDesignThemes.Wpf;
 using System;
-using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace FF12Rando;
 

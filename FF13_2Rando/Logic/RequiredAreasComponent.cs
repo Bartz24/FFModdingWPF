@@ -2,16 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13_2Rando;
 
-public class RequiredAreasComponent: ItemLocationReqComponent
+public class RequiredAreasComponent : ItemLocationReqComponent
 {
     private SeedGenerator generator;
     private List<string> requiredAreas;
-    public RequiredAreasComponent(SeedGenerator generator, List<string> requiredAreas): base()
+    public RequiredAreasComponent(SeedGenerator generator, List<string> requiredAreas) : base()
     {
         this.generator = generator;
         this.requiredAreas = requiredAreas;

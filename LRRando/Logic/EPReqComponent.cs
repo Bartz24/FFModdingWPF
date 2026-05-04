@@ -1,7 +1,5 @@
 ﻿using Bartz24.LR;
 using Bartz24.RandoWPF;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace LRRando;

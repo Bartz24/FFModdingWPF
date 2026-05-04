@@ -31,7 +31,7 @@ public partial class ShopRando : Randomizer
             shopData.Add(s.ID, s);
         }, FileHelpers.CSVFileHeader.HasHeader);
 
-        
+
     }
     public override void Randomize()
     {

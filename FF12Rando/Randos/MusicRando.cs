@@ -1,5 +1,4 @@
 ﻿using Bartz24.RandoWPF;
-using FF12Rando;
 using System;
 using System.Collections.Generic;
 using System.IO;

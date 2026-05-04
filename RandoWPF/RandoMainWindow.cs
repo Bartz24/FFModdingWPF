@@ -1,15 +1,6 @@
-﻿using Bartz24.Data;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
+﻿using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using MessageBox = System.Windows.MessageBox;
 
 namespace Bartz24.RandoWPF;
 public abstract class RandoMainWindow : Window

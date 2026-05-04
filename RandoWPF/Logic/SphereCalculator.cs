@@ -1,12 +1,8 @@
 ﻿using Bartz24.Data;
 using Bartz24.RandoWPF.Data.Areas;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Bartz24.RandoWPF;

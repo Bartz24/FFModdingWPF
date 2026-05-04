@@ -1,10 +1,6 @@
 ﻿using Bartz24.RandoWPF;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace FF12Rando;
 public class FF12ArchipelagoData : ArchipelagoData

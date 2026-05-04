@@ -6,7 +6,7 @@ public class DataStoreRBtUpgrade : DataStoreWDBEntry
 {
     public string sNextId { get; set; }
     public string sPhyAtkItemId { get; set; }
-        public int uPhyAtkGil { get; set; }
+    public int uPhyAtkGil { get; set; }
     public string sMagAtkItemId { get; set; }
     public int uMagAtkGil { get; set; }
     public string sBrkBonusItemId { get; set; }
@@ -19,10 +19,10 @@ public class DataStoreRBtUpgrade : DataStoreWDBEntry
     public int uGuardGil { get; set; }
     public string sAbi1Id { get; set; }
     public string sAbi1ItemId { get; set; }
-        public int uAbi1Gil { get; set; }
+    public int uAbi1Gil { get; set; }
     public string sAbi2Id { get; set; }
     public string sAbi2ItemId { get; set; }
-        public int uAbi2Gil { get; set; }
+    public int uAbi2Gil { get; set; }
     public int u2Rank { get; set; }
     public int i16PhyAtkLimit { get; set; }
     public int u8PhyAtkItemCount { get; set; }

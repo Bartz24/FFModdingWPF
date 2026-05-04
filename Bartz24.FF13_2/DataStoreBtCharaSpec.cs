@@ -1,5 +1,4 @@
 ﻿using Bartz24.FF13_2_LR;
-using System.Collections.Generic;
 
 namespace Bartz24.FF13_2;
 
@@ -11,7 +10,7 @@ public class DataStoreBtCharaSpec : DataStoreWDBEntry
     public string sNameStrRsv0 { get; set; }
     public string sWandIdNag { get; set; }
     public string sWandIdAg { get; set; }
-        public float fAtkLen { get; set; }
+    public float fAtkLen { get; set; }
     public string sScriptId { get; set; }
     public string sAiSheetName { get; set; }
     public string sAbility0 { get; set; }
@@ -30,7 +29,7 @@ public class DataStoreBtCharaSpec : DataStoreWDBEntry
     public string sAbility13 { get; set; }
     public string sAbility14 { get; set; }
     public string sAbility15 { get; set; }
-        public float fFReserve0 { get; set; }
+    public float fFReserve0 { get; set; }
     public float fFReserve1 { get; set; }
     public float fFReserve2 { get; set; }
     public float fFReserve3 { get; set; }
@@ -38,7 +37,7 @@ public class DataStoreBtCharaSpec : DataStoreWDBEntry
     public int iEffArg0 { get; set; }
     public string sSndId0 { get; set; }
     public string sEffId1 { get; set; }
-        public int iEffArg1 { get; set; }
+    public int iEffArg1 { get; set; }
     public string sSndId1 { get; set; }
     public string sPartCharSpec0 { get; set; }
     public string sPartCharSpec1 { get; set; }
@@ -49,7 +48,7 @@ public class DataStoreBtCharaSpec : DataStoreWDBEntry
     public string sPartCharSpec6 { get; set; }
     public string sPartCharSpec7 { get; set; }
     public string sMogClockId { get; set; }
-        public int u6PcKind { get; set; }
+    public int u6PcKind { get; set; }
     public int u6RoleStyle { get; set; }
     public int u8Rank { get; set; }
     public int u1NoHide { get; set; }

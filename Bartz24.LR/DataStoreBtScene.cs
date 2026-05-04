@@ -18,7 +18,7 @@ public class DataStoreBtScene : DataStoreWDBEntry
     public float fForcePopPositionZ { get; set; }
     public string s10BtSceStrResId { get; set; }
     public string s10ExEntrySheet0 { get; set; }
-        public int u1NoOpening { get; set; }
+    public int u1NoOpening { get; set; }
     public int u1NoEnding { get; set; }
     public int u1Seamless { get; set; }
     public int u1NoDispResult { get; set; }

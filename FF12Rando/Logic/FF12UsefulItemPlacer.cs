@@ -1,9 +1,6 @@
 ﻿using Bartz24.RandoWPF;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF12Rando;
 public class FF12UsefulItemPlacer : UsefulItemPlacer<ItemLocation>
@@ -25,7 +22,7 @@ public class FF12UsefulItemPlacer : UsefulItemPlacer<ItemLocation>
         if (!equipRando.itemData.ContainsKey(orig.Item) || equipRando.itemData[orig.Item].Category != "Ability")
         {
             return orig;
-        }   
+        }
 
         string rep = RandomNum.SelectRandom(equipRando.itemData.Values.Where(i => i.Category == "Ability" && !UsedAbilities.Contains(i.ID))).ID;
         UsedAbilities.Add(rep);

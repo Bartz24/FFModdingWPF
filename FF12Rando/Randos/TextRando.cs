@@ -44,7 +44,7 @@ public class TextRando : Randomizer
             "fon_b01"
         };
 
-        foreach(string ebp in Directory.GetFiles($"{Generator.DataOutFolder}\\plan_master\\us\\plan_map", "*.ebp", SearchOption.AllDirectories))
+        foreach (string ebp in Directory.GetFiles($"{Generator.DataOutFolder}\\plan_master\\us\\plan_map", "*.ebp", SearchOption.AllDirectories))
         {
             string id = Path.GetFileNameWithoutExtension(ebp);
             if (ebpZonesToLoad.Contains(id))

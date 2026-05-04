@@ -33,7 +33,7 @@ public class DataStoreBtSTable : DataStoreWDBEntry
     public int uiDespair11 { get; set; }
     public string sAccentTable { get; set; }
     public string sNext { get; set; }
-        public int i8BattleSituationRandom0 { get; set; }
+    public int i8BattleSituationRandom0 { get; set; }
     public int i8BattleSituationRandom1 { get; set; }
     public int i8BattleSituationRandom2 { get; set; }
     public int i8BattleSituationRandom3 { get; set; }

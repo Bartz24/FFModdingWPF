@@ -1,7 +1,6 @@
 ﻿using Bartz24.Data;
 using Bartz24.FF13;
 using Bartz24.RandoWPF;
-using FF13Rando;
 using System.Linq;
 
 namespace FF13Rando;
@@ -35,7 +34,7 @@ public class EnemyRando : Randomizer
 
         if (FF13Flags.Debug.LowEnemyHP.FlagEnabled)
         {
-            btCharaSpec.Keys.Where(id => id.StartsWith("m") || id.StartsWith("w")).ForEach(id => btCharaSpec[id].u24MaxHp = 10);            
+            btCharaSpec.Keys.Where(id => id.StartsWith("m") || id.StartsWith("w")).ForEach(id => btCharaSpec[id].u24MaxHp = 10);
         }
     }
 

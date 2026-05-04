@@ -1,7 +1,6 @@
 ﻿using Bartz24.LR;
 using Bartz24.RandoWPF;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace LRRando;
 
@@ -74,7 +73,7 @@ public class TreasureLocation : ItemLocation, IDataStoreItemProvider<DataStoreRT
                 return false;
             }
         }
-        else if(GetItemData(true).s11ItemResourceId.StartsWith("ti") || GetItemData(true).s11ItemResourceId == "at900_00")
+        else if (GetItemData(true).s11ItemResourceId.StartsWith("ti") || GetItemData(true).s11ItemResourceId == "at900_00")
         {
             // EP abilities cannot go in CoP, quest, battle, or trade rewards
             if (location.Traits.Contains("CoP") || location.Traits.Contains("Quest") || location.Traits.Contains("Battle") || location.Traits.Contains("Trade"))

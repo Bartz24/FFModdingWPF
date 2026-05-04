@@ -60,11 +60,11 @@ public class AmountItemReq : ItemReq
     {
         if (amount == 1)
         {
-            return $"state.has(\"{itemNameFunc(item)}\", player)";
+            return $"Has(\"{EscapePythonString(itemNameFunc(item))}\")";
         }
         else
         {
-            return $"state.has(\"{itemNameFunc(item)}\", player, {amount})";
+            return $"Has(\"{EscapePythonString(itemNameFunc(item))}\", {amount})";
         }
     }
 

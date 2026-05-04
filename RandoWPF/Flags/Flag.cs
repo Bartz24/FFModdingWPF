@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
-using ZstdSharp;
 
 namespace Bartz24.RandoWPF;
 

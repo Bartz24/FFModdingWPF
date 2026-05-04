@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Compression;
-using System.IO;
-using System.Threading.Tasks;
-using Bartz24.Data;
+﻿using Bartz24.Data;
 using Bartz24.Docs;
-using System.Reflection.Emit;
 using Microsoft.Extensions.Logging;
-using System.Windows.Documents;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
+using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF;
 
@@ -60,22 +58,22 @@ public abstract class SeedGenerator : IDisposable
         try
         {
 #endif
-            RandoUI.SetUIProgressIndeterminate("Preparing data folder...");
-            PrepareData();
-            RandoUI.IncrementTotalProgressUI();
+        RandoUI.SetUIProgressIndeterminate("Preparing data folder...");
+        PrepareData();
+        RandoUI.IncrementTotalProgressUI();
 
-            RandoUI.SetUIProgressIndeterminate("Loading data...");
-            Load();
+        RandoUI.SetUIProgressIndeterminate("Loading data...");
+        Load();
 
-            RandoUI.SetUIProgressIndeterminate("Randomizing data...");
-            Randomize();
+        RandoUI.SetUIProgressIndeterminate("Randomizing data...");
+        Randomize();
 
-            RandoUI.SetUIProgressIndeterminate("Saving data...");
-            Save();
+        RandoUI.SetUIProgressIndeterminate("Saving data...");
+        Save();
 
-            RandoUI.SetUIProgressIndeterminate("Generating modpack and documentation...");
-            GeneratePackAndDocs();
-            RandoUI.IncrementTotalProgressUI();
+        RandoUI.SetUIProgressIndeterminate("Generating modpack and documentation...");
+        GeneratePackAndDocs();
+        RandoUI.IncrementTotalProgressUI();
 #if !DEBUG
     }
         catch (RandoException ex)

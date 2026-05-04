@@ -4,15 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Bartz24.RandoWPF;
 public class RandoSeeds
 {
-    public static List<SeedInformation> Seeds { get; set; } = new ();
+    public static List<SeedInformation> Seeds { get; set; } = new();
 
     public static string DocsFolder { get; set; } = "packs";
 
@@ -137,7 +134,7 @@ public class RandoSeeds
         if ((bool)dialog.ShowDialog())
         {
             string path = dialog.FileName.Replace("/", "\\");
-            
+
             compressor.DecompressToFile(info.FlagString, path);
         }
     }

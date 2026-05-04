@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF;
 
@@ -65,17 +63,35 @@ public class MaxAmountItemReq : ItemReq
 
     public override string GetArchipelagoRule(Func<string, string> itemNameFunc)
     {
-        // TODO: Archipelago doen't support not state.has, so until then...just return true
-        return "True";
+        return $"ItemCountLessThanRule(\"{EscapePythonString(itemNameFunc(item))}\", {amount})";
+    }
 
-        /*if (amount == 1)
-        {
-            return $"not state.has(\"{itemNameFunc(item)}\", player)";
-        }
-        else
-        {
-            return $"not state.has(\"{itemNameFunc(item)}\", player, {amount})";
-        }*/
+    public override IEnumerable<string> GetArchipelagoPreamble(string gameName)
+    {
+        string escapedGameName = EscapePythonString(gameName);
+        yield return
+            "@dataclasses.dataclass()\n" +
+            $"class ItemCountLessThanRule(Rule[Any], game=\"{escapedGameName}\"):\n" +
+            "    item_name: str\n" +
+            "    count: int = 1\n" +
+            "\n" +
+            "    def _instantiate(self, world):\n" +
+            "        return self.Resolved(\n" +
+            "            self.item_name,\n" +
+            "            count=self.count,\n" +
+            "            player=world.player,\n" +
+            "            caching_enabled=getattr(world, \"rule_caching_enabled\", False),\n" +
+            "        )\n" +
+            "\n" +
+            "    class Resolved(Rule.Resolved):\n" +
+            "        item_name: str\n" +
+            "        count: int = 1\n" +
+            "\n" +
+            "        def _evaluate(self, state: CollectionState) -> bool:\n" +
+            "            return state.count(self.item_name, self.player) < self.count\n" +
+            "\n" +
+            "        def item_dependencies(self) -> dict[str, set[int]]:\n" +
+            "            return {self.item_name: set()}\n";
     }
 
     public override List<T> GetOf<T>()

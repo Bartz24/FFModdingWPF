@@ -1,13 +1,9 @@
-﻿using Bartz24.FF12;
-using Bartz24.RandoWPF;
+﻿using Bartz24.RandoWPF;
 using Bartz24.RandoWPF.Data.Areas;
 using Bartz24.RandoWPF.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static FF12Rando.TreasureRando;
 
 namespace FF12Rando;
 public class FF12ProgressionItemPlacer : ProgressionItemPlacer<ItemLocation>

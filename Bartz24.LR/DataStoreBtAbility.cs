@@ -10,7 +10,7 @@ public class DataStoreBtAbility : DataStoreWDBEntry
     public string sAblArgStr0 { get; set; }
     public string sAblArgStr1 { get; set; }
     public string sAutoAblStEff0 { get; set; }
-        public float fDistanceMin { get; set; }
+    public float fDistanceMin { get; set; }
     public float fDistanceMax { get; set; }
     public float fMaxJumpHeight { get; set; }
     public float fYDistanceMin { get; set; }
@@ -39,7 +39,7 @@ public class DataStoreBtAbility : DataStoreWDBEntry
     public string sRedirectTo2 { get; set; }
     public string sRedirectAbility3 { get; set; }
     public string sRedirectTo3 { get; set; }
-        public int u1ComAbility { get; set; }
+    public int u1ComAbility { get; set; }
     public int u1RsvFlag0 { get; set; }
     public int u1RsvFlag1 { get; set; }
     public int u1RsvFlag2 { get; set; }

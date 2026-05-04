@@ -1,11 +1,6 @@
 ﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF12Rando;
 public class FF12ArchipelagoSeedGenerator : FF12SeedGenerator

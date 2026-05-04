@@ -5,12 +5,10 @@ using Bartz24.RandoWPF.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13_2Rando.Logic;
 
-public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
+public class FF13_2ItemPlacer : CombinedItemPlacer<FF13_2ItemLocation, ItemData>
 {
     public ProgressionItemPlacer<FF13_2ItemLocation> ProgressionPlacer { get; set; }
 
@@ -18,7 +16,7 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
 
     public FF13_2JunkItemPlacer JunkPlacer { get; set; }
 
-    public FF13_2ItemPlacer(SeedGenerator seedGenerator, AreaGraph areaGraph): base(seedGenerator, areaGraph)
+    public FF13_2ItemPlacer(SeedGenerator seedGenerator, AreaGraph areaGraph) : base(seedGenerator, areaGraph)
     {
 
     }
@@ -30,7 +28,7 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
 
     public override bool IsFixedLocation(FF13_2ItemLocation location)
     {
-        if(location is FF13_2FakeItemLocation)
+        if (location is FF13_2FakeItemLocation)
         {
             return true;
         }
@@ -40,7 +38,7 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
             return true;
         }
 
-        if(!FF13_2Flags.Items.KeyWild.Enabled && location.Traits.Contains("Wild"))
+        if (!FF13_2Flags.Items.KeyWild.Enabled && location.Traits.Contains("Wild"))
         {
             return true;
         }
@@ -135,12 +133,14 @@ public class FF13_2ItemPlacer: CombinedItemPlacer<FF13_2ItemLocation, ItemData>
             {
                 return false;
             }
-            if(l is SearchItemData)
+            if (l is SearchItemData)
             {
-                if(!FF13_2Flags.Items.KeyPlaceThrowCryst.Enabled && l.GetItem(true).Value.Item1.StartsWith("mcr")){
+                if (!FF13_2Flags.Items.KeyPlaceThrowCryst.Enabled && l.GetItem(true).Value.Item1.StartsWith("mcr"))
+                {
                     return false;
                 }
-                if (!FF13_2Flags.Items.KeyPlaceThrowJunk.Enabled && !l.GetItem(true).Value.Item1.StartsWith("mcr")){
+                if (!FF13_2Flags.Items.KeyPlaceThrowJunk.Enabled && !l.GetItem(true).Value.Item1.StartsWith("mcr"))
+                {
                     return false;
                 }
             }

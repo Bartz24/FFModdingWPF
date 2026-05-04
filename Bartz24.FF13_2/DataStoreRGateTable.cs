@@ -15,4 +15,4 @@ public class DataStoreRGateTable : DataStoreWDBEntry
     public string sGateRelationItem3 { get; set; }
     public string sGateRelationItem4 { get; set; }
     public string sGateRelationScriptId { get; set; }
-    }
+}

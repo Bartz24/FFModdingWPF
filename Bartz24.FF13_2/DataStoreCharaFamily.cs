@@ -1,9 +1,4 @@
 ﻿using Bartz24.FF13_2_LR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.FF13_2;
 public class DataStoreCharaFamily : DataStoreWDBEntry

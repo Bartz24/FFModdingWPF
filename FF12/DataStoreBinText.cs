@@ -7,7 +7,7 @@ namespace Bartz24.FF12;
 
 public class DataStoreBinText
 {
-    private Dictionary<int, StringData> Data { get; set; } = new ();
+    private Dictionary<int, StringData> Data { get; set; } = new();
 
     public string Format { get; set; }
 

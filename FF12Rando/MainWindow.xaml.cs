@@ -1,12 +1,10 @@
 ﻿using Bartz24.Data;
-using Bartz24.Docs;
 using Bartz24.RandoWPF;
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Threading.Tasks;
 using System.Windows;
 

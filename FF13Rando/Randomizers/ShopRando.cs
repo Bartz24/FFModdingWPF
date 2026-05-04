@@ -4,7 +4,6 @@ using Bartz24.FF13;
 using Bartz24.RandoWPF;
 using System.Collections.Generic;
 using System.Linq;
-using static FF13Rando.EquipRando;
 
 namespace FF13Rando;
 

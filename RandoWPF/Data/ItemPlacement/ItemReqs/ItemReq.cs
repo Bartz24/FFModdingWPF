@@ -137,7 +137,7 @@ public abstract class ItemReq
     public static ItemReq Select(int count, params ItemReq[] reqs)
     {
         return new SelectItemReq(count, reqs.ToList());
-    } 
+    }
     public static ItemReq Area(string areaName)
     {
         return new AreaItemReq(areaName);
@@ -166,7 +166,7 @@ public abstract class ItemReq
             return TRUE;
         }
 
-        if (s.Count(c=>c == '(') != s.Count(c => c == ')'))
+        if (s.Count(c => c == '(') != s.Count(c => c == ')'))
         {
             throw new RandoException("Item Requirement parsed has invalid parentheses syntax: " + s, "Invalid requirement");
         }
@@ -265,7 +265,13 @@ public abstract class ItemReq
         return !(a == b);
     }
 
+    public static string EscapePythonString(string value)
+    {
+        return value.Replace("\\", "\\\\").Replace("\"", "\\\"");
+    }
+
     public abstract string GetArchipelagoRule(Func<string, string> itemNameFunc);
+    public virtual IEnumerable<string> GetArchipelagoPreamble(string gameName) => Enumerable.Empty<string>();
 
     /// <summary>
     /// Get all sub-requirements of type T

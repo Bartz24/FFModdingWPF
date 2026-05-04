@@ -13,7 +13,7 @@ public class DataStoreItem : DataStoreWDBEntry
     public int uItemNum { get; set; }
     public string sRequiredItem { get; set; }
     public string sNextItem { get; set; }
-        public int iNextItemCount { get; set; }
+    public int iNextItemCount { get; set; }
     public int u8MenuIcon { get; set; }
     public int u8ItemCategory { get; set; }
     public int u1IsUseBattleMenu { get; set; }

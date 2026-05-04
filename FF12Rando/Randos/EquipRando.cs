@@ -2,13 +2,10 @@
 using Bartz24.Docs;
 using Bartz24.FF12;
 using Bartz24.RandoWPF;
-using FF12Rando;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Linq;
 using System.Text.RegularExpressions;
 
 namespace FF12Rando;
@@ -80,8 +77,8 @@ public partial class EquipRando : Randomizer
                 (0, 99)
             };
             int atkCost = weapon.Category is EquipCategory.Gun or EquipCategory.Measure || weapon.IntID == 0x10C1
-                ? 4 : 
-                weapon.Category is EquipCategory.Pole 
+                ? 4 :
+                weapon.Category is EquipCategory.Pole
                 ? 2 :
                 1;
             float[] weights = { atkCost, 0.6f, 0.1f, 0.4f, 1, 1, 1, 2 };
@@ -733,7 +730,7 @@ public partial class EquipRando : Randomizer
         }
 
         // Add magick and technick descriptions
-        foreach (var ability in itemData.Values.Where(a=> a.Category == "Ability"))
+        foreach (var ability in itemData.Values.Where(a => a.Category == "Ability"))
         {
             string info = "{" + ability.IntID;
 
@@ -1162,7 +1159,7 @@ public partial class EquipRando : Randomizer
 
             string onHitStatus = "";
             if (weapon.StatusChance > 0 && weapon.StatusEffects.EnumToList().Count > 0)
-            {             
+            {
                 onHitStatus = $"On Hit: {weapon.StatusChance}% " + GetStatusDisplay(weapon.StatusEffects.EnumToList(), false, ", ");
             }
 
@@ -1170,7 +1167,7 @@ public partial class EquipRando : Randomizer
             string elemDisplay = onHitElem + GetElementAttributeDisplayLine(attribute, string.IsNullOrEmpty(onHitElem) ? "" : "\n", "", false, "\n");
             string statusDisplay = onHitStatus + GetStatusDisplayLine(attribute, string.IsNullOrEmpty(onHitStatus) ? "" : "\n", "", false, "\n", ", ");
 
-            return new string[] { name, weapon.AttackPower.ToString(), weapon.Evade.ToString(), weapon.KnockbackChance.ToString(), weapon.ComboChance.ToString(), weapon.ChargeTime.ToString(), GetAttributeStatDisplay(attribute," "), elemDisplay, statusDisplay, GetLicenseNeeded(weapon) }.ToList();
+            return new string[] { name, weapon.AttackPower.ToString(), weapon.Evade.ToString(), weapon.KnockbackChance.ToString(), weapon.ComboChance.ToString(), weapon.ChargeTime.ToString(), GetAttributeStatDisplay(attribute, " "), elemDisplay, statusDisplay, GetLicenseNeeded(weapon) }.ToList();
         }).ToList()));
 
         page.HTMLElements.Add(new Table("Shields", (new string[] { "Name", "Evade", "Magick Evade", "Other Stats", "Element Effects", "Status Effects", "License Needed" }).ToList(), (new int[] { 10, 10, 10, 10, 20, 20, 10 }).ToList(), equip.EquipDataList.Where(w => w is DataStoreShield).Select(e =>
@@ -1203,7 +1200,7 @@ public partial class EquipRando : Randomizer
 
             DataStoreAttribute attribute = equip.AttributeDataList[(int)ammo.AttributeOffset];
             string elemDisplay = onHitElem + GetElementAttributeDisplayLine(attribute, string.IsNullOrEmpty(onHitElem) ? "" : "\n", "", false, "\n");
-            string statusDisplay = onHitStatus + GetStatusDisplayLine(attribute, string.IsNullOrEmpty(onHitStatus) ? "" : "\n","", false, "\n", ", ");
+            string statusDisplay = onHitStatus + GetStatusDisplayLine(attribute, string.IsNullOrEmpty(onHitStatus) ? "" : "\n", "", false, "\n", ", ");
 
             return new string[] { name, ammo.AttackPower.ToString(), ammo.Evade.ToString(), GetAttributeStatDisplay(attribute, " "), elemDisplay, statusDisplay, GetLicenseNeeded(ammo) }.ToList();
         }).ToList()));
@@ -1225,7 +1222,7 @@ public partial class EquipRando : Randomizer
             string name = treasureRando.GetItemName(accessory.ID);
 
             DataStoreAttribute attribute = equip.AttributeDataList[(int)accessory.AttributeOffset];
-            return new string[] { name, accessory.Defense.ToString(), accessory.MagickResist.ToString(), GetAttributeStatDisplay(attribute, " "), GetElementAttributeDisplayLine(attribute, "", "",false, "\n"), GetStatusDisplayLine(attribute, "", "", false, "\n", ", "), GetAugmentDescription(accessory, int.MaxValue), GetLicenseNeeded(accessory) }.ToList();
+            return new string[] { name, accessory.Defense.ToString(), accessory.MagickResist.ToString(), GetAttributeStatDisplay(attribute, " "), GetElementAttributeDisplayLine(attribute, "", "", false, "\n"), GetStatusDisplayLine(attribute, "", "", false, "\n", ", "), GetAugmentDescription(accessory, int.MaxValue), GetLicenseNeeded(accessory) }.ToList();
         }).ToList()));
 
         pages.Add("equipment", page);

@@ -1,12 +1,7 @@
-using MaterialDesignThemes.Wpf;
-using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Bartz24.RandoWPF;
@@ -26,7 +21,7 @@ public partial class SeedInfoPage : UserControl
     {
         InitializeComponent();
 
-        SeedInformationList = new ();
+        SeedInformationList = new();
         RandoSeeds.SeedsLoaded += RandoSeeds_SeedsLoaded;
         RandoSeeds.SeedDeleted += RandoSeeds_SeedDeleted;
         RandoSeeds.LoadSeeds();

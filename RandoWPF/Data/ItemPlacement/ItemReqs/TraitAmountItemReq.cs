@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF;
 
@@ -60,7 +58,38 @@ public class TraitAmountItemReq : ItemReq
 
     public override string GetArchipelagoRule(Func<string, string> itemNameFunc)
     {
-        throw new NotImplementedException("TODO: Implement this");
+        return $"HasTraitRule(\"{EscapePythonString(trait)}\", {amount})";
+    }
+
+    public override IEnumerable<string> GetArchipelagoPreamble(string gameName)
+    {
+        string escapedGameName = EscapePythonString(gameName);
+        yield return
+            "@dataclasses.dataclass()\n" +
+            $"class HasTraitRule(Rule[Any], game=\"{escapedGameName}\"):\n" +
+            "    trait: str\n" +
+            "    count: int = 1\n" +
+            "\n" +
+            "    def _instantiate(self, world):\n" +
+            "        item_names = tuple(sorted(name for name, data in item_data_table.items() if self.trait in data.traits))\n" +
+            "        return self.Resolved(\n" +
+            "            self.trait,\n" +
+            "            item_names,\n" +
+            "            count=self.count,\n" +
+            "            player=world.player,\n" +
+            "            caching_enabled=getattr(world, \"rule_caching_enabled\", False),\n" +
+            "        )\n" +
+            "\n" +
+            "    class Resolved(Rule.Resolved):\n" +
+            "        trait: str\n" +
+            "        item_names: tuple[str, ...]\n" +
+            "        count: int = 1\n" +
+            "\n" +
+            "        def _evaluate(self, state: CollectionState) -> bool:\n" +
+            "            return state.count_from_list(self.item_names, self.player) >= self.count\n" +
+            "\n" +
+            "        def item_dependencies(self) -> dict[str, set[int]]:\n" +
+            "            return {item_name: {id(self)} for item_name in self.item_names}\n";
     }
     public override List<T> GetOf<T>()
     {

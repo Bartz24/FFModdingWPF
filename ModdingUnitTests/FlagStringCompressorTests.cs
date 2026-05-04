@@ -1,7 +1,4 @@
-using Bartz24.RandoWPF;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace Bartz24.RandoWPF.Tests;
 

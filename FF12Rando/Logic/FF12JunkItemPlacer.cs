@@ -1,10 +1,7 @@
 ﻿using Bartz24.FF12;
 using Bartz24.RandoWPF;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF12Rando;
 public class FF12JunkItemPlacer : JunkItemPlacer<ItemLocation>
@@ -67,10 +64,10 @@ public class FF12JunkItemPlacer : JunkItemPlacer<ItemLocation>
     protected override HashSet<ItemLocation> GetEmptyMultiLocations()
     {
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
-        HashSet<DataStoreReward> emptyRewards = treasureRando.rewards.DataList.Where(r=>treasureRando.ItemLocations.ContainsKey($"{r.ID}:0")).ToHashSet();
+        HashSet<DataStoreReward> emptyRewards = treasureRando.rewards.DataList.Where(r => treasureRando.ItemLocations.ContainsKey($"{r.ID}:0")).ToHashSet();
 
         // Don't include any rewards that have an item set in one of its indices
-        foreach(var loc in ParentPlacer.FinalPlacement.Keys)
+        foreach (var loc in ParentPlacer.FinalPlacement.Keys)
         {
             if (loc is RewardLocation r)
             {

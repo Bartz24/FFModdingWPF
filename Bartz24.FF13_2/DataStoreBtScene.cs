@@ -44,7 +44,7 @@ public class DataStoreBtScene : DataStoreWDBEntry
     public string s8EntryBtChSpec8 { get; set; }
     public string s8EntryBtChSpec9 { get; set; }
     public string s8EntryBtChSpec10 { get; set; }
-        public void SetCharSpecs(List<string> list)
+    public void SetCharSpecs(List<string> list)
     {
         sEntryBtChSpec1 = "";
         s10EntryBtChSpec2 = "";

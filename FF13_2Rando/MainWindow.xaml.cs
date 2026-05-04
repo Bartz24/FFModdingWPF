@@ -1,15 +1,8 @@
 ﻿using Bartz24.Data;
-using Bartz24.Docs;
 using Bartz24.RandoWPF;
 using MaterialDesignThemes.Wpf;
-using Ookii.Dialogs.Wpf;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
-using System.Reflection.Emit;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -26,7 +19,7 @@ public partial class MainWindow : RandoMainWindow
 
     protected override TabControl MainWindowTabs => WindowTabs;
 
-    public MainWindow(): base()
+    public MainWindow() : base()
     {
         FF13_2Flags.Init();
         RandoPresets.Init();

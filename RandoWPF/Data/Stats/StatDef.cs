@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Numerics;
 
 namespace Bartz24.RandoWPF;
 

@@ -3,7 +3,6 @@ using Bartz24.FF13_2_LR;
 using Bartz24.FF13Series;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
-using LRRando;
 using System.Collections.Generic;
 using System.Linq;
 

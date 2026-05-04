@@ -67,7 +67,7 @@ public class DataStoreRCharaSet : DataStoreWDBEntry
     public string sCharaSpecId55 { get; set; }
     public string sCharaSpecId56 { get; set; }
     public string sCharaSpecId57 { get; set; }
-        public int u1PartyLoadRequestIndex0 { get; set; }
+    public int u1PartyLoadRequestIndex0 { get; set; }
     public int u1PartyLoadRequestIndex1 { get; set; }
     public int u1PartyLoadRequestIndex2 { get; set; }
     public int u1PartyLoadRequestIndex3 { get; set; }

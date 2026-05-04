@@ -20,7 +20,7 @@ public abstract class FF13_2ItemLocation : ItemLocation
         {
             list.Add(new MogLevelReqComponent(Generator, MogLevel));
         }
-        if(RequiredAreas.Count > 0)
+        if (RequiredAreas.Count > 0)
         {
             list.Add(new RequiredAreasComponent(Generator, RequiredAreas));
         }

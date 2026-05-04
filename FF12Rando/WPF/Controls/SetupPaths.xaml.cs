@@ -5,7 +5,6 @@ using SharpCompress.Archives.SevenZip;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -89,7 +88,7 @@ public partial class SetupPaths : UserControl
         DescriptiveTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
         DescriptiveTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
 
-        switch(FF12SeedGenerator.ManifestoInstalled())
+        switch (FF12SeedGenerator.ManifestoInstalled())
         {
             case FF12SeedGenerator.ManifestoInstallType.Missing:
                 ManifestoText = ManifestoNotInstalledText;
@@ -246,7 +245,7 @@ public partial class SetupPaths : UserControl
         if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
         {
             MessageBox.Show("The path for FF12 is not valid. Setup the Steam path in the '1. Setup' step. first", "FF12 not found.");
-            return;        
+            return;
         }
 
         VistaOpenFileDialog dialog = new()

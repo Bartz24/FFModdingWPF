@@ -1,10 +1,10 @@
 ﻿using Bartz24.Data;
-using CsvHelper.Configuration;
 using CsvHelper;
+using CsvHelper.Configuration;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System;
 
 namespace Bartz24.FF12;
 
@@ -105,7 +105,7 @@ public class DataStoreLicenseBoard : DataStore
 
         return null;
     }
-    
+
     public (int x, int y)? GetCoordsFromEssentials(ushort licenseID)
     {
         int essentialsID = 31;

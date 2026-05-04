@@ -1,7 +1,6 @@
 ﻿using Bartz24.Data;
 using Bartz24.FF12;
 using Bartz24.RandoWPF;
-using FF12Rando;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -122,7 +121,7 @@ public class LicenseBoardRando : Randomizer
             boards[i] = BuildSplitBoard(left, center, right);
         }
     }
-    
+
     private string[,] LoadSplitBoardFromCsv(string path)
     {
         string[,] board = new string[24, 24];

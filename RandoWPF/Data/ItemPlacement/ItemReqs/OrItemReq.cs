@@ -80,7 +80,12 @@ public class OrItemReq : ItemReq
 
     public override string GetArchipelagoRule(Func<string, string> itemNameFunc)
     {
-        return $"({string.Join(" or\n", reqs.Select(r => r.GetArchipelagoRule(itemNameFunc)))})";
+        return $"({string.Join(" | ", reqs.Select(r => r.GetArchipelagoRule(itemNameFunc)))})";
+    }
+
+    public override IEnumerable<string> GetArchipelagoPreamble(string gameName)
+    {
+        return reqs.SelectMany(r => r.GetArchipelagoPreamble(gameName)).Distinct();
     }
 
     public override List<T> GetOf<T>()

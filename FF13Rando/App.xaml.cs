@@ -1,9 +1,8 @@
+using System;
+using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
-using System;
 using System.Windows;
-using Bartz24.RandoWPF;
-using System.IO;
 
 namespace FF13Rando;
 

@@ -1,12 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bartz24.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bartz24.Data.Tests;
+﻿namespace Bartz24.Data.Tests;
 
 [TestClass()]
 public class ValueByteTests

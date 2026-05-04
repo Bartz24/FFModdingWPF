@@ -24,7 +24,7 @@ public class DataStoreRFragment : DataStoreWDBEntry
     public string sNoticePointId { get; set; }
     public string sTargetName { get; set; }
     public string sBattleSceneTableName { get; set; }
-        public int iBattleSituationNum { get; set; }
+    public int iBattleSituationNum { get; set; }
     public string sPicture { get; set; }
     public int u4Kind { get; set; }
     public int u5MenuCategory { get; set; }

@@ -164,11 +164,11 @@ public partial class TreasureRando : Randomizer
             // Update hints again to reflect actual numbers
             //PlacementAlgo.HintsByLocation.ForEach(l =>
             //{
-                //int uniqueCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas.Count == 1 && ItemLocations[t].Areas[0] == l && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
-                //hintsNotesUniqueCount.Add(l, uniqueCount);
+            //int uniqueCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas.Count == 1 && ItemLocations[t].Areas[0] == l && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
+            //hintsNotesUniqueCount.Add(l, uniqueCount);
 
-                //int sharedCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas.Count > 1 && ItemLocations[t].Areas.Contains(l) && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
-                //hintsNotesSharedCount.Add(l, sharedCount);
+            //int sharedCount = ItemLocations.Keys.Where(t => PlacementAlgo.Placement.ContainsKey(t) && ItemLocations[t].Areas.Count > 1 && ItemLocations[t].Areas.Contains(l) && PlacementAlgo.Logic.IsHintable(PlacementAlgo.Placement[t])).Count();
+            //hintsNotesSharedCount.Add(l, sharedCount);
             //});
 
             RandomNum.ClearRand();

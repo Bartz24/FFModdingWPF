@@ -2,12 +2,9 @@
 using Bartz24.FF13_2;
 using Bartz24.FF13_2_LR;
 using Bartz24.RandoWPF;
-using FF13_2Rando;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using static FF13_2Rando.CrystariumRando;
 
 namespace FF13_2Rando;
 

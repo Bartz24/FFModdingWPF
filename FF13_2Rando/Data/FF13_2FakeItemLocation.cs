@@ -1,13 +1,10 @@
 ﻿using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13_2Rando;
 
-public class FF13_2FakeItemLocation: FF13_2ItemLocation
+public class FF13_2FakeItemLocation : FF13_2ItemLocation
 {
     [RowIndex(0)]
     public override string ID { get; set; }

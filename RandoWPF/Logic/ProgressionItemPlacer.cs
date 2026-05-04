@@ -3,11 +3,7 @@ using Bartz24.RandoWPF.Data.Areas;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF.Logic;
 public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
@@ -60,7 +56,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
                 Generator.Logger.LogDebug($"Failed to place {RemainingToPlace.Count + RemainingFixed.Count} remaining replacements.");
                 Generator.Logger.LogDebug($"Remaining to place: {string.Join(",", RemainingToPlace.Select(x => $"[Location: {x.Name}, requires: {x.GetRequirementString()}, item: {x.GetItem(true).Value.Item}]"))}{string.Join(",", RemainingFixed.Select(x => $"[Location: {x.Name}, requires: {x.GetRequirementString()}, item: {(x.GetItem(true) != null ? x.GetItem(true).Value.Item : EMPTY)}]"))}");
             }
-            if(Attempts > MAX_ATTEMPTS)
+            if (Attempts > MAX_ATTEMPTS)
             {
                 throw new Exception($"Unable to place progression items after {Attempts} attempts");
             }
@@ -80,7 +76,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         {
             // Assume all required locations are marked appropriately (TODO: Game specific logic?)
             // All fake checks have "fake" as a trait so start from 1 not 0
-            if(fakeLocations.Any(item => item.Traits.Count > 1 && !item.Traits.Contains("Missable")))
+            if (fakeLocations.Any(item => item.Traits.Count > 1 && !item.Traits.Contains("Missable")))
             {
                 return false;
             }
@@ -231,14 +227,15 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         return newList;
     }
 
-    protected virtual (int,int) GetLocationOffsets(T location, string itemType)
+    protected virtual (int, int) GetLocationOffsets(T location, string itemType)
     {
         var newlyAccessible = GetNewlyAccessibleWithLocation(UnlockedLocations, location);
         var unlockingWeight = newlyAccessible.Count;
         // If locationAccessibilityBias is set, then locations are also checked by whether you have access to the location from area links.
         // This should effectively downgrade items with wide reaching implications but narrow immediate impact, and give more
         // dynamic shuffling as the placement progresses until all areas are open.
-        var remainingWithInterest = PossibleLocations.Where(loc => {
+        var remainingWithInterest = PossibleLocations.Where(loc =>
+        {
             return loc.Requirements.GetPossibleRequirements().Contains(itemType) && (!locationAccessibilityBias || loc.Areas.Intersect(UnlockedAreas).Count() > 0);
         }).Count();
         var remainingFixedWithInterest = FixedLocations.Where(loc =>
@@ -249,11 +246,11 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         // Max bound as adjusted downwards by the number of overall locations still locked by this item in some way.
         // The idea being that items which unlock large segments of the game are weighted to fall much earlier generally speaking
         // TODO: refine weighting here.
-        if(remainingWithInterest > 0 || remainingFixedWithInterest > 0)
+        if (remainingWithInterest > 0 || remainingFixedWithInterest > 0)
         {
             Generator.Logger.LogDebug($"Item {itemType} unlocks {remainingWithInterest} locations ({remainingFixedWithInterest} fixed)");
         }
-        return (-unlockingWeight - remainingWithInterest, -remainingFixedWithInterest*5 - remainingWithInterest*5);
+        return (-unlockingWeight - remainingWithInterest, -remainingFixedWithInterest * 5 - remainingWithInterest * 5);
     }
 
     protected virtual void PlaceFixed()
@@ -270,7 +267,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             placed = false;
             foreach (var loc in RemainingFixed.OrderBy(i => i.BaseDifficulty).ToList())
             {
-                if(loc.Traits.Contains("NoCascade") && noCascadeFound)
+                if (loc.Traits.Contains("NoCascade") && noCascadeFound)
                 {
                     continue;
                 }
@@ -337,7 +334,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         // Update UnlockedAreas based on FoundItems and AreaGraph
         UnlockedAreas = AreaGraph.GetAllAccessibleAreas("Initial", ProgState).Select(a => a.Name).ToList();
         var diff = UnlockedAreas.Where(s => !oldUnlocked.Contains(s)).ToList();
-        if(diff.Count > 0)
+        if (diff.Count > 0)
         {
             Generator.Logger.LogDebug("Newly unlocked areas: " + string.Join(",", diff));
         }
@@ -394,7 +391,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
     {
         var state = new ProgressionState(ProgState);
         AddFoundItem(addLocation, state);
-        state.AreasAccessible = new (AreaGraph.GetAllAccessibleAreas("Initial", state).Select(a => a.Name));
+        state.AreasAccessible = new(AreaGraph.GetAllAccessibleAreas("Initial", state).Select(a => a.Name));
         return GetNewlyAccessible(unlockedLocations, state);
     }
 

@@ -1,10 +1,4 @@
-﻿using Bartz24.Data;
-using Bartz24.RandoWPF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace FF13_2Rando;
+﻿namespace FF13_2Rando;
 /*
 public class FF13_2AssumedItemPlacementLogic : FF13_2ItemPlacementLogic
 {

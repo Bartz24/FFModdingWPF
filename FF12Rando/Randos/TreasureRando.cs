@@ -122,7 +122,7 @@ public partial class TreasureRando : Randomizer
         FileHelpers.ReadCSVFile(@"data\fakeChecks.csv", row =>
         {
             string[] fakeItems = row[6].Split('|');
-            for(int i = 0; i < fakeItems.Length; i++)
+            for (int i = 0; i < fakeItems.Length; i++)
             {
                 FF12FakeLocation f = new(Generator, row, fakeItems[i]);
                 f.ID = f.ID + ":" + i;
@@ -447,7 +447,7 @@ public partial class TreasureRando : Randomizer
                     lines.Add("There is nothing left to hint.");
                 }
 
-                textRando.TextKeyDescriptions[352 + num].Text = 
+                textRando.TextKeyDescriptions[352 + num].Text =
                     "{scale:70}" + string.Join("\n", lines);
             }
         }
@@ -717,7 +717,7 @@ public partial class TreasureRando : Randomizer
     private string GetRewardDisplay(DataStoreReward reward, List<RewardLocation> locations)
     {
         List<string> stringList = new();
-        if (reward.Gil > 0 && locations.Any(l=>l.Index == 0))
+        if (reward.Gil > 0 && locations.Any(l => l.Index == 0))
         {
             stringList.Add($"{reward.Gil} Gil");
         }

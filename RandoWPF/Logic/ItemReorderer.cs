@@ -3,8 +3,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bartz24.RandoWPF.Logic;
 public class ItemReorderer<T, I> where T : ItemLocation where I : IItem

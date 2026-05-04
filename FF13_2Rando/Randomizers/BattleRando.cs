@@ -178,7 +178,8 @@ public partial class BattleRando : Randomizer
                 if (lIsCaius == rIsCaius)
                 {
                     return 0;
-                } else if (!rIsCaius)
+                }
+                else if (!rIsCaius)
                 {
                     return 1;
                 }
@@ -648,7 +649,7 @@ public partial class BattleRando : Randomizer
 
             // Determine the new rank from the original location avg
             int newRank = locationAvgRank + mainBoss.RankOffsetToLocationAvg;
-            
+
             if (oldRank == newRank)
             {
                 newBossRanks[newMainBoss.Group] = oldRank;
@@ -675,8 +676,8 @@ public partial class BattleRando : Randomizer
                 enemy.u24MaxHp = (int)(enemy.u24MaxHp * hpMult);
                 enemy.u16StatusStr = (int)(enemy.u16StatusStr * strMagMult);
                 enemy.u16StatusMgk = (int)(enemy.u16StatusMgk * strMagMult);
-            }              
-            
+            }
+
             newBossRanks[newMainBoss.Group] = newRank;
         }
     }

@@ -16,7 +16,7 @@ public class DataStoreItemWeapon : DataStoreWDBEntry
     public string sDisasItem3 { get; set; }
     public string sDisasItem4 { get; set; }
     public string sDisasItem5 { get; set; }
-        public int u1CanRemodel { get; set; }
+    public int u1CanRemodel { get; set; }
     public int u7Cost { get; set; }
     public int u8StatusModKind0 { get; set; }
     public int u8StatusModKind1 { get; set; }

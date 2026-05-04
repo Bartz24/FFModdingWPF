@@ -1,5 +1,4 @@
-﻿using Bartz24.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,7 +26,7 @@ public class AndItemReq : ItemReq
 
     public override bool HasUpperBound()
     {
-        foreach(ItemReq req in reqs)
+        foreach (ItemReq req in reqs)
         {
             if (req.HasUpperBound())
             {
@@ -76,7 +75,12 @@ public class AndItemReq : ItemReq
 
     public override string GetArchipelagoRule(Func<string, string> itemNameFunc)
     {
-        return $"({string.Join(" and\n", reqs.Select(r => r.GetArchipelagoRule(itemNameFunc)))})";
+        return $"({string.Join(" & ", reqs.Select(r => r.GetArchipelagoRule(itemNameFunc)))})";
+    }
+
+    public override IEnumerable<string> GetArchipelagoPreamble(string gameName)
+    {
+        return reqs.SelectMany(r => r.GetArchipelagoPreamble(gameName)).Distinct();
     }
 
     public override List<T> GetOf<T>()

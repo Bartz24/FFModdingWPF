@@ -1,5 +1,4 @@
-﻿using Bartz24.RandoWPF;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace Bartz24.RandoWPF;

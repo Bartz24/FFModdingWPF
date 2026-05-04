@@ -1,10 +1,4 @@
 ﻿using Bartz24.Data;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 
 namespace Bartz24.FF13;
 
@@ -36,7 +30,7 @@ public class DataStoreWPD : DataStore
             Entries.Add(id);
         }
     }
-    
+
     public override byte[] Data
     {
         get

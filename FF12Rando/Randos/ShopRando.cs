@@ -2,13 +2,11 @@
 using Bartz24.Docs;
 using Bartz24.FF12;
 using Bartz24.RandoWPF;
-using FF12Rando;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using static FF12Rando.TreasureRando;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace FF12Rando;
 
@@ -37,7 +35,7 @@ public partial class ShopRando : Randomizer
             ShopData s = new(row);
             shopData.Add(s.ID, s);
 
-            string[] fakeData = new string[] { s.Area, s.Name + " Shop", "_shop" + s.ID, "", "", "0"};            
+            string[] fakeData = new string[] { s.Area, s.Name + " Shop", "_shop" + s.ID, "", "", "0" };
             FF12FakeLocation fake = new(Generator, fakeData, s.Name + " Shop");
             fake.Requirements = s.Requirements;
             treasureRando.ItemLocations.Add(fake.ID, fake);

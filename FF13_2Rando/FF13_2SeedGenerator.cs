@@ -1,16 +1,13 @@
 ﻿using Bartz24.Data;
 using Bartz24.FF13Series;
 using Bartz24.RandoWPF;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FF13_2Rando;
 public class FF13_2SeedGenerator : SeedGenerator
-{  
+{
     public FF13_2SeedGenerator() : base()
     {
         OutFolder = Path.GetTempPath() + @"ff13_2_rando_temp";
