@@ -3,7 +3,7 @@ using Bartz24.RandoWPF;
 using LRRando;
 
 namespace AutoDataGenerator;
-internal class LRMultiworldGenerator : MultiworldGeneratorBase
+internal class LRMultiworldGenerator : BaseMultiworldGenerator
 {
     TreasureRando TreasureRando { get; }
     EquipRando EquipRando { get; }
