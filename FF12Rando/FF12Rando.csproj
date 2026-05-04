@@ -39,12 +39,12 @@
     </PackageReference>
   </ItemGroup>
 
-  <!-- Copy data folder to output directory during build -->
-  <Target Name="CopyDataToOutput" AfterTargets="Build">
-    <ItemGroup>
-      <DataFiles Include="bin\data\**\*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(DataFiles)" DestinationFiles="@(DataFiles->'$(OutputPath)data\%(RecursiveDir)%(Filename)%(Extension)')" />
-  </Target>
+<!-- Copy bin\data folder to output directory\data -->
+<ItemGroup>
+  <None Include="bin\data\**\*.*">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <TargetPath>data\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+  </None>
+</ItemGroup>
 
 </Project>
