@@ -29,6 +29,8 @@ public partial class TreasureRando : Randomizer
     private readonly Dictionary<string, int> hintsNotesUniqueCount = new();
     private readonly Dictionary<string, int> hintsNotesSharedCount = new();
 
+    private Dictionary<string, DataStoreWDB<DataStoreZoneScript>> zoneScriptTables = new();
+
     public FF13_2ItemPlacer ItemPlacer { get; set; }
     private bool usingBackup = false;
 
@@ -107,16 +109,51 @@ public partial class TreasureRando : Randomizer
 
         // Initial treasures don't need flags as they aren't referenced again in the scripts.
         AddTreasure("ran_init_cp", "", 0, "", false);
-        AddTreasure("ran_init_silver", "opt_silver", 10, "", false);
+
+        if (FF13_2Flags.Items.ReplaceWildArtefacts.Enabled)
+        {
+            AddTreasure("ran_init_silver", "opt_silver", 0, "", false);
+        }
+        else
+        {
+            AddTreasure("ran_init_silver", "opt_silver", 10, "", false);
+        }
+
+        AddTreasure("ran_init_shop", "key_shop_level", FF13_2Flags.Items.InitialShopLevel.Value, "", false);
 
         // Mog level items
         AddTreasure("mog_level_1", "key_mog_level", 1, "");
         AddTreasure("mog_level_2", "key_mog_level", 1, "");
         AddTreasure("mog_level_3", "key_mog_level", 1, "");
 
+        // Shop levels (TODO: flag to disable)
+        AddTreasure("shop_level_01", "key_shop_level", 1, "");
+        AddTreasure("shop_level_02", "key_shop_level", 1, "");
+        AddTreasure("shop_level_03", "key_shop_level", 1, "");
+        AddTreasure("shop_level_04", "key_shop_level", 1, "");
+        AddTreasure("shop_level_05", "key_shop_level", 1, "");
+        AddTreasure("shop_level_06", "key_shop_level", 1, "");
+        AddTreasure("shop_level_07", "key_shop_level", 1, "");
+        AddTreasure("shop_level_08", "key_shop_level", 1, "");
+        AddTreasure("shop_level_09", "key_shop_level", 1, "");
+        AddTreasure("shop_level_10", "key_shop_level", 1, "");
+        AddTreasure("shop_level_11", "key_shop_level", 1, "");
+
+        for(int i = 1; i < 12; i++)
+        {
+            // Replace "spent" shop levels with items for junk placement stuff
+            if(FF13_2Flags.Items.InitialShopLevel.Value >= i)
+            {
+                treasures[string.Format("shop_level_{0:D2}", i)].s11ItemResourceId = "it_potion";
+                treasuresOrig[string.Format("shop_level_{0:D2}", i)].s11ItemResourceId = "it_potion";
+            }
+        }
+
+        // TODO: length restriction stuff
+
         // Other assorted key items etc.
-        AddTreasure("frg_cmn_hmaa001", "frg_cmn_hmaa001", 1, "");
-        AddTreasure("frg_cmn_hmaa002", "frg_cmn_hmaa002", 1, "");
+        AddTreasure("frgcmn_hmaa001", "frg_cmn_hmaa001", 1, "");
+        AddTreasure("frgcmn_hmaa002", "frg_cmn_hmaa002", 1, "");
         AddTreasure("key_s_neck", "key_s_neck", 1, "");
         AddTreasure("key_l_knife", "key_l_knife", 1, "");
         AddTreasure("key_tissue", "key_tissue", 1, "");
@@ -138,59 +175,61 @@ public partial class TreasureRando : Randomizer
         AddTreasure("key_moko_wool", "key_moko_wool", 1, "");
         AddTreasure("tmap_gd", "tmap_gd", 1, "");
         AddTreasure("key_access_50", "key_access_50", 1, "");
-        AddTreasure("key_access_la", "key_access_la", 1, ""); //skip
-        AddTreasure("key_access_52", "key_access_52", 1, ""); //skip
+        //AddTreasure("key_access_la", "key_access_la", 1, ""); //skip
+        //AddTreasure("key_access_52", "key_access_52", 1, ""); //skip
         AddTreasure("key_access_13", "key_access_13", 1, "");
         AddTreasure("tmap_gt", "tmap_gt", 1, "");
         AddTreasure("tmap_ac", "tmap_ac", 1, "");
-        AddTreasure("frg_cmn_acea012", "frg_cmn_acea012", 1, "");
+        AddTreasure("frgcmn_acea012", "frg_cmn_acea012", 1, "");
         // AddTreasure("just_one_gil", "", 1, ""); - what is this even doing?
-        AddTreasure("key_casino_prz", "key_casino_prz", 1, "", false); // skip - vanilla flag?
-        AddTreasure("key_chaos_cly", "key_chaos_cly", 1, "", false); // skip - vanilla flag?
-        AddTreasure("key_casino_dice", "key_casino_dice", 1, "", false); // skip - vanilla flag?
+        //AddTreasure("key_casino_prz", "key_casino_prz", 1, "", false); // skip - vanilla flag?
+        //AddTreasure("key_chaos_cly", "key_chaos_cly", 1, "", false); // skip - vanilla flag?
+        //AddTreasure("key_casino_dice", "key_casino_dice", 1, "", false); // skip - vanilla flag?
         AddTreasure("tmap_cs", "tmap_cs", 1, "");
-        AddTreasure("cs_chip_00", "cs_chip_00", 1, "", false); // Skip flag - tied to above
-        AddTreasure("frg_cmn_vpba001", "frg_cmn_vpba001", 1, "");
+        AddTreasure("cs_chip_00", "cs_chip_00", 1, ""); // Skip flag - tied to above
+        AddTreasure("frgcmn_vpba001", "frg_cmn_vpba001", 1, "");
         AddTreasure("tmap_vp", "tmap_vp", 1, "");
-        AddTreasure("frg_cmn_vpca001", "frg_cmn_vpca001", 1, "");
+        AddTreasure("frgcmn_vpca001", "frg_cmn_vpca001", 1, "");
         AddTreasure("key_acdmycom", "key_acdmycom", 1, "");
         AddTreasure("tmap_bj", "tmap_bj", 1, "");
         AddTreasure("key_behi_fang", "key_behi_fang", 1, "");
-        AddTreasure("frg_pzl_bjaa001", "frg_pzl_bjaa001", 1, "");
+        AddTreasure("frgpzl_bjaa001", "frg_pzl_bjaa001", 1, "");
+
+        // flg_bjaa_01_010
 
         // Fragment experimenting
-        AddTreasure("frg_cmn_acfa002", "frg_cmn_acfa002", 1, "");
-        AddTreasure("frg_cmn_pdxe001", "frg_cmn_pdxe001", 1, "");
-        AddTreasure("frg_cmn_pdxe002", "frg_cmn_pdxe002", 1, "");
-        AddTreasure("frg_cmn_pdxe003", "frg_cmn_pdxe003", 1, "");
-        AddTreasure("frg_cmn_pdxe004", "frg_cmn_pdxe004", 1, "");
-        AddTreasure("frg_cmn_pdxe005", "frg_cmn_pdxe005", 1, "");
-        AddTreasure("frg_cmn_pdxe006", "frg_cmn_pdxe006", 1, "");
-        AddTreasure("frg_cmn_pdxe007", "frg_cmn_pdxe007", 1, "");
-        AddTreasure("frg_cmn_pdxe008", "frg_cmn_pdxe008", 1, "");
-        AddTreasure("frg_cmn_bjaa001", "frg_cmn_bjaa001", 1, "");
-        AddTreasure("frg_cmn_gyaa003", "frg_cmn_gyaa003", 1, "");
-        AddTreasure("frg_cmn_snda002", "frg_cmn_snda002", 1, "");
-        AddTreasure("frg_cmn_spza001", "frg_cmn_spza001", 1, "");
-        AddTreasure("frg_cmn_spza002", "frg_cmn_spza002", 1, "");
-        AddTreasure("frg_cmn_spza003", "frg_cmn_spza003", 1, "");
-        AddTreasure("frg_cmn_spza004", "frg_cmn_spza004", 1, "");
-        AddTreasure("frg_cmn_spza005", "frg_cmn_spza005", 1, "");
-        AddTreasure("frg_cmn_clza001", "frg_cmn_clza001", 1, "");
-        AddTreasure("frg_cmn_gdza003", "frg_cmn_gdza003", 1, "");
-        AddTreasure("frg_cmn_gdza004", "frg_cmn_gdza004", 1, "");
-        AddTreasure("frg_cmn_gdza005", "frg_cmn_gdza005", 1, "");
-        AddTreasure("frg_cmn_gdza006", "frg_cmn_gdza006", 1, "");
-        AddTreasure("frg_cmn_gdza007", "frg_cmn_gdza007", 1, "");
-        AddTreasure("frg_cmn_gtca001", "frg_cmn_gtca001", 1, "");
-        AddTreasure("frg_cmn_acfa001", "frg_cmn_acfa001", 1, "");
-        AddTreasure("frg_cmn_vpca005", "frg_cmn_vpca005", 1, "");
-        AddTreasure("frg_cmn_snea001", "frg_cmn_snea001", 1, "");
-        AddTreasure("frg_cmn_snea002", "frg_cmn_snea002", 1, "");
-        AddTreasure("frg_cmn_snea003", "frg_cmn_snea003", 1, "");
-        AddTreasure("frg_cmn_snea004", "frg_cmn_snea004", 1, "");
-        AddTreasure("frg_cmn_snea005", "frg_cmn_snea005", 1, "");
-        AddTreasure("frg_cmn_snea006", "frg_cmn_snea006", 1, "");
+        AddTreasure("frgcmn_acfa002", "frg_cmn_acfa002", 1, "");
+        AddTreasure("frgcmn_pdxe001", "frg_cmn_pdxe001", 1, "");
+        AddTreasure("frgcmn_pdxe002", "frg_cmn_pdxe002", 1, "");
+        AddTreasure("frgcmn_pdxe003", "frg_cmn_pdxe003", 1, "");
+        AddTreasure("frgcmn_pdxe004", "frg_cmn_pdxe004", 1, "");
+        AddTreasure("frgcmn_pdxe005", "frg_cmn_pdxe005", 1, "");
+        AddTreasure("frgcmn_pdxe006", "frg_cmn_pdxe006", 1, "");
+        AddTreasure("frgcmn_pdxe007", "frg_cmn_pdxe007", 1, "");
+        AddTreasure("frgcmn_pdxe008", "frg_cmn_pdxe008", 1, "");
+        AddTreasure("frgcmn_bjaa001", "frg_cmn_bjaa001", 1, "");
+        AddTreasure("frgcmn_gyaa003", "frg_cmn_gyaa003", 1, "");
+        AddTreasure("frgcmn_snda002", "frg_cmn_snda002", 1, "");
+        AddTreasure("frgcmn_spza001", "frg_cmn_spza001", 1, "");
+        AddTreasure("frgcmn_spza002", "frg_cmn_spza002", 1, "");
+        AddTreasure("frgcmn_spza003", "frg_cmn_spza003", 1, "");
+        AddTreasure("frgcmn_spza004", "frg_cmn_spza004", 1, "");
+        AddTreasure("frgcmn_spza005", "frg_cmn_spza005", 1, "");
+        AddTreasure("frgcmn_clza001", "frg_cmn_clza001", 1, "");
+        AddTreasure("frgcmn_gdza003", "frg_cmn_gdza003", 1, "");
+        AddTreasure("frgcmn_gdza004", "frg_cmn_gdza004", 1, "");
+        AddTreasure("frgcmn_gdza005", "frg_cmn_gdza005", 1, "");
+        AddTreasure("frgcmn_gdza006", "frg_cmn_gdza006", 1, "");
+        AddTreasure("frgcmn_gdza007", "frg_cmn_gdza007", 1, "");
+        AddTreasure("frgcmn_gtca001", "frg_cmn_gtca001", 1, "");
+        AddTreasure("frgcmn_acfa001", "frg_cmn_acfa001", 1, "");
+        AddTreasure("frgcmn_vpca005", "frg_cmn_vpca005", 1, "");
+        AddTreasure("frgcmn_snea001", "frg_cmn_snea001", 1, "");
+        AddTreasure("frgcmn_snea002", "frg_cmn_snea002", 1, "");
+        AddTreasure("frgcmn_snea003", "frg_cmn_snea003", 1, "");
+        AddTreasure("frgcmn_snea004", "frg_cmn_snea004", 1, "");
+        AddTreasure("frgcmn_snea005", "frg_cmn_snea005", 1, "");
+        AddTreasure("frgcmn_snea006", "frg_cmn_snea006", 1, "");
         //AddTreasure("frg_itm_bjba001", "frg_itm_bjba001", 1, "");
 
         // Artefact experimenting
@@ -200,6 +239,26 @@ public partial class TreasureRando : Randomizer
         AddTreasure("opt_gwca01_gh", "opt_gwca01_gh", 1, "");
         AddTreasure("opt_gyaa01_gw", "opt_gyaa01_gw", 1, "");
         AddTreasure("opt_hmaa01_bj", "opt_hmaa01_bj", 1, "");
+
+        // Fragment skills
+        AddTreasure("privilege01", "privilege01", 1, "");
+        AddTreasure("privilege02", "privilege02", 1, "");
+        AddTreasure("privilege03", "privilege03", 1, "");
+        AddTreasure("privilege04", "privilege04", 1, "");
+        AddTreasure("privilege05", "privilege05", 1, "");
+        AddTreasure("privilege06", "privilege06", 1, "");
+        AddTreasure("privilege08", "privilege08", 1, "");
+        AddTreasure("privilege10", "privilege10", 1, "");
+        AddTreasure("privilege11", "privilege11", 1, "");
+        AddTreasure("privilege12", "privilege12", 1, "");
+        AddTreasure("privilege14", "privilege14", 1, "");
+        AddTreasure("privilege15", "privilege15", 1, "");
+        AddTreasure("privilege18", "privilege18", 1, "");
+
+        if (FF13_2Flags.Items.ReplaceWildArtefacts.Enabled)
+        {
+            replaceWildArtefactsWithCustom();
+        }
 
         // Remove repeatable gil moogle throws
         search.Values.ForEach(s =>
@@ -216,6 +275,111 @@ public partial class TreasureRando : Randomizer
         List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
     }
 
+    private string[] wildZoneNums = [];
+
+    private void replaceWildArtefactsWithCustom()
+    {
+        Dictionary<string, string> zoneToArtefactMap = new Dictionary<string, string>();
+        // setup fake items (equip rando)
+        // replace vanilla wild artefact treasures accordingly
+        treasures["tre_bjaa_opts1"].s11ItemResourceId = "opt_bjaa03_bj";
+        zoneToArtefactMap.Add("00020", "opt_bjaa03_bj");
+        treasures["tre_bjda_opts1"].s11ItemResourceId = "opt_bjba01_gy";
+        zoneToArtefactMap.Add("00023", "opt_bjba01_gy");
+        treasures["tre_gyba_opts1"].s11ItemResourceId = "opt_gyba01_sn";
+        zoneToArtefactMap.Add("00031", "opt_bjba01_gy");
+        treasures["tre_gwca_opt01"].s11ItemResourceId = "opt_gwda01_gw";
+        zoneToArtefactMap.Add("00053", "opt_gwda01_gw");
+        treasures["tre_snda_opts1"].s11ItemResourceId = "opt_acea02_gy";
+        zoneToArtefactMap.Add("00114", "opt_acea02_gy");
+        treasures["tre_gdza_opts1"].s11ItemResourceId = "opt_gdaa01_vp";
+        zoneToArtefactMap.Add("00080", "opt_gdaa01_vp");
+        treasures["tre_aaea_opts1"].s11ItemResourceId = "opt_aaea03_vp";
+        zoneToArtefactMap.Add("00204", "opt_aaea03_vp");
+        treasures["tre_gtca_opts1"].s11ItemResourceId = "opt_gtca02_gw";
+        zoneToArtefactMap.Add("00092", "opt_gtca02_gw");
+        treasures["tre_csza_002"].s11ItemResourceId = "opt_ghaa01_gt";
+        zoneToArtefactMap.Add("00180", "opt_ghaa01_gt");
+        treasures["tre_ddha_opts1"].s11ItemResourceId = "opt_ddha01_bj";
+        zoneToArtefactMap.Add("00157", "opt_ddha01_bj");
+
+        wildZoneNums = zoneToArtefactMap.Keys.ToArray();
+        treasuresOrig["tre_bjaa_opts1"].s11ItemResourceId = "opt_bjaa03_bj";
+        treasuresOrig["tre_bjda_opts1"].s11ItemResourceId = "opt_bjba01_gy";
+        treasuresOrig["tre_gyba_opts1"].s11ItemResourceId = "opt_gyba01_sn";
+        treasuresOrig["tre_gwca_opt01"].s11ItemResourceId = "opt_gwda01_gw";
+        treasuresOrig["tre_snda_opts1"].s11ItemResourceId = "opt_acea02_gy";
+        treasuresOrig["tre_gdza_opts1"].s11ItemResourceId = "opt_gdaa01_vp";
+        treasuresOrig["tre_aaea_opts1"].s11ItemResourceId = "opt_aaea03_vp";
+        treasuresOrig["tre_gtca_opts1"].s11ItemResourceId = "opt_gtca02_gw";
+        treasuresOrig["tre_csza_002"].s11ItemResourceId = "opt_ghaa01_gt";
+        treasuresOrig["tre_ddha_opts1"].s11ItemResourceId = "opt_ddha01_bj";
+        // update requirements on wild gates accordingly for each treasure (replace opt_silver requirement with item
+        ItemLocations["hs_aaea01_vp:0"].Requirements = new AmountItemReq("opt_aaea03_vp", 1);
+        ItemLocations["hs_acea02_gy:0"].Requirements = new AmountItemReq("opt_acea02_gy", 1);
+        ItemLocations["hs_bjaa03_bj:0"].Requirements = new AndItemReq([new AmountItemReq("opt_bjaa03_bj", 1), new AmountItemReq("key_lockjail", 1)]);
+        ItemLocations["hs_bjda01_gy:0"].Requirements = new AmountItemReq("opt_bjba01_gy", 1);
+        ItemLocations["hs_ddha02_bj:0"].Requirements = new AmountItemReq("opt_ddha01_bj", 1);
+        ItemLocations["hs_gdza01_vp:0"].Requirements = new AndItemReq([new AmountItemReq("opt_gdaa01_vp", 1), new AmountItemReq("frg_gd_1", 1)]);
+        ItemLocations["hs_ghaa02_gt:0"].Requirements = new AmountItemReq("opt_ghaa01_gt", 1);
+        ItemLocations["hs_gtca02_gw:0"].Requirements = new AndItemReq([new AmountItemReq("opt_gtca02_gw", 1), new AmountItemReq("key_access_la", 1)]);
+        ItemLocations["hs_gwda01_gw:0"].Requirements = new AmountItemReq("opt_gwda01_gw", 1);
+        ItemLocations["hs_gyba01_sn:0"].Requirements = new AmountItemReq("opt_gyba01_sn", 1);
+        // update gate table with custom artefact name
+        HistoriaCruxRando hisRand = Generator.Get<HistoriaCruxRando>();
+        hisRand.gateTable["hs_aaea01_vp"].sOopartsName = "opt_aaea03_vp";
+        hisRand.gateTable["hs_aaea01_vp"].sGateRelationItem0 = "opt_aaea03_vp";
+        hisRand.gateTable["hs_acea02_gy"].sOopartsName = "opt_acea02_gy";
+        hisRand.gateTable["hs_acea02_gy"].sGateRelationItem0 = "opt_acea02_gy";
+        hisRand.gateTable["hs_bjaa03_bj"].sOopartsName = "opt_bjaa03_bj";
+        hisRand.gateTable["hs_bjaa03_bj"].sGateRelationItem0 = "opt_bjaa03_bj";
+        hisRand.gateTable["hs_bjda01_gy"].sOopartsName = "opt_bjba01_gy";
+        hisRand.gateTable["hs_bjda01_gy"].sGateRelationItem0 = "opt_bjba01_gy";
+        hisRand.gateTable["hs_ddha02_bj"].sOopartsName = "opt_ddha01_bj";
+        hisRand.gateTable["hs_ddha02_bj"].sGateRelationItem0 = "opt_ddha01_bj";
+        hisRand.gateTable["hs_gdza01_vp"].sOopartsName = "opt_gdaa01_vp";
+        hisRand.gateTable["hs_gdza01_vp"].sGateRelationItem0 = "opt_gdaa01_vp";
+        hisRand.gateTable["hs_ghaa02_gt"].sOopartsName = "opt_ghaa01_gt";
+        hisRand.gateTable["hs_ghaa02_gt"].sGateRelationItem0 = "opt_ghaa01_gt";
+        hisRand.gateTable["hs_gtca02_gw"].sOopartsName = "opt_gtca02_gw";
+        hisRand.gateTable["hs_gtca02_gw"].sGateRelationItem0 = "opt_gtca02_gw";
+        hisRand.gateTable["hs_gwda01_gw"].sOopartsName = "opt_gwda01_gw";
+        hisRand.gateTable["hs_gwda01_gw"].sGateRelationItem0 = "opt_gwda01_gw";
+        hisRand.gateTable["hs_gyba01_sn"].sOopartsName = "opt_gyba01_sn";
+        hisRand.gateTable["hs_gyba01_sn"].sGateRelationItem0 = "opt_gyba01_sn";
+
+
+        // change zone script table to point at sfRandoGateBase / sfRandoGateFailBase and add custom item name as argument
+        foreach(string zoneNum in wildZoneNums)
+        {
+            DataStoreWDB<DataStoreZoneScript> zoneScripts = new DataStoreWDB<DataStoreZoneScript>();
+            zoneScripts.LoadDB3(Generator, "13-2", $@"\db\script\script{zoneNum}.wdb");
+            foreach(var scriptEntryKey in zoneScripts.Keys)
+            {
+                var scriptBody = zoneScripts[scriptEntryKey];
+                if (scriptBody.sClassName == "cmn/common")
+                {
+                    if (scriptBody.sMethodName == "sfSilverGateBase")
+                    {
+                        scriptBody.sMethodName = "sfRandoGateBase";
+                        scriptBody.iAdditionalStringArgCount = 1;
+                        // Relevant artefact item goes here...
+                        scriptBody.sAdditionalStringArg0 = zoneToArtefactMap[zoneNum];
+                    } else if (scriptBody.sMethodName == "sfSilverGateFailBase")
+                    {
+                        scriptBody.sMethodName = "sfRandoGateFailBase";
+                        scriptBody.iAdditionalStringArgCount = 1;
+                        // Relevant artefact item goes here...
+                        scriptBody.sAdditionalStringArg0 = zoneToArtefactMap[zoneNum];
+                    }
+                }
+            }
+            zoneScriptTables.Add(zoneNum, zoneScripts);
+        }
+
+        // custom items also need text entries for their names? (text rando)
+    }
+
     public int GetMaxFlagIndex(DataStoreWDB<DataStoreREventFlag> store)
     {
         // Set 6000 as base index to space apart from existing flags.
@@ -225,11 +389,20 @@ public partial class TreasureRando : Randomizer
 
     public void AddTreasure(string newName, string item, int count, string next, bool addFlag = true)
     {
-        AddTreasure(treasuresOrig, newName, item, count, next);
-        AddTreasure(treasures, newName, item, count, next);
+        string modifiedName = addFlag ? "z" + newName : newName;
+        if (!ItemLocations.ContainsKey(modifiedName) && newName != "ran_init_cp")
+        {
+            throw new Exception($"Identified newly added treasure {modifiedName} without data entry!");
+        }
+        if(modifiedName.Length > 15)
+        {
+            throw new Exception($"Max name length is 15! {modifiedName}");
+        }
+        AddTreasure(treasuresOrig, modifiedName, item, count, next);
+        AddTreasure(treasures, modifiedName, item, count, next);
         if (addFlag)
         {
-            AddFlag(eventFlags, newName, GetMaxFlagIndex(eventFlags) + 1);
+            AddFlag(eventFlags, modifiedName, GetMaxFlagIndex(eventFlags) + 1);
         }
     }
 
@@ -440,6 +613,12 @@ public partial class TreasureRando : Randomizer
         eventFlags.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_eventflag.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_eventflag.wdb");
         search.SaveDB3(Generator, @"\db\resident\searchitem.wdb");
+        foreach(var entry in zoneScriptTables)
+        {
+            var zoneNum = entry.Key;
+            var scriptDb = entry.Value;
+            scriptDb.SaveDB3(Generator, $@"\db\script\script{zoneNum}.wdb");
+        }
     }
 
     public override Dictionary<string, HTMLPage> GetDocumentation()

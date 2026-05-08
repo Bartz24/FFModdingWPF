@@ -160,7 +160,7 @@ public class FF13_2ItemPlacer : CombinedItemPlacer<FF13_2ItemLocation, ItemData>
                 var itemData = Generator.Get<EquipRando>().itemData.GetValueOrDefault(locationItem, null);
                 if (itemData != null)
                 {
-                    var progressionCategories = new List<string>() { "Graviton", "SideKey", "GateSeal", "Wild", "Fragment", "MogLevel", "Artefact", "Event" };
+                    var progressionCategories = new List<string>() { "Graviton", "SideKey", "GateSeal", "Wild", "Fragment", "MogLevel", "ShopLevel", "Artefact", "Event", "FragmentSkill" };
                     foreach (var category in progressionCategories)
                     {
                         if (itemData.Traits.Contains(category))
@@ -193,7 +193,7 @@ public class FF13_2ItemPlacer : CombinedItemPlacer<FF13_2ItemLocation, ItemData>
     {
         Dictionary<string, double> areaMults = PossibleLocations.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
 
-        ProgressionPlacer = new(Generator, AreaGraph, GetDifficulty(), areaMults);
+        ProgressionPlacer = new FF13_2ProgressionItemPlacer(Generator, AreaGraph, GetDifficulty(), areaMults);
         ProgressionPlacer.FixedLocations = GetFixedLocations();
         if (FF13_2Flags.Items.KeyPlaceAreaBias.Enabled)
         {

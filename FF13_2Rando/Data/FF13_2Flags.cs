@@ -110,6 +110,8 @@ public class FF13_2Flags
         public static Flag Treasures;
         public static ToggleFlagProperty KeyWild, KeyGraviton, KeyFragment, KeyGateSeal, KeySide, KeyParadox, KeyArtefact;
         public static ToggleFlagProperty KeyPlaceTreasure, KeyPlaceBrainBlast, KeyPlaceThrowCryst, KeyPlaceThrowJunk, KeyPlaceParadox, KeyPlaceAreaBias;
+        public static ToggleFlagProperty ReplaceWildArtefacts;
+        public static NumberFlagProperty InitialShopLevel;
         public static ComboBoxFlagProperty KeyDepth;
 
         internal static void Init()
@@ -233,6 +235,22 @@ public class FF13_2Flags
                 ID = "KeyAccessibilityBias",
                 Description = "Instructs the placement logic to bias unlocking items by area accessibility.\n\n" +
                 "The intent of this change is to hopefully downgrade items with wide impacts but low immediate gain (such as mog levels) for more local progression."
+            }.Register(Treasures);
+
+            ReplaceWildArtefacts = new ToggleFlagProperty(false)
+            {
+                Text = "Replace wild artefacts with custom items [EXPERIMENTAL]",
+                ID = "WildArtefactReplace",
+                Description = "Replaces Wild Artefacts with custom items and updates gates accordingly to have a unique artefact always."
+            }.Register(Treasures);
+
+            InitialShopLevel = new NumberFlagProperty(0)
+            {
+                Text = "Number of initial shop levels",
+                ID = "InitialShopLevels",
+                Description = "The number of Progressive shop levels to start with.",
+                MinValue = 0,
+                MaxValue = 11
             }.Register(Treasures);
         }
     }
