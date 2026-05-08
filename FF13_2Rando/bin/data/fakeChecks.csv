@@ -91,13 +91,14 @@ frg_gy_11,Helmwige's Nightshade,h_gy_AD0100,,,I(key_osonae|1),Fragment,frg_gy_11
 frg_gy_12,Siegrune's Spiritbloom,h_gy_AD0100,,,AND(I(key_common_art|1)|I(frg_gy_11|1)),Fragment,frg_gy_12
 frg_gy_13,Rossweisse Skyblossom,h_gy_AD0100,,,AND(I(key_rem_ring|1)|I(frg_gy_11|1)|I(frg_gy_12|1)|I(frg_gy_10|1)),Fragment,frg_gy_13
 frg_gy_14,Book of Shambala,h_gy_AD0100,,,I(frg_gy_13|1),Fragment,frg_gy_14
-frg_gy_17,Control Device Password 1,h_gy_AD0200,,h_gy_AD0100,AND(I(frg_bj_14_init|1)|I(key_sone_info|1)),Fragment,frg_gy_17
+frg_gy_17,Control Device Password 1,h_gy_AD0200,,h_gy_AD0100,I(key_sone_info|1),Fragment,frg_gy_17
 frg_gy_18,Ugallu Fragment,h_gy_AD0200,,,AND(I(frg_gy_14|1)|I(frg_gy_22|1)),Fragment,frg_gy_18
 frg_gy_19,Waltraute's Flower,h_gy_AD0200,,,I(key_f_manual|1),Fragment,frg_gy_19
 frg_gy_20,Gerhilde's Blossom,h_gy_AD0200,,,I(key_y_baggage|1),Fragment,frg_gy_20
 frg_gy_21,Ortlinde's Bloom,h_gy_AD0200,,,I(key_black_flw|1),Fragment,frg_gy_21
 frg_gy_22,Book of Avalon,h_gy_AD0200,,,I(frg_gy_21|1),Fragment,frg_gy_22
 # Fragments - Oerba
+frg_pzl_gwca003,Time's Coral,h_gw_AD0200,1,,,Fragment,frg_pzl_gwca003
 # Fragments - Sunleth
 # Fragments - Archylte
 frg_gd_1,Black Hole Gem,h_gd_NA0000,,,I(frg_gd_7),Fragment,frg_gd_1
@@ -125,18 +126,3 @@ frg_gt_4,Difference Engine,h_gt_AD0200,,,AND(I(frg_gt_3|1)|I(key_paraxxf|1)),Fra
 # Fragments - Dying World
 frg_cmn_ddha001,Gogmagog Fragment Gamma,h_dd_AD0700,1,,,Fragment,frg_cmn_ddha001
 # Fragments - Void Beyond
-# Fragment Skills - TODO requirements
-#privilege01,Mog's Manifestation,h_cs_NA0000,,,,FragmentSkill,privilege01
-#privilege02,Bargain Hunter,h_cs_NA0000,,,,FragmentSkill,privilege02
-#privilege03,Haggler,h_cs_NA0000,,,,FragmentSkill,privilege03
-#privilege04,Chocobo Music,h_cs_NA0000,,,,FragmentSkill,privilege04
-privilege05,Anti-grav Jump,h_cs_NA0000,,,AND(I(frg_cmn_ddha001|1)|I(key_unk_s_opt|1)|I(key_unk_y_opt|1)),FragmentSkill,privilege05
-#privilege06,Paradox Scope,h_cs_NA0000,,,I(frg_cmn_acfa002|1),FragmentSkill,privilege06
-#privilege08,Rolling in CP,h_cs_NA0000,,,,FragmentSkill,privilege08
-#privilege10,Mobile Mog,h_cs_NA0000,,,,FragmentSkill,privilege10
-#privilege11,Monster Collector,h_cs_NA0000,,,,FragmentSkill,privilege11
-#privilege12,Encounter Master,h_cs_NA0000,,,,FragmentSkill,privilege12
-#privilege14,Battlemania,h_cs_NA0000,,,,FragmentSkill,privilege14
-#privilege15,Field Killer,h_cs_NA0000,,,,FragmentSkill,privilege15
-#privilege17,Clock Master,h_cs_NA0000,,,,FragmentSkill,privilege17
-#privilege18,Eyes of the Goddess,h_cs_NA0000,,,,FragmentSkill,privilege18

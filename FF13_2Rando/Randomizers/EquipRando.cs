@@ -32,6 +32,30 @@ public class EquipRando : Randomizer
         items.Copy("key_l_knife", "key_mog_level");
         items["key_mog_level"].sItemNameStringId = "$mog_level";
         items["key_mog_level"].sHelpStringId = "$mog_levelh";
+
+        items.Copy("key_l_knife", "key_shop_level");
+        items["key_shop_level"].sItemNameStringId = "$shop_level";
+        items["key_shop_level"].sHelpStringId = "$shop_levelh";
+
+        string[] fragmentSkillKeys = ["01", "02", "03", "04", "05", "06", "08", "10", "11", "12", "14", "15", "18"];
+
+        foreach (var key in fragmentSkillKeys)
+        {
+            var itemName = $"privilege{key}";
+            items.Copy("key_l_knife", itemName);
+            items[itemName].sItemNameStringId = "$"+itemName;
+            items[itemName].sHelpStringId = "$"+itemName+"h";
+        }
+
+        // Add fake items here for artefacts
+        string[] fakeArtefactIds = ["opt_bjaa03_bj", "opt_ddha01_bj", "opt_bjba01_gy", "opt_ghaa01_gt", "opt_gdaa01_vp", "opt_acea02_gy", "opt_gyba01_sn", "opt_gtca02_gw", "opt_gwda01_gw", "opt_aaea03_vp"];
+        foreach(string s in fakeArtefactIds)
+        {
+            items.Copy("key_l_knife", s);
+            items[s].sItemNameStringId = $"${s}";
+            items[s].sHelpStringId = $"${s}h";
+            items[s].u8MenuIcon = 7;
+        }
     }
     public override void Randomize()
     {

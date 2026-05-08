@@ -147,6 +147,18 @@ public partial class BattleRando : Randomizer
 
     private void ShuffleBosses()
     {
+        // Set despair flags on field bosses if in the pool to avoid issues with loading encounters
+        if (FF13_2Flags.Enemies.Bosses.Values.Contains("Ugallu"))
+        {
+            btTables["btstab00032"]["gyca_msn01_00"].uiDespair0 = 1;
+        }
+        if (FF13_2Flags.Enemies.Bosses.Values.Contains("Gorgyra"))
+        {
+            btTables["btstab00030"]["gyaa_msn01_00"].uiDespair0 = 1;
+            btTables["btstab00180"]["gyaa_msn01_00"].uiDespair0 = 1;
+            btTables["btstab00180"]["ghaa_msn01_00"].uiDespair0 = 1;
+        }
+
         HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
         Dictionary<string, BossData> reducedBossDataForShuffle = bossData.Keys.Distinct()
                             .Where(g => FF13_2Flags.Enemies.Bosses.SelectedValues.Contains(g))
