@@ -25,9 +25,9 @@ public partial class CrystariumRando : Randomizer
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading Crystarium Data...");
-        crystSerah.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_pc008.wdb", false);
-        crystNoel.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_pc010.wdb", false);
-        crystMonster.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_st.wdb", false);
+        crystSerah.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_pc008.wdb", false);
+        crystNoel.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_pc010.wdb", false);
+        crystMonster.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_grow_st.wdb", false);
 
         abilityData.Clear();
         using (CsvParser csv = new(new StreamReader(@"data\abilities.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false }))
@@ -160,11 +160,11 @@ public partial class CrystariumRando : Randomizer
     public override void Save()
     {
         RandoUI.SetUIProgressIndeterminate("Saving Crystarium Data...");
-        crystSerah.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_grow_pc008.wdb");
+        crystSerah.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_grow_pc008.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_pc008.wdb");
-        crystNoel.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_grow_pc010.wdb");
+        crystNoel.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_grow_pc010.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_pc010.wdb");
-        crystMonster.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_grow_st.wdb");
+        crystMonster.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_grow_st.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_grow_st.wdb");
     }
 }

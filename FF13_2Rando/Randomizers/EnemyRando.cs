@@ -37,19 +37,19 @@ public class EnemyRando : Randomizer
         x000.ForEach(s =>
         {
             DataStoreWDB<DataStoreBtCharaSpec> db3 = new();
-            db3.LoadDB3(Generator, "13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
+            db3.LoadWDB(Generator, "13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
             enemies.Add(s, db3);
         });
         x000.ForEach(s =>
         {
             DataStoreWDB<DataStoreBtCharaSpec> db3 = new();
-            db3.LoadDB3(Generator, "13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
+            db3.LoadWDB(Generator, "13-2", @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb", false);
             enemiesOrig.Add(s, db3);
         });
 
         GetEnemies(e => e.u14DropProb2 is > 0 and < 7500).ForEach(e => e.u14DropProb2 = Math.Min((int)(e.u14DropProb2 * 2.5), 7500));
 
-        charaFamily.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_charafamily.wdb", false);
+        charaFamily.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_charafamily.wdb", false);
     }
 
     public DataStoreBtCharaSpec GetEnemy(string id, bool orig = false)
@@ -106,11 +106,11 @@ public class EnemyRando : Randomizer
         RandoUI.SetUIProgressIndeterminate("Saving Enemy Data...");
         x000.ForEach(s =>
         {
-            enemies[s].SaveDB3(Generator, @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb");
+            enemies[s].SaveWDB(Generator, @"\btscene\pack\wdb\_x000.bin\" + s + ".wdb");
             SetupData.WPDTracking[Generator.DataOutFolder + @"\btscene\pack\wdb\x000.bin"].Add(s + ".wdb");
         });
 
-        charaFamily.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_charafamily.wdb");
+        charaFamily.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_charafamily.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_charafamily.wdb");
     }
 }

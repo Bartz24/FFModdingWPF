@@ -42,8 +42,8 @@ public partial class HistoriaCruxRando : Randomizer
     {
         RandoUI.SetUIProgressIndeterminate("Loading Historia Crux Data...");
         // Unpack gate table
-        gateTable.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
-        gateTableOrig.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
+        gateTable.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
+        gateTableOrig.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_gatetab.wdb", false);
 
         gateData.Clear();
 
@@ -1398,7 +1398,7 @@ public partial class HistoriaCruxRando : Randomizer
     public override void Save()
     {
         RandoUI.SetUIProgressIndeterminate("Saving Historia Crux Data...");
-        gateTable.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_gatetab.wdb");
+        gateTable.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_gatetab.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_gatetab.wdb");
 
         FF13_2RandoExtensions.SaveFile(Generator, @"\gui\resident\_system.win32.xgr\gr_hc_parts.ykd", hcParts);

@@ -37,11 +37,11 @@ public partial class BattleRando : Randomizer
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading Battle Data...");
-        btScenes.LoadDB3(Generator, "13-2", @"\db\resident\bt_scene.wdb");
+        btScenes.LoadWDB(Generator, "13-2", @"\db\resident\bt_scene.wdb");
         // Skip 1 for header
         enemyData = File.ReadAllLines(@"data\enemies.csv").Skip(1).Select(s => new EnemyData(s.Split(","))).ToDictionary(e => e.ID, e => e);
 
-        charaSets.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
+        charaSets.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_charaset.wdb", false);
 
         bossData.Clear();
         using (CsvParser csv = new(new StreamReader(@"data\bosses.csv"), new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = true, AllowComments = true }))
@@ -77,7 +77,7 @@ public partial class BattleRando : Randomizer
         historiaCruxRando.areaData.Values.Where(a => !string.IsNullOrEmpty(a.BattleTableID)).ForEach(a =>
         {
             DataStoreWDB<DataStoreBtSTable> table = new();
-            table.LoadDB3(Generator, "13-2", @"\db\btscenetable\" + a.BattleTableID + ".wdb");
+            table.LoadWDB(Generator, "13-2", @"\db\btscenetable\" + a.BattleTableID + ".wdb");
             btTables.Add(a.BattleTableID, table);
         });
     }
@@ -721,14 +721,14 @@ public partial class BattleRando : Randomizer
     public override void Save()
     {
         RandoUI.SetUIProgressIndeterminate("Saving Battle Data...");
-        btScenes.SaveDB3(Generator, @"\db\resident\bt_scene.wdb");
+        btScenes.SaveWDB(Generator, @"\db\resident\bt_scene.wdb");
 
-        charaSets.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_charaset.wdb");
+        charaSets.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_charaset.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_charaset.wdb");
 
         btTables.Keys.ForEach(id =>
         {
-            btTables[id].DeleteDB3(Generator, @"\db\btscenetable\" + id + ".db3");
+            btTables[id].SaveWDB(Generator, @"\db\btscenetable\" + id + ".wdb");
         });
     }
 }

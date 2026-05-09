@@ -39,10 +39,10 @@ public class TextRando : Randomizer
 
         // Custom artefact names
         mainSysUS[equipRando.items["opt_bjaa03_bj"].sItemNameStringId] = "Frozen Artefact";
-        mainSysUS[equipRando.items["opt_bjaa03_bj"].sHelpStringId] = "An aretfact shaped like a snowflake.";
+        mainSysUS[equipRando.items["opt_bjaa03_bj"].sHelpStringId] = "An artefact shaped like a snowflake.";
 
         mainSysUS[equipRando.items["opt_ddha01_bj"].sItemNameStringId] = "Overgrown Artefact";
-        mainSysUS[equipRando.items["opt_ddha01_bj"].sHelpStringId] = "An Aretfact constructed from a collection of plant life.";
+        mainSysUS[equipRando.items["opt_ddha01_bj"].sHelpStringId] = "An aretfact constructed from a collection of plant life.";
 
         mainSysUS[equipRando.items["opt_bjba01_gy"].sItemNameStringId] = "Artefact of Penumbra";
         mainSysUS[equipRando.items["opt_bjba01_gy"].sHelpStringId] = "A dark artefact remiscent of the light during a thunderstorm.";
@@ -51,16 +51,16 @@ public class TextRando : Randomizer
         mainSysUS[equipRando.items["opt_ghaa01_gt"].sHelpStringId] = "An artefact capable of processing information.";
 
         mainSysUS[equipRando.items["opt_gdaa01_vp"].sItemNameStringId] = "Blitz Artefact";
-        mainSysUS[equipRando.items["opt_gdaa01_vp"].sHelpStringId] = "An aretfact shaped like a squadron badge.";
+        mainSysUS[equipRando.items["opt_gdaa01_vp"].sHelpStringId] = "An artefact shaped like a squadron badge.";
 
         mainSysUS[equipRando.items["opt_acea02_gy"].sItemNameStringId] = "Artefact of Umbra";
         mainSysUS[equipRando.items["opt_acea02_gy"].sHelpStringId] = "An artefact from a dark time.";
 
         mainSysUS[equipRando.items["opt_gyba01_sn"].sItemNameStringId] = "Rainbow Artefact";
-        mainSysUS[equipRando.items["opt_gyba01_sn"].sHelpStringId] = "An aretfact which shines with various colors.";
+        mainSysUS[equipRando.items["opt_gyba01_sn"].sHelpStringId] = "An artefact which shines with various colors.";
 
         mainSysUS[equipRando.items["opt_gtca02_gw"].sItemNameStringId] = "Sandstorm Artefact";
-        mainSysUS[equipRando.items["opt_gtca02_gw"].sHelpStringId] = "An aretfact which rings out with a strange sound.";
+        mainSysUS[equipRando.items["opt_gtca02_gw"].sHelpStringId] = "An artefact which rings out with a strange sound.";
 
         mainSysUS[equipRando.items["opt_gwda01_gw"].sItemNameStringId] = "Arenaceous Artefact";
         mainSysUS[equipRando.items["opt_gwda01_gw"].sHelpStringId] = "A sand covered artefact which reminds you of brighter times.";

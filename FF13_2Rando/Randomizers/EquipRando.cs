@@ -19,9 +19,9 @@ public class EquipRando : Randomizer
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading Item/Equip Data...");
-        itemWeapons.LoadDB3(Generator, "13-2", @"\db\resident\item_weapon.wdb");
+        itemWeapons.LoadWDB(Generator, "13-2", @"\db\resident\item_weapon.wdb");
         FileHelpers.CopyFile(Generator.DataOutFolder + @"\db\resident\item_weapon.wdb", Generator.DataOutFolder + @"\db\resident\item_weapon.wdb.orig");
-        items.LoadDB3(Generator, "13-2", @"\db\resident\item.wdb");
+        items.LoadWDB(Generator, "13-2", @"\db\resident\item.wdb");
 
         FileHelpers.ReadCSVFile(@"data\items.csv", row =>
         {
@@ -146,8 +146,8 @@ public class EquipRando : Randomizer
     public override void Save()
     {
         RandoUI.SetUIProgressIndeterminate("Saving Item/Equip Data...");
-        items.SaveDB3(Generator, @"\db\resident\item.wdb");
-        itemWeapons.SaveDB3(Generator, @"\db\resident\item_weapon.wdb");
+        items.SaveWDB(Generator, @"\db\resident\item.wdb");
+        itemWeapons.SaveWDB(Generator, @"\db\resident\item_weapon.wdb");
     }
 
     private string GetItemName(string itemID)

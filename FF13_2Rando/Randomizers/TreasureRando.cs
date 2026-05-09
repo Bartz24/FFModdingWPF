@@ -39,13 +39,13 @@ public partial class TreasureRando : Randomizer
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading Treasure Data...");
-        treasuresOrig.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
-        treasures.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
-        searchOrig.LoadDB3(Generator, "13-2", @"\db\resident\searchitem.wdb");
-        search.LoadDB3(Generator, "13-2", @"\db\resident\searchitem.wdb");
-        fragments.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_fragment.wdb", false);
-        eventFlagsOrig.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_eventflag.wdb", false);
-        eventFlags.LoadDB3(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_eventflag.wdb", false);
+        treasuresOrig.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
+        treasures.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_treasurebox.wdb", false);
+        searchOrig.LoadWDB(Generator, "13-2", @"\db\resident\searchitem.wdb");
+        search.LoadWDB(Generator, "13-2", @"\db\resident\searchitem.wdb");
+        fragments.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_fragment.wdb", false);
+        eventFlagsOrig.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_eventflag.wdb", false);
+        eventFlags.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_eventflag.wdb", false);
 
         ItemLocations.Clear();
 
@@ -353,7 +353,7 @@ public partial class TreasureRando : Randomizer
         foreach(string zoneNum in wildZoneNums)
         {
             DataStoreWDB<DataStoreZoneScript> zoneScripts = new DataStoreWDB<DataStoreZoneScript>();
-            zoneScripts.LoadDB3(Generator, "13-2", $@"\db\script\script{zoneNum}.wdb");
+            zoneScripts.LoadWDB(Generator, "13-2", $@"\db\script\script{zoneNum}.wdb");
             foreach(var scriptEntryKey in zoneScripts.Keys)
             {
                 var scriptBody = zoneScripts[scriptEntryKey];
@@ -608,16 +608,16 @@ public partial class TreasureRando : Randomizer
     {
         RandoUI.SetUIProgressIndeterminate("Saving Treasure Data...");
         SaveHints();
-        treasures.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
+        treasures.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_treasurebox.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_treasurebox.wdb");
-        eventFlags.SaveDB3(Generator, @"\db\resident\_wdbpack.bin\r_eventflag.wdb");
+        eventFlags.SaveWDB(Generator, @"\db\resident\_wdbpack.bin\r_eventflag.wdb");
         SetupData.WPDTracking[Generator.DataOutFolder + @"\db\resident\wdbpack.bin"].Add("r_eventflag.wdb");
-        search.SaveDB3(Generator, @"\db\resident\searchitem.wdb");
+        search.SaveWDB(Generator, @"\db\resident\searchitem.wdb");
         foreach(var entry in zoneScriptTables)
         {
             var zoneNum = entry.Key;
             var scriptDb = entry.Value;
-            scriptDb.SaveDB3(Generator, $@"\db\script\script{zoneNum}.wdb");
+            scriptDb.SaveWDB(Generator, $@"\db\script\script{zoneNum}.wdb");
         }
     }
 
