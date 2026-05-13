@@ -1,4 +1,4 @@
-﻿using Ookii.Dialogs.Wpf;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,7 +51,8 @@ public class RandoSeeds
                             Version = version,
                             FlagString = compressor.Compress(json),
                             PresetUsed = preset,
-                            ArchipelagoData = apData
+                            ArchipelagoData = apData,
+                            DocsArchivePath = Path.GetFullPath(pack)
                         });
                     }
                 }
@@ -117,6 +118,21 @@ public class RandoSeeds
         // Copy compressed string to clipboard
         Clipboard.SetText(info.FlagString);
         RandoUI.ShowTempUIMessage($"Copied seed string for seed {info.Seed} to clipboard!");
+    }
+
+    public static void OpenDocs(SeedInformation info)
+    {
+        if (string.IsNullOrWhiteSpace(info.DocsArchivePath) || !File.Exists(info.DocsArchivePath))
+        {
+            MessageBox.Show("Could not find the docs archive for this seed.", "Docs not found");
+            return;
+        }
+
+        DocsViewerWindow viewer = new(info)
+        {
+            Owner = Application.Current?.MainWindow
+        };
+        viewer.Show();
     }
 
     public static void ShareFileSeed(SeedInformation info)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Bartz24.RandoWPF;
 public class SeedInformation
@@ -11,4 +11,6 @@ public class SeedInformation
     public string FlagString { get; set; }
     public string PresetUsed { get; set; }
     public ArchipelagoData ArchipelagoData { get; set; }
+    public string DocsArchivePath { get; set; }
+    public bool HasDocsArchive => !string.IsNullOrWhiteSpace(DocsArchivePath);
 }

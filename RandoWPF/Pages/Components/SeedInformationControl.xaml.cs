@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -30,6 +30,11 @@ public partial class SeedInformationControl : UserControl
     private void ShareButton_Click(object sender, RoutedEventArgs e)
     {
         RandoSeeds.ShareStringSeed(Info);
+    }
+
+    private void OpenDocsButton_Click(object sender, RoutedEventArgs e)
+    {
+        RandoSeeds.OpenDocs(Info);
     }
 
     private void ShareJSONButton_Click(object sender, RoutedEventArgs e)
