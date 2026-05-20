@@ -26,9 +26,9 @@ h_sp_NA0001,hs_spza02_ac,,h_sn_AD0300|h_gd_NA0000,0,Void Beyond -> Academia 400 
 h_ac_AD0400,hs_acea01_gt,,,0,Academia 400 AF -> Augusta 200 AF,
 h_ac_AD0400,hs_acea02_gy,Wild,,0,Academia 400 AF -> Yaschas 100 AF,
 h_gy_AD0100,hs_gyba01_sn,Wild,,0,Yaschas 100 AF -> Sunleth 400 AF,
-h_gt_AD0200,hs_gtca02_gw,Wild,h_gt_AD0300,0,Augusta 200 AF -> Oerba 300 AF,
+h_gt_AD0200,hs_gtca02_gw,Wild,,0,Augusta 200 AF -> Oerba 300 AF,
 h_gt_AD0200,hs_gtca94_gt,Paradox,h_cs_NA0000|h_gt_AD0300,0,Augusta 200 AF -> Paradox,I(privilege06|1)
-h_gt_AD0200,hs_gtca01_aa,,h_gt_AD0300,0,Augusta 200 AF -> Academia 4XX AF,
+h_gt_AD0200,hs_gtca01_aa,,,0,Augusta 200 AF -> Academia 4XX AF,
 h_gw_AD0300,hs_gwda01_gw,Wild,,0,Oerba 300 AF -> Oerba 400 AF,
 h_aa_AD0400,hs_aaea01_vp,Wild,,0,Academia 4XX AF -> Vile 10 AF,
 # TODO: for now this gate cannot be shuffled/replaced, it is a fixed join

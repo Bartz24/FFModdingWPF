@@ -1,6 +1,7 @@
 ﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
 using MaterialDesignThemes.Wpf;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -13,7 +14,12 @@ namespace FF13_2Rando;
 /// </summary>
 public partial class MainWindow : RandoMainWindow
 {
-    protected override SeedGenerator Generator => new FF13_2SeedGenerator();
+    protected override SeedGenerator Generator => RandoFlags.Mode switch
+    {
+        RandoFlags.SeedMode.Normal => new FF13_2SeedGenerator(),
+        RandoFlags.SeedMode.Archipelago => new FF13_2ArchipelagoSeedGenerator(),
+        _ => throw new NotImplementedException()
+    };
 
     protected override SegmentedProgressBar TotalProgressBar => totalProgressBar;
 
@@ -21,11 +27,13 @@ public partial class MainWindow : RandoMainWindow
 
     public MainWindow() : base()
     {
+        RandoFlags.ArchipelagoDataType = typeof(FF13_2ArchipelagoData);
         FF13_2Flags.Init();
         RandoPresets.Init();
         InitializeComponent();
         DataContext = this;
         DataExtensions.Mode = ByteMode.BigEndian;
+        ff132SetupPage.SetAPFileExtension(".apff132");
 
         if (string.IsNullOrEmpty(SetupData.Paths["Nova"]))
         {

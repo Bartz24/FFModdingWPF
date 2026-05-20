@@ -249,7 +249,7 @@ abstract class BaseMultiworldGenerator
             string traits = escapedTraits.Count switch
             {
                 0 => "()",
-                1 => $"({escapedTraits[0]},)",
+                1 => $"({escapedTraits[0]})",
                 _ => $"({string.Join(", ", escapedTraits)})",
             };
             script.Append($"    \"{ItemReq.EscapePythonString(kvp.Key)}\": {traits},\n");
@@ -272,6 +272,10 @@ abstract class BaseMultiworldGenerator
 
     protected static string BuildEntranceRuleTable(Dictionary<(string From, string To), string> entranceToRules, List<string> rules)
     {
+        if(entranceToRules.Count == 0)
+        {
+            return "";
+        }
         StringBuilder script = new();
         script.Append("\nentrance_rule_data_table: Dict[Tuple[str, str], Rule[Any]] = {\n");
         foreach (var key in entranceToRules.Keys)

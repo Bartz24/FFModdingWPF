@@ -34,6 +34,8 @@ public class TextRando : Randomizer
         mainSysUS[equipRando.items["key_mog_level"].sItemNameStringId] = "Progressive Mog Level{End}{Many}Progressive Mog Levels{End}{Article}a{End}";
         mainSysUS[equipRando.items["key_mog_level"].sHelpStringId] = "Each obtained unlocks the following in order: Moogle Hunt, Moogle Throw, and Improved Moogle Hunt.";
 
+        mainSysUS[equipRando.items["key_r_victory"].sItemNameStringId] = "Victory!";
+
         mainSysUS[equipRando.items["key_shop_level"].sItemNameStringId] = "Progressive Shop Level{End}{Many}Progressive Shop Levels{End}{Article}a{End}";
         mainSysUS[equipRando.items["key_shop_level"].sHelpStringId] = "Each obtained unlocks more items in Chocolina's shop.";
 
@@ -42,7 +44,7 @@ public class TextRando : Randomizer
         mainSysUS[equipRando.items["opt_bjaa03_bj"].sHelpStringId] = "An artefact shaped like a snowflake.";
 
         mainSysUS[equipRando.items["opt_ddha01_bj"].sItemNameStringId] = "Overgrown Artefact";
-        mainSysUS[equipRando.items["opt_ddha01_bj"].sHelpStringId] = "An aretfact constructed from a collection of plant life.";
+        mainSysUS[equipRando.items["opt_ddha01_bj"].sHelpStringId] = "An artefact constructed from a collection of plant life.";
 
         mainSysUS[equipRando.items["opt_bjba01_gy"].sItemNameStringId] = "Artefact of Penumbra";
         mainSysUS[equipRando.items["opt_bjba01_gy"].sHelpStringId] = "A dark artefact remiscent of the light during a thunderstorm.";

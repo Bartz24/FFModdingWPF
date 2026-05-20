@@ -122,7 +122,8 @@ public class FF13_2Flags
                 FlagID = "Treasures",
                 DescriptionFormat = "Randomize treasure spheres and cubes, Improved Moogle Throw search items, and non-useful fragments.\n" +
                 "Any key items in the pool will by default be shuffled between themselves.\n" +
-                "Does not include normal artefacts and event based items and fragments."
+                "Does not include normal artefacts and event based items and fragments.",
+                HasArchipelagoOverride = true
             }.Register(FlagType.Items);
 
             KeyWild = new ToggleFlagProperty(false)
@@ -174,7 +175,7 @@ public class FF13_2Flags
 
             KeyArtefact = new ToggleFlagProperty(false)
             {
-                Text = "Include Additional Aretfacts",
+                Text = "Include Additional Artefacts",
                 ID = "KeyArtefact",
                 Description = "The following artefacts will be included in the key item pool:\n" +
                 "Vagabond Artefact, Tower Artefact, Artefact of Rebirth, Artefact of Origins, Hollow Artefact, Giant's Artefact"
@@ -379,7 +380,8 @@ public class FF13_2Flags
                 Text = "Randomize Historia Crux",
                 FlagID = "HistCrux",
                 DescriptionFormat = "Randomizes the Historia Crux map.",
-                Aesthetic = true
+                Aesthetic = true,
+                HasArchipelagoOverride = true
             }.Register(FlagType.Other);
 
             ForcedStart = new ComboBoxFlagProperty("Bodhum")

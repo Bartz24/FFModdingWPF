@@ -21,7 +21,7 @@ public class DataStoreWDB<T> where T : DataStoreWDBEntry, new()
     public int RecordCount { get; private set; }
     [JsonPropertyName("!!sheetname")] public string SheetName { get; private set; } = string.Empty;
     public bool HasStrArray { get; private set; }
-    public int BitsPerOffset { get; private set; }
+    public int BitsPerOffset { get; set; }
     public int OffsetsPerValue { get; private set; }
     public bool IsStrTypelistV1 { get; private set; }
     [JsonPropertyName("!!strtypelistb")] public List<int> StrTypeListB { get; private set; } = new();
