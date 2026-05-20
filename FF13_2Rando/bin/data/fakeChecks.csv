@@ -1,37 +1,37 @@
 ID,Name,Areas,MogLevel,RequiredAreas,Requirements,Traits,Fake Items
 # Gate opening (for area logic),,,,,
 # TODO: paradox ending gate entries
-hs_aaea01_vp,Gate Open,h_aa_AD0400,,,I(opt_silver|1),Gate,hs_aaea01_vp
+hs_aaea01_vp,Artefact of Wrack and Ruin Gate Open,h_aa_AD0400,,,I(opt_silver|1),Gate,hs_aaea01_vp
 hs_aaea02_sp,Vagabond Artefact Gate Open,h_aa_AD0400,,,AND(C(Graviton|5)|I(opt_aaea02_sp|1)),Gate,hs_aaea02_sp
 hs_acea01_gt,Tower Artefact Gate Open,h_ac_AD0400,,,I(opt_acea01_gt|1),Gate,hs_acea01_gt
-hs_acea02_gy,Gate Open,h_ac_AD0400,,,I(opt_silver|1),Gate,hs_acea02_gy
-hs_acfa01_va,Gate Open,h_zz_NA0980,,,,Gate,hs_acfa01_va
-hs_acfa01_zz,Gate Open,h_ac_AD0500,,,I(privilege05|1),Gate,hs_acfa01_zz
+hs_acea02_gy,Artefact of Umbra Gate Open,h_ac_AD0400,,,I(opt_silver|1),Gate,hs_acea02_gy
+hs_acfa01_va,Deck Fights Gate Open,h_zz_NA0980,,,,Gate,hs_acfa01_va
+hs_acfa01_zz,Deck Fights Gate Open,h_ac_AD0500,,,I(privilege05|1),Gate,hs_acfa01_zz
 hs_bjaa01_gy,Eclipse Artefact Gate Open,h_bj_AD0005,1,,AND(I(boss_atlas|1)|I(opt_bjaa01_gy|1)),Gate,hs_bjaa01_gy
 hs_bjaa02_sn,Reunion Artefact Gate Open,h_zz_NA0910,1,,I(opt_bjaa02_sn|1),Gate,hs_bjaa02_sn
 hs_bjaa02_zz,Reunion Artefact Gate Open,h_bj_AD0005,,,AND(I(boss_atlas|1)|I(opt_bjaa02_sn|1)),Gate,hs_bjaa02_zz
-hs_bjaa03_bj,Bresha 5 Wild Artefact Gate Open,h_bj_AD0005,,,AND(I(opt_silver|1)|I(key_lockjail|1)),Gate,hs_bjaa03_bj
+hs_bjaa03_bj,Frozen Artefact Gate Open,h_bj_AD0005,,,AND(I(opt_silver|1)|I(key_lockjail|1)),Gate,hs_bjaa03_bj
 hs_bjaa91_gd,Bresha 5 Paradox Ending,h_zz_NA0910,1,,,Gate,hs_bjaa91_gd
-hs_bjda01_gy,Bresha 300 Wild Artefact Gate Open,h_bj_AD0300,,,I(opt_silver|1),Gate,hs_bjda01_gy
-hs_ddha01_hm,Gate Open,h_zz_NA0960,1,,,Gate,hs_ddha01_hm
-hs_ddha01_zz,Gate Open,h_dd_AD0700,,,,Gate,hs_ddha01_zz
-hs_ddha02_bj,Gate Open,h_dd_AD0700,3,,I(opt_silver|1),Gate,hs_ddha02_bj
-hs_ddha96_dd,Gate Open,h_zz_NA0960,,,,Gate,hs_ddha96_dd
-hs_gdza01_vp,Gate Open,h_gd_NA0000,1,,AND(I(frg_gd_1|1)|I(opt_silver|1)),Gate,hs_gdza01_vp
+hs_bjda01_gy,Artefact of Penumbra Gate Open,h_bj_AD0300,,,I(opt_silver|1),Gate,hs_bjda01_gy
+hs_ddha01_hm,Dying World Exit,h_zz_NA0960,1,,,Gate,hs_ddha01_hm
+hs_ddha01_zz,Dying World Exit,h_dd_AD0700,,,,Gate,hs_ddha01_zz
+hs_ddha02_bj,Overgrown Artefact Gate Open,h_dd_AD0700,3,,I(opt_silver|1),Gate,hs_ddha02_bj
+hs_ddha96_dd,Dying World Paradox Ending,h_zz_NA0960,,,,Gate,hs_ddha96_dd
+hs_gdza01_vp,Blitz Artefact Gate Open,h_gd_NA0000,1,,AND(I(frg_gd_1|1)|I(opt_silver|1)),Gate,hs_gdza01_vp
 #Technically inaccessible
-hs_ghaa01_ac,Gate Open,h_gh_AD0010,1,,I(key_unk_y_opt|1),Gate,hs_ghaa01_ac
-hs_ghaa01_cs,Gate Open,h_gh_AD0010,1,,I(key_unk_y_opt|1),Gate,hs_ghaa01_cs
-hs_ghaa02_gt,Gate Open,h_gh_AD0010,,,I(opt_silver|1),Gate,hs_ghaa02_gt
-hs_gtca01_aa,Rebirth Gate Open,h_zz_NA0940,,,AND(I(opt_gtca01_aa|1)|I(key_access_la|1)),Gate,hs_gtca01_aa
-hs_gtca01_zz,Rebirth Gate Open,h_gt_AD0200,,,AND(I(opt_gtca01_aa|1)|I(key_access_la|1)),Gate,hs_gtca01_zz
-hs_gtca02_gw,Gate Open,h_gt_AD0200,0,,AND(I(opt_silver|1)|I(key_access_la|1)),Gate,hs_gtca02_gw
-hs_gtca94_gt,Gate Open,h_zz_NA0940,,,,Gate,hs_gtca94_gt
-hs_gwca01_gh,Origins Gate Open,h_zz_NA0920,1,,I(opt_gwca01_gh|1),Gate,hs_gwca01_gh
-hs_gwca01_zz,Origins Gate Open,h_gw_AD0200,1,,I(opt_gwca01_gh|1),Gate,hs_gwca01_zz
-hs_gwca92_gw,Gate Open,h_zz_NA0920,1,,,Gate,hs_gwca92_gw
-hs_gwda01_gw,Gate Open,h_gw_AD0300,1,,I(opt_silver|1),Gate,hs_gwda01_gw
+hs_ghaa01_ac,Illusory Gate Open,h_gh_AD0010,1,,I(key_unk_y_opt|1),Gate,hs_ghaa01_ac
+hs_ghaa01_cs,Illusory Gate Open,h_gh_AD0010,1,,I(key_unk_y_opt|1),Gate,hs_ghaa01_cs
+hs_ghaa02_gt,Spire Aretfact Gate Open,h_gh_AD0010,,,I(opt_silver|1),Gate,hs_ghaa02_gt
+hs_gtca01_aa,Artefact of Rebirth Gate Open,h_zz_NA0940,,,AND(I(opt_gtca01_aa|1)|I(key_access_la|1)),Gate,hs_gtca01_aa
+hs_gtca01_zz,Artefact of Rebirth Gate Open,h_gt_AD0200,,,AND(I(opt_gtca01_aa|1)|I(key_access_la|1)),Gate,hs_gtca01_zz
+hs_gtca02_gw,Sandstorm Artefact Gate Open,h_gt_AD0200,0,,AND(I(opt_silver|1)|I(key_access_la|1)),Gate,hs_gtca02_gw
+hs_gtca94_gt,Augusta Tower Paradox Ending,h_zz_NA0940,,,,Gate,hs_gtca94_gt
+hs_gwca01_gh,Artefact of Origins Gate Open,h_zz_NA0920,1,,I(opt_gwca01_gh|1),Gate,hs_gwca01_gh
+hs_gwca01_zz,Artefact of Origins Gate Open,h_gw_AD0200,1,,I(opt_gwca01_gh|1),Gate,hs_gwca01_zz
+hs_gwca92_gw,Oerba Paradox Ending,h_zz_NA0920,1,,,Gate,hs_gwca92_gw
+hs_gwda01_gw,Arenaceous Artefact Gate Open,h_gw_AD0300,1,,I(opt_silver|1),Gate,hs_gwda01_gw
 hs_gyaa01_gw,Hollow Artefact Gate Open,h_gy_AD0010,,,I(opt_gyaa01_gw|1),Gate,hs_gyaa01_gw
-hs_gyba01_sn,Gate Open,h_gy_AD0100,,,I(opt_silver|1),Gate,hs_gyba01_sn
+hs_gyba01_sn,Rainbow Artefact Gate Open,h_gy_AD0100,,,I(opt_silver|1),Gate,hs_gyba01_sn
 hs_hmaa01_bj,Giant's Artefact Gate Open,h_hm_AD0003,,,I(opt_hmaa01_bj|1),Gate,hs_hmaa01_bj
 hs_hmaa10_zz,Bodhum DLC Link Open,h_hm_AD0003,,,,Gate,hs_hmaa10_zz
 hs_hmaa11_va,DLC Link Open,h_zz_NA0970,,,,Gate,hs_hmaa11_va
@@ -39,24 +39,26 @@ hs_hmaa12_cl,DLC Link Open,h_zz_NA0970,,,,Gate,hs_hmaa12_cl
 hs_hmaa13_cs,DLC Link Open,h_zz_NA0970,,,,Gate,hs_hmaa13_cs
 hs_hmaa_def,Starting Area Unlocked,Initial,,,,,hs_hmaa_def
 hs_hmha01_ac,Artefact of the Ark Gate Open,h_hm_AD0700,,,I(opt_hmha01_ac|1),Gate,hs_hmha01_ac
-hs_hpaa01_dd,Gate Open,h_zz_NA0950,,,,Gate,hs_hpaa01_dd
-hs_hpaa01_zz,Gate Open,h_hp_AD0003,,,,Gate,hs_hpaa01_zz
-hs_hpaa95_hm,Gate Open,h_zz_NA0950,,,,Gate|NoCasade,hs_hpaa95_hm
-hs_snda01_cl,Gate Open,h_zz_NA0930,,,I(opt_snda01_cl|1),Gate,hs_snda01_cl
-hs_snda01_zz,Gate Open,h_sn_AD0300,,,I(opt_snda01_cl|1),Gate,hs_snda01_zz
-hs_snda02_gd,Gate Open,h_sn_AD0300,1,,I(opt_snda02_gd|1),Gate,hs_snda02_gd
-hs_snda03_ac,Gate Open,h_sn_AD0300,2,,I(key_unk_s_opt|1),Gate,hs_snda03_ac
+hs_hpaa01_dd,Hollow Seclusion Gate Open,h_zz_NA0950,,,,Gate,hs_hpaa01_dd
+hs_hpaa01_zz,Hollow Seclusion Gate Open,h_hp_AD0003,,,,Gate,hs_hpaa01_zz
+hs_hpaa95_hm,Hollow Seclusion Paradox Ending,h_zz_NA0950,,,,Gate|NoCasade,hs_hpaa95_hm
+hs_snda01_cl,Combat Artefact Gate Open,h_zz_NA0930,,,I(opt_snda01_cl|1),Gate,hs_snda01_cl
+hs_snda01_zz,Combat Artefact Gate Open,h_sn_AD0300,,,I(opt_snda01_cl|1),Gate,hs_snda01_zz
+hs_snda02_gd,Thunderous Artefact Gate Open,h_sn_AD0300,1,,I(opt_snda02_gd|1),Gate,hs_snda02_gd
+hs_snda03_ac,Restoration Gate Open,h_sn_AD0300,2,,I(key_unk_s_opt|1),Gate,hs_snda03_ac
 #Technically inaccessible
-hs_snda03_cs,Gate Open,h_sn_AD0300,2,,I(key_unk_s_opt|1),Gate,hs_snda03_cs
-hs_snda93_sn,Gate Open,h_zz_NA0930,,,,Gate,hs_snda93_sn
-hs_spza02_ac,Gate Open,h_sp_NA0001,,,,Gate,hs_spza02_ac
-hs_spza03_hp,Gate Open,h_sp_NA0100,,,,Gate,hs_spza03_hp
+hs_snda03_cs,Restoration Gate Open,h_sn_AD0300,2,,I(key_unk_s_opt|1),Gate,hs_snda03_cs
+hs_snda93_sn,Sunleth Paradox Ending,h_zz_NA0930,,,,Gate,hs_snda93_sn
+hs_spza02_ac,Void Beyond Gate Open,h_sp_NA0001,,,,Gate,hs_spza02_ac
+hs_spza03_hp,Void Beyond B Gate Open,h_sp_NA0100,,,,Gate,hs_spza03_hp
 Victory,Win!,h_va_NA0000,,,,,Victory
 # Area Progression and Side Quest fake/un-randomisable locations
 key_access_51,Access Key 51,h_gt_AD0200,,,I(key_access_50|1),SideKey,key_access_51
 key_access_52,Access Key 52,h_gt_AD0200,,,AND(I(key_access_50|1)|I(key_access_51|1)),SideKey,key_access_52
 key_access_la,Top Floor Access Key,h_gt_AD0200,,,AND(I(key_access_50|1)|I(key_access_51|1)|I(key_access_52|1)),SideKey,key_access_la
-key_unk_s_opt,Sunleth Mysterious Artefact,h_sn_AD0300,2,,AND(I(frg_gd_1|1)|I(frg_cmn_clza001|1)),SideKey,key_unk_s_opt
+mutantomato_weakened,Mutantomato Weakened,h_sn_AD0300,,,AND(I(frg_gd_1|1)|I(frg_cmn_clza001|1)),SideKey,mutantomato_weakened
+boss_mutantomato,Defeat Mutantomato,h_sn_AD0300,,,I(mutantomato_weakened|1),AreaKey|Boss,boss_mutantomato
+key_unk_s_opt,Sunleth Mysterious Artefact,h_sn_AD0300,2,,I(boss_mutantomato|1),SideKey,key_unk_s_opt
 key_unk_y_opt,Yaschas Mysterious Artefact,h_gh_AD0010,1,,,SideKey,key_unk_y_opt
 # Fragments - New Bodhum
 frg_hm_1,Heart Prism,h_hm_AD0003,,,I(key_f_kit|1),Fragment,frg_hm_1

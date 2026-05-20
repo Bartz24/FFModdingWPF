@@ -5,6 +5,7 @@ using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace FF13_2Rando;
 
@@ -36,6 +37,10 @@ public class EquipRando : Randomizer
         items.Copy("key_l_knife", "key_shop_level");
         items["key_shop_level"].sItemNameStringId = "$shop_level";
         items["key_shop_level"].sHelpStringId = "$shop_levelh";
+
+        items.Copy("key_l_knife", "key_r_victory");
+        items["key_r_victory"].sItemNameStringId = "$victory";
+        items["key_r_victory"].sHelpStringId = "$victory";
 
         string[] fragmentSkillKeys = ["01", "02", "03", "04", "05", "06", "08", "10", "11", "12", "14", "15", "18"];
 
@@ -150,13 +155,25 @@ public class EquipRando : Randomizer
         itemWeapons.SaveWDB(Generator, @"\db\resident\item_weapon.wdb");
     }
 
-    private string GetItemName(string itemID)
+    public string GetItemName(string itemID)
     {
         TextRando textRando = Generator.Get<TextRando>();
-        string name = textRando.mainSysUS[items[itemID].sItemNameStringId];
-        if (name.Contains("{End}"))
+        string name;
+        if(itemID == "")
         {
-            name = name.Substring(0, name.IndexOf("{End}"));
+            name = "Gil";
+        }
+        if (items.Keys.Contains(itemID) && textRando.mainSysUS.Keys.Contains(items[itemID].sItemNameStringId))
+        {
+            name = textRando.mainSysUS[items[itemID].sItemNameStringId];
+            if (name.Contains("{End}"))
+            {
+                name = name.Substring(0, name.IndexOf("{End}"));
+            }
+        }
+        else
+        {
+            name = itemID;
         }
 
         return name;

@@ -79,6 +79,6 @@ public class HistoriaCruxConstants
     {
         {YASCHAS_1X, "1X" },
         {ACADEMIA_4XX, "4XX" },
-        {YASCHAS_110, "110" }
+        {YASCHAS_110, "110" },
     };
 }

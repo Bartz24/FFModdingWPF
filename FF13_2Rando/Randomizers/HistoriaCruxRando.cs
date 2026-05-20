@@ -273,13 +273,15 @@ public partial class HistoriaCruxRando : Randomizer
                     gateTable["hs_snda02_gd"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
                     // void beyond
                     //gateTable["hs_snda03_ac"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
+                    // Flatten unpicked link to not break downstream logic later when the graph is built
                     // serendipity
-                    //gateTable["hs_snda03_cs"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
+                    gateTable["hs_snda03_cs"].sOpenHistoria1 = "h_sp_NA0001_a";
                 }
                 else if (node.name == HistoriaCruxConstants.YASCHAS_1X)
                 {
+                    // Flatten unpicked link to not break downstream logic later when the graph is built
                     // void beyond
-                    //gateTable["hs_ghaa01_ac"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
+                    gateTable["hs_ghaa01_ac"].sOpenHistoria1 = "h_cs_NA0000_a";
                     // serendipity
                     //gateTable["hs_ghaa01_cs"].sOpenHistoria1 = node.children[node.children.Count - 1].name + "_a";
                     // open link

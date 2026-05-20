@@ -24,7 +24,7 @@ public partial class TreasureRando : Randomizer
 
     public DataStoreWDB<DataStoreRFragment> fragments = new();
     private readonly Dictionary<string, HintData> hintData = new();
-    private readonly Dictionary<string, FF13_2ItemLocation> ItemLocations = new();
+    public readonly Dictionary<string, FF13_2ItemLocation> ItemLocations = new();
     private readonly Dictionary<string, List<string>> hintsMain = new();
     private readonly Dictionary<string, int> hintsNotesUniqueCount = new();
     private readonly Dictionary<string, int> hintsNotesSharedCount = new();
@@ -46,6 +46,10 @@ public partial class TreasureRando : Randomizer
         fragments.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_fragment.wdb", false);
         eventFlagsOrig.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_eventflag.wdb", false);
         eventFlags.LoadWDB(Generator, "13-2", @"\db\resident\_wdbpack.bin\r_eventflag.wdb", false);
+
+        treasures.BitsPerOffset = 16;
+        treasuresOrig.BitsPerOffset = 16;
+        // May be needed on search item or event flags - do some research
 
         ItemLocations.Clear();
 
@@ -121,6 +125,12 @@ public partial class TreasureRando : Randomizer
 
         AddTreasure("ran_init_shop", "key_shop_level", FF13_2Flags.Items.InitialShopLevel.Value, "", false);
 
+        // Must be applied IN THIS ORDER
+        AddTreasure("ran_mfind", "rando_findstrin", 32658, "", false);
+        AddTreasure("ran_multi", RandoFlags.Mode == RandoFlags.SeedMode.Archipelago ? "rando_multiitem" : "disabled", 32500, "", false);
+
+        AddTreasure("victory", "key_r_victory", 1, "");
+
         // Mog level items
         AddTreasure("mog_level_1", "key_mog_level", 1, "");
         AddTreasure("mog_level_2", "key_mog_level", 1, "");
@@ -152,8 +162,8 @@ public partial class TreasureRando : Randomizer
         // TODO: length restriction stuff
 
         // Other assorted key items etc.
-        AddTreasure("frgcmn_hmaa001", "frg_cmn_hmaa001", 1, "");
-        AddTreasure("frgcmn_hmaa002", "frg_cmn_hmaa002", 1, "");
+        AddTreasure("frgcmn_hmaa001", "frg_cmn_hmaa001", 0, "");
+        AddTreasure("frgcmn_hmaa002", "frg_cmn_hmaa002", 0, "");
         AddTreasure("key_s_neck", "key_s_neck", 1, "");
         AddTreasure("key_l_knife", "key_l_knife", 1, "");
         AddTreasure("key_tissue", "key_tissue", 1, "");
@@ -180,16 +190,16 @@ public partial class TreasureRando : Randomizer
         AddTreasure("key_access_13", "key_access_13", 1, "");
         AddTreasure("tmap_gt", "tmap_gt", 1, "");
         AddTreasure("tmap_ac", "tmap_ac", 1, "");
-        AddTreasure("frgcmn_acea012", "frg_cmn_acea012", 1, "");
+        AddTreasure("frgcmn_acea012", "frg_cmn_acea012", 0, "");
         // AddTreasure("just_one_gil", "", 1, ""); - what is this even doing?
         //AddTreasure("key_casino_prz", "key_casino_prz", 1, "", false); // skip - vanilla flag?
         //AddTreasure("key_chaos_cly", "key_chaos_cly", 1, "", false); // skip - vanilla flag?
         //AddTreasure("key_casino_dice", "key_casino_dice", 1, "", false); // skip - vanilla flag?
         AddTreasure("tmap_cs", "tmap_cs", 1, "");
         AddTreasure("cs_chip_00", "cs_chip_00", 1, ""); // Skip flag - tied to above
-        AddTreasure("frgcmn_vpba001", "frg_cmn_vpba001", 1, "");
+        AddTreasure("frgcmn_vpba001", "frg_cmn_vpba001", 0, "");
         AddTreasure("tmap_vp", "tmap_vp", 1, "");
-        AddTreasure("frgcmn_vpca001", "frg_cmn_vpca001", 1, "");
+        AddTreasure("frgcmn_vpca001", "frg_cmn_vpca001", 0, "");
         AddTreasure("key_acdmycom", "key_acdmycom", 1, "");
         AddTreasure("tmap_bj", "tmap_bj", 1, "");
         AddTreasure("key_behi_fang", "key_behi_fang", 1, "");
@@ -198,38 +208,38 @@ public partial class TreasureRando : Randomizer
         // flg_bjaa_01_010
 
         // Fragment experimenting
-        AddTreasure("frgcmn_acfa002", "frg_cmn_acfa002", 1, "");
-        AddTreasure("frgcmn_pdxe001", "frg_cmn_pdxe001", 1, "");
-        AddTreasure("frgcmn_pdxe002", "frg_cmn_pdxe002", 1, "");
-        AddTreasure("frgcmn_pdxe003", "frg_cmn_pdxe003", 1, "");
-        AddTreasure("frgcmn_pdxe004", "frg_cmn_pdxe004", 1, "");
-        AddTreasure("frgcmn_pdxe005", "frg_cmn_pdxe005", 1, "");
-        AddTreasure("frgcmn_pdxe006", "frg_cmn_pdxe006", 1, "");
-        AddTreasure("frgcmn_pdxe007", "frg_cmn_pdxe007", 1, "");
-        AddTreasure("frgcmn_pdxe008", "frg_cmn_pdxe008", 1, "");
-        AddTreasure("frgcmn_bjaa001", "frg_cmn_bjaa001", 1, "");
-        AddTreasure("frgcmn_gyaa003", "frg_cmn_gyaa003", 1, "");
-        AddTreasure("frgcmn_snda002", "frg_cmn_snda002", 1, "");
-        AddTreasure("frgcmn_spza001", "frg_cmn_spza001", 1, "");
-        AddTreasure("frgcmn_spza002", "frg_cmn_spza002", 1, "");
-        AddTreasure("frgcmn_spza003", "frg_cmn_spza003", 1, "");
-        AddTreasure("frgcmn_spza004", "frg_cmn_spza004", 1, "");
-        AddTreasure("frgcmn_spza005", "frg_cmn_spza005", 1, "");
-        AddTreasure("frgcmn_clza001", "frg_cmn_clza001", 1, "");
-        AddTreasure("frgcmn_gdza003", "frg_cmn_gdza003", 1, "");
-        AddTreasure("frgcmn_gdza004", "frg_cmn_gdza004", 1, "");
-        AddTreasure("frgcmn_gdza005", "frg_cmn_gdza005", 1, "");
-        AddTreasure("frgcmn_gdza006", "frg_cmn_gdza006", 1, "");
-        AddTreasure("frgcmn_gdza007", "frg_cmn_gdza007", 1, "");
-        AddTreasure("frgcmn_gtca001", "frg_cmn_gtca001", 1, "");
-        AddTreasure("frgcmn_acfa001", "frg_cmn_acfa001", 1, "");
-        AddTreasure("frgcmn_vpca005", "frg_cmn_vpca005", 1, "");
-        AddTreasure("frgcmn_snea001", "frg_cmn_snea001", 1, "");
-        AddTreasure("frgcmn_snea002", "frg_cmn_snea002", 1, "");
-        AddTreasure("frgcmn_snea003", "frg_cmn_snea003", 1, "");
-        AddTreasure("frgcmn_snea004", "frg_cmn_snea004", 1, "");
-        AddTreasure("frgcmn_snea005", "frg_cmn_snea005", 1, "");
-        AddTreasure("frgcmn_snea006", "frg_cmn_snea006", 1, "");
+        AddTreasure("frgcmn_acfa002", "frg_cmn_acfa002", 0, "");
+        AddTreasure("frgcmn_pdxe001", "frg_cmn_pdxe001", 0, "");
+        AddTreasure("frgcmn_pdxe002", "frg_cmn_pdxe002", 0, "");
+        AddTreasure("frgcmn_pdxe003", "frg_cmn_pdxe003", 0, "");
+        AddTreasure("frgcmn_pdxe004", "frg_cmn_pdxe004", 0, "");
+        AddTreasure("frgcmn_pdxe005", "frg_cmn_pdxe005", 0, "");
+        AddTreasure("frgcmn_pdxe006", "frg_cmn_pdxe006", 0, "");
+        AddTreasure("frgcmn_pdxe007", "frg_cmn_pdxe007", 0, "");
+        AddTreasure("frgcmn_pdxe008", "frg_cmn_pdxe008", 0, "");
+        AddTreasure("frgcmn_bjaa001", "frg_cmn_bjaa001", 0, "");
+        AddTreasure("frgcmn_gyaa003", "frg_cmn_gyaa003", 0, "");
+        AddTreasure("frgcmn_snda002", "frg_cmn_snda002", 0, "");
+        AddTreasure("frgcmn_spza001", "frg_cmn_spza001", 0, "");
+        AddTreasure("frgcmn_spza002", "frg_cmn_spza002", 0, "");
+        AddTreasure("frgcmn_spza003", "frg_cmn_spza003", 0, "");
+        AddTreasure("frgcmn_spza004", "frg_cmn_spza004", 0, "");
+        AddTreasure("frgcmn_spza005", "frg_cmn_spza005", 0, "");
+        AddTreasure("frgcmn_clza001", "frg_cmn_clza001", 0, "");
+        AddTreasure("frgcmn_gdza003", "frg_cmn_gdza003", 0, "");
+        AddTreasure("frgcmn_gdza004", "frg_cmn_gdza004", 0, "");
+        AddTreasure("frgcmn_gdza005", "frg_cmn_gdza005", 0, "");
+        AddTreasure("frgcmn_gdza006", "frg_cmn_gdza006", 0, "");
+        AddTreasure("frgcmn_gdza007", "frg_cmn_gdza007", 0, "");
+        AddTreasure("frgcmn_gtca001", "frg_cmn_gtca001", 0, "");
+        AddTreasure("frgcmn_acfa001", "frg_cmn_acfa001", 0, "");
+        AddTreasure("frgcmn_vpca005", "frg_cmn_vpca005", 0, "");
+        AddTreasure("frgcmn_snea001", "frg_cmn_snea001", 0, "");
+        AddTreasure("frgcmn_snea002", "frg_cmn_snea002", 0, "");
+        AddTreasure("frgcmn_snea003", "frg_cmn_snea003", 0, "");
+        AddTreasure("frgcmn_snea004", "frg_cmn_snea004", 0, "");
+        AddTreasure("frgcmn_snea005", "frg_cmn_snea005", 0, "");
+        AddTreasure("frgcmn_snea006", "frg_cmn_snea006", 0, "");
         //AddTreasure("frg_itm_bjba001", "frg_itm_bjba001", 1, "");
 
         // Artefact experimenting
@@ -387,16 +397,22 @@ public partial class TreasureRando : Randomizer
         return Math.Max(6000, store.Values.Max(r => r.iFlagIndex));
     }
 
+    private string[] reservedRandoTreasures = new string[] { "ran_init_cp", "ran_mfind", "ran_multi" };
+
     public void AddTreasure(string newName, string item, int count, string next, bool addFlag = true)
     {
         string modifiedName = addFlag ? "z" + newName : newName;
-        if (!ItemLocations.ContainsKey(modifiedName) && newName != "ran_init_cp")
+        if (!ItemLocations.ContainsKey(modifiedName) && !reservedRandoTreasures.Contains(newName))
         {
             throw new Exception($"Identified newly added treasure {modifiedName} without data entry!");
         }
         if(modifiedName.Length > 15)
         {
             throw new Exception($"Max name length is 15! {modifiedName}");
+        }
+        if(item.Length > 15)
+        {
+            throw new Exception($"Max item length is 15! {item}");
         }
         AddTreasure(treasuresOrig, modifiedName, item, count, next);
         AddTreasure(treasures, modifiedName, item, count, next);

@@ -1,8 +1,7 @@
 {
   "profiles": {
     "AutoDataGenerator": {
-      "commandName": "Project",
-      "commandLineArgs": "S:\\DevStuff\\ArchipelagoRando\\Archipelago\\worlds"
+      "commandName": "Project"
     }
   }
 }

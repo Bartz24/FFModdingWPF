@@ -121,6 +121,7 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
             {
                 // Reorder the remaining items based on the new unlocked locations every so often. This allows items that were previously unplaceable to be attempted again sooner if they unlock new areas. This is important for progression items that may have been blocked by earlier placements. By reordering, we can ensure that we are always trying to place items in the most optimal order based on the current state of the game world.
                 nextPercentageQueueRefreshIndex = Math.Min(nextPercentageQueueRefreshIndex + 1, refreshIncrements.Length - 1);
+                // TODO: adjust threshold for replacement order based on available location count not global ratio?
                 var newOrder = (double)UnlockedLocations.Values.Sum(g => g.Count) / Replacements.Count >= 0.25 ? RemainingToPlace.Shuffle() : GetReplacementOrder();
                 RemainingToPlace = new Queue<T>(newOrder.Where(item => RemainingToPlace.Contains(item)));
                 firstFailure = null;
@@ -233,7 +234,8 @@ public class ProgressionItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         var unlockingWeight = newlyAccessible.Count;
         // If locationAccessibilityBias is set, then locations are also checked by whether you have access to the location from area links.
         // This should effectively downgrade items with wide reaching implications but narrow immediate impact, and give more
-        // dynamic shuffling as the placement progresses until all areas are open.
+        // dynamic shuffling as the placement progresses until all areas are open
+        // TODO: when bias is enabled, need a scale factor to "bump" the bias based on relative location amounts
         var remainingWithInterest = PossibleLocations.Where(loc =>
         {
             return loc.Requirements.GetPossibleRequirements().Contains(itemType) && (!locationAccessibilityBias || loc.Areas.Intersect(UnlockedAreas).Count() > 0);
