@@ -12,9 +12,9 @@ namespace LRRando;
 
 public partial class ShopRando : Randomizer
 {
-    private readonly DataStoreWDB<DataStoreShop> shopsOrig = new();
-    private readonly DataStoreWDB<DataStoreShop> shops = new();
-    private readonly Dictionary<string, ShopData> shopData = new();
+    public readonly DataStoreWDB<DataStoreShop> shopsOrig = new();
+    public DataStoreWDB<DataStoreShop> shops = new();
+    public readonly Dictionary<string, ShopData> shopData = new();
 
     public ShopRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -25,13 +25,18 @@ public partial class ShopRando : Randomizer
         RandoUI.SetUIProgressDeterminate("Loading Shop Data...", 50, 100);
         shops.LoadWDB(Generator, "LR", @"\db\resident\shop.wdb");
 
+        TreasureRando treasureRando = Generator.Get<TreasureRando>();
         FileHelpers.ReadCSVFile(@"data\shops.csv", row =>
         {
             ShopData s = new(row);
             shopData.Add(s.ID, s);
+
+            string[] fakeData = [s.Area, s.ID + " Shop", "_shop" + s.ID, "", "", "0"];
+            FakeLocation fake = new(Generator, fakeData, s.ID + "_Shop");
+            fake.Requirements = s.Requirements;
+            treasureRando.ItemLocations.Add(fake.ID, fake);
+
         }, FileHelpers.CSVFileHeader.HasHeader);
-
-
     }
     public override void Randomize()
     {
@@ -72,8 +77,6 @@ public partial class ShopRando : Randomizer
                     shopsOrig[k].u3Category is ((int)ShopCategory.Ark) or ((int)ShopCategory.Items) ? 1 : 3,
                     (shopsOrig[k].u3Category is ((int)ShopCategory.Ark) or ((int)ShopCategory.Items) ? 6 : 18) - shopsDict[k].Count)
             );
-            List<string> libraMaterials = new();
-            shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra).ForEach(_ => libraMaterials.AddRange(equipRando.items.Keys.Where(i => i.StartsWith("mat_z")).Shuffle()));
 
             for (int n = 4; n <= 8; n++)
             {
@@ -137,18 +140,7 @@ public partial class ShopRando : Randomizer
 
                 if (shopsOrig[shop].u3Category == (int)ShopCategory.Libra)
                 {
-                    for (int i = 0; i < 8; i++)
-                    {
-                        for (int j = 0; j < libraMaterials.Count; j++)
-                        {
-                            if (!shopsDict[shop].Contains(libraMaterials[j]))
-                            {
-                                shopsDict[shop].Add(libraMaterials[j]);
-                                libraMaterials.RemoveAt(j);
-                                break;
-                            }
-                        }
-                    }
+                    shopsDict[shop].AddRange(treasureRando.ShopRandoLists[shop]);
                 }
 
                 shops[shop].SetItems(shopsDict[shop].OrderBy(s => s.StartsWith("e")).ThenByDescending(s => equipRando.items[s].uItemNum).ToList());

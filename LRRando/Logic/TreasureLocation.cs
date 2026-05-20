@@ -28,16 +28,6 @@ public class TreasureLocation : ItemLocation, IDataStoreItemProvider<DataStoreRT
         rando = treasureRando;
     }
 
-    public override List<ItemLocationReqComponent> GetComponents()
-    {
-        var list = base.GetComponents();
-        if (Traits.Contains("EP"))
-        {
-            list.Add(new EPReqComponent(Generator));
-        }
-        return list;
-    }
-
     public override void SetItem(string newItem, int newCount)
     {
         LogSetItem(newItem, newCount);

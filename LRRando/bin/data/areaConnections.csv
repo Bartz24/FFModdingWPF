@@ -1,14 +1,16 @@
 ﻿Name,From,To,Requirements,Traits,Base Difficulty
 Start,Initial,Ark,,,0
-Dead Dunes,Luxerion,Dead Dunes,I(Day|2),,0
+Dead Dunes,Luxerion,Dead Dunes,AND(I(Day|2)|I(key_r_dpass)),,0
 Luxerion,Ark,Luxerion,,,0
-Wildlands,Luxerion,Wildlands,I(Day|2),,0
-Yusnaan,Luxerion,Yusnaan,I(Day|2),,0
+Wildlands,Luxerion,Wildlands,AND(I(Day|2)|I(key_r_wpass)),,0
+Yusnaan,Luxerion,Yusnaan,AND(I(Day|2)|I(key_r_ypass)),,0
 CoP Dead Dunes,Dead Dunes,CoP Dead Dunes,I(Day|2),,0
 CoP Luxerion,Luxerion,CoP Luxerion,I(Day|2),,0
 CoP Wildlands,Wildlands,CoP Wildlands,I(Day|2),,0
 CoP Yusnaan,Yusnaan,CoP Yusnaan,I(Day|2),,0
 CoP Global,Ark,CoP Global,I(Day|2),,0
 Soul Seeds/Unappraised,Dead Dunes,Soul Seeds/Unappraised,I(Day|2),,1
-Ultimate Lair,Ark,Ultimate Lair,I(Day|3),,1
+Ultimate Lair,Dead Dunes,Ultimate Lair,I(key_w_tamago),,1
 Final Day,Ark,Final Day,I(MQDone|5),,8
+Shops,Ark,Shops,I(Day|2),,0
+Anywhere,Ark,Anywhere,I(Day|2),,0

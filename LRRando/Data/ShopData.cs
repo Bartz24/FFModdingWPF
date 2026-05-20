@@ -16,6 +16,8 @@ public class ShopData : CSVDataRow
     public int DayStart { get; set; }
     [RowIndex(5)]
     public int DayEnd { get; set; }
+    [RowIndex(6)]
+    public ItemReq Requirements { get; set; }
     public ShopData(string[] row) : base(row)
     {
     }

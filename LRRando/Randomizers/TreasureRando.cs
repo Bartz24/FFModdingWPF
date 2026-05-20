@@ -4,8 +4,11 @@ using Bartz24.FF13_2_LR;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
 using Bartz24.RandoWPF.Data.Areas;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Bartz24.FF13_2_LR.Enums;
 
 namespace LRRando;
 
@@ -18,6 +21,14 @@ public partial class TreasureRando : Randomizer
 
     public Dictionary<string, string> BattleDrops = new();
     public Dictionary<string, string> OrigBattleDrops = new();
+
+    /// <summary>
+    /// Shop items considered as part of progression. Only handles materials in shops for now.
+    /// Key - Shop ID
+    /// Value - List of item IDs randoed to that shop.
+    /// </summary>
+    public Dictionary<string, List<string>> ShopRandoLists { get; set; } = new();
+
     public LRItemPlacer ItemPlacer { get; set; }
     public LRHintPlacer HintPlacer { get; set; }
     public AreaGraph AreaGraph { get; set; }
@@ -118,6 +129,15 @@ public partial class TreasureRando : Randomizer
         AddTreasure("tre_s_hiai", "key_s_hiai", 1, "");
         AddTreasure("tre_wea_ea00", "wea_ea00", 1, "");
         AddTreasure("tre_shi_ea00", "shi_ea00", 1, "");
+        AddTreasure("tre_d_oil1", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil2", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil3", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil4", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil5", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil6", "key_d_oil", 1, "");
+        AddTreasure("tre_d_oil7", "key_d_oil", 1, "");
+        AddTreasure("tre_d_bakt_oil", "key_d_oil", 1, "");
+        AddTreasure("tre_d_bakt_key", "key_d_key", 1, "");
 
         AddTreasure("trd_niku", "key_niku", 1, "");
         AddTreasure("trd_ninjin", "key_ninjin", 1, "");
@@ -136,6 +156,20 @@ public partial class TreasureRando : Randomizer
         treasures.Swap("tre_box_p_002", "tre_box_p_201");
         treasuresOrig.Swap("tre_box_p_002", "tre_box_p_201");
 
+        treasures["tre_box_p_000"].s10NextTreasureBoxResourceId = "tre_a_pass1";
+        treasuresOrig["tre_box_p_000"].s10NextTreasureBoxResourceId = "tre_a_pass1";
+        AddTreasure("tre_a_pass1", "key_r_ypass", 1, "");
+
+        treasures["tre_box_p_001"].s10NextTreasureBoxResourceId = "tre_a_pass2";
+        treasuresOrig["tre_box_p_001"].s10NextTreasureBoxResourceId = "tre_a_pass2";
+        AddTreasure("tre_a_pass2", "key_r_wpass", 1, "");
+
+        treasures["tre_box_p_002"].s10NextTreasureBoxResourceId = "tre_a_pass3";
+        treasuresOrig["tre_box_p_002"].s10NextTreasureBoxResourceId = "tre_a_pass3";
+        AddTreasure("tre_a_pass3", "key_r_dpass", 1, "");
+
+        MoveMainStatRewardsToItems();
+
         RandoUI.SetUIProgressDeterminate("Loading Treasure Data...", 80, 100);
         LRFlags.Items.Treasures.SetRand();
         List<string> locations = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().Shuffle();
@@ -143,6 +177,95 @@ public partial class TreasureRando : Randomizer
 
         AreaGraph = new(Generator);
         AreaGraph.ReadFromCSVs(@"data\areas.csv", @"data\areaConnections.csv");
+
+        // TODO Testing
+        treasures.BitsPerOffset = 16;
+        for (int i = 0; i < 800; i++)
+        {
+            AddTreasure($"ztre_r_t{i:000}", $"item_{i:000}", 1, "");
+        }
+    }
+
+    private void MoveMainStatRewardsToItems()
+    {
+        QuestRando questRando = Generator.Get<QuestRando>();
+        List<string> createdTreasures = new();
+        // Move EP (maxGp), ATB (maxAtb), and item bag size rewards from the main quest rewards to the item bag rewards, so that they can be randomized with the stat rewards but not lost when randomizing the EP/ATB/bag size rewards
+        questRando.questRewards.Values.Where(q => q.iMaxGp > 0).ForEach(q =>
+        {
+            int count = q.iMaxGp / 2000;
+            q.iMaxGp = 0;
+            if (q.sTreasureBoxId == "")
+            {
+                q.sTreasureBoxId = $"tre_qst_{int.Parse(q.record.Substring("qst_".Length))}";
+            }
+
+            AddQuestTreasure(q.sTreasureBoxId + "_", "key_r_ep", count);
+            createdTreasures.Add(q.sTreasureBoxId);
+        });
+        questRando.questRewards.Values.Where(q => q.iMaxAtb > 0).ForEach(q =>
+        {
+            int count = q.iMaxAtb / 10;
+            q.iMaxAtb = 0;
+            if (q.sTreasureBoxId == "")
+            {
+                q.sTreasureBoxId = $"tre_qst_{int.Parse(q.record.Substring("qst_".Length))}";
+            }
+
+            AddQuestTreasure(q.sTreasureBoxId + "_", "key_r_atb", count);
+            createdTreasures.Add(q.sTreasureBoxId);
+        });
+        questRando.questRewards.Values.Where(q => q.iItemBagSize > 0).ForEach(q =>
+        {
+            int count = q.iItemBagSize;
+            q.iItemBagSize = 0;
+            if (q.sTreasureBoxId == "")
+            {
+                q.sTreasureBoxId = $"tre_qst_{int.Parse(q.record.Substring("qst_".Length))}";
+            }
+
+            AddQuestTreasure(q.sTreasureBoxId + "_", "key_r_rec", count);
+            createdTreasures.Add(q.sTreasureBoxId);
+        });
+
+        Generator.Logger.LogDebug("Created the following treasures to hold EP/ATB/Recovery Slot rewards: {Treasures}", string.Join(", ", createdTreasures));
+    }
+
+    private void AddQuestTreasure(string prefix, string item, int count)
+    {
+        DataStoreRTreasurebox lastTreasure = treasuresOrig.Values
+            .Where(t => t.record.StartsWith(prefix))
+            .OrderBy(t => t.record)
+            .LastOrDefault();
+        int lastNumber = 0;
+        string newTreasureName;
+        if (lastTreasure != null)
+        {
+            lastNumber = int.Parse(lastTreasure.record.Substring(prefix.Length));
+            newTreasureName = prefix + (lastNumber + 1);
+        }
+        else
+        {
+            // Remove the _ and check if that treasure exists
+            if (treasuresOrig.Keys.Contains(prefix.Substring(0, prefix.Length - 1)))
+            {
+                lastTreasure = treasuresOrig[prefix.Substring(0, prefix.Length - 1)];
+                lastNumber = 1;
+                newTreasureName = prefix + (lastNumber + 1);
+            }
+            else
+            {
+                newTreasureName = prefix.Substring(0, prefix.Length - 1);
+            }
+        }
+
+        string nextTreasureName = prefix + (lastNumber + 2);
+        if (lastTreasure != null)
+        {
+            treasuresOrig[lastTreasure.record].s10NextTreasureBoxResourceId = newTreasureName;
+            treasures[lastTreasure.record].s10NextTreasureBoxResourceId = newTreasureName;
+        }
+        AddTreasure(newTreasureName, item, count, nextTreasureName);
     }
 
     public void AddTreasure(string newName, string item, int count, string next)
@@ -166,6 +289,8 @@ public partial class TreasureRando : Randomizer
         {
             LRFlags.Items.Treasures.SetRand();
 
+            RandomizeShopItems();
+
             ItemPlacer = new(Generator, AreaGraph);
             ItemPlacer.Replacements = ItemLocations.Values.ToOrderedSet();
             ItemPlacer.PossibleLocations = ItemLocations.Values.ToOrderedSet();
@@ -179,6 +304,58 @@ public partial class TreasureRando : Randomizer
 
             HandleIDCardBuyOption();
         }
+    }
+
+    private void RandomizeShopItems()
+    {
+        ShopRando shopRando = Generator.Get<ShopRando>();
+        EquipRando equipRando = Generator.Get<EquipRando>();
+
+        PrepareMaterialShops(shopRando, equipRando);
+
+        // Set fake check material requirements equal to their shop requirements
+        List<string> materials = equipRando.items.Keys.Where(i => i.StartsWith("mat_z")).ToList();
+        foreach (string materialName in materials)
+        {
+            FakeLocation fake = (FakeLocation)ItemLocations.Values.First(l=>l is FakeLocation fakeLoc && fakeLoc.Traits.Contains(materialName));
+            List<string> shopsWithMaterial = ShopRandoLists.Where(kv => kv.Value.Contains(materialName)).Select(kv => kv.Key).ToList();
+            fake.Requirements = new OrItemReq(shopsWithMaterial.Select(s => new AmountItemReq(s + "_Shop", 1)).ToList<ItemReq>());
+        }
+    }
+
+    private void PrepareMaterialShops(ShopRando shopRando, EquipRando equipRando)
+    {
+        do
+        {
+            ShopRandoLists.Clear();
+
+            // Start with copies of each material for each material shop
+            List<string> libraMaterials = new();
+            shopRando.shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra).ForEach(_ => libraMaterials.AddRange(equipRando.items.Keys.Where(i => i.StartsWith("mat_z")).Shuffle()));
+
+            List<DataStoreShop> libraShops = shopRando.shopsOrig.Values.Where(s => s.u3Category == (int)ShopCategory.Libra && shopRando.shopData.ContainsKey(s.record)).ToList();
+
+            const int materialsPerShop = 8;
+
+            foreach (var shop in libraShops)
+            {
+                ShopRandoLists.Add(shop.record, new List<string>());
+                for (int i = 0; i < materialsPerShop; i++)
+                {
+                    for (int j = 0; j < libraMaterials.Count; j++)
+                    {
+                        if (!ShopRandoLists[shop.record].Contains(libraMaterials[j]))
+                        {
+                            ShopRandoLists[shop.record].Add(libraMaterials[j]);
+                            libraMaterials.RemoveAt(j);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Verify each material shows up in at least one shop, otherwise reshuffle and try again
+        } while (equipRando.items.Keys.Where(i => i.StartsWith("mat_z")).Any(m => !ShopRandoLists.Values.Any(l => l.Contains(m))));
     }
 
     protected void HandleIDCardBuyOption()

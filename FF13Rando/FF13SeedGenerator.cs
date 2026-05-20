@@ -30,7 +30,16 @@ public class FF13SeedGenerator : SeedGenerator
 
         if (!Nova.IsNovaVersion2(SetupData.Paths["Nova"]))
         {
+#if DEBUG
+            // Auto-close nova in debug mode using windows API to allow quick testing.
+            var processes = System.Diagnostics.Process.GetProcessesByName("NovaChrysalia");
+            foreach (var process in processes)
+            {
+                process.Kill();
+            }
+#else
             throw new RandoException("Nova Chrysalia needs to be version 2.X+. Nova Chrysalia version 2.X+ is currently available as a beta. Click the download button in the '1. Setup' step to get a supported version.", "Nova Chrysalia is not version 2.X+");
+#endif
         }
 
         if (!Nova.IsUnpacked("13", @"db\resident\treasurebox.wdb", SetupData.Paths["13"]))

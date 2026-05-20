@@ -85,6 +85,48 @@ public partial class EquipRando : Randomizer
             apAdded.u16SortAllByKCategory = 101;
             apAdded.u16SortCategoryByCategory = 152;
         }
+
+        // Add rando Max EP item
+        var epItem = items.Copy("key_b_20", "key_r_ep");
+        epItem.sItemNameStringId = "$zzz_r_ep";
+        epItem.sHelpStringId = "$zzz_r_eph";
+        epItem.u16SortAllByKCategory = 103;
+        epItem.u16SortCategoryByCategory = 155;
+
+        // Add rando Max ATB item
+        var atbItem = items.Copy("key_b_20", "key_r_atb");
+        atbItem.sItemNameStringId = "$zzz_r_atb";
+        atbItem.sHelpStringId = "$zzz_r_atbh";
+        atbItem.u16SortAllByKCategory = 103;
+        atbItem.u16SortCategoryByCategory = 155;
+
+        // Add rando Recovery Item item
+        var recItem = items.Copy("key_b_20", "key_r_rec");
+        recItem.sItemNameStringId = "$zzz_r_rec";
+        recItem.sHelpStringId = "$zzz_r_rech";
+        recItem.u16SortAllByKCategory = 103;
+        recItem.u16SortCategoryByCategory = 155;
+
+        // Add rando Dead Dunes Pass item
+        var ddItem = items.Copy("key_b_20", "key_r_dpass");
+        ddItem.sItemNameStringId = "$zzz_r_dpass";
+        ddItem.sHelpStringId = "$zzz_r_dpassh";
+        ddItem.u16SortAllByKCategory = 103;
+        ddItem.u16SortCategoryByCategory = 155;
+
+        // Add rando Yusnaan Pass item
+        var yusItem = items.Copy("key_b_20", "key_r_ypass");
+        yusItem.sItemNameStringId = "$zzz_r_ypass";
+        yusItem.sHelpStringId = "$zzz_r_ypassh";
+        yusItem.u16SortAllByKCategory = 103;
+        yusItem.u16SortCategoryByCategory = 155;
+
+        // Add rando Wildlands Pass item
+        var wlItem = items.Copy("key_b_20", "key_r_wpass");
+        wlItem.sItemNameStringId = "$zzz_r_wpass";
+        wlItem.sHelpStringId = "$zzz_r_wpassh";
+        wlItem.u16SortAllByKCategory = 103;
+        wlItem.u16SortCategoryByCategory = 155;
     }
 
     public virtual void FilterOutDLCItems()

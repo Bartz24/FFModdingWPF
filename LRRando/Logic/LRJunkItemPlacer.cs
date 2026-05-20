@@ -48,7 +48,9 @@ public class LRJunkItemPlacer : JunkItemPlacer<ItemLocation>
                     i.Rank >= equipRando.itemData[orig.Item1].Rank - rankRange &&
                     i.Rank <= equipRando.itemData[orig.Item1].Rank + rankRange &&
                     !i.Traits.Contains("Ignore") &&
-                    !i.Traits.Contains("Key"));
+                    !i.Traits.Contains("Key") &&
+                    !i.Traits.Contains("Initial") &&
+                    !usedItems.Contains(i.ID));
                 if (!LRFlags.Items.IsIncludeDLCItems())
                 {
                     possible = possible.Where(i => !i.Traits.Contains("DLC"));

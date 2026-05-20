@@ -17,7 +17,7 @@ public class LRArchipelagoData : ArchipelagoData
 
     public bool AllowDLCItems { get; set; } = false;
 
-    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.4.0" };
+    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.5.0" };
 
     public override void Parse(IDictionary<string, object> data)
     {

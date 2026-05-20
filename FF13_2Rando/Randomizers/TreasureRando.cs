@@ -283,6 +283,13 @@ public partial class TreasureRando : Randomizer
         });
 
         List<string> hintsNotesLocations = hintData.Values.SelectMany(h => h.Areas).ToList();
+
+        // TODO Testing
+        //treasures.BitsPerOffset = 16;
+        for (int i = 0; i < 800; i++)
+        {
+            AddTreasure($"zabc_t{i:000}", $"item_{i:000}", 1, "");
+        }
     }
 
     private string[] wildZoneNums = [];
@@ -404,7 +411,7 @@ public partial class TreasureRando : Randomizer
         string modifiedName = addFlag ? "z" + newName : newName;
         if (!ItemLocations.ContainsKey(modifiedName) && !reservedRandoTreasures.Contains(newName))
         {
-            throw new Exception($"Identified newly added treasure {modifiedName} without data entry!");
+            //throw new Exception($"Identified newly added treasure {modifiedName} without data entry!");
         }
         if(modifiedName.Length > 15)
         {
