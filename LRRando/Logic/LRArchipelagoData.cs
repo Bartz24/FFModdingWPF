@@ -17,6 +17,8 @@ public class LRArchipelagoData : ArchipelagoData
 
     public bool AllowDLCItems { get; set; } = false;
 
+    public Dictionary<string, List<string>> APShopRandoItems { get; set; } = new();
+
     public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.5.0" };
 
     public override void Parse(IDictionary<string, object> data)
@@ -70,6 +72,19 @@ public class LRArchipelagoData : ArchipelagoData
         }
 
         AllowDLCItems = data.ContainsKey("allow_dlc_items") && (bool)data["allow_dlc_items"];
+
+        // "shop_materials": [ shop_id, [item_id, ...] ]
+        if (data.ContainsKey("shop_materials"))
+        {
+            APShopRandoItems = ((IDictionary<string, object>)data["shop_materials"]).ToDictionary(
+                kvp => kvp.Key,
+                kvp => ((List<object>)kvp.Value).Select(o => (string)o).ToList()
+            );
+        }
+        else
+        {
+            APShopRandoItems = new();
+        }
     }
 
     public override IDictionary<string, object> ToJsonObj()
@@ -95,7 +110,8 @@ public class LRArchipelagoData : ArchipelagoData
             { "used_items", UsedItems.ToList() },
             { "item_placements", itemPlacements },
             { "local_item_placements", localItemPlacements },
-            { "allow_dlc_items", AllowDLCItems }
+            { "allow_dlc_items", AllowDLCItems },
+            { "shop_materials", APShopRandoItems }
         };
     }
 }

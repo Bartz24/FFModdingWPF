@@ -295,6 +295,7 @@ internal class LRMultiworldGenerator : BaseMultiworldGenerator
             "class LRFF13EventData(NamedTuple):\n" +
             "    region: str\n" +
             "    item: str\n" +
+            "    traits: list = []\n" +
             "\n" +
             "\n" +
             "event_data_table: Dict[str, LRFF13EventData] = {\n";
@@ -322,7 +323,8 @@ internal class LRMultiworldGenerator : BaseMultiworldGenerator
 
                 script += $"    \"{newName}\": LRFF13EventData(\n" +
                           $"        region=\"{regionName}\",\n" +
-                          $"        item=\"{fake.FakeItem}\"\n" +
+                          $"        item=\"{fake.FakeItem}\",\n" +
+                          $"        traits=[{string.Join(", ", fake.Traits.Select(t => $"\"{t}\""))}]\n" +
                           $"    ),\n";
 
                 extraLocations.Add((l, newName));

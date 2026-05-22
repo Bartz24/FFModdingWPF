@@ -180,10 +180,6 @@ public partial class TreasureRando : Randomizer
 
         // TODO Testing
         treasures.BitsPerOffset = 16;
-        for (int i = 0; i < 800; i++)
-        {
-            AddTreasure($"ztre_r_t{i:000}", $"item_{i:000}", 1, "");
-        }
     }
 
     private void MoveMainStatRewardsToItems()
@@ -228,7 +224,7 @@ public partial class TreasureRando : Randomizer
             createdTreasures.Add(q.sTreasureBoxId);
         });
 
-        Generator.Logger.LogDebug("Created the following treasures to hold EP/ATB/Recovery Slot rewards: {Treasures}", string.Join(", ", createdTreasures));
+        Generator.Logger?.LogDebug("Created the following treasures to hold EP/ATB/Recovery Slot rewards: {Treasures}", string.Join(", ", createdTreasures));
     }
 
     private void AddQuestTreasure(string prefix, string item, int count)
@@ -306,7 +302,7 @@ public partial class TreasureRando : Randomizer
         }
     }
 
-    private void RandomizeShopItems()
+    protected virtual void RandomizeShopItems()
     {
         ShopRando shopRando = Generator.Get<ShopRando>();
         EquipRando equipRando = Generator.Get<EquipRando>();
