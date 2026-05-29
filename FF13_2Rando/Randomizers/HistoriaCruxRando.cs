@@ -478,7 +478,7 @@ public partial class HistoriaCruxRando : Randomizer
         public TreeNode parent;
     }
 
-    private int ResolveNodeDepth(TreeNode node)
+    public int ResolveNodeDepth(TreeNode node)
     {
         int depth = 0;
         TreeNode curr = node;
@@ -569,6 +569,7 @@ public partial class HistoriaCruxRando : Randomizer
         {HistoriaCruxConstants.OERBA_300, 0x6df0 },
         {HistoriaCruxConstants.OERBA_400, 0x6e70 },
         {HistoriaCruxConstants.DYING_WORLD_700, 0x6ef0 },
+        // TODO: not working?
         {HistoriaCruxConstants.DYING_WORLD_900, 0x6f70 },
         {HistoriaCruxConstants.VOID_BEYOND_A, 0x6ff0 },
         {HistoriaCruxConstants.VOID_BEYOND_B, 0x7070 },

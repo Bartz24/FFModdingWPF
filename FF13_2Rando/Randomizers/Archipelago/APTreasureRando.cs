@@ -1,4 +1,5 @@
-﻿using Bartz24.RandoWPF;
+﻿using Bartz24.FF13_2;
+using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,32 @@ public class APTreasureRando: TreasureRando
             {
                 throw new Exception($"Local item placement ID '{loc}' not found in item locations.");
             }
+        }
+    }
+
+    protected override void SaveHints()
+    {
+        HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
+        EquipRando equipRando = Generator.Get<EquipRando>();
+        TextRando textRando = Generator.Get<TextRando>();
+        var apData = RandoFlags.GetArchipelagoData<FF13_2ArchipelagoData>();
+        List<string> gravitonCoreNames = new() { "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta" };
+        for (var i = 1; i < 8; i++)
+        {
+            // Graviton core location hints
+            var gravitonCoreItemId = $"frg_cmn_gvtn00{i}";
+            var gravitonCoreHintTextId = $"$cap_core_0{i}_p1";
+
+            var indexName = gravitonCoreNames[i - 1];
+            
+            // Lookup from apdata if graviton core is in 13-2 or not
+            // if it is, give a local hint
+            // if it's not, just give a generic message saying we don't know where it is
+
+            var updatedText = $$"""Due to intense multiversal paradox interference, we have been unable to locate any clear signs of this fragment."""+
+                """{Text NewLine}{Text NewLine}It may not even be within our world any more.""";
+
+            textRando.mainSysUS[gravitonCoreHintTextId] = updatedText;
         }
     }
 }

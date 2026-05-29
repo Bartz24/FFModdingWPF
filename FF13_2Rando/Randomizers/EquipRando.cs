@@ -163,6 +163,11 @@ public class EquipRando : Randomizer
         {
             name = "Gil";
         }
+        if(itemID == "key_unk_s_opt" || itemID == "key_unk_y_opt")
+        {
+            // These are "real" but also "fake" currently. Don't ask.
+            return itemID;
+        }
         if (items.Keys.Contains(itemID) && textRando.mainSysUS.Keys.Contains(items[itemID].sItemNameStringId))
         {
             name = textRando.mainSysUS[items[itemID].sItemNameStringId];
@@ -170,6 +175,11 @@ public class EquipRando : Randomizer
             {
                 name = name.Substring(0, name.IndexOf("{End}"));
             }
+        }
+        else if (itemData.ContainsKey(itemID))
+        {
+            ItemData data = itemData[itemID];
+            name = data.Name;
         }
         else
         {

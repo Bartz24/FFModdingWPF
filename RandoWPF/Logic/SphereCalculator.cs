@@ -95,7 +95,7 @@ public class SphereCalculator<T> where T : ItemLocation
     {
         // Hide progress cuz spoilers :)
         //RandoUI.SetUIProgressIndeterminate($"Calculating sphere {sphere} items.");
-        Generator.Logger.LogDebug($"Calculating sphere {sphere} items.");
+        // Generator.Logger.LogDebug($"Calculating sphere {sphere} items.");
         state.AreasAccessible.UnionWith(AreaGraph.GetAllAccessibleAreas("Initial", state).Select(a => a.Name));
 
         HashSet<T> addedThisSphere = new();

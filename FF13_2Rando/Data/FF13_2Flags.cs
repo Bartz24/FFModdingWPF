@@ -238,11 +238,12 @@ public class FF13_2Flags
                 "The intent of this change is to hopefully downgrade items with wide impacts but low immediate gain (such as mog levels) for more local progression."
             }.Register(Treasures);
 
-            ReplaceWildArtefacts = new ToggleFlagProperty(false)
+            ReplaceWildArtefacts = new ToggleFlagProperty(true)
             {
-                Text = "Replace wild artefacts with custom items [EXPERIMENTAL]",
+                Text = "Replace wild artefacts with custom items",
                 ID = "WildArtefactReplace",
-                Description = "Replaces Wild Artefacts with custom items and updates gates accordingly to have a unique artefact always."
+                Description = "Replaces Wild Artefacts with custom items and updates gates accordingly to have a unique artefact always.",
+                DisabledByArchipelago = true,
             }.Register(Treasures);
 
             InitialShopLevel = new NumberFlagProperty(0)

@@ -113,6 +113,10 @@ public partial class TreasureRando : Randomizer
 
         // Initial treasures don't need flags as they aren't referenced again in the scripts.
         AddTreasure("ran_init_cp", "", 0, "", false);
+        if (FF13_2Flags.Stats.InitCP.FlagEnabled)
+        {
+            treasures["ran_init_cp"].iItemCount = FF13_2Flags.Stats.InitCPAmount.Value;
+        }
 
         if (FF13_2Flags.Items.ReplaceWildArtefacts.Enabled)
         {
@@ -129,7 +133,7 @@ public partial class TreasureRando : Randomizer
         AddTreasure("ran_mfind", "rando_findstrin", 32658, "", false);
         AddTreasure("ran_multi", RandoFlags.Mode == RandoFlags.SeedMode.Archipelago ? "rando_multiitem" : "disabled", 32500, "", false);
 
-        AddTreasure("victory", "key_r_victory", 1, "");
+        // AddTreasure("victory", "key_r_victory", 1, "");
 
         // Mog level items
         AddTreasure("mog_level_1", "key_mog_level", 1, "");
@@ -167,7 +171,8 @@ public partial class TreasureRando : Randomizer
         AddTreasure("key_s_neck", "key_s_neck", 1, "");
         AddTreasure("key_l_knife", "key_l_knife", 1, "");
         AddTreasure("key_tissue", "key_tissue", 1, "");
-        AddTreasure("key_wep_sozai", "key_wep_sozai", 1, "");
+        // Already has a chest??
+        // AddTreasure("key_wep_sozai", "key_wep_sozai", 1, "");
         AddTreasure("key_mon_data", "key_mon_data", 1, "");
         AddTreasure("key_kansoku", "key_kansoku", 1, "");
         AddTreasure("key_f_colonel", "key_f_colonel", 1, "");
@@ -241,6 +246,22 @@ public partial class TreasureRando : Randomizer
         AddTreasure("frgcmn_snea005", "frg_cmn_snea005", 0, "");
         AddTreasure("frgcmn_snea006", "frg_cmn_snea006", 0, "");
         //AddTreasure("frg_itm_bjba001", "frg_itm_bjba001", 1, "");
+
+        AddTreasure("frgcmn_acea001", "frg_cmn_acea001", 0, "");
+        AddTreasure("frgcmn_acea002", "frg_cmn_acea002", 0, "");
+        AddTreasure("frgcmn_acea003", "frg_cmn_acea003", 0, "");
+        AddTreasure("frgcmn_acea004", "frg_cmn_acea004", 0, "");
+        AddTreasure("frgcmn_acea005", "frg_cmn_acea005", 0, "");
+        AddTreasure("frgcmn_acea006", "frg_cmn_acea006", 0, "");
+        AddTreasure("frgcmn_acea007", "frg_cmn_acea007", 0, "");
+        AddTreasure("frgcmn_acea008", "frg_cmn_acea008", 0, "");
+        AddTreasure("frgcmn_acea009", "frg_cmn_acea009", 0, "");
+        AddTreasure("frgcmn_acea010", "frg_cmn_acea010", 0, "");
+        AddTreasure("frgcmn_acea011", "frg_cmn_acea011", 0, "");
+        AddTreasure("frgcmn_hmha001", "frg_cmn_hmha001", 0, "");
+        AddTreasure("frgcmn_hmha002", "frg_cmn_hmha002", 0, "");
+        AddTreasure("frgcmn_hmha003", "frg_cmn_hmha003", 0, "");
+        AddTreasure("frgcmn_ddha001", "frg_cmn_ddha001", 0, "");
 
         // Artefact experimenting
         AddTreasure("opt_aaea02_sp", "opt_aaea02_sp", 1, "");
@@ -526,16 +547,10 @@ public partial class TreasureRando : Randomizer
 
 
             RandomNum.ClearRand();
-
-        }
-
-        if (FF13_2Flags.Stats.InitCP.FlagEnabled)
-        {
-            treasures["ran_init_cp"].iItemCount = FF13_2Flags.Stats.InitCPAmount.Value;
         }
     }
 
-    private void SaveHints()
+    protected virtual void SaveHints()
     {
         HistoriaCruxRando cruxRando = Generator.Get<HistoriaCruxRando>();
         EquipRando equipRando = Generator.Get<EquipRando>();
@@ -573,7 +588,6 @@ public partial class TreasureRando : Randomizer
                 var accessText = "";
                 var accessTextPrefix = " According to our calculations, such a gate exists within ";
                 var indexName = gravitonCoreNames[i - 1];
-                // TODO: this isn't working currently
                 var gravitonCoreRandoLocation = ItemLocations.Where(kvp => kvp.Value.GetItem(false).Value.Item == gravitonCoreItemId).Select(kvp => kvp.Value).FirstOrDefault();
                 if (gravitonCoreRandoLocation != null)
                 {

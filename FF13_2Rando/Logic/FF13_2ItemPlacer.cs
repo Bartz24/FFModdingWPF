@@ -104,7 +104,7 @@ public class FF13_2ItemPlacer : CombinedItemPlacer<FF13_2ItemLocation, ItemData>
     {
         return possible.Where(l =>
         {
-            if (l.Traits.Contains("Missable") || l.Traits.Contains("Same"))
+            if (l.Traits.Contains("Missable") || l.Traits.Contains("Same") || l.Traits.Contains("Endgame"))
             {
                 return false;
             }
@@ -149,7 +149,9 @@ public class FF13_2ItemPlacer : CombinedItemPlacer<FF13_2ItemLocation, ItemData>
         }).ToOrderedSet();
     }
 
-    protected override OrderedSet<FF13_2ItemLocation> GetReplacementsForPlacer(OrderedSet<FF13_2ItemLocation> usedReplacements, ItemPlacer<FF13_2ItemLocation> placer)
+    public static List<string> progressionCategories = new List<string>() { "Graviton", "SideKey", "GateSeal", "Wild", "Fragment", "MogLevel", "ShopLevel", "Artefact", "Event", "FragmentSkill", "Map" };
+
+protected override OrderedSet<FF13_2ItemLocation> GetReplacementsForPlacer(OrderedSet<FF13_2ItemLocation> usedReplacements, ItemPlacer<FF13_2ItemLocation> placer)
     {
         var remaining = Replacements.Except(second: usedReplacements).ToOrderedSet();
         if (placer == ProgressionPlacer)
@@ -160,7 +162,6 @@ public class FF13_2ItemPlacer : CombinedItemPlacer<FF13_2ItemLocation, ItemData>
                 var itemData = Generator.Get<EquipRando>().itemData.GetValueOrDefault(locationItem, null);
                 if (itemData != null)
                 {
-                    var progressionCategories = new List<string>() { "Graviton", "SideKey", "GateSeal", "Wild", "Fragment", "MogLevel", "ShopLevel", "Artefact", "Event", "FragmentSkill" };
                     foreach (var category in progressionCategories)
                     {
                         if (itemData.Traits.Contains(category))
