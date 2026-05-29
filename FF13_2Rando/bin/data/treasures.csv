@@ -1,6 +1,6 @@
 ﻿ID,Name,Possible Locations,Mog Level,Additional Required Locations,Required Items,Traits
-ran_init_silver,Initial Wild Artefacts,Initial,0,,,Fixed
-ran_init_shop,Initial Shop Levels,Initial,0,,,Fixed
+ran_init_silver,Initial Wild Artefacts,Initial,0,,,Fixed|APSkip
+ran_init_shop,Initial Shop Levels,Initial,0,,,Fixed|APSkip
 # TODO: reorder file to properly match areas, give treasures better names
 # New Bodhum 3AF
 tre_hmaa_001,Winding Way South,h_hm_AD0003,0,,,
@@ -30,6 +30,9 @@ tre_hmha_001,Town Square Central,h_hm_AD0700,3,,,SideKey
 tre_hmha_002,Beachfront Start Area,h_hm_AD0700,2,,,Fragment
 tre_hmha_003,Town Square Fragment West,h_hm_AD0700,2,,,Fragment
 tre_hmha_opt01,Artefact of the Ark,h_hm_AD0700,3,,,Artefact
+zfrgcmn_hmha001,Hope's Message,h_hm_AD0700,3,,,ScrEvent|Fragment
+zfrgcmn_hmha002,Noel's Message,h_hm_AD0700,,,I(privilege06|1),ScrEvent|Fragment
+zfrgcmn_hmha003,Serah's Message,h_hm_AD0700,,,I(privilege06|1),ScrEvent|Fragment
 # Bresha Ruins 5AF
 zmog_level_1,Unlock Moogle Hunt,h_bj_AD0005,0,,,ScrEvent
 tre_bjaa_001,Excavation Site Southeast,h_bj_AD0005,0,,,
@@ -56,20 +59,21 @@ zfrgcmn_bjaa001,Atlas Fragment,h_bj_AD0005,0,,I(boss_atlas|1),ScrEvent|Fragment
 # Bresha Ruins 100
 tre_bjaa_006,Echoes of the Past East Advanced Reveal,h_bj_AD0100,3,,,
 tre_bjaa_016,Echoes of the Past East,h_bj_AD0100,0,,,
-tre_bjba_001,Echoes of the Past North Inside central,h_bj_AD0100,0,,,SideKey
+tre_bjba_001,Echoes of the Past North Inside central,h_bj_AD0100,3,,,SideKey
 tre_bjba_reopt,Echoes of the Past Near control panel,h_bj_AD0100,3,,I(frg_bj_11|1),GateSeal
 tre_csza_reopt,Echoes of the Past Pillar area,h_bj_AD0100,0,,,GateSeal
 zkey_tissue,Toilet Paper Coupon,h_bj_AD0100,0,,,ScrEvent|SideKey
-zkey_wep_sozai,Weapon Material,h_bj_AD0100,3,,,ScrEvent|SideKey
+# TODO: this shouldn't exist, its already bjba_001 - just replace :)
 zkey_mon_data,Monster Analysis Report,h_bj_AD0100,3,,,ScrEvent|SideKey
 # Bresha Ruins 300
 tre_bjaa_025,Echoes of the Past Wild gate area,h_bj_AD0300,0,,,
 tre_bjda_001,Echoes of the Past Recording Device,h_bj_AD0300,1,,,SideKey
 tre_bjda_reopt,Echoes of the Past Chocobo jump area,h_bj_AD0300,0,,,GateSeal
-tre_bjda_opts1,Lamentable Rest Wild Artefact,h_bj_AD0300,1,,,Wild
-zkey_kansoku,Old Device,h_bj_AD0300,0,,,ScrEvent|SideKey
+tre_bjda_opts1,Lamentable Rest Wild Artefact,h_bj_AD0300,1,,I(frg_bj_17|1),Wild
+zkey_kansoku,Old Device,h_bj_AD0300,0,,I(frg_bj_11_init|1),ScrEvent|SideKey
 zkey_f_colonel,Commander's Report,h_bj_AD0300,0,,,ScrEvent|SideKey
-zkey_f_message,My Buddy's Message,h_bj_AD0300,0,,,ScrEvent|SideKey
+# Can be missed if you hand in the quest directly without talking to the guy?
+zkey_f_message,My Buddy's Message,h_bj_AD0300,0,,,ScrEvent|SideKey|Missable
 zkey_yukimi,Silver Petal,h_bj_AD0300,0,,I(frg_bj_8_init|1),ScrEvent|SideKey
 # Bresha Ruins 5 + 300
 tre_bjaa_005,Echoes of the Past Chocobo Jump area,h_bj_AD0005|h_bj_AD0300,0,,,
@@ -89,7 +93,7 @@ ztmap_gy,Map of the Yaschas Massif,h_gy_AD0010,0,,,ScrEvent|Map
 zkey_behi_fang,Behemoth Fang,h_gy_AD0010,0,,,ScrEvent|SideKey
 tre_bjaa_reopt,Pass of Paddra Box near shop,h_gy_AD0010,0,,,GateSeal
 zfrgcmn_gyaa003,Amur's Sphere,h_gy_AD0010,0,,,ScrEvent|Fragment
-tre_gyaa_013,Paddreaean Archaeopolis Statue Fragment,h_gy_AD0010,0,,,Fragment
+tre_gyaa_013,Paddreaean Archaeopolis Statue Fragment,h_gy_AD0010,2,,,Fragment
 # Yaschas Massif 1X
 tre_gyaa_026,Pass of Paddra Southeast corridor,h_gh_AD0010,0,,,SideKey
 tre_gyaa_027,Pass of Paddra Near South Gate,h_gh_AD0010,0,,,SideKey
@@ -112,7 +116,7 @@ tre_gyaa_024,Pass of Paddra Throw North,h_gy_AD0200,2,,,SideKey
 tre_gyaa_023,Paddreaean Archaeopolis Tent Reveal,h_gy_AD0200,1,,,SideKey
 tre_gyca_reopt,Paddreaean Archaeopolis Statue Slope West,h_gy_AD0200,0,,,GateSeal
 zkey_y_baggage,Wedding Jewelry,h_gy_AD0200,1,,,ScrEvent|SideKey
-zkey_f_proof,Technician's Note,h_gy_AD0200,0,,,ScrEvent|SideKey
+zkey_f_proof,Technician's Note,h_gy_AD0200,0,,AND(I(frg_gy_20|1)|I(key_f_manual|1)),ScrEvent|SideKey
 # Yaschas Massif not 10
 tre_gyaa_016,Paddreaean Archaeopolis Upper South Balcony,h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,1,,,
 # Yaschas Massif ALL
@@ -167,15 +171,15 @@ zopt_snda01_cl,Combat Artefact,h_sn_AD0300,1,,,ScrEvent|Artefact
 zopt_snda02_gd,Thundering Artefact,h_sn_AD0300,1,,,ScrEvent|Artefact
 zfrgcmn_snda002,Mutantomato Fragment,h_sn_AD0300,0,,I(boss_mutantomato|1),ScrEvent|Fragment
 # Sunleth 400
-tre_snea_reopt,Assembly Area Minflans,h_sn_AD0400,1,,,GateSeal|Event
+tre_snea_reopt,Assembly Area Minflans,h_sn_AD0400,1,,,GateSeal|Event|ScrEvent
 tre_gvtn7,Assembly Area Graviton Core,h_sn_AD0400,1,,,Graviton
-zfrgcmn_snea001,Lapis Lazuli,h_sn_AD0400,0,,,ScrEvent|Fragment
-zfrgcmn_snea002,Heliodor Ore,h_sn_AD0400,0,,,ScrEvent|Fragment
-zfrgcmn_snea003,Carnelian,h_sn_AD0400,0,,,ScrEvent|Fragment
-zfrgcmn_snea004,Celestine,h_sn_AD0400,0,,,ScrEvent|Fragment
-zfrgcmn_snea005,Cosmo Aura,h_sn_AD0400,0,,,ScrEvent|Fragment
+zfrgcmn_snea001,Lapis Lazuli,h_sn_AD0400,1,,,ScrEvent|Fragment
+zfrgcmn_snea002,Heliodor Ore,h_sn_AD0400,1,,,ScrEvent|Fragment
+zfrgcmn_snea003,Carnelian,h_sn_AD0400,1,,,ScrEvent|Fragment
+zfrgcmn_snea004,Celestine,h_sn_AD0400,1,,,ScrEvent|Fragment
+zfrgcmn_snea005,Cosmo Aura,h_sn_AD0400,1,,,ScrEvent|Fragment
 # TODO: adjust scripts to block the fight without prereq fragments?
-zfrgcmn_snea006,Miniflan Fragment,h_sn_AD0400,0,,,ScrEvent|Fragment
+zfrgcmn_snea006,Miniflan Fragment,h_sn_AD0400,1,,,ScrEvent|Fragment
 # Sunleth ALL
 tre_snda_010,Base of the Crystal North,h_sn_AD0300|h_sn_AD0400,0,,,
 tre_snda_001,Animal Trail West throw south,h_sn_AD0300|h_sn_AD0400,2,,,
@@ -196,7 +200,7 @@ tre_clza_003,Coliseum 2pm,h_cl_NA0000,2,,,
 tre_clza_004,Coliseum 10pm,h_cl_NA0000,2,,,
 tre_clza_005,Coliseum 8pm,h_cl_NA0000,2,,,
 tre_clza_map,Coliseum Ramp,h_cl_NA0000,1,,,
-zfrgcmn_clza001,White Hole Gem,h_cl_NA0000,0,,,ScrEvent|Fragment|Fixed
+zfrgcmn_clza001,White Hole Gem,h_cl_NA0000,0,,,ScrEvent|Fragment
 # Archylte Steppe
 tre_gdza_001,Nomad Camp Under building,h_gd_NA0000,0,,,
 tre_gdza_018,Nomad Camp Balcony,h_gd_NA0000,0,,,
@@ -212,7 +216,7 @@ tre_gdza_011,Sanctorium Southeast,h_gd_NA0000,2,,,
 tre_gdza_004,Grave Ridge Top of Alcove,h_gd_NA0000,0,,,
 tre_gdza_007,Grave Ridge Alcove reveal,h_gd_NA0000,1,,,
 tre_gdza_008,Grave Ridge Southeast,h_gd_NA0000,1,,,
-tre_gdza_013,Grave Ridge On pillar,h_gd_NA0000,2,,T(GDChoco|5),
+tre_gdza_013,Grave Ridge On pillar,h_gd_NA0000,2,,OR(I(gd_choco|1)|I(key_mog_level|2)),
 tre_gdza_010,Clearwater Marshes North alcove,h_gd_NA0000,1,,,
 tre_gdza_005,Clearwater Marshes Central,h_gd_NA0000,1,,,
 tre_gdza_019,Clearwater Marshes West,h_gd_NA0000,1,,,
@@ -230,6 +234,17 @@ ztmap_gd,Map of the Steppe,h_gd_NA0000,0,,,ScrEvent|Map
 tre_snda_reopt,Alley near shop,h_ac_AD0400,0,,,GateSeal
 tre_gvtn4,New Town Graviton Core near Zenobia,h_ac_AD0400,1,,,Graviton
 zopt_acea01_gt,Tower Artefact,h_ac_AD0400,0,,,ScrEvent|Artefact
+zfrgcmn_acea001,Travel Guide: Bresha Ruins,h_ac_AD0400,0,h_bj_AD0005|h_bj_AD0100|h_bj_AD0300,,ScrEvent|Fragment
+zfrgcmn_acea002,Travel Guide: New Bodhum,h_ac_AD0400,0,h_hm_AD0003|h_hm_AD0700,,ScrEvent|Fragment
+zfrgcmn_acea003,Travel Guide: Yachas Massif,h_ac_AD0400,0,h_gy_AD0100|h_gy_AD0200,,ScrEvent|Fragment
+zfrgcmn_acea004,Travel Guide: Oerba,h_ac_AD0400,0,h_gw_AD0400,,ScrEvent|Fragment
+zfrgcmn_acea005,Travel Guide: Sunleth Waterscape,h_ac_AD0400,0,h_sn_AD0300|h_sn_AD0400,,ScrEvent|Fragment
+zfrgcmn_acea006,Travel Guide: Academia,h_ac_AD0400,0,h_aa_AD0400|h_ac_AD0400,,ScrEvent|Fragment
+zfrgcmn_acea007,Travel Guide: Augusta Tower,h_ac_AD0400,0,h_gt_AD0200|h_gt_AD0300,T(AugustaKey|5),ScrEvent|Fragment
+zfrgcmn_acea008,Travel Guide: Vile Peaks,h_ac_AD0400,0,h_vp_AD0010,,ScrEvent|Fragment
+zfrgcmn_acea009,Travel Guide: Archylte Steppe,h_ac_AD0400,0,h_gd_NA0000,I(gd_choco|1),ScrEvent|Fragment
+zfrgcmn_acea010,Travel Guide: A Dying World,h_ac_AD0400,0,h_dd_AD0700,,ScrEvent|Fragment
+zfrgcmn_acea011,Academic Rank: Paradox Professor,h_ac_AD0400,0,,T(TravelGuide|10),ScrEvent|Fragment
 zfrgcmn_acea012,Zenobia Fragment,h_ac_AD0400,0,,,ScrEvent|Fragment
 # Academia 4xx
 tre_acea_015,Central Bridge West of Academy entrance,h_aa_AD0400,0,,,
@@ -238,18 +253,18 @@ tre_acea_011,Research Facility Lower,h_aa_AD0400,0,,,
 tre_acea_009,Grand Avenue Lower Alcove,h_aa_AD0400,0,,,
 tre_acea_010,Grand Avenue Near shop,h_aa_AD0400,0,,,
 tre_aaea_opts1,Alley Wild Artefact Southeast alcove,h_aa_AD0400,1,,,Wild
-tre_aaea_001,Brain Blast North Terminal (Entrance) 1,h_aa_AD0400,0,,,Brain
-tre_aaea_002,Brain Blast North Terminal (Entrance) 2,h_aa_AD0400,0,,,Brain
-tre_aaea_003,Brain Blast North Terminal (Entrance) 3,h_aa_AD0400,0,,,Brain
-tre_aaea_004,Brain Blast East Terminal (Grand Avenue) 1,h_aa_AD0400,0,,,Brain
-tre_aaea_005,Brain Blast East Terminal (Grand Avenue) 2,h_aa_AD0400,0,,,Brain
-tre_aaea_006,Brain Blast East Terminal (Grand Avenue) 3,h_aa_AD0400,0,,,Brain
-tre_aaea_007,Brain Blast Southwest Terminal (New Town) 1,h_aa_AD0400,0,,,Brain
-tre_aaea_008,Brain Blast Southwest Terminal (New Town) 2,h_aa_AD0400,0,,,Brain
-tre_aaea_009,Brain Blast Southwest Terminal (New Town) 3,h_aa_AD0400,0,,,Brain
-tre_aaea_010,Brain Blast Northwest Terminal (New Town) 1,h_aa_AD0400,0,,,Brain
-tre_aaea_011,Brain Blast Northwest Terminal (New Town) 2,h_aa_AD0400,0,,,Brain
-tre_aaea_012,Brain Blast Northwest Terminal (New Town) 3,h_aa_AD0400,0,,,Brain
+tre_aaea_001,Brain Blast North Terminal (Entrance) Round 1,h_aa_AD0400,0,,,Brain
+tre_aaea_002,Brain Blast North Terminal (Entrance) Round 2,h_aa_AD0400,0,,,Brain
+tre_aaea_003,Brain Blast North Terminal (Entrance) Round 3,h_aa_AD0400,0,,,Brain
+tre_aaea_004,Brain Blast East Terminal (Grand Avenue) Round 1,h_aa_AD0400,0,,,Brain
+tre_aaea_005,Brain Blast East Terminal (Grand Avenue) Round 2,h_aa_AD0400,0,,,Brain
+tre_aaea_006,Brain Blast East Terminal (Grand Avenue) Round 3,h_aa_AD0400,0,,,Brain
+tre_aaea_007,Brain Blast Southwest Terminal (New Town) Round 1,h_aa_AD0400,0,,,Brain
+tre_aaea_008,Brain Blast Southwest Terminal (New Town) Round 2,h_aa_AD0400,0,,,Brain
+tre_aaea_009,Brain Blast Southwest Terminal (New Town) Round 3,h_aa_AD0400,0,,,Brain
+tre_aaea_010,Brain Blast Northwest Terminal (New Town) Round 1,h_aa_AD0400,0,,,Brain
+tre_aaea_011,Brain Blast Northwest Terminal (New Town) Round 2,h_aa_AD0400,0,,,Brain
+tre_aaea_012,Brain Blast Northwest Terminal (New Town) Round 3,h_aa_AD0400,0,,,Brain
 zopt_aaea02_sp,Vagabond Artefact,h_aa_AD0400,0,,C(Graviton|5),ScrEvent|Artefact
 # Academia ALL
 tre_acea_005,Central Bridge East jump,h_ac_AD0400|h_aa_AD0400,0,,,
@@ -266,21 +281,21 @@ tre_acea_008,New Town Northwest Lower,h_ac_AD0400|h_aa_AD0400,1,,,
 tre_acea_013,New Town West Upper,h_ac_AD0400|h_aa_AD0400,0,,,
 tre_acea_014,New Town North Upper,h_ac_AD0400|h_aa_AD0400,0,,,
 ztmap_ac,Map of Academia,h_aa_AD0400|h_ac_AD0400,0,,,ScrEvent|Map
-# Academia 500. This is always the endgame, so mark everything as missable to avoid progression being in here.
-tre_acfa_001,Academia 500 Initial Platform East,h_ac_AD0500,0,,,Missable
-tre_acfa_002,Academia 500 West static platform,h_ac_AD0500,0,,I(privilege05|1),Missable
-tre_acfa_003,Academia 500 East initial platform,h_ac_AD0500,0,,I(privilege05|1),Missable
-tre_acfa_004,Academia 500 First central platform,h_ac_AD0500,0,,I(privilege05|1),Missable
-tre_acfa_005,Academia 500 Second half west platform,h_ac_AD0500,0,,I(privilege05|1),Missable
-tre_acfa_006,Academia 500 Second half east platform,h_ac_AD0500,3,,I(privilege05|1),Missable
-tre_acfa_007,Academia 500 Second half west drop platform,h_ac_AD0500,2,,I(privilege05|1),Missable
-tre_acfa_008,Academia 500 Second half east drop platform,h_ac_AD0500,2,,I(privilege05|1),Missable
-tre_acfa_009,Academia 500 Second half middle platform,h_ac_AD0500,2,,I(privilege05|1),Missable
-tre_acfa_map,Academia 500 Above first central platform,h_ac_AD0500,0,,I(privilege05|1),Missable
-tre_ddha_reopt,Academia 500 Initial platform,h_ac_AD0500,0,,,GateSeal|Missable
-tre_acfa_reopt,Academia 500 Final platform,h_ac_AD0500,0,,I(privilege05|1),GateSeal|Missable
-tre_spza_reopt,Academia 500 Second half central platform,h_ac_AD0500,0,,I(privilege05|1),GateSeal|Missable
-zfrgcmn_acfa001,Amethyst and Luvulite Fragment,h_ac_AD0500,0,,I(frg_cmn_ddha001|1),ScrEvent|Fragment|Missable
+# Academia 500. This is always the endgame so categorised accordingly to prevent standalone progression placement (but AP allows it)
+tre_acfa_001,Academia 500 Initial Platform East,h_ac_AD0500,0,,,Endgame
+tre_acfa_002,Academia 500 West static platform,h_ac_AD0500,0,,I(privilege05|1),Endgame
+tre_acfa_003,Academia 500 East initial platform,h_ac_AD0500,0,,I(privilege05|1),Endgame
+tre_acfa_004,Academia 500 First central platform,h_ac_AD0500,0,,I(privilege05|1),Endgame
+tre_acfa_005,Academia 500 Second half west platform,h_ac_AD0500,0,,I(privilege05|1),Endgame
+tre_acfa_006,Academia 500 Second half east platform,h_ac_AD0500,3,,I(privilege05|1),Endgame
+tre_acfa_007,Academia 500 Second half west drop platform,h_ac_AD0500,2,,I(privilege05|1),Endgame
+tre_acfa_008,Academia 500 Second half east drop platform,h_ac_AD0500,2,,I(privilege05|1),Endgame
+tre_acfa_009,Academia 500 Second half middle platform,h_ac_AD0500,2,,I(privilege05|1),Endgame
+tre_acfa_map,Academia 500 Above first central platform,h_ac_AD0500,0,,I(privilege05|1),Endgame
+tre_ddha_reopt,Academia 500 Initial platform,h_ac_AD0500,0,,,GateSeal|Endgame
+tre_acfa_reopt,Academia 500 Final platform,h_ac_AD0500,0,,I(privilege05|1),GateSeal|Endgame
+tre_spza_reopt,Academia 500 Second half central platform,h_ac_AD0500,0,,I(privilege05|1),GateSeal|Endgame
+zfrgcmn_acfa001,Amethyst and Luvulite Fragment,h_ac_AD0500,0,,I(privilege05|1),ScrEvent|Fragment|Endgame
 # Augusta Tower 200 (Categorisation todo from here)
 tre_gtca_001,50th Floor Small Outer Ring Segment South,h_gt_AD0200,0,,,
 tre_gtca_002,50th Floor Small Outer Ring Segment West,h_gt_AD0200,0,,,
@@ -321,19 +336,19 @@ tre_gtda_007,15th Floor North Throw,h_gt_AD0300,2,,,
 zkey_access_50,15th Floor Access Key 50,h_gt_AD0300,0,,,ScrEvent|SideKey
 tre_gtda_009,13th Floor Southwest Throw,h_gt_AD0300,2,,I(key_access_13|1),
 tre_gtda_010,13th Floor East Throw,h_gt_AD0300,2,,I(key_access_13|1),
-tre_gtda_011,13th Floor Northwest,h_gt_AD0300,1,,I(key_access_13|1),
+tre_gtda_011,13th Floor Northwest,h_gt_AD0300,3,,I(key_access_13|1),
 # Void Beyond
-tre_spza_001,Throne of the Goddess Southwest,h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Missable
-tre_spza_002,Throne of the Goddess North Ledge,h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Missable
-tre_spza_map,Throne of the Goddess Southeast,h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Missable
-tre_clza_reopt,Throne of the Goddess South Throw,h_sp_NA0001|h_sp_NA0100,2,h_dd_AD0700,I(opt_aaea_re|1),GateSeal|Missable
-tre_gdza_reopt,Throne of the Goddess North Throw,h_sp_NA0001|h_sp_NA0100,2,h_dd_AD0700,I(opt_aaea_re|1),GateSeal|Missable
-tre_spza_005,Walk of Time Outer Ledge,h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Missable
-zfrgcmn_spza001,Etro's Sorrow,h_sp_NA0100,1,,,ScrEvent|Fragment|Missable
-zfrgcmn_spza002,Pulse's Resolution,h_sp_NA0100,1,,,ScrEvent|Fragment|Missable
-zfrgcmn_spza003,Lindzei's Desire,h_sp_NA0100,1,,,ScrEvent|Fragment|Missable
-zfrgcmn_spza004,Mwynn's Tenderness,h_sp_NA0100,1,,,ScrEvent|Fragment|Missable
-zfrgcmn_spza005,Bhunivelze's Sleep,h_sp_NA0100,1,,,ScrEvent|Fragment|Missable
+tre_spza_001,Throne of the Goddess Southwest,h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Endgame|Missable
+tre_spza_002,Throne of the Goddess North Ledge,h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Endgame|Missable
+tre_spza_map,Throne of the Goddess Southeast,h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Endgame|Missable
+tre_clza_reopt,Throne of the Goddess South Throw,h_sp_NA0001|h_sp_NA0100,2,h_dd_AD0700,I(opt_aaea_re|1),GateSeal|Endgame|Missable
+tre_gdza_reopt,Throne of the Goddess North Throw,h_sp_NA0001|h_sp_NA0100,2,h_dd_AD0700,I(opt_aaea_re|1),GateSeal|Endgame|Missable
+tre_spza_005,Walk of Time Outer Ledge,h_sp_NA0001|h_sp_NA0100,0,h_dd_AD0700,I(opt_aaea_re|1),Endgame|Missable
+zfrgcmn_spza001,Etro's Sorrow,h_sp_NA0100,1,,,ScrEvent|Fragment|Endgame
+zfrgcmn_spza002,Pulse's Resolution,h_sp_NA0100,1,,,ScrEvent|Fragment|Endgame
+zfrgcmn_spza003,Lindzei's Desire,h_sp_NA0100,1,,,ScrEvent|Fragment|Endgame
+zfrgcmn_spza004,Mwynn's Tenderness,h_sp_NA0100,1,,,ScrEvent|Fragment|Endgame
+zfrgcmn_spza005,Bhunivelze's Sleep,h_sp_NA0100,1,,,ScrEvent|Fragment|Endgame
 # Serendipity
 ztmap_cs,Map of Serendipity,h_cs_NA0000,0,,,ScrEvent|Map
 zcs_chip_00,Casino Ticket,h_cs_NA0000,0,,,ScrEvent|Casino
@@ -375,6 +390,7 @@ tre_ddha_009,Abyssal Fissure Fragment Throw,h_dd_AD0700,3,,,Fragment
 tre_ddha_012,Abyssal Fissure Fragment Near Chocobo,h_dd_AD0700,3,,,Fragment
 tre_ddha_003,The Farseers' Settlement Fragment In Well,h_dd_AD0700,3,,,Fragment
 tre_ddha_opts1,The Farseers' Relic Oracle Drive,h_dd_AD0700,3,,,Wild
+zfrgcmn_ddha001,Gogmagog Fragment Gamma,h_dd_AD0700,1,,,ScrEvent|Fragment
 # Vile Peaks 200
 zfrgcmn_vpca005,Falcon's Last Light,h_vp_AD0200,1,,,ScrEvent|Fragment
 ztmap_vp,Map of the Vile Peaks,h_vp_AD0200,1,,,ScrEvent|Map
@@ -394,10 +410,8 @@ zfrgcmn_vpba001,Baxter's Last Light,h_vp_AD0010,1,,,ScrEvent|Fragment
 tre_vpba_004,Dismal Dunescape North Advanced reveal,h_vp_AD0200|h_vp_AD0010,3,,,
 tre_vpba_001,Another Man's Treasure West alcove,h_vp_AD0200|h_vp_AD0010,1,,,
 tre_vpba_006,Another Man's Treasure West,h_vp_AD0200|h_vp_AD0010,0,,,
-# One of these doesn't actually need mog (8 below)
 # Valhalla
 zfrgcmn_acfa002,Paradox Scope,h_va_NA0000,0,,,ScrEvent|Paradox|Missable
-zvictory,Victory,h_va_NA0000,0,,,ScrEvent|Fixed
 # Paradox scope and endings - gate seals are doing bad things currently so all missable for now (also the scope check is at beating the game so "post victory" for now)
 zfrgcmn_pdxe001,Transcript: A Giant Mistake,h_gd_NA0900,0,h_bj_AD0005,AND(I(opt_bjaa_re|1)|I(privilege06|1)),ScrEvent|Paradox|Missable
 zfrgcmn_pdxe002,Transcript: Vanille's Truth,h_gw_AD0900,0,h_gw_AD0200,AND(I(opt_gwca_re|1)|I(privilege06|1)),ScrEvent|Paradox|Missable
@@ -417,5 +431,6 @@ zshop_level_06,Progressive Shop Level,h_ac_AD0400,0,,,ScrEvent|ShopLevel
 zshop_level_07,Progressive Shop Level,h_gt_AD0200,0,,,ScrEvent|ShopLevel
 zshop_level_08,Progressive Shop Level,h_aa_AD0400,0,,,ScrEvent|ShopLevel
 zshop_level_09,Progressive Shop Level,h_dd_AD0700,0,,,ScrEvent|ShopLevel
-zshop_level_10,Progressive Shop Level,h_ac_AD0500,0,,,ScrEvent|ShopLevel|Missable
+zshop_level_10,Progressive Shop Level,h_ac_AD0500,0,,,ScrEvent|ShopLevel|Endgame
+# Technically this one is always post-victory so is a bit of an awkward placement. Maybe when we have custom win conditions this can change :)
 zshop_level_11,Progressive Shop Level,h_va_NA0000,0,,,ScrEvent|ShopLevel|Missable

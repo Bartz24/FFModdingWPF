@@ -198,6 +198,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
             "    str_id: str\n" +
             "    address: Optional[int] = None\n" +
             "    classification: LocationProgressType = LocationProgressType.DEFAULT\n" +
+            "    fixed_item: Optional[str] = None\n"+
             "\n" +
             "\n" +
             "location_data_table: Dict[str, FF132LocationData] = {\n";
@@ -211,8 +212,13 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         TreasureRando.ItemLocations.Values.Where(l => l is not FF13_2FakeItemLocation).ToList().ForEach(l =>
         {
             string classification = "DEFAULT";
-            // Max EP randomization isn't implemented for AP yet, so exclude EP locations
-            if (l.Traits.Contains("Missable"))
+            // Exclude missable locations
+            if (l.Traits.Contains("Missable") || l.Traits.Contains("APSkip"))
+            {
+                classification = "EXCLUDED";
+            }
+
+            if (l is SearchItemData)
             {
                 classification = "EXCLUDED";
             }
@@ -242,6 +248,10 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
                 throw new Exception("Location has no area set!");
             }
             var regionName = l.Areas.Count == 0 ? l.Areas[0] : buildUnionRegion(l.Areas);
+            if(regionName == "Initial")
+            {
+                regionName = "Historia Crux";
+            }
             var displayRegion = buildDisplayRegion(l.Areas);
             if (!regions.ContainsKey(regionName))
             {
@@ -250,10 +260,22 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
 
             name = $"{displayRegion} - {name}";
 
+            string fixedItem = null;
+
+            if (l.Traits.Contains("Fixed"))
+            {
+                var content = l.GetItem(true);
+                if (content != null)
+                {
+                    // Assume always 1-count in these
+                    fixedItem = content.Value.Item;
+                }
+            }
+
             switch (l)
             {
                 case FF13_2ItemLocation t:
-                    script = AddLocationToLocationsScript(script, name, regionName, nextIndex, classification, "treasure", t.ID);
+                    script = AddLocationToLocationsScript(script, name, regionName, nextIndex, classification, "treasure", t.ID, fixedItem);
                     break;
                 default:
                     throw new Exception("Unknown location type");
@@ -275,7 +297,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
     {
         if (areas.Contains("Initial"))
         {
-            return "Initial";
+            return "Historia Crux";
         }
         if (areas.Count == 1)
         {
@@ -337,7 +359,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         return string.Join("|", areas.Order());
     }
 
-    private string AddLocationToLocationsScript(string script, string name, string region, int intIndex, string classification, string type, string strId)
+    private string AddLocationToLocationsScript(string script, string name, string region, int intIndex, string classification, string type, string strId, string fixedItem)
     {
         // Map ID and secondary index are optional
         script +=
@@ -350,6 +372,11 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         {
             script += $",\n" +
                 $"        str_id=\"{strId}\"";
+        }
+        if (!string.IsNullOrEmpty(fixedItem))
+        {
+            script += $",\n" +
+                $"        fixed_item=\"{fixedItem}\"";
         }
 
         script += "\n    ),\n";
@@ -386,10 +413,16 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
                 usedNames.Add(fake.Name, 1);
             }
 
-            string baseName = $"{fake.Name} Event ({usedNames[fake.Name]})";
+            var idx = usedNames[fake.Name];
+            // This always has to be here for the client output to use annoyingly.
+            string baseName = $"{fake.Name} Event ({idx})";
 
             int count = Math.Max(1, fake.Amount);
-            var regionName = fake.Areas != null && fake.Areas.Count > 0 ? fake.Areas[0] : "Initial";
+            var regionName = fake.Areas != null && fake.Areas.Count > 0 ? fake.Areas[0] : "Historia Crux";
+            if(regionName == "Initial")
+            {
+                regionName = "Historia Crux";
+            }
             for (int i = 1; i <= count; i++)
             {
                 string newName = count == 1 ? baseName : $"{baseName} [{i}]";
@@ -419,8 +452,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
             "from .RegionTypes import FF132RegionData, FF132RegionType\n" +
             "\n" +
             "\n" +
-            "region_data_table: Dict[str, FF132RegionData] = {\n" +
-            "    \"Historia Crux\": FF132RegionData(connecting_regions=[], type=FF132RegionType.HistoriaCrux, alias=\"Historia Crux\"),\n";
+            "region_data_table: Dict[str, FF132RegionData] = {\n";
 
         var areaKeys = HistoriaCruxRando.areaData.Keys;
 
@@ -514,6 +546,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
             // build map of outgoing link (i.e. gate) to requirements
             // these will be linked together in EntranceShuffle.py separately.
             // TODO: ensure all of the outgoing rules accurately reflect state including fake checks (e.g. sunleth 300 out to VB)
+            // Just hack in sunleth/yaschas out links here manually?
 
             var outgoingLinks = HistoriaCruxRando.areaData[location].OutgoingGates;
             foreach (var outgoingLink in outgoingLinks)
@@ -527,9 +560,27 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
                 ExitToRules[(location, outgoingLink)] = ruleStr;
             }
 
+            if(location == "h_sn_AD0300")
+            {
+                var gateLocation = TreasureRando.ItemLocations["hs_snda03_ac:0"];
+                AddRequirementPreambles(data.PreambleParts, gateLocation.Requirements, gameName);
+                string ruleStr = gateLocation.Requirements.GetArchipelagoRule(EquipRando.GetItemName);
+                AddUniqueRule(data.Rules, ruleStr);
+                ExitToRules[("h_sn_AD0300", "hs_snda03_ac")] = ruleStr;
+            }
+
+            if(location == "h_gh_AD0010")
+            {
+                var gateLocation = TreasureRando.ItemLocations["hs_ghaa01_cs:0"];
+                AddRequirementPreambles(data.PreambleParts, gateLocation.Requirements, gameName);
+                string ruleStr = gateLocation.Requirements.GetArchipelagoRule(EquipRando.GetItemName);
+                AddUniqueRule(data.Rules, ruleStr);
+                ExitToRules[("h_sn_AD0300", "hs_ghaa01_cs")] = ruleStr;
+            }
+
             // Then also add any composite regions that this location links to
             // e.g. bresha 5 links to "bresha (5/100/300)" with no requirement
-            foreach(var additionalRegion in regions.Keys)
+            foreach (var additionalRegion in regions.Keys)
             {
                 if(additionalRegion.Contains(location) && additionalRegion != location)
                 {
@@ -569,7 +620,9 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         {
             var ruleStr = ExitToRules[key];
             int idx = rules.IndexOf(ruleStr);
-            script.Append($"    (\"{ItemReq.EscapePythonString(key.From)}\", \"{ItemReq.EscapePythonString(key.Gate)}\"): rule_data_list[{idx}],\n");
+            var area = key.From == "Initial" ? "Historia Crux" : key.From;
+            // Initial -> Historia Crux
+            script.Append($"    (\"{ItemReq.EscapePythonString(area)}\", \"{ItemReq.EscapePythonString(key.Gate)}\"): rule_data_list[{idx}],\n");
         }
         script.Append("}\n");
         return script.ToString();

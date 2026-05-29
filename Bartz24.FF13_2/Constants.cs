@@ -39,7 +39,7 @@ public class HistoriaCruxConstants
     public const string VILE_PEAKS_10 = "h_vp_AD0010";
     public const string VILE_PEAKS_200 = "h_vp_AD0200";
     public const string DYING_WORLD_700 = "h_dd_AD0700";
-    public const string DYING_WORLD_900 = "h_dd_AD0900";
+    public const string DYING_WORLD_900 = "h_dd_NA0900";
     public const string VOID_BEYOND_A = "h_sp_NA0001";
     public const string VOID_BEYOND_B = "h_sp_NA0100";
     public const string BLANK_1 = "h_zz_NA0910";
