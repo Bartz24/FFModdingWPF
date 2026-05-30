@@ -157,7 +157,7 @@ public partial class HistoriaCruxRando : Randomizer
                     var initial = RandomNum.SelectRandom(unplaced.Where(r =>
                     {
                         if (bannedInitial.Contains(r)) { return false; }
-                        // if the area has a fixed inbound route, don't allow it to be the starting point.
+                        // if the area has a fixed inbound route, don't allow it to be the starting point. (TODO: bake into bannedinitial up front)
                         if (areaData[r].Traits.Contains("FixedInbound")) { return false; }
                         // Allow terminal nodes if DLC shuffle is on
                         return areaData[r].OutgoingLinkCount > 0;
@@ -323,150 +323,297 @@ public partial class HistoriaCruxRando : Randomizer
                 }
                 return baseCoords;
             });
-            foreach (var (key, offset) in ykdGateOffsets)
+            UpdateCruxPositions(updatedLocations);
+            //foreach (var (key, offset) in ykdGateOffsets)
+            //{
+            //    var validation = BitConverter.ToSingle(hcParts.SubArray(offset, 4));
+            //    var originalX = BitConverter.ToSingle(hcParts.SubArray(offset + 0x20, 4));
+            //    var originalY = BitConverter.ToSingle(hcParts.SubArray(offset + 0x24, 4));
+            //    // Hide other nodes in the top right
+            //    var targetCoordsToSet = updatedLocations.GetValueOrDefault(key, (-30, 30));
+            //    var targetX = BitConverter.GetBytes((float)targetCoordsToSet.Item1);
+            //    var targetY = BitConverter.GetBytes((float)targetCoordsToSet.Item2);
+            //    targetX.CopyTo(hcParts, offset + 0x20);
+            //    targetY.CopyTo(hcParts, offset + 0x24);
+            //    Generator.Logger.LogDebug($"Updated crux coords for key {key} (original x {originalX} y {originalY}) -> (new x {targetCoordsToSet.Item1} y {targetCoordsToSet.Item2}).");
+            //}
+            //var i = 0;
+            //foreach (var link in gateTable.Keys.OrderBy(s => s, StringComparer.Ordinal))
+            //{
+
+            //    var linkDetails = gateTable[link];
+            //    var left = linkDetails.sArea;
+            //    var right = linkDetails.sOpenHistoria1.Substring(0, linkDetails.sOpenHistoria1.Length - 2);
+            //    // Bodhum 3xx is a fake area, for link purposes just skip through to the next point
+            //    if (right == HistoriaCruxConstants.NEW_BODHUM_3X)
+            //    {
+            //        right = HistoriaCruxConstants.BLANK_5;
+            //    }
+            //    if (!updatedLocations.ContainsKey(left) || !updatedLocations.ContainsKey(right))
+            //    {
+            //        Generator.Logger.LogDebug($"Unable to link coords at either end of link {link}");
+            //        continue;
+            //    }
+
+            //    // TODO: special case if override initial to ensure initial link gets set properly (validate??)
+            //    if (rootLocation != null && right == HistoriaCruxConstants.NEW_BODHUM_3)
+            //    {
+            //        right = rootLocation;
+            //    }
+            //    else if (rootLocation != null && right == rootLocation)
+            //    {
+            //        right = HistoriaCruxConstants.NEW_BODHUM_3;
+            //    }
+
+            //    // TODO: special case for "magic" links to void beyond/serendipity, need to consider left also
+            //    DataStoreRGateTable incomingLink;
+            //    if (right != HistoriaCruxConstants.SERENDIPITY && right != HistoriaCruxConstants.VOID_BEYOND_A)
+            //    {
+            //        incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a");
+            //    }
+            //    else
+            //    {
+            //        incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a" && v.sArea == left);
+            //    }
+
+            //    if (incomingLink == null)
+            //    {
+            //        Generator.Logger.LogDebug($"Unable to find incoming link entry for right {right}");
+            //        continue;
+            //    }
+
+            //    var offset = ykdLinkOffsets.GetValueOrDefault(incomingLink.record, 0);
+            //    if (offset == 0)
+            //    {
+            //        Generator.Logger.LogDebug($"Unable to locate link offset for link {incomingLink.record}. Links {left} to {right}");
+            //        continue;
+            //    }
+            //    var validation = BitConverter.ToSingle(hcParts.SubArray(offset, 4));
+            //    // Not always sensible value?
+            //    var originalANgle = BitConverter.ToSingle(hcParts.SubArray(offset + 0x20, 4));
+            //    var originalX = BitConverter.ToSingle(hcParts.SubArray(offset + 0x28, 4));
+            //    var originalY = BitConverter.ToSingle(hcParts.SubArray(offset + 0x2c, 4));
+            //    // Not always 13??
+            //    var originalLen = BitConverter.ToSingle(hcParts.SubArray(offset + 0x48, 4));
+            //    // Might need to further fine tune the adjustments here
+            //    var leftPos = updatedLocations[left];
+            //    if (left.Contains("_sp_") || left.Contains("_zz_"))
+            //    {
+            //        leftPos = (leftPos.Item1 - 5, leftPos.Item2 - 5);
+            //    }
+            //    var rightPos = updatedLocations[right];
+            //    if (right.Contains("_sp_") || right.Contains("_zz_"))
+            //    {
+            //        rightPos = (rightPos.Item1 - 5, rightPos.Item2 - 5);
+            //    }
+            //    var midPoint = ((float)(leftPos.Item1 + rightPos.Item1) / 2, ((float)(leftPos.Item2 + rightPos.Item2) / 2) + 7.5f);
+            //    var dy = rightPos.Item2 - leftPos.Item2;
+            //    var dx = rightPos.Item1 - leftPos.Item1;
+            //    double angle;
+            //    double len;
+            //    int mode = 2;
+            //    var pi4 = (float)Math.PI / 4;
+            //    if (mode == 1)
+            //    {
+            //        angle = Math.Atan2(dy, dx);
+            //        // Not sure this is quite correct currently
+            //        len = Math.Sqrt(dx * dx + dy * dy);
+            //    }
+            //    else
+            //    {
+            //        // Lock angle to just 0, -Pi/4, +Pi/4 based on relative offsets
+            //        // Don't adjust length in keeping with vanilla
+            //        // Maybe adjust coords slightly
+            //        len = 13;
+            //        if (leftPos.Item2 == rightPos.Item2)
+            //        {
+            //            angle = 0;
+            //        }
+            //        else if (leftPos.Item1 < rightPos.Item1)
+            //        {
+            //            if (leftPos.Item2 > rightPos.Item2)
+            //            {
+            //                angle = -pi4;
+            //            }
+            //            else
+            //            {
+            //                angle = pi4;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            if (leftPos.Item2 > rightPos.Item2)
+            //            {
+            //                angle = pi4;
+            //            }
+            //            else
+            //            {
+            //                angle = -pi4;
+            //            }
+            //        }
+            //    }
+            //    // These MUST be single precision floats, not double etc or you'll corrupt the structure :)
+            //    var targetX = BitConverter.GetBytes((float)midPoint.Item1);
+            //    var targetY = BitConverter.GetBytes((float)midPoint.Item2);
+            //    var targetAngle = BitConverter.GetBytes((float)angle);
+            //    var targetLength = BitConverter.GetBytes((float)len);
+            //    targetX.CopyTo(hcParts, offset + 0x28);
+            //    targetY.CopyTo(hcParts, offset + 0x2c);
+            //    targetAngle.CopyTo(hcParts, offset + 0x20);
+            //    targetLength.CopyTo(hcParts, offset + 0x48);
+            //    Generator.Logger.LogDebug($"Linking ({leftPos.Item1}, {leftPos.Item2}) to ({rightPos.Item1},{rightPos.Item2})");
+            //    Generator.Logger.LogDebug($"Updated crux link for key {incomingLink.record} - links {left} to {right} (x: {originalX}, y: {originalY}, angle: {originalANgle}, len: {originalLen})" +
+            //        $" -> (x: {midPoint.Item1}, y: {midPoint.Item2}, angle: {angle}, len: {len}).");
+            //    i++;
+            //}
+
+            RandomNum.ClearRand();
+        }
+    }
+
+    protected void UpdateCruxPositions(Dictionary<string, (int, int)> updatedLocations)
+    {
+        foreach (var (key, offset) in ykdGateOffsets)
+        {
+            var validation = BitConverter.ToSingle(hcParts.SubArray(offset, 4));
+            var originalX = BitConverter.ToSingle(hcParts.SubArray(offset + 0x20, 4));
+            var originalY = BitConverter.ToSingle(hcParts.SubArray(offset + 0x24, 4));
+            // Hide other nodes in the top right
+            var targetCoordsToSet = updatedLocations.GetValueOrDefault(key, (-30, 30));
+            var targetX = BitConverter.GetBytes((float)targetCoordsToSet.Item1);
+            var targetY = BitConverter.GetBytes((float)targetCoordsToSet.Item2);
+            targetX.CopyTo(hcParts, offset + 0x20);
+            targetY.CopyTo(hcParts, offset + 0x24);
+            Generator.Logger.LogDebug($"Updated crux coords for key {key} (original x {originalX} y {originalY}) -> (new x {targetCoordsToSet.Item1} y {targetCoordsToSet.Item2}).");
+        }
+        var i = 0;
+        foreach (var link in gateTable.Keys.OrderBy(s => s, StringComparer.Ordinal))
+        {
+
+            var linkDetails = gateTable[link];
+            var left = linkDetails.sArea;
+            var right = linkDetails.sOpenHistoria1.Substring(0, linkDetails.sOpenHistoria1.Length - 2);
+            // Bodhum 3xx is a fake area, for link purposes just skip through to the next point
+            if (right == HistoriaCruxConstants.NEW_BODHUM_3X)
             {
-                var validation = BitConverter.ToSingle(hcParts.SubArray(offset, 4));
-                var originalX = BitConverter.ToSingle(hcParts.SubArray(offset + 0x20, 4));
-                var originalY = BitConverter.ToSingle(hcParts.SubArray(offset + 0x24, 4));
-                // Hide other nodes in the top right
-                var targetCoordsToSet = updatedLocations.GetValueOrDefault(key, (-30, 30));
-                var targetX = BitConverter.GetBytes((float)targetCoordsToSet.Item1);
-                var targetY = BitConverter.GetBytes((float)targetCoordsToSet.Item2);
-                targetX.CopyTo(hcParts, offset + 0x20);
-                targetY.CopyTo(hcParts, offset + 0x24);
-                Generator.Logger.LogDebug($"Updated crux coords for key {key} (original x {originalX} y {originalY}) -> (new x {targetCoordsToSet.Item1} y {targetCoordsToSet.Item2}).");
+                right = HistoriaCruxConstants.BLANK_5;
             }
-            var i = 0;
-            foreach (var link in gateTable.Keys.OrderBy(s => s, StringComparer.Ordinal))
+            if (!updatedLocations.ContainsKey(left) || !updatedLocations.ContainsKey(right))
             {
+                Generator.Logger.LogDebug($"Unable to link coords at either end of link {link}");
+                continue;
+            }
 
-                var linkDetails = gateTable[link];
-                var left = linkDetails.sArea;
-                var right = linkDetails.sOpenHistoria1.Substring(0, linkDetails.sOpenHistoria1.Length - 2);
-                // Bodhum 3xx is a fake area, for link purposes just skip through to the next point
-                if (right == HistoriaCruxConstants.NEW_BODHUM_3X)
-                {
-                    right = HistoriaCruxConstants.BLANK_5;
-                }
-                if (!updatedLocations.ContainsKey(left) || !updatedLocations.ContainsKey(right))
-                {
-                    Generator.Logger.LogDebug($"Unable to link coords at either end of link {link}");
-                    continue;
-                }
+            // TODO: special case if override initial to ensure initial link gets set properly (validate??)
+            if (rootLocation != null && right == HistoriaCruxConstants.NEW_BODHUM_3)
+            {
+                right = rootLocation;
+            }
+            else if (rootLocation != null && right == rootLocation)
+            {
+                right = HistoriaCruxConstants.NEW_BODHUM_3;
+            }
 
-                // TODO: special case if override initial to ensure initial link gets set properly (validate??)
-                if (rootLocation != null && right == HistoriaCruxConstants.NEW_BODHUM_3)
-                {
-                    right = rootLocation;
-                }
-                else if (rootLocation != null && right == rootLocation)
-                {
-                    right = HistoriaCruxConstants.NEW_BODHUM_3;
-                }
+            // TODO: special case for "magic" links to void beyond/serendipity, need to consider left also
+            DataStoreRGateTable incomingLink;
+            if (right != HistoriaCruxConstants.SERENDIPITY && right != HistoriaCruxConstants.VOID_BEYOND_A)
+            {
+                incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a");
+            }
+            else
+            {
+                incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a" && v.sArea == left);
+            }
 
-                // TODO: special case for "magic" links to void beyond/serendipity, need to consider left also
-                DataStoreRGateTable incomingLink;
-                if (right != HistoriaCruxConstants.SERENDIPITY && right != HistoriaCruxConstants.VOID_BEYOND_A)
-                {
-                    incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a");
-                }
-                else
-                {
-                    incomingLink = gateTableOrig.Values.Find(v => v.sOpenHistoria1 == right + "_a" && v.sArea == left);
-                }
+            if (incomingLink == null)
+            {
+                Generator.Logger.LogDebug($"Unable to find incoming link entry for right {right}");
+                continue;
+            }
 
-                if (incomingLink == null)
+            var offset = ykdLinkOffsets.GetValueOrDefault(incomingLink.record, 0);
+            if (offset == 0)
+            {
+                Generator.Logger.LogDebug($"Unable to locate link offset for link {incomingLink.record}. Links {left} to {right}");
+                continue;
+            }
+            var validation = BitConverter.ToSingle(hcParts.SubArray(offset, 4));
+            // Not always sensible value?
+            var originalANgle = BitConverter.ToSingle(hcParts.SubArray(offset + 0x20, 4));
+            var originalX = BitConverter.ToSingle(hcParts.SubArray(offset + 0x28, 4));
+            var originalY = BitConverter.ToSingle(hcParts.SubArray(offset + 0x2c, 4));
+            // Not always 13??
+            var originalLen = BitConverter.ToSingle(hcParts.SubArray(offset + 0x48, 4));
+            // Might need to further fine tune the adjustments here
+            var leftPos = updatedLocations[left];
+            if (left.Contains("_sp_") || left.Contains("_zz_"))
+            {
+                leftPos = (leftPos.Item1 - 5, leftPos.Item2 - 5);
+            }
+            var rightPos = updatedLocations[right];
+            if (right.Contains("_sp_") || right.Contains("_zz_"))
+            {
+                rightPos = (rightPos.Item1 - 5, rightPos.Item2 - 5);
+            }
+            var midPoint = ((float)(leftPos.Item1 + rightPos.Item1) / 2, ((float)(leftPos.Item2 + rightPos.Item2) / 2) + 7.5f);
+            var dy = rightPos.Item2 - leftPos.Item2;
+            var dx = rightPos.Item1 - leftPos.Item1;
+            double angle;
+            double len;
+            int mode = 2;
+            var pi4 = (float)Math.PI / 4;
+            if (mode == 1)
+            {
+                angle = Math.Atan2(dy, dx);
+                // Not sure this is quite correct currently
+                len = Math.Sqrt(dx * dx + dy * dy);
+            }
+            else
+            {
+                // Lock angle to just 0, -Pi/4, +Pi/4 based on relative offsets
+                // Don't adjust length in keeping with vanilla
+                // Maybe adjust coords slightly
+                len = 13;
+                if (leftPos.Item2 == rightPos.Item2)
                 {
-                    Generator.Logger.LogDebug($"Unable to find incoming link entry for right {right}");
-                    continue;
+                    angle = 0;
                 }
-
-                var offset = ykdLinkOffsets.GetValueOrDefault(incomingLink.record, 0);
-                if (offset == 0)
+                else if (leftPos.Item1 < rightPos.Item1)
                 {
-                    Generator.Logger.LogDebug($"Unable to locate link offset for link {incomingLink.record}. Links {left} to {right}");
-                    continue;
-                }
-                var validation = BitConverter.ToSingle(hcParts.SubArray(offset, 4));
-                // Not always sensible value?
-                var originalANgle = BitConverter.ToSingle(hcParts.SubArray(offset + 0x20, 4));
-                var originalX = BitConverter.ToSingle(hcParts.SubArray(offset + 0x28, 4));
-                var originalY = BitConverter.ToSingle(hcParts.SubArray(offset + 0x2c, 4));
-                // Not always 13??
-                var originalLen = BitConverter.ToSingle(hcParts.SubArray(offset + 0x48, 4));
-                // Might need to further fine tune the adjustments here
-                var leftPos = updatedLocations[left];
-                if (left.Contains("_sp_") || left.Contains("_zz_"))
-                {
-                    leftPos = (leftPos.Item1 - 5, leftPos.Item2 - 5);
-                }
-                var rightPos = updatedLocations[right];
-                if (right.Contains("_sp_") || right.Contains("_zz_"))
-                {
-                    rightPos = (rightPos.Item1 - 5, rightPos.Item2 - 5);
-                }
-                var midPoint = ((float)(leftPos.Item1 + rightPos.Item1) / 2, ((float)(leftPos.Item2 + rightPos.Item2) / 2) + 7.5f);
-                var dy = rightPos.Item2 - leftPos.Item2;
-                var dx = rightPos.Item1 - leftPos.Item1;
-                double angle;
-                double len;
-                int mode = 2;
-                var pi4 = (float)Math.PI / 4;
-                if (mode == 1)
-                {
-                    angle = Math.Atan2(dy, dx);
-                    // Not sure this is quite correct currently
-                    len = Math.Sqrt(dx * dx + dy * dy);
-                }
-                else
-                {
-                    // Lock angle to just 0, -Pi/4, +Pi/4 based on relative offsets
-                    // Don't adjust length in keeping with vanilla
-                    // Maybe adjust coords slightly
-                    len = 13;
-                    if (leftPos.Item2 == rightPos.Item2)
+                    if (leftPos.Item2 > rightPos.Item2)
                     {
-                        angle = 0;
-                    }
-                    else if (leftPos.Item1 < rightPos.Item1)
-                    {
-                        if (leftPos.Item2 > rightPos.Item2)
-                        {
-                            angle = -pi4;
-                        }
-                        else
-                        {
-                            angle = pi4;
-                        }
+                        angle = -pi4;
                     }
                     else
                     {
-                        if (leftPos.Item2 > rightPos.Item2)
-                        {
-                            angle = pi4;
-                        }
-                        else
-                        {
-                            angle = -pi4;
-                        }
+                        angle = pi4;
                     }
                 }
-                // These MUST be single precision floats, not double etc or you'll corrupt the structure :)
-                var targetX = BitConverter.GetBytes((float)midPoint.Item1);
-                var targetY = BitConverter.GetBytes((float)midPoint.Item2);
-                var targetAngle = BitConverter.GetBytes((float)angle);
-                var targetLength = BitConverter.GetBytes((float)len);
-                targetX.CopyTo(hcParts, offset + 0x28);
-                targetY.CopyTo(hcParts, offset + 0x2c);
-                targetAngle.CopyTo(hcParts, offset + 0x20);
-                targetLength.CopyTo(hcParts, offset + 0x48);
-                Generator.Logger.LogDebug($"Linking ({leftPos.Item1}, {leftPos.Item2}) to ({rightPos.Item1},{rightPos.Item2})");
-                Generator.Logger.LogDebug($"Updated crux link for key {incomingLink.record} - links {left} to {right} (x: {originalX}, y: {originalY}, angle: {originalANgle}, len: {originalLen})" +
-                    $" -> (x: {midPoint.Item1}, y: {midPoint.Item2}, angle: {angle}, len: {len}).");
-                i++;
+                else
+                {
+                    if (leftPos.Item2 > rightPos.Item2)
+                    {
+                        angle = pi4;
+                    }
+                    else
+                    {
+                        angle = -pi4;
+                    }
+                }
             }
-
-            RandomNum.ClearRand();
+            // These MUST be single precision floats, not double etc or you'll corrupt the structure :)
+            var targetX = BitConverter.GetBytes((float)midPoint.Item1);
+            var targetY = BitConverter.GetBytes((float)midPoint.Item2);
+            var targetAngle = BitConverter.GetBytes((float)angle);
+            var targetLength = BitConverter.GetBytes((float)len);
+            targetX.CopyTo(hcParts, offset + 0x28);
+            targetY.CopyTo(hcParts, offset + 0x2c);
+            targetAngle.CopyTo(hcParts, offset + 0x20);
+            targetLength.CopyTo(hcParts, offset + 0x48);
+            Generator.Logger.LogDebug($"Linking ({leftPos.Item1}, {leftPos.Item2}) to ({rightPos.Item1},{rightPos.Item2})");
+            Generator.Logger.LogDebug($"Updated crux link for key {incomingLink.record} - links {left} to {right} (x: {originalX}, y: {originalY}, angle: {originalANgle}, len: {originalLen})" +
+                $" -> (x: {midPoint.Item1}, y: {midPoint.Item2}, angle: {angle}, len: {len}).");
+            i++;
         }
     }
 
@@ -530,7 +677,7 @@ public partial class HistoriaCruxRando : Randomizer
         return (c / 31, c % 31);
     }
 
-    private (int, int) MapCoordsToHexGrid((int, int) xy)
+    protected (int, int) MapCoordsToHexGrid((int, int) xy)
     {
         var (x, y) = xy;
         return ((x - 3) * 30 - 15 * (y - 6), (5 - y) * 15);
@@ -869,7 +1016,7 @@ public partial class HistoriaCruxRando : Randomizer
             // if a terminal node is rolled and we have enough non-terminal nodes to place otherwise
             if (selectionData.OutgoingLinkCount == 0)
             {
-                if (selection == HistoriaCruxConstants.AUGUSTA_300 || selection == HistoriaCruxConstants.COLISEUM)
+                if (false && (selection == HistoriaCruxConstants.AUGUSTA_300 || selection == HistoriaCruxConstants.COLISEUM))
                 {
                     // Just allow these to be placed to ensure augusta 200/sunleth 300 respectively don't get locked out
                 }
