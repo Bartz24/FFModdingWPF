@@ -24,11 +24,17 @@ abstract class BaseMultiworldGenerator
 
     public void Generate()
     {
+        Prepare();
         GenerateItemsScript();
         GenerateLocationsScript();
         GenerateEventsScript();
         GenerateRulesScript();
         GenerateRegionsScript();
+    }
+
+    protected virtual void Prepare()
+    {
+        return;
     }
 
     protected abstract void GenerateItemsScript();

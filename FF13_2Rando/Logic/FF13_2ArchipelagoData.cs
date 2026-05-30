@@ -101,22 +101,22 @@ public class FF13_2ArchipelagoData: ArchipelagoData
             //            {link_name:"hs_bjaa03_bj","target_area":"h_bj_AD0300"}]
             //    },
             // }
-            // TODO - need to update python output to serialise nicely first...
-            //AreaGraph = ((Dictionary<string, object>)data["area_graph"]).ToDictionary(kv => kv.Key, kv =>
-            //{
-            //    var val = (Dictionary<string, object>)kv.Value;
-            //    var node = new FF13_2AreaNode();
-            //    node.loc_x = Convert.ToInt32(val["loc_x"]);
-            //    node.loc_y = Convert.ToInt32(val["loc_y"]);
-            //    node.links = ((List<Dictionary<string,object>>)val["links"]).Select(link =>
-            //    {
-            //        var newLink = new FF13_2AreaLink();
-            //        newLink.link_name = (string)link["link_name"];
-            //        newLink.target_area = (string)link["target_area"];
-            //        return newLink;
-            //    }).ToList();
-            //    return node;
-            //});
+            AreaGraph = ((IDictionary<string, object>)data["area_graph"]).ToDictionary(kv => kv.Key, kv =>
+            {
+                var val = (IDictionary<string, object>)kv.Value;
+                var node = new FF13_2AreaNode();
+                node.loc_x = Convert.ToInt32(val["loc_x"]);
+                node.loc_y = Convert.ToInt32(val["loc_y"]);
+                node.links = ((List<object>)val["links"]).Select(link =>
+                {
+                    var asDict = (IDictionary<string, object>)link;
+                    var newLink = new FF13_2AreaLink();
+                    newLink.link_name = (string)asDict["link_name"];
+                    newLink.target_area = (string)asDict["target_area"];
+                    return newLink;
+                }).ToList();
+                return node;
+            });
         }
 
         AllowDLCItems = data.ContainsKey("allow_dlc_items") && (bool)data["allow_dlc_items"];

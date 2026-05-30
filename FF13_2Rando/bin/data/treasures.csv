@@ -240,7 +240,7 @@ zfrgcmn_acea003,Travel Guide: Yachas Massif,h_ac_AD0400,0,h_gy_AD0100|h_gy_AD020
 zfrgcmn_acea004,Travel Guide: Oerba,h_ac_AD0400,0,h_gw_AD0400,,ScrEvent|Fragment
 zfrgcmn_acea005,Travel Guide: Sunleth Waterscape,h_ac_AD0400,0,h_sn_AD0300|h_sn_AD0400,,ScrEvent|Fragment
 zfrgcmn_acea006,Travel Guide: Academia,h_ac_AD0400,0,h_aa_AD0400|h_ac_AD0400,,ScrEvent|Fragment
-zfrgcmn_acea007,Travel Guide: Augusta Tower,h_ac_AD0400,0,h_gt_AD0200|h_gt_AD0300,T(AugustaKey|5),ScrEvent|Fragment
+zfrgcmn_acea007,Travel Guide: Augusta Tower,h_ac_AD0400,0,h_gt_AD0200|h_gt_AD0300,AND(I(key_access_13|1)|I(key_access_50|1)|I(key_access_51|1)|I(key_access_52|1)|I(key_access_la|1)),ScrEvent|Fragment
 zfrgcmn_acea008,Travel Guide: Vile Peaks,h_ac_AD0400,0,h_vp_AD0010,,ScrEvent|Fragment
 zfrgcmn_acea009,Travel Guide: Archylte Steppe,h_ac_AD0400,0,h_gd_NA0000,I(gd_choco|1),ScrEvent|Fragment
 zfrgcmn_acea010,Travel Guide: A Dying World,h_ac_AD0400,0,h_dd_AD0700,,ScrEvent|Fragment

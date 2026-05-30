@@ -15,7 +15,14 @@ public class SearchItemData : FF13_2ItemLocation, IDataStoreItemProvider<DataSto
     public override string LocationImagePath { get; set; }
     public override int MogLevel { get; set; }
     [RowIndex(5)]
-    public override ItemReq Requirements { get; set; }
+    public ItemReq ExtraRequirements { get; set; }
+    public override ItemReq Requirements {
+        get
+        {
+            return new AndItemReq([ExtraRequirements, new AmountItemReq("privilege01", 1)]);
+        }
+        set => throw new NotImplementedException();
+    }
     [RowIndex(6)]
     public override List<string> Traits { get; set; }
     [RowIndex(3)]
@@ -32,8 +39,6 @@ public class SearchItemData : FF13_2ItemLocation, IDataStoreItemProvider<DataSto
             List<string> reqAreas =
             [
                 .. ExtraRequiredAreas,
-                HistoriaCruxConstants.SERENDIPITY,
-                HistoriaCruxConstants.OERBA_200
             ];
 
             return reqAreas;

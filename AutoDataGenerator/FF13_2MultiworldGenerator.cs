@@ -22,6 +22,8 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
 
     Dictionary<string, string> regions = new();
 
+    List<string> fakeLocationKeys = new();
+
     public FF13_2MultiworldGenerator(string inputDir, string outputDir): base(outputDir)
     {
         // TODO: paths only set locally :)
@@ -43,6 +45,16 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
 
         seedGenerator.PrepareData();
         seedGenerator.Load();
+    }
+
+    protected override void Prepare()
+    {
+        TreasureRando.ItemLocations.Values.Where(l => l is FF13_2FakeItemLocation)
+            .ForEach(l =>
+            {
+                FF13_2FakeItemLocation fake = (FF13_2FakeItemLocation)l;
+                fakeLocationKeys.Add(fake.ID.Split(":")[0]);
+            });
     }
 
     protected override void GenerateItemsScript()
@@ -401,9 +413,13 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
 
         Dictionary<string, int> usedNames = new();
         TreasureRando.ItemLocations.Values.Where(l => l is FF13_2FakeItemLocation)
-            .Where(l => !l.Traits.Contains("Gate")).ForEach(l =>
+            .ForEach(l =>
         {
             FF13_2FakeItemLocation fake = (FF13_2FakeItemLocation)l;
+            if (fake.Traits.Contains("Gate"))
+            {
+                return;
+            }
             if (usedNames.ContainsKey(fake.Name))
             {
                 usedNames[fake.Name]++;
@@ -500,6 +516,16 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         return;
     }
 
+    private string GetItemName(string itemName)
+    {
+        if (fakeLocationKeys.Contains(itemName))
+        {
+            return itemName;
+        }
+        // fake check intercept here
+        return EquipRando.GetItemName(itemName);
+    }
+
     protected override void GenerateRulesScript()
     {
         string gameName = "Final Fantasy XIII-2";
@@ -511,7 +537,8 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         locations.Keys.ForEach(l =>
         {
             // TODO: mog level not coming across properly
-            AddLocationRule(data, gameName, l, locations[l], EquipRando.GetItemName);
+            // TODO: if the requirement is a fake check item it needs to retain the fake id not the "true" item id.
+            AddLocationRule(data, gameName, l, locations[l], GetItemName);
 
             // Build item rule for Same-type restricted locations
             if (l.Traits != null && l.Traits.Contains("Same"))
@@ -535,7 +562,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         {
             var l = tuple.Location;
             var name = tuple.Name;
-            AddLocationRule(data, gameName, l, name, EquipRando.GetItemName);
+            AddLocationRule(data, gameName, l, name, GetItemName);
         });
 
         // Entrance rules (skip and place elsewhere?)
@@ -554,7 +581,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
                 var gateLocation = TreasureRando.ItemLocations[outgoingLink+":0"];
                 AddRequirementPreambles(data.PreambleParts, gateLocation.Requirements, gameName);
 
-                string ruleStr = gateLocation.Requirements.GetArchipelagoRule(EquipRando.GetItemName);
+                string ruleStr = gateLocation.Requirements.GetArchipelagoRule(GetItemName);
                 AddUniqueRule(data.Rules, ruleStr);
 
                 ExitToRules[(location, outgoingLink)] = ruleStr;
@@ -564,7 +591,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
             {
                 var gateLocation = TreasureRando.ItemLocations["hs_snda03_ac:0"];
                 AddRequirementPreambles(data.PreambleParts, gateLocation.Requirements, gameName);
-                string ruleStr = gateLocation.Requirements.GetArchipelagoRule(EquipRando.GetItemName);
+                string ruleStr = gateLocation.Requirements.GetArchipelagoRule(GetItemName);
                 AddUniqueRule(data.Rules, ruleStr);
                 ExitToRules[("h_sn_AD0300", "hs_snda03_ac")] = ruleStr;
             }
@@ -573,7 +600,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
             {
                 var gateLocation = TreasureRando.ItemLocations["hs_ghaa01_cs:0"];
                 AddRequirementPreambles(data.PreambleParts, gateLocation.Requirements, gameName);
-                string ruleStr = gateLocation.Requirements.GetArchipelagoRule(EquipRando.GetItemName);
+                string ruleStr = gateLocation.Requirements.GetArchipelagoRule(GetItemName);
                 AddUniqueRule(data.Rules, ruleStr);
                 ExitToRules[("h_sn_AD0300", "hs_ghaa01_cs")] = ruleStr;
             }
@@ -584,7 +611,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
             {
                 if(additionalRegion.Contains(location) && additionalRegion != location)
                 {
-                    string ruleStr = new BoolItemReq(true).GetArchipelagoRule(EquipRando.GetItemName);
+                    string ruleStr = new BoolItemReq(true).GetArchipelagoRule(GetItemName);
                     ExitToRules[(location, additionalRegion)] = ruleStr;
                 }
             }
