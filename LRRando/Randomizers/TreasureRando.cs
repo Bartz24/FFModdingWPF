@@ -180,6 +180,12 @@ public partial class TreasureRando : Randomizer
 
         // TODO Testing
         treasures.BitsPerOffset = 16;
+
+        // Soul Seed QoL
+        treasures["tre_key_d_kant6"].s11ItemResourceId = "key_sm_lt";
+        treasures["tre_key_d_kant7"].s11ItemResourceId = "key_sm_lt";
+        treasures["tre_key_d_kant8"].s11ItemResourceId = "key_sm_lt";
+
     }
 
     private void MoveMainStatRewardsToItems()
