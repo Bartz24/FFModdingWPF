@@ -11,6 +11,7 @@ class Program
         string outputDir;
         if (args.Length < 1)
         {
+            Console.WriteLine("Enter output directory:");
             outputDir = Console.ReadLine();
         }
         else
