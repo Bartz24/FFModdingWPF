@@ -2,6 +2,8 @@
 using Bartz24.FF13_2_LR;
 using Bartz24.LR;
 using Bartz24.RandoWPF;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,50 +29,13 @@ public class QuestRando : Randomizer
         questRewards["qst_046"].iItemBagSize = 1;
         questRewards["qst_028"].iItemBagSize = 1;
     }
+
     public override void Randomize()
     {
         RandoUI.SetUIProgressIndeterminate("Randomizing Quest Data...");
         if (LRFlags.StatsAbilities.Quests.FlagEnabled)
         {
             LRFlags.StatsAbilities.Quests.SetRand();
-
-            List<DataStoreRQuest> mainQuests = questRewards.Values.Where(q => q.iMaxGp > 0 || q.iMaxAtb > 0 || q.iItemBagSize > 0).Shuffle();
-            int ep = mainQuests.Select(q => q.iMaxGp).Sum();
-            int atb = mainQuests.Select(q => q.iMaxAtb).Sum();
-            int items = mainQuests.Select(q => q.iItemBagSize).Sum();
-            mainQuests.ForEach(q =>
-            {
-                int count = (q.iMaxGp / 2000) + (q.iMaxAtb / 10) + q.iItemBagSize;
-                q.iMaxGp = q.iMaxAtb = q.iItemBagSize = 0;
-                for (int n = 0; n < count; n++)
-                {
-                    int next = RandomNum.SelectRandomWeighted(new int[] { 0, 1, 2 }.ToList(), i =>
-                    {
-                        return i switch
-                        {
-                            0 => ep > 0 ? 1 : 0,
-                            1 => atb > 0 ? 1 : 0,
-                            2 => items > 0 ? 1 : 0,
-                            _ => (long)0,
-                        };
-                    });
-                    switch (next)
-                    {
-                        case 0:
-                            q.iMaxGp += 2000;
-                            ep -= 2000;
-                            break;
-                        case 1:
-                            q.iMaxAtb += 10;
-                            atb -= 10;
-                            break;
-                        case 2:
-                            q.iItemBagSize += 1;
-                            items -= 1;
-                            break;
-                    }
-                }
-            });
 
             questRewards.Values.ForEach(q =>
             {

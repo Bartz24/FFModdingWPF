@@ -7,11 +7,11 @@ Ark,Ark Day 4,_4,I(Day|3),NoCascade,2,Day*1
 Ark,Ark Day 5,_5,I(Day|4),NoCascade,2,Day*1
 Ark,Ark Day 6,_6,I(Day|5),NoCascade,3,Day*1
 Dead Dunes,Main Quest 4,_15,AND(I(MQ4|5)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_wing|1)),Main,6,MQ4*1|MQDone
-Luxerion,Main Quest 1,_16,AND(I(MQ1|4)|I(Day|2)),Main,3,MQ1*1|MQDone
+Luxerion,Main Quest 1,_16,AND(I(MQ1|4)|I(Day|2)|I(AreaUnlock|2)),Main,3,MQ1*1|MQDone
 Wildlands,Main Quest 3,_17,AND(I(MQ3|3)|I(Day|3)),Main,3,MQ3*1|MQDone
 Yusnaan,Main Quest 2,_18,AND(I(MQ2|3)|I(key_y_serap)|I(Day|3)),Main,4,MQ2*1|MQDone
 Wildlands,Main Quest 5,_19,AND(I(MQ3|3)|I(key_s_kairaku|1)|I(key_s_hiai|1)|I(key_s_zyouai|1)|I(key_s_kanki|1)|I(key_s_hunnu|1)|I(Day|3)),Main,6,MQ5*1|MQDone
-Luxerion,The Things She Lost Quest,_20,AND(I(key_kb_g|1)|I(key_kb_r|1)),,2,
+Luxerion,The Things She Lost Quest,_20,OR(I(key_kb_g|1)|I(key_kb_r|1)),,2,
 Luxerion,"Where Are You, Holmes? Quest",_21,,,0,
 Luxerion,Like Clockwork Quest,_22,I(MQ1|4),,1,
 Luxerion,Dying Wish Quest,_23,AND(I(key_sp_bt|1)|I(MQ1|2)),,2,
@@ -26,22 +26,22 @@ Luxerion,Whither Faith Quest,_31,,,0,
 Luxerion,The Avid Reader Quest,_32,I(MQ1|5),,3,
 Luxerion,Buried Passion Quest,_33,AND(I(key_l_pen|1)|I(MQ1|4)),,2,Q_BuriedPassion*1
 Luxerion,The Girl Who Cried Wolf Quest,_34,I(MQ1|5),,3,
-Luxerion,Stuck in a Gem Quest,_35,,,2,
-Luxerion,Get the Girl Quest,_36,I(MQ1|5),,2,
+Luxerion,Stuck in a Gem Quest,_35,I(M_NibletHairball),,2,
+Luxerion,Get the Girl Quest,_36,AND(I(MQ1|5)|I(key_r_ypass)),,2,
 Luxerion,A Rose By Any Other Name Quest,_37,AND(I(key_l_hana|1)|I(MQ1|5)),,4,
 Luxerion,Voices from the Grave Quest,_38,I(MQ1|5),,3,
 Luxerion,To Save the Sinless Quest,_39,AND(I(Q_BuriedPassion|1)|I(MQ1|5)),,4,
-Dead Dunes,The Life of a Machine Quest,_40,I(MQ4|3),,1,
+Dead Dunes,The Life of a Machine Quest,_40,AND(I(MQ4|3)|I(key_d_oil|3)),,1,
 Dead Dunes,Old Rivals Quest,_41,I(key_d_keisan|1),,2,
-Dead Dunes,His Wife's Dream Quest,_42,I(key_d_keisan|1),,2,
+Dead Dunes,His Wife's Dream Quest,_42,I(key_d_keisan|1),,2,Q_WifesDream
 Dead Dunes,Tool of the Trade Quest,_43,I(key_d_lupe|1),,1,
 Dead Dunes,Adonis's Audition Quest,_44,I(MQ4|1),,1,
 Dead Dunes,What Rough Beast Slouches Quest,_45,AND(I(key_d_niku|1)|I(MQ4|3)),,3,
-Dead Dunes,Skeletons In The Closet Quest,_46,AND(I(key_d_sekiban|1)|I(MQ4|4)|I(MQDone|1)),,6,
-Dead Dunes,Last One Standing Quest,_47,,,10,
+Dead Dunes,Skeletons In The Closet Quest,_46,AND(I(key_d_sekiban|1)|I(MQ4|4)|I(MQDone|1)|I(ULUnlock)),,6,
+Dead Dunes,Last One Standing Quest,_47,AND(I(key_d_key|1)|I(MQDone|2)|I(ULUnlock)),,10,
 Wildlands,A Father's Request Quest,_48,AND(I(key_w_yasai_t|1)|I(MQ3|1)),,1,Q_Father*1
-Wildlands,The Hunter's Challenge Quest,_49,AND(I(key_w_yasai_t|1)|I(Q_RightStuff|1)|I(MQ3|1)),,3,Q_Hunter*1
-Wildlands,A Final Cure Quest,_50,AND(I(key_w_yasai_t|1)|I(MQ3|1)),,3,Q_Cure*1
+Wildlands,The Hunter's Challenge Quest,_49,AND(I(key_w_yasai_t|1)|I(Q_RightStuff|1)|I(MQ3|1)|I(M_MonsterMince)|I(M_AMPChip)),,3,Q_Hunter*1
+Wildlands,A Final Cure Quest,_50,AND(I(key_w_yasai_t|1)|I(MQ3|1)|I(M_SlugSweet)),,3,Q_Cure*1
 Wildlands,Fuzzy Search Quest,_51,,,0,Q_FuzzySearch*1
 Wildlands,Round 'em Up Quest,_52,AND(I(MQ3|2)|I(Q_FuzzySearch|1)),,2,Q_RoundUp*1
 Wildlands,Chocobo Cheer Quest,_53,I(MQ3|2),,2,
@@ -51,24 +51,24 @@ Wildlands,Omega Point Quest,_56,AND(I(key_w_data|1)|I(MQ3|3)),,2,
 Wildlands,The Old Man and the Field Quest,_57,AND(I(key_w_yasai_t|1)|I(Q_Father|1)|I(MQ3|1)),,3,Q_OldMan*1
 Wildlands,Land of our Forebears Quest,_58,I(Q_OldMan|1),,6,Q_Forebears*1
 Wildlands,A Taste of the Past Quest,_59,AND(I(key_w_apple|2)|I(MQ3|2)),,2,
-Wildlands,"Dog, Doctor and Assistant Quest",_60,I(MQ3|2),,3,Q_DDA*1
-Wildlands,The Right Stuff Quest,_61,AND(I(key_w_yasai_t|1)|I(MQ3|1)),,3,Q_RightStuff*1
+Wildlands,"Dog, Doctor and Assistant Quest",_60,AND(I(MQ3|2)|I(M_GoopyGoo)),,3,Q_DDA*1
+Wildlands,The Right Stuff Quest,_61,AND(I(key_w_yasai_t|1)|I(MQ3|1)|I(M_VibrantOoze)),,3,Q_RightStuff*1
 Wildlands,The Secret Lives of Sheep Quest,_62,I(Q_RoundUp|1),,3,
 Wildlands,"Where Are You, Moogle? Quest",_63,I(Q_Peace|1),,3,
 Wildlands,Mercy of a Goddess Quest,_64,I(Q_Cure|1),,4,
 Wildlands,The Grail of Valhalla Quest,_65,AND(I(key_w_yasai_t|1)|I(key_w_moji1|1)|I(key_w_moji2|1)|I(key_w_buhin1|1)|I(key_w_buhin2|1)|I(key_w_buhin3|1)|I(MQ3|3)),,4,
 Wildlands,To Live in Chaos Quest,_66,I(MQ3|4),,5,
 Wildlands,Killing Time Quest,_67,I(MQ3|3),,2,
-Wildlands,Matchmaker Quest,_68,AND(I(Q_DDA|1)|I(Q_RoundUp|1)),,4,
+Wildlands,Matchmaker Quest,_68,AND(I(Q_DDA|1)|I(Q_RoundUp|1)|I(M_GreenLeather)),,4,
 Wildlands,Mother and Daughter Quest,_69,I(Q_DDA|1),,4,
 Yusnaan,Fireworks in a Bottle Quest,_70,I(MQ2|2),,2,
 Yusnaan,The Fighting Actress Quest,_71,I(MQ2|2),,4,Q_Actress*1
 Yusnaan,Songless Diva Quest,_72,I(key_y_kaban|1),,2,
 Yusnaan,Stolen Things Quest,_73,I(key_y_letter|1),,1,
 Yusnaan,Fireworks for a Steal Quest,_74,I(MQ2|2),,2,
-Yusnaan,A Testing Proposition Quest,_75,,,4,
+Yusnaan,A Testing Proposition Quest,_75,I(AreaUnlock|4),,4,
 Yusnaan,Last Date Quest,_76,I(MQ2|4),Missable,5,
-Yusnaan,Free Will Quest,_77,I(MQDone|1),,6,
+Yusnaan,Free Will Quest,_77,AND(I(MQDone|1)|I(ULUnlock)),,6,
 Yusnaan,Friends Forever Quest,_78,I(MQ2|4),,5,
 Yusnaan,Family Food Quest,_79,AND(I(key_y_bashira|1)|I(key_y_recipe|1)|I(key_y_cream|1)),,3,Q_Food*1
 Yusnaan,Tanbam's Taboo Quest,_80,I(MQ2|4),,5,
@@ -94,44 +94,81 @@ Dead Dunes,Main Quest 4-4 First Tablet placed,_133,AND(I(MQ4|3)|I(key_d_sekiban|
 Dead Dunes,Main Quest 4-4,_134,AND(I(MQ4|4)|I(key_d_sekiban|3)),Main,4,MQ4*1
 Wildlands,Main Quest 5 start,_140,AND(I(key_w_yasai_t|1)|I(MQ3|3)),Main,4,MQ5*1
 Final Day,Victory,_141,I(MQDone|5),Missable,8,Victory
-CoP Dead Dunes,Banned Goods,_201,I(Day|1),CoP,3,C_Banned*1
-CoP Dead Dunes,Miracle Vintage,_202,I(Day|4),CoP,4,C_Miracle*1
-CoP Dead Dunes,For My Child,_203,I(Day|3),CoP,1,C_Child*1
-CoP Dead Dunes,Heightened Security,_204,I(Day|4),CoP,2,C_Security*1
-CoP Dead Dunes,Climbing the Ranks I,_205,I(Day|3),CoP,2,C_Ranks*1
-CoP Dead Dunes,Climbing the Ranks II,_206,I(C_Ranks|1),CoP,6,C_Ranks*1
-CoP Dead Dunes,Flower in the Sands,_207,I(Day|1),CoP,1,C_Flower*1
-CoP Dead Dunes,Biologically Speaking,_208,I(Day|1),CoP,2,C_Bio*1
-CoP Dead Dunes,Lucky Charm,_209,,CoP,3,C_Charm*1
+CoP Dead Dunes,Banned Goods,_201,AND(I(Day|1)|I(M_GoblotHairball)),CoP,3,C_Banned*1
+CoP Dead Dunes,Miracle Vintage,_202,AND(I(Day|4)|I(M_PotShard)),CoP,4,C_Miracle*1
+CoP Dead Dunes,For My Child,_203,AND(I(Day|3)|I(M_CactuarDoll)),CoP,1,C_Child*1
+CoP Dead Dunes,Heightened Security,_204,AND(I(Day|4)|I(M_OrganicCarapace)),CoP,2,C_Security*1
+CoP Dead Dunes,Climbing the Ranks I,_205,AND(I(Day|3)|I(M_DeadMansTeeth)),CoP,2,C_Ranks*1
+CoP Dead Dunes,Climbing the Ranks II,_206,AND(I(C_Ranks|1)|I(M_DeadMansTeeth)),CoP,6,C_Ranks*1
+CoP Dead Dunes,Flower in the Sands,_207,AND(I(Day|1)|I(M_DesertRose)),CoP,1,C_Flower*1
+CoP Dead Dunes,Biologically Speaking,_208,AND(I(Day|1)|I(M_DriedScale)),CoP,2,C_Bio*1
+CoP Dead Dunes,Lucky Charm,_209,I(key_r_ypass),CoP,3,C_Charm*1
 CoP Dead Dunes,Pride and Greed I,_210,I(Day|3),CoP,2,C_Pride*1
 CoP Dead Dunes,Pride and Greed II,_211,AND(I(Day|6)|I(MQDone|1)|I(C_Pride|1)),CoP,3,C_Pride*1
 CoP Dead Dunes,Pride and Greed III,_212,AND(I(Day|6)|I(MQDone|3)|I(C_Pride|2)),CoP,9,C_Pride*1
-CoP Luxerion,Revenge is Sweet,_213,,CoP,2,C_Revenge*1
-CoP Luxerion,Gift of Gratitude,_214,,CoP,2,C_Gratitude*1
-CoP Luxerion,A Song for God,_215,I(Day|3),CoP,2,C_Song*1
-CoP Luxerion,Grave of a Bounty Hunter,_216,I(Day|5),CoP,3,C_Grave*1
-CoP Luxerion,Inventive Seamstress,_217,I(MQ1|1),CoP,2,C_Inventive*1
-CoP Luxerion,Puppeteer's Lament,_218,I(Day|5),CoP,1,C_Puppet*1
-CoP Luxerion,Slay the Machine,_219,I(Day|3),CoP,3,C_Slay*1
-CoP Luxerion,Revenge Has Teeth,_220,I(Day|5),CoP,4,C_Teeth*1
+CoP Luxerion,Revenge is Sweet,_213,AND(I(MQ1|1)|I(M_NibletHairball)),CoP,2,C_Revenge*1
+CoP Luxerion,Gift of Gratitude,_214,AND(I(MQ1|1)|I(M_TatteredLeather)),CoP,2,C_Gratitude*1
+CoP Luxerion,A Song for God,_215,AND(I(Day|3)|I(M_DemonSpicule)),CoP,2,C_Song*1
+CoP Luxerion,Grave of a Bounty Hunter,_216,AND(I(Day|5)|I(M_StormdragonDown)),CoP,3,C_Grave*1
+CoP Luxerion,Inventive Seamstress,_217,AND(I(MQ1|1)|I(M_LiquidGlass)),CoP,2,C_Inventive*1
+CoP Luxerion,Puppeteer's Lament,_218,AND(I(Day|5)|I(M_QualityMachineOil)),CoP,1,C_Puppet*1
+CoP Luxerion,Slay the Machine,_219,AND(I(Day|3)|I(M_MotorCoil)),CoP,3,C_Slay*1
+CoP Luxerion,Revenge Has Teeth,_220,AND(I(Day|5)|I(M_ChippedFang)),CoP,4,C_Teeth*1
 CoP Wildlands,Sun Flower,_221,I(Day|1),CoP,1,C_Sun*1
 CoP Wildlands,Moon Flower,_222,I(Day|1),CoP,1,C_Moon*1
-CoP Wildlands,Forget Me Not,_223,I(Day|1),CoP,3,C_Forget*1
-CoP Wildlands,A Word of Thanks,_224,I(Day|3),CoP,2,C_Thanks*1
+CoP Wildlands,Forget Me Not,_223,AND(I(Day|1)|I(M_VibrantOoze)),CoP,3,C_Forget*1
+CoP Wildlands,A Word of Thanks,_224,AND(I(Day|3)|I(M_WonderGel)),CoP,2,C_Thanks*1
 CoP Wildlands,Fresh Fertilizer,_225,I(Q_Forebears|1),CoP,3,C_Fresh*1
-CoP Wildlands,For the Future,_226,I(Day|3),CoP,1,C_Future*1
-CoP Wildlands,Echoes of a Drum,_227,I(Day|3),CoP,2,C_Drum*1
-CoP Wildlands,A Voice from Below,_228,I(Day|3),CoP,3,C_Below*1
-CoP Wildlands,Brain Over Brawn,_229,AND(I(Day|6)|I(MQDone|1)),CoP,4,C_Brain*1
-CoP Wildlands,Hunter's Challenge,_230,I(Day|3),CoP,1,C_Hunter*1
-CoP Wildlands,Moghan's Plea,_231,I(Q_Peace|1),CoP,3,C_Plea*1
-CoP Wildlands,Gatekeeper's Curiosity,_232,I(Day|5),CoP,4,C_Gatekeeper*1
+CoP Wildlands,For the Future,_226,AND(I(Day|3)|I(M_GoopyGoo)),CoP,1,C_Future*1
+CoP Wildlands,Echoes of a Drum,_227,AND(I(Day|3)|I(M_GreenLeather)),CoP,2,C_Drum*1
+CoP Wildlands,A Voice from Below,_228,AND(I(Day|3)|I(M_MonsterMince)),CoP,3,C_Below*1
+CoP Wildlands,Brain Over Brawn,_229,AND(I(Day|6)|I(MQDone|1)|I(M_SinisterFang)),CoP,4,C_Brain*1
+CoP Wildlands,Hunter's Challenge,_230,AND(I(Day|3)|I(M_GreenMonsterMoss)),CoP,1,C_Hunter*1
+CoP Wildlands,Moghan's Plea,_231,AND(I(Q_Peace|1)|I(M_ArborealSpore)),CoP,3,C_Plea*1
+CoP Wildlands,Gatekeeper's Curiosity,_232,AND(I(Day|5)|I(M_SlugSweet)),CoP,4,C_Gatekeeper*1
 CoP Wildlands,Chocobo Chow,_233,I(key_w_yasai_t|1),CoP,3,C_Chow*1
-CoP Yusnaan,Secret Machine,_234,I(Day|1),CoP,2,C_Secret*1
-CoP Yusnaan,Soulful Horn,_235,I(Day|2),CoP,3,C_Soulful*1
-CoP Yusnaan,A Dangerous Cocktail,_236,I(Day|3),CoP,2,C_Dangerous*1
-CoP Yusnaan,A Man for a Chocobo Girl,_237,AND(I(key_b_20|1)|I(Q_Actress|1)),CoP,4,C_Girl*1,
-CoP Yusnaan,Source of Inspiration,_238,I(Day|5),CoP,2,C_Inspiration*1
-CoP Yusnaan,True Colors,_239,I(Day|5),CoP,3,C_Colors*1
-CoP Yusnaan,Youth Potion,_240,AND(I(Day|6)|I(MQDone|1)),CoP,5,C_Youth*1
-CoP Yusnaan,Spell for Spell,_241,AND(I(Day|6)|I(MQDone|1)),CoP,6,C_Spell*1
+CoP Yusnaan,Secret Machine,_234,AND(I(Day|1)|I(M_EtherCoil)),CoP,2,C_Secret*1
+CoP Yusnaan,Soulful Horn,_235,AND(I(Day|2)|I(M_PoisonousSting)),CoP,3,C_Soulful*1
+CoP Yusnaan,A Dangerous Cocktail,_236,AND(I(Day|3)|I(M_ClearOoze)),CoP,2,C_Dangerous*1
+CoP Yusnaan,A Man for a Chocobo Girl,_237,AND(I(key_b_20|1)|I(Q_Actress|1)),CoP,4,C_Girl*1
+CoP Yusnaan,Source of Inspiration,_238,AND(I(Day|5)|I(M_ShatteredBone)),CoP,2,C_Inspiration*1
+CoP Yusnaan,True Colors,_239,AND(I(Day|5)|I(M_FirewyrmScale)),CoP,3,C_Colors*1
+CoP Yusnaan,Youth Potion,_240,AND(I(Day|6)|I(MQDone|1)|I(M_SingleEye)),CoP,5,C_Youth*1
+CoP Yusnaan,Spell for Spell,_241,AND(I(Day|6)|I(MQDone|1)|I(M_RadialBearing)),CoP,6,C_Spell*1
+Dead Dunes,Dead Dunes Area Unlock,_242,,,0,AreaUnlock
+Wildlands,Wildlands Area Unlock,_243,,,0,AreaUnlock
+Yusnaan,Yusnaan Area Unlock,_244,,,0,AreaUnlock
+Luxerion,Luxerion Area Unlock,_245,,,0,AreaUnlock
+Ultimate Lair,Ultimate Lair Unlock,_246,,,0,ULUnlock
+Shops,Tattered Leather,_247,,mat_z_000,0,M_TatteredLeather
+Shops,Vibrant Ooze,_248,,mat_z_001,0,M_VibrantOoze
+Shops,Niblet Hairball,_249,,mat_z_002,0,M_NibletHairball
+Shops,Slug Sweet,_250,,mat_z_003,0,M_SlugSweet
+Shops,Monster Mince,_251,,mat_z_004,0,M_MonsterMince
+Shops,Clear Ooze,_252,,mat_z_007,0,M_ClearOoze
+Shops,Green Leather,_253,,mat_z_008,0,M_GreenLeather
+Shops,Radial Bearing,_254,,mat_z_009,0,M_RadialBearing
+Shops,Goblot Hairball,_255,,mat_z_010,0,M_GoblotHairball
+Shops,Arboreal Spore,_256,,mat_z_011,0,M_ArborealSpore
+Shops,Dead Man's Teeth,_257,,mat_z_012,0,M_DeadMansTeeth
+Shops,Chipped Fang,_258,,mat_z_013,0,M_ChippedFang
+Shops,Shattered Bone,_259,,mat_z_014,0,M_ShatteredBone
+Shops,Goopy Goo,_260,,mat_z_015,0,M_GoopyGoo
+Shops,Pot Shard,_261,,mat_z_016,0,M_PotShard
+Shops,Dried Scale,_262,,mat_z_017,0,M_DriedScale
+Shops,Wonder Gel,_263,,mat_z_018,0,M_WonderGel
+Shops,Poisonous Sting,_264,,mat_z_019,0,M_PoisonousSting
+Shops,Motor Coil,_265,,mat_z_020,0,M_MotorCoil
+Shops,Ether Coil,_266,,mat_z_021,0,M_EtherCoil
+Shops,Demon Spicule,_267,,mat_z_022,0,M_DemonSpicule
+Shops,Organic Carapace,_268,,mat_z_024,0,M_OrganicCarapace
+Shops,Firewyrm Scale,_269,,mat_z_028,0,M_FirewyrmScale
+Shops,Quality Machine Oil,_270,,mat_z_029,0,M_QualityMachineOil
+Shops,Sinister Fang,_271,,mat_z_030,0,M_SinisterFang
+Shops,Stormdragon Down,_272,,mat_z_031,0,M_StormdragonDown
+Shops,Green Monster Moss,_273,,mat_z_032,0,M_GreenMonsterMoss
+Shops,Desert Rose,_274,,mat_z_033,0,M_DesertRose
+Shops,Single Eye,_275,,mat_z_035,0,M_SingleEye
+Shops,AMP Chip,_276,,mat_z_036,0,M_AMPChip
+Shops,Cactuar Doll,_277,,mat_z_044,0,M_CactuarDoll
+Shops,Liquid Glass,_278,,mat_z_045,0,M_LiquidGlass

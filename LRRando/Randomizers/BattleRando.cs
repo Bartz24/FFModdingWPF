@@ -18,6 +18,7 @@ public partial class BattleRando : Randomizer
     private readonly Dictionary<string, Dictionary<int, BossData>> bossData = new();
     private readonly Dictionary<string, Dictionary<int, BossStatsData>> bossStatsData = new();
     private Dictionary<string, string> shuffledBosses = new();
+    private Dictionary<string, string> shuffledMinibosses = new();
 
     public BattleRando(SeedGenerator randomizers) : base(randomizers) { }
 
@@ -68,14 +69,12 @@ public partial class BattleRando : Randomizer
         if (LRFlags.Enemies.EnemyLocations.FlagEnabled)
         {
             LRFlags.Enemies.EnemyLocations.SetRand();
-            if (LRFlags.Enemies.Bosses.SelectedKeys.Count > 0)
-            {
-                List<string> list = bossData.Keys.Where(k => LRFlags.Enemies.Bosses.SelectedKeys.Contains(k)).ToList();
-                List<string> shuffled = list.Shuffle().ToList();
-                shuffledBosses = Enumerable.Range(0, list.Count).ToDictionary(i => list[i], i => shuffled[i]);
-            }
 
-            btScenes.Values.Where(b => !IgnoredBtScenes.Contains(b.record)).ForEach(b =>
+            ShuffleBosses();
+
+            ShuffleMinibosses();
+
+            foreach (var b in btScenes.Values.Where(b => !IgnoredBtScenes.Contains(b.record)))
             {
                 List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.Keys.Contains(s)).Where(s =>
                         !s.EndsWith("tuto") || s == "m352_tuto" || s == "m390_tuto" || LRFlags.Enemies.Prologue.Enabled).Select(s => enemyData[s]).ToList();
@@ -146,8 +145,62 @@ public partial class BattleRando : Randomizer
                         }
                     }
                 }
-            });
+            }
+
             RandomNum.ClearRand();
+        }
+    }
+
+    private void ShuffleMinibosses()
+    {
+        List<string> list = enemyData.Keys.Where(id=> enemyData[id].Class == "Miniboss").ToList();
+        List<string> shuffled = list.Shuffle().ToList();
+        shuffledMinibosses.Clear();
+        for (int i = 0; i < list.Count; i++)
+        {
+            shuffledMinibosses.Add(list[i], shuffled[i]);
+        }
+    }
+
+    private void ShuffleBosses()
+    {
+        // Shuffle bosses
+        if (LRFlags.Enemies.Bosses.SelectedKeys.Count > 0)
+        {
+            List<string> list = bossData.Keys.Where(LRFlags.Enemies.Bosses.SelectedKeys.Contains).ToList();
+            string[] superbosses = ["Aeronite", "Ereshkigal"];
+            if (LRFlags.Enemies.BanSuperbossesLuxerion.Enabled)
+            {
+                // Move Aeronite and Ereshkigal to the top
+                foreach (var superboss in superbosses)
+                {
+                    if (list.Contains(superboss))
+                    {
+                        list.Remove(superboss);
+                        list.Insert(0, superboss);
+                    }
+                }
+            }
+
+            List<string> remainingSpots = list.Shuffle().ToList();
+            shuffledBosses.Clear();
+            foreach (var boss in list)
+            {
+                List<string> options = remainingSpots.Where(spot =>
+                {
+                    // Ban putting superbosses in Luxerion if the option is enabled since they would be too difficult to fight there
+                    if (spot == "Noel" && superbosses.Contains(boss) && LRFlags.Enemies.BanSuperbossesLuxerion.Enabled)
+                    {
+                        return false;
+                    }
+
+                    return true;
+                }).ToList();
+
+                string selected = RandomNum.SelectRandom(options);
+                shuffledBosses[selected] = boss;
+                remainingSpots.Remove(selected);
+            }
         }
     }
 
@@ -225,6 +278,13 @@ public partial class BattleRando : Randomizer
                 });
             }
         }
+        else if (oldEnemies[0].Class == "Miniboss")
+        {
+            EnemyData oldBoss = oldEnemies[0];
+            EnemyData newBoss = enemyData[shuffledMinibosses[oldBoss.ID]];
+            newEnemies.Add(newBoss);
+            charSpecs.AddRange(newEnemies.Select(e => e.ID));
+        }
         else
         {
             while (charSpecs.Count is 0 or > 10)
@@ -242,8 +302,10 @@ public partial class BattleRando : Randomizer
                         EnemyData next = allowed.Where(e => (LRFlags.Enemies.EnemiesSize.Enabled
                         && oldEnemy.Class != "Omega"
                         && oldEnemy.Class != "Boss"
+                        && oldEnemy.Class != "Miniboss"
                         && e.Class != "Omega"
-                        && e.Class != "Boss")
+                        && e.Class != "Boss"
+                        && e.Class != "Miniboss")
                         || e.Class == oldEnemy.Class)
                         .Where(e => !e.ID.EndsWith("tuto") || LRFlags.Enemies.Prologue.Enabled)
                         .Shuffle().First();

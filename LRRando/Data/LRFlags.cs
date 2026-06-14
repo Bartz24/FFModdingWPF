@@ -80,9 +80,9 @@ public class LRFlags
 
             Quests = new Flag(false)
             {
-                Text = "Randomize Quest Stat Rewards",
+                Text = "Randomize Normal Quest Stat Rewards",
                 FlagID = "Quests",
-                DescriptionFormat = "Randomize stats rewarded by quests. Includes Strength, Magic, Max HP, Max EP, Max ATB, and Recovery Item Slots."
+                DescriptionFormat = "Randomize non main stats rewarded by quests. Includes Strength, Magic, Max HP."
             }.Register(FlagType.StatsAbilities);
 
             EPCosts = new Flag(false)
@@ -149,7 +149,7 @@ public class LRFlags
     public class Enemies
     {
         public static Flag EnemyLocations, BhuniPlus, MatDrops, AbiDrops;
-        public static ToggleFlagProperty EnemiesSize, EncounterSize, Prologue;
+        public static ToggleFlagProperty EnemiesSize, EncounterSize, Prologue, BanSuperbossesLuxerion;
         public static DictListBoxFlagProperty<string> Bosses;
 
         internal static void Init()
@@ -202,6 +202,13 @@ public class LRFlags
                     {"Ereshkigal", "Ereshkigal" },
                     {"Aeronite", "Aeronite" }
                 }
+            }.Register(EnemyLocations);
+
+            BanSuperbossesLuxerion = new ToggleFlagProperty(false)
+            {
+                Text = "Ban Superbosses at Luxerion Boss Spot",
+                ID = "BanSuperbossesLux",
+                Description = "If turned on, Aeronite and Ereshkigal cannot appear in the Luxerion boss fight spot."
             }.Register(EnemyLocations);
 
             MatDrops = new Flag(false)
@@ -325,6 +332,13 @@ public class LRFlags
                     {"key_b_10", "Key to the Green Gate" },
                     {"key_b_11", "Bandit's Bloodseal" },
                     {"key_b_12", "Oath of the Merchants Guild" },
+                    {"key_r_ep", "Maximum EP" },
+                    {"key_r_atb", "Maximum ATB" },
+                    {"key_r_rec", "Recovery Item Capacity" },
+                    {"key_d_oil", "Bhakti's Oil" },
+                    {"key_r_dpass", "Dead Dunes Train Pass" },
+                    {"key_r_ypass", "Yusnaan Train Pass" },
+                    {"key_r_wpass", "Wildands Train Pass" }
                 },
                 DisabledByArchipelago = true
             }.Register(Treasures);

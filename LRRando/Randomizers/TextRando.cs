@@ -44,10 +44,40 @@ public class TextRando : Randomizer
         // Add text for key_r_victory
         if (!mainSysUS.Keys.Contains("key_r_victory"))
         {
-            mainSysUS.Add("key_r_victory", "Victory!");
-            mainSysUS.Add("key_r_victoryh", "Used for tracking in the randomizer. You have won. Yay. If you see this, hi :)");
+            mainSysUS.Add("$zzz_r_victory", "Victory!");
+            mainSysUS.Add("$zzz_r_victoryh", "Used for tracking in the randomizer. You have won. Yay. If you see this, hi :)");
         }
+
+        // key_r_ep Add text for Max EP item
+        mainSysUS.Add("$zzz_r_ep", "Maximum EP + 1");
+        mainSysUS.Add("$zzz_r_eph", "Increases Maximum EP by 1. This should be removed from the inventory automatically.");
+
+        // key_r_atb Add text for Max ATB item
+        mainSysUS.Add("$zzz_r_atb", "Maximum ATB + 10");
+        mainSysUS.Add("$zzz_r_atbh", "Increases Maximum ATB by 10. This should be removed from the inventory automatically.");
+
+        // key_r_rec Add text for Recovery Item Capacity item
+        mainSysUS.Add("$zzz_r_rec", "Recovery Item Capacity + 1");
+        mainSysUS.Add("$zzz_r_rech", "Increases the number of Recovery Items you can hold by 1. This should be removed from the inventory automatically.");
+
+        // key_r_dpass Add text for Dead Dunes Train Pass
+        mainSysUS.Add("$zzz_r_dpass", "Dead Dunes Train Pass");
+        mainSysUS.Add("$zzz_r_dpassh", "Used for unlocking travel to Dead Dunes by train.");
+
+        // key_r_ypass Add text for Yusnaan Train Pass
+        mainSysUS.Add("$zzz_r_ypass", "Yusnaan Train Pass");
+        mainSysUS.Add("$zzz_r_ypassh", "Used for unlocking travel to Yusnaan by train.");
+
+        // key_r_wpass Add text for Wildlands Train Pass
+        mainSysUS.Add("$zzz_r_wpass", "Wildlands Train Pass");
+        mainSysUS.Add("$zzz_r_wpassh", "Used for unlocking travel to the Wildlands by train.");
+
+        zone100SysUS.Add("$tra_no_ypass", "{Icon Warning} Yusnaan Train Pass is required to travel to Yusnaan.");
+        zone100SysUS.Add("$tra_no_wpass", "{Icon Warning} Wildlands Train Pass is requiredto travel to the Wildlands.");
+        zone100SysUS.Add("$tra_no_dpass", "{Icon Warning} Dead Dunes Train Pass is required to travel to the Dead Dunes.");
+        zone100SysUS.Add("$wrp_no_egg", "{Icon Warning} The Mystery Egg is required to enter Ultimate Lair.");
     }
+
     public override void Randomize()
     {
         RandoUI.SetUIProgressIndeterminate("Randomizing Text Data...");

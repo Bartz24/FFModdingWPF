@@ -48,11 +48,18 @@ public class APTreasureRando : TreasureRando
         }
 
         HandleIDCardBuyOption();
+        RandomizeShopItems();
     }
 
     public override Dictionary<string, HTMLPage> GetDocumentation()
     {
         // Documentation not supported for AP rando
         return new Dictionary<string, HTMLPage>();
+    }
+
+    protected override void RandomizeShopItems()
+    {
+        var apData = RandoFlags.GetArchipelagoData<LRArchipelagoData>();
+        ShopRandoLists = apData.APShopRandoItems;
     }
 }
