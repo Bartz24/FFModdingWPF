@@ -286,6 +286,42 @@ public partial class TreasureRando : Randomizer
         AddTreasure("privilege15", "privilege15", 1, "");
         AddTreasure("privilege18", "privilege18", 1, "");
 
+        /**
+         * Meta-treasures used for "dynamic" scripting
+         */
+
+        int puzzle0maxStage = 10;
+        int puzzle1maxStage = 10;
+        int puzzle2maxStage = 10;
+        int puzzle2maxClock = 5;
+        int puzzle2time = 1;
+
+        if (FF13_2Flags.Other.PuzzleQol.FlagEnabled)
+        {
+            puzzle0maxStage = FF13_2Flags.Other.Puzzle0StageCount.Value;
+            puzzle1maxStage = FF13_2Flags.Other.Puzzle1StageCount.Value;
+            puzzle2maxStage = FF13_2Flags.Other.Puzzle2StageCount.Value;
+            puzzle2maxClock = FF13_2Flags.Other.Puzzle2MaxSize.Value;
+            puzzle2time = FF13_2Flags.Other.Puzzle2TimeBehaviour.SelectedIndex;
+        }
+
+        //Maximum number of stages allowed for puzzles
+        AddTreasure("ran_puz0_maxstg", "", puzzle0maxStage, "", false, true);
+        AddTreasure("ran_puz1_maxstg", "", puzzle1maxStage, "", false, true);
+        AddTreasure("ran_puz2_maxstg", "", puzzle2maxStage, "", false, true);
+        // Cap on number of clocks for clock puzzles
+        AddTreasure("ran_puz2_max", "", puzzle2maxClock, "", false, true);
+        // Time behaviour for clock puzzles (0 = unlimited, 1 = vanilla, 2 = 2x)
+        AddTreasure("ran_puz2_time", "", puzzle2time, "", false, true);
+
+        var wincodition = setupWinCondition();
+        // Win condition (0 = no special, 1 = fragments, 2 = areas?)
+        AddTreasure("ran_win_cond", "", wincodition.Item1, "", false, true);
+        // Number of fragments/areas
+        AddTreasure("ran_win_con_ct", "", wincodition.Item2, "", false, true);
+        // 1 = require final bosses. 2 = don't
+        AddTreasure("ran_win_cond_fb", "", wincodition.Item3, "", false, true);
+
         if (FF13_2Flags.Items.ReplaceWildArtefacts.Enabled)
         {
             replaceWildArtefactsWithCustom();
@@ -311,6 +347,21 @@ public partial class TreasureRando : Randomizer
         {
             AddTreasure($"zabc_t{i:000}", $"item_{i:000}", 1, "");
         }
+    }
+
+    protected virtual (int, int, int) setupWinCondition()
+    {
+        int winCondition = 0;
+        int winConditionCount = 0;
+        int winConditionRequireFinal = 1;
+
+        if (FF13_2Flags.Other.WinCondition.FlagEnabled)
+        {
+            winCondition = FF13_2Flags.Other.WinConditionType.SelectedIndex;
+            winConditionCount = FF13_2Flags.Other.WinConditionFragCount.Value;
+            winConditionRequireFinal = FF13_2Flags.Other.WinConditionRequireFinalBosses.Enabled ? 1 : 2;
+        }
+        return (winCondition, winConditionCount, winConditionRequireFinal);
     }
 
     private string[] wildZoneNums = [];
@@ -427,10 +478,10 @@ public partial class TreasureRando : Randomizer
 
     private string[] reservedRandoTreasures = new string[] { "ran_init_cp", "ran_mfind", "ran_multi" };
 
-    public void AddTreasure(string newName, string item, int count, string next, bool addFlag = true)
+    public void AddTreasure(string newName, string item, int count, string next, bool addFlag = true, bool isMeta = false)
     {
         string modifiedName = addFlag ? "z" + newName : newName;
-        if (!ItemLocations.ContainsKey(modifiedName) && !reservedRandoTreasures.Contains(newName))
+        if (!ItemLocations.ContainsKey(modifiedName) && !reservedRandoTreasures.Contains(newName) && !isMeta)
         {
             //throw new Exception($"Identified newly added treasure {modifiedName} without data entry!");
         }
@@ -551,6 +602,8 @@ public partial class TreasureRando : Randomizer
             ItemPlacer.PossibleLocations = ItemLocations.Values.ToOrderedSet();
             ItemPlacer.PlaceItems();
             ItemPlacer.ApplyToGameData();
+
+            cruxRando.CalculateAreaSpheres(ItemPlacer.SphereCalculator.Spheres.ToDictionary(kvp => kvp.Key.ID, kvp => kvp.Value));
 
 
             RandomNum.ClearRand();

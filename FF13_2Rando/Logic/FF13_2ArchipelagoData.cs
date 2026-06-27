@@ -22,6 +22,19 @@ public struct FF13_2AreaNode
     public List<FF13_2AreaLink> links { get; set; }
 }
 
+public struct FF13_2WinCondition
+{
+    public FF13_2WinCondition(int a, int b, bool c)
+    {
+        condition = a;
+        count = b;
+        finalBosses = c;
+    }
+    public int condition { get; set; }
+    public int count { get; set; }
+    public bool finalBosses { get; set; }
+}
+
 public class FF13_2ArchipelagoData: ArchipelagoData
 {
     public string Version { get; set; } = string.Empty;
@@ -41,6 +54,10 @@ public class FF13_2ArchipelagoData: ArchipelagoData
 
     public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.1.0" };
 
+    public List<(string ID, string Item, int Index, int Sphere)> Spheres { get; set; }
+
+    public FF13_2WinCondition WinCondition { get; set; } = new(0, 0, true);
+
     public override void Parse(IDictionary<string, object> data)
     {
         Version = (string)data["version"];
@@ -52,6 +69,16 @@ public class FF13_2ArchipelagoData: ArchipelagoData
         }
 
         UsedItems = ((List<object>)data["used_items"]).Select(o => (string)o).ToHashSet();
+
+        Spheres = ((List<object>)data["spheres"]).Select(o =>
+        {
+            var sphereData = (IDictionary<string, object>)o;
+            return (
+            ID: (string)sphereData["id"],
+            Item: sphereData.ContainsKey("item") ? (string)sphereData["item"] : "",
+            Index: sphereData.ContainsKey("index") ? (int)(long)sphereData["index"] : 0,
+            Sphere: (int)(long)sphereData["sphere"]);
+        }).ToList();
 
         // Expected structure similar to FF12's filler placements but generalized:
         // item_placements: [ { id, name, region } ]
@@ -117,6 +144,15 @@ public class FF13_2ArchipelagoData: ArchipelagoData
                 }).ToList();
                 return node;
             });
+        }
+
+        if (data.ContainsKey("win_condition"))
+        {
+            var winData = (IDictionary<string, object>)data["win_condition"];
+            int winConditionType = winData.ContainsKey("type") ? Convert.ToInt32(winData["type"]) : 0;
+            int fragCount = winData.ContainsKey("fragment_count") ? Convert.ToInt32(winData["fragment_count"]) : 0;
+            bool finalBoss = winData.ContainsKey("require_final") ? Convert.ToBoolean(winData["require_final"]) : true;
+            WinCondition = new(winConditionType, fragCount, finalBoss);
         }
 
         AllowDLCItems = data.ContainsKey("allow_dlc_items") && (bool)data["allow_dlc_items"];

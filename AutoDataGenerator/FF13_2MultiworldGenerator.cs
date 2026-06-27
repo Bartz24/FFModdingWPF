@@ -27,8 +27,8 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
     public FF13_2MultiworldGenerator(string inputDir, string outputDir): base(outputDir)
     {
         // TODO: paths only set locally :)
-        SetupData.Paths["13-2"] = "";
-        SetupData.Paths["Nova"] = "";
+        SetupData.Paths["13-2"] = "E:\\Programs\\Steam\\steamapps\\common\\FINAL FANTASY XIII-2";
+        SetupData.Paths["Nova"] = "E:\\Programs\\Nova Chrysalia 2\\NovaChrysalia.exe";
         DataExtensions.Mode = ByteMode.BigEndian;
         FF13_2Flags.Init();
         SetupData.Seed = "1234567890";
@@ -562,6 +562,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         {
             var l = tuple.Location;
             var name = tuple.Name;
+            // Mog levels not coming across here - check fake check stuff
             AddLocationRule(data, gameName, l, name, GetItemName);
         });
 

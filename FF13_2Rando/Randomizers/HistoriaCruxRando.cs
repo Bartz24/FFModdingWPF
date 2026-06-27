@@ -30,6 +30,8 @@ public partial class HistoriaCruxRando : Randomizer
 
     public Dictionary<string, int> areaDepths = new();
 
+    public Dictionary<string, int> areaSpheres = new();
+
     public Dictionary<string, TreeNode> shuffledNodes = new();
 
     public string overrideInitial;
@@ -37,6 +39,18 @@ public partial class HistoriaCruxRando : Randomizer
     private bool experimental = true;
 
     public HistoriaCruxRando(SeedGenerator randomizers) : base(randomizers) { }
+
+    public virtual void CalculateAreaSpheres(Dictionary<string, int> spheres)
+    {
+        // pull out the sphere depth of the gate check which unlocks each area
+        // areas -> gate which grants access to area (or initial) -> sphere of gate fake check
+        areaSpheres = areaDepths.Select(kvp =>
+        {
+            var area = kvp.Key;
+            var sphere = spheres["access_" + area];
+            return (area, sphere);
+        }).ToDictionary(pair => pair.Item1, pair => pair.Item2);
+    }
 
     public override void Load()
     {

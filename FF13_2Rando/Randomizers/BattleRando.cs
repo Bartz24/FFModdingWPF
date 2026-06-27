@@ -127,12 +127,12 @@ public partial class BattleRando : Randomizer
         //});
         List<int> newMins = areaBounds.Values.Select(t => t.Item1).OrderBy(i => i).ToList();
         int enemyMaxRank = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).Max(e => e.Rank);
-        var maxAreaDepth = cruxRando.areaDepths.Max(kvp => kvp.Value);
+        var maxAreaDepth = cruxRando.areaSpheres.Max(kvp => kvp.Value);
         float ratio = (float)enemyMaxRank / (float)maxAreaDepth;
         foreach (var (area, range) in areaBounds)
         {
             // This is working out ok, can potentially bump up more after the first couple of ranks
-            var areaDepth = cruxRando.areaDepths[area];
+            var areaDepth = cruxRando.areaSpheres[area];
             // Scale upper bound higher once we're more than 3 locations in
             var offset = areaDepth > 3 ? 2 : 0;
             var adjusted = (areaDepth + offset) * ratio;
@@ -205,7 +205,9 @@ public partial class BattleRando : Randomizer
             {
                 // This basically leaves gog vanilla always - check if I did something silly...
                 var location = kvp.Value.Location;
-                var areaDepth = cruxRando.areaDepths[location];
+                // TODO: this shouldn't be area spheres, it should be spheres of boss fake checks
+                // Hook up a fake check name to the boss table for reference purposes, similar for miniboss stuff.
+                var areaDepth = cruxRando.areaSpheres[location];
                 // Randomise the area ranks to shuffle things up a little
                 return RandomNum.NextInt(areaDepth - 1, areaDepth + 1);
             })
@@ -477,7 +479,7 @@ public partial class BattleRando : Randomizer
                     List<EnemyData> possible = allowed.Where(e => !ignored.Contains(e.ID)).Where(newE =>
                     {
                         return newE.Rank >= newRank - range && newE.Rank <= newRank + range;
-                    }).ToList();
+                    }).Where(newE => !newE.Traits.Contains("Solo") || oldEnemies.Contains(newE)).ToList();
 
                     if (possible.Count == 0)
                     {

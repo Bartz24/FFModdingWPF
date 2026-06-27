@@ -373,6 +373,14 @@ public class FF13_2Flags
         public static ComboBoxFlagProperty ForcedStart;
         public static ToggleFlagProperty RandoDLC;
         public static ToggleFlagProperty ForceAcadVoidEndgame;
+        public static Flag WinCondition;
+        public static ComboBoxFlagProperty WinConditionType;
+        public static ToggleFlagProperty WinConditionRequireFinalBosses;
+        public static NumberFlagProperty WinConditionFragCount;
+        public static Flag PuzzleQol;
+        public static NumberFlagProperty Puzzle0StageCount, Puzzle1StageCount, Puzzle2StageCount;
+        public static NumberFlagProperty Puzzle2MaxSize;
+        public static ComboBoxFlagProperty Puzzle2TimeBehaviour;
 
         internal static void Init()
         {
@@ -410,7 +418,8 @@ public class FF13_2Flags
                 Text = "Force Acad 4xx / Void Beyond B endgame",
                 ID = "CruxForceAcadEndgame",
                 Description = "Forces the path to Acad 500 to be Acad 4xx -> Void Beyond -> Acad 500 locked behind the Graviton Core hand-ins.\n\n" +
-                "Disabling this flag means that endgame can be placed anywhere in randomisation with potentially low requirements to access."
+                "Disabling this flag means that endgame can be placed anywhere in randomisation with potentially low requirements to access.\n" +
+                "Adjuting the Win Condition options is recommended if this flag is disabled."
             }.Register(HistoriaCrux);
 
             Music = new Flag(false)
@@ -420,6 +429,100 @@ public class FF13_2Flags
                 DescriptionFormat = "Shuffle music around.",
                 Aesthetic = true
             }.Register(FlagType.Other);
+
+            WinCondition = new Flag(false)
+            {
+                Text = "Randomize Win Condition",
+                FlagID = "WinCondition",
+                DescriptionFormat = "Randomizes the Win Condition for beating the seed",
+                Aesthetic = true,
+                HasArchipelagoOverride = false
+            }.Register(FlagType.Other);
+
+            WinConditionType = new ComboBoxFlagProperty("None")
+            {
+                Text = "Win Condition",
+                ID = "WinConditionType",
+                Description = "Win Condition within Academia 500AF:\n" +
+                "None - No additional requirements are placed. Once you reach the final bosses they can be fought immediately.\n" +
+                "Fragment Hunt - A set number of fragments will be required to fight the final bosses.\n",
+                Values = ["None", "FragmentCount"],
+                DisabledByArchipelago = true
+            }.Register(WinCondition);
+
+            WinConditionRequireFinalBosses = new ToggleFlagProperty(true)
+            {
+                Text = "Require Final Bosses",
+                ID = "WinConditionRequireFinalBosses",
+                Description = "If false, victory will be granted once the relevant check at the top of Academia 500AF has been met.",
+                DisabledByArchipelago = true
+            }.Register(WinCondition);
+
+            WinConditionFragCount = new NumberFlagProperty(0)
+            {
+                Text = "Fragment Hunt required count",
+                ID = "WinConditionFragCount",
+                Description = "When using Fragment Hunt as the win condition, how many Fragments must be obtained by the player to clear the check.",
+                MinValue = 0,
+                MaxValue = 160,
+                DisabledByArchipelago = true
+            }.Register(WinCondition);
+
+            PuzzleQol = new Flag(false)
+            {
+                Text = "Puzzle QOL options",
+                FlagID = "PuzzleQOL",
+                DescriptionFormat = "Sets options for Puzzle QOL changes",
+                Aesthetic = true,
+                HasArchipelagoOverride = false
+            }.Register(FlagType.Other);
+
+            Puzzle0StageCount = new NumberFlagProperty(10)
+            {
+                Text = "Tile path puzzles - max stage count",
+                ID = "Puzzle0StageCount",
+                Description = "Set the maximum number of stages for tile path puzzle rifts",
+                MinValue = 1,
+                MaxValue = 10
+            }.Register(PuzzleQol);
+
+            Puzzle1StageCount = new NumberFlagProperty(10)
+            {
+                Text = "Crystarium puzzles - max stage count",
+                ID = "Puzzle1StageCount",
+                Description = "Set the maximum number of stages for crystarium puzzle rifts",
+                MinValue = 1,
+                MaxValue = 10
+            }.Register(PuzzleQol);
+
+            Puzzle2StageCount = new NumberFlagProperty(10)
+            {
+                Text = "Clock puzzles - max stage count",
+                ID = "Puzzle2StageCount",
+                Description = "Set the maximum number of stages for clock puzzle rifts",
+                MinValue = 1,
+                MaxValue = 10
+            }.Register(PuzzleQol);
+
+            Puzzle2MaxSize = new NumberFlagProperty(10)
+            {
+                Text = "Clock puzzles - max clock count",
+                ID = "Puzzle2MaxSize",
+                Description = "Set the maximum number of clocks allowed on any clock puzzle",
+                MinValue = 5,
+                MaxValue = 13
+            }.Register(PuzzleQol);
+
+            Puzzle2TimeBehaviour = new ComboBoxFlagProperty("Default")
+            {
+                Text = "Clock puzzles - timer behaviour",
+                ID = "Puzzle2TimeBehaviour",
+                Description = "Set the timer behaviour for clock puzzles. If a puzzle normally has no time limit, this will remain regardless of the option chosen.\n" +
+                "None - No timer will apply on any clock puzzle.\n" +
+                "Default - The default time limit the game sets will be used.\n" +
+                "Double - All time limits will be doubled.",
+                Values = ["None", "Default", "Double"]
+            }.Register(PuzzleQol);
         }
     }
     public class Debug

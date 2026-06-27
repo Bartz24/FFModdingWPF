@@ -1,7 +1,6 @@
 ﻿ID,Name,Possible Locations,Mog Level,Additional Required Locations,Required Items,Traits
 ran_init_silver,Initial Wild Artefacts,Initial,0,,,Fixed|APSkip
 ran_init_shop,Initial Shop Levels,Initial,0,,,Fixed|APSkip
-# TODO: reorder file to properly match areas, give treasures better names
 # New Bodhum 3AF
 tre_hmaa_001,Winding Way South,h_hm_AD0003,0,,,
 tre_hmaa_002,Winding Way West,h_hm_AD0003,0,,,
@@ -62,8 +61,7 @@ tre_bjaa_016,Echoes of the Past East,h_bj_AD0100,0,,,
 tre_bjba_001,Echoes of the Past North Inside central,h_bj_AD0100,3,,,SideKey
 tre_bjba_reopt,Echoes of the Past Near control panel,h_bj_AD0100,3,,I(frg_bj_11|1),GateSeal
 tre_csza_reopt,Echoes of the Past Pillar area,h_bj_AD0100,0,,,GateSeal
-zkey_tissue,Toilet Paper Coupon,h_bj_AD0100,0,,,ScrEvent|SideKey
-# TODO: this shouldn't exist, its already bjba_001 - just replace :)
+zkey_tissue,Toilet Paper Coupon,h_bj_AD0100,0,,I(frg_bj_14|1),ScrEvent|SideKey
 zkey_mon_data,Monster Analysis Report,h_bj_AD0100,3,,,ScrEvent|SideKey
 # Bresha Ruins 300
 tre_bjaa_025,Echoes of the Past Wild gate area,h_bj_AD0300,0,,,
@@ -92,10 +90,10 @@ zopt_gyaa01_gw,Hollow Artefact,h_gy_AD0010,1,,,ScrEvent|Artefact
 ztmap_gy,Map of the Yaschas Massif,h_gy_AD0010,0,,,ScrEvent|Map
 zkey_behi_fang,Behemoth Fang,h_gy_AD0010,0,,,ScrEvent|SideKey
 tre_bjaa_reopt,Pass of Paddra Box near shop,h_gy_AD0010,0,,,GateSeal
-zfrgcmn_gyaa003,Amur's Sphere,h_gy_AD0010,0,,,ScrEvent|Fragment
+zfrgcmn_gyaa003,Aloeidai Fragment,h_gy_AD0010,0,,,ScrEvent|Fragment
 tre_gyaa_013,Paddreaean Archaeopolis Statue Fragment,h_gy_AD0010,2,,,Fragment
 # Yaschas Massif 1X
-tre_gyaa_026,Pass of Paddra Southeast corridor,h_gh_AD0010,0,,,SideKey
+tre_gyaa_026,Pass of Paddra Southeast corridor,h_gh_AD0010,1,,,SideKey
 tre_gyaa_027,Pass of Paddra Near South Gate,h_gh_AD0010,0,,,SideKey
 tre_gyaa_028,Pass of Paddra Inside hole,h_gh_AD0010,2,,,SideKey
 tre_gwca_reopt,Pass of Paddra Big Jumps,h_gh_AD0010,0,,,GateSeal
@@ -116,7 +114,8 @@ tre_gyaa_024,Pass of Paddra Throw North,h_gy_AD0200,2,,,SideKey
 tre_gyaa_023,Paddreaean Archaeopolis Tent Reveal,h_gy_AD0200,1,,,SideKey
 tre_gyca_reopt,Paddreaean Archaeopolis Statue Slope West,h_gy_AD0200,0,,,GateSeal
 zkey_y_baggage,Wedding Jewelry,h_gy_AD0200,1,,,ScrEvent|SideKey
-zkey_f_proof,Technician's Note,h_gy_AD0200,0,,AND(I(frg_gy_20|1)|I(key_f_manual|1)),ScrEvent|SideKey
+# Having the note early and handing in the quest blocks this item from working
+zkey_f_proof,Technician's Note,h_gy_AD0200,0,,AND(I(frg_gy_20|1)|I(key_f_manual|1)),ScrEvent|SideKey|Missable
 # Yaschas Massif not 10
 tre_gyaa_016,Paddreaean Archaeopolis Upper South Balcony,h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,1,,,
 # Yaschas Massif ALL
@@ -146,22 +145,24 @@ zopt_gwca01_gh,Artefact of Origins,h_gw_AD0200,1,,,ScrEvent|Artefact
 tre_acea_reopt,Village Proper West Throw,h_gw_AD0300,2,,,GateSeal
 tre_gwda_reopt,Village Proper Central Throw,h_gw_AD0300,2,,,GateSeal
 # Oerba 400
-tre_gwea_reopt,Village Proper Eastern Throw,h_gw_AD0400,2,,,GateSeal
+tre_gwea_reopt,Village Proper Branches Throw near beach,h_gw_AD0400,2,,,GateSeal
 tre_gwca_007,The Ashensand Far east shore,h_gw_AD0400,1,,,
 tre_gwca_011,The Ashensand East Shoreline,h_gw_AD0400,1,,,
-tre_gwca_012,The Ashensand West Shoreline,h_gw_AD0400,0,,,
-tre_gvtn6,The Ashensand Fragment Far South,h_gw_AD0400,1,,,Graviton
+tre_gwca_012,The Ashensand Village entrance,h_gw_AD0400,0,,,
+tre_gvtn6,The Ashensand Fragment West Shoreline,h_gw_AD0400,1,,,Graviton
 # Oerba ALL
-tre_gwca_001,Village Proper West Alcove,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
-tre_gwca_002,Village Proper Behind Central Building,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
-tre_gwca_003,Village Proper Between trees,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
-tre_gwca_004,Village Proper Raise area near beach stairs,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
-tre_gwca_008,Village Proper West of beach stairs,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
-tre_gwca_010,Village Proper Main road,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
-tre_gwca_map,Village Proper Inside East building,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
-tre_gwca_006,Deserted Schoolhouse Drop down,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
-tre_gwca_009,Deserted Schoolhouse Entry,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
-tre_gwca_005,The Ashensand On stairs,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
+# Locked in oerba 300 until after rift
+tre_gwca_001,Village Proper West Alcove,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|A(h_gw_AD0300)|A(h_gw_AD0400)),
+tre_gwca_002,Village Proper Behind Central Building,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|A(h_gw_AD0300)|A(h_gw_AD0400)),
+tre_gwca_003,Village Proper Between trees,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|A(h_gw_AD0300)|A(h_gw_AD0400)),
+tre_gwca_004,Village Proper Raise area south of beach stairs,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
+tre_gwca_008,Village Proper West of beach stairs,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|A(h_gw_AD0300)|A(h_gw_AD0400)),
+tre_gwca_010,Village Proper Main road,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|A(h_gw_AD0300)|A(h_gw_AD0400)),
+tre_gwca_map,Village Proper Inside East building,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|A(h_gw_AD0300)|A(h_gw_AD0400)),
+# Locked in 200 until caius defeat
+tre_gwca_006,Deserted Schoolhouse Drop down,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(boss_caius_1|1))|A(h_gw_AD0300)|A(h_gw_AD0400)),
+tre_gwca_009,Deserted Schoolhouse Entry,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|A(h_gw_AD0300)|A(h_gw_AD0400)),
+tre_gwca_005,The Ashensand On stairs,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|A(h_gw_AD0300)|A(h_gw_AD0400)),
 # Sunleth 300
 zmog_level_2,Unlock Moogle Throw,h_sn_AD0300,0,,,ScrEvent
 tre_snda_016,Overgrown Forest Fragment Lower,h_sn_AD0300,2,,,Fragment
@@ -225,7 +226,7 @@ zfrgcmn_gdza003,Crimson Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
 zfrgcmn_gdza004,Azure Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
 zfrgcmn_gdza005,Forest Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
 zfrgcmn_gdza006,Amber Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
-zfrgcmn_gdza007,Violet Crystal,h_gd_NA0000,1,,,ScrEvent|Fragment
+zfrgcmn_gdza007,Violet Crystal,h_gd_NA0000,1,,I(frg_gd_7|1),ScrEvent|Fragment
 zkey_gowa_wool,Rough Wool,h_gd_NA0000,0,,,ScrEvent|SideKey
 zkey_nuku_wool,Thick Wool,h_gd_NA0000,0,,,ScrEvent|SideKey
 zkey_moko_wool,Fluffy Wool,h_gd_NA0000,0,,,ScrEvent|SideKey
@@ -236,14 +237,14 @@ tre_gvtn4,New Town Graviton Core near Zenobia,h_ac_AD0400,1,,,Graviton
 zopt_acea01_gt,Tower Artefact,h_ac_AD0400,0,,,ScrEvent|Artefact
 zfrgcmn_acea001,Travel Guide: Bresha Ruins,h_ac_AD0400,0,h_bj_AD0005|h_bj_AD0100|h_bj_AD0300,,ScrEvent|Fragment
 zfrgcmn_acea002,Travel Guide: New Bodhum,h_ac_AD0400,0,h_hm_AD0003|h_hm_AD0700,,ScrEvent|Fragment
-zfrgcmn_acea003,Travel Guide: Yachas Massif,h_ac_AD0400,0,h_gy_AD0100|h_gy_AD0200,,ScrEvent|Fragment
+zfrgcmn_acea003,Travel Guide: Yachas Massif,h_ac_AD0400,0,,OR(A(h_gy_AD0100)|A(h_gy_AD0200)),ScrEvent|Fragment
 zfrgcmn_acea004,Travel Guide: Oerba,h_ac_AD0400,0,h_gw_AD0400,,ScrEvent|Fragment
-zfrgcmn_acea005,Travel Guide: Sunleth Waterscape,h_ac_AD0400,0,h_sn_AD0300|h_sn_AD0400,,ScrEvent|Fragment
+zfrgcmn_acea005,Travel Guide: Sunleth Waterscape,h_ac_AD0400,0,,OR(A(h_sn_AD0400)|AND(A(h_sn_AD0300)|I(mutantomato_weakened|1))),ScrEvent|Fragment
 zfrgcmn_acea006,Travel Guide: Academia,h_ac_AD0400,0,h_aa_AD0400|h_ac_AD0400,,ScrEvent|Fragment
 zfrgcmn_acea007,Travel Guide: Augusta Tower,h_ac_AD0400,0,h_gt_AD0200|h_gt_AD0300,AND(I(key_access_13|1)|I(key_access_50|1)|I(key_access_51|1)|I(key_access_52|1)|I(key_access_la|1)),ScrEvent|Fragment
 zfrgcmn_acea008,Travel Guide: Vile Peaks,h_ac_AD0400,0,h_vp_AD0010,,ScrEvent|Fragment
 zfrgcmn_acea009,Travel Guide: Archylte Steppe,h_ac_AD0400,0,h_gd_NA0000,I(gd_choco|1),ScrEvent|Fragment
-zfrgcmn_acea010,Travel Guide: A Dying World,h_ac_AD0400,0,h_dd_AD0700,,ScrEvent|Fragment
+zfrgcmn_acea010,Travel Guide: A Dying World,h_ac_AD0400,3,h_dd_AD0700,,ScrEvent|Fragment
 zfrgcmn_acea011,Academic Rank: Paradox Professor,h_ac_AD0400,0,,T(TravelGuide|10),ScrEvent|Fragment
 zfrgcmn_acea012,Zenobia Fragment,h_ac_AD0400,0,,,ScrEvent|Fragment
 # Academia 4xx
@@ -386,7 +387,7 @@ tre_ddha_006,The Farseers' Settlement South,h_dd_AD0700,3,,,
 tre_ddha_map,The Farseers' Settlement Near Shop,h_dd_AD0700,3,,,
 tre_aaea_reopt,The Farseers' Settlement Northwest,h_dd_AD0700,3,,,GateSeal
 tre_ddha_002,The Farseers' Relic behind wall,h_dd_AD0700,3,,,
-tre_ddha_009,Abyssal Fissure Fragment Throw,h_dd_AD0700,3,,,Fragment
+tre_ddha_009,Abyssal Fissure Fragment Throw,h_dd_AD0700,2,,,Fragment
 tre_ddha_012,Abyssal Fissure Fragment Near Chocobo,h_dd_AD0700,3,,,Fragment
 tre_ddha_003,The Farseers' Settlement Fragment In Well,h_dd_AD0700,3,,,Fragment
 tre_ddha_opts1,The Farseers' Relic Oracle Drive,h_dd_AD0700,3,,,Wild

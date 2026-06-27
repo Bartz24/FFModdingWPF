@@ -41,7 +41,8 @@ Pacos Amethyst/Luvulite,20,m721s2,50,50,50,50,100,50,NoScaling,h_ac_AD0500,1
 Chaos Bahamut,19,m740,100,100,100,100,100,100,NoShuffle|NoEntry|Main|NoScaling,h_ac_AD0500,0
 Chaos Bahamut,19,m740b,100,100,100,100,100,100,NoScaling,h_ac_AD0500,0
 Caius (Deck),20,m745d,20,30,30,100,100,100,Main|NoScaling|Caius,h_ac_AD0500,1
-Caius (Beach),21,m745e,15,10,10,100,100,100,Main|NoScaling|Caius,h_ac_AD0500,2
+# Currently locked due to issues with placing other Caius fights in this location. Temporary workaround.
+Caius (Beach),21,m745e,15,10,10,100,100,100,Main|NoShuffle|NoScaling|Caius,h_ac_AD0500,2
 Caius (Oerba Paradox),26,m745p,25,40,40,100,100,100,Main|NoScaling|Caius,h_ac_AD0500,7
 Caius (Void Beyond Paradox),27,m745q,25,40,40,100,100,100,Main|Caius,h_ac_AD0500,8
 Caius (Dying World Paradox),25,m745r,25,40,40,100,100,100,Main|Caius,h_ac_AD0500,6

@@ -39,6 +39,9 @@ public class TextRando : Randomizer
         mainSysUS[equipRando.items["key_shop_level"].sItemNameStringId] = "Progressive Shop Level{End}{Many}Progressive Shop Levels{End}{Article}a{End}";
         mainSysUS[equipRando.items["key_shop_level"].sHelpStringId] = "Each obtained unlocks more items in Chocolina's shop.";
 
+        mainSysUS[equipRando.items["key_boss_token"].sItemNameStringId] = "Boss Token";
+        mainSysUS[equipRando.items["key_boss_token"].sHelpStringId] = "Granted for defeating a powerful foe";
+
         // Custom artefact names
         mainSysUS[equipRando.items["opt_bjaa03_bj"].sItemNameStringId] = "Frozen Artefact";
         mainSysUS[equipRando.items["opt_bjaa03_bj"].sHelpStringId] = "An artefact shaped like a snowflake.";
@@ -93,6 +96,7 @@ public class TextRando : Randomizer
         // To make it clear its not the fragment in your inventory
         mainSysUS["$privilege06"] = "Paradox Scope (Skill)";
         mainSysUS["$fl_rando_opt"] = "{Color Yellow}{Entity 1}{Color White} is required for this gate.";
+        mainSysUS["$rando_win_cond_frag"] = "You have {Color Yellow}{Counter Type 1}{Color White} / {Counter Type 2} Fragments required to progress";
     }
     public override void Randomize()
     {
