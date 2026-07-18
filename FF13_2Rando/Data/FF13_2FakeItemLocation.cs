@@ -16,6 +16,7 @@ public class FF13_2FakeItemLocation : FF13_2ItemLocation
     public override int MogLevel { get; set; }
     [RowIndex(4)]
     public override List<string> RequiredAreas { get; set; }
+    // TODO: adjust for mog level etc to come across for AP conversion
     [RowIndex(5)]
     public override ItemReq Requirements { get; set; }
     [RowIndex(6)]

@@ -140,6 +140,7 @@ public partial class TreasureRando : Randomizer
         AddTreasure("mog_level_2", "key_mog_level", 1, "");
         AddTreasure("mog_level_3", "key_mog_level", 1, "");
 
+        // TODO: does this need adjusting based on initial shop level count?
         // Shop levels (TODO: flag to disable)
         AddTreasure("shop_level_01", "key_shop_level", 1, "");
         AddTreasure("shop_level_02", "key_shop_level", 1, "");
@@ -158,8 +159,8 @@ public partial class TreasureRando : Randomizer
             // Replace "spent" shop levels with items for junk placement stuff
             if(FF13_2Flags.Items.InitialShopLevel.Value >= i)
             {
-                treasures[string.Format("shop_level_{0:D2}", i)].s11ItemResourceId = "it_potion";
-                treasuresOrig[string.Format("shop_level_{0:D2}", i)].s11ItemResourceId = "it_potion";
+                treasures[string.Format("zshop_level_{0:D2}", i)].s11ItemResourceId = "it_potion";
+                treasuresOrig[string.Format("zshop_level_{0:D2}", i)].s11ItemResourceId = "it_potion";
             }
         }
 
@@ -286,6 +287,48 @@ public partial class TreasureRando : Randomizer
         AddTreasure("privilege15", "privilege15", 1, "");
         AddTreasure("privilege18", "privilege18", 1, "");
 
+        /**
+         * Meta-treasures used for "dynamic" scripting
+         */
+
+        int puzzle0maxStage = 10;
+        int puzzle1maxStage = 10;
+        int puzzle2maxStage = 10;
+        int puzzle2maxClock = 5;
+        int puzzle2time = 1;
+
+        if (FF13_2Flags.Other.PuzzleQol.FlagEnabled)
+        {
+            puzzle0maxStage = FF13_2Flags.Other.Puzzle0StageCount.Value;
+            puzzle1maxStage = FF13_2Flags.Other.Puzzle1StageCount.Value;
+            puzzle2maxStage = FF13_2Flags.Other.Puzzle2StageCount.Value;
+            puzzle2maxClock = FF13_2Flags.Other.Puzzle2MaxSize.Value;
+            // this is 0 index but the script expect 1 index
+            puzzle2time = FF13_2Flags.Other.Puzzle2TimeBehaviour.SelectedIndex + 1;
+        }
+
+        //Maximum number of stages allowed for puzzles
+        AddTreasure("ran_puz0_maxstg", "", puzzle0maxStage, "", false, true);
+        AddTreasure("ran_puz1_maxstg", "", puzzle1maxStage, "", false, true);
+        AddTreasure("ran_puz2_maxstg", "", puzzle2maxStage, "", false, true);
+        // Cap on number of clocks for clock puzzles
+        AddTreasure("ran_puz2_max", "", puzzle2maxClock, "", false, true);
+        // Time behaviour for clock puzzles (0 = unlimited, 1 = vanilla, 2 = 2x)
+        AddTreasure("ran_puz2_time", "", puzzle2time, "", false, true);
+
+        var wincodition = setupWinCondition();
+        // Win condition (0 = no special, 1 = fragments, 2 = areas?)
+        AddTreasure("ran_win_cond", "", wincodition.Item1, "", false, true);
+        // Number of fragments/areas
+        AddTreasure("ran_win_con_ct", "", wincodition.Item2, "", false, true);
+        // 1 = require final bosses. 2 = don't
+        AddTreasure("ran_win_cond_fb", "", wincodition.Item3, "", false, true);
+
+        if(wincodition.Item1 == 1)
+        {
+            ItemLocations["final_boss_access:0"].Requirements = new TraitAmountItemReq("Fragment", wincodition.Item2);
+        }
+
         if (FF13_2Flags.Items.ReplaceWildArtefacts.Enabled)
         {
             replaceWildArtefactsWithCustom();
@@ -311,6 +354,21 @@ public partial class TreasureRando : Randomizer
         {
             AddTreasure($"zabc_t{i:000}", $"item_{i:000}", 1, "");
         }
+    }
+
+    protected virtual (int, int, int) setupWinCondition()
+    {
+        int winCondition = 0;
+        int winConditionCount = 0;
+        int winConditionRequireFinal = 1;
+
+        if (FF13_2Flags.Other.WinCondition.FlagEnabled)
+        {
+            winCondition = FF13_2Flags.Other.WinConditionType.SelectedIndex;
+            winConditionCount = FF13_2Flags.Other.WinConditionFragCount.Value;
+            winConditionRequireFinal = FF13_2Flags.Other.WinConditionRequireFinalBosses.Enabled ? 1 : 2;
+        }
+        return (winCondition, winConditionCount, winConditionRequireFinal);
     }
 
     private string[] wildZoneNums = [];
@@ -358,7 +416,7 @@ public partial class TreasureRando : Randomizer
         ItemLocations["hs_bjaa03_bj:0"].Requirements = new AndItemReq([new AmountItemReq("opt_bjaa03_bj", 1), new AmountItemReq("key_lockjail", 1)]);
         ItemLocations["hs_bjda01_gy:0"].Requirements = new AmountItemReq("opt_bjba01_gy", 1);
         ItemLocations["hs_ddha02_bj:0"].Requirements = new AmountItemReq("opt_ddha01_bj", 1);
-        ItemLocations["hs_gdza01_vp:0"].Requirements = new AndItemReq([new AmountItemReq("opt_gdaa01_vp", 1), new AmountItemReq("frg_gd_1", 1)]);
+        ItemLocations["hs_gdza01_vp:0"].Requirements = new AndItemReq([new AmountItemReq("opt_gdaa01_vp", 1), new AmountItemReq("boss_faeryl", 1)]);
         ItemLocations["hs_ghaa02_gt:0"].Requirements = new AmountItemReq("opt_ghaa01_gt", 1);
         ItemLocations["hs_gtca02_gw:0"].Requirements = new AndItemReq([new AmountItemReq("opt_gtca02_gw", 1), new AmountItemReq("key_access_la", 1)]);
         ItemLocations["hs_gwda01_gw:0"].Requirements = new AmountItemReq("opt_gwda01_gw", 1);
@@ -427,10 +485,10 @@ public partial class TreasureRando : Randomizer
 
     private string[] reservedRandoTreasures = new string[] { "ran_init_cp", "ran_mfind", "ran_multi" };
 
-    public void AddTreasure(string newName, string item, int count, string next, bool addFlag = true)
+    public void AddTreasure(string newName, string item, int count, string next, bool addFlag = true, bool isMeta = false)
     {
         string modifiedName = addFlag ? "z" + newName : newName;
-        if (!ItemLocations.ContainsKey(modifiedName) && !reservedRandoTreasures.Contains(newName))
+        if (!ItemLocations.ContainsKey(modifiedName) && !reservedRandoTreasures.Contains(newName) && !isMeta)
         {
             //throw new Exception($"Identified newly added treasure {modifiedName} without data entry!");
         }
@@ -551,6 +609,8 @@ public partial class TreasureRando : Randomizer
             ItemPlacer.PossibleLocations = ItemLocations.Values.ToOrderedSet();
             ItemPlacer.PlaceItems();
             ItemPlacer.ApplyToGameData();
+
+            cruxRando.CalculateAreaSpheres(ItemPlacer.SphereCalculator.Spheres.ToDictionary(kvp => kvp.Key.ID, kvp => kvp.Value));
 
 
             RandomNum.ClearRand();

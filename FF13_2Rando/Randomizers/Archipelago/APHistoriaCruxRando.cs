@@ -100,4 +100,23 @@ public class APHistoriaCruxRando: HistoriaCruxRando
         }
         return nodes;
     }
+
+    public override void CalculateAreaSpheres(Dictionary<string, int> spheres)
+    {
+        var apData = RandoFlags.GetArchipelagoData<FF13_2ArchipelagoData>();
+        // pull out the sphere depth of the gate check which unlocks each area
+        // areas -> gate which grants access to area (or initial) -> sphere of gate fake check
+        areaSpheres = areaDepths.Select(kvp =>
+        {
+            var area = kvp.Key;
+            var key = "Access " + area;
+            var item = apData.Spheres.Find(it => it.Item == "access_" + area);
+            if (item.ID == default)
+            {
+                // Better fallback needed? probably fine?
+                return (area, 0);
+            }
+            return (area, item.Sphere);
+        }).ToDictionary(pair => pair.Item1, pair => pair.Item2);
+    }
 }

@@ -39,36 +39,46 @@ public class TextRando : Randomizer
         mainSysUS[equipRando.items["key_shop_level"].sItemNameStringId] = "Progressive Shop Level{End}{Many}Progressive Shop Levels{End}{Article}a{End}";
         mainSysUS[equipRando.items["key_shop_level"].sHelpStringId] = "Each obtained unlocks more items in Chocolina's shop.";
 
+        mainSysUS[equipRando.items["key_boss_token"].sItemNameStringId] = "Boss Token";
+        mainSysUS[equipRando.items["key_boss_token"].sHelpStringId] = "Granted for defeating a powerful foe";
+
+
         // Custom artefact names
         mainSysUS[equipRando.items["opt_bjaa03_bj"].sItemNameStringId] = "Frozen Artefact";
-        mainSysUS[equipRando.items["opt_bjaa03_bj"].sHelpStringId] = "An artefact shaped like a snowflake.";
-
         mainSysUS[equipRando.items["opt_ddha01_bj"].sItemNameStringId] = "Overgrown Artefact";
-        mainSysUS[equipRando.items["opt_ddha01_bj"].sHelpStringId] = "An artefact constructed from a collection of plant life.";
-
         mainSysUS[equipRando.items["opt_bjba01_gy"].sItemNameStringId] = "Artefact of Penumbra";
-        mainSysUS[equipRando.items["opt_bjba01_gy"].sHelpStringId] = "A dark artefact remiscent of the light during a thunderstorm.";
-
         mainSysUS[equipRando.items["opt_ghaa01_gt"].sItemNameStringId] = "Spire Artefact";
-        mainSysUS[equipRando.items["opt_ghaa01_gt"].sHelpStringId] = "An artefact capable of processing information.";
-
         mainSysUS[equipRando.items["opt_gdaa01_vp"].sItemNameStringId] = "Blitz Artefact";
-        mainSysUS[equipRando.items["opt_gdaa01_vp"].sHelpStringId] = "An artefact shaped like a squadron badge.";
-
         mainSysUS[equipRando.items["opt_acea02_gy"].sItemNameStringId] = "Artefact of Umbra";
-        mainSysUS[equipRando.items["opt_acea02_gy"].sHelpStringId] = "An artefact from a dark time.";
-
         mainSysUS[equipRando.items["opt_gyba01_sn"].sItemNameStringId] = "Rainbow Artefact";
-        mainSysUS[equipRando.items["opt_gyba01_sn"].sHelpStringId] = "An artefact which shines with various colors.";
-
         mainSysUS[equipRando.items["opt_gtca02_gw"].sItemNameStringId] = "Sandstorm Artefact";
-        mainSysUS[equipRando.items["opt_gtca02_gw"].sHelpStringId] = "An artefact which rings out with a strange sound.";
-
         mainSysUS[equipRando.items["opt_gwda01_gw"].sItemNameStringId] = "Arenaceous Artefact";
-        mainSysUS[equipRando.items["opt_gwda01_gw"].sHelpStringId] = "A sand covered artefact which reminds you of brighter times.";
-
         mainSysUS[equipRando.items["opt_aaea03_vp"].sItemNameStringId] = "Artefact of Wrack and Ruin";
-        mainSysUS[equipRando.items["opt_aaea03_vp"].sHelpStringId] = "A metallic artefact which seems to be constructed from broken mechanical parts.";
+
+        // Artefact help strings updated with gate details
+        mainSysUS[equipRando.items["opt_aaea02_sp"].sHelpStringId] = "Opens the Story Gate in Academia 4XX AF";
+        mainSysUS[equipRando.items["opt_acea01_gt"].sHelpStringId] = "Opens the Story Gate in Academia 400 AF";
+        mainSysUS[equipRando.items["opt_aaea03_vp"].sHelpStringId] = "Opens the Wild Gate in Academia 4XX AF";
+        mainSysUS[equipRando.items["opt_bjaa01_gy"].sHelpStringId] = "Opens the Outside Gate in Bresha Ruins 005 AF";
+        mainSysUS[equipRando.items["opt_bjaa02_sn"].sHelpStringId] = "Opens the Inside Gate in Bresha Ruins 005 AF";
+        mainSysUS[equipRando.items["opt_bjaa03_bj"].sHelpStringId] = "Opens the South West Gate in Bresha Ruins 005 AF";
+        mainSysUS[equipRando.items["opt_ghsn01_cs"].sHelpStringId] = "Opens the Story Gate in Yaschas Massif 01X AF";
+        mainSysUS[equipRando.items["opt_ghsn02_ac"].sHelpStringId] = "Opens the Central Gate in Sunleth Waterscape 300 AF";
+        mainSysUS[equipRando.items["opt_gtca01_aa"].sHelpStringId] = "Opens the Gate on the Top Floor of Augusta Tower 200 AF";
+        mainSysUS[equipRando.items["opt_gtca02_gw"].sHelpStringId] = "Opens the Wild Gate on Floor 49 of Augusta Tower 200 AF";
+        mainSysUS[equipRando.items["opt_gwca01_gh"].sHelpStringId] = "Opens the Gate in Oerba 200 AF";
+        mainSysUS[equipRando.items["opt_gyaa01_gw"].sHelpStringId] = "Opens the Gate in Yaschas Massif 010 AF";
+        mainSysUS[equipRando.items["opt_hmaa01_bj"].sHelpStringId] = "Opens the Gate in New Bodhum 003 AF";
+        mainSysUS[equipRando.items["opt_hmha01_ac"].sHelpStringId] = "Opens the Gate in New Bodhum 700 AF";
+        mainSysUS[equipRando.items["opt_snda01_cl"].sHelpStringId] = "Opens the South Gate in Sunleth Waterscape 300 AF";
+        mainSysUS[equipRando.items["opt_snda02_gd"].sHelpStringId] = "Opens the North Gate in Sunleth Waterscape 300 AF";
+        mainSysUS[equipRando.items["opt_ghaa01_gt"].sHelpStringId] = "Opens the Wild Gate in Yaschas Massif 01X AF";
+        mainSysUS[equipRando.items["opt_gdaa01_vp"].sHelpStringId] = "Opens the Gate in Archylte Steppe ??? AF";
+        mainSysUS[equipRando.items["opt_acea02_gy"].sHelpStringId] = "Opens the Wild Gate in Academia 400 AF";
+        mainSysUS[equipRando.items["opt_gyba01_sn"].sHelpStringId] = "Opens the Gate in Yaschas Massif 100 AF";
+        mainSysUS[equipRando.items["opt_gwda01_gw"].sHelpStringId] = "Opens the Gate in Oerba 300 AF";
+        mainSysUS[equipRando.items["opt_ddha01_bj"].sHelpStringId] = "Opens the Gate in A Dying World 700 AF";
+        mainSysUS[equipRando.items["opt_bjba01_gy"].sHelpStringId] = "Opens the Gate in Bresha Ruins 300 AF";
 
         // Copy across fragment skills
         mainSysUS["$amca_frg_sk01"] = "The fragment skill Mog's Manifestation has been unlocked!";
@@ -93,6 +103,7 @@ public class TextRando : Randomizer
         // To make it clear its not the fragment in your inventory
         mainSysUS["$privilege06"] = "Paradox Scope (Skill)";
         mainSysUS["$fl_rando_opt"] = "{Color Yellow}{Entity 1}{Color White} is required for this gate.";
+        mainSysUS["$rando_win_cond_frag"] = "You have {Color Yellow}{Counter Type 1}{Color White} / {Counter Type 2} Fragments required to progress";
     }
     public override void Randomize()
     {

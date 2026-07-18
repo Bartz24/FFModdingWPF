@@ -42,6 +42,10 @@ public class EquipRando : Randomizer
         items["key_r_victory"].sItemNameStringId = "$victory";
         items["key_r_victory"].sHelpStringId = "$victory";
 
+        items.Copy("key_l_knife", "key_boss_token");
+        items["key_boss_token"].sItemNameStringId = "$boss_token";
+        items["key_boss_token"].sHelpStringId = "$boss_tokenh";
+
         string[] fragmentSkillKeys = ["01", "02", "03", "04", "05", "06", "08", "10", "11", "12", "14", "15", "18"];
 
         foreach (var key in fragmentSkillKeys)

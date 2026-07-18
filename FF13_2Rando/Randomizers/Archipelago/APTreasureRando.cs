@@ -15,6 +15,17 @@ public class APTreasureRando: TreasureRando
 
     }
 
+    protected override (int, int, int) setupWinCondition()
+    {
+        var apData = RandoFlags.GetArchipelagoData<FF13_2ArchipelagoData>();
+        var winConditionOptions = apData.WinCondition;
+        return (
+            winConditionOptions.condition,
+            winConditionOptions.count,
+            winConditionOptions.finalBosses ? 1 : 2
+        );
+    }
+
     public override void Randomize()
     {
         // Then overwrite with unique AP items according to FF13_2ArchipelagoData order
@@ -50,6 +61,8 @@ public class APTreasureRando: TreasureRando
                 throw new Exception($"Local item placement ID '{loc}' not found in item locations.");
             }
         }
+        APHistoriaCruxRando cruxRando = Generator.Get<APHistoriaCruxRando>();
+        cruxRando.CalculateAreaSpheres(apData.Spheres.Where(i => i.Item.StartsWith("access_")).ToDictionary(i => i.Item, i => i.Sphere));
     }
 
     protected override void SaveHints()

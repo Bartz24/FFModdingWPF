@@ -30,6 +30,8 @@ public partial class HistoriaCruxRando : Randomizer
 
     public Dictionary<string, int> areaDepths = new();
 
+    public Dictionary<string, int> areaSpheres = new();
+
     public Dictionary<string, TreeNode> shuffledNodes = new();
 
     public string overrideInitial;
@@ -37,6 +39,24 @@ public partial class HistoriaCruxRando : Randomizer
     private bool experimental = true;
 
     public HistoriaCruxRando(SeedGenerator randomizers) : base(randomizers) { }
+
+    public virtual void CalculateAreaSpheres(Dictionary<string, int> spheres)
+    {
+        // pull out the sphere depth of the gate check which unlocks each area
+        // areas -> gate which grants access to area (or initial) -> sphere of gate fake check
+        areaSpheres = areaDepths.Select(kvp =>
+        {
+            var area = kvp.Key;
+            var key = "access_" + area + ":0";
+            if (!spheres.ContainsKey(key))
+            {
+                // Better fallback needed? probably fine?
+                return (area, 0);
+            }
+            var sphere = spheres[key];
+            return (area, sphere);
+        }).ToDictionary(pair => pair.Item1, pair => pair.Item2);
+    }
 
     public override void Load()
     {
@@ -489,7 +509,7 @@ public partial class HistoriaCruxRando : Randomizer
         var i = 0;
         foreach (var link in gateTable.Keys.OrderBy(s => s, StringComparer.Ordinal))
         {
-
+            // TODO: the void beyond B -> blank 5 position adjustment doesn't work currently?
             var linkDetails = gateTable[link];
             var left = linkDetails.sArea;
             var right = linkDetails.sOpenHistoria1.Substring(0, linkDetails.sOpenHistoria1.Length - 2);
@@ -1329,7 +1349,20 @@ public partial class HistoriaCruxRando : Randomizer
     {
         if (!FF13_2Flags.Items.Treasures.FlagEnabled || TooSmallOfPool())
         {
-            return available.Contains(HistoriaCruxConstants.ACADEMIA_4XX) && HasGravitonLocations(available) ? 3 : available.Contains(HistoriaCruxConstants.SUNLETH_300) ? 2 : available.Contains(HistoriaCruxConstants.BRESHA_RUINS_5) ? 1 : 0;
+            int level = 0;
+            if (available.Contains(HistoriaCruxConstants.BRESHA_RUINS_5))
+            {
+                level++;
+            }
+            if (available.Contains(HistoriaCruxConstants.SUNLETH_300))
+            {
+                level++;
+            }
+            if(available.Contains(HistoriaCruxConstants.ACADEMIA_4XX) && HasGravitonLocations(available, level))
+            {
+                level++;
+            }
+            return level;
         }
         else
         {
@@ -1337,43 +1370,44 @@ public partial class HistoriaCruxRando : Randomizer
         }
     }
 
-    private bool HasGravitonLocations(List<string> available)
+    private bool HasGravitonLocations(List<string> available, int? overrideLevel = null)
     {
         if (!FF13_2Flags.Items.Treasures.FlagEnabled || !FF13_2Flags.Items.KeyGraviton.Enabled || TooSmallOfPool())
         {
+            int level = overrideLevel != null ? (int)overrideLevel : GetMogLevel(available);
             // If graviton cores aren't rando, use normal logic
             List<string> gravitons = new();
-            if (GetMogLevel(available) >= 1)
+            if (level >= 1)
             {
                 gravitons.Add(HistoriaCruxConstants.NEW_BODHUM_3); // requires moogle hunt
             }
 
-            if (GetMogLevel(available) >= 1)
+            if (level >= 1)
             {
                 gravitons.Add(HistoriaCruxConstants.BRESHA_RUINS_5); // requires moogle hunt
             }
 
-            if (GetMogLevel(available) >= 1)
+            if (level >= 1)
             {
                 gravitons.Add(HistoriaCruxConstants.OERBA_200); // requires moogle hunt
             }
 
-            if (GetMogLevel(available) >= 1)
+            if (level >= 1)
             {
                 gravitons.Add(HistoriaCruxConstants.ACADEMIA_400); // requires moogle hunt
             }
 
-            if (GetMogLevel(available) >= 1)
+            if (level >= 1)
             {
                 gravitons.Add(HistoriaCruxConstants.YASCHAS_100); // requires moogle hunt
             }
 
-            if (GetMogLevel(available) >= 1)
+            if (level >= 1)
             {
                 gravitons.Add(HistoriaCruxConstants.OERBA_400); // requires moogle hunt
             }
 
-            if (GetMogLevel(available) >= 1)
+            if (level >= 1)
             {
                 gravitons.Add(HistoriaCruxConstants.SUNLETH_400); // requires moogle hunt
             }

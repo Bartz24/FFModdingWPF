@@ -27,8 +27,8 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
     public FF13_2MultiworldGenerator(string inputDir, string outputDir): base(outputDir)
     {
         // TODO: paths only set locally :)
-        SetupData.Paths["13-2"] = "";
-        SetupData.Paths["Nova"] = "";
+        SetupData.Paths["13-2"] = "E:\\Programs\\Steam\\steamapps\\common\\FINAL FANTASY XIII-2";
+        SetupData.Paths["Nova"] = "E:\\Programs\\Nova Chrysalia 2\\NovaChrysalia.exe";
         DataExtensions.Mode = ByteMode.BigEndian;
         FF13_2Flags.Init();
         SetupData.Seed = "1234567890";
@@ -439,13 +439,14 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
             {
                 regionName = "Historia Crux";
             }
+            var itemName = GetItemName(fake.FakeItem);
             for (int i = 1; i <= count; i++)
             {
                 string newName = count == 1 ? baseName : $"{baseName} [{i}]";
 
                 script += $"    \"{newName}\": FF132EventData(\n" +
                           $"        region=\"{regionName}\",\n" +
-                          $"        item=\"{fake.FakeItem}\"\n" +
+                          $"        item=\"{itemName}\"\n" +
                           $"    ),\n";
 
                 extraLocations.Add((l, newName));
@@ -518,10 +519,10 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
 
     private string GetItemName(string itemName)
     {
-        if (fakeLocationKeys.Contains(itemName))
-        {
-            return itemName;
-        }
+        //if (fakeLocationKeys.Contains(itemName))
+        //{
+        //    return itemName;
+        //}
         // fake check intercept here
         return EquipRando.GetItemName(itemName);
     }
@@ -562,6 +563,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         {
             var l = tuple.Location;
             var name = tuple.Name;
+            // Mog levels not coming across here - check fake check stuff
             AddLocationRule(data, gameName, l, name, GetItemName);
         });
 
@@ -581,7 +583,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
                 var gateLocation = TreasureRando.ItemLocations[outgoingLink+":0"];
                 AddRequirementPreambles(data.PreambleParts, gateLocation.Requirements, gameName);
 
-                string ruleStr = gateLocation.Requirements.GetArchipelagoRule(GetItemName);
+                string ruleStr = gateLocation.GetArchipelagoRule(GetItemName);
                 AddUniqueRule(data.Rules, ruleStr);
 
                 ExitToRules[(location, outgoingLink)] = ruleStr;
@@ -591,7 +593,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
             {
                 var gateLocation = TreasureRando.ItemLocations["hs_snda03_ac:0"];
                 AddRequirementPreambles(data.PreambleParts, gateLocation.Requirements, gameName);
-                string ruleStr = gateLocation.Requirements.GetArchipelagoRule(GetItemName);
+                string ruleStr = gateLocation.GetArchipelagoRule(GetItemName);
                 AddUniqueRule(data.Rules, ruleStr);
                 ExitToRules[("h_sn_AD0300", "hs_snda03_ac")] = ruleStr;
             }
@@ -600,7 +602,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
             {
                 var gateLocation = TreasureRando.ItemLocations["hs_ghaa01_cs:0"];
                 AddRequirementPreambles(data.PreambleParts, gateLocation.Requirements, gameName);
-                string ruleStr = gateLocation.Requirements.GetArchipelagoRule(GetItemName);
+                string ruleStr = gateLocation.GetArchipelagoRule(GetItemName);
                 AddUniqueRule(data.Rules, ruleStr);
                 ExitToRules[("h_sn_AD0300", "hs_ghaa01_cs")] = ruleStr;
             }
@@ -611,6 +613,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
             {
                 if(additionalRegion.Contains(location) && additionalRegion != location)
                 {
+                    // TODO: Oerba 200 -> Oerba ALL needs a mog level
                     string ruleStr = new BoolItemReq(true).GetArchipelagoRule(GetItemName);
                     ExitToRules[(location, additionalRegion)] = ruleStr;
                 }
