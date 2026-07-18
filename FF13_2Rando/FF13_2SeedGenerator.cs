@@ -17,6 +17,11 @@ public class FF13_2SeedGenerator : SeedGenerator
         DocsDisplayName = "FF13-2 Randomizer";
 
         ItemReq.ItemProvider = () => Get<EquipRando>().itemData.ToDictionary(kv => kv.Key, i => (IItem)i.Value);
+        ItemReq.ItemLocationProvider = () =>
+        {
+            var locs = Get<TreasureRando>().ItemLocations;
+            return locs.ToDictionary(k => k.Key, k => (ItemLocation)k.Value);
+        };
     }
 
     public override void PrepareData()

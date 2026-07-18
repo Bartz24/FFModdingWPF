@@ -62,7 +62,7 @@ public class APTreasureRando: TreasureRando
             }
         }
         APHistoriaCruxRando cruxRando = Generator.Get<APHistoriaCruxRando>();
-        cruxRando.CalculateAreaSpheres(apData.Spheres.ToDictionary(i => i.Item, i => i.Sphere));
+        cruxRando.CalculateAreaSpheres(apData.Spheres.Where(i => i.Item.StartsWith("access_")).ToDictionary(i => i.Item, i => i.Sphere));
     }
 
     protected override void SaveHints()

@@ -125,24 +125,37 @@ public partial class BattleRando : Randomizer
         //{
         //    return i1 == i2 ? 1 : (i1 < 5 || i2 < 5 ? 0 : Math.Abs(i1 - i2) < 3 ? 1 : 0);
         //});
+
+        // Potentially just use spheres as ordering and have a fix list of difficulties (maybe even based on vanilla data?)
         List<int> newMins = areaBounds.Values.Select(t => t.Item1).OrderBy(i => i).ToList();
+        List<int> newMaxs = areaBounds.Values.Select(t => t.Item2).OrderBy(i => i).ToList();
         int enemyMaxRank = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).Max(e => e.Rank);
+        // Currently this maps difficulty "scale" to sphere of area opening.
+        // This should be reframed as index ranking into a predefined list of difficulty ranges (based on vanilla areas/depths)
         var maxAreaDepth = cruxRando.areaSpheres.Max(kvp => kvp.Value);
-        float ratio = (float)enemyMaxRank / (float)maxAreaDepth;
-        foreach (var (area, range) in areaBounds)
+        List<string> areaByDepth = cruxRando.areaSpheres.Where(k => areaBounds.Keys.Contains(k.Key)).OrderBy(i => i.Value).Select(p => p.Key).ToList();
+        foreach (var key in areaBounds.Keys)
         {
-            // This is working out ok, can potentially bump up more after the first couple of ranks
-            var areaDepth = cruxRando.areaSpheres[area];
-            // Scale upper bound higher once we're more than 3 locations in
-            var offset = areaDepth > 3 ? 2 : 0;
-            var adjusted = (areaDepth + offset) * ratio;
-            // Overall floor of 5 for max, scales up with areaDepth*0.75
-            int newMax = Math.Max((int)adjusted + 1, 5);
-            // Min is 1 or scaled rank*0.5
-            var mult = 0.5;
-            int newMin = Math.Max(1, (int)(adjusted * mult));
-            areaBounds[area] = (newMin, Math.Min(newMax, enemyMaxRank));
+            var areaIdx = areaByDepth.IndexOf(key);
+            var newMin = (int)(newMins[areaIdx] * 0.8);
+            var newMax = (int)(newMaxs[areaIdx] * 1.2);
+            areaBounds[key] = (newMin, newMax);
         }
+        //float ratio = (float)enemyMaxRank / (float)maxAreaDepth;
+        //foreach (var (area, range) in areaBounds)
+        //{
+        //    // This is working out ok, can potentially bump up more after the first couple of ranks
+        //    var areaDepth = cruxRando.areaSpheres[area];
+        //    // Scale upper bound higher once we're more than 3 locations in
+        //    var offset = areaDepth > 3 ? 4 : 1;
+        //    var adjusted = (areaDepth + offset) * ratio;
+        //    // Overall floor of 5 for max, scales up with areaDepth*0.75
+        //    int newMax = Math.Max((int)adjusted + 1, 5);
+        //    // Min is 1 or scaled rank*0.5
+        //    var mult = 0.5;
+        //    int newMin = Math.Max(1, (int)(adjusted * mult));
+        //    areaBounds[area] = (newMin, Math.Min(newMax, enemyMaxRank));
+        //}
     }
 
     private void ShuffleBosses()

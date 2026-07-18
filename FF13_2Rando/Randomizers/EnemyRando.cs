@@ -34,6 +34,7 @@ public class EnemyRando : Randomizer
     public override void Load()
     {
         RandoUI.SetUIProgressIndeterminate("Loading Enemy Data...");
+        // TODO: this takes forever - dump out loaded contents into a single cache file for ease of access
         x000.ForEach(s =>
         {
             DataStoreWDB<DataStoreBtCharaSpec> db3 = new();

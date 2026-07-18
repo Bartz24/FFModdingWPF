@@ -53,14 +53,13 @@ hs_snda93_sn,Sunleth Paradox Ending,h_zz_NA0930,,,,Gate,hs_snda93_sn
 # Passthrough - area is skipped
 hs_spza02_ac,Void Beyond Gate Open,h_sp_NA0001,,,,Gate,hs_spza02_ac
 hs_spza03_hp,Void Beyond B Gate Open,h_sp_NA0100,,,I(boss_caius_2|1),Gate,hs_spza03_hp
-Victory,Win!,h_va_NA0000,,,,,Victory
 # Area Progression and Side Quest fake/un-randomisable locations
 boss_gog_1,Defeat Gogmagog Alpha,h_hm_AD0003,,,,Boss,boss_gog_1
 boss_gog_2,Defeat Gogmagog Beta,h_hm_AD0003,,,,Boss,boss_gog_2
 key_access_51,Access Key 51,h_gt_AD0200,,,I(key_access_50|1),SideKey,key_access_51
 key_access_52,Access Key 52,h_gt_AD0200,,,AND(I(key_access_50|1)|I(key_access_51|1)),SideKey,key_access_52
 key_access_la,Top Floor Access Key,h_gt_AD0200,,,AND(I(key_access_50|1)|I(key_access_51|1)|I(key_access_52|1)),SideKey,key_access_la
-mutantomato_weakened,Mutantomato Weakened,h_sn_AD0300,,,AND(I(frg_gd_1|1)|I(frg_cmn_clza001|1)),SideKey,mutantomato_weakened
+mutantomato_weakened,Mutantomato Weakened,h_sn_AD0300,,,AND(I(frg_cmn_gdza001|1)|I(frg_cmn_clza001|1)),SideKey,mutantomato_weakened
 boss_mutantomato,Defeat Mutantomato,h_sn_AD0300,,,I(mutantomato_weakened|1),AreaKey|Boss,boss_mutantomato
 atlas_weakened,Weaken Atlas,h_bj_AD0005,,,,AreaKey|Event,atlas_weakened
 boss_atlas,Defeat Atlas (Weakened),h_bj_AD0005,,,I(atlas_weakened|1),AreaKey|Boss,boss_atlas
@@ -68,72 +67,124 @@ opt_ghsn02_ac,Restoration Artefact exchange,h_sn_AD0300,,,I(key_unk_s_opt|1),Sid
 key_unk_s_opt,Sunleth Mysterious Artefact,h_sn_AD0300,2,,I(boss_mutantomato|1),SideKey,key_unk_s_opt
 boss_aloeidai,Defeat Aloeidai,h_gy_AD0010,,,,Boss,boss_aloeidai
 boss_caius_1,Defeat Caius (Oerba),h_gw_AD0200,1,,,Boss,boss_caius_1
-boss_faeryl,Defeat Faeryl,h_gd_NA0000,,,I(frg_gd_7),Boss,boss_faeryl
-boss_zenobia,Defeat Zenobia,h_aa_AD0400,,,,Boss,boss_zenobia
+boss_faeryl,Defeat Faeryl,h_gd_NA0000,,,I(frg_itm_gdza001),Boss,boss_faeryl
+boss_zenobia,Defeat Zenobia,h_ac_AD0400,,,,Boss,boss_zenobia
 boss_adam,Defeat Proto Fal'Cie Adam,h_gt_AD0200,,,I(key_access_la|1),Boss,boss_adam
 boss_caius_2,Defeat Caius (Void Beyond),h_sp_NA0100,1,,,Boss,boss_caius_2
 boss_gog_3,Defeat Gogmagog Gamma,h_dd_AD0700,1,,,Boss,boss_gog_3
 boss_pacos,Defeat Pacos Amethyst/Luvulite,h_ac_AD0500,,,,Boss,boss_pacos
-boss_kalavinka,Defeat Kalavinka,h_bj_AD0100,,,I(frg_bj_14|1),Boss,boss_kalavinka
-boss_ugallu,Defeat Ugallu,h_gy_AD0200,,,AND(I(frg_gy_14|1)|I(frg_gy_22|1)),Boss,boss_ugallu
+boss_kalavinka,Defeat Kalavinka,h_bj_AD0100,,,I(frg_cmn_bjba003|1),Boss,boss_kalavinka
+boss_ugallu,Defeat Ugallu,h_gy_AD0200,,,AND(I(frg_pzl_gyaa002|1)|I(frg_pzl_gyaa001|1)),Boss,boss_ugallu
 boss_gorgyra,Defeat Gorgyra,h_gh_AD0010,,,,Boss,boss_gorgyra
 opt_ghsn01_cs,Illusionary Artefact exchange,h_gh_AD0010,,,I(key_unk_y_opt|1),SideKey,opt_ghsn01_cs
 key_unk_y_opt,Yaschas Mysterious Artefact,h_gh_AD0010,1,,,SideKey,key_unk_y_opt
 # Fragments - New Bodhum
-frg_hm_1,Heart Prism,h_hm_AD0003,,,I(key_f_kit|1),Fragment,frg_hm_1
+frg_hm_1,Heart Prism,h_hm_AD0003,,,I(key_f_kit|1),Fragment,frg_itm_hmaa001
 # Fragmens - Bresha Ruins
-frg_bj_1,Ghast Fragment,h_bj_AD0005,,,,Fragment,frg_bj_1
-frg_bj_2,Unio Mystica,h_bj_AD0005,,,I(key_c_tab|2),Fragment,frg_bj_2
-frg_bj_3_init,Start Ars Symphonica Quest,h_bj_AD0005,,,AND(I(boss_atlas|1)|I(frg_bj_1|1)|I(frg_bj_2|1)),,frg_bj_3_init
-frg_bj_3,Ars Symphonica,h_bj_AD0005,,,AND(I(frg_bj_3_init|1)|I(key_a_secret|1)),Fragment,frg_bj_3
-frg_bj_8_init,Start Anima Miseria Quest,h_bj_AD0005,,,AND(I(boss_atlas|1)|I(frg_bj_1|1)|I(frg_bj_2|1)|I(frg_bj_3|1)),,frg_bj_8_init
-frg_bj_8,Anima Miseria,h_bj_AD0005,,,AND(I(key_yukimi|1)|I(frg_bj_8_init|1)),Fragment,frg_bj_8
-frg_bj_9,Kalavinka Fragment,h_bj_AD0100,,,I(frg_bj_14|1),Fragment,frg_bj_9
-frg_bj_10,Rhuthenium Ring,h_bj_AD0100,,,,Fragment,frg_bj_10
-frg_bj_11_init,Start Rhodium Ring,h_bj_AD0100,,,AND(I(frg_bj_12|1)|I(frg_bj_13|1)|I(frg_bj_10|1)),,frg_bj_11_init
-frg_bj_11,Rhodium Ring,h_bj_AD0100,,,AND(I(frg_bj_11_init|1)|I(key_kansoku|1)),Fragment,frg_bj_11
-frg_bj_12,Palladium Ring,h_bj_AD0100,,,I(key_wep_sozai|1),Fragment,frg_bj_12
-frg_bj_13,Osmium Ring,h_bj_AD0100,,,I(key_mon_data|1),Fragment,frg_bj_13
-frg_bj_14_init,Start Adamantite Ring Quest,h_bj_AD0100,,,I(frg_bj_11|1),,frg_bj_14_init
-frg_bj_14,Adamantite Ring,h_bj_AD0100,,,AND(I(frg_bj_14_init|1)|I(frg_bj_18|1)|I(frg_gy_17|1)),Fragment,frg_bj_14
-frg_bj_15,Platinum Ring,h_bj_AD0300,,,I(key_f_kioku|1),Fragment,frg_bj_15
-frg_bj_16,Mythril Ring,h_bj_AD0300,,,I(key_f_colonel|1),Fragment,frg_bj_16
-frg_bj_17,Iridium Ring,h_bj_AD0300,,,I(key_f_message|1),Fragment,frg_bj_17
-frg_bj_18,Control Device Password 2,h_bj_AD0300,,,AND(I(frg_bj_15|1)|I(frg_bj_16|1)|I(frg_bj_17|1)|I(frg_bj_14_init|1)),Fragment,frg_bj_18
+frg_bj_1,Ghast Fragment,h_bj_AD0005,,,,Fragment,frg_mon_bjaa001
+frg_bj_2,Unio Mystica,h_bj_AD0005,,,I(key_c_tab|2),Fragment,frg_itm_bjaa003
+frg_bj_3_init,Start Ars Symphonica Quest,h_bj_AD0005,,,AND(I(boss_atlas|1)|I(frg_mon_bjaa001|1)|I(frg_itm_bjaa003|1)),,frg_bj_3_init
+frg_bj_3,Ars Symphonica,h_bj_AD0005,,,AND(I(frg_bj_3_init|1)|I(key_a_secret|1)),Fragment,frg_itm_bjaa004
+frg_bj_6,Vita Lyrica,h_bj_AD0005,,,I(key_lostcom|1),Fragment,frg_itm_bjaa001
+frg_bj_8_init,Start Anima Miseria Quest,h_bj_AD0005,,,AND(I(boss_atlas|1)|I(frg_mon_bjaa001|1)|I(frg_itm_bjaa003|1)|I(frg_itm_bjaa004|1)),,frg_bj_8_init
+frg_bj_8,Anima Miseria,h_bj_AD0005,,,AND(I(key_yukimi|1)|I(frg_bj_8_init|1)),Fragment,frg_itm_bjaa002
+frg_bj_9,Kalavinka Fragment,h_bj_AD0100,,,I(frg_cmn_bjba003|1),Fragment,frg_cmn_bjba004
+frg_bj_10,Rhuthenium Ring,h_bj_AD0100,,,,Fragment,frg_cmn_bjba001
+frg_bj_11_init,Start Rhodium Ring,h_bj_AD0100,,,AND(I(frg_itm_bjba002|1)|I(frg_itm_bjba001|1)|I(frg_cmn_bjba001|1)),,frg_bj_11_init
+frg_bj_11,Rhodium Ring,h_bj_AD0100,,,AND(I(frg_bj_11_init|1)|I(key_kansoku|1)),Fragment,frg_cmn_bjba002
+frg_bj_12,Palladium Ring,h_bj_AD0100,,,I(key_wep_sozai|1),Fragment,frg_itm_bjba002
+frg_bj_13,Osmium Ring,h_bj_AD0100,,,I(key_mon_data|1),Fragment,frg_itm_bjba001
+frg_bj_14_init,Start Adamantite Ring Quest,h_bj_AD0100,,,I(frg_cmn_bjba002|1),,frg_bj_14_init
+frg_bj_14,Adamantite Ring,h_bj_AD0100,,,AND(I(frg_bj_14_init|1)|I(frg_pzl_bjda001|1)|I(frg_lqz_gyaa001|1)),Fragment,frg_cmn_bjba003
+frg_bj_15,Platinum Ring,h_bj_AD0300,,,I(key_f_kioku|1),Fragment,frg_cmn_bjda001
+frg_bj_16,Mythril Ring,h_bj_AD0300,,,I(key_f_colonel|1),Fragment,frg_cmn_bjda002
+frg_bj_17,Iridium Ring,h_bj_AD0300,,,I(key_f_message|1),Fragment,frg_itm_bjda001
+frg_bj_18,Control Device Password 2,h_bj_AD0300,,,AND(I(frg_cmn_bjda001|1)|I(frg_cmn_bjda002|1)|I(frg_itm_bjda001|1)|I(frg_bj_14_init|1)),Fragment,frg_pzl_bjda001
 # Fragments - Yaschas Massif
-frg_gy_2,Misery's Bead,h_gy_AD0010,,,I(key_behi_fang|1),Fragment,frg_gy_2
-frg_gy_5,Innocence's Sacred Sphere,h_gy_AD0010,,,I(key_miss_watch|1),Fragment,frg_gy_5
-frg_gy_6,Sword of Lachesis,h_gh_AD0010,,,I(key_fenr_flw|1),Fragment,frg_gy_6
-frg_gy_7,Gorgyra Fragment,h_gh_AD0010,,,,Fragment,frg_gy_7
-frg_gy_8,Orb of Clotho,h_gh_AD0010,,,I(key_miss_art|1),Fragment,frg_gy_8
-frg_gy_9,Mirror of Atropos,h_gh_AD0010,,,AND(I(key_green_ystn|1)|I(key_black_ystn|1)|I(key_white_ystn|1)),Fragment,frg_gy_9
-frg_gy_10,Schwertleite's Flower,h_gy_AD0100,,,AND(I(key_y_diary|1)|I(frg_gy_11|1)),Fragment,frg_gy_10
-frg_gy_11,Helmwige's Nightshade,h_gy_AD0100,,,I(key_osonae|1),Fragment,frg_gy_11
-frg_gy_12,Siegrune's Spiritbloom,h_gy_AD0100,,,AND(I(key_common_art|1)|I(frg_gy_11|1)),Fragment,frg_gy_12
-frg_gy_13,Rossweisse Skyblossom,h_gy_AD0100,,,AND(I(key_rem_ring|1)|I(frg_gy_11|1)|I(frg_gy_12|1)|I(frg_gy_10|1)),Fragment,frg_gy_13
-frg_gy_14,Book of Shambala,h_gy_AD0100,,,I(frg_gy_13|1),Fragment,frg_gy_14
-frg_gy_17,Control Device Password 1,h_gy_AD0200,,h_gy_AD0100,I(key_sone_info|1),Fragment,frg_gy_17
-frg_gy_18,Ugallu Fragment,h_gy_AD0200,,,AND(I(frg_gy_14|1)|I(frg_gy_22|1)),Fragment,frg_gy_18
-frg_gy_19,Waltraute's Flower,h_gy_AD0200,,,I(key_f_manual|1),Fragment,frg_gy_19
-frg_gy_20,Gerhilde's Blossom,h_gy_AD0200,,,I(key_y_baggage|1),Fragment,frg_gy_20
-frg_gy_21,Ortlinde's Bloom,h_gy_AD0200,,,I(key_black_flw|1),Fragment,frg_gy_21
-frg_gy_22,Book of Avalon,h_gy_AD0200,,,I(frg_gy_21|1),Fragment,frg_gy_22
+frg_gy_2,Misery's Bead,h_gy_AD0010,,,I(key_behi_fang|1),Fragment,frg_itm_gyaa001
+frg_gy_4,Amur's Sphere,h_gy_AD0010,,,I(key_search_pow|1),Fragment,frg_itm_gyaa003
+frg_gy_5,Innocence's Sacred Sphere,h_gy_AD0010,,,I(key_miss_watch|1),Fragment,frg_itm_gyaa002
+frg_gy_6,Sword of Lachesis,h_gh_AD0010,,,I(key_fenr_flw|1),Fragment,frg_itm_gyaa006
+frg_gy_7,Gorgyra Fragment,h_gh_AD0010,,,,Fragment,frg_mon_gyaa001
+frg_gy_8,Orb of Clotho,h_gh_AD0010,,,I(key_miss_art|1),Fragment,frg_itm_gyaa004
+frg_gy_9,Mirror of Atropos,h_gh_AD0010,,,AND(I(key_green_ystn|1)|I(key_black_ystn|1)|I(key_white_ystn|1)),Fragment,frg_itm_gyaa005
+frg_gy_10,Schwertleite's Flower,h_gy_AD0100,,,AND(I(key_y_diary|1)|I(frg_itm_gyaa010|1)),Fragment,frg_itm_gyaa009
+frg_gy_11,Helmwige's Nightshade,h_gy_AD0100,,,I(key_osonae|1),Fragment,frg_itm_gyaa010
+frg_gy_12,Siegrune's Spiritbloom,h_gy_AD0100,,,AND(I(key_common_art|1)|I(frg_itm_gyaa010|1)),Fragment,frg_itm_gyaa011
+frg_gy_13,Rossweisse Skyblossom,h_gy_AD0100,,,AND(I(key_rem_ring|1)|I(frg_itm_gyaa010|1)|I(frg_itm_gyaa011|1)|I(frg_itm_gyaa009|1)),Fragment,frg_itm_gyaa012
+frg_gy_14,Book of Shambala,h_gy_AD0100,,,I(frg_itm_gyaa012|1),Fragment,frg_pzl_gyaa002
+frg_gy_15,Book of Valhalla,h_gy_AD0100,,,,Fragment,frg_pzl_gyaa003
+frg_gy_17,Control Device Password 1,h_gy_AD0200,,h_gy_AD0100,I(key_sone_info|1),Fragment,frg_lqz_gyaa001
+frg_gy_18,Ugallu Fragment,h_gy_AD0200,,,AND(I(frg_pzl_gyaa002|1)|I(frg_pzl_gyaa001|1)),Fragment,frg_mon_gyaa002
+frg_gy_19,Waltraute's Flower,h_gy_AD0200,,,AND(I(frg_itm_gyaa007|1)|I(key_f_manual|1)),Fragment,frg_cmn_gyaa002
+frg_gy_20,Gerhilde's Blossom,h_gy_AD0200,,,I(key_y_baggage|1),Fragment,frg_itm_gyaa007
+frg_gy_21,Ortlinde's Bloom,h_gy_AD0200,,,AND(I(frg_cmn_gyaa002|1)|I(frg_itm_gyaa007|1)|I(key_black_flw|1)),Fragment,frg_itm_gyaa008
+frg_gy_22,Book of Avalon,h_gy_AD0200,,,I(frg_itm_gyaa008|1),Fragment,frg_pzl_gyaa001
 # Fragments - Oerba
+frg_gw_1,Time's Stardust,h_gw_AD0200,1,,,Fragment,frg_pzl_gwca001
+frg_gw_3,Time's Shell,h_gw_AD0200,1,,,Fragment,frg_pzl_gwca002
 frg_pzl_gwca003,Time's Coral,h_gw_AD0200,1,,,Fragment,frg_pzl_gwca003
+frg_gw_6,Spinning Moonstone,h_gw_AD0300,,,,Fragment|Oerba300,frg_pzl_gwca004
+frg_gw_7,Sparkling Runestone,h_gw_AD0300,,,,Fragment|Oerba300,frg_pzl_gwca005
+frg_gw_8,Astonishing Limestone,h_gw_AD0300,,,,Fragment|Oerba300,frg_pzl_gwca006
+frg_gw_9,Thrilling Milestone,h_gw_AD0300,,,,Fragment|Oerba300,frg_pzl_gwca007
+frg_gw_10,Lovely Starstone,h_gw_AD0300,1,,,Fragment|Oerba300,frg_pzl_gwca008
+frg_gw_11,Bubbly Stone,h_gw_AD0300,1,,,Fragment|Oerba300,frg_pzl_gwca009
+frg_gw_12,Scorching Firestone,h_gw_AD0300,,,L(Oerba300|6),Fragment|Oerba300,frg_pzl_gwca010
+frg_gw_13,Dewy Bloodstone,h_gw_AD0300,,,,Fragment|Oerba300,frg_pzl_gwca011
+frg_gw_14,Mossy Rosetta Stone,h_gw_AD0300,,,L(Oerba300|8),Fragment,frg_pzl_gwca012
+frg_gw_15,Bittersweet Chiffon,h_gw_AD0400,,,,Fragment|Oerba400,frg_pzl_gwca013
+frg_gw_16,Temulous Muffin,h_gw_AD0400,,,,Fragment|Oerba400,frg_pzl_gwca014
+frg_gw_17,Beloved Cinnamon,h_gw_AD0400,,,,Fragment|Oerba400,frg_pzl_gwca015
+frg_gw_18,Selfish Pancake,h_gw_AD0400,,,,Fragment|Oerba400,frg_pzl_gwca016
+frg_gw_19,Farewell Madeleine,h_gw_AD0400,,,,Fragment|Oerba400,frg_pzl_gwca017
+frg_gw_20,Teatime Mont Blanc,h_gw_AD0400,1,,,Fragment|Oerba400,frg_pzl_gwca018
+frg_gw_21,Dishonest Mille-feuille,h_gw_AD0400,1,,,Fragment|Oerba400,frg_pzl_gwca019
+# Definitely something here...
+frg_gw_22,Pink Parfait,h_gw_AD0400,,,L(Oerba400|7),Fragment,frg_pzl_gwca020
 # Fragments - Sunleth
 # Fragments - Archylte
-frg_gd_1,Black Hole Gem,h_gd_NA0000,,,I(frg_gd_7),Fragment,frg_gd_1
-frg_gd_7,Woolly Stone,h_gd_NA0000,,,AND(I(key_gowa_wool|1)|I(key_moko_wool|1)|I(key_nuku_wool|1)),Fragment,frg_gd_7
+frg_gd_1,Black Hole Gem,h_gd_NA0000,,,I(frg_itm_gdza001),Fragment,frg_cmn_gdza001
+frg_gd_2,Goblin Fragment,h_gd_NA0000,,,,Fragment,frg_mon_gdza001
+frg_gd_3,Fragment of Invincibility,h_gd_NA0000,,,I(frg_itm_gdza001),Fragment,frg_cmn_gdza008
+frg_gd_4,Ochu Fragment,h_gd_NA0000,,,I(frg_itm_gdza001),Fragment,frg_mon_gdza003
+frg_gd_5,Long Gui Fragment,h_gd_NA0000,,,I(frg_itm_gdza001),Fragment,frg_cmn_gdza002
+frg_gd_6,Yomi Fragment,h_gd_NA0000,,,AND(I(frg_itm_gdza001)|I(gd_choco)),Fragment,frg_cmn_gdza009
+frg_gd_7,Woolly Stone,h_gd_NA0000,,,AND(I(key_gowa_wool|1)|I(key_moko_wool|1)|I(key_nuku_wool|1)),Fragment,frg_itm_gdza001
 gd_choco,Chocobo access,h_gd_NA0000,,,T(GDChoco|5),SideKey,gd_choco
 # Fragments - Serendipity
+frg_cs_1,Chocochick Down,h_cs_NA0000,,,,Fragment,frg_cmn_csza003,
+frg_cs_2,Priceless Gift,h_cs_NA0000,,,,Fragment,key_casino_prz,
+frg_cs_3,Setzer's Dice,h_cs_NA0000,,,,Fragment,key_casino_dice,
+frg_cs_4,Lucky Coin,h_cs_NA0000,,,,Fragment,frg_cmn_csza001,
+frg_cs_5,Chaos Crystal,h_cs_NA0000,,,,Fragment,key_chaos_cly,
 # Fragments - Augusta Tower
-frg_gt_2,Idea Circuit,h_gt_AD0200,,,I(key_para50f|1),Fragment,frg_gt_2
-frg_gt_3,Enigma Codex,h_gt_AD0200,,,AND(I(frg_gt_2|1)|I(key_para52f|1)),Fragment,frg_gt_3
-frg_gt_4,Difference Engine,h_gt_AD0200,,,AND(I(frg_gt_3|1)|I(key_paraxxf|1)),Fragment,frg_gt_4
+frg_gt_2,Idea Circuit,h_gt_AD0200,,,I(key_para50f|1),Fragment,frg_itm_gtca001
+frg_gt_3,Enigma Codex,h_gt_AD0200,,,AND(I(frg_itm_gtca001|1)|I(key_para52f|1)),Fragment,frg_itm_gtca002
+frg_gt_4,Difference Engine,h_gt_AD0200,,,AND(I(frg_itm_gtca002|1)|I(key_paraxxf|1)),Fragment,frg_itm_gtca003
+frg_gt_5,Entropy Board,h_gt_AD0300,,,,Fragment,frg_cmn_gtda001
 # Fragments - Vile Peaks
+frg_vp_1,Twilight Fragment Alpha,h_vp_AD0010,,h_vp_AD0200,I(frg_cmn_vpba002|1),Fragment,frg_cmn_vpba003,
+frg_vp_3,Ray's Last Light,h_vp_AD0010,,,I(frg_cmn_vpca004|1),Fragment,frg_cmn_vpba002,
+frg_vp_4,Sarge's Last Light,h_vp_AD0010,1,h_vp_AD0200,I(frg_cmn_vpba003|1),Fragment,frg_cmn_vpba005,
+frg_vp_5,Falcon's Compass,h_vp_AD0200,,,I(frg_cmn_vpca006|1),Fragment,frg_cmn_vpca004,
+frg_vp_6,Twilight Fragment Beta,h_vp_AD0200,,,I(frg_cmn_vpba003|1),Fragment,frg_cmn_vpca003,
+frg_vp_9,Thunder's Last Light,h_vp_AD0200,,,,Fragment,frg_cmn_vpca006,
+frg_vp_10,Blitz Squadron Mission Report,h_vp_AD0200,,,AND(I(frg_cmn_vpca003)|I(frg_cmn_vpba003)|I(frg_cmn_vpba002)|I(frg_cmn_vpba005)|I(frg_cmn_vpca006)|I(frg_cmn_vpca005)|I(frg_cmn_vpca001)|I(frg_cmn_vpba001)),Fragment,frg_cmn_vpca002,
+frg_vp_11,Words of Light,h_vp_AD0200,1,,I(frg_cmn_vpca002),Fragment,frg_cmn_vpca008,
+frg_vp_12,Father's Song,h_vp_AD0200,1,,I(frg_cmn_vpca002),Fragment,frg_cmn_vpca007,
 # Fragments - Void Beyond
 # Fragments - Academia
-frg_ac_1,Academic Rank: Monster Professor,h_aa_AD0400,,,T(Boss|13),Fragment,frg_ac_1
+frg_ac_1,Academic Rank: Monster Professor,h_aa_AD0400,,,L(Boss|13),Fragment,frg_cmn_aaea001
+frg_ac_q_1,Quiz Rank: Private,h_aa_AD0400,1,,,Fragment,frg_lqz_aaea001
+frg_ac_q_2,Quiz Rank: Sergeant,h_aa_AD0400,1,,,Fragment,frg_lqz_aaea002
+frg_ac_q_3,Quiz Rank: Lieutenant,h_aa_AD0400,1,,,Fragment,frg_lqz_aaea003
+frg_ac_q_4,Quiz Rank: Colonel,h_aa_AD0400,1,,,Fragment,frg_lqz_aaea004
+frg_ac_q_5,Quiz Rank: General,h_aa_AD0400,1,,,Fragment,frg_lqz_aaea005
+frg_ac_bb_1,Stoic Virtue,h_aa_AD0400,,,,Fragment,frg_cmn_aaea002
+frg_ac_bb_2,Epicurean Song,h_aa_AD0400,,,,Fragment,frg_cmn_aaea003
+frg_ac_bb_3,Lyceum Knowledge,h_aa_AD0400,,,,Fragment,frg_cmn_aaea004
+frg_ac_bb_4,Academia Wisdom,h_aa_AD0400,,,,Fragment,frg_cmn_aaea003
 # Area access - for sphere calculation
 access_h_va_NA0000,Access h_va_NA0000,h_va_NA0000,,,,AreaAccess,access_h_va_NA0000
 access_h_va_NA0001,Access h_va_NA0001,h_va_NA0001,,,,AreaAccess,access_h_va_NA0001
@@ -173,3 +224,6 @@ access_h_dd_AD0700,Access h_dd_AD0700,h_dd_AD0700,,,,AreaAccess,access_h_dd_AD07
 access_h_dd_NA0900,Access h_dd_NA0900,h_dd_NA0900,,,,AreaAccess,access_h_dd_NA0900
 access_h_sp_NA0001,Access h_sp_NA0001,h_sp_NA0001,,,,AreaAccess,access_h_sp_NA0001
 access_h_sp_NA0100,Access h_sp_NA0100,h_sp_NA0100,,,,AreaAccess,access_h_sp_NA0100
+# Rando meta checks (for logical purposes such as UT etc)
+final_boss_access,Access Final Bosses,h_ac_AD0500,,,,,final_boss_access
+Victory,Win!,h_va_NA0000,,,I(final_boss_access|1),,Victory

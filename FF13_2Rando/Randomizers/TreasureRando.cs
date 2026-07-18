@@ -140,6 +140,7 @@ public partial class TreasureRando : Randomizer
         AddTreasure("mog_level_2", "key_mog_level", 1, "");
         AddTreasure("mog_level_3", "key_mog_level", 1, "");
 
+        // TODO: does this need adjusting based on initial shop level count?
         // Shop levels (TODO: flag to disable)
         AddTreasure("shop_level_01", "key_shop_level", 1, "");
         AddTreasure("shop_level_02", "key_shop_level", 1, "");
@@ -158,8 +159,8 @@ public partial class TreasureRando : Randomizer
             // Replace "spent" shop levels with items for junk placement stuff
             if(FF13_2Flags.Items.InitialShopLevel.Value >= i)
             {
-                treasures[string.Format("shop_level_{0:D2}", i)].s11ItemResourceId = "it_potion";
-                treasuresOrig[string.Format("shop_level_{0:D2}", i)].s11ItemResourceId = "it_potion";
+                treasures[string.Format("zshop_level_{0:D2}", i)].s11ItemResourceId = "it_potion";
+                treasuresOrig[string.Format("zshop_level_{0:D2}", i)].s11ItemResourceId = "it_potion";
             }
         }
 
@@ -302,7 +303,8 @@ public partial class TreasureRando : Randomizer
             puzzle1maxStage = FF13_2Flags.Other.Puzzle1StageCount.Value;
             puzzle2maxStage = FF13_2Flags.Other.Puzzle2StageCount.Value;
             puzzle2maxClock = FF13_2Flags.Other.Puzzle2MaxSize.Value;
-            puzzle2time = FF13_2Flags.Other.Puzzle2TimeBehaviour.SelectedIndex;
+            // this is 0 index but the script expect 1 index
+            puzzle2time = FF13_2Flags.Other.Puzzle2TimeBehaviour.SelectedIndex + 1;
         }
 
         //Maximum number of stages allowed for puzzles
@@ -321,6 +323,11 @@ public partial class TreasureRando : Randomizer
         AddTreasure("ran_win_con_ct", "", wincodition.Item2, "", false, true);
         // 1 = require final bosses. 2 = don't
         AddTreasure("ran_win_cond_fb", "", wincodition.Item3, "", false, true);
+
+        if(wincodition.Item1 == 1)
+        {
+            ItemLocations["final_boss_access:0"].Requirements = new TraitAmountItemReq("Fragment", wincodition.Item2);
+        }
 
         if (FF13_2Flags.Items.ReplaceWildArtefacts.Enabled)
         {
@@ -409,7 +416,7 @@ public partial class TreasureRando : Randomizer
         ItemLocations["hs_bjaa03_bj:0"].Requirements = new AndItemReq([new AmountItemReq("opt_bjaa03_bj", 1), new AmountItemReq("key_lockjail", 1)]);
         ItemLocations["hs_bjda01_gy:0"].Requirements = new AmountItemReq("opt_bjba01_gy", 1);
         ItemLocations["hs_ddha02_bj:0"].Requirements = new AmountItemReq("opt_ddha01_bj", 1);
-        ItemLocations["hs_gdza01_vp:0"].Requirements = new AndItemReq([new AmountItemReq("opt_gdaa01_vp", 1), new AmountItemReq("frg_gd_1", 1)]);
+        ItemLocations["hs_gdza01_vp:0"].Requirements = new AndItemReq([new AmountItemReq("opt_gdaa01_vp", 1), new AmountItemReq("boss_faeryl", 1)]);
         ItemLocations["hs_ghaa02_gt:0"].Requirements = new AmountItemReq("opt_ghaa01_gt", 1);
         ItemLocations["hs_gtca02_gw:0"].Requirements = new AndItemReq([new AmountItemReq("opt_gtca02_gw", 1), new AmountItemReq("key_access_la", 1)]);
         ItemLocations["hs_gwda01_gw:0"].Requirements = new AmountItemReq("opt_gwda01_gw", 1);
