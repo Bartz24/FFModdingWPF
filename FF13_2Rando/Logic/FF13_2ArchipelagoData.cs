@@ -52,7 +52,7 @@ public class FF13_2ArchipelagoData: ArchipelagoData
 
     public bool AllowDLCItems { get; set; } = false;
 
-    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.1.0" };
+    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.1.1" };
 
     public List<(string ID, string Item, int Index, int Sphere)> Spheres { get; set; }
 

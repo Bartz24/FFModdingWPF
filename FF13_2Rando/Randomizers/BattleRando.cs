@@ -492,7 +492,7 @@ public partial class BattleRando : Randomizer
                     List<EnemyData> possible = allowed.Where(e => !ignored.Contains(e.ID)).Where(newE =>
                     {
                         return newE.Rank >= newRank - range && newE.Rank <= newRank + range;
-                    }).Where(newE => !newE.Traits.Contains("Solo") || oldEnemies.Contains(newE)).ToList();
+                    }).Where(newE => !newE.Traits.Contains("Solo") || !newE.Traits.Contains("Miniboss") || oldEnemies.Contains(newE)).ToList();
 
                     if (possible.Count == 0)
                     {
