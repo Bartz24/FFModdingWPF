@@ -562,9 +562,24 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         extraLocations.ForEach(tuple =>
         {
             var l = tuple.Location;
+            var item = l.GetItem(true);
+            var locationTraits = l.Traits;
+            if (item != null)
+            {
+                var itemName = item.Value.Item;
+                if (EquipRando.itemData.ContainsKey(itemName))
+                {
+                    var itemData = EquipRando.itemData[itemName];
+                    var itemTraits = itemData.Traits;
+                    locationTraits.AddRange(itemTraits);
+                }
+            }
+            
             var name = tuple.Name;
             // Mog levels not coming across here - check fake check stuff
             AddLocationRule(data, gameName, l, name, GetItemName);
+            // Place fixed item traits on the location for cross-referencing
+            data.LocationTraits[name] = locationTraits?.OrderBy(t => t, StringComparer.Ordinal).ToList() ?? new List<string>();
         });
 
         // Entrance rules (skip and place elsewhere?)
@@ -604,7 +619,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
                 AddRequirementPreambles(data.PreambleParts, gateLocation.Requirements, gameName);
                 string ruleStr = gateLocation.GetArchipelagoRule(GetItemName);
                 AddUniqueRule(data.Rules, ruleStr);
-                ExitToRules[("h_sn_AD0300", "hs_ghaa01_cs")] = ruleStr;
+                ExitToRules[("h_gh_AD0010", "hs_ghaa01_cs")] = ruleStr;
             }
 
             // Then also add any composite regions that this location links to

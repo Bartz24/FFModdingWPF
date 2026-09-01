@@ -55,13 +55,7 @@ public class FF13_2SeedGenerator : SeedGenerator
             throw new RandoException("FF13-2 needs to be unpacked.\nOpen NovaChrysalia and 'Unpack Game Data' for FF13-2.", "FF13-2 is not unpacked");
         }
 
-        if (FF13_2Flags.Other.RandoDLC.Enabled && !Nova.IsModInstalled(SetupData.Paths["Nova"], "DLC Restoration - Console Content", "13-2"))
-        {
-            throw new RandoException("The 'Include DLC Areas' flag was turned on and requires the following mod that is detected to be missing:\n" +
-                "'DLC Restoration - Console Content'\n\n" +
-                "Download and install the mod from the Core Mods download in the Nova discord server.\n" +
-                "Once this mod is installed, you will be able to generate the rando modpack.", "Additional mods required");
-        }
+        VerifyDLCOptions();
 
         if (Directory.Exists(OutFolder))
         {
@@ -87,6 +81,17 @@ public class FF13_2SeedGenerator : SeedGenerator
         Nova.UnpackWPD(x000OutPath, SetupData.Paths["Nova"]);
 
         base.PrepareData();
+    }
+
+    protected virtual void VerifyDLCOptions()
+    {
+        if (FF13_2Flags.Other.RandoDLC.Enabled && !Nova.IsModInstalled(SetupData.Paths["Nova"], "DLC Restoration - Console Content", "13-2"))
+        {
+            throw new RandoException("The 'Include DLC Areas' flag was turned on and requires the following mod that is detected to be missing:\n" +
+                "'DLC Restoration - Console Content'\n\n" +
+                "Download and install the mod from the Core Mods download in the Nova discord server.\n" +
+                "Once this mod is installed, you will be able to generate the rando modpack.", "Additional mods required");
+        }
     }
 
     public override string GetPackPath()

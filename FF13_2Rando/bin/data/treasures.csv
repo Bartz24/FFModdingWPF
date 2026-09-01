@@ -40,16 +40,16 @@ tre_bjaa_012,Excavation Site North Reveal,h_bj_AD0005,1,,,
 tre_bjaa_024,Excavation Site Stairs East,h_bj_AD0005,0,,,
 tre_bjaa_026,Excavation Site Tent Reveal,h_bj_AD0005,1,,,SideKey
 tre_bjaa_008,Excavation Site Central Throw Chest,h_bj_AD0005,2,,,SideKey
-tre_bjaa_014,Excavation Site West Tunnel,h_bj_AD0005,1,,I(key_lockjail|1),
+tre_bjaa_014,Excavation Site West Tunnel,h_bj_AD0005,0,,I(key_lockjail|1),
 tre_hmaa_reopt,Excavation Site Stairs West,h_bj_AD0005,0,,,GateSeal
 tre_bjaa_023,Echoes of the Past Southeast,h_bj_AD0005,0,,,
-tre_bjaa_010,Echoes of the Past Locked Inside West,h_bj_AD0005,2,,I(key_lockjail|1),
-tre_bjaa_019,Echoes of the Past Locked Inside East,h_bj_AD0005,2,,I(key_lockjail|1),
-tre_bjaa_021,Echoes of the Past Locked Inside North,h_bj_AD0005,0,,I(key_lockjail|1),SideKey
-tre_bjaa_opts1,Echoes of the Past Wild Artefact,h_bj_AD0005,1,,,Wild
+tre_bjaa_010,Echoes of the Past Locked Inside West,h_bj_AD0005,0,,I(key_lockjail|1),
+tre_bjaa_019,Echoes of the Past Locked Inside East,h_bj_AD0005,0,,I(key_lockjail|1),
+tre_bjaa_021,Echoes of the Past Locked Inside North Reveal,h_bj_AD0005,1,,I(key_lockjail|1),SideKey
+tre_bjaa_opts1,Echoes of the Past Wild Artefact Reveal,h_bj_AD0005,1,,,Wild
 tre_bjaa_opt01,Eclipse Artefact,h_bj_AD0005,1,,,Artefact
 tre_bjaa_opt02,Reunion Artefact,h_bj_AD0005,1,,,Artefact
-tre_gvtn2,Echoes of the Past Fragment,h_bj_AD0005,1,,,Graviton
+tre_gvtn2,Echoes of the Past Chocobo jump area Fragment Reveal,h_bj_AD0005,1,,,Graviton
 zkey_acdmycom,Academy Communicator,h_bj_AD0005,0,,,ScrEvent|SideKey
 ztmap_bj,Map of the Bresha Ruins,h_bj_AD0005,0,,,ScrEvent|Map
 zfrgpzl_bjaa001,Delicate Crystal,h_bj_AD0005,0,,I(atlas_weakened|1),ScrEvent|Fragment
@@ -57,8 +57,8 @@ zfrgcmn_bjaa001,Atlas Fragment,h_bj_AD0005,0,,I(boss_atlas|1),ScrEvent|Fragment
 # Bresha Ruins 100
 tre_bjaa_006,Echoes of the Past East Advanced Reveal,h_bj_AD0100,3,,,
 tre_bjaa_016,Echoes of the Past East,h_bj_AD0100,0,,,
-tre_bjba_001,Echoes of the Past North Inside central,h_bj_AD0100,3,,,SideKey
-tre_bjba_reopt,Echoes of the Past Near control panel,h_bj_AD0100,3,,I(frg_cmn_bjba002|1),GateSeal
+tre_bjba_001,Echoes of the Past North Inside central Advanced Reveal,h_bj_AD0100,3,,,SideKey
+tre_bjba_reopt,Echoes of the Past Near control panel Advanced Reveal,h_bj_AD0100,3,,I(frg_cmn_bjba002|1),GateSeal
 tre_csza_reopt,Echoes of the Past Pillar area,h_bj_AD0100,0,,,GateSeal
 zkey_tissue,Toilet Paper Coupon,h_bj_AD0100,0,,I(frg_cmn_bjba003|1),ScrEvent|SideKey
 zkey_mon_data,Monster Analysis Report,h_bj_AD0100,3,,,ScrEvent|SideKey
@@ -82,9 +82,9 @@ tre_bjaa_015,Echoes of the Past Outside Reveal near tunnel,h_bj_AD0005|h_bj_AD03
 tre_bjaa_017,Echoes of the Past South Inside East,h_bj_AD0005|h_bj_AD0300|h_bj_AD0100,0,,,
 tre_bjaa_018,Echoes of the Past South Inside Lower,h_bj_AD0005|h_bj_AD0300|h_bj_AD0100,0,,,SideKey
 tre_bjaa_020,Echoes of the Past North Inside Central,h_bj_AD0005|h_bj_AD0300|h_bj_AD0100,0,,,
-tre_bjaa_022,Echoes of the Past South Inside West,h_bj_AD0005|h_bj_AD0300|h_bj_AD0100,1,,,
+tre_bjaa_022,Echoes of the Past South Inside West Reveal,h_bj_AD0005|h_bj_AD0300|h_bj_AD0100,1,,,
 # Yaschas Massif 10
-tre_gyaa_012,Pass of Paddra Raised area box,h_gy_AD0010,0,,OR(I(opt_gyaa01_gw|1)|I(key_mog_level|2)),SideKey
+tre_gyaa_012,Pass of Paddra Raised area box,h_gy_AD0010,0,,OR(I(greens_in_shop|1)|I(key_mog_level|2)),SideKey
 tre_gyaa_025,Pass of Paddra Central alcove box,h_gy_AD0010,0,,,SideKey
 zopt_gyaa01_gw,Hollow Artefact,h_gy_AD0010,0,,,ScrEvent|Artefact
 ztmap_gy,Map of the Yaschas Massif,h_gy_AD0010,0,,,ScrEvent|Map
@@ -122,7 +122,7 @@ tre_gyaa_016,Paddreaean Archaeopolis Upper South Balcony,h_gh_AD0010|h_gy_AD0200
 tre_gyaa_001,Pass of Paddra Southwest reveal,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,1,,,
 tre_gyaa_002,Pass of Paddra Southeast throw,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,2,,,
 tre_gyaa_003,Pass of Paddra Northwest alcove,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,,
-tre_gyaa_004,Pass of Paddra Raised area,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,OR(I(opt_gyaa01_gw|1)|I(key_mog_level|2)),
+tre_gyaa_004,Pass of Paddra Raised area,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,OR(I(greens_in_shop|1)|I(key_mog_level|2)),
 tre_gyaa_006,Pass of Paddra West alcove,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,,
 tre_gyaa_008,Pass of Paddra Northeast junction reveal,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,1,,,
 tre_gyaa_009,Pass of Paddra East alcove,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,,
@@ -135,7 +135,7 @@ tre_gyaa_014,Paddreaean Archaeopolis Statue slopes,h_gy_AD0010|h_gh_AD0010|h_gy_
 tre_gyaa_015,Paddreaean Archaeopolis Plaza Southeast,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,,
 tre_gyaa_030,Paddreaean Archaeopolis Plaza Northeast,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,1,,,
 # Oerba 200
-tre_gvtn3,Village Proper Fragment On top of building,h_gw_AD0200,1,,,Graviton
+tre_gvtn3,Village Proper Fragment On top of building,h_gw_AD0200,1,,OR(I(greens_in_shop|1)|I(privilege05|1)),Graviton
 tre_gwca_024,The Ashensand Fragment Near Entry,h_gw_AD0200,1,,,Fragment
 tre_gwca_opt01,Village Proper Wild Artefact West Throw,h_gw_AD0200,2,,,Wild
 tre_gyaa_reopt,Village Proper Bhakti's House,h_gw_AD0200,1,,,GateSeal
