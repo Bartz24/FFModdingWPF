@@ -178,7 +178,8 @@ public partial class TreasureRando : Randomizer
         AreaGraph = new(Generator);
         AreaGraph.ReadFromCSVs(@"data\areas.csv", @"data\areaConnections.csv");
 
-        // TODO Testing
+        // Futureproof treasure size
+        // TODO make automatic
         treasures.BitsPerOffset = 16;
 
         // Soul Seed QoL

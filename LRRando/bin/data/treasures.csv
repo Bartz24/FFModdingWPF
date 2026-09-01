@@ -1,6 +1,6 @@
 ﻿ID,Area,Name,Traits,Requirements,Difficulty,Location Image Path
 tre_box_b_008,Dead Dunes,Golden Scarab Treasure,CoPKey,,1,DunesScorchedEarthGoldenScarab
-tre_box_b_009,Dead Dunes,Oasis Lighthouse Treasure,CoPKey,I(key_d_key|1),1,DunesOasisLighthouse
+tre_box_b_009,Dead Dunes,Oasis Lighthouse Treasure,CoPKey,,1,DunesOasisLighthouse
 tre_box_b_011,Dead Dunes,Grave of the Colossi Shrine Treasure,CoPKey,,0,DunesShrineGOTCChest
 tre_box_d_001,Dead Dunes,Giant's Sandbox Treasure,,,0,DunesGiantSandbox
 tre_box_d_002,Dead Dunes,Golden Chamber Lower Treasure,,,1,DunesGoldenLowerOdd
@@ -9,11 +9,11 @@ tre_box_d_004,Dead Dunes,Giant's Sandbox Treasure,,,0,DunesGiantSandbox3
 tre_box_d_005,Dead Dunes,Giant's Sandbox Treasure,,,0,DunesGiantSandbox4
 tre_box_d_006,Dead Dunes,Ruffian Outdoor Treasure,,,0,DunesRuffianCliff
 tre_box_d_007,Dead Dunes,Dry Floodlands Treasure,,,0,DunesDryFloodSouth
-tre_box_d_008,Dead Dunes,Oasis Lighthouse Treasure,,I(key_d_key|1),1,DunesOasisLighthouse2
-tre_box_d_009,Dead Dunes,Oasis Lighthouse Treasure,,I(key_d_key|1),1,DunesOasisLighthouse3
+tre_box_d_008,Dead Dunes,Oasis Lighthouse Treasure,,,1,DunesOasisLighthouse2
+tre_box_d_009,Dead Dunes,Oasis Lighthouse Treasure,,,1,DunesOasisLighthouse3
 tre_box_d_010,Dead Dunes,Atomos's Sand Treasure,,,0,DunesAtomosSandFromRuffian
 tre_box_d_011,Dead Dunes,Grave of the Colossi Treasure,,,0,DunesGraveColossi2
-tre_box_d_012,Dead Dunes,Grave of the Colossi Treasure,,AND(I(key_d_key|1)|I(key_r_ep)),0,DunesArithrometerArea4EP
+tre_box_d_012,Dead Dunes,Grave of the Colossi Treasure,,I(key_r_ep),0,DunesArithrometerArea4EP
 tre_box_d_013,Dead Dunes,Grave of the Colossi Treasure,,,0,DunesGraveColossi1
 tre_box_d_014,Dead Dunes,Atomos's Sand Treasure,,,0,DunesAtomos
 tre_box_d_015,Dead Dunes,Ruffian 2nd Floor Treasure,,,0,DunesRuffian2ndFloor
@@ -37,9 +37,9 @@ tre_box_d_032,Dead Dunes,Temple Ruins Golden Chamber (Upper) Treasure,,I(MQ4|3),
 tre_box_d_033,Dead Dunes,Atomos's Sands Shrine Treasure,,,0,DunesAtomosShrine
 tre_box_d_034,Dead Dunes,Giant's Sandbox Treasure,,,0,DunesGiantSandbox5
 tre_box_d_035,Dead Dunes,Dry Floodlands Treasure,,,0,DunesDryFloods
-tre_d_seki_1,Dead Dunes,Grave of the Colossi Shrine Tablet,MainKey,I(key_d_key|1),1,DunesGOTCShrineTablet
-tre_d_seki_2,Dead Dunes,Dry Floodlands Shrine Tablet,MainKey,I(key_d_key|1),1,DunesDryFloodShrineTablet
-tre_d_seki_3,Dead Dunes,Atomos's Sands Shrine Tablet,MainKey,I(key_d_key|1),1,DunesAtomosShrineTablet
+tre_d_seki_1,Dead Dunes,Grave of the Colossi Shrine Tablet,MainKey,,1,DunesGOTCShrineTablet
+tre_d_seki_2,Dead Dunes,Dry Floodlands Shrine Tablet,MainKey,,1,DunesDryFloodShrineTablet
+tre_d_seki_3,Dead Dunes,Atomos's Sands Shrine Tablet,MainKey,,1,DunesAtomosShrineTablet
 tre_d_base,Dead Dunes,Temple Ruins Mural Crux Base,MainKey,I(key_d_sekiban|3),2,
 tre_d_wing,Dead Dunes,Temple Ruins Mural Crux Body,MainKey,I(key_d_sekiban|2),1,
 tre_d_top,Dead Dunes,Temple Ruins Mural Crux Tip,MainKey,I(key_d_sekiban|2),1,
@@ -83,9 +83,9 @@ tre_qst_047,Dead Dunes,What Rough Beast Slouches Quest,Quest,AND(I(key_d_niku|1)
 tre_qst_047_2,Dead Dunes,What Rough Beast Slouches Quest,Quest,AND(I(key_d_niku|1)|I(MQ4|3)),4,
 tre_qst_048,Dead Dunes,Skeletons In The Closet Quest,Quest,AND(I(key_d_sekiban|1)|I(MQ4|4)|I(MQDone|1)|I(ULUnlock)),6,
 tre_qst_048_2,Dead Dunes,Skeletons In The Closet Quest,Quest,AND(I(key_d_sekiban|1)|I(MQ4|4)|I(MQDone|1)|I(ULUnlock)),6,
-tre_qst_049,Dead Dunes,Last One Standing Quest,Quest,AND(I(key_d_key|1)|I(MQDone|2)|I(ULUnlock)),10,
-tre_qst_049_2,Dead Dunes,Last One Standing Quest,Quest,AND(I(key_d_key|1)|I(MQDone|2)|I(ULUnlock)),10,
-tre_qst_049_3,Dead Dunes,Last One Standing Quest,Quest,AND(I(key_d_key|1)|I(MQDone|2)|I(ULUnlock)),10,
+tre_qst_049,Dead Dunes,Last One Standing Quest,Quest,AND(I(MQDone|2)|I(ULUnlock)),10,
+tre_qst_049_2,Dead Dunes,Last One Standing Quest,Quest,AND(I(MQDone|2)|I(ULUnlock)),10,
+tre_qst_049_3,Dead Dunes,Last One Standing Quest,Quest,AND(I(MQDone|2)|I(ULUnlock)),10,
 tre_libra_m375,Dead Dunes,What Rough Beast Slouches Libra Notes,,I(MQ4|3),3,
 tre_acc_a_9060,Dead Dunes,Dead Dunes Boss Drop,Battle|Superboss,AND(I(key_d_sekiban|3)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_wing|1)),7,
 tre_qst_9020,Dead Dunes,Dead Dunes Boss Reward,Quest,AND(I(key_d_sekiban|3)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_wing|1)),7,
@@ -443,8 +443,8 @@ tre_qst_1165_2,CoP Dead Dunes,Heightened Security CoP Quest,CoP,AND(I(Day|4)|I(M
 tre_qst_1168,CoP Dead Dunes,Desert Cleanup CoP Quest,CoP,AND(I(C_Flower|1)|I(C_Bio|1)|I(M_DesertRose)|I(M_DriedScale)),8,
 tre_qst_1168_1,CoP Dead Dunes,Desert Cleanup CoP Quest,CoP,AND(I(C_Flower|1)|I(C_Bio|1)|I(M_DesertRose)|I(M_DriedScale)),8,
 tre_qst_1168_2,CoP Dead Dunes,Desert Cleanup CoP Quest,CoP,AND(I(C_Flower|1)|I(C_Bio|1)|I(M_DesertRose)|I(M_DriedScale)),8,
-tre_qst_1171,CoP Dead Dunes,A Treasure for a God CoP Quest,CoP,AND(I(key_d_key|4)|I(MQ4|6)),5,
-tre_qst_1171_1,CoP Dead Dunes,A Treasure for a God CoP Quest,CoP,AND(I(key_d_key|4)|I(MQ4|6)),5,
+tre_qst_1171,CoP Dead Dunes,A Treasure for a God CoP Quest,CoP,I(MQ4|6),5,
+tre_qst_1171_1,CoP Dead Dunes,A Treasure for a God CoP Quest,CoP,I(MQ4|6),5,
 tre_qst_1172,CoP Dead Dunes,Lucky Charm CoP Quest,CoP,I(key_r_ypass),3,
 tre_qst_1172_1,CoP Dead Dunes,Lucky Charm CoP Quest,CoP,I(key_r_ypass),3,
 tre_qst_1173,CoP Dead Dunes,Supply and Demand CoP Quest,CoP,I(C_Charm|1),4,

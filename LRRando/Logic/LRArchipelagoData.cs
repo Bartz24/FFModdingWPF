@@ -19,7 +19,7 @@ public class LRArchipelagoData : ArchipelagoData
 
     public Dictionary<string, List<string>> APShopRandoItems { get; set; } = new();
 
-    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.5.0" };
+    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.5.1" };
 
     public override void Parse(IDictionary<string, object> data)
     {

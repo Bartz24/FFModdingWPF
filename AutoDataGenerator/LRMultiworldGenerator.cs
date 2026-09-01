@@ -57,7 +57,7 @@ internal class LRMultiworldGenerator : BaseMultiworldGenerator
         int nextIndex = 1;
         EquipRando.itemData.Values.ForEach(i =>
         {
-            if (!i.Traits.Contains("Ignore") && !i.Traits.Contains("Remove"))
+            if (!i.Traits.Contains("Ignore") && !i.Traits.Contains("Remove") && !i.Traits.Contains("Fixed"))
             {
                 string type = "filler";
                 int weight = 0;
@@ -77,7 +77,7 @@ internal class LRMultiworldGenerator : BaseMultiworldGenerator
                 {
                     type = "progression";
                 }
-                else if (i.Category == "EP Ability")
+                else if (i.Category == "EP Ability" || i.Category == "Pilgrim")
                 {
                     type = "useful";
                 }
@@ -190,6 +190,7 @@ internal class LRMultiworldGenerator : BaseMultiworldGenerator
             "    str_id: str\n" +
             "    address: Optional[int] = None\n" +
             "    classification: LocationProgressType = LocationProgressType.DEFAULT\n" +
+            "    original_item: str = None\n" +
             "\n" +
             "\n" +
             "location_data_table: Dict[str, LRFF13LocationData] = {\n";
@@ -233,13 +234,20 @@ internal class LRMultiworldGenerator : BaseMultiworldGenerator
 
             name = $"{regionName} - {name}";
 
+            if (l.GetItem(true) == null)
+            {
+                throw new Exception($"Location {l.Name} has no item assigned");
+            }
+
+            string originalItem = l.GetItem(true).Value.Item;
+
             switch (l)
             {
                 case TreasureLocation t:
-                    script = AddLocationToLocationsScript(script, name, regionName, nextIndex, classification, "treasure", t.ID);
+                    script = AddLocationToLocationsScript(script, name, regionName, nextIndex, classification, "treasure", t.ID, originalItem);
                     break;
                 case BattleDropLocation b:
-                    script = AddLocationToLocationsScript(script, name, regionName, nextIndex, classification, "battle", b.ID);
+                    script = AddLocationToLocationsScript(script, name, regionName, nextIndex, classification, "battle", b.ID, originalItem);
                     break;
                 default:
                     throw new Exception("Unknown location type");
@@ -257,7 +265,7 @@ internal class LRMultiworldGenerator : BaseMultiworldGenerator
         File.WriteAllText(Path.Combine(OutputDir, "Locations.py"), script);
     }
 
-    private string AddLocationToLocationsScript(string script, string name, string region, int intIndex, string classification, string type, string strId)
+    private string AddLocationToLocationsScript(string script, string name, string region, int intIndex, string classification, string type, string strId, string originalItem)
     {
         // Map ID and secondary index are optional
         script +=
@@ -270,6 +278,11 @@ internal class LRMultiworldGenerator : BaseMultiworldGenerator
         {
             script += $",\n" +
                 $"        str_id=\"{strId}\"";
+        }
+        if (!string.IsNullOrEmpty(originalItem))
+        {
+            script += $",\n" +
+                $"        original_item=\"{originalItem}\"";
         }
 
         script += "\n    ),\n";

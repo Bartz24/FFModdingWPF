@@ -187,7 +187,7 @@ Paramina Rift,Fafnir Drop,917F,,7,
 Zertinan Caverns NE,Marilith Drop,9180,,5,
 Cerobi Steppe,Vyraal Drop,9181,,5,
 Balfonheim,Viera Wayfarer Dragon Scale,9182,AND(I(809B)|A(Cerobi Steppe)),5,
-Cerobi Steppe,Wyrm Philosopher Ageworn Key,9183,AND(I(809B)|I(80B4)|A(Balfonheim)),5,
+Cerobi Steppe,Wyrm Philosopher Ageworn Key,9183,AND(I(80B4)|A(Balfonheim)),5,
 Skyferry,Ann's Letter,9184,,2,
 Skyferry,Ann's Sisters Quest,906C,AND(I(8088)|A(Rabanastre <-> Nalbina Skyferry)|A(Rabanastre <-> Bhujerba Skyferry)|A(Rabanastre <-> Archades Skyferry)|A(Nalbina <-> Archades Skyferry)|A(Nalbina <-> Balfonheim Skyferry)|A(Bhujerba <-> Balfonheim Skyferry)|A(Archades <-> Balfonheim Skyferry)),7,Grindy
 Lowtown,Dusty Letter,9185,A(Garamsythe Waterway),2,

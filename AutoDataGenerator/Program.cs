@@ -11,7 +11,7 @@ class Program
         string outputDir;
         if (args.Length < 1)
         {
-            Console.WriteLine("Enter output directory:");
+            Console.WriteLine("Enter AP \\worlds directory:");
             outputDir = Console.ReadLine();
         }
         else

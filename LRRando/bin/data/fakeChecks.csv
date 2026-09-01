@@ -38,7 +38,7 @@ Dead Dunes,Tool of the Trade Quest,_43,I(key_d_lupe|1),,1,
 Dead Dunes,Adonis's Audition Quest,_44,I(MQ4|1),,1,
 Dead Dunes,What Rough Beast Slouches Quest,_45,AND(I(key_d_niku|1)|I(MQ4|3)),,3,
 Dead Dunes,Skeletons In The Closet Quest,_46,AND(I(key_d_sekiban|1)|I(MQ4|4)|I(MQDone|1)|I(ULUnlock)),,6,
-Dead Dunes,Last One Standing Quest,_47,AND(I(key_d_key|1)|I(MQDone|2)|I(ULUnlock)),,10,
+Dead Dunes,Last One Standing Quest,_47,AND(I(MQDone|2)|I(ULUnlock)),,10,
 Wildlands,A Father's Request Quest,_48,AND(I(key_w_yasai_t|1)|I(MQ3|1)),,1,Q_Father*1
 Wildlands,The Hunter's Challenge Quest,_49,AND(I(key_w_yasai_t|1)|I(Q_RightStuff|1)|I(MQ3|1)|I(M_MonsterMince)|I(M_AMPChip)),,3,Q_Hunter*1
 Wildlands,A Final Cure Quest,_50,AND(I(key_w_yasai_t|1)|I(MQ3|1)|I(M_SlugSweet)),,3,Q_Cure*1
