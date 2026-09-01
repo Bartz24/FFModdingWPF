@@ -26,7 +26,7 @@ public class SetupData
             SeedChanged?.Invoke(null, EventArgs.Empty);
         }
     }
-    public static string Version { get; set; } = "0.8.2.52";
+    public static string Version { get; set; } = "0.8.2.53";
 
     public static string SearchSteamRegistry(string path)
     {
