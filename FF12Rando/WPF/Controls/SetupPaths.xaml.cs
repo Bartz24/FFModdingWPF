@@ -461,8 +461,11 @@ public partial class SetupPaths : UserControl
                 try
                 {
                     FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(SetupData.Paths["12"], "x64\\scripts"), "data\\x64\\scripts");
-                    FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\image"), "data\\mods\\deploy\\ff12data\\ps2data\\image");
-                    FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\obj_finish"), "data\\mods\\deploy\\ff12data\\ps2data\\obj_finish");
+                    FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(FF12SeedGenerator.SeedDataFolder, "image"), "data\\mods\\deploy\\ff12data\\ps2data\\image");
+                    FileHelpers.ExtractSubfolderFromArchive(path, System.IO.Path.Combine(FF12SeedGenerator.SeedDataFolder, "obj_finish"), "data\\mods\\deploy\\ff12data\\ps2data\\obj_finish");
+
+                    // Make sure the loader knows about the shared folder even if no seed has been generated yet.
+                    FF12SeedGenerator.UpdateLoaderConfig();
 
                     if (FF12SeedGenerator.ManifestoInstalled() == FF12SeedGenerator.ManifestoInstallType.Rando)
                     {

@@ -272,7 +272,14 @@ public class FF12Flags
                     {"C01C", "Exodus Esper" },
                     {"C01D", "Ultima Esper" },
                     {"C01E", "Zodiark Esper" },
-                    {"C01F", "Second Board" }
+                    {"80E7", "Gysahl Greens" },
+                    {"80E8", "Krakka Greens" },
+                    {"80E9", "Tantal Greens" },
+                    {"80EA", "Pahsana Greens" },
+                    {"80EB", "Curiel Greens" },
+                    {"80EC", "Mimett Greens" },
+                    {"80ED", "Reagan Greens" },
+                    {"80EE", "Sylkis Greens" }
                 }
             }.Register(Treasures);
 

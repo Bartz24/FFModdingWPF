@@ -28,7 +28,7 @@ Westersand <-> Giza Rains,Dalmasca Westersand,Giza Plains Rains,I(80E0),BothWays
 Westersand <-> Ogir Sandsea,Dalmasca Westersand,Ogir-Yensa Sandsea,I(Defeat Ghis),BothWays,1
 Barheim Passage -> Barheim Passage Shop,Barheim Passage,Barheim Passage Shop,,,1
 Nalbina <-> Mosphoran,Nalbina Fortress,Mosphoran Highwaste,I(Defeat Bergan),BothWays,2
-Mosphoran -> Mosphoran Upper,Mosphoran Highwaste,Mosphoran Highwaste Upper,I(Defeat Bergan),,2
+Mosphoran -> Mosphoran Upper,Mosphoran Highwaste,Mosphoran Highwaste Upper,OR(AND(I(Defeat Bergan)|I(80E8))|I(80EE)),,2
 Mosphoran <-> Salikawood,Mosphoran Highwaste,Salikawood,,BothWays,2
 Salikawood <-> Salikawood NW,Salikawood,Salikawood NW,,BothWays,5
 Ogir Sandsea <-> Zertinan N,Ogir-Yensa Sandsea,Zertinan Caverns N,,BothWays,1
@@ -48,7 +48,8 @@ Ozmone <-> Giza Dry,Ozmone Plain,Giza Plains Dry,I(80E0),BothWays,1
 Ozmone <-> Giza Rains,Ozmone Plain,Giza Plains Rains,I(80E0),BothWays,1
 Ozmone <-> Jahara,Ozmone Plain,Jahara,,BothWays,1
 Ozmone <-> Golmore NW,Ozmone Plain,Golmore Jungle NW,,BothWays,1
-Ozmone <-> Henne,Ozmone Plain,Henne Mines,,BothWays,1
+Ozmone -> Henne,Ozmone Plain,Henne Mines,OR(I(80E9)|AND(OR(I(80E7)|I(80E8))|I(80E0))|AND(I(80EA)|I(80B7))),,1
+Ozmone <- Henne,Ozmone Plain,Henne Mines,I(80E9),,1
 Henne -> Henne Difficult,Henne Mines,Henne Mines Deep,C(Esper|10),,8
 Henne Difficult -> Henne Feywood,Henne Mines Deep,Henne Mines Feywood,,,8
 Henne Feywood <-> Feywood,Henne Mines Feywood,Feywood,,BothWays,3

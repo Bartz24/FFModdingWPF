@@ -58,22 +58,33 @@ public class FF12SeedGenerator : SeedGenerator
         }
     }
 
-    private static List<string> ManifestoRequiredPathsRandoInstall
+    /// <summary>
+    /// The rando and a locally installed Manifesto share the seed folder, but they write to disjoint
+    /// paths inside it. Uninstalling either one removes only the paths it owns and leaves the rest of
+    /// the folder alone.
+    /// </summary>
+    private static readonly List<string> RandoDataSubPaths = new()
     {
-        get
-        {
-            if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
-            {
-                throw new RandoException("Missing steam path", "Invalid path");
-            }
+        "image\\ff12\\myoshiok",
+        "image\\ff12\\test_battle",
+        "plan_master",
+        "sound"
+    };
 
-            return new()
-            {
-                Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\image\\ff12\\in\\common\\pc_skillmotion.bin"),
-                Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsManifesto.lua")
-            };
-        }
-    }
+    private static readonly List<string> ManifestoDataSubPaths = new()
+    {
+        "image\\ff12\\in",
+        "obj_finish"
+    };
+
+    private const string ManifestoSkillMotionSubPath = "image\\ff12\\in\\common\\pc_skillmotion.bin";
+    private const string ManifestoCharaSubPath = "obj_finish\\in\\chara";
+
+    public static string SeedFolder => Path.Combine(SetupData.Paths["12"], "rando");
+
+    public static string SeedDataFolder => Path.Combine(SeedFolder, "ps2data");
+
+    private static string ManifestoScriptPath => Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsManifesto.lua");
 
     private static List<string> ManifestoRequiredPathsVortexInstall
     {
@@ -87,15 +98,15 @@ public class FF12SeedGenerator : SeedGenerator
             return new()
             {
                 Path.Combine(SetupData.Paths["12"], "mods\\deploy\\ps2data\\image\\ff12\\in\\common\\pc_skillmotion.bin"),
-                Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsManifesto.lua")
+                ManifestoScriptPath
             };
         }
     }
 
     public FF12SeedGenerator() : base()
     {
-        OutFolder = Path.Combine(SetupData.Paths["12"], "rando");
-        DataOutFolder = Path.Combine(OutFolder, "ps2data");
+        OutFolder = SeedFolder;
+        DataOutFolder = SeedDataFolder;
 
         PackPrefixName = "FF12Rando";
         DocsDisplayName = "FF12 Randomizer";
@@ -156,14 +167,8 @@ public class FF12SeedGenerator : SeedGenerator
             }
         }
 
-        if (Directory.Exists(OutFolder))
-        {
-            List<string> denyList = new(){
-                Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\image\\ff12\\in\\common\\pc_skillmotion.bin"),
-                Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\obj_finish\\in\\chara"),
-            };
-            FileHelpers.RemoveFilesAndFolders(OutFolder, denyList);
-        }
+        // Clear out the last seed without touching a Manifesto sharing the folder.
+        RemoveFromSeedFolder(RandoDataSubPaths);
 
         Directory.CreateDirectory(OutFolder);
         FileHelpers.CopyFromFolder(Path.Combine(OutFolder, "ps2data"), "data\\ps2data");
@@ -177,17 +182,70 @@ public class FF12SeedGenerator : SeedGenerator
         base.PrepareData();
     }
 
-    private void UpdateLoaderConfig()
+    private static string LoaderConfigPath => Path.Combine(SetupData.Paths["12"], "x64\\modules\\config\\ff12-file-loader.ini");
+
+    private static string DescriptiveConfigFolder => Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig");
+
+    public static void UpdateLoaderConfig()
     {
-        string filePath = Path.Combine(SetupData.Paths["12"], "x64\\modules\\config\\ff12-file-loader.ini");
+        string filePath = LoaderConfigPath;
+        if (!File.Exists(filePath))
+        {
+            return;
+        }
+
         List<string> lines = File.ReadAllLines(filePath).ToList();
+        lines.RemoveAll(s => s.Trim().StartsWith("rando="));
 
+        // Find the header after the removal so the insert index cannot be shifted by it.
         int pathsStart = lines.FindIndex(s => s.Trim() == "[Paths]");
+        if (pathsStart < 0)
+        {
+            return;
+        }
 
-        lines = lines.Where(s => !s.Trim().StartsWith("rando=")).ToList();
-        lines.Insert(pathsStart + 1, "rando=rando");
+        if (Directory.Exists(SeedFolder))
+        {
+            lines.Insert(pathsStart + 1, "rando=rando");
+        }
 
         File.WriteAllLines(filePath, lines);
+    }
+
+    private static void RemoveFromSeedFolder(List<string> subPaths)
+    {
+        foreach (string subPath in subPaths)
+        {
+            string path = Path.Combine(SeedDataFolder, subPath);
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+            else if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+
+        if (Directory.Exists(SeedFolder))
+        {
+            DeleteEmptyFolders(SeedFolder);
+        }
+
+        UpdateLoaderConfig();
+    }
+
+    private static void DeleteEmptyFolders(string folder)
+    {
+        foreach (string subFolder in Directory.GetDirectories(folder))
+        {
+            DeleteEmptyFolders(subFolder);
+        }
+
+        if (!Directory.EnumerateFileSystemEntries(folder).Any())
+        {
+            Directory.Delete(folder);
+        }
     }
 
     protected virtual void CopyLuaScripts()
@@ -199,29 +257,46 @@ public class FF12SeedGenerator : SeedGenerator
 
     public void RemoveAndMoveLuaScripts()
     {
+        RemoveRandoLuaScripts();
+
+        // Only back up the descriptive inventory config the first time, so a rando generated config
+        // never gets mistaken for the player's own.
+        if (!File.Exists(Path.Combine(DescriptiveConfigFolder, "us.lua.before_rando")))
+        {
+            MoveToBackup(Path.Combine(DescriptiveConfigFolder, "us.lua"), false);
+        }
+
+        RemoveGeneratedDescriptiveConfig();
+    }
+
+    public void UninstallSeed()
+    {
+        RemoveRandoLuaScripts();
+        RemoveGeneratedDescriptiveConfig();
+        RestoreFromBackup(Path.Combine(DescriptiveConfigFolder, "us.lua"));
+        RemoveFromSeedFolder(RandoDataSubPaths);
+    }
+
+    private static void RemoveRandoLuaScripts()
+    {
         string scriptsFolder = Path.Combine(SetupData.Paths["12"], "x64\\scripts");
+        if (!Directory.Exists(scriptsFolder))
+        {
+            return;
+        }
 
         Directory.GetFiles(scriptsFolder).Where(s => Path.GetFileName(s).StartsWith("Rando")).ForEach(s => File.Delete(s));
+    }
 
-        string descriptiveFolder = $"{SetupData.Paths["12"]}\\x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig";
-        if (!File.Exists(Path.Combine(descriptiveFolder, "us.lua.before_rando")))
+    private static void RemoveGeneratedDescriptiveConfig()
+    {
+        foreach (string name in new List<string>() { "us.lua", "us.lua.page1", "us.lua.page2" })
         {
-            MoveToBackup(Path.Combine(descriptiveFolder, "us.lua"), false);
-        }
-
-        if (File.Exists(Path.Combine(descriptiveFolder, "us.lua")))
-        {
-            File.Delete(Path.Combine(descriptiveFolder, "us.lua"));
-        }
-
-        if (File.Exists(Path.Combine(descriptiveFolder, "us.lua.page1")))
-        {
-            File.Delete(Path.Combine(descriptiveFolder, "us.lua.page1"));
-        }
-
-        if (File.Exists(Path.Combine(descriptiveFolder, "us.lua.page2")))
-        {
-            File.Delete(Path.Combine(descriptiveFolder, "us.lua.page2"));
+            string path = Path.Combine(DescriptiveConfigFolder, name);
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
         }
     }
 
@@ -320,7 +395,9 @@ public class FF12SeedGenerator : SeedGenerator
             return ManifestoInstallType.Missing;
         }
 
-        if (ManifestoRequiredPathsRandoInstall.All(s => File.Exists(s)) && Directory.Exists(Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\obj_finish\\in\\chara")))
+        if (File.Exists(Path.Combine(SeedDataFolder, ManifestoSkillMotionSubPath))
+            && File.Exists(ManifestoScriptPath)
+            && Directory.Exists(Path.Combine(SeedDataFolder, ManifestoCharaSubPath)))
         {
             return ManifestoInstallType.Rando;
         }
@@ -335,12 +412,12 @@ public class FF12SeedGenerator : SeedGenerator
 
     public static void UninstallManifesto()
     {
-        // Delete main lua script       
-        List<string> manifestoScripts = new()
+        if (File.Exists(ManifestoScriptPath))
         {
-            Path.Combine(SetupData.Paths["12"], "x64\\scripts\\TheInsurgentsManifesto.lua")
-        };
-        manifestoScripts.Where(s => File.Exists(s)).ForEach(s => File.Delete(s));
+            File.Delete(ManifestoScriptPath);
+        }
+
+        RemoveFromSeedFolder(ManifestoDataSubPaths);
     }
 
     public static void MoveToBackup(string path, bool makeCopy = false)
@@ -356,5 +433,15 @@ public class FF12SeedGenerator : SeedGenerator
                 File.Move(path, path + ".before_rando");
             }
         }
+    }
+
+    public static void RestoreFromBackup(string path)
+    {
+        if (!File.Exists(path + ".before_rando"))
+        {
+            return;
+        }
+
+        File.Move(path + ".before_rando", path, true);
     }
 }

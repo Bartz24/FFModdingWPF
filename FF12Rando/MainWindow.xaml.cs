@@ -246,12 +246,7 @@ public partial class MainWindow : Window
             {
                 try
                 {
-                    gen.RemoveAndMoveLuaScripts();
-                    List<string> denyList = new(){
-                        Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\image\\ff12\\in\\common\\pc_skillmotion.bin"),
-                        Path.Combine(SetupData.Paths["12"], "rando\\ps2data\\obj_finish\\in\\chara"),
-                    };
-                    FileHelpers.RemoveFilesAndFolders(gen.OutFolder, denyList);
+                    gen.UninstallSeed();
                 }
                 catch
                 {
