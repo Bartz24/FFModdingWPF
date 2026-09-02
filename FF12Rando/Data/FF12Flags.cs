@@ -279,7 +279,8 @@ public class FF12Flags
                     {"80EB", "Curiel Greens" },
                     {"80EC", "Mimett Greens" },
                     {"80ED", "Reagan Greens" },
-                    {"80EE", "Sylkis Greens" }
+                    {"80EE", "Sylkis Greens" },
+                    {"80EF", "Kupo Nuts" }
                 }
             }.Register(Treasures);
 

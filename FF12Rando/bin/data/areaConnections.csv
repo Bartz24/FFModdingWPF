@@ -69,7 +69,7 @@ Henne -> Eruyt,Henne Mines,Eruyt Village,,,2
 Giruvegan End -> Giruvegan,Giruvegan End,Giruvegan,,,5
 Nabudis <-> Salikawood NW,Necrohol of Nabudis,Salikawood NW,,BothWays,6
 Nabreus <-> Salikawood NW,Nabreus Deadlands,Salikawood NW,,BothWays,5
-Phon Coast <-> Salikawood,Phon Coast,Salikawood,,BothWays,2
+Phon Coast <- Salikawood,Phon Coast,Salikawood,I(80EF),,2
 Phon Coast <-> Tchita,Tchita Uplands,Phon Coast,,BothWays,3
 Tchita <-> Sochen S,Tchita Uplands,Sochen Cave Palace S,,BothWays,3
 Tchita <-> Cerobi,Tchita Uplands,Cerobi Steppe,,BothWays,5
