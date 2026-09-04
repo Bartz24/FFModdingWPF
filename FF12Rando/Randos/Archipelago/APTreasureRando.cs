@@ -12,9 +12,15 @@ class APTreasureRando : TreasureRando
     {
     }
 
+    /// <summary>
+    /// The key item every Archipelago check physically holds. What actually gets sent is decided by
+    /// the server, so this is only a placeholder in the game's own data.
+    /// </summary>
+    public const string ArchipelagoItemID = "80E6";
+
     public override void Randomize()
     {
-        ItemLocations.Values.ForEach(l => l.SetItem("80E6", 1));
+        ItemLocations.Values.ForEach(l => l.SetItem(ArchipelagoItemID, 1));
         ItemLocations.Values.Where(l => l is RewardLocation r && r.Index != 1).ForEach(l => l.SetItem(null, 0));
         ItemLocations.Values.Where(l => l is StartingInvLocation s && s.Index > 0).ForEach(l => l.SetItem(null, 0));
 
@@ -92,8 +98,10 @@ class APTreasureRando : TreasureRando
             });
         }
 
-        // Remove 80E6 from rewards that have other items or gil
-        foreach (var l in ItemLocations.Values.Where(l => l is RewardLocation r && r.Index == 1 && r.GetItem(false) != null && r.GetItem(false).Value.Item1 == "80E6"))
+        // Remove 80E6 from rewards that have other items or gil. The check that a sibling slot is
+        // filled is what keeps a reward from being emptied entirely: it only ever clears a slot that
+        // is not the last one holding something.
+        foreach (var l in ItemLocations.Values.Where(l => l is RewardLocation r && r.Index == 1 && r.GetItem(false) != null && r.GetItem(false).Value.Item1 == ArchipelagoItemID))
         {
             // Get the other locations with the same ID
             var otherLocations = ItemLocations.Values.Where(other => other is RewardLocation r && r.IntID == ((RewardLocation)l).IntID && other != l).ToList();
@@ -102,6 +110,53 @@ class APTreasureRando : TreasureRando
             {
                 l.SetItem(null, 0);
             }
+        }
+
+        VerifyRewardsNotEmpty();
+
+        // Runs last so the menu reflects the final contents of every outfitter slot. The base
+        // Randomize is not called here, so without this the menu would keep its vanilla text.
+        UpdateOutfittersText();
+    }
+
+    private void VerifyRewardsNotEmpty()
+    {
+        List<int> empty = ItemLocations.Values.OfType<RewardLocation>()
+            .GroupBy(r => r.IntID)
+            .Where(group => group.All(r => r.GetItem(false) == null))
+            .Select(group => group.Key)
+            .ToList();
+
+        if (empty.Count > 0)
+        {
+            throw new Exception($"Rewards were left with no items at all: {string.Join(", ", empty.Select(id => id.ToString("X4")))}. Something is wrong with the Archipelago item placement.");
+        }
+    }
+
+    protected override string GetRewardItemDisplay(RewardLocation location, string itemID, int amount)
+    {
+        if (itemID != ArchipelagoItemID)
+        {
+            return base.GetRewardItemDisplay(location, itemID, amount);
+        }
+
+        string apItemName = RandoFlags.GetArchipelagoData<FF12ArchipelagoData>().Spheres
+            .Where(data => data.Index == location.Index && ParseRewardID(data.ID) == location.IntID)
+            .Select(data => data.ItemDisplay)
+            .FirstOrDefault();
+
+        return string.IsNullOrWhiteSpace(apItemName) ? base.GetRewardItemDisplay(location, itemID, amount) : apItemName;
+    }
+
+    private static int ParseRewardID(string id)
+    {
+        try
+        {
+            return Convert.ToInt32(id, 16);
+        }
+        catch (Exception)
+        {
+            return -1;
         }
     }
 }

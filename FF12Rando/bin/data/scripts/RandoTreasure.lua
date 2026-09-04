@@ -1,3 +1,8 @@
+-- Requires the FF12 lua loader 1.10.2 or newer.
+if not (checkMinVersion and checkMinVersion(1, 10, 2)) then
+    error("Rando Treasure Tracker: requires the FF12 lua loader 1.10.2 or newer.")
+end
+
 local treasures = {}
 
 local function readMapID()

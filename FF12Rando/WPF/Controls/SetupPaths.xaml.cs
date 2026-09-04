@@ -2,6 +2,7 @@ using Bartz24.Data;
 using Bartz24.RandoWPF;
 using Ookii.Dialogs.Wpf;
 using SharpCompress.Archives.SevenZip;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -61,8 +62,8 @@ public partial class SetupPaths : UserControl
     {
         int numReqInstalled = new bool[] {
             FF12SeedGenerator.ToolsInstalled(),
-            FF12SeedGenerator.FileLoaderInstalled(),
-            FF12SeedGenerator.LuaLoaderInstalled() ,
+            FF12SeedGenerator.FileLoaderInstalled() && FF12SeedGenerator.FileLoaderUpToDate(),
+            FF12SeedGenerator.LuaLoaderInstalled() && FF12SeedGenerator.LuaLoaderUpToDate(),
             FF12SeedGenerator.ManifestoInstalled() != FF12SeedGenerator.ManifestoInstallType.Missing }.Where(b => b).Count();
         int numOptInstalled = FF12SeedGenerator.DescriptiveInstalled() ? 1 : 0;
         PathsCountText = $"Required: {numReqInstalled}/4    Optional: {numOptInstalled}/1";
@@ -73,13 +74,15 @@ public partial class SetupPaths : UserControl
         ToolsTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
         ToolsTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
 
-        LoaderText = FF12SeedGenerator.FileLoaderInstalled() ? FileLoaderInstalledText : FileLoaderNotInstalledText;
-        LoaderTextColor = FF12SeedGenerator.FileLoaderInstalled() ? Brushes.LightGreen : Brushes.Orange;
+        (LoaderText, LoaderTextColor) = LoaderStatus("The External File Loader",
+            FF12SeedGenerator.FileLoaderInstalled(), FF12SeedGenerator.GetFileLoaderVersion(),
+            FF12SeedGenerator.MinFileLoaderVersion, FileLoaderInstalledText, FileLoaderNotInstalledText);
         LoaderTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
         LoaderTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
 
-        LuaLoaderText = FF12SeedGenerator.LuaLoaderInstalled() ? LuaLoaderInstalledText : LuaLoaderNotInstalledText;
-        LuaLoaderTextColor = FF12SeedGenerator.LuaLoaderInstalled() ? Brushes.LightGreen : Brushes.Orange;
+        (LuaLoaderText, LuaLoaderTextColor) = LoaderStatus("The Lua Loader",
+            FF12SeedGenerator.LuaLoaderInstalled(), FF12SeedGenerator.GetLuaLoaderVersion(),
+            FF12SeedGenerator.MinLuaLoaderVersion, LuaLoaderInstalledText, LuaLoaderNotInstalledText);
         LuaLoaderTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
         LuaLoaderTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
 
@@ -106,6 +109,21 @@ public partial class SetupPaths : UserControl
 
         ManifestoTextLabel.GetBindingExpression(ContentProperty).UpdateTarget();
         ManifestoTextLabel.GetBindingExpression(ForegroundProperty).UpdateTarget();
+    }
+
+    private static (string Text, SolidColorBrush Color) LoaderStatus(string name, bool installed, Version version, Version minimum, string installedText, string notInstalledText)
+    {
+        if (!installed)
+        {
+            return (notInstalledText, Brushes.Orange);
+        }
+
+        if (version == null || version < minimum)
+        {
+            return ($"{name} is {FF12SeedGenerator.DescribeVersion(version)}, but version {minimum} or newer is required.\nDownload and install a newer version with the buttons to the right.", Brushes.Orange);
+        }
+
+        return ($"{installedText}\nVersion {version}", Brushes.LightGreen);
     }
 
     private void steamPath12Button_Click(object sender, RoutedEventArgs e)

@@ -255,7 +255,7 @@ public partial class TreasureRando : Randomizer
         }
     }
 
-    private void UpdateOutfittersText()
+    protected void UpdateOutfittersText()
     {
         // Update Phon Coast Hunt Club Outfitters text, index 192
         TextRando textRando = Generator.Get<TextRando>();
@@ -724,29 +724,21 @@ public partial class TreasureRando : Randomizer
 
         if (reward.Item1ID != 0xFFFF && locations.Any(l => l.Index == 1))
         {
-            if (reward.Item1Amount > 1)
-            {
-                stringList.Add($"{GetItemName(reward.Item1ID.ToString("X4"))} x {reward.Item1Amount}");
-            }
-            else
-            {
-                stringList.Add($"{GetItemName(reward.Item1ID.ToString("X4"))}");
-            }
+            stringList.Add(GetRewardItemDisplay(locations.First(l => l.Index == 1), reward.Item1ID.ToString("X4"), reward.Item1Amount));
         }
 
         if (reward.Item2ID != 0xFFFF && locations.Any(l => l.Index == 2))
         {
-            if (reward.Item2Amount > 1)
-            {
-                stringList.Add($"{GetItemName(reward.Item2ID.ToString("X4"))} x {reward.Item2Amount}");
-            }
-            else
-            {
-                stringList.Add($"{GetItemName(reward.Item2ID.ToString("X4"))}");
-            }
+            stringList.Add(GetRewardItemDisplay(locations.First(l => l.Index == 2), reward.Item2ID.ToString("X4"), reward.Item2Amount));
         }
 
         return string.Join(", ", stringList);
+    }
+
+    protected virtual string GetRewardItemDisplay(RewardLocation location, string itemID, int amount)
+    {
+        string name = GetItemName(itemID);
+        return amount > 1 ? $"{name} x {amount}" : name;
     }
 
     private string GetPartyMemberDisplay(DataStorePartyMember chara, List<StartingInvLocation> locations)

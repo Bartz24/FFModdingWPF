@@ -53,6 +53,7 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
             "    weight: int = 0\n" +
             "    amount: int = 1\n" +
             "    duplicateAmount: int = 1\n" +
+            "    traits: list = []\n" +
             "\n" +
             "\n" +
             "item_data_table: Dict[str, FF12OpenWorldItemData] = {\n";
@@ -85,6 +86,12 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
                 }
                 else if (i.Traits.Contains("Trophy"))
                 {
+                    // The Phon Coast turn-ins gate on HasTraitRule("Trophy", N), so the trophies have
+                    // to be progression to be counted. As filler they were never placed as progression
+                    // and, with no weight, never picked as filler either, leaving those checks
+                    // unreachable. Shelled Trophy carries no Trophy trait and is handled by the Key
+                    // branch above, matching the rules that require it on its own.
+                    type = "progression";
                     weight = 0;
                 }
                 else
@@ -102,7 +109,7 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
                     }
                 }
 
-                script = AddItemToItemsScript(script, i.Name, i.IntID + 1, type, i.Category, weight, 1, duplicates);
+                script = AddItemToItemsScript(script, i.Name, i.IntID + 1, type, i.Category, weight, 1, duplicates, i.Traits);
             }
         });
 
@@ -110,7 +117,7 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
         int[] gilWeights = new[] { 250, 900, 1150, 800, 500, 200 };
         for (int i = 0; i < gilAmounts.Length; i++)
         {
-            script = AddItemToItemsScript(script, $"{gilAmounts[i]} Gil", 0x18000 + i + 1, "filler", "Gil", gilWeights[i], gilAmounts[i], 0);
+            script = AddItemToItemsScript(script, $"{gilAmounts[i]} Gil", 0x18000 + i + 1, "filler", "Gil", gilWeights[i], gilAmounts[i], 0, new List<string>());
         }
 
         script += "}\n";
@@ -126,7 +133,7 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
         File.WriteAllText(Path.Combine(OutputDir, "Items.py"), script);
     }
 
-    private static string AddItemToItemsScript(string script, string name, int id, string type, string category, int weight, int amount, int duplicates)
+    private static string AddItemToItemsScript(string script, string name, int id, string type, string category, int weight, int amount, int duplicates, List<string> traits)
     {
         script +=
             $"    \"{name}\": FF12OpenWorldItemData(\n" +
@@ -150,6 +157,13 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
         {
             script += $",\n" +
                 $"        duplicateAmount={duplicates}";
+        }
+
+        if (traits != null && traits.Count > 0)
+        {
+            string traitList = string.Join(", ", traits.Select(t => $"\"{t}\""));
+            script += $",\n" +
+                $"        traits=[{traitList}]";
         }
 
         script += "\n    ),\n";

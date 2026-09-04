@@ -49,7 +49,7 @@ Ozmone <-> Giza Rains,Ozmone Plain,Giza Plains Rains,I(80E0),BothWays,1
 Ozmone <-> Jahara,Ozmone Plain,Jahara,,BothWays,1
 Ozmone <-> Golmore NW,Ozmone Plain,Golmore Jungle NW,,BothWays,1
 Ozmone -> Henne,Ozmone Plain,Henne Mines,OR(I(80E9)|AND(OR(I(80E7)|I(80E8))|I(80E0))|AND(I(80EA)|I(80B7))),,1
-Ozmone <- Henne,Ozmone Plain,Henne Mines,I(80E9),,1
+Ozmone <- Henne,Henne Mines,Ozmone Plain,I(80E9),,1
 Henne -> Henne Difficult,Henne Mines,Henne Mines Deep,C(Esper|10),,8
 Henne Difficult -> Henne Feywood,Henne Mines Deep,Henne Mines Feywood,,,8
 Henne Feywood <-> Feywood,Henne Mines Feywood,Feywood,,BothWays,3
@@ -72,7 +72,8 @@ Nabreus <-> Salikawood NW,Nabreus Deadlands,Salikawood NW,,BothWays,5
 Phon Coast <- Salikawood,Phon Coast,Salikawood,I(80EF),,2
 Phon Coast <-> Tchita,Tchita Uplands,Phon Coast,,BothWays,3
 Tchita <-> Sochen S,Tchita Uplands,Sochen Cave Palace S,,BothWays,3
-Tchita <-> Cerobi,Tchita Uplands,Cerobi Steppe,,BothWays,5
+Tchita -> Cerobi,Tchita Uplands,Cerobi Steppe,I(80EB),,5
+Tchita <- Cerobi,Cerobi Steppe,Tchita Uplands,I(80EC),,5
 Balfonheim <-> Cerobi,Balfonheim,Cerobi Steppe,,BothWays,5
 Sochen S <-> Sochen Middle,Sochen Cave Palace S,Sochen Cave Palace Middle,I(80B6),BothWays,3
 Sochen N <-> Sochen Middle,Sochen Cave Palace N,Sochen Cave Palace Middle,I(80B6),BothWays,3

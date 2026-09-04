@@ -10,10 +10,15 @@ public class FF12ArchipelagoData : ArchipelagoData
     public List<(string MapName, int Index)> Treasures { get; set; }
     public List<int> CharacterOrder { get; set; }
     public bool AllowSeitengrat { get; set; }
-    public List<(string ID, string Item, int Index, int Sphere)> Spheres { get; set; }
+    /// <summary>
+    /// One entry per location in this slot. Item is the event's logic token for event entries;
+    /// ItemDisplay is how the item at a real location should be shown in game, already prefixed with
+    /// the owning player for another player's item.
+    /// </summary>
+    public List<(string ID, string Item, string ItemDisplay, int Index, int Sphere)> Spheres { get; set; }
     public List<(string ID, int Index, string Item, int Amount)> FillerItemPlacements { get; set; }
 
-    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { };
+    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.7.0" };
 
     public FF12ArchipelagoData()
     {
@@ -43,6 +48,7 @@ public class FF12ArchipelagoData : ArchipelagoData
             return (
             ID: (string)sphereData["id"],
             Item: sphereData.ContainsKey("item") ? (string)sphereData["item"] : "",
+            ItemDisplay: sphereData.ContainsKey("item_display") ? (string)sphereData["item_display"] : "",
             Index: sphereData.ContainsKey("index") ? (int)(long)sphereData["index"] : 0,
             Sphere: (int)(long)sphereData["sphere"]);
         }).ToList();
@@ -69,6 +75,7 @@ public class FF12ArchipelagoData : ArchipelagoData
             {
                 { "id", s.ID },
                 { "item", s.Item },
+                { "item_display", s.ItemDisplay },
                 { "index", s.Index },
                 { "sphere", s.Sphere }
             }).ToList();

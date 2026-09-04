@@ -1,6 +1,8 @@
 ﻿using Bartz24.Data;
 using Bartz24.RandoWPF;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -103,6 +105,9 @@ public class FF12SeedGenerator : SeedGenerator
         }
     }
 
+    public static readonly Version MinFileLoaderVersion = new(1, 5, 2);
+    public static readonly Version MinLuaLoaderVersion = new(1, 10, 2);
+
     public FF12SeedGenerator() : base()
     {
         OutFolder = SeedFolder;
@@ -149,9 +154,19 @@ public class FF12SeedGenerator : SeedGenerator
             throw new RandoException("External File Loader is not properly installed. Download and install them on 1. Setup.", "External File Loader missing.");
         }
 
+        if (!FileLoaderUpToDate())
+        {
+            throw new RandoException($"The External File Loader is {DescribeVersion(GetFileLoaderVersion())}, but version {MinFileLoaderVersion} or newer is required. Download and install a newer version on 1. Setup.", "External File Loader outdated.");
+        }
+
         if (!LuaLoaderInstalled())
         {
             throw new RandoException("Lua Loader is not properly installed. Download and install them on 1. Setup.", "Lua missing.");
+        }
+
+        if (!LuaLoaderUpToDate())
+        {
+            throw new RandoException($"The Lua Loader is {DescribeVersion(GetLuaLoaderVersion())}, but version {MinLuaLoaderVersion} or newer is required. Download and install a newer version on 1. Setup.", "Lua Loader outdated.");
         }
 
         if (ManifestoInstalled() == ManifestoInstallType.Missing)
@@ -364,6 +379,74 @@ public class FF12SeedGenerator : SeedGenerator
     public static void UninstallLuaLoader()
     {
         LuaLoaderPaths.Where(s => File.Exists(s)).ForEach(s => File.Delete(s));
+    }
+
+    public static bool FileLoaderUpToDate()
+    {
+        return IsAtLeast(GetFileLoaderVersion(), MinFileLoaderVersion);
+    }
+
+    public static bool LuaLoaderUpToDate()
+    {
+        return IsAtLeast(GetLuaLoaderVersion(), MinLuaLoaderVersion);
+    }
+
+    /// <summary>
+    /// A dll with no readable version is treated as too old: every loader new enough to be supported
+    /// stamps its version, so an unreadable one is never a build the rando can rely on.
+    /// </summary>
+    private static bool IsAtLeast(Version actual, Version minimum)
+    {
+        return actual != null && actual >= minimum;
+    }
+
+    public static string DescribeVersion(Version version)
+    {
+        return version == null ? "an unknown version" : $"version {version}";
+    }
+
+    public static Version GetFileLoaderVersion()
+    {
+        return GetDllVersion("x64\\modules\\ff12-file-loader.dll");
+    }
+
+    public static Version GetLuaLoaderVersion()
+    {
+        return GetDllVersion("x64\\modules\\ff12-lua-loader.dll");
+    }
+
+    /// <summary>
+    /// Reads a loader module's file version, or null when the game path is unset, the dll is not
+    /// there, or it carries no version resource.
+    /// </summary>
+    private static Version GetDllVersion(string relativePath)
+    {
+        if (!SetupData.Paths.ContainsKey("12") || !Directory.Exists(SetupData.Paths["12"]))
+        {
+            return null;
+        }
+
+        string path = Path.Combine(SetupData.Paths["12"], relativePath);
+        if (!File.Exists(path))
+        {
+            return null;
+        }
+
+        try
+        {
+            FileVersionInfo info = FileVersionInfo.GetVersionInfo(path);
+            if (info.FileMajorPart == 0 && info.FileMinorPart == 0 && info.FileBuildPart == 0)
+            {
+                return null;
+            }
+
+            // The loaders version themselves as major.minor.patch; the private part is always 0.
+            return new Version(info.FileMajorPart, info.FileMinorPart, info.FileBuildPart);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public static bool DescriptiveInstalled()

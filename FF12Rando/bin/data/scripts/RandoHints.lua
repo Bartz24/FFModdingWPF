@@ -1,3 +1,8 @@
+-- Requires the FF12 lua loader 1.10.2 or newer.
+if not (checkMinVersion and checkMinVersion(1, 10, 2)) then
+    error("Rando Hints: requires the FF12 lua loader 1.10.2 or newer.")
+end
+
 local function countBits(n)
     local count = 0;
     while n > 0 do
