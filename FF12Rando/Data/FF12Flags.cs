@@ -123,6 +123,7 @@ public class FF12Flags
     {
         public static Flag Treasures, Shops, Bazaars, StartingTpStones, AllowSeitengrat, LowerOutfittersPrices, ShufflePrices;
         public static ToggleFlagProperty KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale, JunkRankScale, ReplaceAny;
+        public static NumberFlagProperty NumTreasures;
         public static ComboBoxFlagProperty KeyDepth;
         public static NumberFlagProperty ShopSize;
         public static ToggleFlagProperty ShopsShared, JunkRankScaleShops;
@@ -156,6 +157,18 @@ public class FF12Flags
                 "Any key items in the pool will by default be shuffled between themselves.",
                 HasArchipelagoOverride = true
             }.Register(FlagType.Items);
+
+            NumTreasures = new NumberFlagProperty(0)
+            {
+                Text = "Number of Treasures to Randomize",
+                ID = "NumTreasures",
+                Description = "The number of treasures and misc rewards to randomize.\n" +
+                "0 means no treasures and misc rewards will be randomized, 1916 is the max.",
+                ValueText = "Treasures:",
+                MinValue = 0,
+                MaxValue = 1916,                
+                StepSize = 1
+            }.Register(Treasures);
 
             WritGoals = new ListBoxFlagProperty([])
             {

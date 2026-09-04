@@ -191,10 +191,12 @@ public partial class TreasureRando : Randomizer
                     var item = other.GetItem(false);
                     missable.SetItem(item.Value.Item, item.Value.Amount);
 
-                    // Copy respawn and spawn chance
+                    // Copy spawn chance to revive the chest. The respawn id is deliberately
+                    // not copied any more: ids are local to a map, so the linked chest's id
+                    // means something different here. The missable keeps its own id and is
+                    // one-time in its own right.
                     DataStoreTreasure treasureMissable = ebpAreas[missable.MapID].TreasureList[missable.Index];
                     DataStoreTreasure treasureOther = ebpAreas[other.MapID].TreasureList[other.Index];
-                    treasureMissable.Respawn = treasureOther.Respawn;
                     treasureMissable.SpawnChance = treasureOther.SpawnChance;
                 }
             }
@@ -315,42 +317,50 @@ public partial class TreasureRando : Randomizer
         }
     }
 
+    /// <summary>
+    /// Respawn ids are local to a single map instead of globally unique. The engine's
+    /// opened-chest bitfield at save + 0x14B4 is indexed by DataStoreTreasure.Respawn,
+    /// which is one byte, so globally unique ids cap the game at 255 one-time chests --
+    /// far short of the 1916 that exist. RandoTreasureBank.lua swaps each map's slice of
+    /// that bitfield in and out on every map change, so the same small id space is reused
+    /// everywhere and every chest can be one-time.
+    ///
+    /// A chest's index within its own map is already a dense 0..N-1 id (N is at most 16
+    /// across every map in the game), so it is used directly as the respawn id.
+    /// </summary>
+    public const int MaxRespawnIdsPerMap = 16;
+
     protected void SetTreasureRespawns(List<TreasureLocation> treasures)
     {
-        // Clear null treasures
-        foreach (var location in ItemLocations.Values)
+        foreach (TreasureLocation location in ItemLocations.Values.Where(l => l is TreasureLocation).Select(l => (TreasureLocation)l))
         {
-            if (location is TreasureLocation tLocation && !treasures.Contains(tLocation))
+            if (location.Index >= MaxRespawnIdsPerMap)
             {
-                DataStoreTreasure t = ebpAreas[tLocation.MapID].TreasureList[tLocation.Index];
+                throw new Exception($"Treasure {location.ID} has index {location.Index}, which exceeds the {MaxRespawnIdsPerMap} respawn ids banked per map.");
+            }
+
+            DataStoreTreasure t = ebpAreas[location.MapID].TreasureList[location.Index];
+            t.Respawn = (byte)location.Index;
+
+            if (treasures.Contains(location))
+            {
+                t.SpawnChance = 100;
+            }
+            else
+            {
+                // Nothing was placed here. Emptied rather than left alone; the missable
+                // pass in Randomize may still revive it by copying another chest's item.
                 t.SpawnChance = 0;
-                t.Respawn = 255;
                 t.GilChance = 0;
                 t.CommonItem1ID = t.CommonItem2ID = t.RareItem1ID = t.RareItem2ID = 0xFFFF;
                 t.GilCommon = t.GilRare = 0;
             }
-        }
-
-        // Set treasure respawn IDs and spawn chance
-        int respawnIndex = 0;
-        foreach (var t in treasures.Where(t => !t.Traits.Contains("Missable")))
-        {
-            if (respawnIndex >= 255)
-            {
-                break;
-            }
-
-            DataStoreTreasure treasure = ebpAreas[t.MapID].TreasureList[t.Index];
-            treasure.Respawn = (byte)respawnIndex;
-            treasure.SpawnChance = 100;
-            respawnIndex++;
         }
     }
 
     private void CollapseAndSelectTreasures()
     {
         treasuresToPlace.Clear();
-        List<int> usedRespawnIDs = new();
         ItemLocations.Values.Where(l => l is TreasureLocation).Select(l => (TreasureLocation)l).ForEach(l =>
         {
             DataStoreTreasure t = ebpAreasOrig[l.MapID].TreasureList[l.Index];
@@ -410,32 +420,39 @@ public partial class TreasureRando : Randomizer
 
             if (l.GetItem(true) != null && (l.GetItem(true).Value.Item.StartsWith("30") || l.GetItem(true).Value.Item.StartsWith("40")))
             {
-                if (t.Respawn == 255 || !usedRespawnIDs.Contains(t.Respawn))
+                if (!l.Traits.Contains("Missable"))
                 {
                     treasuresToPlace.Add(l.ID);
                 }
             }
         });
 
+        // How many chests end up live. This used to be hardcoded to 255, the number of ids
+        // the engine's one-byte DataStoreTreasure.Respawn could address. Per-map respawn
+        // ids and RandoTreasureBank.lua remove that ceiling, so the count is now purely a
+        // preference and every chest in the game is reachable as a location.
+        int numTreasures = FF12Flags.Items.NumTreasures.Value;
+
+        // Vanilla chests share respawn ids, which used to force a de-duplication pass here.
+        // Per-map ids make every chest independently flaggable, so the only filter left is
+        // Missable: those are revived in Randomize by mirroring another chest's item, so
+        // they must never be a placement destination.
         foreach (TreasureLocation l in ItemLocations.Values.Where(l => l is TreasureLocation && !treasuresToPlace.Contains(l.ID)).Select(l => (TreasureLocation)l).Shuffle())
         {
-            DataStoreTreasure t = ebpAreasOrig[l.MapID].TreasureList[l.Index];
-            if (t.Respawn == 255 || !usedRespawnIDs.Contains(t.Respawn))
+            if (treasuresToPlace.Count >= numTreasures)
+            {
+                break;
+            }
+
+            if (!l.Traits.Contains("Missable"))
             {
                 treasuresToPlace.Add(l.ID);
-                if (t.Respawn < 255)
-                {
-                    usedRespawnIDs.Add(t.Respawn);
-                }
-
-                if (treasuresToPlace.Count == 255)
-                {
-                    break;
-                }
             }
         }
 
-        treasuresAllowed = ItemLocations.Values.Where(l => l is TreasureLocation && !l.Traits.Contains("Missable")).Select(l => l.ID).Shuffle().Take(255).ToList();
+        // The count that actually decides how many chests exist in the seed. Anything not
+        // selected here is emptied by SetTreasureRespawns.
+        treasuresAllowed = ItemLocations.Values.Where(l => l is TreasureLocation && !l.Traits.Contains("Missable")).Select(l => l.ID).Shuffle().Take(numTreasures).ToList();
     }
 
     public void SaveHints()
