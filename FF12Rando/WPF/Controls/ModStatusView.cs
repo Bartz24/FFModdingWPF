@@ -1,22 +1,29 @@
-using Bartz24.Data;
 using Ookii.Dialogs.Wpf;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 
 namespace FF12Rando;
 
 /// <summary>
-/// The setup screen's view of one <see cref="FF12Mod"/>: the wording and colour for its status row,
-/// and the dialogs behind its download, install and uninstall buttons.
+/// The screens' view of one <see cref="FF12Mod"/>: the wording and colour for its status row, and
+/// the dialogs behind its download, install and uninstall buttons.
 ///
 /// Everything view specific lives here so <see cref="FF12Mod"/> stays a description of what is on
 /// disk. The mod answers whether it is installed; this decides how that reads.
+///
+/// Status is recomputed from disk on every read, so a refresh is just a change notification rather
+/// than anything this has to cache.
 /// </summary>
-public class ModStatusView
+public class ModStatusView : INotifyPropertyChanged
 {
     public FF12Mod Mod { get; }
+
+    /// <summary>Short name for the left hand column of the setup screen.</summary>
+    public string RowLabel { get; init; }
 
     /// <summary>Shown once the mod is present and current.</summary>
     public string InstalledText { get; init; }
@@ -27,6 +34,9 @@ public class ModStatusView
     /// <summary>Shown when something other than the rando installed it. Only used by the Manifesto.</summary>
     public string ExternalText { get; init; }
 
+    /// <summary>Asked before installing over an install the rando did not make. Null to just install.</summary>
+    public string ExternalInstallWarning { get; init; }
+
     /// <summary>Title of the file picker used to install from an archive.</summary>
     public string ArchiveDialogTitle { get; init; }
 
@@ -34,6 +44,8 @@ public class ModStatusView
     {
         Mod = mod;
     }
+
+    public event PropertyChangedEventHandler PropertyChanged;
 
     public string Text
     {
@@ -68,6 +80,22 @@ public class ModStatusView
         }
     }
 
+    public string UninstallLabel => $"Uninstall {Mod.Name}";
+
+    public string UninstallTooltip => $"Removes {Mod.Name} if the rando installed it. Do NOT uninstall here if it was installed through Vortex.";
+
+    /// <summary>Re-reads the status from disk. Both derived values are recomputed on access.</summary>
+    public void Refresh()
+    {
+        OnPropertyChanged(nameof(Text));
+        OnPropertyChanged(nameof(Color));
+    }
+
+    private void OnPropertyChanged([CallerMemberName] string name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+
     public void Download()
     {
         string url = Mod.DownloadUrl;
@@ -95,6 +123,13 @@ public class ModStatusView
         if (Mod.NeedsGamePathForInstall && !FF12Mod.GamePathValid)
         {
             MessageBox.Show("The path for FF12 is not valid. Setup the Steam path in the '1. Setup' step. first", "FF12 not found.");
+            return false;
+        }
+
+        // An install the rando did not make is already working, so check before writing over it.
+        if (ExternalInstallWarning != null && Mod.GetStatus() == ModStatus.InstalledExternally &&
+            MessageBox.Show(ExternalInstallWarning, $"{Mod.Name} already installed") == MessageBoxResult.No)
+        {
             return false;
         }
 
@@ -137,10 +172,6 @@ public class ModStatusView
         MessageBox.Show($"Failed to install {Mod.Name}. Expected files are missing.");
         return false;
     }
-
-    public string UninstallLabel => $"Uninstall {Mod.Name}";
-
-    public string UninstallTooltip => $"Removes {Mod.Name} if the rando installed it. Do NOT uninstall here if it was installed through Vortex.";
 
     /// <summary>Confirms, then removes the mod. Returns true when it actually ran.</summary>
     public bool Uninstall()

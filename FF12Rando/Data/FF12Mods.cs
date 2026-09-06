@@ -195,6 +195,32 @@ public static class FF12Mods
         }
     };
 
+    public static FF12Mod TKMalloc { get; } = new()
+    {
+        Name = "tkMalloc Crash Fix",
+        Optional = true,
+        DownloadUrl = "https://www.nexusmods.com/finalfantasy12/mods/475",
+        RequiredFiles =
+        {
+            "x64\\modules\\00-ff12-tkmalloc.dll",
+            "x64\\modules\\config\\ff12-tkmalloc.ini",
+        },
+        Extractions = { new ModExtraction("modules", () => GameFile("x64\\modules")) }
+    };
+
+    public static FF12Mod Deadlands { get; } = new()
+    {
+        Name = "Deadlands Crash Fix",
+        Optional = true,
+        DownloadUrl = "https://www.nexusmods.com/finalfantasy12/mods/506",
+        RequiredFiles =
+        {
+            "x64\\scripts\\modules\\simplePatcher.lua",
+            "x64\\scripts\\nabreusCrashFix.lua",
+        },
+        Extractions = { new ModExtraction("scripts", () => GameFile("x64\\scripts")) }
+    };
+
     public static FF12Mod Descriptive { get; } = new()
     {
         Name = "Insurgent's Descriptive Inventory",
@@ -209,10 +235,9 @@ public static class FF12Mods
         UninstallFolders = { "x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig" }
     };
 
-    /// <summary>Ordered as the setup screen lists them.</summary>
     public static IReadOnlyList<FF12Mod> All { get; } = new List<FF12Mod>
     {
-        Tools, FileLoader, LuaLoader, Manifesto, Descriptive
+        Tools, FileLoader, LuaLoader, Manifesto, TKMalloc, Deadlands, Descriptive
     };
 
     public static IEnumerable<FF12Mod> Required => All.Where(m => !m.Optional);
