@@ -205,9 +205,19 @@ public partial class TreasureRando : Randomizer
             RandomNum.ClearRand();
         }
 
+        ApplyPostPlacement();
+    }
+
+    /// <summary>
+    /// Everything that has to run once items are in place: the outfitters menu text and the option
+    /// driven Seitengrat and price passes. Kept out of Randomize so the Archipelago randomizer,
+    /// which replaces Randomize entirely rather than extending it, runs the same passes.
+    /// </summary>
+    protected void ApplyPostPlacement()
+    {
         UpdateOutfittersText();
 
-        if (!FF12Flags.Items.AllowSeitengrat.FlagEnabled)
+        if (!FF12Flags.Items.IsAllowSeitengratEnabled())
         {
             // Replace any Seitengrat with the Dhanusha
             ItemLocations.Values.Where(l => ItemLocations[l.ID].GetItem(false)?.Item1 == "10B2").ForEach(l =>
@@ -269,7 +279,7 @@ public partial class TreasureRando : Randomizer
         {
             List<RewardLocation> allRewardLocs = ItemLocations.Values.Where(l => l is RewardLocation r2 && r2.IntID == r.IntID).Select(l => (RewardLocation)l).ToList();
             DataStoreReward reward = rewards[r.IntID - 0x9000];
-            string itemName = GetRewardDisplay(reward, allRewardLocs);
+            string itemName = GetOutfitterDisplay(reward, allRewardLocs);
             // Format: {item}<NAME>{righttab}{macro:<INT>,6,0,0}{/item}
             newText += $"{{item}}{itemName}{{righttab}}{{macro:{r.IntID - outfitterRewards[0].IntID},6,0,0}}{{/item}}\n";
         }
@@ -712,6 +722,16 @@ public partial class TreasureRando : Randomizer
         }
 
         return id;
+    }
+
+    /// <summary>
+    /// Name for a row of the in game outfitters menu. Separate from <see cref="GetRewardDisplay"/>
+    /// so that what the player is shown in game can differ from what the documentation records,
+    /// which matters for an Archipelago seed where the docs must stay spoiler free.
+    /// </summary>
+    protected virtual string GetOutfitterDisplay(DataStoreReward reward, List<RewardLocation> locations)
+    {
+        return GetRewardDisplay(reward, locations);
     }
 
     private string GetRewardDisplay(DataStoreReward reward, List<RewardLocation> locations)

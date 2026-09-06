@@ -1,7 +1,9 @@
 ﻿using Bartz24.Data;
+using Bartz24.FF12;
 using Bartz24.RandoWPF;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -114,9 +116,10 @@ class APTreasureRando : TreasureRando
 
         VerifyRewardsNotEmpty();
 
-        // Runs last so the menu reflects the final contents of every outfitter slot. The base
-        // Randomize is not called here, so without this the menu would keep its vanilla text.
-        UpdateOutfittersText();
+        // Runs last so it sees the final contents. Base Randomize is replaced rather than extended
+        // here, so without this call the outfitters text, the price options and the Seitengrat pass
+        // would all be skipped for Archipelago seeds.
+        ApplyPostPlacement();
     }
 
     private void VerifyRewardsNotEmpty()
@@ -133,30 +136,71 @@ class APTreasureRando : TreasureRando
         }
     }
 
-    protected override string GetRewardItemDisplay(RewardLocation location, string itemID, int amount)
+    protected override string GetOutfitterDisplay(DataStoreReward reward, List<RewardLocation> locations)
     {
-        if (itemID != ArchipelagoItemID)
+        if (locations.Count == 0)
         {
-            return base.GetRewardItemDisplay(location, itemID, amount);
+            return base.GetOutfitterDisplay(reward, locations);
         }
 
-        string apItemName = RandoFlags.GetArchipelagoData<FF12ArchipelagoData>().Spheres
-            .Where(data => data.Index == location.Index && ParseRewardID(data.ID) == location.IntID)
-            .Select(data => data.ItemDisplay)
-            .FirstOrDefault();
+        int rewardID = locations[0].IntID;
+        SortedDictionary<int, string> byIndex = new();
 
-        return string.IsNullOrWhiteSpace(apItemName) ? base.GetRewardItemDisplay(location, itemID, amount) : apItemName;
+        // Checks the server owns. Only these carry a display name for another player's item.
+        foreach (RewardLocation location in locations)
+        {
+            if (ArchipelagoRewardDisplays.TryGetValue((rewardID, location.Index), out string apItemName))
+            {
+                byIndex[location.Index] = apItemName;
+            }
+        }
+
+        // Slots the world excluded from the pool hold a real local item instead of a check.
+        foreach (RewardLocation location in locations.Where(l => !byIndex.ContainsKey(l.Index)))
+        {
+            var content = location.GetItem(false);
+            if (content == null || content.Value.Item1 == ArchipelagoItemID)
+            {
+                // Empty, or the placeholder standing in for a slot that is not a check at all.
+                continue;
+            }
+
+            byIndex[location.Index] = location.Index == 0
+                ? $"{reward.Gil} Gil"
+                : GetRewardItemDisplay(location, content.Value.Item1, content.Value.Item2);
+        }
+
+        // Never leave the row blank; the placeholder name beats nothing at all.
+        return byIndex.Count == 0 ? base.GetOutfitterDisplay(reward, locations) : string.Join(", ", byIndex.Values);
     }
 
-    private static int ParseRewardID(string id)
+    private Dictionary<(int RewardID, int Index), string> archipelagoRewardDisplays;
+
+    private Dictionary<(int RewardID, int Index), string> ArchipelagoRewardDisplays
     {
-        try
+        get
         {
-            return Convert.ToInt32(id, 16);
-        }
-        catch (Exception)
-        {
-            return -1;
+            if (archipelagoRewardDisplays != null)
+            {
+                return archipelagoRewardDisplays;
+            }
+
+            archipelagoRewardDisplays = new();
+            foreach (var data in RandoFlags.GetArchipelagoData<FF12ArchipelagoData>().Spheres)
+            {
+                // Sphere ids are hex reward ids for rewards, but map or shop names for everything
+                // else, so most entries are expected to fail this and are skipped.
+                if (string.IsNullOrWhiteSpace(data.ItemDisplay) ||
+                    !int.TryParse(data.ID, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int rewardID) ||
+                    rewardID < 0x9000)
+                {
+                    continue;
+                }
+
+                archipelagoRewardDisplays[(rewardID, data.Index)] = data.ItemDisplay;
+            }
+
+            return archipelagoRewardDisplays;
         }
     }
 }

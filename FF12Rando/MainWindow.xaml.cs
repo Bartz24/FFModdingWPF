@@ -68,6 +68,12 @@ public partial class MainWindow : Window
         set => SetValue(APVisibleProperty, value);
     }
 
+    /// <summary>
+    /// Drives the per mod uninstall buttons. Reading straight off the mod list means a new mod gets
+    /// a button without any markup change, and one that cannot be uninstalled never appears.
+    /// </summary>
+    public IEnumerable<ModStatusView> UninstallableModViews => FF12ModViews.Uninstallable;
+
     public MainWindow()
     {
         RandoUI.Init(SetProgressBar, () => totalProgressBar.IncrementProgress(), SwitchTab);
@@ -263,75 +269,42 @@ public partial class MainWindow : Window
         }
     }
 
-    private void uninstallLoadersButton_Click(object sender, RoutedEventArgs e)
+    private void uninstallAllModsButton_Click(object sender, RoutedEventArgs e)
     {
-        if (MessageBox.Show("Remove mod loader files?\nIf you installed the loaders through Vortex, click 'Cancel' and then uninstall them through Vortex.", "Remove mod loader files?", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+        if (MessageBox.Show("Remove the files of every mod the rando installed?\nIf you installed any of them through Vortex, click 'Cancel' and uninstall them through Vortex instead.", "Remove all mods?", MessageBoxButton.OKCancel, MessageBoxImage.Warning) != MessageBoxResult.OK)
         {
-            try
-            {
-                FF12SeedGenerator.UninstallFileLoader();
-                FF12SeedGenerator.UninstallLuaLoader();
-            }
-            catch
-            {
-                MessageBox.Show("Encountered an error while removing mod loader files.");
-                return;
-            }
-
-            // Workaround since we can't set the name on this for some reason
-            SetupPaths setupPaths = (SetupPaths)this.GetByUid("setupPaths");
-            setupPaths.UpdateText();
-
-            MessageBox.Show("Removed any remaining mod loader files.");
+            return;
         }
+
+        // Confirmed once for the lot rather than once per mod.
+        foreach (ModStatusView view in FF12ModViews.Uninstallable)
+        {
+            view.UninstallWithoutConfirming();
+        }
+
+        RefreshSetupPaths();
+        MessageBox.Show("Removed any remaining mod files.");
     }
 
-    private void uninstallDescriptiveButton_Click(object sender, RoutedEventArgs e)
+    private void uninstallModButton_Click(object sender, RoutedEventArgs e)
     {
-        if (MessageBox.Show("Remove The Insurgent's Descriptive Inventory files?\nIf you installed the mod through Vortex, click 'Cancel' and then uninstall them through Vortex.", "Remove mod?", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+        ModStatusView view = (ModStatusView)((FrameworkElement)sender).DataContext;
+        if (!view.Uninstall())
         {
-            try
-            {
-                FF12SeedGenerator.UninstallDescriptive();
-                string configFolder = Path.Combine(SetupData.Paths["12"], "x64\\scripts\\config\\TheInsurgentsDescriptiveInventoryConfig");
-                if (Directory.Exists(configFolder))
-                {
-                    Directory.Delete(configFolder, true);
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Encountered an error while removing Descriptive Inventory files.");
-                return;
-            }
-
-            // Workaround since we can't set the name on this for some reason
-            SetupPaths setupPaths = (SetupPaths)this.GetByUid("setupPaths");
-            setupPaths.UpdateText();
-
-            MessageBox.Show("Removed The Insurgent's Descriptive Inventory files.");
+            return;
         }
+
+        RefreshSetupPaths();
+        MessageBox.Show($"Removed {view.Mod.Name} files.");
     }
 
-    private void uninstallManifestoButton_Click(object sender, RoutedEventArgs e)
+    /// <summary>
+    /// Workaround since we can't set the name on the setup control for some reason.
+    /// </summary>
+    private void RefreshSetupPaths()
     {
-        if (MessageBox.Show("Uninstall The Insurgent's Manifesto files? This will first revert to the Vortex installation if that is detected.", "Remove mod?", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
-        {
-            try
-            {
-                FF12SeedGenerator.UninstallManifesto();
-            }
-            catch
-            {
-                MessageBox.Show("Encountered an error while removing Manifesto files.");
-                return;
-            }
-
-            // Workaround since we can't set the name on this for some reason
-            SetupPaths setupPaths = (SetupPaths)this.GetByUid("setupPaths");
-            setupPaths.UpdateText();
-
-            MessageBox.Show("Removed The Insurgent's Manifesto files.");
-        }
+        SetupPaths setupPaths = (SetupPaths)this.GetByUid("setupPaths");
+        setupPaths.UpdateText();
     }
+
 }

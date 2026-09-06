@@ -388,7 +388,7 @@ public partial class ShopRando : Randomizer
 
     private static bool IsAllowSeitengratEnabled()
     {
-        return RandoFlags.Mode == RandoFlags.SeedMode.Archipelago ? RandoFlags.GetArchipelagoData<FF12ArchipelagoData>().AllowSeitengrat : FF12Flags.Items.AllowSeitengrat.FlagEnabled;
+        return FF12Flags.Items.IsAllowSeitengratEnabled();
     }
 
     private void AddNewBazaarItem(TreasureRando treasureRando, List<string> items, List<string> bazaarUsed)

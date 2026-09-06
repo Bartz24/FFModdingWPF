@@ -135,6 +135,17 @@ public class FF12Flags
         public static NumberFlagProperty KeyChops;
         public static NumberFlagProperty KeyBlackOrbs;
 
+        /// <summary>
+        /// An Archipelago seed takes this from the slot data rather than the local flag, since the
+        /// generated world was built around whichever setting the player chose there.
+        /// </summary>
+        public static bool IsAllowSeitengratEnabled()
+        {
+            return RandoFlags.Mode == RandoFlags.SeedMode.Archipelago
+                ? RandoFlags.GetArchipelagoData<FF12ArchipelagoData>().AllowSeitengrat
+                : AllowSeitengrat.FlagEnabled;
+        }
+
         internal static void Init()
         {
             Treasures = new Flag(false)
