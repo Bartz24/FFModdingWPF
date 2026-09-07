@@ -304,7 +304,8 @@ public class FF12Flags
                     {"80EC", "Mimett Greens" },
                     {"80ED", "Reagan Greens" },
                     {"80EE", "Sylkis Greens" },
-                    {"80EF", "Kupo Nuts" }
+                    {"80EF", "Kupo Nuts" },
+                    {"2119", "Progressive Trial Unlocks" },
                 }
             }.Register(Treasures);
 
