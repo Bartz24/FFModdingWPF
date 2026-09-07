@@ -80,4 +80,9 @@ public class DataStoreList<T> : DataStore, IEnumerable<T> where T : DataStore, n
     {
         return -1;
     }
+
+    public void RemoveAt(int i)
+    {
+        list.RemoveAt(i);
+    }
 }

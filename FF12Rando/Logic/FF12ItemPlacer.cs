@@ -277,7 +277,10 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
 
     protected override Dictionary<string, ItemData> GetReorderItems()
     {
-        return Generator.Get<EquipRando>().itemData;
+        // Ignore normal items since they should be anywhere
+        return Generator.Get<EquipRando>().itemData
+            .Where(p => p.Value.Category != "Item")
+            .ToDictionary(p => p.Key, p => p.Value);
     }
 
     protected override int GetDifficultyIndex()

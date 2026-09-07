@@ -5,18 +5,18 @@ Yugri's Magicks,51,Rabanastre,,
 Batahn's Technicks,52,Rabanastre,,
 Migelo's Sundries,50,Rabanastre,,
 Yamoora's Gambits,53,Rabanastre,,
-Clan Provisioner 1,13,Rabanastre,Unique,I(8071)
-Clan Provisioner 2,12,Rabanastre,Unique,AND(I(8071)|I(Hunt|2))
-Clan Provisioner 3,11,Rabanastre,Unique,AND(I(8071)|I(Hunt|4))
-Clan Provisioner 4,10,Rabanastre,Unique,AND(I(8071)|I(Hunt|8))
-Clan Provisioner 5,9,Rabanastre,Unique,AND(I(8071)|I(Hunt|10))
-Clan Provisioner 6,8,Rabanastre,Unique,AND(I(8071)|I(Hunt|12))
-Clan Provisioner 7,7,Rabanastre,Unique,AND(I(8071)|I(Hunt|14))
-Clan Provisioner 8,6,Rabanastre,Unique,AND(I(8071)|I(Hunt|16))
-Clan Provisioner 9,5,Rabanastre,Unique,AND(I(8071)|I(Hunt|24))
-Clan Provisioner 10,4,Rabanastre,Unique,AND(I(8071)|I(Hunt|28))
-Clan Provisioner 11,3,Rabanastre,Unique,AND(I(8071)|I(Hunt|32))
-Clan Provisioner 12,2,Rabanastre,Unique|Missable,AND(I(8071)|I(Hunt|45)|C(Esper|13)|I(HuntClubKill|30)|I(80B6)|I(80B5))
+Clan Provisioner 1,13,Rabanastre,ClanShop|Unique,I(8071)
+Clan Provisioner 2,12,Rabanastre,ClanShop|Unique,AND(I(8071)|I(Hunt|2))
+Clan Provisioner 3,11,Rabanastre,ClanShop|Unique,AND(I(8071)|I(Hunt|4))
+Clan Provisioner 4,10,Rabanastre,ClanShop|Unique,AND(I(8071)|I(Hunt|8))
+Clan Provisioner 5,9,Rabanastre,ClanShop|Unique,AND(I(8071)|I(Hunt|10))
+Clan Provisioner 6,8,Rabanastre,ClanShop|Unique,AND(I(8071)|I(Hunt|12))
+Clan Provisioner 7,7,Rabanastre,ClanShop|Unique,AND(I(8071)|I(Hunt|14))
+Clan Provisioner 8,6,Rabanastre,ClanShop|Unique,AND(I(8071)|I(Hunt|16))
+Clan Provisioner 9,5,Rabanastre,ClanShop|Unique,AND(I(8071)|I(Hunt|24))
+Clan Provisioner 10,4,Rabanastre,ClanShop|Unique,AND(I(8071)|I(Hunt|28))
+Clan Provisioner 11,3,Rabanastre,ClanShop|Unique,AND(I(8071)|I(Hunt|32))
+Clan Provisioner 12,2,Rabanastre,ClanShop|Unique|Missable,AND(I(8071)|I(Hunt|45)|C(Esper|13)|I(HuntClubKill|30)|I(80B6)|I(80B5))
 Travelling Merchant North,0,Lowtown,,
 Travelling Merchant South,1,Lowtown,,
 Weapons of War,14,Nalbina Fortress,,

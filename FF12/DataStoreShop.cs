@@ -5,27 +5,24 @@ using System.Linq;
 
 namespace Bartz24.FF12;
 
+// One shop's item list. See DataStoreBPShop for the node layout.
 public class DataStoreShop : DataStore
 {
-    protected byte[] header;
-
     public int ID { get; set; }
-    public int Offset { get; set; }
-    public ushort Count { get; set; }
+    public ushort Count => (ushort)ItemsList.Count;
     public DataStoreList<DataStoreItemEntry> ItemsList { get; set; }
+
+    // Where this node goes in the rebuilt file. Set by DataStoreBPShop before reading Data.
+    public uint Offset { get; set; }
 
     public override void LoadData(byte[] data, int offset = 0)
     {
-        Offset = offset;
-        header = data.SubArray(offset, 0xC);
-        Count = data.ReadUShort(offset + 0x6);
-
-        int size = 0x2;
+        int count = data.ReadUShort(offset + 0x6);
         ItemsList = new DataStoreList<DataStoreItemEntry>();
-        ItemsList.LoadData(data.SubArray(offset + 0xC, size * Count));
+        ItemsList.LoadData(data.SubArray((int)data.ReadUInt(offset + 0x8), DataStoreBPShop.ItemEntrySize * count));
     }
 
-    public override byte[] Data => header.Concat(ItemsList.Data);
+    public override byte[] Data => DataStoreBPShop.NodeHeader(DataStoreBPShop.ItemListTag, DataStoreBPShop.ItemEntrySize, Count, Offset + DataStoreBPShop.NodeHeaderSize).Concat(ItemsList.Data);
 
     public List<string> GetItems()
     {
@@ -34,17 +31,13 @@ public class DataStoreShop : DataStore
 
     public void SetItems(List<string> items)
     {
-        for (int i = 0; i < Count; i++)
+        // The list is rebuilt outright, so the shop can grow or shrink freely.
+        ItemsList = new DataStoreList<DataStoreItemEntry>();
+        for (int i = 0; i < items.Count; i++)
         {
-            if (i >= items.Count)
-            {
-                ItemsList[i].Item = 0xFFFF;
-            }
-            else
-            {
-                ushort id = Convert.ToUInt16(items[i], 16);
-                ItemsList[i].Item = id;
-            }
+            DataStoreItemEntry entry = new() { Data = new byte[DataStoreBPShop.ItemEntrySize] };
+            entry.Item = Convert.ToUInt16(items[i], 16);
+            ItemsList.Add(entry, i);
         }
     }
 

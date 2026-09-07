@@ -29,6 +29,8 @@ public partial class TreasureRando : Randomizer
     public List<string> treasuresToPlace = new();
     public List<string> treasuresAllowed = new();
 
+    public ShopData ClanShopWithElixirs = null;
+
     public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
 
     // Used for grouping/sorting by type
@@ -148,6 +150,8 @@ public partial class TreasureRando : Randomizer
 
             CollapseAndSelectTreasures();
 
+            PickRandomClanShopForElixirs();
+
             Dictionary<string, double> areaMults = ItemLocations.Values.SelectMany(t => t.Areas).Distinct().ToDictionary(s => s, _ => RandomNum.RandInt(10, 200) * 0.01d);
 
             ItemPlacer = new(Generator, AreaGraph);
@@ -208,6 +212,20 @@ public partial class TreasureRando : Randomizer
         }
 
         ApplyPostPlacement();
+    }
+
+    private void PickRandomClanShopForElixirs()
+    {
+        ShopRando shopRando = Generator.Get<ShopRando>();
+        List<ShopData> clanShops = shopRando.shopData.Values.Where(s => s.Traits.Contains("ClanShop") && !s.Traits.Contains("Missable")).ToList();
+        ClanShopWithElixirs = RandomNum.SelectRandom(clanShops);
+
+        // Update trial 100 to require this shop logically
+        ItemLocations.Values.Where(l=>l is RewardLocation r && r.IntID == 0x919C).ForEach(l =>
+        {
+            RewardLocation r = (RewardLocation)l;
+            r.Requirements = new AndItemReq(new List<ItemReq>() { r.Requirements, ClanShopWithElixirs.Requirements });
+        });
     }
 
     /// <summary>

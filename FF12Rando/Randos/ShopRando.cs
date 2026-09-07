@@ -12,10 +12,13 @@ namespace FF12Rando;
 
 public partial class ShopRando : Randomizer
 {
+    private const string TeleportStoneID = "2000";
+    private const string ElixirID = "0005";
+
     public DataStoreBPShop shops;
     public DataStoreBPShop shopsOrig;
     public DataStoreBPSection<DataStoreBazaar> bazaars;
-    protected readonly Dictionary<int, ShopData> shopData = new();
+    public readonly Dictionary<int, ShopData> shopData = new();
 
     public ShopRando(SeedGenerator randomizers) : base(randomizers) { }
     public override void Load()
@@ -192,6 +195,19 @@ public partial class ShopRando : Randomizer
                         }
                     }
 
+                    // Make teleport stones guaranteed in every shop except the clan shops, which
+                    // only have two vanilla slots and would be mostly stone.
+                    if (!s.Traits.Contains("ClanShop") && !items.Contains(TeleportStoneID))
+                    {
+                        items.Add(TeleportStoneID);
+                    }
+
+                    // Handle clan shop with elixirs
+                    if (shopData[shop.ID] == treasureRando.ClanShopWithElixirs)
+                    {
+                        items.Add(ElixirID);
+                    }
+
                     shop.SetItems(items.OrderBy(i => i).ToList());
 
                     if (FF12Flags.Items.ShopsShared.Enabled && !s.Traits.Contains("Unique"))
@@ -208,8 +224,29 @@ public partial class ShopRando : Randomizer
                 ReorderUniqueShops();
             }
 
+            VerifyElixirShop();
+
             RandomNum.ClearRand();
         }
+    }
+
+    // The reorder passes pool and redistribute the slots they touch, which is how the elixirs used
+    // to end up in some other shop. IsPlacedItem holds them back, so they have to still be here.
+    private void VerifyElixirShop()
+    {
+        ShopData elixirShop = Generator.Get<TreasureRando>().ClanShopWithElixirs;
+        if (elixirShop != null && !shops[elixirShop.ID].GetItems().Contains(ElixirID))
+        {
+            throw new Exception($"{elixirShop.Name} was picked to sell elixirs but has none. Something is wrong with the shop randomization.");
+        }
+    }
+
+    // Items put in a shop on purpose rather than rolled. The reorder passes pool every slot they
+    // touch and hand the items back out somewhere else, so these are held out to keep them put.
+    private bool IsPlacedItem(DataStoreShop shop, string item)
+    {
+        return item == TeleportStoneID
+            || (item == ElixirID && shopData[shop.ID] == Generator.Get<TreasureRando>().ClanShopWithElixirs);
     }
 
     private void ReorderUniqueShops()
@@ -219,7 +256,9 @@ public partial class ShopRando : Randomizer
             .Where(s => s.Traits.Contains("Unique"))
             .Select(s => shops[s.ID]).SelectMany(shop =>
             {
-                return Enumerable.Range(0, shop.GetItems().Count).Select(index => (shop, index));
+                return Enumerable.Range(0, shop.GetItems().Count)
+                    .Where(index => !IsPlacedItem(shop, shop.GetItems()[index]))
+                    .Select(index => (shop, index));
             }).GroupBy(itemSlot =>
             {
                 string id = itemSlot.shop.GetItems()[itemSlot.index];
@@ -276,7 +315,9 @@ public partial class ShopRando : Randomizer
             .Where(s => !s.Traits.Contains("Unique") && locationsShared.ContainsValue(s.ID))
             .Select(s => shops[s.ID]).SelectMany(shop =>
             {
-                return Enumerable.Range(0, shop.GetItems().Count).Select(index => (shop, index));
+                return Enumerable.Range(0, shop.GetItems().Count)
+                    .Where(index => !IsPlacedItem(shop, shop.GetItems()[index]))
+                    .Select(index => (shop, index));
             }).GroupBy(itemSlot =>
             {
                 string id = itemSlot.shop.GetItems()[itemSlot.index];
