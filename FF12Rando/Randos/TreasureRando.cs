@@ -174,36 +174,10 @@ public partial class TreasureRando : Randomizer
             RandomNum.AddTestVal("FF12 After Place Items");
             ItemPlacer.ApplyToGameData();
 
-            SetTreasureRespawns(ItemPlacer.FinalPlacement.Keys.Where(l => l is TreasureLocation).Select(l => (TreasureLocation)l).ToList());
-
-            // Set random linked missable chests if max sphere option is disabled
-            if (!FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalMaxSphere))
-            {
-                foreach (var location in ItemLocations.Values.Where(l => l is TreasureLocation && l.Traits.Contains("Missable")))
-                {
-                    if (RandomNum.RandInt(0, 99) < 20)
-                    {
-                        continue;
-                    }
-
-                    TreasureLocation missable = (TreasureLocation)location;
-
-                    // Find another non missable chest
-                    TreasureLocation other = RandomNum.SelectRandom(ItemLocations.Values.Where(l => l is TreasureLocation && !l.Traits.Contains("Missable") && l.GetItem(false) != null).Select(l => (TreasureLocation)l));
-
-                    // Copy item
-                    var item = other.GetItem(false);
-                    missable.SetItem(item.Value.Item, item.Value.Amount);
-
-                    // Copy spawn chance to revive the chest. The respawn id is deliberately
-                    // not copied any more: ids are local to a map, so the linked chest's id
-                    // means something different here. The missable keeps its own id and is
-                    // one-time in its own right.
-                    DataStoreTreasure treasureMissable = ebpAreas[missable.MapID].TreasureList[missable.Index];
-                    DataStoreTreasure treasureOther = ebpAreas[other.MapID].TreasureList[other.Index];
-                    treasureMissable.SpawnChance = treasureOther.SpawnChance;
-                }
-            }
+            // Fixed chests keep their vanilla item instead of being placed into, so they have to be
+            // kept alongside the placed ones or they would be emptied out.
+            SetTreasureRespawns(ItemPlacer.FinalPlacement.Keys.Concat(ItemPlacer.GetFixedLocations())
+                .Where(l => l is TreasureLocation).Select(l => (TreasureLocation)l).Distinct().ToList());
 
             HintPlacer = new(Generator, ItemPlacer, Enumerable.Range(0, 35).ToHashSet());
             HintPlacer.PlaceHints();
@@ -438,10 +412,7 @@ public partial class TreasureRando : Randomizer
 
             if (l.GetItem(true) != null && (l.GetItem(true).Value.Item.StartsWith("30") || l.GetItem(true).Value.Item.StartsWith("40")))
             {
-                if (!l.Traits.Contains("Missable"))
-                {
-                    treasuresToPlace.Add(l.ID);
-                }
+                treasuresToPlace.Add(l.ID);
             }
         });
 
@@ -452,9 +423,9 @@ public partial class TreasureRando : Randomizer
         int numTreasures = FF12Flags.Items.NumTreasures.Value;
 
         // Vanilla chests share respawn ids, which used to force a de-duplication pass here.
-        // Per-map ids make every chest independently flaggable, so the only filter left is
-        // Missable: those are revived in Randomize by mirroring another chest's item, so
-        // they must never be a placement destination.
+        // Per-map ids make every chest independently flaggable, so every chest is eligible,
+        // Missable included. Nothing that matters can be lost in one: both the progression
+        // and useful placers refuse Missable locations, so they only ever receive junk.
         foreach (TreasureLocation l in ItemLocations.Values.Where(l => l is TreasureLocation && !treasuresToPlace.Contains(l.ID)).Select(l => (TreasureLocation)l).Shuffle())
         {
             if (treasuresToPlace.Count >= numTreasures)
@@ -462,15 +433,12 @@ public partial class TreasureRando : Randomizer
                 break;
             }
 
-            if (!l.Traits.Contains("Missable"))
-            {
-                treasuresToPlace.Add(l.ID);
-            }
+            treasuresToPlace.Add(l.ID);
         }
 
         // The count that actually decides how many chests exist in the seed. Anything not
         // selected here is emptied by SetTreasureRespawns.
-        treasuresAllowed = ItemLocations.Values.Where(l => l is TreasureLocation && !l.Traits.Contains("Missable")).Select(l => l.ID).Shuffle().Take(numTreasures).ToList();
+        treasuresAllowed = ItemLocations.Values.Where(l => l is TreasureLocation).Select(l => l.ID).Shuffle().Take(numTreasures).ToList();
     }
 
     public void SaveHints()
@@ -492,7 +460,7 @@ public partial class TreasureRando : Randomizer
                     lines.Add("There is nothing left to hint.");
                 }
 
-                textRando.TextKeyDescriptions[352 + num].Text =
+                textRando.TextKeyDescriptions[256 + num].Text =
                     "{scale:70}" + string.Join("\n", lines);
             }
         }

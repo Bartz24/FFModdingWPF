@@ -15,6 +15,11 @@ public abstract class ItemLocation : CSVDataRow
     public abstract List<string> Traits { get; set; }
     public abstract List<string> Areas { get; set; }
     public abstract int BaseDifficulty { get; set; }
+    public (string Item, int Amount)? OrigItem
+    {
+        get => GetItem(true);
+    }
+
     public virtual List<ItemLocationReqComponent> GetComponents()
     {
         var components = new List<ItemLocationReqComponent>

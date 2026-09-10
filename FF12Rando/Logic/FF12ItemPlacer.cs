@@ -222,6 +222,15 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
     {
         base.PostPlacement();
 
+        if (FF12Flags.Items.RemoveSecondBoard.Enabled)
+        {
+            var secondBoardLoc = PossibleLocations.FirstOrDefault(l => l.GetItem(false)?.Item == "C01F");
+            if (secondBoardLoc != null)
+            {
+                secondBoardLoc.SetItem("0000", 1);
+            }
+        }
+
         PlaceMaxWrit();
     }
 

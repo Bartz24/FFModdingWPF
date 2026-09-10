@@ -68,12 +68,12 @@ public class CharReqComponent : ItemLocationReqComponent
 
             if (diff >= 7)
             {
-                return charCount >= 6 && items.GetValueOrDefault("C01F") > 0;
+                return charCount >= 6 && (items.GetValueOrDefault("C01F") > 0 || FF12Flags.Items.RemoveSecondBoard.Enabled);
             }
 
             if (diff >= 5)
             {
-                return charCount >= 5 && items.GetValueOrDefault("C01F") > 0;
+                return charCount >= 5 && (items.GetValueOrDefault("C01F") > 0 || FF12Flags.Items.RemoveSecondBoard.Enabled);
             }
 
             if (diff >= 4)

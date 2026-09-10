@@ -14,7 +14,7 @@ public abstract class JunkItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         HashSet<T> remainingReplacements = new(Replacements);
 
         // Fill all possible locations with junk. If the replacements is empty, refill it and continue
-        foreach (var loc in PossibleLocations.Shuffle().Take(Replacements.Count))
+        foreach (var loc in GetLocationsToFill())
         {
             remainingReplacements = SetJunkItem(remainingReplacements, loc);
 
@@ -47,6 +47,11 @@ public abstract class JunkItemPlacer<T> : ItemPlacer<T> where T : ItemLocation
         PlaceItem(loc, replacement);
         remainingReplacements.Remove(replacement);
         return remainingReplacements;
+    }
+
+    protected virtual IEnumerable<T> GetLocationsToFill()
+    {
+        return PossibleLocations.Shuffle().Take(Replacements.Count);
     }
 
     protected virtual HashSet<T> GetEmptyMultiLocations()

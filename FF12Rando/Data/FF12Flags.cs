@@ -122,7 +122,7 @@ public class FF12Flags
     public class Items
     {
         public static Flag Treasures, Shops, Bazaars, StartingTpStones, AllowSeitengrat, LowerOutfittersPrices, ShufflePrices;
-        public static ToggleFlagProperty KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale, JunkRankScale, ReplaceAny;
+        public static ToggleFlagProperty KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale, JunkRankScale, ReplaceAny, RemoveSecondBoard;
         public static NumberFlagProperty NumTreasures;
         public static ComboBoxFlagProperty KeyDepth;
         public static NumberFlagProperty ShopSize;
@@ -296,6 +296,7 @@ public class FF12Flags
                     {"C01C", "Exodus Esper" },
                     {"C01D", "Ultima Esper" },
                     {"C01E", "Zodiark Esper" },
+                    {"C01F", "Second Board" },
                     {"80E7", "Gysahl Greens" },
                     {"80E8", "Krakka Greens" },
                     {"80E9", "Tantal Greens" },
@@ -307,6 +308,13 @@ public class FF12Flags
                     {"80EF", "Kupo Nuts" },
                     {"2119", "Progressive Trial Unlocks" },
                 }
+            }.Register(Treasures);
+
+            RemoveSecondBoard = new ToggleFlagProperty(false)
+            {
+                Text = "Remove Second Board",
+                ID = "RemoveSecondBoard",
+                Description = "The Second Board item will be removed from the pool. IZJS mode!"
             }.Register(Treasures);
 
             KeyChops = new NumberFlagProperty(0)

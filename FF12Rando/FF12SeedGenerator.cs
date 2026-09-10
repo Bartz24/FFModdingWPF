@@ -89,6 +89,12 @@ public class FF12SeedGenerator : SeedGenerator
         Directory.CreateDirectory(OutFolder);
         FileHelpers.CopyFromFolder(Path.Combine(OutFolder, "ps2data"), "data\\ps2data");
 
+        // gamedata sits beside ps2data in the VBF layout, so it needs its own copy.
+        // Currently just disableautosavelist, which re-enables the autosave on the trial
+        // floors following every tenth one -- the randomizer removes the manual save
+        // prompts there, so without this a run has no checkpoint until it ends.
+        FileHelpers.CopyFromFolder(Path.Combine(OutFolder, "gamedata"), "data\\gamedata");
+
         SetupData.WPDTracking.Clear();
 
         UpdateLoaderConfig();
@@ -141,6 +147,12 @@ public class FF12SeedGenerator : SeedGenerator
             {
                 File.Delete(path);
             }
+        }
+
+        string gameDataPath = Path.Combine(SeedFolder, "gamedata");
+        if (Directory.Exists(gameDataPath))
+        {
+            Directory.Delete(gameDataPath, true);
         }
 
         if (Directory.Exists(SeedFolder))

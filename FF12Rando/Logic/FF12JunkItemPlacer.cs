@@ -61,6 +61,36 @@ public class FF12JunkItemPlacer : JunkItemPlacer<ItemLocation>
         return ModifyAmount((repItem, amount));
     }
 
+    protected override IEnumerable<ItemLocation> GetLocationsToFill()
+    {
+        HashSet<ItemLocation> extraSlots = GetExtraRewardSlots();
+
+        // Both halves are taken in PossibleLocations order so the shuffles stay seed reproducible.
+        return PossibleLocations.Where(l => !extraSlots.Contains(l)).Shuffle()
+            .Concat(PossibleLocations.Where(extraSlots.Contains).Shuffle())
+            .Take(Replacements.Count);
+    }
+
+    private HashSet<ItemLocation> GetExtraRewardSlots()
+    {
+        HashSet<int> filledRewards = ParentPlacer.FinalPlacement.Keys.OfType<RewardLocation>().Select(r => r.IntID).ToHashSet();
+
+        HashSet<ItemLocation> extraSlots = new();
+        foreach (var reward in PossibleLocations.OfType<RewardLocation>().GroupBy(r => r.IntID))
+        {
+            IEnumerable<RewardLocation> slots = reward;
+            if (!filledRewards.Contains(reward.Key))
+            {
+                // Hold back a random slot so the reward is guaranteed an item.
+                slots = slots.Shuffle().Skip(1);
+            }
+
+            extraSlots.UnionWith(slots);
+        }
+
+        return extraSlots;
+    }
+
     protected override HashSet<ItemLocation> GetEmptyMultiLocations()
     {
         TreasureRando treasureRando = Generator.Get<TreasureRando>();

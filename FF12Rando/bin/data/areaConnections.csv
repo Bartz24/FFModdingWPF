@@ -48,7 +48,7 @@ Ozmone <-> Giza Dry,Ozmone Plain,Giza Plains Dry,I(80E0),BothWays,1
 Ozmone <-> Giza Rains,Ozmone Plain,Giza Plains Rains,I(80E0),BothWays,1
 Ozmone <-> Jahara,Ozmone Plain,Jahara,,BothWays,1
 Ozmone <-> Golmore NW,Ozmone Plain,Golmore Jungle NW,,BothWays,1
-Ozmone -> Henne,Ozmone Plain,Henne Mines,OR(I(80E9)|AND(OR(I(80E7)|I(80E8))|I(80E0))|AND(I(80EA)|I(80B7))),,1
+Ozmone -> Henne,Ozmone Plain,Henne Mines,OR(I(80E9)|AND(OR(I(80E7)|I(80E8))|I(80E0))|AND(I(80EA)|I(80B7))|AND(A(Mosphoran Highwaste)|I(80EE)|I(80E0))),,1
 Ozmone <- Henne,Henne Mines,Ozmone Plain,I(80E9),,1
 Henne -> Henne Difficult,Henne Mines,Henne Mines Deep,C(Esper|10),,8
 Henne Difficult -> Henne Feywood,Henne Mines Deep,Henne Mines Feywood,,,8
