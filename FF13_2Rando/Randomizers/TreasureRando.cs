@@ -264,6 +264,33 @@ public partial class TreasureRando : Randomizer
         AddTreasure("frgcmn_hmha003", "frg_cmn_hmha003", 0, "");
         AddTreasure("frgcmn_ddha001", "frg_cmn_ddha001", 0, "");
 
+        AddTreasure("frgpzl_gwca001", "frg_pzl_gwca001", 0, "");
+        AddTreasure("frgpzl_gwca002", "frg_pzl_gwca002", 0, "");
+        AddTreasure("frgpzl_gwca003", "frg_pzl_gwca003", 0, "");
+        AddTreasure("frgpzl_gwca004", "frg_pzl_gwca004", 0, "");
+        AddTreasure("frgpzl_gwca005", "frg_pzl_gwca005", 0, "");
+        AddTreasure("frgpzl_gwca006", "frg_pzl_gwca006", 0, "");
+        AddTreasure("frgpzl_gwca007", "frg_pzl_gwca007", 0, "");
+        AddTreasure("frgpzl_gwca008", "frg_pzl_gwca008", 0, "");
+        AddTreasure("frgpzl_gwca009", "frg_pzl_gwca009", 0, "");
+        AddTreasure("frgpzl_gwca010", "frg_pzl_gwca010", 0, "");
+        AddTreasure("frgpzl_gwca011", "frg_pzl_gwca011", 0, "");
+        AddTreasure("frgpzl_gwca012", "frg_pzl_gwca012", 0, "");
+        AddTreasure("frgpzl_gwca013", "frg_pzl_gwca013", 0, "");
+        AddTreasure("frgpzl_gwca014", "frg_pzl_gwca014", 0, "");
+        AddTreasure("frgpzl_gwca015", "frg_pzl_gwca015", 0, "");
+        AddTreasure("frgpzl_gwca016", "frg_pzl_gwca016", 0, "");
+        AddTreasure("frgpzl_gwca017", "frg_pzl_gwca017", 0, "");
+        AddTreasure("frgpzl_gwca018", "frg_pzl_gwca018", 0, "");
+        AddTreasure("frgpzl_gwca019", "frg_pzl_gwca019", 0, "");
+        AddTreasure("frgpzl_gwca020", "frg_pzl_gwca020", 0, "");
+
+        AddTreasure("frgcmn_csza001", "frg_cmn_csza001", 0, "");
+        AddTreasure("frgcmn_csza003", "frg_cmn_csza003", 0, "");
+        AddTreasure("keycasino_prz",  "key_casino_prz",  0, "");
+        AddTreasure("keychaos_cly",   "key_chaos_cly",   0, "");
+        AddTreasure("keycasino_dice", "key_casino_dice", 0, "");
+
         // Artefact experimenting
         AddTreasure("opt_aaea02_sp", "opt_aaea02_sp", 1, "");
         AddTreasure("opt_acea01_gt", "opt_acea01_gt", 1, "");
@@ -283,9 +310,13 @@ public partial class TreasureRando : Randomizer
         AddTreasure("privilege10", "privilege10", 1, "");
         AddTreasure("privilege11", "privilege11", 1, "");
         AddTreasure("privilege12", "privilege12", 1, "");
+        AddTreasure("privilege13", "privilege13", 1, "");
         AddTreasure("privilege14", "privilege14", 1, "");
         AddTreasure("privilege15", "privilege15", 1, "");
         AddTreasure("privilege18", "privilege18", 1, "");
+        AddTreasure("privilege20", "privilege20", 1, "");
+        AddTreasure("privilege21", "privilege21", 1, "");
+        AddTreasure("privilege22", "privilege22", 1, "");
 
         /**
          * Meta-treasures used for "dynamic" scripting
@@ -419,7 +450,7 @@ public partial class TreasureRando : Randomizer
         ItemLocations["hs_gdza01_vp:0"].Requirements = new AndItemReq([new AmountItemReq("opt_gdaa01_vp", 1), new AmountItemReq("boss_faeryl", 1)]);
         ItemLocations["hs_ghaa02_gt:0"].Requirements = new AmountItemReq("opt_ghaa01_gt", 1);
         ItemLocations["hs_gtca02_gw:0"].Requirements = new AndItemReq([new AmountItemReq("opt_gtca02_gw", 1), new AmountItemReq("key_access_la", 1)]);
-        ItemLocations["hs_gwda01_gw:0"].Requirements = new AmountItemReq("opt_gwda01_gw", 1);
+        ItemLocations["hs_gwda01_gw:0"].Requirements = new AndItemReq([new AmountItemReq("opt_gwda01_gw", 1), new TraitAmountItemReq("Oerba300", 6)]);
         ItemLocations["hs_gyba01_sn:0"].Requirements = new AmountItemReq("opt_gyba01_sn", 1);
         // update gate table with custom artefact name
         HistoriaCruxRando hisRand = Generator.Get<HistoriaCruxRando>();
