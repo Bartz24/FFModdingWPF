@@ -65,6 +65,14 @@ public class EquipRando : Randomizer
             items[s].sHelpStringId = $"${s}h";
             items[s].u8MenuIcon = 7;
         }
+
+        // Casino price overrides for simpler logic for now
+        // A single ticket gives you enough coins to get these
+        items["key_chaos_cly"].i16ScriptArg1 = 20;
+        items["key_casino_prz"].i16ScriptArg1 = 10;
+        items["key_casino_dice"].i16ScriptArg1 = 20;
+
+        // Shop rando should appear somewhere eventually and do things like this on a larger scale...
     }
     public override void Randomize()
     {

@@ -53,28 +53,28 @@ Yaschas Massif|110 AF|Waltraute's Flower|Crimson Memories|Mission:Service Manual
 Yaschas Massif|110 AF|Gerhilde's Blossom|Crimson Memories|Mission: Wedding Jewelry|N
 Yaschas Massif|110 AF|Ortlinde's Bloom|Crimson Memories|Mission: Terrorist's Mark|N
 Yaschas Massif|110 AF|Book of Avalon|Crimson Memories|Temporal Rift: Pass|N
-Oerba|200 AF|Time's Stardust|Great Mog Wisdom|Temporal Rift|N
-Oerba|200 AF|Giant Egg|Fate's Recollection|Moogle Hunt|N
-Oerba|200 AF|Time's Shell|Great Mog Wisdom|Temporal Rift|N
-Oerba|200 AF|Time's Coral|Great Mog Wisdom|Temporal Rift|N
+Oerba|200 AF|Time's Stardust|Great Mog Wisdom|Temporal Rift|Y
+Oerba|200 AF|Giant Egg|Fate's Recollection|Moogle Hunt|Y
+Oerba|200 AF|Time's Shell|Great Mog Wisdom|Temporal Rift|Y
+Oerba|200 AF|Time's Coral|Great Mog Wisdom|Temporal Rift|Y
 Oerba|200 AF|Graviton Core Gamma|Graviton Core|Moogle Hunt|Y
-Oerba|300 AF|Spinning Moonstone|Great Mog Wisdom|Temporal Rift|N
-Oerba|300 AF|Sparkling Runestone|Great Mog Wisdom|Temporal Rift|N
-Oerba|300 AF|Astonishing Limestone|Great Mog Wisdom|Temporal Rift|N
-Oerba|300 AF|Thrilling Milestone|Great Mog Wisdom|Temporal Rift|N
-Oerba|300 AF|Lovely Starstone|Great Mog Wisdom|Hunt Temporal Rift|N
-Oerba|300 AF|Bubbly Stone|Great Mog Wisdom|Hunt Temporal Rift|N
-Oerba|300 AF|Scorching Firestone|Great Mog Wisdom|Temporal Rift|N
-Oerba|300 AF|Dewy Bloodstone|Great Mog Wisdom|Temporal Rift|N
-Oerba|300 AF|Mossy Rosetta Stone|Great Mog Wisdom|Temporal Rift|N
-Oerba|400 AF|Bittersweet Chiffon|Great Mog Wisdom|Temporal Rift|N
-Oerba|400 AF|Temulous Muffin|Great Mog Wisdom|Temporal Rift|N
-Oerba|400 AF|Beloved Cinnamon|Great Mog Wisdom|Temporal Rift|N
-Oerba|400 AF|Selfish Pancake|Great Mog Wisdom|Temporal Rift|N
-Oerba|400 AF|Farewell Madeleine|Great Mog Wisdom|Temporal Rift|N
-Oerba|400 AF|Teatime Mont Blanc|Great Mog Wisdom|Temporal Rift|N
-Oerba|400 AF|Dishonest Mille-feuille|Great Mog Wisdom|Temporal Rift|N
-Oerba|400 AF|Pink Parfait|Great Mog Wisdom|Temporal Rift after clearing all others|N
+Oerba|300 AF|Spinning Moonstone|Great Mog Wisdom|Temporal Rift|Y
+Oerba|300 AF|Sparkling Runestone|Great Mog Wisdom|Temporal Rift|Y
+Oerba|300 AF|Astonishing Limestone|Great Mog Wisdom|Temporal Rift|Y
+Oerba|300 AF|Thrilling Milestone|Great Mog Wisdom|Temporal Rift|Y
+Oerba|300 AF|Lovely Starstone|Great Mog Wisdom|Hunt Temporal Rift|Y
+Oerba|300 AF|Bubbly Stone|Great Mog Wisdom|Hunt Temporal Rift|Y
+Oerba|300 AF|Scorching Firestone|Great Mog Wisdom|Temporal Rift|Y
+Oerba|300 AF|Dewy Bloodstone|Great Mog Wisdom|Temporal Rift|Y
+Oerba|300 AF|Mossy Rosetta Stone|Great Mog Wisdom|Temporal Rift|Y
+Oerba|400 AF|Bittersweet Chiffon|Great Mog Wisdom|Temporal Rift|Y
+Oerba|400 AF|Temulous Muffin|Great Mog Wisdom|Temporal Rift|Y
+Oerba|400 AF|Beloved Cinnamon|Great Mog Wisdom|Temporal Rift|Y
+Oerba|400 AF|Selfish Pancake|Great Mog Wisdom|Temporal Rift|Y
+Oerba|400 AF|Farewell Madeleine|Great Mog Wisdom|Temporal Rift|Y
+Oerba|400 AF|Teatime Mont Blanc|Great Mog Wisdom|Temporal Rift|Y
+Oerba|400 AF|Dishonest Mille-feuille|Great Mog Wisdom|Temporal Rift|Y
+Oerba|400 AF|Pink Parfait|Great Mog Wisdom|Temporal Rift after clearing all others|Y
 Oerba|400 AF|Graviton Core Zeta|Graviton Core||Y
 Oerba|??? AF|Transcript: Vanille's Truth|Paradox Ending|Paradox Scope Caius|Y
 Sunleth Waterscape|300 AF|Extraordinary Egg|Fate's Recollection|Moogle Throw|Y
@@ -101,11 +101,11 @@ Archylte Steppe|??? AF|Forest Crystal|Oracle of Etro|Cloudy warp|Y
 Archylte Steppe|??? AF|Amber Crystal|Oracle of Etro|Clearwater warp|Y
 Archylte Steppe|??? AF|Violet Crystal|Oracle of Etro|Stormy warp|Y
 Archylte Steppe|9?? AF|Transcript: A Giant Mistake|Paradox Ending|Paradox Scope Atlas|Y
-Serendipity|??? AF|Chocochick Down|An Affectionate Message|Chocobo chick|N
-Serendipity|??? AF|Priceless Gift|An Affectionate Message|Purchase from casino|N
-Serendipity|??? AF|Setzer's Dice|Fate's Recollection|Purchase from casino|N
-Serendipity|??? AF|Lucky Coin|An Affectionate Message|7777 slots|N
-Serendipity|??? AF|Chaos Crystal|Fragment Items|Purchase from casino|N
+Serendipity|??? AF|Chocochick Down|An Affectionate Message|Chocobo chick|Y
+Serendipity|??? AF|Priceless Gift|An Affectionate Message|Purchase from casino|Y
+Serendipity|??? AF|Setzer's Dice|Fate's Recollection|Purchase from casino|Y
+Serendipity|??? AF|Lucky Coin|An Affectionate Message|7777 slots|Y
+Serendipity|??? AF|Chaos Crystal|Fragment Items|Purchase from casino|Y
 Academia|400 AF|Zenobia Fragment|Monster Bits|Defeat Zenobia|Y
 Academia|400 AF|Academic Rank: Paradox Professor|Academic Reward|Collect all Travel Guide fragments|Y
 Academia|400 AF|Travel Guide: New Bodhum|Academic Reward|Map completion|Y

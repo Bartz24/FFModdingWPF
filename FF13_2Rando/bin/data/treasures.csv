@@ -67,7 +67,8 @@ tre_bjaa_025,Echoes of the Past Wild gate area,h_bj_AD0300,0,,,
 tre_bjda_001,Echoes of the Past Recording Device,h_bj_AD0300,1,,,SideKey
 tre_bjda_reopt,Echoes of the Past Chocobo jump area,h_bj_AD0300,0,,,GateSeal
 tre_bjda_opts1,Lamentable Rest Wild Artefact,h_bj_AD0300,1,,I(frg_itm_bjda001|1),Wild
-zkey_kansoku,Old Device,h_bj_AD0300,0,,I(frg_bj_11_init|1),ScrEvent|SideKey
+# Can become missable in some situations
+zkey_kansoku,Old Device,h_bj_AD0300,0,,I(frg_bj_11_init|1),ScrEvent|SideKey|Missable
 zkey_f_colonel,Commander's Report,h_bj_AD0300,0,,,ScrEvent|SideKey
 # Can be missed if you hand in the quest directly without talking to the guy?
 zkey_f_message,My Buddy's Message,h_bj_AD0300,0,,,ScrEvent|SideKey|Missable
@@ -84,7 +85,7 @@ tre_bjaa_018,Echoes of the Past South Inside Lower,h_bj_AD0005|h_bj_AD0300|h_bj_
 tre_bjaa_020,Echoes of the Past North Inside Central,h_bj_AD0005|h_bj_AD0300|h_bj_AD0100,0,,,
 tre_bjaa_022,Echoes of the Past South Inside West Reveal,h_bj_AD0005|h_bj_AD0300|h_bj_AD0100,1,,,
 # Yaschas Massif 10
-tre_gyaa_012,Pass of Paddra Raised area box,h_gy_AD0010,0,,OR(I(greens_in_shop|1)|I(key_mog_level|2)),SideKey
+tre_gyaa_012,Pass of Paddra Raised area box,h_gy_AD0010,0,,OR(AND(I(greens_in_shop|1)|I(opt_gyaa01_gw|1))|I(key_mog_level|2)),SideKey
 tre_gyaa_025,Pass of Paddra Central alcove box,h_gy_AD0010,0,,,SideKey
 zopt_gyaa01_gw,Hollow Artefact,h_gy_AD0010,0,,,ScrEvent|Artefact
 ztmap_gy,Map of the Yaschas Massif,h_gy_AD0010,0,,,ScrEvent|Map
@@ -122,7 +123,7 @@ tre_gyaa_016,Paddreaean Archaeopolis Upper South Balcony,h_gh_AD0010|h_gy_AD0200
 tre_gyaa_001,Pass of Paddra Southwest reveal,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,1,,,
 tre_gyaa_002,Pass of Paddra Southeast throw,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,2,,,
 tre_gyaa_003,Pass of Paddra Northwest alcove,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,,
-tre_gyaa_004,Pass of Paddra Raised area,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,OR(I(greens_in_shop|1)|I(key_mog_level|2)),
+tre_gyaa_004,Pass of Paddra Raised area,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,OR(AND(I(greens_in_shop|1)|OR(A(h_gh_AD0010)|A(h_gy_AD0200)|A(h_gy_AD0100))|I(opt_gyaa01_gw))|I(key_mog_level|2)),
 tre_gyaa_006,Pass of Paddra West alcove,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,,
 tre_gyaa_008,Pass of Paddra Northeast junction reveal,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,1,,,
 tre_gyaa_009,Pass of Paddra East alcove,h_gy_AD0010|h_gh_AD0010|h_gy_AD0200|h_gy_AD0100,0,,,
@@ -141,15 +142,36 @@ tre_gwca_opt01,Village Proper Wild Artefact West Throw,h_gw_AD0200,2,,,Wild
 tre_gyaa_reopt,Village Proper Bhakti's House,h_gw_AD0200,1,,,GateSeal
 zopt_gwca01_gh,Artefact of Origins,h_gw_AD0200,1,,,ScrEvent|Artefact
 #frg_pzl_gwca003,Time's Coral,h_gw_AD0200,1,,,Fragment|Fixed
+zfrgpzl_gwca001,Time's Stardust,h_gw_AD0200,1,,,Fragment|ScrEvent
+zfrgpzl_gwca002,Time's Shell,h_gw_AD0200,1,,,Fragment|ScrEvent
+zfrgpzl_gwca003,Time's Coral,h_gw_AD0200,1,,,Fragment|ScrEvent
 # Oerba 300
 tre_acea_reopt,Village Proper West Throw,h_gw_AD0300,2,,,GateSeal
 tre_gwda_reopt,Village Proper Central Throw,h_gw_AD0300,2,,,GateSeal
+zfrgpzl_gwca004,Village Proper West Rift,h_gw_AD0300,,,,Fragment|ScrEvent
+zfrgpzl_gwca005,Village Proper Southeast Rift,h_gw_AD0300,,,,Fragment|ScrEvent
+zfrgpzl_gwca006,Village Proper Northeast Rift,h_gw_AD0300,,,,Fragment|ScrEvent
+zfrgpzl_gwca007,Village Proper Billboard Rift,h_gw_AD0300,,,,Fragment|ScrEvent
+zfrgpzl_gwca008,Village Proper Northwest Hidden Rift,h_gw_AD0300,1,,,Fragment|ScrEvent
+zfrgpzl_gwca009,Ashensand Hidden Rift,h_gw_AD0300,1,,,Fragment|ScrEvent
+zfrgpzl_gwca010,Village Proper Gate Rift,h_gw_AD0300,,,T(Oerba300|6),Fragment|ScrEvent
+zfrgpzl_gwca011,Village Proper Near Tree Rift,h_gw_AD0300,,,,Fragment|ScrEvent
+zfrgpzl_gwca012,Village Entrance Rift,h_gw_AD0300,,,T(Oerba300|8),Fragment|ScrEvent
 # Oerba 400
 tre_gwea_reopt,Village Proper Branches Throw near beach,h_gw_AD0400,2,,,GateSeal
 tre_gwca_007,The Ashensand Far east shore,h_gw_AD0400,1,,,
 tre_gwca_011,The Ashensand East Shoreline,h_gw_AD0400,1,,,
 tre_gwca_012,The Ashensand Village entrance,h_gw_AD0400,0,,,
 tre_gvtn6,The Ashensand Fragment West Shoreline,h_gw_AD0400,1,,,Graviton
+zfrgpzl_gwca013,Village Proper Central Rift,h_gw_AD0400,,,,Fragment|ScrEvent
+zfrgpzl_gwca014,Village Proper South Rift,h_gw_AD0400,,,,Fragment|ScrEvent
+zfrgpzl_gwca015,Ashensand Shoreline Rift,h_gw_AD0400,,,,Fragment|ScrEvent
+zfrgpzl_gwca016,Village Proper North Rift,h_gw_AD0400,,,,Fragment|ScrEvent
+zfrgpzl_gwca017,Village Proper West Rift,h_gw_AD0400,,,,Fragment|ScrEvent
+zfrgpzl_gwca018,Deserted Schoolhouse Hiden Rift,h_gw_AD0400,1,,,Fragment|ScrEvent
+zfrgpzl_gwca019,Village Proper Hidden Rift in building,h_gw_AD0400,1,,,Fragment|ScrEvent
+# Also accessible from all oerba 300 clear? verify this.
+zfrgpzl_gwca020,Ashensand Rift near stairs,h_gw_AD0400,,,T(Oerba400|7),Fragment|ScrEvent
 # Oerba ALL
 # Locked in oerba 300 until after rift
 tre_gwca_001,Village Proper West Alcove,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|AND(A(h_gw_AD0300)|I(key_mog_level|1))|A(h_gw_AD0400)),
@@ -355,18 +377,28 @@ ztmap_cs,Map of Serendipity,h_cs_NA0000,0,,,ScrEvent|Map
 zcs_chip_00,Casino Ticket,h_cs_NA0000,0,,,ScrEvent|Casino
 tre_csza_002,Temptation Plaza Outside,h_cs_NA0000,0,,,
 tre_ghaa_reopt,Temptation Plaza Inside,h_cs_NA0000,0,,,GateSeal
-tre_csza_opts1,Wild Artefact In Shop,h_cs_NA0000,0,,,Wild|Fixed
+# This isn't real...
+# tre_csza_opts1,Wild Artefact In Shop,h_cs_NA0000,0,,,Wild|Fixed|Missable
+zfrgcmn_csza001,Lucky Coin,h_cs_NA0000,,,,Fragment|ScrEvent|Missable
+zfrgcmn_csza003,Chocochick Down,h_cs_NA0000,,,,Fragment|ScrEvent
+zkeycasino_prz,Priceless Gift,h_cs_NA0000,,,T(CasinoCoins),Fragment|ScrEvent
+zkeychaos_cly,Chaos Crystal,h_cs_NA0000,,,T(CasinoCoins),Fragment|ScrEvent
+zkeycasino_dice,Setzer's Dice,h_cs_NA0000,,,T(CasinoCoins),Fragment|ScrEvent
 #Fragment Skills (serendipity)
 zprivilege01,Mog's Manifestation,h_cs_NA0000,0,,I(frg_pzl_gwca003|1),ScrEvent|FragmentSkill
 zprivilege02,Bargain Hunter,h_cs_NA0000,0,,I(frg_cmn_spza001|1),ScrEvent|FragmentSkill
 zprivilege03,Haggler,h_cs_NA0000,0,,I(frg_cmn_snda002|1),ScrEvent|FragmentSkill
-zprivilege04,Chocobo Music,h_cs_NA0000,0,,AND(T(frgmb|21)|T(frgbh|8)),ScrEvent|FragmentSkill
+zprivilege04,Chocobo Music (Cocoon),h_cs_NA0000,0,,AND(T(frgmb|21)|T(frgbh|8)),ScrEvent|FragmentSkill
+zprivilege20,Chocobo Music (Pulse),h_cs_NA0000,0,,AND(T(frgmb|21)|T(frgbh|8)),ScrEvent|FragmentSkill
+zprivilege21,Chocobo Music (Crazy),h_cs_NA0000,0,,AND(T(frgmb|21)|T(frgbh|8)),ScrEvent|FragmentSkill
+zprivilege22,Chocobo Music (Race),h_cs_NA0000,0,,AND(T(frgmb|21)|T(frgbh|8)),ScrEvent|FragmentSkill
 zprivilege05,Anti-grav Jump,h_cs_NA0000,0,,I(frg_cmn_ddha001|1),ScrEvent|FragmentSkill
 zprivilege06,Paradox Scope (Skill),h_cs_NA0000,0,,I(frg_cmn_acfa002|1),ScrEvent|FragmentSkill
 zprivilege08,Rolling in CP,h_cs_NA0000,0,,AND(T(Yaschas10|5)|T(Yaschas1x|4)|T(Yaschas|13)|T(Bresha5|8)|T(Bresha|10)),ScrEvent|FragmentSkill
 zprivilege10,Mobile Mog,h_cs_NA0000,0,,AND(T(Oerba200|5)|T(Oerba300|9)|T(Oerba400|8)|I(frg_cmn_pdxe002)),ScrEvent|FragmentSkill
 zprivilege11,Monster Collector,h_cs_NA0000,0,,T(frgvp|12),ScrEvent|FragmentSkill
-zprivilege12,Encounter Master,h_cs_NA0000,0,,AND(T(Yaschas10|5)|T(Yaschas1x|4)|T(Yaschas|13)),ScrEvent|FragmentSkill
+zprivilege12,Encounter Master (More),h_cs_NA0000,0,,AND(T(Yaschas10|5)|T(Yaschas1x|4)|T(Yaschas|13)),ScrEvent|FragmentSkill
+zprivilege13,Encounter Master (Less),h_cs_NA0000,0,,AND(T(Yaschas10|5)|T(Yaschas1x|4)|T(Yaschas|13)),ScrEvent|FragmentSkill
 zprivilege14,Battlemania,h_cs_NA0000,0,,AND(T(TravelGuide|10)|I(frg_cmn_acea011)),ScrEvent|FragmentSkill
 zprivilege15,Field Killer,h_cs_NA0000,0,,AND(T(frgmw|21)|T(frgac|5)|T(TravelGuide|10)),ScrEvent|FragmentSkill
 zprivilege18,Eyes of the Goddess,h_cs_NA0000,0,,AND(T(Bodhum3|4)|T(Bresha5|8)|T(Yaschas10|5)|T(Yaschas1x|4)|T(Sunleth300|2)|T(Oerba200|5)),ScrEvent|FragmentSkill
