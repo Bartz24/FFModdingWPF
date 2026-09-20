@@ -1,6 +1,6 @@
 {
   "name": "4 - Hopeless",
-  "version": "0.8.2.29",
+  "version": "0.8.2.57",
   "flags": [
     {
       "FlagEnabled": true,
@@ -28,23 +28,23 @@
       "FlagProperties": []
     },
     {
-      "FlagEnabled": false,
+      "FlagEnabled": true,
       "FlagID": "EnemyStats",
       "FlagProperties": [
         {
-          "Value": 100,
+          "Value": 500,
           "ID": "EnemyHPMP"
         },
         {
-          "Value": 100,
+          "Value": 150,
           "ID": "EnemyBaseStats"
         },
         {
-          "Value": 100,
+          "Value": 200,
           "ID": "EnemySize"
         },
         {
-          "Value": 100,
+          "Value": 500,
           "ID": "EnemyEXPLP"
         }
       ]
@@ -53,6 +53,10 @@
       "FlagEnabled": true,
       "FlagID": "Treasures",
       "FlagProperties": [
+        {
+          "Value": 1916,
+          "ID": "NumTreasures"
+        },
         {
           "SelectedValues": [
             "Find on Random Max Sphere Location"
@@ -82,6 +86,7 @@
             "Crescent Stone",
             "Cruel Trophy",
             "Cuchulainn Esper",
+            "Curiel Greens",
             "Dawn Shard",
             "Dragon Scale",
             "Dull Fragment",
@@ -101,8 +106,11 @@
             "Goddess's Magicite",
             "Gravesoil Trophy",
             "Grimy Fragment",
+            "Gysahl Greens",
             "Hashmal Esper",
             "Hide-covered Trophy",
+            "Krakka Greens",
+            "Kupo Nuts",
             "Lab Access Card",
             "Leathern Trophy",
             "Lente's Tear",
@@ -116,15 +124,19 @@
             "Medallion of Might",
             "Merchant's Armband",
             "Metallic Trophy",
+            "Mimett Greens",
             "Mind Trophy",
             "Moonsilver Medallion",
             "Nalbina Aeropass",
             "No. 1 Brig Key",
             "Odiferous Trophy",
+            "Pahsana Greens",
             "Pilika's Diary",
+            "Progressive Trial Unlocks",
             "Rabanastre Aeropass",
             "Rabbit Tail",
             "Rainstone",
+            "Reagan Greens",
             "Reptilian Trophy",
             "Ring of the Light",
             "Ring of the Toad",
@@ -150,7 +162,9 @@
             "Sunstone",
             "Sword of Kings",
             "Sword of the Order",
+            "Sylkis Greens",
             "Systems Access Key",
+            "Tantal Greens",
             "Treaty-Blade",
             "Tube Fuse",
             "Ultima Esper",
@@ -165,6 +179,14 @@
             "Zodiark Esper"
           ],
           "ID": "KeyItems"
+        },
+        {
+          "Enabled": false,
+          "ID": "RemoveSecondBoard"
+        },
+        {
+          "Value": 100,
+          "ID": "TrialMaxStage"
         },
         {
           "Value": 28,
@@ -203,7 +225,7 @@
           "ID": "KeyPlaceGrindy"
         },
         {
-          "Enabled": false,
+          "Enabled": true,
           "ID": "KeyPlaceHidden"
         },
         {
@@ -274,7 +296,12 @@
     {
       "FlagEnabled": true,
       "FlagID": "ShufflePrices",
-      "FlagProperties": []
+      "FlagProperties": [
+        {
+          "Value": 1000000,
+          "ID": "ShufflePricesMaxNonOutfitter"
+        }
+      ]
     },
     {
       "FlagEnabled": true,

@@ -29,7 +29,7 @@ public class FF12JunkItemPlacer : JunkItemPlacer<ItemLocation>
         {
             repItem = orig.Item;
         }
-        else if (!TomajWritPlaced && FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalAny) && !location.Traits.Contains("Missable"))
+        else if (!TomajWritPlaced && FF12Flags.Items.WritGoals.SelectedValues.Contains(FF12Flags.Items.WritGoalAny) && !location.Traits.Contains("Missable") && !ParentPlacer.IsAboveTrialRewardLimit(location))
         {
             repItem = "8070";
             TomajWritPlaced = true;

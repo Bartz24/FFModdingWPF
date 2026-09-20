@@ -33,8 +33,11 @@
                 </Button>
             </StackPanel>
             <ScrollViewer>
-                <ListBox x:Name="musicList" ItemsSource="{Binding Path=MusicPackList, UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" BorderBrush="Black">
-                </ListBox>
+                <StackPanel>
+                    <ListBox x:Name="musicList" ItemsSource="{Binding Path=MusicPackList, UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" BorderBrush="Black">
+                    </ListBox>
+                    <local:FileDropLabel x:Name="dragDropLabel" Margin="5,10" IdleText="You can also drag and drop one or more music pack 7z files onto this window."/>
+                </StackPanel>
             </ScrollViewer>
         </DockPanel>
     </DockPanel>

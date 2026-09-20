@@ -1,11 +1,13 @@
 using Ookii.Dialogs.Wpf;
 using SharpCompress.Archives.SevenZip;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using System.Windows.Threading;
 
 namespace Bartz24.RandoWPF;
 
@@ -22,6 +24,9 @@ public partial class MusicPage : UserControl
         new PropertyMetadata());
     public ObservableCollection<string> MusicPackList { get; set; } = new ObservableCollection<string>();
 
+    private FileDragDropHandler dragDropHandler;
+    private FileType musicPackFileType;
+
     public UIElementCollection Children
     {
         get => (UIElementCollection)GetValue(ChildrenProperty.DependencyProperty);
@@ -36,6 +41,50 @@ public partial class MusicPage : UserControl
         {
             UpdateMusicPackList();
         }
+
+        // Drops are accepted on the whole window. Wait for it to exist, since this page's tab may not
+        // have been shown yet.
+        Dispatcher.BeginInvoke(DispatcherPriority.Loaded, AttachDragDrop);
+    }
+
+    private void AttachDragDrop()
+    {
+        Window window = Window.GetWindow(this) ?? Application.Current?.MainWindow;
+        if (window == null || dragDropHandler != null)
+        {
+            return;
+        }
+
+        dragDropHandler = FileDragDropHandler.GetOrCreateForWindow(window);
+        musicPackFileType = dragDropHandler.AddMultiFileType(".7z", "music packs", InstallMusicPacks);
+        dragDropHandler.DragEntered += DragDrop_DragEntered;
+        dragDropHandler.DragEnded += dragDropLabel.Reset;
+    }
+
+    private void DragDrop_DragEntered(FileDragInfo info)
+    {
+        if (info.Type != musicPackFileType)
+        {
+            return;
+        }
+
+        List<string> installed = info.Paths.Select(Path.GetFileNameWithoutExtension).Where(IsInstalled).ToList();
+        int newCount = info.Paths.Count - installed.Count;
+
+        string message = newCount switch
+        {
+            0 when installed.Count == 1 => $"Music pack {installed[0]} is already installed.",
+            0 => $"Music packs are already installed: {string.Join(", ", installed)}",
+            1 when info.Paths.Count == 1 => $"Drop to install the music pack: {Path.GetFileName(info.Path)}",
+            1 => "Drop to install 1 music pack",
+            _ => $"Drop to install {newCount} music packs"
+        };
+        if (newCount > 0 && installed.Count > 0)
+        {
+            message += $" ({string.Join(", ", installed)} already installed)";
+        }
+
+        dragDropLabel.ShowDrag(dragDropHandler, newCount > 0, message);
     }
 
     private void UpdateMusicPackList()
@@ -49,60 +98,110 @@ public partial class MusicPage : UserControl
         VistaOpenFileDialog dialog = new()
         {
             Title = "Please select a compressed file of the music.",
-            Multiselect = false,
+            Multiselect = true,
             Filter = "7zip|*.7z"
         };
         if ((bool)dialog.ShowDialog())
         {
-            string path = dialog.FileName.Replace("/", "\\");
+            InstallMusicPacks(dialog.FileNames.Select(p => p.Replace("/", "\\")).ToList());
+        }
+    }
+
+    private static bool IsInstalled(string name)
+    {
+        return Directory.Exists("data\\musicPacks\\" + name);
+    }
+
+    private void InstallMusicPacks(IReadOnlyList<string> paths)
+    {
+        List<string> installed = new(), skipped = new(), failed = new(), invalid = new();
+        foreach (string path in paths)
+        {
             string name = System.IO.Path.GetFileNameWithoutExtension(path);
-            if (File.Exists(path) && !Directory.Exists("data\\musicPacks\\" + name))
+            if (!File.Exists(path))
             {
-                try
-                {
-                    using (SevenZipArchive archive = SevenZipArchive.Open(path))
-                    using (SharpCompress.Readers.IReader reader = archive.ExtractAllEntries())
-                    {
-                        while (reader.MoveToNextEntry())
-                        {
-                            if (!reader.Entry.IsDirectory)
-                            {
-                                using (SharpCompress.Common.EntryStream entryStream = reader.OpenEntryStream())
-                                {
-                                    string extractedPath = "data\\musicPacks\\" + name + "\\" + reader.Entry.Key;
-                                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(extractedPath)))
-                                    {
-                                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(extractedPath));
-                                    }
-
-                                    using (FileStream writeStream = File.OpenWrite(extractedPath))
-                                    {
-                                        entryStream.CopyTo(writeStream);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    MessageBox.Show("Music pack has been successfully installed.");
-                    UpdateMusicPackList();
-                }
-                catch
-                {
-                    MessageBox.Show("Failed to install the music pack when extracting the files.");
-                }
+                invalid.Add(name);
+            }
+            else if (IsInstalled(name))
+            {
+                skipped.Add(name);
+            }
+            else if (InstallMusicPack(path, name))
+            {
+                installed.Add(name);
             }
             else
             {
-                if (Directory.Exists("data\\musicPacks\\" + name))
+                failed.Add(name);
+            }
+        }
+
+        if (installed.Count > 0)
+        {
+            UpdateMusicPackList();
+        }
+
+        // One summary for the whole batch rather than a message box per pack.
+        List<string> lines = new();
+        if (installed.Count > 0)
+        {
+            lines.Add(installed.Count == 1
+                ? $"Music pack {installed[0]} has been successfully installed."
+                : $"{installed.Count} music packs have been successfully installed: {string.Join(", ", installed)}");
+        }
+
+        if (skipped.Count > 0)
+        {
+            lines.Add($"A music pack with this name already exists: {string.Join(", ", skipped)}");
+        }
+
+        if (failed.Count > 0)
+        {
+            lines.Add($"Failed to install when extracting the files: {string.Join(", ", failed)}");
+        }
+
+        if (invalid.Count > 0)
+        {
+            lines.Add($"Make sure the selected file is a 7z file: {string.Join(", ", invalid)}");
+        }
+
+        bool anyProblems = skipped.Count + failed.Count + invalid.Count > 0;
+        MessageBox.Show(string.Join("\n\n", lines), anyProblems ? "Some music packs were not installed" : "Music packs installed");
+    }
+
+    private static bool InstallMusicPack(string path, string name)
+    {
+        try
+        {
+            using (SevenZipArchive archive = SevenZipArchive.Open(path))
+            using (SharpCompress.Readers.IReader reader = archive.ExtractAllEntries())
+            {
+                while (reader.MoveToNextEntry())
                 {
-                    MessageBox.Show("There already exists a music pack with this name.", "The selected file is not valid");
-                }
-                else
-                {
-                    MessageBox.Show("Make sure the selected file is a 7z file.", "The selected file is not valid");
+                    if (!reader.Entry.IsDirectory)
+                    {
+                        using (SharpCompress.Common.EntryStream entryStream = reader.OpenEntryStream())
+                        {
+                            string extractedPath = "data\\musicPacks\\" + name + "\\" + reader.Entry.Key;
+                            if (!Directory.Exists(System.IO.Path.GetDirectoryName(extractedPath)))
+                            {
+                                Directory.CreateDirectory(System.IO.Path.GetDirectoryName(extractedPath));
+                            }
+
+                            using (FileStream writeStream = File.OpenWrite(extractedPath))
+                            {
+                                entryStream.CopyTo(writeStream);
+                            }
+                        }
+                    }
                 }
             }
+
+            return true;
+        }
+        catch
+        {
+            return false;
         }
     }
 

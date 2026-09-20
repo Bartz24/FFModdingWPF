@@ -135,6 +135,7 @@ public class FF12Flags
         public static DictListBoxFlagProperty<string> KeyItems;
         public static NumberFlagProperty KeyChops;
         public static NumberFlagProperty KeyBlackOrbs;
+        public static NumberFlagProperty TrialRewardMaxStage;
 
         /// <summary>
         /// An Archipelago seed takes this from the slot data rather than the local flag, since the
@@ -315,6 +316,18 @@ public class FF12Flags
                 Text = "Remove Second Board",
                 ID = "RemoveSecondBoard",
                 Description = "The Second Board item will be removed from the pool. IZJS mode!"
+            }.Register(Treasures);
+
+            TrialRewardMaxStage = new NumberFlagProperty(100)
+            {
+                Text = "Max Include for Trial Stages",
+                ID = "TrialMaxStage",
+                Description = "The highest stage that non-junk rewards can appear in.\n" +
+                "Set to 0 to disable in all stage rewards.",
+                ValueText = "Stage:",
+                MinValue = 0,
+                MaxValue = 100,
+                StepSize = 10
             }.Register(Treasures);
 
             KeyChops = new NumberFlagProperty(0)

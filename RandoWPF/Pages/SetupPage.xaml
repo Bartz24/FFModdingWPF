@@ -95,6 +95,7 @@
                 </StackPanel>
             </Button>
         </Grid>
+        <local:FileDropLabel x:Name="dropHint" Margin="5,0,5,10"/>
     </StackPanel>
     </ScrollViewer>
 </UserControl>

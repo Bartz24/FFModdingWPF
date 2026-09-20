@@ -1,4 +1,3 @@
-using MaterialDesignThemes.Wpf;
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.ObjectModel;
@@ -133,41 +132,40 @@ public partial class FlagsPage : UserControl
         }
     }
 
-    private async void SavePreset_Click(object sender, RoutedEventArgs e)
+    private void SavePreset_Click(object sender, RoutedEventArgs e)
     {
-        NewPresetName.Text = "New Preset";
-        bool result = (bool)await DialogHost.Show(PresetNameDialog.DialogContent, "Main");
-        if (result)
+        string presetsFolder = Path.GetFullPath("presets");
+        if (!Directory.Exists(presetsFolder))
         {
-            string name = NewPresetName.Text;
-            string output = RandoPresets.Serialize(name, SetupData.Version);
-            if (File.Exists(@"presets\" + name + "_Preset.json"))
-            {
-                // Ask for confirmation to override. Append a number if they say no.
-                if (MessageBox.Show("A preset with this name already exists. Do you want to override it?", "Override preset?", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                {
-                    int i = 1;
-                    while (File.Exists(@"presets\" + name + "_" + i + "_Preset.json"))
-                    {
-                        i++;
-                    }
+            Directory.CreateDirectory(presetsFolder);
+        }
 
-                    name += "_" + i;
-                }
+        VistaSaveFileDialog dialog = new()
+        {
+            Title = "Save the preset as a JSON file.",
+            Filter = "JSON|*.json",
+            DefaultExt = "json",
+            AddExtension = true,
+            OverwritePrompt = true,
+            InitialDirectory = presetsFolder,
+            FileName = Path.Combine(presetsFolder, "New Preset_Preset.json")
+        };
+        if ((bool)dialog.ShowDialog())
+        {
+            string path = dialog.FileName.Replace("/", "\\");
+            string name = Path.GetFileNameWithoutExtension(path);
+            if (name.EndsWith("_Preset"))
+            {
+                name = name[..^"_Preset".Length];
             }
 
-            if (!Directory.Exists("presets"))
-            {
-                Directory.CreateDirectory("presets");
-            }
+            File.WriteAllText(path, RandoPresets.Serialize(name, SetupData.Version));
 
-            File.WriteAllText(@"presets\" + name + "_Preset.json", output);
-
-            RandoPresets.LoadPreset(@"presets\" + name + "_Preset.json", true);
+            RandoPresets.LoadPreset(path, true);
             RandoPresets.Selected = RandoPresets.PresetsList.Last(p => !p.CustomModified);
             PresetsList = new ObservableCollection<Preset>(RandoPresets.PresetsList);
             PresetComboBox.GetBindingExpression(ComboBox.ItemsSourceProperty).UpdateTarget();
-            RandoUI.ShowTempUIMessage($"Saved preset to the presets folder as {name + "_Preset.json"}.");
+            RandoUI.ShowTempUIMessage($"Saved preset to {path}.");
         }
     }
 

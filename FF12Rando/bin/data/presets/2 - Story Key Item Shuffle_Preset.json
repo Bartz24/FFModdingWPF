@@ -1,6 +1,6 @@
 {
   "name": "2 - Story Key Item Shuffle",
-  "version": "0.8.1.15",
+  "version": "0.8.2.57",
   "flags": [
     {
       "FlagEnabled": false,
@@ -28,9 +28,35 @@
       "FlagProperties": []
     },
     {
+      "FlagEnabled": false,
+      "FlagID": "EnemyStats",
+      "FlagProperties": [
+        {
+          "Value": 100,
+          "ID": "EnemyHPMP"
+        },
+        {
+          "Value": 100,
+          "ID": "EnemyBaseStats"
+        },
+        {
+          "Value": 100,
+          "ID": "EnemySize"
+        },
+        {
+          "Value": 100,
+          "ID": "EnemyEXPLP"
+        }
+      ]
+    },
+    {
       "FlagEnabled": true,
       "FlagID": "Treasures",
       "FlagProperties": [
+        {
+          "Value": 0,
+          "ID": "NumTreasures"
+        },
         {
           "SelectedValues": [
             "Defeat Cid 2 in Pharos",
@@ -50,6 +76,7 @@
             "Famfrit Esper",
             "Goddess's Magicite",
             "Hashmal Esper",
+            "Kupo Nuts",
             "Lab Access Card",
             "Lente's Tear",
             "Manufacted Nethicite",
@@ -71,6 +98,14 @@
             "Windvane"
           ],
           "ID": "KeyItems"
+        },
+        {
+          "Enabled": false,
+          "ID": "RemoveSecondBoard"
+        },
+        {
+          "Value": 0,
+          "ID": "TrialMaxStage"
         },
         {
           "Value": 3,
@@ -173,6 +208,21 @@
       ]
     },
     {
+      "FlagEnabled": false,
+      "FlagID": "LowerOutfitters",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": false,
+      "FlagID": "ShufflePrices",
+      "FlagProperties": [
+        {
+          "Value": 1000,
+          "ID": "ShufflePricesMaxNonOutfitter"
+        }
+      ]
+    },
+    {
       "FlagEnabled": true,
       "FlagID": "RandBoards",
       "FlagProperties": [
@@ -242,7 +292,7 @@
     },
     {
       "FlagEnabled": false,
-      "FlagID": "TwoPageDesc",
+      "FlagID": "DbgMaxEnemySize",
       "FlagProperties": []
     }
   ]

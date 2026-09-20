@@ -1,6 +1,6 @@
 {
   "name": "3 - Chaos",
-  "version": "0.8.2.27",
+  "version": "0.8.2.57",
   "flags": [
     {
       "FlagEnabled": true,
@@ -54,6 +54,10 @@
       "FlagID": "Treasures",
       "FlagProperties": [
         {
+          "Value": 500,
+          "ID": "NumTreasures"
+        },
+        {
           "SelectedValues": [
             "Defeat Cid 2 in Pharos",
             "Find on Random Max Sphere Location"
@@ -77,6 +81,7 @@
             "Clan Primer",
             "Crescent Stone",
             "Cuchulainn Esper",
+            "Curiel Greens",
             "Dawn Shard",
             "Dragon Scale",
             "Dull Fragment",
@@ -88,7 +93,10 @@
             "Gift of the Great-chief",
             "Goddess's Magicite",
             "Grimy Fragment",
+            "Gysahl Greens",
             "Hashmal Esper",
+            "Krakka Greens",
+            "Kupo Nuts",
             "Lab Access Card",
             "Lente's Tear",
             "Lusterless Medallion",
@@ -98,13 +106,17 @@
             "Medallion of Love",
             "Medallion of Might",
             "Merchant's Armband",
+            "Mimett Greens",
             "Moonsilver Medallion",
             "Nalbina Aeropass",
             "No. 1 Brig Key",
+            "Pahsana Greens",
             "Pilika's Diary",
+            "Progressive Trial Unlocks",
             "Rabanastre Aeropass",
             "Rabbit Tail",
             "Rainstone",
+            "Reagan Greens",
             "Ring of the Light",
             "Ring of the Toad",
             "Rusted Scrap of Armor",
@@ -123,7 +135,9 @@
             "Sunstone",
             "Sword of Kings",
             "Sword of the Order",
+            "Sylkis Greens",
             "Systems Access Key",
+            "Tantal Greens",
             "Treaty-Blade",
             "Tube Fuse",
             "Ultima Esper",
@@ -135,6 +149,14 @@
             "Zodiark Esper"
           ],
           "ID": "KeyItems"
+        },
+        {
+          "Enabled": false,
+          "ID": "RemoveSecondBoard"
+        },
+        {
+          "Value": 0,
+          "ID": "TrialMaxStage"
         },
         {
           "Value": 28,
@@ -233,6 +255,21 @@
         {
           "Value": 50,
           "ID": "TpStoneCount"
+        }
+      ]
+    },
+    {
+      "FlagEnabled": false,
+      "FlagID": "LowerOutfitters",
+      "FlagProperties": []
+    },
+    {
+      "FlagEnabled": false,
+      "FlagID": "ShufflePrices",
+      "FlagProperties": [
+        {
+          "Value": 1000,
+          "ID": "ShufflePricesMaxNonOutfitter"
         }
       ]
     },

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using System.Windows.Threading;
 
 namespace Bartz24.RandoWPF;
 
@@ -22,6 +23,10 @@ public partial class SetupPage : UserControl
         new PropertyMetadata());
     private static bool settingSeed = false;
     private string zipFilter = "ZIP(*.zip)|*.zip";
+
+    private FileDragDropHandler dragDropHandler;
+    private FileType jsonFileType, zipFileType, apFileType;
+    private string apExtension = null;
 
     public string Seed
     {
@@ -70,12 +75,90 @@ public partial class SetupPage : UserControl
         };
 
         SetupData.SeedChanged += (s, e) => Seed = SetupData.Seed;
+
+        UpdateDropHint();
+
+        // Drops are accepted on the whole window. Wait for it to exist, since this page's tab may not
+        // have been shown yet.
+        Dispatcher.BeginInvoke(DispatcherPriority.Loaded, AttachDragDrop);
     }
 
     public void SetAPFileExtension(string ext)
     {
         zipImportText.Text = "Load from ZIP/" + ext.ToUpper().Trim('.');
         zipFilter = "ZIP or " + ext.ToUpper().Trim('.') + "(*.zip;*" + ext.ToLower() + ")|*.zip;*" + ext.ToLower();
+        apExtension = ext.ToUpper().Trim('.');
+
+        if (dragDropHandler != null)
+        {
+            AddAPFileType();
+        }
+
+        UpdateDropHint();
+    }
+
+    private void AttachDragDrop()
+    {
+        Window window = Window.GetWindow(this) ?? Application.Current?.MainWindow;
+        if (window == null || dragDropHandler != null)
+        {
+            return;
+        }
+
+        dragDropHandler = FileDragDropHandler.GetOrCreateForWindow(window);
+        jsonFileType = dragDropHandler.AddFileType(".json", "the seed JSON", LoadSeedFromJson);
+        zipFileType = dragDropHandler.AddFileType(".zip", "the seed from the documentation ZIP", LoadSeedFromZip);
+        if (apExtension != null)
+        {
+            AddAPFileType();
+        }
+
+        dragDropHandler.DragEntered += DragDrop_DragEntered;
+        dragDropHandler.DragEnded += dropHint.Reset;
+    }
+
+    private void AddAPFileType()
+    {
+        if (apFileType != null)
+        {
+            dragDropHandler.RemoveFileType(apFileType);
+        }
+
+        apFileType = dragDropHandler.AddFileType(apExtension, "the Archipelago seed", LoadSeedFromZip);
+    }
+
+    private bool IsSeedFileType(FileType type)
+    {
+        return type != null && (type == jsonFileType || type == zipFileType || type == apFileType);
+    }
+
+    private void DragDrop_DragEntered(FileDragInfo info)
+    {
+        // Other pages can register their own file types on the same window.
+        if (info.IsSupported && !IsSeedFileType(info.Type))
+        {
+            return;
+        }
+
+        dropHint.ShowDrag(dragDropHandler, info.IsSupported, info.IsSupported
+            ? $"Release to load {info.Type.Description}: {Path.GetFileName(info.Path)}"
+            : info.Paths.Count == 1
+                ? $"{Path.GetFileName(info.Path)} is not a seed file. Drop {DescribeAcceptedFiles()}."
+                : info.Paths.Count > 1
+                    ? "Only one seed file can be loaded at a time."
+                    : $"Only files can be dropped. Drop {DescribeAcceptedFiles()}.");
+    }
+
+    private void UpdateDropHint()
+    {
+        dropHint.IdleText = $"You can also drag and drop {DescribeAcceptedFiles()} onto this window.";
+    }
+
+    private string DescribeAcceptedFiles()
+    {
+        return apExtension == null
+            ? "a seed JSON or documentation ZIP"
+            : $"a seed JSON, documentation ZIP, or Archipelago {apExtension}";
     }
 
     private void importJSONButton_Click(object sender, RoutedEventArgs e)
@@ -88,27 +171,31 @@ public partial class SetupPage : UserControl
         };
         if ((bool)dialog.ShowDialog())
         {
-            string path = dialog.FileName.Replace("/", "\\");
-            if (File.Exists(path))
+            LoadSeedFromJson(dialog.FileName.Replace("/", "\\"));
+        }
+    }
+
+    private void LoadSeedFromJson(string path)
+    {
+        if (File.Exists(path))
+        {
+            try
             {
-                try
-                {
-                    Seed = RandoFlags.LoadSeed(path);
-                    RandoUI.ShowTempUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
-                }
-                catch (RandoException ex)
-                {
-                    MessageBox.Show(ex.Message, ex.Title);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load the seed file.\n\n" + ex.StackTrace);
-                }
+                Seed = RandoFlags.LoadSeed(path);
+                RandoUI.ShowTempUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
             }
-            else
+            catch (RandoException ex)
             {
-                MessageBox.Show("Make sure the JSON file is a seed for rando.", "The selected file is not valid");
+                MessageBox.Show(ex.Message, ex.Title);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load the seed file.\n\n" + ex.StackTrace);
+            }
+        }
+        else
+        {
+            MessageBox.Show("Make sure the JSON file is a seed for rando.", "The selected file is not valid");
         }
     }
 
@@ -122,50 +209,54 @@ public partial class SetupPage : UserControl
         };
         if ((bool)dialog.ShowDialog())
         {
-            string path = dialog.FileName.Replace("/", "\\");
-            if (File.Exists(path))
+            LoadSeedFromZip(dialog.FileName.Replace("/", "\\"));
+        }
+    }
+
+    private void LoadSeedFromZip(string path)
+    {
+        if (File.Exists(path))
+        {
+            string outFolder = System.IO.Path.GetTempPath() + @"rando_temp";
+            bool deleteTempFolder = !Directory.Exists(outFolder);
+            if (!Directory.Exists(outFolder))
             {
-                string outFolder = System.IO.Path.GetTempPath() + @"rando_temp";
-                bool deleteTempFolder = !Directory.Exists(outFolder);
-                if (!Directory.Exists(outFolder))
-                {
-                    Directory.CreateDirectory(outFolder);
-                }
-
-                try
-                {
-                    using (ZipArchive archive = ZipFile.OpenRead(path))
-                    {
-                        ZipArchiveEntry entry = archive.Entries.First(e => e.Name.EndsWith("_Seed.json") || e.Name == "seed.json");
-                        entry.ExtractToFile(outFolder + @"\seed.json");
-                    }
-
-                    Seed = RandoFlags.LoadSeed(outFolder + @"\seed.json");
-                    RandoUI.ShowTempUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
-                }
-                catch (RandoException ex)
-                {
-                    MessageBox.Show(ex.Message, ex.Title);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load the seed file.\n\n" + ex.StackTrace);
-                }
-
-                if (File.Exists(outFolder + @"\seed.json"))
-                {
-                    File.Delete(outFolder + @"\seed.json");
-                }
-
-                if (deleteTempFolder && Directory.Exists(outFolder))
-                {
-                    Directory.Delete(outFolder);
-                }
+                Directory.CreateDirectory(outFolder);
             }
-            else
+
+            try
             {
-                MessageBox.Show("Make sure the ZIP file is a docs folder for rando.", "The selected file is not valid");
+                using (ZipArchive archive = ZipFile.OpenRead(path))
+                {
+                    ZipArchiveEntry entry = archive.Entries.First(e => e.Name.EndsWith("_Seed.json") || e.Name == "seed.json");
+                    entry.ExtractToFile(outFolder + @"\seed.json");
+                }
+
+                Seed = RandoFlags.LoadSeed(outFolder + @"\seed.json");
+                RandoUI.ShowTempUIMessage($"Set the seed to {Seed} and loaded flags used for the seed!");
             }
+            catch (RandoException ex)
+            {
+                MessageBox.Show(ex.Message, ex.Title);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load the seed file.\n\n" + ex.StackTrace);
+            }
+
+            if (File.Exists(outFolder + @"\seed.json"))
+            {
+                File.Delete(outFolder + @"\seed.json");
+            }
+
+            if (deleteTempFolder && Directory.Exists(outFolder))
+            {
+                Directory.Delete(outFolder);
+            }
+        }
+        else
+        {
+            MessageBox.Show("Make sure the ZIP file is a docs folder for rando.", "The selected file is not valid");
         }
     }
 

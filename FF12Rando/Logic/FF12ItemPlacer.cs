@@ -27,7 +27,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         }
         else if (placer == UsefulPlacer)
         {
-            return possible.Where(l => !l.Traits.Contains("Missable")).ToOrderedSet();
+            return possible.Where(l => !l.Traits.Contains("Missable") && !IsAboveTrialRewardLimit(l)).ToOrderedSet();
         }
         else if (placer == JunkPlacer)
         {
@@ -44,6 +44,11 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         return possible.Where(l =>
         {
             if (l.Traits.Contains("Missable"))
+            {
+                return false;
+            }
+
+            if (IsAboveTrialRewardLimit(l))
             {
                 return false;
             }
@@ -254,6 +259,7 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
                     return calc.Spheres.GetValueOrDefault(l, 0) == sphere
                             && l is not FakeLocation
                             && !l.Traits.Contains("Missable")
+                            && !IsAboveTrialRewardLimit(l)
                             && (l.GetItem(false) == null ||
                                 equipRando.itemData.ContainsKey(l.GetItem(false)?.Item)
                                 && categories.Contains(equipRando.itemData[l.GetItem(false)?.Item].Category))
@@ -295,6 +301,17 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
     protected override int GetDifficultyIndex()
     {
         return FF12Flags.Items.KeyDepth.SelectedIndex;
+    }
+
+    public bool IsAboveTrialRewardLimit(ItemLocation location)
+    {
+        string trialStr = location.Traits.FirstOrDefault(s => s.StartsWith("Trial"));
+        if (trialStr == null)
+        {
+            return false;
+        }
+
+        return int.Parse(trialStr.Substring(5)) > FF12Flags.Items.TrialRewardMaxStage.Value;
     }
 
     public bool IsRandomizedChop(ItemLocation location)
