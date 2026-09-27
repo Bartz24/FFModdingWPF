@@ -17,6 +17,8 @@ public partial class ShopRando : Randomizer
 
     public DataStoreBPShop shops;
     public DataStoreBPShop shopsOrig;
+    // Vanilla shops with only the elixirs added, written when the shops are not randomized.
+    private DataStoreBPShop vanillaWithElixirs;
     public DataStoreBPSection<DataStoreBazaar> bazaars;
     public readonly Dictionary<int, ShopData> shopData = new();
 
@@ -227,6 +229,30 @@ public partial class ShopRando : Randomizer
             VerifyElixirShop();
 
             RandomNum.ClearRand();
+        }
+
+        StockElixirShopInVanillaShops();
+    }
+
+    private void StockElixirShopInVanillaShops()
+    {
+        vanillaWithElixirs = null;
+
+        ShopData elixirShop = Generator.Get<TreasureRando>().ClanShopWithElixirs;
+        if (FF12Flags.Items.Shops.FlagEnabled || elixirShop == null)
+        {
+            return;
+        }
+
+        vanillaWithElixirs = new DataStoreBPShop();
+        vanillaWithElixirs.LoadData(shopsOrig.Data);
+
+        DataStoreShop shop = vanillaWithElixirs[elixirShop.ID];
+        List<string> items = shop.GetItems();
+        if (!items.Contains(ElixirID))
+        {
+            items.Add(ElixirID);
+            shop.SetItems(items.OrderBy(i => i).ToList());
         }
     }
 
@@ -535,6 +561,10 @@ public partial class ShopRando : Randomizer
         {
             File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_039.bin", shops.Data);
             File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_057.bin", bazaars.Data);
+        }
+        else if (vanillaWithElixirs != null)
+        {
+            File.WriteAllBytes($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_039.bin", vanillaWithElixirs.Data);
         }
     }
 }

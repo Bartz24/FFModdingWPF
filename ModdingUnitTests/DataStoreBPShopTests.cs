@@ -63,6 +63,38 @@ public class DataStoreBPShopTests
     }
 
     [TestMethod]
+    public void EveryClanShopCanSellElixirsInTheVanillaShops()
+    {
+        // The non Missable clan shops, any of which can be picked to sell elixirs. With the shops not
+        // randomized the elixir is added to the vanilla file, so it has to fit without disturbing
+        // anything else.
+        int[] clanShops = { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+        const string elixir = "0005";
+
+        foreach (int id in clanShops)
+        {
+            DataStoreBPShop shops = Load(ShopFiles[0]);
+            List<List<string>> expected = shops.DataList.Select(s => s.GetItems()).ToList();
+
+            List<string> items = shops[id].GetItems();
+            items.Add(elixir);
+            shops[id].SetItems(items.OrderBy(i => i).ToList());
+
+            DataStoreBPShop reloaded = new();
+            reloaded.LoadData(shops.Data);
+
+            CollectionAssert.Contains(reloaded[id].GetItems(), elixir, $"clan shop {id} lost the elixir");
+            for (int i = 0; i < expected.Count; i++)
+            {
+                if (shops.DataList[i] != shops[id])
+                {
+                    CollectionAssert.AreEqual(expected[i], reloaded.DataList[i].GetItems(), $"adding to clan shop {id} changed shop {i}");
+                }
+            }
+        }
+    }
+
+    [TestMethod]
     public void ResizingKeepsNodesAlignedAndInBounds()
     {
         DataStoreBPShop shops = Load(ShopFiles[1]);

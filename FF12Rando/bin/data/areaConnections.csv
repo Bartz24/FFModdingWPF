@@ -69,7 +69,7 @@ Henne -> Eruyt,Henne Mines,Eruyt Village,,,2
 Giruvegan End -> Giruvegan,Giruvegan End,Giruvegan,,,5
 Nabudis <-> Salikawood NW,Necrohol of Nabudis,Salikawood NW,,BothWays,6
 Nabreus <-> Salikawood NW,Nabreus Deadlands,Salikawood NW,,BothWays,5
-Phon Coast <- Salikawood,Phon Coast,Salikawood,I(80EF),,2
+Salikawood -> Phon Coast,Salikawood,Phon Coast,I(80EF),,2
 Phon Coast <-> Tchita,Tchita Uplands,Phon Coast,,BothWays,3
 Tchita <-> Sochen S,Tchita Uplands,Sochen Cave Palace S,,BothWays,3
 Tchita -> Cerobi,Tchita Uplands,Cerobi Steppe,I(80EB),,5
@@ -139,3 +139,4 @@ Archades -> Aerodrome,Archades,Aerodrome,,,0
 Balfonheim -> Aerodrome,Balfonheim,Aerodrome,,,0
 Pharos -> Balfonheim,Pharos of Ridorana,Balfonheim,AND(I(2116|3)|OR(I(808B)|I(808C))|OR(SELECT(2|I(8078)|I(80AC)|I(8089)))),,5
 Trials,Initial,Trials,,,0
+Starting Items,Initial,Starting Items,,,0

@@ -11,6 +11,11 @@ public class FF12ArchipelagoData : ArchipelagoData
     public List<int> CharacterOrder { get; set; }
     public bool AllowSeitengrat { get; set; }
     /// <summary>
+    /// ID of the clan shop that sells elixirs, which trial 100's logic depends on. -1 for seeds from
+    /// worlds that predate it, which get no elixir shop.
+    /// </summary>
+    public int ElixirShop { get; set; } = -1;
+    /// <summary>
     /// One entry per location in this slot. Item is the event's logic token for event entries;
     /// ItemDisplay is how the item at a real location should be shown in game, already prefixed with
     /// the owning player for another player's item.
@@ -42,7 +47,8 @@ public class FF12ArchipelagoData : ArchipelagoData
         }).ToList();
         CharacterOrder = ((List<object>)data["character_order"]).Select(o => (int)(long)o).ToList();
         AllowSeitengrat = (long)data["allow_seitengrat"] == 1;
-        Spheres = ((List<object>)data["spheres"]).Select(o =>
+        ElixirShop = data.ContainsKey("elixir_shop") ? (int)(long)data["elixir_shop"] : -1;
+        Spheres =((List<object>)data["spheres"]).Select(o =>
         {
             var sphereData = (IDictionary<string, object>)o;
             return (
@@ -95,6 +101,7 @@ public class FF12ArchipelagoData : ArchipelagoData
             { "treasures", treasures },
             { "character_order", CharacterOrder },
             { "allow_seitengrat", AllowSeitengrat ? 1 : 0 },
+            { "elixir_shop", ElixirShop },
             { "spheres", spheres },
             { "filler_item_placements", fillerItemPlacements }
         };

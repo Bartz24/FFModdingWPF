@@ -3,9 +3,6 @@ if not (checkMinVersion and checkMinVersion(1, 10, 2)) then
     error("Rando Treasure Tracker: requires the FF12 lua loader 1.10.2 or newer.")
 end
 
--- The bound key is the only way to ask for the count, so without a mod menu there is nothing this
--- script can do. dialog is what tells it whether the game is on the field rather than a title or
--- loading screen.
 if modmenu == nil or dialog == nil then
     print("Rando Treasure Tracker: this lua loader is missing mod menu or dialog support, skipping.")
     return
@@ -13,29 +10,21 @@ end
 
 local MOD_ID = "randoTreasure"
 
--- How often the display is redrawn. An auto mode message only lasts 2000ms, so staying on screen
--- means reprinting it.
 local REFRESH_MS = 100
 
 local REMINDER_TEXT = "{scale:70}Bind a key in Mod Config to track treasures"
 
--- The mod menu keeps bindings in memory only, so the key is kept here to survive a restart.
--- Relative to the loader's working directory, the same place config.path points at.
 local CONFIG_PATH = "scripts/config/RandoTreasure.json"
 
 local treasures = {}
 
 local hotkeyId = nil
 
--- Cached alongside the binding rather than read per frame.
 local show_key_bound = false
 
--- Whether the player has toggled the tracker on, and whether our message is currently up.
 local tracker_visible = false
 local message_up = false
 
--- The docs call out reconverting the same text repeatedly as wasteful, and the display reprints
--- ten times a second, so each distinct line is encoded once and reused.
 local encoded_cache = {}
 
 local function encoded(text)
@@ -59,8 +48,6 @@ local function treasureOpened(respawn)
     return byteValue & (2 ^ bitIndex) > 0
 end
 
--- Remaining and total for a map. A map with no tracked treasures is 0 of 0 rather than nothing, so
--- that every area has a count to report.
 local function treasureCounts(map)
     local list = treasures[map]
     if list == nil then
@@ -80,16 +67,12 @@ end
 local function readGameState()
     local pointer1 = memory.u32[0x01E5FFE0 + 0x120000]
     if pointer1 == 0 then
-        -- The memory accessors read unmapped addresses as 0, so a torn down state object would
-        -- otherwise report 0 here, which is the value that means normal field play.
         return -1
     end
 
     return memory.u8[pointer1 + 0x3A]
 end
 
--- Only draw over actual field play. Mirrors the gate the Archipelago hook uses before it touches
--- the game, which keeps the display off the title screen, loading screens and transitions.
 local function fieldReady()
     local map = readMapID()
     if map == 0 or map > 0xFFFF or map <= 12 or map == 274 then
@@ -100,8 +83,6 @@ local function fieldReady()
         return false
     end
 
-    -- The engine refuses messages while loading or mid transition anyway; asking first keeps the
-    -- window from being pushed at a frame that cannot take it.
     return dialog.ready()
 end
 
@@ -114,9 +95,6 @@ local function treasureCountText()
     return "{scale:70}" .. remain .. "/" .. total .. " treasures remain"
 end
 
--- Drives everything on screen. The unbound reminder wins, since with no key assigned there is no
--- way to reach the tracker and nothing else to advertise it; otherwise the count shows for as long
--- as the player has it toggled on, and the window is closed outright when it should not.
 local function refreshDisplay()
     local text = nil
     if fieldReady() then
@@ -131,8 +109,6 @@ local function refreshDisplay()
         message.print(encoded(text))
         message_up = true
     elseif message_up then
-        -- Toggled off, or a key was just bound. Take our message down now instead of leaving the
-        -- last one to time out.
         message.close()
         message_up = false
     end
@@ -148,9 +124,6 @@ local function saveBinding()
     config.saveJson(CONFIG_PATH, { showKey = modmenu.getKey(MOD_ID, "showKey", 0) or 0 })
 end
 
--- Puts last session's key back into the row. setKey does not fire the row's callback, so the
--- caller still has to arm the hotkey afterwards. markChanged is false because a restored binding is
--- the baseline, not something the player just changed.
 local function restoreBinding()
     if config == nil then
         return

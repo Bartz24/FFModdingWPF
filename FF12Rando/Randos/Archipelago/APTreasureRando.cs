@@ -22,6 +22,10 @@ class APTreasureRando : TreasureRando
 
     public override void Randomize()
     {
+        // The world picks the elixir shop, since its logic for trial 100 depends on it. The shop rando
+        // runs after this and stocks it.
+        ClanShopWithElixirs = Generator.Get<ShopRando>().shopData.GetValueOrDefault(RandoFlags.GetArchipelagoData<FF12ArchipelagoData>().ElixirShop);
+
         ItemLocations.Values.ForEach(l => l.SetItem(ArchipelagoItemID, 1));
         ItemLocations.Values.Where(l => l is RewardLocation r && r.Index != 1).ForEach(l => l.SetItem(null, 0));
         ItemLocations.Values.Where(l => l is StartingInvLocation s && s.Index > 0).ForEach(l => l.SetItem(null, 0));

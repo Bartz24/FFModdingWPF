@@ -188,11 +188,16 @@ public partial class TreasureRando : Randomizer
         ApplyPostPlacement();
     }
 
+    public List<ShopData> GetElixirShopCandidates()
+    {
+        return Generator.Get<ShopRando>().shopData.Values
+            .Where(s => s.Traits.Contains("ClanShop") && !s.Traits.Contains("Missable"))
+            .ToList();
+    }
+
     private void PickRandomClanShopForElixirs()
     {
-        ShopRando shopRando = Generator.Get<ShopRando>();
-        List<ShopData> clanShops = shopRando.shopData.Values.Where(s => s.Traits.Contains("ClanShop") && !s.Traits.Contains("Missable")).ToList();
-        ClanShopWithElixirs = RandomNum.SelectRandom(clanShops);
+        ClanShopWithElixirs = RandomNum.SelectRandom(GetElixirShopCandidates());
 
         // Update trial 100 to require this shop logically
         ItemLocations.Values.Where(l=>l is RewardLocation r && r.IntID == 0x919C).ForEach(l =>

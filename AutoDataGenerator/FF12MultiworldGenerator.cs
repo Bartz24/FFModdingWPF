@@ -195,7 +195,11 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
 
         locations.Clear();
 
-        int nextIndex = 1;
+        // Reuse the addresses of the last generated file so adding or removing a location does not
+        // shift everything after it onto a different address.
+        FF12LocationIDMapper idMapper = new();
+        idMapper.LoadAPScript(Path.Combine(OutputDir, "Locations.py"));
+
         TreasureRando.ItemLocations.Values
             .Where(l => (!l.Traits.Contains("Missable") || l is not TreasureLocation) && l is not FakeLocation)
             .ToList()
@@ -209,23 +213,21 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
                 {
                     case RewardLocation r:
                         name = $"{r.Name} ({r.Index + 1})";
-                        script = AddLocationToLocationsScript(script, name, regionName, nextIndex, classification, "reward", r.IntID.ToString("X4"), r.Index, l.BaseDifficulty);
+                        script = AddLocationToLocationsScript(script, name, regionName, idMapper.GetAPCode($"{r.IntID.ToString("X4")}|{r.Index}"), classification, "reward", r.IntID.ToString("X4"), r.Index, l.BaseDifficulty);
                         break;
                     case TreasureLocation t:
                         name = $"{t.Name} {t.Index + 1}";
-                        script = AddLocationToLocationsScript(script, name, regionName, nextIndex, classification, "treasure", t.MapID, t.Index, l.BaseDifficulty);
+                        script = AddLocationToLocationsScript(script, name, regionName, idMapper.GetAPCode($"{t.MapID}|{t.Index}"), classification, "treasure", t.MapID, t.Index, l.BaseDifficulty);
                         break;
                     case StartingInvLocation s:
                         name = $"{s.Name} ({s.Index + 1})";
-                        script = AddLocationToLocationsScript(script, name, regionName, nextIndex, classification, "inventory", s.IntID.ToString(), s.Index, l.BaseDifficulty);
+                        script = AddLocationToLocationsScript(script, name, regionName, idMapper.GetAPCode($"{s.IntID}|{s.Index}"), classification, "inventory", s.IntID.ToString(), s.Index, l.BaseDifficulty);
                         break;
                     default:
                         throw new Exception("Unknown location type");
                 }
 
                 locations.Add(l, name);
-
-                nextIndex++;
             });
 
         script += "}\n";
@@ -316,6 +318,15 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
         locations.Keys.ForEach(l => AddLocationRule(data, gameName, l, locations[l], TreasureRando.GetItemName));
         AddEntranceRules(data, gameName, TreasureRando.AreaGraph, TreasureRando.GetItemName);
 
+        // Trial 100 needs elixirs, which only one clan shop sells per seed. The world picks that shop
+        // and adds its rule to the trial 100 rewards, so every candidate's rule is written out.
+        List<ShopData> elixirShops = TreasureRando.GetElixirShopCandidates().OrderBy(s => s.ID).ToList();
+        elixirShops.ForEach(s =>
+        {
+            AddRequirementPreambles(data.PreambleParts, s.Requirements, gameName);
+            AddUniqueRule(data.Rules, s.Requirements.GetArchipelagoRule(TreasureRando.GetItemName));
+        });
+
         string script = BuildRulesModule(data, "rule_data_table", false, (sb, _) =>
         {
             sb.Append("\nentrance_rule_difficulty_table: Dict[Tuple[str, str], int] = {\n");
@@ -323,6 +334,14 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
             {
                 FF12AreaConnection conn = (FF12AreaConnection)c;
                 sb.Append($"    (\"{conn.FromAreaName}\", \"{conn.ToAreaName}\"): {conn.BaseDifficulty},\n");
+            });
+            sb.Append("}\n");
+
+            sb.Append("\nelixir_shop_rule_table: Dict[int, Rule[Any]] = {\n");
+            elixirShops.ForEach(s =>
+            {
+                int index = data.Rules.IndexOf(s.Requirements.GetArchipelagoRule(TreasureRando.GetItemName));
+                sb.Append($"    {s.ID}: rule_data_list[{index}],  # {s.Name}\n");
             });
             sb.Append("}\n");
         });

@@ -1,7 +1,7 @@
 Location,Name,ID,Requirements,Rank,Traits
-Initial,Vaan's Starting Items,0,I(Vaan),0,Hidden
-Initial,Ashe's Starting Items,1,I(Ashe),0,Hidden
-Initial,Fran's Starting Items,2,I(Fran),0,Hidden
-Initial,Balthier's Starting Items,3,I(Balthier),0,Hidden
-Initial,Basch's Starting Items,4,I(Basch),0,Hidden
-Initial,Penelo's Starting Items,5,I(Penelo),0,Hidden
+Starting Items,Vaan's Starting Items,0,I(Vaan),0,Hidden
+Starting Items,Ashe's Starting Items,1,I(Ashe),0,Hidden
+Starting Items,Fran's Starting Items,2,I(Fran),0,Hidden
+Starting Items,Balthier's Starting Items,3,I(Balthier),0,Hidden
+Starting Items,Basch's Starting Items,4,I(Basch),0,Hidden
+Starting Items,Penelo's Starting Items,5,I(Penelo),0,Hidden
