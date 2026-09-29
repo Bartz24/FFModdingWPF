@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>ff12icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -45,6 +46,9 @@
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     <TargetPath>data\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
   </None>
+</ItemGroup>
+<ItemGroup>
+  <Content Include="ff12icon.ico" />
 </ItemGroup>
 
 </Project>

@@ -59,6 +59,8 @@ public class LRSeedGenerator : SeedGenerator
         Directory.CreateDirectory(OutFolder);
         FileHelpers.CopyFromFolder(OutFolder, "data\\modpack");
         RandoHelpers.UpdateSeedInFile(OutFolder + "\\modconfig.ini", SetupData.Seed.Clean());
+        // Nova only installs a code patch named after the mod, which is the modconfig name.
+        File.Move(OutFolder + "\\Code\\patch.nccp", OutFolder + $"\\Code\\Lightning Returns Randomizer {SetupData.Seed.Clean()}.nccp");
 
         string wdbpackPath = Nova.GetNovaFile("LR", @"db\resident\wdbpack.bin", SetupData.Paths["Nova"], SetupData.Paths["LR"]);
         string wdbpackOutPath = DataOutFolder + @"\db\resident\wdbpack.bin";
