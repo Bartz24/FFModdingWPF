@@ -255,7 +255,7 @@ abstract class BaseMultiworldGenerator
             string traits = escapedTraits.Count switch
             {
                 0 => "()",
-                1 => $"({escapedTraits[0]})",
+                1 => $"({escapedTraits[0]},)",
                 _ => $"({string.Join(", ", escapedTraits)})",
             };
             script.Append($"    \"{ItemReq.EscapePythonString(kvp.Key)}\": {traits},\n");
