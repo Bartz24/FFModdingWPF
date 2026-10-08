@@ -72,4 +72,15 @@ public class LRJunkItemPlacer : JunkItemPlacer<ItemLocation>
 
         return ModifyAmount((repItem, amount));
     }
+
+    protected override (string Item, int Amount) ModifyAmount((string Item, int Amount) item)
+    {
+        var newItem = base.ModifyAmount(item);
+        if (newItem.Item != null && newItem.Item.StartsWith("mat_z_") && LRFlags.Items.JunkMatDropMultiplier.Value > 1)
+        {
+            newItem.Amount *= LRFlags.Items.JunkMatDropMultiplier.Value;
+        }
+
+        return newItem;
+    }
 }

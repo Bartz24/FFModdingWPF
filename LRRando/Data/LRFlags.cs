@@ -241,7 +241,7 @@ public class LRFlags
         public static ToggleFlagProperty EPMissable, IDCardBuy, KeyPlaceTreasure, KeyPlaceQuest, KeyPlaceCoP, KeyPlaceGrindy, KeyPlaceSuperboss, ReplaceAny, IncludeDLCItems, IncludeEPAbilities;
         public static ComboBoxFlagProperty KeyDepth;
         public static DictListBoxFlagProperty<string> KeyItems;
-        public static NumberFlagProperty ReplaceRank;
+        public static NumberFlagProperty ReplaceRank, JunkMatDropMultiplier;
 
         internal static void Init()
         {
@@ -443,6 +443,18 @@ public class LRFlags
                 Description = "'Junk' items (consumables, weapons, shields, garbs, accessories, and materials) will be replaced by items within the specified value of its \"Rank\".",
                 ValueText = "Item Rank +/-",
                 MinValue = 0,
+                MaxValue = 10,
+                DisabledByArchipelago = true
+            }.Register(Treasures);
+
+
+            JunkMatDropMultiplier = new NumberFlagProperty(1)
+            {
+                Text = "Junk Enemy Material Multiplier",
+                ID = "MatDropMult",
+                Description = "Multiply the amount of enemy junk materials found in treasures and rewards.",
+                ValueText = "Enemy Material Multiplier: ",
+                MinValue = 1,
                 MaxValue = 10,
                 DisabledByArchipelago = true
             }.Register(Treasures);

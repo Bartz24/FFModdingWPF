@@ -3,9 +3,9 @@ Ark,Ark Day 0,_0,,Day,0,
 Ark,Ark Day 1,_1,,Day,0,Day*1
 Ark,Ark Day 2,_2,I(Day|1),,1,Day*1
 Ark,Ark Day 3,_3,I(Day|2),,1,Day*1
-Ark,Ark Day 4,_4,I(Day|3),NoCascade,2,Day*1
-Ark,Ark Day 5,_5,I(Day|4),NoCascade,2,Day*1
-Ark,Ark Day 6,_6,I(Day|5),NoCascade,3,Day*1
+Ark,Ark Day 4,_4,AND(I(Day|3)|I(AreaUnlock|2)),NoCascade,2,Day*1
+Ark,Ark Day 5,_5,AND(I(Day|4)|I(AreaUnlock|2)),NoCascade,2,Day*1
+Ark,Ark Day 6,_6,AND(I(Day|5)|I(AreaUnlock|3)),NoCascade,3,Day*1
 Dead Dunes,Main Quest 4,_15,AND(I(MQ4|5)|I(key_d_base|1)|I(key_d_top|1)|I(key_d_wing|1)),Main,6,MQ4*1|MQDone
 Luxerion,Main Quest 1,_16,AND(I(MQ1|4)|I(Day|2)|I(AreaUnlock|2)),Main,3,MQ1*1|MQDone
 Wildlands,Main Quest 3,_17,AND(I(MQ3|3)|I(Day|3)),Main,3,MQ3*1|MQDone
