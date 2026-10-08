@@ -37,7 +37,11 @@ public class RandoSeeds
                 using (ZipArchive archive = ZipFile.OpenRead(pack))
                 {
                     // Read the seed information from the .json file of unknown name
-                    ZipArchiveEntry entry = archive.Entries.First(x => x.Name.EndsWith(".json"));
+                    ZipArchiveEntry entry = archive.Entries.FirstOrDefault(x => x.Name.EndsWith(".json") && x.FullName == x.Name);
+                    if (entry == null)
+                    {
+                        continue;
+                    }
                     using (StreamReader reader = new(entry.Open()))
                     {
                         string json = reader.ReadToEnd();

@@ -207,11 +207,6 @@ public partial class TreasureRando : Randomizer
         });
     }
 
-    /// <summary>
-    /// Everything that has to run once items are in place: the outfitters menu text and the option
-    /// driven Seitengrat and price passes. Kept out of Randomize so the Archipelago randomizer,
-    /// which replaces Randomize entirely rather than extending it, runs the same passes.
-    /// </summary>
     protected void ApplyPostPlacement()
     {
         UpdateOutfittersText();
@@ -278,7 +273,8 @@ public partial class TreasureRando : Randomizer
         {
             List<RewardLocation> allRewardLocs = ItemLocations.Values.Where(l => l is RewardLocation r2 && r2.IntID == r.IntID).Select(l => (RewardLocation)l).ToList();
             DataStoreReward reward = rewards[r.IntID - 0x9000];
-            string itemName = GetOutfitterDisplay(reward, allRewardLocs);
+            // Archipelago names can be too long
+            string itemName = TextSanitizer.Truncate(TextSanitizer.Sanitize(GetOutfitterDisplay(reward, allRewardLocs)), 30);
             // Format: {item}<NAME>{righttab}{macro:<INT>,6,0,0}{/item}
             newText += $"{{item}}{itemName}{{righttab}}{{macro:{r.IntID - outfitterRewards[0].IntID},6,0,0}}{{/item}}\n";
         }

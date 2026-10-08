@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Bartz24.FF12;
 
@@ -15,7 +17,13 @@ public class Tools
 
     public static void ConvertTxtToBin(string path)
     {
-        RunCommand(TextPath, $"-p \"{Path.GetFullPath(path)}\"");
+        // ff12-text uses UTF-16
+        string output = RunCommandWithOutput(TextPath, $"-p \"{Path.GetFullPath(path)}\"", Encoding.Unicode);
+        if (!File.Exists(path + ".bin"))
+        {
+            throw new IOException($"ff12-text could not convert {path} back to game text: {output}");
+        }
+
         File.Delete(path);
         File.Move(path + ".bin", path.Substring(0, path.Length - 4), true);
     }
@@ -75,6 +83,28 @@ public class Tools
             process.Start();
 
             process.WaitForExit();
+        }
+    }
+
+    private static string RunCommandWithOutput(string cmdPath, string command, Encoding encoding)
+    {
+        using (Process process = new())
+        {
+            process.StartInfo.FileName = Path.GetFullPath(cmdPath);
+            process.StartInfo.Arguments = command;
+            process.StartInfo.WorkingDirectory = Path.GetDirectoryName(Path.GetFullPath(cmdPath));
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.StandardOutputEncoding = encoding;
+            process.StartInfo.StandardErrorEncoding = encoding;
+            process.Start();
+
+            Task<string> error = process.StandardError.ReadToEndAsync();
+            string output = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+            return (output + error.Result).Trim();
         }
     }
 }

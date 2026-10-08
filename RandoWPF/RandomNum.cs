@@ -108,7 +108,7 @@ public class RandomNum
 
     public static int RandSeed()
     {
-        SetRand(new Random());
+        SetRand(new Xoshiro256StarStarRandom());
         int val = RandInt((int)1e8, (int)1e9 - 1);
         ClearRand();
         return val;
@@ -219,15 +219,12 @@ public class RandomNum
 
     public static int GetIntSeed(string seed)
     {
-        try
+        if (int.TryParse(seed.Trim(), out int value))
         {
-            return int.Parse(seed.Trim());
+            return value;
         }
-        catch (Exception)
-        {
-            byte[] bytes = Encoding.UTF8.GetBytes(seed.Trim());
-            return (bytes.Sum(b => (int)Math.Pow(b + bytes[b % bytes.Length], 2.4)) * bytes.Length) - bytes.Length;
-        }
+        byte[] bytes = Encoding.UTF8.GetBytes(seed.Trim());
+        return (bytes.Sum(b => (int)Math.Pow(b + bytes[b % bytes.Length], 2.4)) * bytes.Length) - bytes.Length;
     }
 
     public static string GetHash(int length, int numBase = 10)
@@ -249,7 +246,7 @@ public class RandomNum
         }
 
         int sum = flagValues.Values.Sum();
-        Random random = new(sum);
+        Random random = new Xoshiro256StarStarRandom(sum);
         string s = "";
         for (int i = 0; i < length; i++)
         {

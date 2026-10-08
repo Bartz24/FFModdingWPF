@@ -10,7 +10,7 @@ public class StatPointTests
     [TestInitialize]
     public void TestInitialize()
     {
-        RandomNum.SetRand(new Random(Seed));
+        RandomNum.SetRand(new Xoshiro256StarStarRandom(Seed));
     }
 
     [TestMethod]

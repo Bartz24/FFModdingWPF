@@ -165,7 +165,7 @@ public class Flag : INotifyPropertyChanged
     public void ResetRandom(int seed)
     {
         int flagSeed = seed + (FlagID[0] * FlagID.Length) - Description.Length;
-        Random = new Random(flagSeed);
+        Random = new Xoshiro256StarStarRandom(flagSeed);
     }
 
     public void SetRand()

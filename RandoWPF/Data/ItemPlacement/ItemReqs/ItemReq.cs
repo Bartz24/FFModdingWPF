@@ -16,6 +16,11 @@ public abstract class ItemReq
     public static Func<Dictionary<string, IItem>> ItemProvider { private get; set; }
     public static Func<Dictionary<string, ItemLocation>> ItemLocationProvider { private get; set; }
 
+    public static void ClearItemCache()
+    {
+        itemsCache = null;
+    }
+
     public static Dictionary<string, IItem> GetItems()
     {
         if (itemsCache == null)

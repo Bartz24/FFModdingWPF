@@ -46,7 +46,7 @@ public class TextRando : Randomizer
             mainSysUS["$pause_03"] = "{Btn LSPress}+{Btn RSPress}+{Btn RB} {Italic}on the field{Italic} Return to Lindblum     {Btn Back}Quit     {Btn Start}Resume";
 
             string[] randomLocs = { "Somewhere", "Unknown", "Nautilus Park?", "The {Italic}Lindblum{Italic}?", "The {Italic}Palamecia{Italic}?", "", "FINAL FANTASY XIII", "Totally a Hallway", "Before 000 AF", "Hi :)", "Why are you looking here?", "DELETED TEXT" };
-            RandomNum.SetRand(new Random(RandomNum.GetIntSeed(SetupData.Seed) + randomLocs.Length));
+            RandomNum.SetRand(new Xoshiro256StarStarRandom(RandomNum.GetIntSeed(SetupData.Seed) + randomLocs.Length));
             string mainLoc = randomLocs.Take(6).Shuffle().First();
             mainSysUS.Keys.Where(s => s.StartsWith("$m_res_mn_m")).ForEach(s =>
             {
