@@ -432,19 +432,24 @@ public partial class ShopRando : Randomizer
         }
     }
 
-    protected virtual int GetSphere(DataStoreShop shop)
+    private int GetSphere(DataStoreShop shop)
+    {
+        // Use the lowest sphere of any shop in that area
+        ShopData data = shopData[shop.ID];
+        if (FF12Flags.Items.ShopsShared.Enabled && !data.Traits.Contains("Unique"))
+        {
+            return shopData.Values
+                .Where(s => s.Area == data.Area && !s.Traits.Contains("Unique"))
+                .Min(GetShopSphere) ?? 0;
+        }
+
+        return GetShopSphere(data) ?? 0;
+    }
+
+    protected virtual int? GetShopSphere(ShopData shop)
     {
         TreasureRando treasureRando = Generator.Get<TreasureRando>();
-        // If all shops in an area are shared, use the lowest sphere of any shop in that area. Otherwise, use the sphere of the shop itself. This is to ensure that shared shops don't get higher spheres than they should.
-        if (FF12Flags.Items.ShopsShared.Enabled && shopData[shop.ID].Traits.Contains("Shared"))
-        {
-            var sharedShops = shopData.Values.Where(s => s.Area == shopData[shop.ID].Area).Select(s => shops[s.ID]);
-            return sharedShops.Min(s => treasureRando.ItemPlacer.SphereCalculator.Spheres.GetValueOrDefault(treasureRando.ItemLocations[shopData[s.ID].ShopFakeLocationLink], 0));
-        }
-        else
-        {
-            return treasureRando.ItemPlacer.SphereCalculator.Spheres.GetValueOrDefault(treasureRando.ItemLocations[shopData[shop.ID].ShopFakeLocationLink], 0);
-        }
+        return treasureRando.ItemPlacer.SphereCalculator.Spheres.TryGetValue(treasureRando.ItemLocations[shop.ShopFakeLocationLink], out int sphere) ? sphere : null;
     }
 
     protected virtual HashSet<string> GetUsedAbilities()

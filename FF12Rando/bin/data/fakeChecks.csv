@@ -90,3 +90,15 @@ Ridorana Cataract,Abelisk - Reptilian Trophy,_101,AND(I(80B8)|I(HuntClubStart)),
 Pharos of Ridorana,Avenger - Vile Trophy,_102,AND(I(80B8)|I(HuntClubStart)),,7,HuntClubKill
 Bahamut,Final Boss Victory,_103,,,8,Victory
 Jahara,Great-chief Elder After Defeating Vossler,_104,AND(I(Defeat Vossler)|I(8078)),,2,Guest
+Ozmone Plain,Henne Tantal Chocobo,_105,AND(A(Jahara)|I(80E9)),,0,HenneChocobo
+Ozmone Plain,Henne Gysahl Advanced Chocobo,_106,AND(F(AdvChoco)|A(Rabanastre)|I(80E7)|I(80E0)),,0,HenneChocobo
+Ozmone Plain,Henne Krakka Advanced Chocobo,_107,AND(F(AdvChoco)|A(Nalbina Fortress)|I(80E8)|I(80E0)),,0,HenneChocobo
+Ozmone Plain,Henne Pahsana Advanced Chocobo,_108,AND(F(AdvChoco)|A(Mt. Bur-Omisace)|I(80EA)|I(80B7)),,0,HenneChocobo
+Ozmone Plain,Henne Sylkis Advanced Chocobo,_109,AND(F(AdvChoco)|A(Mosphoran Highwaste)|I(80EE)|I(80E0)),,0,HenneChocobo
+Mosphoran Highwaste,Mosphoran Sylkis Chocobo,_110,I(80EE),,0,MosphoranChocobo
+Mosphoran Highwaste,Mosphoran Nalbina Advanced Chocobo,_111,AND(F(AdvChoco)|A(Nalbina Fortress)|I(80E8)|I(Defeat Bergan)),,0,MosphoranChocobo
+Mosphoran Highwaste,Mosphoran Gysahl Advanced Chocobo 1,_112,AND(F(AdvChoco)|A(Rabanastre)|I(80E7)|I(Defeat Bergan)),,0,MosphoranChocobo
+Mosphoran Highwaste,Mosphoran Gysahl Advanced Chocobo 2,_113,AND(F(AdvChoco)|A(Rabanastre)|I(80E7)|I(Defeat Earth Tyrant)),,0,MosphoranChocobo
+Mosphoran Highwaste,Mosphoran Curiel Advanced Chocobo,_114,AND(F(AdvChoco)|A(Phon Coast)|A(Salikawood)|I(80EB)|I(80EF)),,0,MosphoranChocobo
+Mosphoran Highwaste,Mosphoran Tantal Advanced Chocobo 1,_115,AND(F(AdvChoco)|A(Ozmone Plain)|I(80E9)|I(80E0)|I(Defeat Earth Tyrant)),,0,MosphoranChocobo
+Mosphoran Highwaste,Mosphoran Tantal Advanced Chocobo 2,_116,AND(F(AdvChoco)|A(Jahara)|I(80E9)|I(80E0)|I(Defeat Bergan)),,0,MosphoranChocobo

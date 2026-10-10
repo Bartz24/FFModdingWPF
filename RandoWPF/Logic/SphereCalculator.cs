@@ -96,10 +96,9 @@ public class SphereCalculator<T> where T : ItemLocation
         // Hide progress cuz spoilers :)
         //RandoUI.SetUIProgressIndeterminate($"Calculating sphere {sphere} items.");
         // Generator.Logger.LogDebug($"Calculating sphere {sphere} items.");
-        state.AreasAccessible.UnionWith(AreaGraph.GetAllAccessibleAreas("Initial", state).Select(a => a.Name));
+        bool valid = CollectFakeChecks(state, remaining, used, sphere);
 
         HashSet<T> addedThisSphere = new();
-        bool valid = false;
         foreach (T loc in remaining)
         {
             if (loc.AreItemReqsMet(state))
@@ -120,19 +119,7 @@ public class SphereCalculator<T> where T : ItemLocation
 
         foreach (var loc in addedThisSphere)
         {
-            if (loc.GetItem(false) != null)
-            {
-                (string itemID, int amount) = loc.GetItem(false).Value;
-                if (state.ItemsAvailable.ContainsKey(itemID))
-                {
-                    state.ItemsAvailable[itemID] += amount;
-                }
-                else
-                {
-                    state.ItemsAvailable.Add(itemID, amount);
-                }
-            }
-            state.LocationsCompleted.Add(loc.ID);
+            Collect(state, loc);
         }
 
         // TODO:
@@ -141,7 +128,8 @@ public class SphereCalculator<T> where T : ItemLocation
 
         if (!valid)
         {
-            if (errorWhenInvalid)
+            // Don't fail sphere calculations when fake checks are not met
+            if (errorWhenInvalid && !remaining.All(l => l.Traits.Contains("Fake")))
             {
                 Generator.Logger.LogDebug($"Remaining locations: {string.Join(",", remaining.Select(r => r.ID))}");
                 string msg = "Could not find a path to all items placed. This seed might be unbeatable. Report this to the dev with the seed and flags used. After this seed finishes generating, go to the History tab and share the seed.";
@@ -155,5 +143,54 @@ public class SphereCalculator<T> where T : ItemLocation
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Fake checks (events like a day passing) aren't items to go and find, so they don't take a sphere of their own:
+    /// every fake check that can be done is collected in this sphere, repeatedly until no more open up, before the
+    /// sphere's real locations are checked. Returns whether any were collected.
+    /// </summary>
+    private bool CollectFakeChecks(ProgressionState state, HashSet<T> remaining, HashSet<T> used, int sphere)
+    {
+        bool found = false;
+        while (true)
+        {
+            state.AreasAccessible.UnionWith(AreaGraph.GetAllAccessibleAreas("Initial", state).Select(a => a.Name));
+
+            List<T> ready = remaining.Where(l => l.Traits.Contains("Fake") && l.AreItemReqsMet(state)).ToList();
+            if (ready.Count == 0)
+            {
+                return found;
+            }
+
+            found = true;
+            foreach (T loc in ready)
+            {
+                Spheres.Add(loc, sphere);
+                used.Add(loc);
+                remaining.Remove(loc);
+                if (loc.GetItem(false) != null)
+                {
+                    Collect(state, loc);
+                }
+            }
+        }
+    }
+
+    private static void Collect(ProgressionState state, T loc)
+    {
+        if (loc.GetItem(false) != null)
+        {
+            (string itemID, int amount) = loc.GetItem(false).Value;
+            if (state.ItemsAvailable.ContainsKey(itemID))
+            {
+                state.ItemsAvailable[itemID] += amount;
+            }
+            else
+            {
+                state.ItemsAvailable.Add(itemID, amount);
+            }
+        }
+        state.LocationsCompleted.Add(loc.ID);
     }
 }

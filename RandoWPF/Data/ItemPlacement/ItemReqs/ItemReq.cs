@@ -109,6 +109,7 @@ public abstract class ItemReq
         parseMapping.Add("A", args => Area(args[0]));
         parseMapping.Add("L", args => args.Count > 1 ? Location(args[0], int.Parse(args[1])) : Location(args[0], 1));
         parseMapping.Add("T", args => args.Count > 1 ? Trait(args[0], int.Parse(args[1])) : Trait(args[0], 1));
+        parseMapping.Add("F", args => args.Count > 1 ? Flag(args[0], bool.Parse(args[1])) : Flag(args[0], true));
     }
 
     public static ItemReq Item(string item, int amount = 1)
@@ -155,6 +156,11 @@ public abstract class ItemReq
     public static ItemReq Trait(string trait, int amount = 1)
     {
         return new TraitAmountItemReq(trait, amount);
+    }
+
+    public static ItemReq Flag(string flag, bool enabled = true)
+    {
+        return new FlagItemReq(flag, enabled);
     }
 
     private static Dictionary<string, Func<List<string>, ItemReq>> parseMapping = new();

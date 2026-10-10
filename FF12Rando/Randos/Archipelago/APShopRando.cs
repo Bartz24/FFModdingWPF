@@ -16,11 +16,11 @@ public class APShopRando : ShopRando
         return RandoFlags.GetArchipelagoData<FF12ArchipelagoData>().UsedItems.Select(s => equipRando.itemData.Values.FirstOrDefault(i => i.Name == s)).Where(i => i != null && i.Category == "Ability").Select(i => i.ID).ToHashSet();
     }
 
-    protected override int GetSphere(DataStoreShop shop)
+    protected override int? GetShopSphere(ShopData shop)
     {
         return RandoFlags.GetArchipelagoData<FF12ArchipelagoData>().Spheres
-            .Where(data => data.ID == shopData[shop.ID].Name + " Shop")
-            .Select(data => data.Sphere)
-            .FirstOrDefault(0);
+            .Where(data => data.ID == shop.Name + " Shop")
+            .Select(data => (int?)data.Sphere)
+            .FirstOrDefault();
     }
 }

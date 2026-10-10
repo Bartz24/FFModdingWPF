@@ -100,6 +100,9 @@ public partial class EnemyRando : Randomizer
 
             pair.Value.DefaultStats.ForEach(s => ApplyLPMult(s, bossStats.Contains(s)));
             pair.Value.LevelStats.ForEach(s => ApplyLPMult(s, bossStats.Contains(s)));
+
+            pair.Value.DefaultStats.ForEach(s => ApplyCPMult(s, bossStats.Contains(s)));
+            pair.Value.LevelStats.ForEach(s => ApplyCPMult(s, bossStats.Contains(s)));
         });
     }
 
@@ -113,6 +116,12 @@ public partial class EnemyRando : Randomizer
     {
         float lpMult = FF12Flags.Other.LPMult.FlagEnabled ? (isBoss ? FF12Flags.Other.LPMultBossAmt.Value : FF12Flags.Other.LPMultAmt.Value) / 100f : 1;
         stats.LP = (byte)Math.Min(stats.LP * lpMult, 255);
+    }
+
+    private void ApplyCPMult(DataStoreARDStats stats, bool isBoss)
+    {
+        float cpMult = FF12Flags.Other.CPMult.FlagEnabled ? (isBoss ? FF12Flags.Other.CPMultBossAmt.Value : FF12Flags.Other.CPMultAmt.Value) / 100f : 1;
+        stats.CP = (ushort)Math.Min(stats.CP * cpMult, 65535);
     }
 
     private void RandomizeStats()

@@ -78,6 +78,37 @@ public class PartyRando : Randomizer
                 party[Characters[i]].LP = 15;
             }
         }
+
+        if (FF12Flags.Licenses.GuestAbilities.FlagEnabled)
+        {
+            FF12Flags.Licenses.GuestAbilities.SetRand();
+
+            int[] guestCharIds = { 7, 9, 12, 13, 14 };
+            EquipRando equipRando = Generator.Get<EquipRando>();
+            foreach (int guestCharId in guestCharIds)
+            {
+                DataStorePartyMember c = party[guestCharId];
+
+                // Clear out the items for guest characters
+                var items = c.ItemIDs = Enumerable.Repeat((ushort)0xFFFF, 10).ToList();
+                c.ItemAmounts = Enumerable.Repeat((byte)0, 10).ToList();
+
+                int numAbilities = RandomNum.RandomTruncGaussian(5, 2, 10, 0, 10);
+                var abilities = equipRando.itemData.Values
+                    .Where(i => i.Category == "Ability")
+                    .Select(i => (ushort)i.IntID)
+                    .Shuffle()
+                    .Take(numAbilities)
+                    .ToList();
+                for (int i = 0; i < abilities.Count; i++)
+                {
+                    items[i] = abilities[i];
+                }
+                c.ItemIDs = items;
+            }
+
+            RandomNum.ClearRand();
+        }
     }
 
     protected virtual bool IsPartyRandomized()

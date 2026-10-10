@@ -274,7 +274,7 @@ In Game ID,Name,Type,Notes,LP Cost,Initial Characters,Contents 1,Contents 2,Cont
 272,Green Magick 4,Magick,Med Level Off ENC Magick,75,,Dispel,Disable,Stop,Confuse,,,,
 273,Green Magick 5,Magick,High Level Party ENC Magick,150,,Esunaga,Bravery,Faith,Reflectga,Vanishga,,,
 274,Green Magick 6,Magick,High Level Off ENC Magick,125,,Dispelga,Syphon,Slowga,Blindga,,,,
-275,Green Magick 7,Magick,Ultimate ENC Magick,300,,Protectga,Shellga,Bubble,Hastega,,,,
+275,Green Magick 7,Magick,Ultimate ENC Magick,250,,Protectga,Shellga,Bubble,Hastega,,,,
 276,Primal Magick 1,Magick,Low Level SHM Magick,50,,Slow,Break,Bleed,Poison,,,,
 277,Primal Magick 2,Magick,More Low Level SHM Magick,50,,Sleep,Silence,Confuse,,,,,
 278,Primal Magick 3,Magick,Med Level SHM Magick,75,,Dispel,Immobilize,Disable,Stop,,,,

@@ -121,7 +121,7 @@ public class FF12Flags
 
     public class Items
     {
-        public static Flag Treasures, Shops, Bazaars, StartingTpStones, AllowSeitengrat, LowerOutfittersPrices, ShufflePrices;
+        public static Flag Treasures, Shops, Bazaars, StartingTpStones, AllowSeitengrat, LowerOutfittersPrices, ShufflePrices, AdvChoco;
         public static ToggleFlagProperty KeyStartingInv, KeyPlaceTreasure, KeyPlaceHunt, KeyPlaceClanRank, KeyPlaceClanBoss, KeyPlaceClanEsper, KeyPlaceGrindy, KeyPlaceHidden, CharacterScale, JunkRankScale, ReplaceAny, RemoveSecondBoard;
         public static NumberFlagProperty NumTreasures;
         public static ComboBoxFlagProperty KeyDepth;
@@ -456,6 +456,14 @@ public class FF12Flags
                 "Ex: Potions can be replaced with Broadsword."
             }.Register(Treasures);
 
+            AdvChoco = new Flag(false)
+            {
+                Text = "Allow Advanced Chocobo Routes",
+                FlagID = "AdvChoco",
+                DescriptionFormat = "Allows more advanced routes to unlock Henne Mines and the upper area of Mosphoran Highwaste.\n" +
+                "If turned off, only the Jahara chocobo is needed for Henne Mines and only the Mosphoran chocobo is needed for upper Mosphoran Highwaste."
+            }.Register(FlagType.Items);
+
             Shops = new Flag(false)
             {
                 Text = "Randomize Shops",
@@ -550,7 +558,7 @@ public class FF12Flags
 
     public class Licenses
     {
-        public static Flag LicenseBoardType, StartingBoards;
+        public static Flag LicenseBoardType, StartingBoards, GuestAbilities;
         public static ComboBoxFlagProperty BoardType;
         public const string BoardTypeVanilla = "Vanilla";
         public const string BoardTypeSplit = "Split";
@@ -578,16 +586,23 @@ public class FF12Flags
                 FlagID = "StartBoards",
                 DescriptionFormat = "Sets a random starting license boards of each character. Can still be reset at Montblanc."
             }.Register(FlagType.Licenses);
+
+            GuestAbilities = new Flag(false)
+            {
+                Text = "Randomize Guest Abilities",
+                FlagID = "GuestAbilities",
+                DescriptionFormat = "Randomizes the abilities of guest characters including the number of abilities."
+            }.Register(FlagType.Licenses);
         }
     }
 
     public class Other
     {
         public static Flag Party, Music;
-        public static Flag EXPMult, LPMult;
+        public static Flag EXPMult, LPMult, CPMult;
         public static Flag HintsMain, HintAbilities;
         public static ComboBoxFlagProperty HintsSpecific;
-        public static NumberFlagProperty EXPMultAmt, LPMultAmt, EXPMultBossAmt, LPMultBossAmt;
+        public static NumberFlagProperty EXPMultAmt, LPMultAmt, EXPMultBossAmt, LPMultBossAmt, CPMultAmt, CPMultBossAmt;
 
         internal static void Init()
         {
@@ -698,6 +713,36 @@ public class FF12Flags
                 MaxValue = 1000,
                 StepSize = 10
             }.Register(LPMult);
+
+            CPMult = new Flag(false)
+            {
+                Text = "CP Multipliers",
+                FlagID = "CPMult",
+                DescriptionFormat = "Set to the percentages to scale CP.",
+                Aesthetic = true
+            }.Register(FlagType.Other);
+
+            CPMultAmt = new NumberFlagProperty(100)
+            {
+                Text = "Normal and Rare Game Enemies",
+                ID = "CPMultAmt",
+                Description = "",
+                ValueText = "CP Mult (%):",
+                MinValue = 10,
+                MaxValue = 1000,
+                StepSize = 10
+            }.Register(CPMult);
+
+            CPMultBossAmt = new NumberFlagProperty(100)
+            {
+                Text = "Boss and Mark Enemies",
+                ID = "CPMultBossAmt",
+                Description = "",
+                ValueText = "CP Mult (%):",
+                MinValue = 10,
+                MaxValue = 1000,
+                StepSize = 10
+            }.Register(CPMult);
         }
     }
     public class Debug
