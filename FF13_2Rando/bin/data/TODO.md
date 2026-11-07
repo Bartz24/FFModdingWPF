@@ -43,21 +43,16 @@ can we just put items in the node list?
 abilities as items?
 
 make a fake battle scene for gorgyra/ugallu and do items in post script like other bosses
-zenobia can be moved from acad 400
-
-acad 500 fragemnt text crashes. lol.
-
-Update artefacts to be copies of an artefact for categorisation/icon purposes
+zenobia can be moved from acad 400? test this out (and other cinematic fights)
 
 add twilight odin, long gui etc to boss token pool, investiaget scripts for ugallu/gorgyra, allow adjust threshold
 - custom battle scenes to replace normal fights
 - then clear the mission from the script instead?
 - how easily can we setup custom fight hook scripts, is it just in the btsc table?
 
-figure out why yomi/raspatil sometimes duplicate
+figure out why yomi/raspatil sometimes duplicate - resolved?
 mark several encounter slots as dangerous
 only allow superbosses to be in dangerous spots
-Add client log saying "hold L2/R2 to receive items" after the "you are now autotracking"
 
 
 Casino stuff:
@@ -111,3 +106,24 @@ Active changelog:
 - Add indicator for pending item collection when running an AP seed
 - Various check logic fixes
 - Adjust "Old Device" to still be accessible as a check even when the Rhodium Ring sidequest is handed in (Bresha 100)
+
+
+DLC areas
+
+Colosseum (0071)
+155::efGetHomeTreasure has the materials (6 item grants total)
+100:fsCallOmegaBattle_CB after winning omega? Can we setup others?
+Look into battle script chaining for various things to see if we can setup other stuff?
+105::fsCallColosseumMenu_cb seems to be the entry point here.
+
+Casino (0131)
+TBD
+
+
+Valhalla (0161)
+Can't obviously see how lightnig is setup
+Not sure there's any item grants here
+if we want to lock stuff the question si going to be can we access common scripts from battles?
+
+
+Pacos twin location is scaled too high especially on HP lol.

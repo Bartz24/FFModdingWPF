@@ -102,6 +102,13 @@ public class TextRando : Randomizer
         mainSysUS["$amca_frg_sk19"] = "The fragment skill New Game, Same Stats has been unlocked!";
         // To make it clear its not the fragment in your inventory
         mainSysUS["$privilege06"] = "Paradox Scope (Skill)";
+        // Adjusted names for clarity
+        mainSysUS["$privilege12"] = "Progressive Encounter Master";
+        mainSysUS["$privilege13"] = "Progressive Encounter Master";
+        // mainSysUS["$privilege04"] = "Chocobo Music (Cocoon)";
+        mainSysUS["$privilege20"] = "Chocobo Music (Pulse)";
+        mainSysUS["$privilege21"] = "Chocobo Music (Crazy)";
+        mainSysUS["$privilege22"] = "Chocobo Music (Race)";
         mainSysUS["$fl_rando_opt"] = "{Color Yellow}{Entity 1}{Color White} is required for this gate.";
         mainSysUS["$rando_win_cond_frag"] = "You have {Color Yellow}{Counter Type 1}{Color White} / {Counter Type 2} Fragments required to progress";
     }
