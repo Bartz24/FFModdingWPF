@@ -35,6 +35,7 @@ public class EnemyRando : Randomizer
     {
         RandoUI.SetUIProgressIndeterminate("Loading Enemy Data...");
         // TODO: this takes forever - dump out loaded contents into a single cache file for ease of access
+        // Also every enemy is currently loaded twice, can this be more efficient?
         x000.ForEach(s =>
         {
             DataStoreWDB<DataStoreBtCharaSpec> db3 = new();

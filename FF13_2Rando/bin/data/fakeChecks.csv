@@ -130,9 +130,9 @@ frg_gd_4,Ochu Fragment,h_gd_NA0000,,,I(frg_itm_gdza001),Fragment,frg_mon_gdza003
 frg_gd_5,Long Gui Fragment,h_gd_NA0000,,,I(frg_itm_gdza001),Fragment,frg_cmn_gdza002,
 frg_gd_6,Yomi Fragment,h_gd_NA0000,,,AND(I(frg_itm_gdza001)|I(gd_choco)),Fragment,frg_cmn_gdza009,
 frg_gd_7,Woolly Stone,h_gd_NA0000,,,AND(I(key_gowa_wool|1)|I(key_moko_wool|1)|I(key_nuku_wool|1)),Fragment,frg_itm_gdza001,
-gd_choco,Chocobo access,h_gd_NA0000,,,T(GDChoco|5),SideKey,gd_choco,
+gd_choco,Chocobo access,h_gd_NA0000,,,AND(T(GDChoco|5)|I(frg_cmn_gdza001)),SideKey,gd_choco,
 # Fragments - Augusta Tower
-frg_gt_2,Idea Circuit,h_gt_AD0200,,,I(key_para50f|1),Fragment,frg_itm_gtca001,
+frg_gt_2,Idea Circuit,h_gt_AD0200,,,AND(I(key_access_50|1)|I(key_para50f|1)),Fragment,frg_itm_gtca001,
 frg_gt_3,Enigma Codex,h_gt_AD0200,,,AND(I(frg_itm_gtca001|1)|I(key_para52f|1)),Fragment,frg_itm_gtca002,
 frg_gt_4,Difference Engine,h_gt_AD0200,,,AND(I(frg_itm_gtca002|1)|I(key_paraxxf|1)),Fragment,frg_itm_gtca003,
 frg_gt_5,Entropy Board,h_gt_AD0300,,,,Fragment,frg_cmn_gtda001,

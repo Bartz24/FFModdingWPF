@@ -173,8 +173,8 @@ zfrgpzl_gwca019,Village Proper Hidden Rift in building,h_gw_AD0400,1,,,Fragment|
 # Also accessible from all oerba 300 clear? verify this.
 zfrgpzl_gwca020,Ashensand Rift near stairs,h_gw_AD0400,,,T(Oerba400|7),Fragment|ScrEvent
 # Oerba ALL
-# Locked in oerba 300 until after rift
-tre_gwca_001,Village Proper West Alcove,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|AND(A(h_gw_AD0300)|I(key_mog_level|1))|A(h_gw_AD0400)),
+# Oerba 300 requires final rift clear to access this
+tre_gwca_001,Village Proper West Alcove,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|AND(A(h_gw_AD0300)|I(hs_gwda01_gw|1))|A(h_gw_AD0400)),
 tre_gwca_002,Village Proper Behind Central Building,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|A(h_gw_AD0300)|A(h_gw_AD0400)),
 tre_gwca_003,Village Proper Between trees,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,0,,OR(AND(A(h_gw_AD0200)|I(key_mog_level|1))|A(h_gw_AD0300)|A(h_gw_AD0400)),
 tre_gwca_004,Village Proper Raise area south of beach stairs,h_gw_AD0200|h_gw_AD0300|h_gw_AD0400,1,,,
@@ -257,7 +257,7 @@ ztmap_gd,Map of the Steppe,h_gd_NA0000,0,,,ScrEvent|Map
 tre_snda_reopt,Alley near shop,h_ac_AD0400,0,,,GateSeal
 tre_gvtn4,New Town Graviton Core near Zenobia,h_ac_AD0400,1,,,Graviton
 zopt_acea01_gt,Tower Artefact,h_ac_AD0400,0,,,ScrEvent|Artefact
-zfrgcmn_acea001,Travel Guide: Bresha Ruins,h_ac_AD0400,0,h_bj_AD0005|h_bj_AD0100|h_bj_AD0300,,ScrEvent|Fragment
+zfrgcmn_acea001,Travel Guide: Bresha Ruins,h_ac_AD0400,0,h_bj_AD0005|h_bj_AD0100|h_bj_AD0300,I(key_lockjail),ScrEvent|Fragment
 zfrgcmn_acea002,Travel Guide: New Bodhum,h_ac_AD0400,0,h_hm_AD0003|h_hm_AD0700,,ScrEvent|Fragment
 zfrgcmn_acea003,Travel Guide: Yachas Massif,h_ac_AD0400,0,,OR(A(h_gy_AD0100)|A(h_gy_AD0200)),ScrEvent|Fragment
 zfrgcmn_acea004,Travel Guide: Oerba,h_ac_AD0400,0,h_gw_AD0400,,ScrEvent|Fragment
@@ -346,7 +346,7 @@ tre_gtca_022,49th Floor Outer Ring West Throw,h_gt_AD0200,2,,I(key_access_la|1),
 tre_gtca_023,49th Floor Outer Ring Northeast Throw,h_gt_AD0200,2,,I(key_access_la|1),SideKey
 zfrgcmn_gtca001,Proto Fal'Cie Adam Fragment,h_gt_AD0200,1,,I(key_access_la|1),ScrEvent|Fragment
 zopt_gtca01_aa,Artefact of Rebirth,h_gt_AD0200,0,,I(key_access_la|1),ScrEvent|Artefact
-zkey_access_13,Access Key 13,h_gt_AD0200,0,,AND(I(frg_itm_gtca002|1)|I(key_paraxxf|1)),ScrEvent|SideKey
+zkey_access_13,Access Key 13,h_gt_AD0200,0,,AND(I(frg_itm_gtca003|1)|I(key_paraxxf|1)),ScrEvent|SideKey
 ztmap_gt,Map of Augusta Tower,h_gt_AD0200,0,,,ScrEvent|Map
 # Augusta Tower 300
 tre_gtda_001,12th Floor Outer Ring East,h_gt_AD0300,0,,,
@@ -381,9 +381,9 @@ tre_ghaa_reopt,Temptation Plaza Inside,h_cs_NA0000,0,,,GateSeal
 # tre_csza_opts1,Wild Artefact In Shop,h_cs_NA0000,0,,,Wild|Fixed|Missable
 zfrgcmn_csza001,Lucky Coin,h_cs_NA0000,,,,Fragment|ScrEvent|Missable
 zfrgcmn_csza003,Chocochick Down,h_cs_NA0000,,,,Fragment|ScrEvent
-zkeycasino_prz,Priceless Gift,h_cs_NA0000,,,T(CasinoCoins),Fragment|ScrEvent
-zkeychaos_cly,Chaos Crystal,h_cs_NA0000,,,T(CasinoCoins),Fragment|ScrEvent
-zkeycasino_dice,Setzer's Dice,h_cs_NA0000,,,T(CasinoCoins),Fragment|ScrEvent
+zkeycasino_prz,Priceless Gift,h_cs_NA0000,,,,Fragment|ScrEvent
+zkeychaos_cly,Chaos Crystal,h_cs_NA0000,,,,Fragment|ScrEvent
+zkeycasino_dice,Setzer's Dice,h_cs_NA0000,,,,Fragment|ScrEvent
 #Fragment Skills (serendipity)
 zprivilege01,Mog's Manifestation,h_cs_NA0000,0,,I(frg_pzl_gwca003|1),ScrEvent|FragmentSkill
 zprivilege02,Bargain Hunter,h_cs_NA0000,0,,I(frg_cmn_spza001|1),ScrEvent|FragmentSkill
@@ -426,7 +426,6 @@ tre_ddha_opts1,The Farseers' Relic Oracle Drive,h_dd_AD0700,3,,,Wild
 zfrgcmn_ddha001,Gogmagog Fragment Gamma,h_dd_AD0700,1,,,ScrEvent|Fragment
 # Vile Peaks 200
 zfrgcmn_vpca005,Falcon's Last Light,h_vp_AD0200,1,,,ScrEvent|Fragment
-ztmap_vp,Map of the Vile Peaks,h_vp_AD0200,1,,,ScrEvent|Map
 zfrgcmn_vpca001,Torreno's Last Light,h_vp_AD0200,1,,,ScrEvent|Fragment
 # Vile Peaks 10
 tre_vpba_011,Wrack and Ruin Central northwest,h_vp_AD0010,1,,,
@@ -436,13 +435,14 @@ tre_vpba_005,Wrack and Ruin Circular platform,h_vp_AD0010,0,,,
 # One of these doesn't actually need mog (7 above)
 tre_vpba_007,Wrack and Ruin Final ledge,h_vp_AD0010,1,,,
 tre_vpba_008,Wrack and Ruin Central east,h_vp_AD0010,0,,,
-tre_vpba_009,Wrack and Ruin Central southwest,h_vp_AD0010,1,,,
+tre_vpba_009,Wrack and Ruin Central southwest reveal,h_vp_AD0010,1,,,
 tre_vpba_010,Wrack and Ruin North alcove,h_vp_AD0010,0,,,
 zfrgcmn_vpba001,Baxter's Last Light,h_vp_AD0010,1,,,ScrEvent|Fragment
 # Vile Peaks All
 tre_vpba_004,Dismal Dunescape North Advanced reveal,h_vp_AD0200|h_vp_AD0010,3,,,
 tre_vpba_001,Another Man's Treasure West alcove,h_vp_AD0200|h_vp_AD0010,1,,,
 tre_vpba_006,Another Man's Treasure West,h_vp_AD0200|h_vp_AD0010,0,,,
+ztmap_vp,Map of the Vile Peaks,h_vp_AD0200|h_vp_AD0010,1,,,ScrEvent|Map
 # Valhalla
 zfrgcmn_acfa002,Paradox Scope,h_va_NA0000,0,,,ScrEvent|Paradox|Missable
 # Paradox scope and endings - gate seals are doing bad things currently so all missable for now (also the scope check is at beating the game so "post victory" for now)

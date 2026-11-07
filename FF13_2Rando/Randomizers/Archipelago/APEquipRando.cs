@@ -32,8 +32,8 @@ public class APEquipRando : EquipRando
                 var apUnique = items.Copy("key_l_knife", itemId);
                 apUnique.sItemNameStringId = $"$zzz_r_ap_{idx}"; // Name will be populated in TextRando
                 apUnique.sHelpStringId = $"$zzz_r_aph_{idx}";
-                apUnique.u16SortAllByKCategory = 101;
-                apUnique.u16SortCategoryByCategory = 151;
+                apUnique.u16SortAllByKCategory = 184;
+                apUnique.u16SortCategoryByCategory = 154;
             }
         }
 
@@ -47,8 +47,8 @@ public class APEquipRando : EquipRando
                 var apMulti = items.Copy("key_l_knife", itemId);
                 apMulti.sItemNameStringId = $"$zzz_r_multi_{i}"; // Name will be populated in TextRando
                 apMulti.sHelpStringId = $"$zzz_r_multih_{i}";
-                apMulti.u16SortAllByKCategory = 101;
-                apMulti.u16SortCategoryByCategory = 150;
+                apMulti.u16SortAllByKCategory = 185+i;
+                apMulti.u16SortCategoryByCategory = 155+i;
             }
         }
 
@@ -58,8 +58,8 @@ public class APEquipRando : EquipRando
             var apAdded = items.Copy("key_l_knife", "key_r_added");
             apAdded.sItemNameStringId = "$zzz_r_added"; // Name will be populated in TextRando
             apAdded.sHelpStringId = "$zzz_r_addedh";
-            apAdded.u16SortAllByKCategory = 101;
-            apAdded.u16SortCategoryByCategory = 152;
+            apAdded.u16SortAllByKCategory = 188;
+            apAdded.u16SortCategoryByCategory = 158;
         }
 
         usedItems = apData.UsedItems;

@@ -129,7 +129,7 @@ public partial class BattleRando : Randomizer
         // Potentially just use spheres as ordering and have a fix list of difficulties (maybe even based on vanilla data?)
         List<int> newMins = areaBounds.Values.Select(t => t.Item1).OrderBy(i => i).ToList();
         List<int> newMaxs = areaBounds.Values.Select(t => t.Item2).OrderBy(i => i).ToList();
-        int enemyMaxRank = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).Max(e => e.Rank);
+        int enemyMaxRank = enemyData.Values.Where(e => !e.Traits.Contains("Boss") && !e.Traits.Contains("Superboss")).Max(e => e.Rank);
         // Currently this maps difficulty "scale" to sphere of area opening.
         // This should be reframed as index ranking into a predefined list of difficulty ranges (based on vanilla areas/depths)
         var maxAreaDepth = cruxRando.areaSpheres.Max(kvp => kvp.Value);
@@ -242,6 +242,7 @@ public partial class BattleRando : Randomizer
 
     private void ApplyEnemyBossPlacementUpdates()
     {
+        // TODO: exclude superboss / void enemy encounters by default from this using traits on scene (separate shuffle pass similar to bosses?)
         btScenes.Values.Shuffle().ForEach(b =>
         {
             List<EnemyData> oldEnemies = b.GetCharSpecs().Where(s => enemyData.ContainsKey(s)).Select(s => enemyData[s]).ToList();
@@ -250,6 +251,8 @@ public partial class BattleRando : Randomizer
             {
                 count = Math.Min(4, count);
             }
+
+            // TODO: better solo handling
 
             if (count > oldEnemies.Count)
             {
@@ -269,9 +272,9 @@ public partial class BattleRando : Randomizer
 
             if (count > 0)
             {
-                if (!oldEnemies[0].Traits.Contains("Boss") || FF13_2Flags.Enemies.Bosses.SelectedValues.Count > 0)
+                if (!oldEnemies[0].Traits.Contains("Boss") || !oldEnemies[0].Traits.Contains("Superboss") || FF13_2Flags.Enemies.Bosses.SelectedValues.Count > 0)
                 {
-                    List<EnemyData> validEnemies = enemyData.Values.Where(e => !e.Traits.Contains("Boss")).ToList();
+                    List<EnemyData> validEnemies = enemyData.Values.Where(e => !e.Traits.Contains("Boss") && !e.Traits.Contains("Superboss")).ToList();
                     if (battleData.ContainsKey(b.record) && !battleData[b.record].Traits.Contains("Info"))
                     {
                         validEnemies = validEnemies.Where(e => e.Parts.Count == 0 || oldEnemies.Contains(e)).ToList();
@@ -452,6 +455,11 @@ public partial class BattleRando : Randomizer
                 }
             }
         }
+        else if (oldEnemies[0].Traits.Contains("Superboss"))
+        {
+            // Don't mess with super bosses at all currently
+            return;
+        }
         else
         {
             List<string> areas = GetAreasWithBattle(btsceneName);
@@ -492,7 +500,7 @@ public partial class BattleRando : Randomizer
                     List<EnemyData> possible = allowed.Where(e => !ignored.Contains(e.ID)).Where(newE =>
                     {
                         return newE.Rank >= newRank - range && newE.Rank <= newRank + range;
-                    }).Where(newE => !newE.Traits.Contains("Solo") || !newE.Traits.Contains("Miniboss") || oldEnemies.Contains(newE)).ToList();
+                    }).Where(newE => !newE.Traits.Contains("Solo") || !newE.Traits.Contains("Miniboss") || !newE.Traits.Contains("Superboss") || oldEnemies.Contains(newE)).ToList();
 
                     if (possible.Count == 0)
                     {
@@ -615,7 +623,7 @@ public partial class BattleRando : Randomizer
         foreach (string id in btScenes.Keys)
         {
             // Skip any battles that have bosses in them
-            if (btScenes[id].GetCharSpecs().Where(s => enemyData.ContainsKey(s)).Select(s => enemyData[s]).Any(e => e.Traits.Contains("Boss") || e.Traits.Contains("Info")))
+            if (btScenes[id].GetCharSpecs().Where(s => enemyData.ContainsKey(s)).Select(s => enemyData[s]).Any(e => e.Traits.Contains("Boss") || e.Traits.Contains("Superboss") || e.Traits.Contains("Info")))
             {
                 continue;
             }

@@ -33,37 +33,60 @@ public class EquipRando : Randomizer
         items.Copy("key_l_knife", "key_mog_level");
         items["key_mog_level"].sItemNameStringId = "$mog_level";
         items["key_mog_level"].sHelpStringId = "$mog_levelh";
+        items["key_mog_level"].u16SortAllByKCategory = 180;
+        items["key_mog_level"].u16SortCategoryByCategory = 150;
+        items["key_mog_level"].u8MenuIcon = 24;
 
         items.Copy("key_l_knife", "key_shop_level");
         items["key_shop_level"].sItemNameStringId = "$shop_level";
         items["key_shop_level"].sHelpStringId = "$shop_levelh";
-
-        items.Copy("key_l_knife", "key_r_victory");
-        items["key_r_victory"].sItemNameStringId = "$victory";
-        items["key_r_victory"].sHelpStringId = "$victory";
+        items["key_shop_level"].u16SortAllByKCategory = 181;
+        items["key_shop_level"].u16SortCategoryByCategory = 151;
+        items["key_shop_level"].u8MenuIcon = 24;
 
         items.Copy("key_l_knife", "key_boss_token");
         items["key_boss_token"].sItemNameStringId = "$boss_token";
         items["key_boss_token"].sHelpStringId = "$boss_tokenh";
+        items["key_boss_token"].u16SortAllByKCategory = 182;
+        items["key_boss_token"].u16SortCategoryByCategory = 152;
+        items["key_boss_token"].u8MenuIcon = 24;
 
-        string[] fragmentSkillKeys = ["01", "02", "03", "04", "05", "06", "08", "10", "11", "12", "14", "15", "18"];
+        items.Copy("key_l_knife", "key_r_victory");
+        items["key_r_victory"].sItemNameStringId = "$victory";
+        items["key_r_victory"].sHelpStringId = "$victory";
+        items["key_r_victory"].u16SortAllByKCategory = 183;
+        items["key_r_victory"].u16SortCategoryByCategory = 153;
+        items["key_r_victory"].u8MenuIcon = 24;
 
+        // TODO: missing some fragment skill keys?
+        string[] fragmentSkillKeys = ["01", "02", "03", "04", "05", "06", "08", "10", "11", "12", "13", "14", "15", "18", "20", "21", "22"];
+
+        int skillCount = 1;
         foreach (var key in fragmentSkillKeys)
         {
             var itemName = $"privilege{key}";
             items.Copy("key_l_knife", itemName);
             items[itemName].sItemNameStringId = "$"+itemName;
             items[itemName].sHelpStringId = "$"+itemName+"h";
+            items[itemName].u8MenuIcon = 7;
+            items[itemName].u16SortAllByKCategory = 100 + skillCount;
+            items[itemName].u16SortCategoryByCategory = 110 + skillCount;
+            skillCount++;
         }
 
         // Add fake items here for artefacts
         string[] fakeArtefactIds = ["opt_bjaa03_bj", "opt_ddha01_bj", "opt_bjba01_gy", "opt_ghaa01_gt", "opt_gdaa01_vp", "opt_acea02_gy", "opt_gyba01_sn", "opt_gtca02_gw", "opt_gwda01_gw", "opt_aaea03_vp"];
+        int artefactCount = 1;
         foreach(string s in fakeArtefactIds)
         {
-            items.Copy("key_l_knife", s);
+            // Ensure other artefacts start from an artefact basis
+            items.Copy("opt_hmaa01_bj", s);
             items[s].sItemNameStringId = $"${s}";
             items[s].sHelpStringId = $"${s}h";
             items[s].u8MenuIcon = 7;
+            items[s].u16SortAllByKCategory = 13 + artefactCount;
+            items[s].u16SortCategoryByCategory = 130 + artefactCount;
+            artefactCount++;
         }
 
         // Casino price overrides for simpler logic for now
