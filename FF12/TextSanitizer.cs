@@ -1,9 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 
 namespace Bartz24.FF12;
+
+/// <summary>
+/// One piece of a line built by <see cref="TextSanitizer.FitParts"/>. Only <see cref="Name"/> is ever shortened.
+/// </summary>
+public readonly record struct TextPart(string Name, string Suffix = "", bool CanShorten = true);
 
 public static class TextSanitizer
 {
@@ -60,6 +66,36 @@ public static class TextSanitizer
         }
 
         return result.ToString().TrimEnd(' ', ',') + "…";
+    }
+
+    public static string FitParts(IReadOnlyList<TextPart> parts, string separator, int maxLength)
+    {
+        List<TextPart> sanitized = parts.Select(p => p with { Name = Sanitize(p.Name), Suffix = Sanitize(p.Suffix) }).ToList();
+        string joined = string.Join(separator, sanitized.Select(p => p.Name + p.Suffix));
+        if (Length(joined) <= maxLength)
+        {
+            return joined;
+        }
+
+        const int minNameLength = 2;
+
+        List<int> shortenable = sanitized.Where(p => p.CanShorten).Select(p => Length(p.Name)).ToList();
+        int fixedLength = Length(separator) * (sanitized.Count - 1)
+            + sanitized.Sum(p => Length(p.Suffix) + (p.CanShorten ? 0 : Length(p.Name)));
+        int budget = maxLength - fixedLength;
+
+        int cap = shortenable.Count == 0 ? 0 : shortenable.Max();
+        while (cap >= minNameLength && shortenable.Sum(l => Math.Min(l, cap)) > budget)
+        {
+            cap--;
+        }
+
+        if (cap < minNameLength)
+        {
+            return Truncate(joined, maxLength);
+        }
+
+        return string.Join(separator, sanitized.Select(p => (p.CanShorten ? Truncate(p.Name, cap) : p.Name) + p.Suffix));
     }
 
     public static string Sanitize(string text)

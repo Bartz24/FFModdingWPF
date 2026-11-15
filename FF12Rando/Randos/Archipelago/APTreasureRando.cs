@@ -140,22 +140,22 @@ class APTreasureRando : TreasureRando
         }
     }
 
-    protected override string GetOutfitterDisplay(DataStoreReward reward, List<RewardLocation> locations)
+    protected override List<TextPart> GetOutfitterParts(DataStoreReward reward, List<RewardLocation> locations)
     {
         if (locations.Count == 0)
         {
-            return base.GetOutfitterDisplay(reward, locations);
+            return base.GetOutfitterParts(reward, locations);
         }
 
         int rewardID = locations[0].IntID;
-        SortedDictionary<int, string> byIndex = new();
+        SortedDictionary<int, TextPart> byIndex = new();
 
         // Checks the server owns. Only these carry a display name for another player's item.
         foreach (RewardLocation location in locations)
         {
             if (ArchipelagoRewardDisplays.TryGetValue((rewardID, location.Index), out string apItemName))
             {
-                byIndex[location.Index] = apItemName;
+                byIndex[location.Index] = new TextPart(apItemName);
             }
         }
 
@@ -170,12 +170,12 @@ class APTreasureRando : TreasureRando
             }
 
             byIndex[location.Index] = location.Index == 0
-                ? $"{reward.Gil} Gil"
-                : GetRewardItemDisplay(location, content.Value.Item1, content.Value.Item2);
+                ? GetOutfitterGilPart(reward)
+                : GetOutfitterItemPart(content.Value.Item1, content.Value.Item2);
         }
 
         // Never leave the row blank; the placeholder name beats nothing at all.
-        return byIndex.Count == 0 ? base.GetOutfitterDisplay(reward, locations) : string.Join(", ", byIndex.Values);
+        return byIndex.Count == 0 ? base.GetOutfitterParts(reward, locations) : byIndex.Values.ToList();
     }
 
     private Dictionary<(int RewardID, int Index), string> archipelagoRewardDisplays;

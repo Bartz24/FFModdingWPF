@@ -31,6 +31,8 @@ public partial class TreasureRando : Randomizer
 
     public ShopData ClanShopWithElixirs = null;
 
+    private const int OutfitterRowMaxLength = 60;
+
     public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
 
     // Used for grouping/sorting by type
@@ -273,8 +275,10 @@ public partial class TreasureRando : Randomizer
         {
             List<RewardLocation> allRewardLocs = ItemLocations.Values.Where(l => l is RewardLocation r2 && r2.IntID == r.IntID).Select(l => (RewardLocation)l).ToList();
             DataStoreReward reward = rewards[r.IntID - 0x9000];
-            // Archipelago names can be too long
-            string itemName = TextSanitizer.Truncate(TextSanitizer.Sanitize(GetOutfitterDisplay(reward, allRewardLocs)), 30);
+
+            // Rows with long item names, so make each reward shorter instead
+            string itemName = TextSanitizer.FitParts(GetOutfitterParts(reward, allRewardLocs), ", ", OutfitterRowMaxLength);
+
             // Format: {item}<NAME>{righttab}{macro:<INT>,6,0,0}{/item}
             newText += $"{{item}}{itemName}{{righttab}}{{macro:{r.IntID - outfitterRewards[0].IntID},6,0,0}}{{/item}}\n";
         }
@@ -729,13 +733,42 @@ public partial class TreasureRando : Randomizer
     }
 
     /// <summary>
-    /// Name for a row of the in game outfitters menu. Separate from <see cref="GetRewardDisplay"/>
+    /// Parts (gil, item 1, item 2) for a row of the in game outfitters menu. Separate from <see cref="GetRewardDisplay"/>
     /// so that what the player is shown in game can differ from what the documentation records,
     /// which matters for an Archipelago seed where the docs must stay spoiler free.
+    /// The parts are kept separate so the row can be shortened per reward to fit the menu.
     /// </summary>
-    protected virtual string GetOutfitterDisplay(DataStoreReward reward, List<RewardLocation> locations)
+    protected virtual List<TextPart> GetOutfitterParts(DataStoreReward reward, List<RewardLocation> locations)
     {
-        return GetRewardDisplay(reward, locations);
+        List<TextPart> parts = new();
+        if (reward.Gil > 0 && locations.Any(l => l.Index == 0))
+        {
+            parts.Add(GetOutfitterGilPart(reward));
+        }
+
+        if (reward.Item1ID != 0xFFFF && locations.Any(l => l.Index == 1))
+        {
+            parts.Add(GetOutfitterItemPart(reward.Item1ID.ToString("X4"), reward.Item1Amount));
+        }
+
+        if (reward.Item2ID != 0xFFFF && locations.Any(l => l.Index == 2))
+        {
+            parts.Add(GetOutfitterItemPart(reward.Item2ID.ToString("X4"), reward.Item2Amount));
+        }
+
+        return parts;
+    }
+
+    protected static TextPart GetOutfitterGilPart(DataStoreReward reward)
+    {
+        // Never shorten the gil amount
+        return new TextPart($"{reward.Gil} Gil", CanShorten: false);
+    }
+
+    protected TextPart GetOutfitterItemPart(string itemID, int amount)
+    {
+        // Compact count so more of the name fits, and the count is never cut off
+        return new TextPart(GetItemName(itemID), amount > 1 ? $" x{amount}" : "");
     }
 
     private string GetRewardDisplay(DataStoreReward reward, List<RewardLocation> locations)

@@ -21,6 +21,9 @@ public class TextRando : Randomizer
     public DataStoreBinText TextKeyDescriptions = new();
 
     public Dictionary<string, DataStoreEbpBinText> TextEbpZones = new();
+
+    protected virtual string SeedLabel => SetupData.Seed.Clean();
+
     public TextRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
@@ -104,8 +107,11 @@ public class TextRando : Randomizer
     {
         RandoUI.SetUIProgressIndeterminate("Saving Text Data...");
 
-        UpdateSeedInfoStr();
+        // Computed once: it reseeds the RNG from the flags as a side effect.
+        string hash = GetHash();
+        UpdateSeedInfoStr(hash);
         UpdateGoalInfoStr();
+        SaveTitleInfo(hash);
 
         TextLicenses.Save($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_061.bin.dir\\section_003.bin");
         TextLicenseAugmentDesc.Save($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\us\\binaryfile\\battle_pack.bin.dir\\section_061.bin.dir\\section_010.bin");
@@ -169,11 +175,17 @@ public class TextRando : Randomizer
             goalStr);
     }
 
-    protected virtual void UpdateSeedInfoStr()
+    private void UpdateSeedInfoStr(string hash)
     {
         DataStoreBinText.StringData seedInfoStr = TextEbpZones["rbn_a16"].Values.First(v => v.Text != null && v.Text.Contains("$VERSION$"));
         seedInfoStr.Text = seedInfoStr.Text.Replace("$VERSION$", SetupData.Version);
-        seedInfoStr.Text = seedInfoStr.Text.Replace("$SEED$", SetupData.Seed.Clean());
-        seedInfoStr.Text = seedInfoStr.Text.Replace("$SEED HASH$", GetHash());
+        seedInfoStr.Text = seedInfoStr.Text.Replace("$SEED$", SeedLabel);
+        seedInfoStr.Text = seedInfoStr.Text.Replace("$SEED HASH$", hash);
+    }
+
+    private void SaveTitleInfo(string hash)
+    {
+        File.WriteAllText($"{Generator.OutFolder}\\titleInfo.txt",
+            $"FF12 Randomizer v{SetupData.Version}   Seed: {SeedLabel}   {hash}");
     }
 }

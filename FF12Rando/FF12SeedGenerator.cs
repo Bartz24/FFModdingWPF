@@ -197,9 +197,16 @@ public class FF12SeedGenerator : SeedGenerator
         RemoveGeneratedDescriptiveConfig();
     }
 
+    private static readonly List<string> ScriptDataFiles = new()
+    {
+        "treasureTracker.txt",
+        "titleInfo.txt"
+    };
+
     public void UninstallSeed()
     {
         RemoveRandoLuaScripts();
+        ScriptDataFiles.Select(f => Path.Combine(SeedFolder, f)).Where(File.Exists).ForEach(File.Delete);
         RemoveGeneratedDescriptiveConfig();
         RestoreFromBackup(Path.Combine(DescriptiveConfigFolder, "us.lua"));
         RemoveFromSeedFolder(RandoDataSubPaths);

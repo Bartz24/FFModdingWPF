@@ -461,7 +461,8 @@ public class FF12Flags
                 Text = "Allow Advanced Chocobo Routes",
                 FlagID = "AdvChoco",
                 DescriptionFormat = "Allows more advanced routes to unlock Henne Mines and the upper area of Mosphoran Highwaste.\n" +
-                "If turned off, only the Jahara chocobo is needed for Henne Mines and only the Mosphoran chocobo is needed for upper Mosphoran Highwaste."
+                "If turned off, only the Jahara chocobo is needed for Henne Mines and only the Mosphoran chocobo is needed for upper Mosphoran Highwaste.",
+                HasArchipelagoOverride = true
             }.Register(FlagType.Items);
 
             Shops = new Flag(false)

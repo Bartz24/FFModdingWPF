@@ -10,12 +10,7 @@ public class APTextRando : TextRando
     {
     }
 
-    protected override void UpdateSeedInfoStr()
-    {
-        DataStoreBinText.StringData seedInfoStr = TextEbpZones["rbn_a16"].Values.First(v => v.Text != null && v.Text.Contains("$VERSION$"));
-        seedInfoStr.Text = seedInfoStr.Text.Replace("$SEED$", SetupData.Seed.Clean() + " (Archipelago)");
-        base.UpdateSeedInfoStr();
-    }
+    protected override string SeedLabel => base.SeedLabel + " (Archipelago)";
 
     protected override void UpdateGoalInfoStr()
     {
