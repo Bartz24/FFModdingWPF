@@ -1,6 +1,6 @@
--- Requires the FF12 lua loader 1.10.2 or newer.
-if not (checkMinVersion and checkMinVersion(1, 10, 2)) then
-    error("Rando Treasure Tracker: requires the FF12 lua loader 1.10.2 or newer.")
+-- Requires the FF12 lua loader 2.0.1 or newer.
+if not (checkMinVersion and checkMinVersion(2, 0, 1)) then
+    error("Rando Treasure Tracker: requires the FF12 lua loader 2.0.1 or newer.")
 end
 
 if modmenu == nil or dialog == nil then
@@ -41,27 +41,44 @@ local function readMapID()
     return memory.u32[0x02164480+0x1044]
 end
 
-local function treasureOpened(respawn)
-    local byteIndex = respawn // 8
-    local byteValue = memory.u8[0x02165934 + byteIndex]
-    local bitIndex = respawn % 8
-    return byteValue & (2 ^ bitIndex) > 0
+-- Opened-chest bitfield (save + 0x14B4). Bits 0-255 are chest respawn ids; settreasureflag(n),
+-- which urns use, sets bit 0x100 + n of the same field.
+local OPENED_BITS = 0x02165934
+local URN_BIT_BASE = 0x100
+
+local function bitSet(bit)
+    return (memory.u8[OPENED_BITS + (bit >> 3)] >> (bit & 7)) & 1 ~= 0
 end
 
-local function treasureCounts(map)
-    local list = treasures[map]
-    if list == nil then
-        return 0, 0
-    end
+local function treasureOpened(respawn)
+    return bitSet(respawn)
+end
 
+local function urnOpened(flag)
+    return bitSet(URN_BIT_BASE + flag)
+end
+
+local function countRemaining(list, isOpened)
     local opened = 0
-    for index, value in ipairs(list) do
-        if treasureOpened(value) then
+    for _, value in ipairs(list) do
+        if isOpened(value) then
             opened = opened + 1
         end
     end
 
     return #list - opened, #list
+end
+
+-- Returns chests remaining, chests total, urns remaining, urns total.
+local function treasureCounts(map)
+    local entry = treasures[map]
+    if entry == nil then
+        return 0, 0, 0, 0
+    end
+
+    local remain, total = countRemaining(entry.chests, treasureOpened)
+    local urnRemain, urnTotal = countRemaining(entry.urns, urnOpened)
+    return remain, total, urnRemain, urnTotal
 end
 
 local function readGameState()
@@ -87,12 +104,20 @@ local function fieldReady()
 end
 
 local function treasureCountText()
-    local remain, total = treasureCounts(readMapID())
-    if total == 0 then
+    local remain, total, urnRemain, urnTotal = treasureCounts(readMapID())
+    if total == 0 and urnTotal == 0 then
         return "{scale:70}No treasures on this map"
     end
 
-    return "{scale:70}" .. remain .. "/" .. total .. " treasures remain"
+    local parts = {}
+    if total > 0 then
+        table.insert(parts, remain .. "/" .. total .. " treasures")
+    end
+    if urnTotal > 0 then
+        table.insert(parts, urnRemain .. "/" .. urnTotal .. " urns")
+    end
+
+    return "{scale:70}" .. table.concat(parts, ", ") .. " remain"
 end
 
 local function refreshDisplay()
@@ -211,11 +236,17 @@ if file~=nil then
 
     for index, value in ipairs(fileContent) do
         local splitStr = splitString(value, ",")
+        -- "map,respawn,...,u<flag>,...": plain numbers are chests, u-prefixed ones are urns.
         local map = tonumber(splitStr[1], 16)
-        treasures[map] = { }
+        treasures[map] = { chests = {}, urns = {} }
         for i, v in ipairs(splitStr) do
             if i > 1 then
-                treasures[map][i-1] = tonumber(splitStr[i])
+                local urnFlag = v:match("^u(%d+)$")
+                if urnFlag ~= nil then
+                    table.insert(treasures[map].urns, tonumber(urnFlag))
+                else
+                    table.insert(treasures[map].chests, tonumber(v))
+                end
             end
         end
     end

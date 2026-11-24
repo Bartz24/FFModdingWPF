@@ -150,7 +150,7 @@ public static class FF12Mods
     {
         Name = "External File Loader",
         DownloadUrl = "https://www.nexusmods.com/finalfantasy12/mods/170",
-        MinimumVersion = new Version(1, 5, 2),
+        MinimumVersion = new Version(1, 6, 1),
         VersionFile = "x64\\modules\\ff12-file-loader.dll",
         RequiredFiles =
         {
@@ -177,7 +177,7 @@ public static class FF12Mods
     {
         Name = "Lua Loader",
         DownloadUrl = "https://www.nexusmods.com/finalfantasy12/mods/171",
-        MinimumVersion = new Version(1, 10, 2),
+        MinimumVersion = new Version(2, 0, 1),
         VersionFile = "x64\\modules\\ff12-lua-loader.dll",
         RequiredFiles = { "x64\\modules\\ff12-lua-loader.dll" },
         Extractions = { new ModExtraction("modules", () => GameFile("x64\\modules")) }

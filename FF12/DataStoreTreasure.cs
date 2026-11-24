@@ -4,6 +4,16 @@ namespace Bartz24.FF12;
 
 public class DataStoreTreasure : DataStore
 {
+    public short PosX
+    {
+        get => Data.ReadShort(0x04);
+        set => Data.SetShort(0x04, value);
+    }
+    public short PosZ
+    {
+        get => Data.ReadShort(0x06);
+        set => Data.SetShort(0x06, value);
+    }
     public bool RandomizeGil
     {
         get => Data.ReadBinary(0x08, 6);

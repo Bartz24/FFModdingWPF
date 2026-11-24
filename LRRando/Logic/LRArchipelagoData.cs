@@ -6,13 +6,19 @@ using System.Linq;
 namespace LRRando;
 public class LRArchipelagoData : ArchipelagoData
 {
+    // An item placed by the server: its name and where it is placed (location name/region).
+    public readonly record struct ItemPlacement(string ID, string Name, string Region, int Address);
+
+    // A local item placement with its local string IDs.
+    public readonly record struct LocalItemPlacement(string LocationID, string ItemID, int Amount);
+
     public string Version { get; set; } = string.Empty;
 
     // All item placements with item names and where they are placed (location name/region)
-    public List<(string ID, string Name, string Region, int Address)> ItemPlacements { get; set; } = new();
+    public List<ItemPlacement> ItemPlacements { get; set; } = new();
 
     // All local item placements with their local string IDs
-    public List<(string LocationID, string ItemID, int Amount)> LocalItemPlacements { get; set; } = new();
+    public List<LocalItemPlacement> LocalItemPlacements { get; set; } = new();
     public HashSet<string> UsedItems { get; set; } = new();
 
     public bool AllowDLCItems { get; set; } = false;
@@ -40,7 +46,7 @@ public class LRArchipelagoData : ArchipelagoData
             ItemPlacements = ((List<object>)data["item_placements"]).Select(o =>
             {
                 var placement = (IDictionary<string, object>)o;
-                return (
+                return new ItemPlacement(
                     ID: placement.ContainsKey("id") ? (string)placement["id"] : string.Empty,
                     Name: placement.ContainsKey("name") ? (string)placement["name"] : string.Empty,
                     Region: placement.ContainsKey("region") ? (string)placement["region"] : string.Empty,
@@ -59,7 +65,7 @@ public class LRArchipelagoData : ArchipelagoData
             LocalItemPlacements = ((List<object>)data["local_item_placements"]).Select(o =>
             {
                 var placement = (IDictionary<string, object>)o;
-                return (
+                return new LocalItemPlacement(
                     LocationID: placement.ContainsKey("location_id") ? (string)placement["location_id"] : string.Empty,
                     ItemID: placement.ContainsKey("item_id") ? (string)placement["item_id"] : string.Empty,
                     Amount: placement.ContainsKey("amount") ? Convert.ToInt32(placement["amount"]) : 1

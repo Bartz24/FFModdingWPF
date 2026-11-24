@@ -10,15 +10,20 @@ using System.Text.RegularExpressions;
 namespace FF12Rando;
 class APTreasureRando : TreasureRando
 {
-    public APTreasureRando(SeedGenerator randomizers) : base(randomizers)
-    {
-    }
-
     /// <summary>
     /// The key item every Archipelago check physically holds. What actually gets sent is decided by
     /// the server, so this is only a placeholder in the game's own data.
     /// </summary>
     public const string ArchipelagoItemID = "80E6";
+
+    private Dictionary<(int RewardID, int Index), ArchipelagoCheckItem> archipelagoRewardDisplays;
+    private Dictionary<(string MapID, int Index), ArchipelagoCheckItem> archipelagoTreasureDisplays;
+
+    public record ArchipelagoCheckItem(string Display, string Name, string Player, int? Flags);
+
+    public APTreasureRando(SeedGenerator randomizers) : base(randomizers)
+    {
+    }
 
     public override void Randomize()
     {
@@ -153,9 +158,9 @@ class APTreasureRando : TreasureRando
         // Checks the server owns. Only these carry a display name for another player's item.
         foreach (RewardLocation location in locations)
         {
-            if (ArchipelagoRewardDisplays.TryGetValue((rewardID, location.Index), out string apItemName))
+            if (ArchipelagoRewardDisplays.TryGetValue((rewardID, location.Index), out ArchipelagoCheckItem apItem))
             {
-                byIndex[location.Index] = new TextPart(apItemName);
+                byIndex[location.Index] = new TextPart(apItem.Display);
             }
         }
 
@@ -178,9 +183,42 @@ class APTreasureRando : TreasureRando
         return byIndex.Count == 0 ? base.GetOutfitterParts(reward, locations) : byIndex.Values.ToList();
     }
 
-    private Dictionary<(int RewardID, int Index), string> archipelagoRewardDisplays;
+    private ArchipelagoCheckItem ToCheckItem(FF12ArchipelagoData.SphereEntry data)
+    {
+        return new ArchipelagoCheckItem(data.ItemDisplay, data.ItemName, data.ItemPlayer, data.ItemFlags);
+    }
 
-    private Dictionary<(int RewardID, int Index), string> ArchipelagoRewardDisplays
+    public ArchipelagoCheckItem GetArchipelagoItem(FF12ItemLocation location)
+    {
+        return location switch
+        {
+            RewardLocation r => ArchipelagoRewardDisplays.GetValueOrDefault((r.IntID, r.Index)),
+            TreasureLocation t => ArchipelagoTreasureDisplays.GetValueOrDefault((t.MapID, t.Index)),
+            _ => null
+        };
+    }
+
+    private Dictionary<(string MapID, int Index), ArchipelagoCheckItem> ArchipelagoTreasureDisplays
+    {
+        get
+        {
+            if (archipelagoTreasureDisplays != null)
+            {
+                return archipelagoTreasureDisplays;
+            }
+
+            // Treasure checks use the map name as their id, the same key the treasure list uses.
+            HashSet<string> maps = ItemLocations.Values.OfType<TreasureLocation>().Select(t => t.MapID).ToHashSet();
+            archipelagoTreasureDisplays = RandoFlags.GetArchipelagoData<FF12ArchipelagoData>().Spheres
+                .Where(data => !string.IsNullOrWhiteSpace(data.ItemDisplay) && maps.Contains(data.ID))
+                .GroupBy(data => (data.ID, data.Index))
+                .ToDictionary(group => group.Key, group => ToCheckItem(group.First()));
+
+            return archipelagoTreasureDisplays;
+        }
+    }
+
+    private Dictionary<(int RewardID, int Index), ArchipelagoCheckItem> ArchipelagoRewardDisplays
     {
         get
         {
@@ -201,7 +239,7 @@ class APTreasureRando : TreasureRando
                     continue;
                 }
 
-                archipelagoRewardDisplays[(rewardID, data.Index)] = data.ItemDisplay;
+                archipelagoRewardDisplays[(rewardID, data.Index)] = ToCheckItem(data);
             }
 
             return archipelagoRewardDisplays;

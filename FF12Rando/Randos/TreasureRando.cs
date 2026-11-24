@@ -33,7 +33,18 @@ public partial class TreasureRando : Randomizer
 
     private const int OutfitterRowMaxLength = 60;
 
-    public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
+    /// <summary>
+    /// Respawn ids are local to a single map instead of globally unique. The engine's
+    /// opened-chest bitfield at save + 0x14B4 is indexed by DataStoreTreasure.Respawn,
+    /// which is one byte, so globally unique ids cap the game at 255 one-time chests --
+    /// far short of the 1916 that exist. RandoTreasureBank.lua swaps each map's slice of
+    /// that bitfield in and out on every map change, so the same small id space is reused
+    /// everywhere and every chest can be one-time.
+    ///
+    /// A chest's index within its own map is already a dense 0..N-1 id (N is at most 16
+    /// across every map in the game), so it is used directly as the respawn id.
+    /// </summary>
+    public const int MaxRespawnIdsPerMap = 16;
 
     // Used for grouping/sorting by type
     public enum ItemType
@@ -42,6 +53,8 @@ public partial class TreasureRando : Randomizer
         Equipment, // 0x1000 to 0x1FFF
         Ability // 0x3000 to 0x4FFF
     }
+
+    public TreasureRando(SeedGenerator randomizers) : base(randomizers) { }
 
     public override void Load()
     {
@@ -88,6 +101,8 @@ public partial class TreasureRando : Randomizer
         partyRando.Characters = MathHelpers.DecodeNaturalSequence(prices[0x76].Price, 6, 6).Select(l => (int)l).ToArray();
 
         areaMapping = File.ReadAllLines("data\\mapAreas.csv").ToDictionary(s => s.Split(',')[1], s => s.Split(',')[0]);
+        LoadMapNaviOrigins();
+        LoadUrns();
 
         ItemLocations.Clear();
 
@@ -314,19 +329,6 @@ public partial class TreasureRando : Randomizer
         }
     }
 
-    /// <summary>
-    /// Respawn ids are local to a single map instead of globally unique. The engine's
-    /// opened-chest bitfield at save + 0x14B4 is indexed by DataStoreTreasure.Respawn,
-    /// which is one byte, so globally unique ids cap the game at 255 one-time chests --
-    /// far short of the 1916 that exist. RandoTreasureBank.lua swaps each map's slice of
-    /// that bitfield in and out on every map change, so the same small id space is reused
-    /// everywhere and every chest can be one-time.
-    ///
-    /// A chest's index within its own map is already a dense 0..N-1 id (N is at most 16
-    /// across every map in the game), so it is used directly as the respawn id.
-    /// </summary>
-    public const int MaxRespawnIdsPerMap = 16;
-
     protected void SetTreasureRespawns(List<TreasureLocation> treasures)
     {
         foreach (TreasureLocation location in ItemLocations.Values.Where(l => l is TreasureLocation).Select(l => (TreasureLocation)l))
@@ -473,7 +475,17 @@ public partial class TreasureRando : Randomizer
 
     public void SaveTreasureTracker()
     {
-        Dictionary<string, List<int>> areaRespawns = new();
+        Dictionary<string, List<string>> areaEntries = new();
+        void Add(string mapID, string entry)
+        {
+            if (!areaEntries.ContainsKey(mapID))
+            {
+                areaEntries.Add(mapID, new List<string>());
+            }
+
+            areaEntries[mapID].Add(entry);
+        }
+
         IEnumerable<TreasureLocation> treasures = ItemLocations.Values
             .Where(l => l is TreasureLocation && l.GetItem(false) != null)
             .Select(l => (TreasureLocation)l);
@@ -482,16 +494,16 @@ public partial class TreasureRando : Randomizer
             DataStoreTreasure t = ebpAreas[l.MapID].TreasureList[l.Index];
             if (t.SpawnChance > 0 && t.Respawn < 255)
             {
-                if (!areaRespawns.ContainsKey(l.MapID))
-                {
-                    areaRespawns.Add(l.MapID, new List<int>());
-                }
-
-                areaRespawns[l.MapID].Add(t.Respawn);
+                Add(l.MapID, t.Respawn.ToString());
             }
         }
 
-        File.WriteAllLines($"{Generator.OutFolder}\\treasureTracker.txt", areaRespawns.Select(p => $"{areaMapping[p.Key]},{string.Join(",", p.Value)}"));
+        foreach (var urn in GetFilledUrns())
+        {
+            Add(urn.MapID, "u" + urn.TreasureFlag);
+        }
+
+        File.WriteAllLines($"{Generator.OutFolder}\\treasureTracker.txt", areaEntries.Select(p => $"{areaMapping[p.Key]},{string.Join(",", p.Value)}"));
     }
 
     public override void Save()
@@ -509,6 +521,9 @@ public partial class TreasureRando : Randomizer
 
         SaveHints();
         SaveTreasureTracker();
+        List<ChestIcon> chestIcons = GetChestIcons();
+        SaveChestIconList(chestIcons);
+        SaveChestNaviIcons(chestIcons);
     }
 
     public override Dictionary<string, HTMLPage> GetDocumentation()

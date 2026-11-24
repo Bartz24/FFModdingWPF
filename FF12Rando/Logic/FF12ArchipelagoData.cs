@@ -5,23 +5,21 @@ using System.Linq;
 namespace FF12Rando;
 public class FF12ArchipelagoData : ArchipelagoData
 {
+    public readonly record struct TreasureEntry(string MapName, int Index);
+
+    /// <summary>Worlds that predate item_name leave ItemName empty and ItemFlags null.</summary>
+    public readonly record struct SphereEntry(string ID, string Item, string ItemDisplay, int Index, int Sphere, string ItemName, string ItemPlayer, int? ItemFlags);
+
+    public readonly record struct FillerItemPlacement(string ID, int Index, string Item, int Amount);
+
     public string Version { get; set; }
     public HashSet<string> UsedItems { get; set; }
-    public List<(string MapName, int Index)> Treasures { get; set; }
+    public List<TreasureEntry> Treasures { get; set; }
     public List<int> CharacterOrder { get; set; }
     public bool AllowSeitengrat { get; set; }
-    /// <summary>
-    /// ID of the clan shop that sells elixirs, which trial 100's logic depends on. -1 for seeds from
-    /// worlds that predate it, which get no elixir shop.
-    /// </summary>
     public int ElixirShop { get; set; } = -1;
-    /// <summary>
-    /// One entry per location in this slot. Item is the event's logic token for event entries;
-    /// ItemDisplay is how the item at a real location should be shown in game, already prefixed with
-    /// the owning player for another player's item.
-    /// </summary>
-    public List<(string ID, string Item, string ItemDisplay, int Index, int Sphere)> Spheres { get; set; }
-    public List<(string ID, int Index, string Item, int Amount)> FillerItemPlacements { get; set; }
+    public List<SphereEntry> Spheres { get; set; }
+    public List<FillerItemPlacement> FillerItemPlacements { get; set; }
 
     public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.7.2" };
 
@@ -43,7 +41,7 @@ public class FF12ArchipelagoData : ArchipelagoData
         Treasures = ((List<object>)data["treasures"]).Select(o =>
         {
             var treasureData = (IDictionary<string, object>)o;
-            return (MapName: (string)treasureData["map"], Index: (int)(long)treasureData["index"]);
+            return new TreasureEntry(MapName: (string)treasureData["map"], Index: (int)(long)treasureData["index"]);
         }).ToList();
         CharacterOrder = ((List<object>)data["character_order"]).Select(o => (int)(long)o).ToList();
         AllowSeitengrat = (long)data["allow_seitengrat"] == 1;
@@ -51,17 +49,20 @@ public class FF12ArchipelagoData : ArchipelagoData
         Spheres =((List<object>)data["spheres"]).Select(o =>
         {
             var sphereData = (IDictionary<string, object>)o;
-            return (
+            return new SphereEntry(
             ID: (string)sphereData["id"],
             Item: sphereData.ContainsKey("item") ? (string)sphereData["item"] : "",
             ItemDisplay: sphereData.ContainsKey("item_display") ? (string)sphereData["item_display"] : "",
             Index: sphereData.ContainsKey("index") ? (int)(long)sphereData["index"] : 0,
-            Sphere: (int)(long)sphereData["sphere"]);
+            Sphere: (int)(long)sphereData["sphere"],
+            ItemName: sphereData.ContainsKey("item_name") ? (string)sphereData["item_name"] : "",
+            ItemPlayer: sphereData.ContainsKey("item_player") ? (string)sphereData["item_player"] : "",
+            ItemFlags: sphereData.ContainsKey("item_flags") ? (int?)(long)sphereData["item_flags"] : null);
         }).ToList();
         FillerItemPlacements = ((List<object>)data["filler_item_placements"]).Select(o =>
         {
             var placementData = (IDictionary<string, object>)o;
-            return (
+            return new FillerItemPlacement(
                        ID: (string)placementData["id"],
                        Index: (int)(long)placementData["index"],
                        Item: (string)placementData["item"],
@@ -77,13 +78,26 @@ public class FF12ArchipelagoData : ArchipelagoData
             { "index", t.Index }
         }).ToList();
 
-        List<Dictionary<string, object>> spheres = Spheres.Select(s => new Dictionary<string, object>
+        List<Dictionary<string, object>> spheres = Spheres.Select(s =>
             {
-                { "id", s.ID },
-                { "item", s.Item },
-                { "item_display", s.ItemDisplay },
-                { "index", s.Index },
-                { "sphere", s.Sphere }
+                Dictionary<string, object> sphere = new()
+                {
+                    { "id", s.ID },
+                    { "item", s.Item },
+                    { "item_display", s.ItemDisplay },
+                    { "index", s.Index },
+                    { "sphere", s.Sphere },
+                    { "item_name", s.ItemName },
+                    { "item_player", s.ItemPlayer }
+                };
+
+                // Left out when unknown, so a reload still tells an older world's data apart.
+                if (s.ItemFlags != null)
+                {
+                    sphere["item_flags"] = s.ItemFlags.Value;
+                }
+
+                return sphere;
             }).ToList();
 
         List<Dictionary<string, object>> fillerItemPlacements = FillerItemPlacements.Select(f => new Dictionary<string, object>

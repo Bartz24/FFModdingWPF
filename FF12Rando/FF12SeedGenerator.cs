@@ -22,6 +22,15 @@ public class FF12SeedGenerator : SeedGenerator
         "sound"
     };
 
+    private static List<string> ScriptDataFiles = new()
+    {
+        "treasureTracker.txt",
+        "treasureIcons.txt",
+        "treasureNavi.bin",
+        "titleInfo.txt",
+        "textOverrides.txt"
+    };
+
     public static string SeedFolder => Path.Combine(SetupData.Paths["12"], "rando");
 
     public static string SeedDataFolder => Path.Combine(SeedFolder, "ps2data");
@@ -90,9 +99,7 @@ public class FF12SeedGenerator : SeedGenerator
         FileHelpers.CopyFromFolder(Path.Combine(OutFolder, "ps2data"), "data\\ps2data");
 
         // gamedata sits beside ps2data in the VBF layout, so it needs its own copy.
-        // Currently just disableautosavelist, which re-enables the autosave on the trial
-        // floors following every tenth one -- the randomizer removes the manual save
-        // prompts there, so without this a run has no checkpoint until it ends.
+        // Currently just disableautosavelist (lines are "map,story,entrance,flag")
         FileHelpers.CopyFromFolder(Path.Combine(OutFolder, "gamedata"), "data\\gamedata");
 
         SetupData.WPDTracking.Clear();
@@ -196,12 +203,6 @@ public class FF12SeedGenerator : SeedGenerator
 
         RemoveGeneratedDescriptiveConfig();
     }
-
-    private static readonly List<string> ScriptDataFiles = new()
-    {
-        "treasureTracker.txt",
-        "titleInfo.txt"
-    };
 
     public void UninstallSeed()
     {

@@ -1,6 +1,6 @@
--- Requires the FF12 lua loader 1.10.2 or newer with the dialog service.
-if not (checkMinVersion and checkMinVersion(1, 10, 2)) then
-    error("Rando Title: requires the FF12 lua loader 1.10.2 or newer.")
+-- Requires the FF12 lua loader 2.0.1 or newer with the dialog service.
+if not (checkMinVersion and checkMinVersion(2, 0, 1)) then
+    error("Rando Title: requires the FF12 lua loader 2.0.1 or newer.")
 end
 
 if dialog == nil or dialog.amest == nil then

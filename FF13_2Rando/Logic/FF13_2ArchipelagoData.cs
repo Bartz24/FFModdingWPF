@@ -37,13 +37,21 @@ public struct FF13_2WinCondition
 
 public class FF13_2ArchipelagoData: ArchipelagoData
 {
+    // An item placed by the server: its name and where it is placed (location name/region).
+    public readonly record struct ItemPlacement(string ID, string Name, string Region, int Address);
+
+    // A local item placement with its local string IDs.
+    public readonly record struct LocalItemPlacement(string LocationID, string ItemID, int Amount);
+
+    public readonly record struct SphereEntry(string ID, string Item, int Index, int Sphere);
+
     public string Version { get; set; } = string.Empty;
 
     // All item placements with item names and where they are placed (location name/region)
-    public List<(string ID, string Name, string Region, int Address)> ItemPlacements { get; set; } = new();
+    public List<ItemPlacement> ItemPlacements { get; set; } = new();
 
     // All local item placements with their local string IDs
-    public List<(string LocationID, string ItemID, int Amount)> LocalItemPlacements { get; set; } = new();
+    public List<LocalItemPlacement> LocalItemPlacements { get; set; } = new();
 
 
     public Dictionary<string, FF13_2AreaNode> AreaGraph { get; set; } = new();
@@ -56,7 +64,7 @@ public class FF13_2ArchipelagoData: ArchipelagoData
 
     public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.3.1", "0.3.0" };
 
-    public List<(string ID, string Item, int Index, int Sphere)> Spheres { get; set; }
+    public List<SphereEntry> Spheres { get; set; }
 
     public FF13_2WinCondition WinCondition { get; set; } = new(0, 0, true);
 
@@ -75,7 +83,7 @@ public class FF13_2ArchipelagoData: ArchipelagoData
         Spheres = ((List<object>)data["spheres"]).Select(o =>
         {
             var sphereData = (IDictionary<string, object>)o;
-            return (
+            return new SphereEntry(
             ID: (string)sphereData["id"],
             Item: sphereData.ContainsKey("item") ? (string)sphereData["item"] : "",
             Index: sphereData.ContainsKey("index") ? (int)(long)sphereData["index"] : 0,
@@ -89,7 +97,7 @@ public class FF13_2ArchipelagoData: ArchipelagoData
             ItemPlacements = ((List<object>)data["item_placements"]).Select(o =>
             {
                 var placement = (IDictionary<string, object>)o;
-                return (
+                return new ItemPlacement(
                     ID: placement.ContainsKey("id") ? (string)placement["id"] : string.Empty,
                     Name: placement.ContainsKey("name") ? (string)placement["name"] : string.Empty,
                     Region: placement.ContainsKey("region") ? (string)placement["region"] : string.Empty,
@@ -108,7 +116,7 @@ public class FF13_2ArchipelagoData: ArchipelagoData
             LocalItemPlacements = ((List<object>)data["local_item_placements"]).Select(o =>
             {
                 var placement = (IDictionary<string, object>)o;
-                return (
+                return new LocalItemPlacement(
                     LocationID: placement.ContainsKey("location_id") ? (string)placement["location_id"] : string.Empty,
                     ItemID: placement.ContainsKey("item_id") ? (string)placement["item_id"] : string.Empty,
                     Amount: placement.ContainsKey("amount") ? Convert.ToInt32(placement["amount"]) : 1

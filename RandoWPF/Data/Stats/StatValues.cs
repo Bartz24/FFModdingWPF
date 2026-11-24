@@ -19,6 +19,9 @@ public class StatValues
 
     public void Randomize((int, int)[] bounds, long amount, float rate = 0.2f)
     {
+        // Each call produces a fresh result; never build on values from a previous call.
+        Array.Clear(Vals);
+
         int randTotal = (int)Math.Min(amount, GetBoundsSum(bounds));
         while (Vals.Sum() < randTotal)
         {

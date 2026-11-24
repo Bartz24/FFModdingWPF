@@ -1,6 +1,6 @@
--- Requires the FF12 lua loader 1.10.2 or newer.
-if not (checkMinVersion and checkMinVersion(1, 10, 2)) then
-    error("Rando Description Swap: requires the FF12 lua loader 1.10.2 or newer.")
+-- Requires the FF12 lua loader 2.0.1 or newer.
+if not (checkMinVersion and checkMinVersion(2, 0, 1)) then
+    error("Rando Description Swap: requires the FF12 lua loader 2.0.1 or newer.")
 end
 
 local previousL2State = false
