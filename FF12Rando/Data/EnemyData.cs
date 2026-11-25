@@ -20,6 +20,8 @@ public class EnemyData : CSVDataRow
     public int EXPLPScale { get; set; }
     [RowIndex(6)]
     public List<string> Traits { get; set; }
+    [RowIndex(7)]
+    public int MaxSize { get; set; }
     public EnemyData(string[] row) : base(row)
     {
         ID = row[3] + ":" + row[1] + ":" + row[4];

@@ -149,7 +149,7 @@ public partial class EnemyRando : Randomizer
             {
                 Type = EnemyStatType.SIZE,
                 MinValue = 1,
-                MaxValue = GetMaxSize(group.Key),
+                MaxValue = enemyData.Values.First(e => e.IntID == group.Key).MaxSize,
                 MinMultiplier = 1.0 / FF12Flags.Stats.EnemySize.Value,
                 MaxMultiplier = FF12Flags.Stats.EnemySize.Value
             };
@@ -387,9 +387,9 @@ public partial class EnemyRando : Randomizer
                 // DEBUG
                 if (FF12Flags.Debug.MaxEnemySize.FlagEnabled)
                 {
-                    basicInfo.SizeX = (ushort)GetMaxSize(basicInfo.NameID);
-                    basicInfo.SizeY = (ushort)GetMaxSize(basicInfo.NameID);
-                    basicInfo.SizeZ = (ushort)GetMaxSize(basicInfo.NameID);
+                    basicInfo.SizeX = (ushort)size.MaxValue;
+                    basicInfo.SizeY = (ushort)size.MaxValue;
+                    basicInfo.SizeZ = (ushort)size.MaxValue;
                 }
 
                 DataStoreARDExtendedInfo extended = basicInfo.ParentARD.ExtendedInfo[basicInfo.ExtendedInfoIndex];
@@ -400,32 +400,6 @@ public partial class EnemyRando : Randomizer
                 }
             }
         }
-    }
-
-    private static int GetMaxSize(int nameID)
-    {
-        // Ixtab
-        if (nameID == 16489)
-        {
-            return 200;
-        }
-        // Tyranorox
-        if (nameID == 16770)
-        {
-            return 125;
-        }
-        // Marilith
-        if (nameID == 16486)
-        {
-            return 200;
-        }
-        // Demon Wall
-        if (nameID == 16875)
-        {
-            return 100;
-        }
-
-        return 300;
     }
 
     public override void Save()

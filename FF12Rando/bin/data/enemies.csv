@@ -1,107 +1,489 @@
-Name,ID,Rank,Area,Index,EXPLP,Traits
-Vossler,400F,2,rsn_z,-1,100,Boss
-Belias,4012,2,rsn_z,-1,100,Boss
-Ultima,4013,7,rwg_d,-1,100,Boss
-Zeromus,4014,6,mrm_g,-1,100,Boss
-Chaos,4015,7,bds_e,-1,100,Boss
-Hashmal,4016,5,dgl_h,-1,100,Boss
-Cuchulainn,4017,6,grm_f,-1,100,Boss
-Zalera,4018,4,mic_d,-1,100,Boss
-Mateus,4019,3,mrm_e,-1,100,Boss
-Famfrit,401A,5,dgl_g,-1,100,Boss
-Adrammelech,401B,2,ztc_d,-1,100,Boss
-Shemhazai,401C,4,gil_d,-1,100,Boss
-Exodus,401D,5,mnt_c,-1,100,Boss
-Zodiark,401E,8,hne_e,-1,100,Boss
-Judge,4043,1,rsn_d,-1,100,Boss
-Ba'Gamnan,41F7,5,enw_c,-1,70,Boss
-Bwagi,404D,5,enw_c,-1,10,Boss
-Gijuk,404E,5,enw_c,-1,10,Boss
-Rinok,404F,5,enw_c,-1,10,Boss
-Rogue Tomato,405E,1,dst_a,-1,50,Boss
-Thextera,405F,1,wdl_a,-1,100,Boss
-Flowering Cactoid,4060,1,dst_a,-1,100,Boss
-Wraith,4061,1,grm_g,-1,100,Boss
-Nidhogg,4062,1,lus_a,-1,100,Boss
-White Mousse,4063,5,grm_e,-1,100,Boss
-Ring Wyrm,4064,3,wdl_a,-1,100,Boss
-Wyvern Lord,4065,2,enw_b,-1,100,Boss
-Marilith,4066,5,ztc_a,-1,100,Boss
-Enkelados,4067,2,ozm_c,-1,100,Boss
-Croakadile,4068,2,sav_f,-1,100,Boss
-Ixtab,4069,2,hne_a,-1,100,Boss
-Feral Retriever,406A,3,pbc_c,-1,100,Boss
-Vorpal Bunny,406B,3,gol_b,-1,100,Boss
-Mindflayer,406C,4,hne_a,-1,100,Boss
-Bloodwing,406D,5,mic_e,-1,100,Boss
-Atomos,406E,3,mnt_b,-1,100,Boss
-Roblon,406F,6,bog_b,-1,100,Boss
-Braegh,4070,4,frs_c,-1,100,Boss
-Darksteel,4071,4,rui_b,-1,100,Boss
-Vyraal,4072,5,srb_b,-1,100,Boss
-Lindwyrm,4073,5,pla_b,-1,100,Boss
-Overlord,4074,6,rui_a,-1,100,Boss
-Goliath,4075,6,bds_c,-1,100,Boss
-Deathscythe,4076,6,bds_b,-1,100,Boss
-Deathgaze,4077,7,asp_b,-1,100,Boss
-Diabolos,4078,7,lus_d,-1,100,Boss
-Piscodaemon,4079,5,gil_c,-1,100,Boss
-Wild Malboro,407A,6,mfr_b,-1,100,Boss
-Catoblepas,407B,6,ztc_a,-1,100,Boss
-Fafnir,407C,7,pbc_c,-1,100,Boss
-Pylraster,407D,7,rwf_c,-1,100,Boss
-Chickatrice,407E,1,sav_a,-1,10,Boss
-Cluckatrice,407F,1,sav_a,-1,70,Boss
-Rocktoise,4080,1,lus_b,-1,100,Boss
-Orthros,4081,5,grm_e,-1,100,Boss
-Gil Snapper,4082,3,sav_g,-1,100,Boss
-Trickster,4083,5,pbc_b,-1,100,Boss
-Antlion,4084,5,lus_d,-1,100,Boss
-Carrot,4085,7,frs_a,-1,100,Boss
-Gilgamesh 1,4086,7,lus_c,-1,80,Boss
-Enkidu 1,4087,7,lus_c,-1,20,Boss
-Gilgamesh 2,4086,7,lus_e,-1,80,Boss
-Enkidu 2,4087,7,lus_e,-1,20,Boss
-Behemoth King,4088,7,mfr_c,-1,100,Boss
-Ixion 1,4089,6,rbl_g,-1,100,Boss
-Ixion 2,4089,6,rbl_h,-1,100,Boss
-Ixion 3,4089,6,rbl_i,-1,100,Boss
-Pandaemonium,408A,6,rbl_c,-1,100,Boss
-Slyt,408B,4,rbl_f,-1,100,Boss
-Fenrir,408C,4,rbl_j,-1,100,Boss
-Phoenix,408D,5,rbl_g,-1,100,Boss
-Shadowseer,408E,6,dgl_n,-1,100,Boss
-Yiazmat,408F,8,rwf_d,-1,100,Boss
-Urutan Eater,4094,2,enw_a,-1,100,Boss
-Flan,4141,1,grm_c,-1,25,Boss
-Mandragora Prince,4155,4,rui_d,-1,20,Boss
-Alraune King,4157,4,rui_d,-1,20,Boss
-Onion Queen,4159,4,rui_d,-1,20,Boss
-Pumpkin Star,415B,4,rui_d,-1,20,Boss
-Topstalk,415D,4,rui_d,-1,20,Boss
-Fury,41D7,7,bds_g,-1,100,Boss
-Ahriman,41D8,5,rui_c,0,100,Boss
-Tyrant,41D9,5,gil_c,-1,100,Boss
-Hydro,41DA,5,rwf_c,-1,100,Boss
-King Bomb,41DB,5,frs_b,-1,100,Boss
-Tiamat,41DC,2,hne_b,-1,100,Boss
-Hell Wyrm,41DD,7,rui_e,-1,100,Boss
-Earth Tyrant,41DE,4,wdl_b,-1,100,Boss
-Daedalus,41E9,5,gil_a,-1,100,Boss
-Elder Wyrm,41EA,3,gol_c,-1,100,Boss
-Demon Wall 1,41EB,3,rwg_b,0,100,Boss
-Demon Wall 2,41EB,1,rwg_b,1,100,Boss
-Firemane,41EC,1,grm_d,-1,100,Boss
-Mimic Queen,41ED,1,mic_c,-1,100,Boss
-Vinuskar,41EE,2,mrm_c,-1,100,Boss
-Rafflesia,41F0,4,mfr_b,-1,100,Boss
-Gabranth 1,41F2,5,dgl_g,-1,100,Boss
-Judge Bergan,41F3,3,bul_a,-1,100,Boss
-Judge Ghis,41F5,4,rsn_a,-1,100,Boss
-Gabranth 2,41F2,6,bhm_b,-1,100,Boss
-Vayne Novus,41F6,7,bhm_c,-1,100,Boss
-Cid 1,41F8,5,dor_b,-1,100,Boss
-Cid 2,41F8,5,dgl_g,-1,100,Boss
-Vayne,41F9,6,bhm_c,-1,100,Boss
-Humbaba Mistant,41FA,8,bds_f,-1,100,Boss
-Omega,4263,8,gil_i,-1,100,Boss
+Name,ID,Rank,Area,Index,EXPLP,Traits,MaxSize
+Vossler,400F,2,rsn_z,-1,100,Boss,300
+Belias,4012,2,rsn_z,-1,100,Boss,300
+Ultima,4013,7,rwg_d,-1,100,Boss,300
+Zeromus,4014,6,mrm_g,-1,100,Boss,300
+Chaos,4015,7,bds_e,-1,100,Boss,300
+Hashmal,4016,5,dgl_h,-1,100,Boss,300
+Cuchulainn,4017,6,grm_f,-1,100,Boss,300
+Zalera,4018,4,mic_d,-1,100,Boss,300
+Mateus,4019,3,mrm_e,-1,100,Boss,300
+Famfrit,401A,5,dgl_g,-1,100,Boss,300
+Adrammelech,401B,2,ztc_d,-1,100,Boss,300
+Shemhazai,401C,4,gil_d,-1,100,Boss,300
+Exodus,401D,5,mnt_c,-1,100,Boss,300
+Zodiark,401E,8,hne_e,-1,100,Boss,300
+Judge,4043,1,rsn_d,-1,100,Boss,300
+Ba'Gamnan,41F7,5,enw_c,-1,70,Boss,300
+Bwagi,404D,5,enw_c,-1,10,Boss,300
+Gijuk,404E,5,enw_c,-1,10,Boss,300
+Rinok,404F,5,enw_c,-1,10,Boss,300
+Rogue Tomato,405E,1,dst_a,-1,50,Boss,300
+Thextera,405F,1,wdl_a,-1,100,Boss,300
+Flowering Cactoid,4060,1,dst_a,-1,100,Boss,300
+Wraith,4061,1,grm_g,-1,100,Boss,300
+Nidhogg,4062,1,lus_a,-1,100,Boss,300
+White Mousse,4063,5,grm_e,-1,100,Boss,300
+Ring Wyrm,4064,3,wdl_a,-1,100,Boss,300
+Wyvern Lord,4065,2,enw_b,-1,100,Boss,300
+Marilith,4066,5,ztc_a,-1,100,Boss,200
+Enkelados,4067,2,ozm_c,-1,100,Boss,300
+Croakadile,4068,2,sav_f,-1,100,Boss,300
+Ixtab,4069,2,hne_a,-1,100,Boss,200
+Feral Retriever,406A,3,pbc_c,-1,100,Boss,300
+Vorpal Bunny,406B,3,gol_b,-1,100,Boss,300
+Mindflayer,406C,4,hne_a,-1,100,Boss,300
+Bloodwing,406D,5,mic_e,-1,100,Boss,300
+Atomos,406E,3,mnt_b,-1,100,Boss,300
+Roblon,406F,6,bog_b,-1,100,Boss,300
+Braegh,4070,4,frs_c,-1,100,Boss,300
+Darksteel,4071,4,rui_b,-1,100,Boss,300
+Vyraal,4072,5,srb_b,-1,100,Boss,300
+Lindwyrm,4073,5,pla_b,-1,100,Boss,300
+Overlord,4074,6,rui_a,-1,100,Boss,300
+Goliath,4075,6,bds_c,-1,100,Boss,300
+Deathscythe,4076,6,bds_b,-1,100,Boss,300
+Deathgaze,4077,7,asp_b,-1,100,Boss,300
+Diabolos,4078,7,lus_d,-1,100,Boss,300
+Piscodaemon,4079,5,gil_c,-1,100,Boss,300
+Wild Malboro,407A,6,mfr_b,-1,100,Boss,300
+Catoblepas,407B,6,ztc_a,-1,100,Boss,300
+Fafnir,407C,7,pbc_c,-1,100,Boss,300
+Pylraster,407D,7,rwf_c,-1,100,Boss,300
+Chickatrice,407E,1,sav_a,-1,10,Boss,300
+Cluckatrice,407F,1,sav_a,-1,70,Boss,300
+Rocktoise,4080,1,lus_b,-1,100,Boss,300
+Orthros,4081,5,grm_e,-1,100,Boss,300
+Gil Snapper,4082,3,sav_g,-1,100,Boss,300
+Trickster,4083,5,pbc_b,-1,100,Boss,300
+Antlion,4084,5,lus_d,-1,100,Boss,300
+Carrot,4085,7,frs_a,-1,100,Boss,300
+Gilgamesh 1,4086,7,lus_c,-1,80,Boss,300
+Enkidu 1,4087,7,lus_c,-1,20,Boss,300
+Gilgamesh 2,4086,7,lus_e,-1,80,Boss,300
+Enkidu 2,4087,7,lus_e,-1,20,Boss,300
+Behemoth King,4088,7,mfr_c,-1,100,Boss,300
+Ixion 1,4089,6,rbl_g,-1,100,Boss,300
+Ixion 2,4089,6,rbl_h,-1,100,Boss,300
+Ixion 3,4089,6,rbl_i,-1,100,Boss,300
+Pandaemonium,408A,6,rbl_c,-1,100,Boss,300
+Slyt,408B,4,rbl_f,-1,100,Boss,300
+Fenrir,408C,4,rbl_j,-1,100,Boss,300
+Phoenix,408D,5,rbl_g,-1,100,Boss,300
+Shadowseer,408E,6,dgl_n,-1,100,Boss,300
+Yiazmat,408F,8,rwf_d,-1,100,Boss,300
+Urutan Eater,4094,2,enw_a,-1,100,Boss,300
+Flan,4141,1,grm_c,-1,25,Boss,300
+Mandragora Prince,4155,4,rui_d,-1,20,Boss,300
+Alraune King,4157,4,rui_d,-1,20,Boss,300
+Onion Queen,4159,4,rui_d,-1,20,Boss,300
+Pumpkin Star,415B,4,rui_d,-1,20,Boss,300
+Topstalk,415D,4,rui_d,-1,20,Boss,300
+Fury,41D7,7,bds_g,-1,100,Boss,300
+Ahriman,41D8,5,rui_c,0,100,Boss,300
+Tyrant,41D9,5,gil_c,-1,100,Boss,300
+Hydro,41DA,5,rwf_c,-1,100,Boss,300
+King Bomb,41DB,5,frs_b,-1,100,Boss,300
+Tiamat,41DC,2,hne_b,-1,100,Boss,300
+Hell Wyrm,41DD,7,rui_e,-1,100,Boss,300
+Earth Tyrant,41DE,4,wdl_b,-1,100,Boss,300
+Daedalus,41E9,5,gil_a,-1,100,Boss,300
+Elder Wyrm,41EA,3,gol_c,-1,100,Boss,300
+Demon Wall 1,41EB,3,rwg_b,0,100,Boss,100
+Demon Wall 2,41EB,1,rwg_b,1,100,Boss,100
+Firemane,41EC,1,grm_d,-1,100,Boss,300
+Mimic Queen,41ED,1,mic_c,-1,100,Boss,300
+Vinuskar,41EE,2,mrm_c,-1,100,Boss,300
+Rafflesia,41F0,4,mfr_b,-1,100,Boss,300
+Gabranth 1,41F2,5,dgl_g,-1,100,Boss,300
+Judge Bergan,41F3,3,bul_a,-1,100,Boss,300
+Judge Ghis,41F5,4,rsn_a,-1,100,Boss,300
+Gabranth 2,41F2,6,bhm_b,-1,100,Boss,300
+Vayne Novus,41F6,7,bhm_c,-1,100,Boss,300
+Cid 1,41F8,5,dor_b,-1,100,Boss,300
+Cid 2,41F8,5,dgl_g,-1,100,Boss,300
+Vayne,41F9,6,bhm_c,-1,100,Boss,300
+Humbaba Mistant,41FA,8,bds_f,-1,100,Boss,300
+Omega,4263,8,gil_i,-1,100,Boss,300
+Basch,4005,0,naf_a,-1,100,,300
+Amalia,4009,0,grm_b,-1,100,,300
+Larsa,400C,0,bhm_c,-1,100,,300
+No name,4029,0,rbn_a,-1,100,,300
+No name,402B,0,rbn_a,-1,100,,300
+No name,4037,0,nal_a,-1,100,,300
+No name,4038,0,nal_a,-1,100,,300
+Judge Zargabaath,403A,0,tri_t,-1,100,,300
+No name,403C,0,sav_b,-1,100,,300
+No name,403D,0,nal_b,-1,100,,300
+Imperial Swordsman,403F,0,rsn_a,-1,100,,300
+Imperial Swordsman,4040,0,bhm_a,-1,100,,300
+Imperial Hoplite,4041,0,dor_c,-1,100,,300
+Imperial Marksman,4042,0,nal_c,-1,100,,300
+Imperial Gunner,4044,0,bhm_a,-1,100,,300
+Imperial Pilot,4045,0,bhm_a,-1,100,,300
+Imperial Magus,4046,0,nal_c,-1,100,,300
+Imperial Magus,4047,0,naf_b,-1,100,,300
+Imperial Beastmaster,4048,0,bhm_a,-1,100,,300
+Dalmascan Soldier,4049,0,naf_a,-1,100,,300
+Dalmascan Soldier,404A,0,naf_a,-1,100,,300
+Urutan-Yensa,4050,0,ene_a,-1,100,,300
+Seeq,4054,0,rbn_a,-1,100,,300
+Baknamy,4055,0,bds_a,-1,100,,300
+Bangaa,4058,0,rbn_a,-1,100,,300
+Pirate,405B,0,tri_r,-1,100,,300
+Elza,405C,0,tri_r,-1,100,,300
+Rikken,405D,0,tri_r,-1,100,,300
+Great Tortoise,4090,0,sav_d,-1,100,,300
+Silicon Tortoise,4091,0,sav_g,-1,100,,300
+Adamantitan,4092,0,mic_e,-1,100,,300
+Emeralditan,4093,0,bog_a,-1,100,,300
+Aspidochelon,4095,0,srb_b,-1,100,,300
+Thalassinon,4096,0,fon_c,-1,100,,300
+Wooly Gator,4097,0,sav_d,-1,100,,300
+Feral Croc,4098,0,pla_b,-1,100,,300
+Baritine Croc,4099,0,grm_e,-1,100,,300
+Hybrid Gator,409A,0,ozm_a,-1,100,,300
+Greeden,409B,0,dst_a,-1,100,,300
+Bull Croc,409C,0,ozm_c,-1,100,,300
+Gavial,409D,0,grm_e,-1,100,,300
+Wolf,409E,0,dst_a,-1,100,,300
+White Wolf,409F,0,pbc_a,-1,100,,300
+Worgen,40A0,0,dst_c,-1,100,,300
+Silver Lobo,40A1,0,fon_a,-1,100,,300
+Hyena,40A2,0,sav_a,-1,100,,300
+Hellhound,40A3,0,gol_a,-1,100,,300
+Cerberus,40A4,0,mfr_a,-1,100,,300
+Tartarus,40A5,0,mfr_a,-1,100,,300
+Mastiff,40A6,0,rsn_b,-1,100,,300
+Mastiff,40A7,0,dor_c,-1,100,,300
+Mastiff,40A8,0,bhm_a,-1,100,,300
+Alpha Wolf,40A9,0,dst_a,-1,100,,300
+Alpha Worgen,40AA,0,dst_c,-1,100,,300
+Alpha Hyena,40AB,0,sav_a,-1,100,,300
+Wary Wolf,40AC,0,mnt_a,-1,100,,300
+Kaiser Wolf,40AD,0,wdl_a,-1,100,,300
+Lindbur Wolf,40AE,0,wdl_a,-1,100,,300
+Urstrix,40AF,0,sav_a,-1,100,,300
+Wu,40B0,0,ozm_b,-1,100,,300
+Bagoly,40B1,0,enw_a,-1,100,,300
+Mirrorknight,40B2,0,mfr_a,-1,100,,300
+Dreadguard,40B3,0,mfr_a,-1,100,,300
+Happy Bunny,40B4,0,tri_m,-1,100,,300
+Wyrdhare,40B5,0,frs_a,-1,100,,300
+Mu,40B6,0,mfr_a,-1,100,,300
+Giza Rabbit,40B7,0,sav_a,-1,100,,300
+Ozmone Hare,40B8,0,ozm_a,-1,100,,300
+Crypt Bunny,40B9,0,mfr_a,-1,100,,300
+Spee,40BA,0,frs_a,-1,100,,300
+Ichthon,40BB,0,dst_a,-1,100,,300
+Danbania,40BC,0,ene_a,-1,100,,300
+Piranha,40BD,0,fon_a,-1,100,,300
+Focalor,40BE,0,bog_a,-1,100,,300
+Bull Danbania,40BF,0,enw_b,-1,100,,300
+Rain Dancer,40C0,0,sav_d,-1,100,,300
+Razorfin,40C1,0,grm_a,-1,100,,300
+Apsara,40C2,0,fon_a,-1,100,,300
+Killer Mantis,40C3,0,lus_d,-1,100,,300
+Antares,40C4,0,frs_c,-1,100,,300
+Scythe Mantis,40C5,0,tri_g,-1,100,,300
+Preying Mantis,40C6,0,mfr_c,-1,100,,300
+Deathclaw,40C7,0,rwf_a,-1,100,,300
+Rageclaw,40C8,0,frs_c,-1,100,,300
+Biding Mantis,40C9,0,gol_a,-1,100,,300
+Gigantoad,40CA,0,grm_b,-1,100,,300
+Speartongue,40CB,0,ene_a,-1,100,,300
+Iguion,40CC,0,fon_a,-1,100,,300
+Suriander,40CD,0,mic_b,-1,100,,300
+Lizard,40CE,0,grm_e,-1,100,,300
+Abaddon,40CF,0,rbl_g,-1,100,,300
+Wood Toad,40D0,0,frs_c,-1,100,,300
+Tarasque,40D1,0,pla_b,-1,100,,300
+Bull Abaddon,40D3,0,rbl_g,-1,100,,300
+Panther,40D4,0,gol_a,-1,100,,300
+Coeurl,40D5,0,gol_b,-1,100,,300
+Bandercoeurl,40D6,0,srb_a,-1,100,,300
+Ose,40D7,0,gil_e,-1,100,,300
+Grimalkin,40D8,0,pla_a,-1,100,,300
+Cockatrice,40D9,0,dst_a,-1,100,,300
+Sprinter,40DA,0,frs_a,-1,100,,300
+Axebeak,40DB,0,enw_a,-1,100,,300
+Lesser Chimera,40DC,0,rwg_c,-1,100,,300
+Gorgimera,40DD,0,rui_a,-1,100,,300
+Chimera Brain,40DE,0,rbl_b,-1,100,,300
+Nekhbet,40DF,0,dst_a,-1,100,,300
+Ghost,40E0,0,grm_b,-1,100,,300
+Specter,40E1,0,mic_a,-1,100,,300
+Necrophobe,40E2,0,gil_g,-1,100,,300
+Lich,40E3,0,rwg_c,-1,100,,300
+Bogey,40E4,0,tri_g,-1,100,,300
+Necrofiend,40E5,0,hne_d,-1,100,,300
+Glaring Eye,40E6,0,hne_c,-1,100,,300
+Cultsworn Lich,40E7,0,rwg_c,-1,100,,300
+Evil Spirit,40E8,0,gil_i,-1,100,,300
+Treant,40E9,0,gol_a,-1,100,,300
+Golem,40EA,0,mfr_a,-1,100,,300
+Clay Golem,40EB,0,mnt_b,-1,100,,300
+Mythril Golem,40EC,0,gil_b,-1,100,,300
+Babil,40ED,0,bds_a,-1,100,,300
+Juggernaut,40EE,0,mfr_c,-1,100,,300
+Molen,40EF,0,ztc_a,-1,100,,300
+Tower,40F0,0,rbl_n,-1,100,,300
+Wildsnake,40F1,0,sav_a,-1,100,,300
+Python,40F2,0,mnt_b,-1,100,,300
+Viper,40F3,0,ozm_a,-1,100,,300
+Serpent,40F4,0,pla_a,-1,100,,300
+Basilisk,40F5,0,mfr_c,-1,100,,300
+Grey Molter,40F6,0,mnt_b,-1,100,,300
+Midgardsormr,40F7,0,gol_a,-1,100,,300
+Sleipnir,40F8,0,sav_c,-1,100,,300
+Mesmenir,40F9,0,ozm_a,-1,100,,300
+Shadonir,40FA,0,gil_j,-1,100,,300
+Leynir,40FB,0,bog_b,-1,100,,300
+Nazarnir,40FC,0,sav_c,-1,100,,300
+Victanir,40FD,0,enw_a,-1,100,,300
+Slaven,40FE,0,lus_a,-1,100,,200
+Slaven Warder,40FF,0,pbc_a,-1,100,,200
+Slaven Wilder,4100,0,dst_c,-1,100,,200
+Gemhorn,4101,0,lus_d,-1,100,,300
+Fire Elemental,4102,0,mnt_a,-1,100,,300
+Salamand Entite,4103,0,ene_a,-1,100,,300
+Storm Elemental,4104,0,sav_d,-1,100,,300
+Mardu Entite,4105,0,sav_d,-1,100,,300
+Ice Elemental,4106,0,pbc_b,-1,100,,300
+Leshach Entite,4107,0,pbc_a,-1,100,,300
+Earth Elemental,4108,0,pla_a,-1,100,,300
+Gnoma Entite,4109,0,tri_p,-1,100,,300
+Water Elemental,410A,0,grm_e,-1,100,,300
+Undin Entite,410B,0,rbl_f,-1,100,,300
+Air Elemental,410C,0,fon_a,-1,100,,300
+Sylphi Entite,410D,0,ozm_a,-1,100,,300
+Holy Elemental,410E,0,mfr_a,-1,100,,300
+Diakon Entite,410F,0,gil_b,-1,100,,300
+Dark Elemental,4110,0,bds_a,-1,100,,300
+Leamonde Entite,4111,0,bog_b,-1,100,,300
+Luxollid,4112,0,rbl_h,-1,100,,300
+Vagrant Soul,4113,0,rbl_i,-1,100,,300
+Dive Talon,4114,0,dst_c,-1,100,,300
+Vulture,4115,0,mnt_b,-1,100,,300
+Charybterix,4116,0,srb_a,-1,100,,300
+Zu,4117,0,ozm_a,-1,100,,300
+Pyrolisk,4118,0,fon_a,-1,100,,300
+Garuda-Egi,4119,0,pbc_c,-1,100,,300
+Garuda,411A,0,rwg_a,-1,100,,300
+Imdugud,411B,0,enw_a,-1,100,,300
+Red Chocobo,411D,0,ozm_a,-1,100,,300
+Black Chocobo,411E,0,ozm_a,-1,100,,300
+White Chocobo,411F,0,fon_a,-1,100,,300
+Brown Chocobo,4120,0,dst_c,-1,100,,300
+Green Chocobo,4121,0,frs_c,-1,100,,300
+Bull Chocobo,4122,0,ene_a,-1,100,,300
+Dragon Aevis,4123,0,mrm_d,-1,100,,300
+Gizamaluk,4124,0,hne_c,-1,100,,300
+Archaeoaevis,4125,0,ztc_c,-1,100,,300
+Emperor Aevis,4126,0,pbc_c,-1,100,,300
+Twintania,4127,0,pbc_c,-1,100,,300
+Cataract Aevis,4128,0,rbl_n,-1,100,,300
+Dragon Lich,4129,0,rbl_g,-1,100,,300
+Skulwyrm,412A,0,gil_j,-1,100,,300
+Skullash,412B,0,fon_a,-1,100,,300
+Myath,412C,0,mrm_d,-1,100,,300
+Nightmare,412D,0,hne_a,-1,100,,300
+Darkmare,412E,0,mrm_d,-1,100,,300
+Mallicant,412F,0,ztc_b,-1,100,,300
+Mistmare,4130,0,rbl_b,-1,100,,300
+Helvinek,4131,0,bds_a,-1,100,,300
+Pallicant,4132,0,rwf_b,-1,100,,300
+Steeling,4133,0,grm_a,-1,100,,300
+Seeker,4134,0,hne_a,-1,100,,300
+Redmaw,4135,0,hne_a,-1,100,,300
+Vampyr,4136,0,lus_a,-1,100,,300
+Abysteel,4137,0,hne_c,-1,100,,300
+Phyllo,4138,0,gol_d,-1,100,,300
+Aerieel,4139,0,lus_a,-1,100,,300
+Anubys,413A,0,rui_a,-1,100,,300
+Facer,413B,0,mrm_b,-1,100,,300
+Brainpan,413C,0,rbl_d,-1,100,,300
+Ragoh,413D,0,rwg_c,-1,100,,300
+Deidar,413E,0,rbl_e,-1,100,,300
+Barmuu,413F,0,rwg_c,-1,100,,300
+Vishno,4140,0,rbl_e,-1,100,,300
+Jelly,4142,0,hne_a,-1,100,,300
+Slime,4143,0,ztc_a,-1,100,,300
+Hecteyes,4144,0,dor_e,-1,100,,300
+Tallow,4145,0,rwg_c,-1,100,,300
+Oiling,4146,0,mrm_b,-1,100,,300
+Foobar,4147,0,bog_b,-1,100,,300
+Etherian,4148,0,srb_b,-1,100,,300
+Melt,4149,0,hne_a,-1,100,,300
+Cubus,414A,0,rui_b,-1,100,,300
+Bomb,414B,0,frs_b,-1,100,,300
+Purobolos,414C,0,rbl_n,-1,100,,300
+Grenade,414D,0,ztc_a,-1,100,,300
+Balloon,414E,0,mrm_b,-1,100,,300
+Mom Bomb,414F,0,gil_e,-1,100,,300
+Pineapple,4150,0,ene_a,-1,100,,300
+Bombshell,4151,0,lus_f,-1,100,,300
+Megabomb,4152,0,enw_b,-1,100,,300
+Matriarch Bomb,4153,0,mrm_b,-1,100,,300
+Mandragora,4154,0,tri_e,-1,100,,300
+Alraune,4156,0,ene_a,-1,100,,300
+Wild Onion,4158,0,pbc_a,-1,100,,300
+Pumpkin Head,415A,0,frs_a,-1,100,,300
+Deadly Nightshade,415C,0,mfr_a,-1,100,,300
+Mandragora,415E,0,fon_a,-1,100,,300
+Ripe Rampager,415F,0,dst_a,-1,100,,300
+Cactoid,4160,0,dst_a,-1,100,,300
+Cactite,4161,0,dst_a,-1,100,,300
+Mimic,4162,0,mic_b,-1,100,,300
+Bug,4163,0,lus_b,-1,100,,300
+Mimeo,4164,0,mic_e,-1,100,,300
+Tiny Mimic,4165,0,mic_a,-1,100,,300
+Battery Mimic,4166,0,mic_a,-1,100,,300
+Thunderbug,4167,0,hne_a,-1,100,,300
+Pandora,4168,0,bds_a,-1,100,,300
+Tiny Battery,4169,0,mic_c,-1,100,,300
+Tiny Bug,416A,0,dst_a,-1,100,,300
+Killbug,416B,0,ozm_a,-1,100,,300
+Minibug,416C,0,mic_e,-1,100,,300
+Ithuno,416D,0,mic_e,-1,100,,300
+Malboro,416E,0,gol_a,-1,100,,300
+Great Malboro,416F,0,gol_a,-1,100,,300
+Cassie,4170,0,rwf_a,-1,100,,300
+Malboro King,4171,0,frs_a,-1,100,,300
+Malboro Overking,4172,0,grm_e,-1,100,,300
+Vivian,4173,0,gil_b,-1,100,,300
+Kris,4174,0,pla_a,-1,100,,300
+Ash Wyrm,4175,0,gil_j,-1,100,,300
+Shield Wyrm,4176,0,bog_b,-1,100,,300
+Helm-Rook,4178,0,bhm_a,-1,100,,300
+Spinner-Rook,4179,0,bhm_a,-1,100,,300
+Sphere-Rook,417A,0,bhm_a,-1,100,,300
+Rook,417B,0,dor_b,-1,100,,300
+Wyvern,417C,0,ene_a,-1,100,,300
+Aeronite,417D,0,lus_f,-1,100,,300
+Bellwyvern,417E,0,pla_a,-1,100,,300
+Dheed,417F,0,mnt_b,-1,100,,300
+Aeros,4180,0,ozm_c,-1,100,,300
+Wild Saurian,4181,0,dst_a,-1,100,,300
+Tyranorox,4182,0,hne_a,-1,100,,125
+Diresaur,4183,0,gol_b,-1,100,,300
+Giruveganus,4184,0,gil_k,-1,100,,300
+Archaeosaur,4185,0,fon_c,-1,100,,300
+Terror Tyrant,4186,0,dst_c,-1,100,,300
+Abelisk,4187,0,rwf_a,-1,100,,300
+Gespenst,4188,0,grm_e,-1,100,,300
+Etém,4189,0,hne_d,-1,100,,300
+Oversoul,418A,0,bds_a,-1,100,,300
+Reaper,418B,0,gil_e,-1,100,,300
+Gazer,418C,0,lus_b,-1,100,,300
+Nightwalker,418D,0,rbl_g,-1,100,,300
+Reaper Claw,418E,0,mrm_b,-1,100,,300
+Reaper Mage,418F,0,mrm_b,-1,100,,300
+Dustia,4190,0,wdl_a,-1,100,,300
+Ishteen,4191,0,mic_e,-1,100,,300
+Vorres,4192,0,bds_c,-1,100,,300
+Negalmuur,4193,0,mrm_d,-1,100,,300
+Crystalbug,4194,0,bog_b,-1,100,,300
+Crystalbug,4195,0,rui_a,-1,100,,300
+Crystalbug,4196,0,mrm_d,-1,100,,300
+Yensa,4197,0,ene_a,-1,100,,300
+Bull Yensa,4198,0,enw_b,-1,100,,300
+Dire Rat,4199,0,grm_a,-1,100,,300
+Garchimacera,419A,0,grm_b,-1,100,,300
+Imp,419B,0,rui_a,-1,100,,300
+Pit Fiend,419C,0,rui_a,-1,100,,300
+Buer,419D,0,ztc_a,-1,100,,300
+Gargoyle,419E,0,gol_a,-1,100,,300
+Elvoret,419F,0,bds_a,-1,100,,300
+Gargoyle Baron,41A0,0,gil_b,-1,100,,300
+Larva Eater,41A1,0,gil_e,-1,100,,300
+Arioch,41A2,0,bog_b,-1,100,,300
+Skeleton,41A4,0,lus_a,-1,100,,300
+Lost Soul,41A5,0,rwg_c,-1,100,,300
+Dark Skeleton,41A6,0,gol_b,-1,100,,300
+Dead Bones,41A7,0,bog_a,-1,100,,300
+Skull Defender,41A8,0,lus_a,-1,100,,300
+Skull Warrior,41A9,0,rwg_c,-1,100,,300
+Skull Knight,41AA,0,pbc_a,-1,100,,300
+Crusader,41AB,0,bog_a,-1,100,,300
+Dark Lord,41AC,0,lus_f,-1,100,,300
+Fideliant,41AD,0,wdl_a,-1,100,,300
+Crystal Knight,41AF,0,gil_i,-1,100,,300
+Grave Lord,41B0,0,gol_b,-1,100,,300
+Zombie,41B1,0,mrm_b,-1,100,,300
+Zombie,41B2,0,mic_a,-1,100,,300
+Zombie Warrior,41B3,0,mrm_b,-1,100,,300
+Zombie Knight,41B4,0,rui_a,-1,100,,300
+Forbidden,41B5,0,gil_i,-1,100,,300
+Zombie,41B6,0,mic_a,-1,100,,300
+Ghoul,41B7,0,mrm_b,-1,100,,300
+Ghast,41B8,0,mrm_b,-1,100,,300
+Banshee,41B9,0,bog_a,-1,100,,300
+Zombie Mage,41BA,0,rwg_c,-1,100,,300
+Shambling Corpse,41BB,0,ztc_d,-1,100,,300
+Zombie Warlock,41BC,0,bds_b,-1,100,,300
+Zombie Lord,41BD,0,rwg_c,-1,100,,300
+Drowned,41BE,0,grm_e,-1,100,,300
+Velelu,41BF,0,bog_b,-1,100,,300
+Disma,41C0,0,lus_f,-1,100,,300
+Headless,41C1,0,lus_b,-1,100,,300
+Blood Gigas,41C3,0,dor_c,-1,100,,300
+Striker,41C4,0,rui_a,-1,100,,300
+Wendigo,41C5,0,rui_b,-1,100,,300
+Dullahan,41C6,0,lus_b,-1,100,,300
+Bune,41C7,0,rbl_g,-1,100,,300
+Ancbolder,41C8,0,pbc_b,-1,100,,300
+Wendice,41C9,0,rui_b,-1,100,,300
+Anchag,41CA,0,pbc_b,-1,100,,300
+Bluesang,41CB,0,srb_a,-1,100,,300
+Avenger,41CC,0,rbl_m,-1,100,,300
+Werewolf,41CD,0,sav_c,-1,100,,300
+Zaghnal,41CE,0,ozm_a,-1,100,,300
+Yeti,41CF,0,pbc_b,-1,100,,300
+Humbaba,41D0,0,mnt_a,-1,100,,200
+Behemoth,41D1,0,gil_b,-1,100,,300
+Behemoth,41D2,0,mfr_c,-1,100,,300
+Reaver,41D3,0,rbl_g,-1,100,,300
+High Reaver,41D4,0,rbl_g,-1,100,,300
+Alteci,41D5,0,ztc_b,-1,100,,300
+Urutan Exile,41D6,0,ene_a,-1,100,,300
+Air Cutter Remora,41E0,0,naf_a,-1,100,,300
+Sephira,41E1,0,bhm_c,-1,100,,300
+Sephira,41E2,0,bhm_c,-1,100,,300
+Sephira,41E3,0,bhm_c,-1,100,,300
+Sephira,41E7,0,bhm_c,-1,100,,300
+Sephira,41E8,0,bhm_c,-1,100,,300
+The Undying,41EF,0,bhm_d,-1,100,,300
+Judge Drace,41F4,0,tri_t,-1,100,,300
+No name,421D,0,srb_b,-1,100,,300
+No name,421E,0,rui_a,-1,100,,300
+War-chief Supinelu,421F,0,tri_k,-1,100,,300
+Bansat,4220,0,sav_g,-1,100,,300
+Monid,4221,0,enw_c,-1,100,,300
+Krjn,4222,0,frs_a,-1,100,,300
+Garif Hunter,4223,0,ozm_a,-1,100,,300
+Garif Adventurer,4224,0,ozm_b,-1,100,,300
+Seeq Fisher,4225,0,fon_c,-1,100,,300
+Seeq Cateran,4226,0,mnt_b,-1,100,,300
+Seeq Thief,4227,0,pla_a,-1,100,,300
+Seeq Explorer,4228,0,srb_a,-1,100,,300
+Rabanastre Watch,4229,0,dst_a,-1,100,,300
+Bangaa Hunter,422A,0,sav_c,-1,100,,300
+Bangaa Thief,422B,0,srb_a,-1,100,,300
+Bangaa Pirate,422C,0,fon_a,-1,100,,300
+Bangaa Pugilist,422D,0,dst_c,-1,100,,300
+Miriam Facer,4260,0,mrm_d,-1,100,,300
+Miriam Guardian,4261,0,mrm_b,-1,100,,300
+Magick Pot,4262,0,rbl_g,-1,100,,300
+Fire Chaosjet,4264,0,bds_e,-1,100,,300
+Earth Chaosjet,4265,0,bds_e,-1,100,,300
+Water Chaosjet,4266,0,bds_e,-1,100,,300
+Air Chaosjet,4267,0,bds_e,-1,100,,300
+Garif Warrior,4268,0,ozm_a,-1,100,,300
+Ice Azer,4269,0,mrm_e,-1,100,,300
+Lab Rat,426D,0,dor_e,-1,100,,300
+Lv. 99 Red Chocobo,426F,0,ozm_a,-1,100,,300
+Viera Huntress,4271,0,tri_o,-1,100,,300
+Saloon Steward,4272,0,tri_n,-1,100,,300
+Judge Bergan,4273,0,tri_t,-1,100,,300
+Judge Ghis,4274,0,tri_t,-1,100,,300
