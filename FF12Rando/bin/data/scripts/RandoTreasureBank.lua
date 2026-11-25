@@ -119,6 +119,7 @@ local ACTOR_POSITION = 0xB8         -- pointer to the actor's world x, y, z floa
 local ACTOR_NAME = 0x102            -- u16 set by setnpcname
 local URN_NAME = 0x01D4
 
+
 local NAVI_ICON = 0x40
 local CHEST_ICON = 63
 local OPENED_ICON = 62
@@ -246,6 +247,85 @@ local mapScreenActorDetour =
   jmp %rtb_mapscreen_actor%
 ]]
 
+-- The map screen's side list names every icon on the shown maps (0x402000 builds it from the
+-- same navi sections). The chest, opened and urn icons (61 to 63) are left out of it.
+local SIDE_LIST_ADDRESS = 0x00402109
+local SIDE_LIST_CONTINUE = 0x0040210E
+local SIDE_LIST_UNEXPLORED = 0x00402163
+local SIDE_LIST_SKIP = 0x0040219D
+local SIDE_LIST_BYTES = { 0x4D, 0x85, 0xED, 0x74, 0x55 } -- test r13,r13; je 0x402163
+
+local sideListCaveTemplate =
+[[
+rtb_side_list:
+  movzx eax,word ptr [rbx+8]
+  cmp eax,%d
+  jb rtb_side_list_keep
+  cmp eax,%d
+  jbe 0x%X
+rtb_side_list_keep:
+  test r13,r13
+  je 0x%X
+  jmp 0x%X
+]]
+
+local sideListDetour =
+[[
+  jmp %rtb_side_list%
+]]
+
+-- Urn markers appended to the minimap's marker array (see updateUrnMarkers).
+local URN_MARKER_ADDRESS = 0x003C5379
+local URN_MARKER_RETURN = 0x003C5380
+local URN_MARKER_BYTES = { 0x48, 0x8D, 0x15, 0xF0, 0x06, 0x78, 0x02 } -- lea rdx,[0x2B45A70]
+local MARKER_LIST = 0x02B45A70
+local MARKER_ARRAY = 0x10
+local MARKER_SIZE = 0x20
+local MARKER_CAPACITY = 0x40
+local MARKER_KIND_ICON = 5
+local URN_MARKER_FLAGS = 0x50000     -- drawn (0x10000), navi icon with no actor behind it (0x40000)
+local URN_MARKER_ID_BASE = 0x7F000000
+local URN_MARKER_MAX = 16
+
+local urnMarkerCaveTemplate =
+[[
+rtb_urn_markers:
+  push rsi
+  push rdi
+  push rcx
+  mov rsi,0x%X
+  mov ecx,dword ptr [rsi]
+  test ecx,ecx
+  je rtb_urn_markers_done
+  add rsi,0x%X
+  mov rdx,0x%X
+rtb_urn_markers_loop:
+  mov eax,dword ptr [rdx]
+  cmp eax,0x%X
+  jae rtb_urn_markers_done
+  shl eax,5
+  lea rdi,[rdx+rax+0x%X]
+  movups xmm0,[rsi]
+  movups [rdi],xmm0
+  movups xmm0,[rsi+0x10]
+  movups [rdi+0x10],xmm0
+  inc dword ptr [rdx]
+  add rsi,0x20
+  dec ecx
+  jne rtb_urn_markers_loop
+rtb_urn_markers_done:
+  pop rcx
+  pop rdi
+  pop rsi
+  mov rdx,0x%X
+  jmp 0x%X
+]]
+
+local urnMarkerDetour =
+[[
+  jmp %rtb_urn_markers%
+]]
+
 local condCallDetour =
 [[
   call %rtb_navi_cond%
@@ -281,6 +361,8 @@ local caveSymbols = {
     "rtb_navi_blob",
     "rtb_explore",
     "rtb_mapscreen_actor",
+    "rtb_side_list",
+    "rtb_urn_markers",
     "rtb_upright"
 }
 
@@ -292,6 +374,9 @@ local chestCount = 0
 
 -- Address of the opened bitset, once the patch is in.
 local openedBits = nil
+
+-- Address of the urn markers (u32 count, then markers from MARKER_ARRAY), once the patch is in.
+local urnMarkers = nil
 local patched = {}
 
 -- actorChest[actor pointer] = chest number, for the current map.
@@ -468,6 +553,27 @@ local function applyIconPatches()
         print("Rando Treasure Bank: Couldn't apply the map screen chest actor patch, executable is unexpectedly modified.")
     end
 
+    if bytesMatch(URN_MARKER_ADDRESS, URN_MARKER_BYTES) then
+        local markers = memory.allocExe(MARKER_ARRAY + MARKER_SIZE * URN_MARKER_MAX)
+        memory.u32[markers] = 0
+        memory.assemble(string.format(urnMarkerCaveTemplate, markers, MARKER_ARRAY, MARKER_LIST, MARKER_CAPACITY,
+            MARKER_ARRAY, MARKER_LIST, URN_MARKER_RETURN), { "rtb_urn_markers" })
+        memory.assemble(urnMarkerDetour, URN_MARKER_ADDRESS)
+        urnMarkers = markers
+        patched.rtb_urn_markers = true
+    else
+        print("Rando Treasure Bank: Couldn't apply the minimap urn patch, executable is unexpectedly modified.")
+    end
+
+    if bytesMatch(SIDE_LIST_ADDRESS, SIDE_LIST_BYTES) then
+        memory.assemble(string.format(sideListCaveTemplate, URN_ICON, CHEST_ICON, SIDE_LIST_SKIP,
+            SIDE_LIST_UNEXPLORED, SIDE_LIST_CONTINUE), { "rtb_side_list" })
+        memory.assemble(sideListDetour, SIDE_LIST_ADDRESS)
+        patched.rtb_side_list = true
+    else
+        print("Rando Treasure Bank: Couldn't apply the map screen side list patch, executable is unexpectedly modified.")
+    end
+
     if bytesMatch(EXPLORE_ADDRESS, EXPLORE_BYTES) then
         memory.assemble(string.format(exploreCaveTemplate, CHEST_ICON, EXPLORE_ALWAYS_SHOW, URN_ICON, EXPLORE_ALWAYS_SHOW, EXPLORE_CONTINUE), { "rtb_explore" })
         memory.assemble(exploreDetour, EXPLORE_ADDRESS)
@@ -538,26 +644,46 @@ local function updateChestActors()
             end
 
             drawAsIcon(actor, icon)
-        elseif actor ~= 0 and memory.u16[actor + ACTOR_NAME] == URN_NAME then
-            -- Only urns that match one in the list are drawn: the name alone could belong to
-            -- scenery, and an urn without a reward this seed is not worth pointing at.
-            local number = actorChest[actor]
-            if number == nil then
-                number = findChestForActor(actor, true) or false
-                actorChest[actor] = number
-            end
-
-            if number then
-                drawAsIcon(actor, chestOpened(chests[number]) and OPENED_ICON or URN_ICON)
-            end
         end
     end
+end
+
+-- Urns never reach the minimap's actor list: its filters reject their actors. So instead of
+-- drawing the actors, the minimap's marker array gets a ready-made icon marker per unopened urn
+-- on the current map. The array (count at 0x2B45A70, 32-byte markers from +0x10, room for 64)
+-- is rebuilt every frame from the actors and the map's static icons, then synced for drawing;
+-- a hook between the two (0x3C5379) appends the markers this script keeps in urnMarkers.
+local function updateUrnMarkers()
+    if urnMarkers == nil then
+        return
+    end
+
+    local count = 0
+    for _, number in ipairs(chestsByMap[currentMap] or {}) do
+        local chest = chests[number]
+        if chest.urn and not chestOpened(chest) and count < URN_MARKER_MAX then
+            local marker = urnMarkers + MARKER_ARRAY + MARKER_SIZE * count
+            memory.u32[marker] = URN_MARKER_FLAGS | (URN_ICON << 8) | MARKER_KIND_ICON
+            memory.u32[marker + 4] = URN_MARKER_ID_BASE + number
+            memory.writeFloat(marker + 8, chest.x)
+            memory.writeFloat(marker + 12, chest.z)
+            for offset = 16, MARKER_SIZE - 4, 4 do
+                memory.u32[marker + offset] = 0
+            end
+            count = count + 1
+        end
+    end
+    memory.u32[urnMarkers] = count
 end
 
 local function onFlip()
     local mapID = readMapID()
 
     if mapID ~= currentMap then
+        if urnMarkers ~= nil then
+            -- The outgoing map's urns must not be drawn on the incoming one.
+            memory.u32[urnMarkers] = 0
+        end
         switchTo(mapID)
         return
     end
@@ -573,6 +699,7 @@ local function onFlip()
     captureCurrent()
     refreshMapChests(currentMap)
     updateChestActors()
+    updateUrnMarkers()
 end
 
 local function onMapJump()
