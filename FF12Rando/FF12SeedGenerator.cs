@@ -28,7 +28,8 @@ public class FF12SeedGenerator : SeedGenerator
         "treasureIcons.txt",
         "treasureNavi.bin",
         "titleInfo.txt",
-        "textOverrides.txt"
+        "textOverrides.txt",
+        "forcedBoards.txt"
     };
 
     public static string SeedFolder => Path.Combine(SetupData.Paths["12"], "rando");

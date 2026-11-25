@@ -560,7 +560,8 @@ public class FF12Flags
     public class Licenses
     {
         public static Flag LicenseBoardType, StartingBoards, GuestAbilities;
-        public static ComboBoxFlagProperty BoardType;
+        public static ComboBoxFlagProperty BoardType, LockedBoards;
+        public static ToggleFlagProperty DuplicateBoards;
         public const string BoardTypeVanilla = "Vanilla";
         public const string BoardTypeSplit = "Split";
         internal static void Init()
@@ -583,10 +584,26 @@ public class FF12Flags
 
             StartingBoards = new Flag(false)
             {
-                Text = "Randomize Starting License Boards",
+                Text = "Force License Boards",
                 FlagID = "StartBoards",
-                DescriptionFormat = "Sets a random starting license boards of each character. Can still be reset at Montblanc."
+                DescriptionFormat = "Sets a random starting license board for each character. License board resets will still force boards."
             }.Register(FlagType.Licenses);
+
+            LockedBoards = new ComboBoxFlagProperty("First Board Only")
+            {
+                Text = "Locked Boards",
+                ID = "LockedBoards",
+                Description = "First Board Only - Only the first license board is locked to a character.\n" +
+                "First and Second Board - Both the first and second license boards are locked to a character.",
+                Values = new string[] { "First Board Only", "First and Second Board" }.ToList()
+            }.Register(StartingBoards);
+
+            DuplicateBoards = new ToggleFlagProperty(false)
+            {
+                Text = "Allow Duplicate License Boards",
+                ID = "DupBoards",
+                Description = "Forced license boards can repeat across characters, so some boards may not be used at all. A character's two boards are always different."
+            }.Register(StartingBoards);
 
             GuestAbilities = new Flag(false)
             {

@@ -12,6 +12,7 @@ public class LicenseBoardRando : Randomizer
 {
     public DataStoreLicenseBoard[] boards = new DataStoreLicenseBoard[12];
     private int[] startingBoards = new int[6];
+    private int[] secondBoards = new int[6];
 
     private (int left, int right)[] splitBoardIndices = new (int left, int right)[12];
 
@@ -94,10 +95,33 @@ public class LicenseBoardRando : Randomizer
         if (FF12Flags.Licenses.StartingBoards.FlagEnabled)
         {
             FF12Flags.Licenses.StartingBoards.SetRand();
-            startingBoards = Enumerable.Range(1, 12).Shuffle().Take(6).ToArray();
-            treasureRando.prices[0x77].Price = (uint)MathHelpers.EncodeNaturalSequence(startingBoards.Select(i => (long)i).ToArray(), 13);
+            (int first, int second)[] pairs = PickBoardPairs();
             RandomNum.ClearRand();
+
+            startingBoards = pairs.Select(p => p.first).ToArray();
+            treasureRando.prices[0x77].Price = (uint)MathHelpers.EncodeNaturalSequence(startingBoards.Select(i => (long)i).ToArray(), 13);
+
+            if (FF12Flags.Licenses.LockedBoards.SelectedValue == "First and Second Board")
+            {
+                secondBoards = pairs.Select(p => p.second).ToArray();
+            }
         }
+    }
+
+    private (int first, int second)[] PickBoardPairs()
+    {
+        if (FF12Flags.Licenses.DuplicateBoards.Enabled)
+        {
+            return Enumerable.Range(0, 6).Select(_ =>
+            {
+                List<int> picks = Enumerable.Range(1, 12).Shuffle();
+                return (picks[0], picks[1]);
+            }).ToArray();
+        }
+
+        // Taking the first six keeps the starting boards of existing StartBoards seeds unchanged.
+        List<int> order = Enumerable.Range(1, 12).Shuffle();
+        return Enumerable.Range(0, 6).Select(i => (order[i], order[i + 6])).ToArray();
     }
 
     private void BuildRandomSplitBoards()
@@ -407,5 +431,8 @@ public class LicenseBoardRando : Randomizer
             Directory.CreateDirectory($"{Generator.DataOutFolder}\\image\\ff12\\test_battle\\in\\binaryfile");
             File.WriteAllBytes(path, boards[i].Data);
         }
+
+        // Read by RandoForcedBoards.lua: one zero-based board per character, -1 when not forced.
+        File.WriteAllText($"{Generator.OutFolder}\\forcedBoards.txt", string.Join(",", secondBoards.Select(b => b - 1)));
     }
 }
