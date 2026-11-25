@@ -21,7 +21,7 @@ public class FF12ArchipelagoData : ArchipelagoData
     public List<SphereEntry> Spheres { get; set; }
     public List<FillerItemPlacement> FillerItemPlacements { get; set; }
 
-    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.7.2" };
+    public List<string> CompatibleAPVersions { get; set; } = new List<string>() { "0.7.3" };
 
     public FF12ArchipelagoData()
     {
