@@ -117,36 +117,14 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         var remaining = Replacements.Except(usedReplacements).ToOrderedSet();
         if (placer == ProgressionPlacer)
         {
-            return remaining.Where(l =>
-            {
-                foreach (string item in FF12Flags.Items.KeyItems.DictValues.Keys)
-                {
-                    if (FF12Flags.Items.KeyItems.SelectedKeys.Contains(item) && l.GetItem(true)?.Item == item)
-                    {
-                        return true;
-                    }
-                }
-
-                if (l.Traits.Any(s => s.StartsWith("Chop")) && IsRandomizedChop(l))
-                {
-                    return true;
-                }
-
-                if (l.Traits.Any(s => s.StartsWith("BlackOrb")) && IsRandomizedOrb(l))
-                {
-                    return true;
-                }
-
-                return false;
-            }).ToOrderedSet();
+            // The Writ of Transit is placed by the writ goals instead.
+            return remaining
+                .Where(l => GetOriginalClassification(l).IsProgression() && l.GetItem(true)?.Item != "8070")
+                .ToOrderedSet();
         }
         else if (placer == UsefulPlacer)
         {
-            return remaining
-                .Where(l =>
-                    l.GetItem(false).Value.Item.StartsWith("30") ||
-                    l.GetItem(false).Value.Item.StartsWith("40"))
-                .ToOrderedSet();
+            return remaining.Where(l => GetOriginalClassification(l) == ItemClassification.Useful).ToOrderedSet();
         }
         else if (placer == JunkPlacer)
         {
@@ -283,6 +261,11 @@ public class FF12ItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
                 }
             }
         }
+    }
+
+    protected override Dictionary<string, ItemData> GetItemData()
+    {
+        return Generator.Get<EquipRando>().itemData;
     }
 
     protected override HashSet<string> GetReorderItemCategories()

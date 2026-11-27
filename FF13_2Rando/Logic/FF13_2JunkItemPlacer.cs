@@ -34,7 +34,7 @@ public class FF13_2JunkItemPlacer : JunkItemPlacer<FF13_2ItemLocation>
 
                 IEnumerable<ItemData> possible = equipRando.itemData.Values
                     .Where(i =>i.Category == category)
-                    .Where(i => FF13_2ItemPlacer.progressionCategories.Intersect(i.Traits).Count() == 0)
+                    .Where(i => i.Classification == ItemClassification.Junk)
                     .Where(i =>
                     {
                         // Remove casino items from the pool because they suck.

@@ -42,8 +42,9 @@ public class FF12JunkItemPlacer : JunkItemPlacer<ItemLocation>
                 string category = equipRando.itemData[orig.Item1].Category;
                 if (FF12Flags.Items.ReplaceAny.Enabled)
                 {
-                    category = equipRando.itemData.Values.Select(i => i.Category).Distinct()
-                        .Where(c => c != "Key" && c != "Esper" && c != "Board" && c != "Ability").Shuffle().First();
+                    category = equipRando.itemData.Values
+                        .Where(i => i.Classification == ItemClassification.Junk && !i.Traits.Contains("Ignore"))
+                        .Select(i => i.Category).Distinct().Shuffle().First();
                 }
 
                 int rankRange = FF12Flags.Items.ReplaceRank.Value;

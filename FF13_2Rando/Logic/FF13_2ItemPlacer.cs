@@ -149,36 +149,16 @@ public class FF13_2ItemPlacer : CombinedItemPlacer<FF13_2ItemLocation, ItemData>
         }).ToOrderedSet();
     }
 
-    public static List<string> progressionCategories = new List<string>() { "Graviton", "SideKey", "GateSeal", "Wild", "Fragment", "MogLevel", "ShopLevel", "Artefact", "Event", "FragmentSkill", "Map" };
-
-protected override OrderedSet<FF13_2ItemLocation> GetReplacementsForPlacer(OrderedSet<FF13_2ItemLocation> usedReplacements, ItemPlacer<FF13_2ItemLocation> placer)
+    protected override OrderedSet<FF13_2ItemLocation> GetReplacementsForPlacer(OrderedSet<FF13_2ItemLocation> usedReplacements, ItemPlacer<FF13_2ItemLocation> placer)
     {
         var remaining = Replacements.Except(second: usedReplacements).ToOrderedSet();
         if (placer == ProgressionPlacer)
         {
-            return remaining.Where(l =>
-            {
-                string locationItem = l.GetItem(true)?.Item;
-                var itemData = Generator.Get<EquipRando>().itemData.GetValueOrDefault(locationItem, null);
-                if (itemData != null)
-                {
-                    foreach (var category in progressionCategories)
-                    {
-                        if (itemData.Traits.Contains(category))
-                        {
-                            return true;
-                        }
-                    }
-                }
-                // Allow everything to be placed currently?
-                return false;
-            }).ToOrderedSet();
+            return remaining.Where(l => GetOriginalClassification(l).IsProgression()).ToOrderedSet();
         }
         else if (placer == UsefulPlacer)
         {
-            // TODO: figure out what counts as useful and filter
-            // Monster crystals? Maps? Move gate seals here? Other random key item junk?
-            return new();
+            return remaining.Where(l => GetOriginalClassification(l) == ItemClassification.Useful).ToOrderedSet();
         }
         else if (placer == JunkPlacer)
         {
@@ -204,6 +184,11 @@ protected override OrderedSet<FF13_2ItemLocation> GetReplacementsForPlacer(Order
         JunkPlacer = new(Generator);
 
         Placers = new() { ProgressionPlacer, UsefulPlacer, JunkPlacer };
+    }
+
+    protected override Dictionary<string, ItemData> GetItemData()
+    {
+        return Generator.Get<EquipRando>().itemData;
     }
 
     protected override HashSet<string> GetReorderItemCategories()

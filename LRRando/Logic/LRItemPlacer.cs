@@ -25,16 +25,20 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
     private void InitProgressionAdornments()
     {
         var vanillaLocs = Generator.Get<TreasureRando>().ItemLocations;
+        var deprioritized = GetItemData()
+            .Where(kvp => kvp.Value.Classification == ItemClassification.ProgressionDeprioritizedSkipBalancing)
+            .ToList();
+
         // Always add Always adornments to progression pool
-        var alwaysAdornments = Generator.Get<EquipRando>().itemData
-                    .Where(kvp => kvp.Value.Category == "Adornment" && kvp.Value.Traits.Contains("Always"))
+        var alwaysAdornments = deprioritized
+                    .Where(kvp => kvp.Value.Traits.Contains("Always"))
                     .Select(kvp => kvp.Key)
                     .ToList();
 
         // Determine a set of 70-100 adornments to mark as progression
         // Only choose adornments whose vanilla location is a treasure, not a shop.
-        ProgressionAdornments = Generator.Get<EquipRando>().itemData
-            .Where(kvp => kvp.Value.Category == "Adornment" && !kvp.Value.Traits.Contains("Remove") && !kvp.Value.Traits.Contains("Always"))
+        ProgressionAdornments = deprioritized
+            .Where(kvp => !kvp.Value.Traits.Contains("Remove") && !kvp.Value.Traits.Contains("Always"))
             .Select(kvp => kvp.Key)
             .Where(key => vanillaLocs.Where(kvp => kvp.Value.GetItem(true)?.Item == key).Count() > 0)
             .Shuffle()
@@ -118,9 +122,7 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
                 return false;
             }
 
-            var currentItem = Generator.Get<EquipRando>().itemData.GetValueOrDefault(l.GetItem(true)?.Item, null);
-
-            if (currentItem?.Category == "Adornment")
+            if (GetOriginalClassification(l) == ItemClassification.ProgressionDeprioritizedSkipBalancing)
             {
                 return ProgressionAdornments.Contains(l.GetItem(true)?.Item);
             }
@@ -169,6 +171,11 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         return new() { "Ability", "Accessory", "Weapon", "Shield", "Garb" };
     }
 
+    protected override Dictionary<string, ItemData> GetItemData()
+    {
+        return Generator.Get<EquipRando>().itemData;
+    }
+
     protected override Dictionary<string, ItemData> GetReorderItems()
     {
         return Generator.Get<EquipRando>().itemData;
@@ -179,32 +186,15 @@ public class LRItemPlacer : CombinedItemPlacer<ItemLocation, ItemData>
         var remaining = Replacements.Except(usedReplacements).ToOrderedSet();
         if (placer == ProgressionPlacer)
         {
-            return remaining.Where(l =>
+            return remaining.Where(l => GetOriginalClassification(l) switch
             {
-                string locationItem = l.GetItem(true)?.Item;
-
-                // If it's a progression adornment, allow it
-                if (Generator.Get<EquipRando>().itemData.GetValueOrDefault(locationItem, null)?.Category == "Adornment")
-                {
-                    return ProgressionAdornments.Contains(locationItem);
-                }
-
-                foreach (string item in LRFlags.Items.KeyItems.DictValues.Keys)
-                {
-                    if (LRFlags.Items.KeyItems.SelectedKeys.Contains(item) && locationItem == item)
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
+                ItemClassification.ProgressionDeprioritizedSkipBalancing => ProgressionAdornments.Contains(l.GetItem(true)?.Item),
+                ItemClassification classification => classification.IsProgression()
             }).ToOrderedSet();
         }
         else if (placer == UsefulPlacer)
         {
-            return remaining
-                .Where(l => l.IsEPAbility() || l.IsPilgrimKeyItem() || l.IsLibraNote())
-                .ToOrderedSet();
+            return remaining.Where(l => GetOriginalClassification(l) == ItemClassification.Useful).ToOrderedSet();
         }
         else if (placer == JunkPlacer)
         {

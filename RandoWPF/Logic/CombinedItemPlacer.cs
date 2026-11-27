@@ -68,6 +68,17 @@ public abstract class CombinedItemPlacer<L, I> : ItemPlacer<L> where L : ItemLoc
 
     protected abstract void RebuildPlacers();
 
+    protected abstract Dictionary<string, I> GetItemData();
+
+    protected ItemClassification GetOriginalClassification(L location)
+    {
+        string item = location.GetItem(true)?.Item;
+
+        // Default to junk for stuff like gil
+        // TODO May need to change this if there's items NOT in the CSV we need to classify as non-junk?
+        return item != null && GetItemData().TryGetValue(item, out I data) ? data.Classification : ItemClassification.Junk;
+    }
+
     public override void PlaceItems()
     {
         Placers.Clear();

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace AutoDataGenerator;
 
-internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
+internal class FF13_2MultiworldGenerator : BaseMultiworldGenerator<ItemData>
 {
     TreasureRando TreasureRando { get; }
     EquipRando EquipRando { get; }
@@ -88,48 +88,11 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         {
             if (!i.Traits.Contains("Ignore") && !i.Traits.Contains("Remove") && !i.Traits.Contains("Fixed"))
             {
-                string type = "filler";
-                int weight = 0;
+                int weight = i.Classification == ItemClassification.Junk ? GetJunkWeight(i) : 0;
                 // TODO: does anything have >1-arity in 13-2? capsule?
                 int duplicates = i.OverrideCount > 0 ? i.OverrideCount : 1;
 
-                // Trait-driven classification first
-                if (i.Traits.Contains("SideKey") || i.Traits.Contains("Artefact") || i.Traits.Contains("Fragment") || i.Traits.Contains("Graviton") || i.Traits.Contains("FragmentSkill"))
-                {
-                    type = "progression";
-                }
-                else if (i.Traits.Contains("GateSeal"))
-                {
-                    type = "useful";
-                }
-                // Fallbacks based on category
-                else if (i.Category == "Key" || i.Category == "Fragment")
-                {
-                    type = "progression";
-                }
-                else if (i.Category == "Monster Crystal")
-                {
-                    type = "useful";
-                }
-                else if (i.Category == "Adornment" || i.Category == "Map" || i.Category == "Weapon" || i.Category == "Shield" || i.Category == "Accessory")
-                {
-                    weight = 50;
-                }
-                else
-                {
-                    // Weight is based on rank using exponential decay from 20 to ~1
-                    weight = i.Rank > 10 ? 1 : (int)Math.Ceiling(20 * Math.Pow(0.7, i.Rank) * 10);
-                    if (i.Category == "Item")
-                    {
-                        weight = (int)(weight * 90);
-                    }
-                    else if (i.Category == "Material")
-                    {
-                        weight = (int)(weight * 160);
-                    }
-                }
-
-                script = AddItemToItemsScript(script, i.Name, i.ID, nextIndex, type, i.Category, weight, 1, duplicates, i.Traits);
+                script = AddItemToItemsScript(script, i.Name, i.ID, nextIndex, i.Classification, i.Category, weight, 1, duplicates, i.Traits);
                 nextIndex++;
             }
         });
@@ -139,7 +102,7 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         int[] gilWeights = [500, 7000, 9000, 6000, 4000, 1000];
         for (int i = 0; i < gilAmounts.Length; i++)
         {
-            script = AddItemToItemsScript(script, $"{gilAmounts[i]} Gil", "", nextIndex, "filler", "Gil", gilWeights[i], gilAmounts[i], 0, new List<string>());
+            script = AddItemToItemsScript(script, $"{gilAmounts[i]} Gil", "", nextIndex, ItemClassification.Junk, "Gil", gilWeights[i], gilAmounts[i], 0, new List<string>());
             nextIndex++;
         }
 
@@ -156,13 +119,35 @@ internal class FF13_2MultiworldGenerator: BaseMultiworldGenerator
         File.WriteAllText(Path.Combine(OutputDir, "Items.py"), script);
     }
 
-    private string AddItemToItemsScript(string script, string name, string id, int intIndex, string type, string category, int weight, int amount, int duplicates, List<string> traits)
+    protected override int GetJunkWeight(ItemData item)
+    {
+        if (item.Category == "Adornment" || item.Category == "Map" || item.Category == "Weapon" || item.Category == "Shield" || item.Category == "Accessory")
+        {
+            return 50;
+        }
+
+        // Weight is based on rank using exponential decay from 20 to ~1
+        int weight = item.Rank > 10 ? 1 : (int)Math.Ceiling(20 * Math.Pow(0.7, item.Rank) * 10);
+        if (item.Category == "Item")
+        {
+            return weight * 90;
+        }
+
+        if (item.Category == "Material")
+        {
+            return weight * 160;
+        }
+
+        return weight;
+    }
+
+    private string AddItemToItemsScript(string script, string name, string id, int intIndex, ItemClassification classification, string category, int weight, int amount, int duplicates, List<string> traits)
     {
         script +=
             $"    \"{name}\": FF132ItemData(\n" +
             $"        code={intIndex},\n" +
             $"        str_id=\"{id}\",\n" +
-            $"        classification=ItemClassification.{type},\n" +
+            $"        classification=ItemClassification.{GetAPClassification(classification)},\n" +
             $"        category=\"{category}\"";
         if (weight > 0)
         {

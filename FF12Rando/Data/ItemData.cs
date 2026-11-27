@@ -12,20 +12,22 @@ public class ItemData : CSVDataRow, IItem
     [RowIndex(1)]
     public string ID { get; set; }
     [RowIndex(2)]
-    public int Rank { get; set; }
-    [RowIndex(3), FieldTypeOverride(FieldType.HexInt)]
-    public int IntUpgrade { get; set; }
+    public ItemClassification Classification { get; set; }
     [RowIndex(3)]
-    public string Upgrade { get; set; }
+    public int Rank { get; set; }
+    [RowIndex(4), FieldTypeOverride(FieldType.HexInt)]
+    public int IntUpgrade { get; set; }
     [RowIndex(4)]
-    public List<string> Traits { get; set; }
+    public string Upgrade { get; set; }
     [RowIndex(5)]
-    public string Category { get; set; }
+    public List<string> Traits { get; set; }
     [RowIndex(6)]
-    public string Description { get; set; }
+    public string Category { get; set; }
     [RowIndex(7)]
-    public int MPCost { get; set; }
+    public string Description { get; set; }
     [RowIndex(8)]
+    public int MPCost { get; set; }
+    [RowIndex(9)]
     public string Element { get; set; }
     public ItemData(string[] row) : base(row)
     {
