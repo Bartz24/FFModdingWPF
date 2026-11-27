@@ -3,7 +3,7 @@ using Bartz24.RandoWPF;
 using FF12Rando;
 
 namespace AutoDataGenerator;
-internal class FF12MultiworldGenerator : BaseMultiworldGenerator
+internal class FF12MultiworldGenerator : BaseMultiworldGenerator<ItemData>
 {
     TreasureRando TreasureRando { get; }
     EquipRando EquipRando { get; }
@@ -62,54 +62,12 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
         {
             if (!i.Traits.Contains("Ignore"))
             {
-                string type = "filler";
-                int weight = 0;
-                int duplicates = 1;
-                if ((i.Category == "Key" || i.Category == "Esper" || i.Category == "Board") && !i.Traits.Contains("Trophy"))
-                {
-                    type = "progression";
-                    int count = TreasureRando.ItemLocations.Values.Where(l => l.GetItem(true) != null && l.GetItem(true)?.Item == i.ID).Count();
-                    // Allow duplicates except for writ of transit
-                    if (count > 1 && i.IntID != 0x8070)
-                    {
-                        duplicates = count;
-                        type = "progression_skip_balancing";
-                    }
-                }
-                else if (i.Category == "Ability")
-                {
-                    type = "useful";
-                }
-                else if (i.Category == "Loot")
-                {
-                    weight = 10;
-                }
-                else if (i.Traits.Contains("Trophy"))
-                {
-                    // The Phon Coast turn-ins gate on HasTraitRule("Trophy", N), so the trophies have
-                    // to be progression to be counted. As filler they were never placed as progression
-                    // and, with no weight, never picked as filler either, leaving those checks
-                    // unreachable. Shelled Trophy carries no Trophy trait and is handled by the Key
-                    // branch above, matching the rules that require it on its own.
-                    type = "progression";
-                    weight = 0;
-                }
-                else
-                {
-                    // Weight is a value based on rank using exponential decay from 200 to 10
-                    // Rank goes up to 10 using this formula
-                    // Weapons and armor are weighted lower for ranks 0-3
-                    weight = i.Rank > 10 ? 1 :
-                    i.Rank <= 3 && (i.Category == "Weapon" || i.Category == "Armor") ? 5 :
-                    (int)Math.Ceiling(20 * Math.Pow(0.7, i.Rank) * 10);
+                int weight = i.Classification == ItemClassification.Junk ? GetJunkWeight(i) : 0;
+                int duplicates = i.Classification == ItemClassification.ProgressionSkipBalancing
+                    ? TreasureRando.ItemLocations.Values.Count(l => l.GetItem(true)?.Item == i.ID)
+                    : 1;
 
-                    if (i.Category == "Item")
-                    {
-                        weight *= 2;
-                    }
-                }
-
-                script = AddItemToItemsScript(script, i.Name, i.IntID + 1, type, i.Category, weight, 1, duplicates, i.Traits);
+                script = AddItemToItemsScript(script, i.Name, i.IntID + 1, i.Classification, i.Category, weight, 1, duplicates, i.Traits);
             }
         });
 
@@ -117,7 +75,7 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
         int[] gilWeights = new[] { 250, 900, 1150, 800, 500, 200 };
         for (int i = 0; i < gilAmounts.Length; i++)
         {
-            script = AddItemToItemsScript(script, $"{gilAmounts[i]} Gil", 0x18000 + i + 1, "filler", "Gil", gilWeights[i], gilAmounts[i], 0, new List<string>());
+            script = AddItemToItemsScript(script, $"{gilAmounts[i]} Gil", 0x18000 + i + 1, ItemClassification.Junk, "Gil", gilWeights[i], gilAmounts[i], 0, new List<string>());
         }
 
         script += "}\n";
@@ -133,12 +91,29 @@ internal class FF12MultiworldGenerator : BaseMultiworldGenerator
         File.WriteAllText(Path.Combine(OutputDir, "Items.py"), script);
     }
 
-    private static string AddItemToItemsScript(string script, string name, int id, string type, string category, int weight, int amount, int duplicates, List<string> traits)
+    protected override int GetJunkWeight(ItemData item)
+    {
+        if (item.Category == "Loot")
+        {
+            return 10;
+        }
+
+        // Weight is a value based on rank using exponential decay from 200 to 10
+        // Rank goes up to 10 using this formula
+        // Weapons and armor are weighted lower for ranks 0-3
+        int weight = item.Rank > 10 ? 1 :
+            item.Rank <= 3 && (item.Category == "Weapon" || item.Category == "Armor") ? 5 :
+            (int)Math.Ceiling(20 * Math.Pow(0.7, item.Rank) * 10);
+
+        return item.Category == "Item" ? weight * 2 : weight;
+    }
+
+    private string AddItemToItemsScript(string script, string name, int id, ItemClassification classification, string category, int weight, int amount, int duplicates, List<string> traits)
     {
         script +=
             $"    \"{name}\": FF12OpenWorldItemData(\n" +
             $"        code={id},\n" +
-            $"        classification=ItemClassification.{type},\n" +
+            $"        classification=ItemClassification.{GetAPClassification(classification)},\n" +
             $"        category=\"{category}\"";
         if (weight > 0)
         {

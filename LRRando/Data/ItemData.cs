@@ -8,20 +8,22 @@ public class ItemData : CSVDataRow, IItem
     [RowIndex(0)]
     public string ID { get; set; }
     [RowIndex(1)]
-    public string Name { get; set; }
+    public ItemClassification Classification { get; set; }
     [RowIndex(2)]
-    public string Category { get; set; }
+    public string Name { get; set; }
     [RowIndex(3)]
-    public int Rank { get; set; }
+    public string Category { get; set; }
     [RowIndex(4)]
-    public List<string> Traits { get; set; }
+    public int Rank { get; set; }
     [RowIndex(5)]
-    public int OverrideBuyGil { get; set; }
+    public List<string> Traits { get; set; }
     [RowIndex(6)]
-    public int OverrideSellGil { get; set; }
+    public int OverrideBuyGil { get; set; }
     [RowIndex(7)]
-    public int OverrideBuyEP { get; set; }
+    public int OverrideSellGil { get; set; }
     [RowIndex(8)]
+    public int OverrideBuyEP { get; set; }
+    [RowIndex(9)]
     public int OverrideCount { get; set; }
     public ItemData(string[] row) : base(row)
     {

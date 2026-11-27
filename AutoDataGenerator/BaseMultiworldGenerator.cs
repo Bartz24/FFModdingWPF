@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AutoDataGenerator;
 
-abstract class BaseMultiworldGenerator
+abstract class BaseMultiworldGenerator<I> where I : IItem
 {
     protected class RuleModuleData
     {
@@ -42,6 +42,21 @@ abstract class BaseMultiworldGenerator
     protected abstract void GenerateEventsScript();
     protected abstract void GenerateRulesScript();
     protected abstract void GenerateRegionsScript();
+    protected abstract int GetJunkWeight(I item);
+
+    protected string GetAPClassification(ItemClassification classification)
+    {
+        return classification switch
+        {
+            ItemClassification.Junk => "filler",
+            ItemClassification.Useful => "useful",
+            ItemClassification.Progression => "progression",
+            ItemClassification.ProgressionSkipBalancing => "progression_skip_balancing",
+            ItemClassification.ProgressionDeprioritizedSkipBalancing => "progression_deprioritized_skip_balancing",
+            // Add more if we need to for AP
+            _ => throw new ArgumentOutOfRangeException(nameof(classification), classification, null)
+        };
+    }
 
     protected static void AddUniqueRule(List<string> rules, string ruleStr)
     {
